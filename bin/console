@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+
+if (file_exists(__DIR__ . '/../__vendor'))
+{
+    require __DIR__ . '/../__vendor/autoload.php';
+}
+else
+{
+    require __DIR__ . '/../vendor/autoload.php';
+}
+require __DIR__ . '/Commands/Command.php';
+require __DIR__ . '/Commands/CacheCommand.php';
+require __DIR__ . '/Commands/LogCommand.php';
+require __DIR__ . '/Commands/MaintenanceCommand.php';
+require __DIR__ . '/Commands/DatabaseCommand.php';
+require __DIR__ . '/Commands/SessionsCommand.php';
+
+$application = new Application();
+$application->add(new CacheCommand);
+$application->add(new LogCommand);
+$application->add(new MaintenanceCommand);
+$application->add(new DatabaseCommand);
+$application->add(new SessionsCommand);
+$application->run();

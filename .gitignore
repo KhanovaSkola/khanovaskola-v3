@@ -1,0 +1,11 @@
+.DS_Store
+log/*
+temp/*
+vendor/*
+.iws
+/.idea/workspace.xml
+
+!vendor/others
+!.gitignore
+!.htaccess
+app/config/config.local.neon

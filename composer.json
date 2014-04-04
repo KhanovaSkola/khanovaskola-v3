@@ -1,0 +1,29 @@
+{
+	"name": "mikulas/sandbox",
+	"description": "",
+	"homepage": "",
+	"type": "project",
+	"authors": [
+		{"name": "Mikuláš Dítě"}
+	],
+	"require": {
+		"php": ">= 5.5.0",
+		"nette/nette": "~2.1.0",
+		"dg/adminer-custom": "~1.0",
+		"dg/dibi": "~2.1",
+		"symfony/console": "2.3.*",
+		"robmorgan/phinx": "~0.3.3",
+		"elasticsearch/elasticsearch": "~1.0.2"
+	},
+	"require-dev": {
+		"nette/tester": "@dev",
+		"elfet/deployer": "@dev",
+        "nelmio/alice": "@dev"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/Mikulas/deployer.git"
+		}
+	]
+}
