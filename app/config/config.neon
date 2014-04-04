@@ -1,0 +1,43 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+parameters:
+	database:
+		driver: mysqli
+		host: localhost
+		charset: utf8
+		sqlmode: TRADITIONAL
+		profiler: on
+	repositories:
+		users: App\Model\UsersRepository
+
+php:
+	date.timezone: Europe/Prague
+	# zlib.output_compression: yes
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+	session:
+		expiration: 14 days
+
+
+services:
+	- App\Model\UsersRepository
+	- App\Services\Authenticator
+
+	router: App\Router
+	dibiConnection: DibiConnection(%database%)
+
+	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
+	elastic: App\Model\Services\ElasticSearch(%elastic%, @elasticPanel)
+
+	orm: App\Model\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
+	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache, @container)
+	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
+	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)

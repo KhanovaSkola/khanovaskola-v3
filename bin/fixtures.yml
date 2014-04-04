@@ -1,0 +1,11 @@
+App\Model\User:
+    user-tester:
+        name: Tester
+        createdAt: 'now'
+        email: test@example.com
+        plainPassword: test
+    user{1..10}:
+        name: <name()>
+        createdAt: <dateTimeBetween('-200 days', 'now')>
+        email: <email()>
+        plainPassword: pwd

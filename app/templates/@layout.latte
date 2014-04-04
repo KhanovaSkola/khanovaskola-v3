@@ -1,0 +1,27 @@
+{**
+ * @param string $basePath web base path
+ * @param string $robots tell robots how to index the content of a page (optional)
+ * @param array $flashes flash messages
+ *}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>{block title|striptags}Nette Application Skeleton{/block}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/compiled.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+	{block head}{/block}
+</head>
+<body>
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+	{include content}
+
+	<script src="{$basePath}/js/compiled.js"></script>
+	{block scripts}{/block}
+</body>
+</html>

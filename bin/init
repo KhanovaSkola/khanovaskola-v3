@@ -1,0 +1,8 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+target="$DIR/../.git/hooks/post-checkout"
+
+ln -s "$DIR/hooks/post-checkout" "$target"
+
+chmod ugo+x "$target"

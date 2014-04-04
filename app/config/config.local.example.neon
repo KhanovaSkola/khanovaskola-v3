@@ -1,0 +1,11 @@
+parameters:
+	configVersion: 1
+	database:
+		username:
+		password:
+		database:
+	elastic:
+		hosts:
+			- localhost
+		#connectionParams:
+		#	auth: [username, password", "Basic"]
