@@ -157,7 +157,7 @@ postgresql:
         encoding: UTF8
         version: '9.3'
     databases: {  }
-    adminer: '1'
+    adminer: '0'
 mariadb:
     install: 0
     root_password: '123'
