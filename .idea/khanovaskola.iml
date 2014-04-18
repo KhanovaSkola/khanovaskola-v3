@@ -38,7 +38,11 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/guzzle/guzzle/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.vagrant" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/tests/_data" />
+      <excludeFolder url="file://$MODULE_DIR$/tests/_helpers" />
+      <excludeFolder url="file://$MODULE_DIR$/tests/_log" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
