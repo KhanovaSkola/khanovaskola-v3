@@ -12,7 +12,7 @@ class ElasticSearch extends Client
 	/** @var ElasticSearchPanel */
 	protected $panel;
 
-	public function __construct($params = [], ElasticSearchPanel $panel)
+	public function __construct(array $params, ElasticSearchPanel $panel)
 	{
 		parent::__construct($params);
 
