@@ -12,12 +12,14 @@
 		"symfony/console": "2.3.*",
 		"robmorgan/phinx": "~0.3.3",
 		"elasticsearch/elasticsearch": "~1.0.2",
-		"monolog/monolog": "~1.8.0"
+		"monolog/monolog": "~1.8.0",
+		"morrisonlevi/ardent": "~0.14.0"
 	},
 	"require-dev": {
 		"nette/tester": "@dev",
 		"elfet/deployer": "@dev",
-        "nelmio/alice": "@dev"
+        "nelmio/alice": "@dev",
+        "codeception/codeception": "~1.8.0"
 	},
 	"repositories": [
 		{
