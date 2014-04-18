@@ -1,0 +1,6 @@
+homepage:
+    title:
+        zero: "Nula brambor"
+        one: "Jedna brambora"
+        few: "%1 %1 brambory %2"
+        many: "%1 brambor"

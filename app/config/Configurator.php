@@ -11,7 +11,7 @@ use SystemContainer;
 
 
 /**
- * Nastavení aplikace (nahrazuje boostrap)
+ * app config, replaces bootstrap
  *
  * @method void onInit
  * @method void onAfter
@@ -23,13 +23,13 @@ class Configurator extends Nette\Configurator
 	 * Occurs before first Container is created
 	 * @var array of function(Configurator $sender)
 	 */
-	public $onInit = array();
+	public $onInit = [];
 
 	/**
 	 * Occurs after first Container is created
 	 * @var array of function(Configurator $sender)
 	 */
-	public $onAfter = array();
+	public $onAfter = [];
 
 	/**
 	 * @param string|NULL null means autodetect
@@ -42,29 +42,27 @@ class Configurator extends Nette\Configurator
 		if ($tempDirectory === NULL) {
 			$tempDirectory = realpath(__DIR__ . '/../../temp');
 		}
-		$this->addParameters((array) $params + array_map('realpath', array(
+		$this->addParameters((array) $params + array_map('realpath', [
 			'appDir' => __DIR__ . '/..',
 			'libsDir' => __DIR__ . '/../../vendor',
+			'logDir' => __DIR__ . '/../../log',
 			'wwwDir' => __DIR__ . '/../../www',
-		)));
+		]));
 		$this->setTempDirectory($tempDirectory);
 
 		foreach (get_class_methods($this) as $name) {
 			if ($pos = strpos($name, 'onInit') === 0 && $name !== 'onInitPackages') {
-				$this->onInit[lcfirst(substr($name, $pos + 5))] = array($this, $name);
+				$this->onInit[lcfirst(substr($name, $pos + 5))] = [$this, $name];
 			}
 		}
 
 		foreach (get_class_methods($this) as $name) {
 			if ($pos = strpos($name, 'onAfter') === 0) {
-				$this->onAfter[lcfirst(substr($name, $pos + 5))] = array($this, $name);
+				$this->onAfter[lcfirst(substr($name, $pos + 5))] = [$this, $name];
 			}
 		}
 	}
 
-	/**
-	 * Zaregistruje konfigurační soubory
-	 */
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();
@@ -72,9 +70,6 @@ class Configurator extends Nette\Configurator
 		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
 	}
 
-	/**
-	 * Zaregistruje rozšíření konfigurace
-	 */
 	public function onInitExtensions()
 	{
 		// $this->onCompile['dibi'] = function ($configurator, DI\Compiler $compiler) {
@@ -111,7 +106,6 @@ class Configurator extends Nette\Configurator
 		return $loader;
 	}
 
-
 	/**
 	 * @return array
 	 */
@@ -120,14 +114,13 @@ class Configurator extends Nette\Configurator
 		return $this->parameters;
 	}
 
-
 	/**
 	 * @return SystemContainer
 	 */
 	public function createContainer()
 	{
 		$this->onInit($this);
-		$this->onInit = array();
+		$this->onInit = [];
 
 		try {
 			$container = parent::createContainer();
@@ -154,11 +147,11 @@ class MissingLocalConfigException extends RuntimeException
 {
 
 	/**
-	 * @param  FileNotFoundException
+	 * @param \Nette\FileNotFoundException $e
 	 */
 	public function __construct(FileNotFoundException $e)
 	{
-		parent::__construct('Pro spuštění aplikace si do složky "app/config" doplň konfigurační soubor "config.local.neon". Můžeš za tím účelem zkopírovat "config.local.example.neon", který se nenačítá a slouží jako vzor.', NULL, $e);
+		parent::__construct("Local config files not found. Copy 'config.local.example.neon' to 'config.local.neon' and enter your local credentials.", NULL, $e);
 	}
 
 }

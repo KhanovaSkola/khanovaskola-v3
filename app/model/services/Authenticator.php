@@ -33,7 +33,6 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		}
 		elseif (!Passwords::verify($password, $user->password))
 		{
-			dump('wut', $password, $user->password);
 			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 		}
 		elseif (Passwords::needsRehash($user->password))
