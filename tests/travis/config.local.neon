@@ -1,0 +1,9 @@
+parameters:
+	configVersion: 1
+	database:
+		username: postgres
+		password: 123
+		database: khanovaskola
+	elastic:
+		hosts:
+			- localhost

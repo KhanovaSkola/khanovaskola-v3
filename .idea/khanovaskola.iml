@@ -41,7 +41,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.vagrant" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/tests/_data" />
-      <excludeFolder url="file://$MODULE_DIR$/tests/_helpers" />
       <excludeFolder url="file://$MODULE_DIR$/tests/_log" />
     </content>
     <orderEntry type="inheritedJdk" />

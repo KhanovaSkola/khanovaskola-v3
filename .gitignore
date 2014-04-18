@@ -10,4 +10,4 @@ temp/*
 app/config/config.local.neon
 /html
 /.vagrant
-tests/_*/*
+tests/_data
