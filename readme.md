@@ -28,6 +28,11 @@ run acceptance tests:
 php vendor/bin/codecept run acceptance
 ```
 
+run coding style (cs) tests:
+```
+php vendor/bin/phpcs -p --standard=tests/cs app
+```
+
 http server
 http://khanovaskola.l/
 
