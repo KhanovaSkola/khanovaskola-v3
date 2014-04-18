@@ -34,13 +34,17 @@ class Translator implements Nette\Localization\ITranslator
 	{
 		$this->language = $language;
 
-		$file = "$this->dir/$language.yml";
+		$this->source = $this->getSource("$this->dir/$language.yml", $language);
+	}
+
+	protected function getSource($file, $language)
+	{
 		if (!file_exists($file))
 		{
 			throw new FileNotFoundException("Localization file for '$language' not found at '$file'");
 		}
 		$raw = file_get_contents($file);
-		$this->source = Nette\Utils\Neon::decode($raw);
+		return Nette\Utils\Neon::decode($raw);
 	}
 
 	/**
@@ -95,6 +99,11 @@ class Translator implements Nette\Localization\ITranslator
 		}
 
 		$text = $this->findTextByKey($steps, $count);
+		if ($text === NULL)
+		{
+			return $this->fallback($steps, $count);
+		}
+
 		$values = array_slice(func_get_args(), 1);
 		return preg_replace_callback('~%(\d+)~', function ($match) use ($values, $steps)
 		{
