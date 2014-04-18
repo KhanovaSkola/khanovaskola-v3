@@ -16,7 +16,6 @@ use Symfony\Component\PropertyAccess\StringUtil;
 use Psr\Log\LoggerInterface;
 use Nelmio\Alice\ORMInterface;
 use Nelmio\Alice\LoaderInterface;
-use Nelmio\Alice\Provider\IdentityProvider;
 
 /**
  * Loads fixtures from an array or php file
@@ -44,11 +43,6 @@ class Base implements LoaderInterface
      * @var array
      */
     protected $references = array();
-
-    /**
-     * @var array
-     */
-    protected $templates = array();
 
     /**
      * @var ORMInterface
@@ -100,16 +94,11 @@ class Base implements LoaderInterface
     public function __construct($locale = 'en_US', array $providers = array(), $seed = 1)
     {
         $this->defaultLocale = $locale;
-        $this->providers = array_merge($this->getBuiltInProviders(), $providers);
+        $this->providers = $providers;
 
         if (is_numeric($seed)) {
             mt_srand($seed);
         }
-    }
-
-    private function getBuiltInProviders()
-    {
-        return array(new IdentityProvider());
     }
 
     /**
@@ -150,15 +139,6 @@ class Base implements LoaderInterface
                         $curSpec = $spec;
                         $curName = str_replace($match[0], $i, $name);
                         list($curName, $instanceFlags) = $this->parseFlags($curName);
-                        if (!empty($instanceFlags)) {
-                            // Reverse flag order: check templates from last to first, so that last one wins
-                            foreach (array_reverse(array_keys($instanceFlags)) as $flag) {
-                                if (preg_match('#^extends\s*(.+)$#', $flag, $match2)) {
-                                    $template = $this->getTemplate($match2[1]);
-                                    $curSpec = array_merge($template, $curSpec);
-                                }
-                            }
-                        }
                         $this->currentValue = $i;
                         $instances[$curName] = array($this->createInstance($class, $curName, $curSpec), $class, $curName, $curSpec, $classFlags, $instanceFlags, $i);
                         $this->currentValue = null;
@@ -175,19 +155,6 @@ class Base implements LoaderInterface
                     }
                 } else {
                     list($name, $instanceFlags) = $this->parseFlags($name);
-                    if (!empty($instanceFlags)) {
-                        // Reverse flag order: check templates from last to first, so that last one wins
-                        foreach (array_reverse(array_keys($instanceFlags)) as $flag) {
-                            if(preg_match('#^extends\s*(.+)$#', $flag, $match)) {
-                                $template = $this->getTemplate($match[1]);
-                                $spec = array_merge($template, $spec);
-                            }
-                        }
-                    }
-                    if (isset($instanceFlags['template'])) {
-                        $this->templates[$name] = $spec;
-                        continue;
-                    }
                     $instances[$name] = array($this->createInstance($class, $name, $spec), $class, $name, $spec, $classFlags, $instanceFlags, null);
                 }
             }
@@ -284,7 +251,132 @@ class Base implements LoaderInterface
         $this->references = $references;
     }
 
-    protected function createInstance($class, $name, array &$data)
+    private function emptyGenerators()
+    {
+        $this->generators = array();
+    }
+
+    /**
+     * Get the generator for this locale
+     *
+     * @param string $locale the requested locale, defaults to constructor injected default
+     *
+     * @return \Faker\Generator the generator for the requested locale
+     */
+    private function getGenerator($locale = null)
+    {
+        $locale = $locale ?: $this->defaultLocale;
+
+        if (!isset($this->generators[$locale])) {
+            $generator = \Faker\Factory::create($locale);
+            foreach ($this->providers as $provider) {
+                $generator->addProvider($provider);
+            }
+            $this->generators[$locale] = $generator;
+        }
+
+        return $this->generators[$locale];
+    }
+
+    private function parseFlags($key)
+    {
+        $flags = array();
+        if (preg_match('{^(.+?)\s*\((.+)\)$}', $key, $matches)) {
+            foreach (preg_split('{\s*,\s*}', $matches[2]) as $flag) {
+                $val = true;
+                if ($pos = strpos($flag, ':')) {
+                    $flag = trim(substr($flag, 0, $pos));
+                    $val = trim(substr($flag, $pos+1));
+                }
+                $flags[$flag] = $val;
+            }
+            $key = $matches[1];
+        }
+
+        return array($key, $flags);
+    }
+
+    private function populateObject($instance, $class, $name, $data)
+    {
+        $variables = array();
+
+        if (isset($data['__set'])) {
+            if (!method_exists($instance, $data['__set'])) {
+                throw new \RuntimeException('Setter ' . $data['__set'] . ' not found in object');
+            }
+            $customSetter = $data['__set'];
+            unset($data['__set']);
+        }
+
+        foreach ($data as $key => $val) {
+            list($key, $flags) = $this->parseFlags($key);
+            if (is_array($val) && '{' === key($val)) {
+                throw new \RuntimeException('Misformatted string in object '.$name.', '.$key.'\'s value should be quoted if you used yaml');
+            }
+
+            if (isset($flags['unique'])) {
+                $i = $uniqueTriesLimit = 128;
+
+                do {
+                    // process values
+                    $generatedVal = $this->process($val, $variables);
+
+                    if (is_object($generatedVal)) {
+                        $valHash = spl_object_hash($generatedVal);
+                    } elseif (is_array($generatedVal)) {
+                        $valHash = hash('md4', serialize($generatedVal));
+                    } else {
+                        $valHash = $generatedVal;
+                    }
+                } while (--$i > 0 && isset($this->uniqueValues[$class . $key][$valHash]));
+
+                if (isset($this->uniqueValues[$class . $key][$valHash])) {
+                    throw new \RuntimeException("Couldn't generate random unique value for $class: $key in $uniqueTriesLimit tries.");
+                }
+
+                $this->uniqueValues[$class . $key][$valHash] = true;
+            } else {
+                $generatedVal = $this->process($val, $variables);
+            }
+
+            // add relations if available
+            if (is_array($generatedVal) && $method = $this->findAdderMethod($instance, $key)) {
+                foreach ($generatedVal as $rel) {
+                    $rel = $this->checkTypeHints($instance, $method, $rel);
+                    $instance->{$method}($rel);
+                }
+            } elseif (isset($customSetter)) {
+                $instance->$customSetter($key, $generatedVal);
+                $variables[$key] = $generatedVal;
+            } elseif (is_array($generatedVal) && method_exists($instance, $key)) {
+                foreach ($generatedVal as $num => $param) {
+                    $generatedVal[$num] = $this->checkTypeHints($instance, $key, $param, $num);
+                }
+                call_user_func_array(array($instance, $key), $generatedVal);
+                $variables[$key] = $generatedVal;
+            } elseif (method_exists($instance, 'set'.$key)) {
+                $generatedVal = $this->checkTypeHints($instance, 'set'.$key, $generatedVal);
+                if(!is_callable(array($instance, 'set'.$key))) {
+                    $refl = new \ReflectionMethod($instance, 'set'.$key);
+                    $refl->setAccessible(true);
+                    $refl->invoke($instance, $generatedVal);
+                } else {
+                    $instance->{'set'.$key}($generatedVal);
+                }
+                $variables[$key] = $generatedVal;
+            } elseif (property_exists($instance, $key)) {
+                $refl = new \ReflectionProperty($instance, $key);
+                $refl->setAccessible(true);
+                $refl->setValue($instance, $generatedVal);
+
+                $variables[$key] = $generatedVal;
+            } else {
+                throw new \UnexpectedValueException('Could not determine how to assign '.$key.' to a '.$class.' object');
+            }
+        }
+    }
+
+    private function createInstance($class, $name, array &$data)
     {
         try {
             // constructor is defined explicitly
@@ -357,144 +449,6 @@ class Base implements LoaderInterface
         } catch (\ReflectionException $exception) {
             return $this->references[$name] = new $class();
         }
-    }
-
-    private function getTemplate($name)
-    {
-        if (!array_key_exists($name, $this->templates)) {
-            throw new \UnexpectedValueException('Template '.$name.' is not defined.');
-        }
-
-        return $this->templates[$name];
-    }
-
-    private function emptyGenerators()
-    {
-        $this->generators = array();
-    }
-
-    /**
-     * Get the generator for this locale
-     *
-     * @param string $locale the requested locale, defaults to constructor injected default
-     *
-     * @return \Faker\Generator the generator for the requested locale
-     */
-    private function getGenerator($locale = null)
-    {
-        $locale = $locale ?: $this->defaultLocale;
-
-        if (!isset($this->generators[$locale])) {
-            $generator = \Faker\Factory::create($locale);
-            foreach ($this->providers as $provider) {
-                $generator->addProvider($provider);
-            }
-            $this->generators[$locale] = $generator;
-        }
-
-        return $this->generators[$locale];
-    }
-
-    private function parseFlags($key)
-    {
-        $flags = array();
-        if (preg_match('{^(.+?)\s*\((.+)\)$}', $key, $matches)) {
-            foreach (preg_split('{\s*,\s*}', $matches[2]) as $flag) {
-                $val = true;
-                if ($pos = strpos($flag, ':')) {
-                    $flag = trim(substr($flag, 0, $pos));
-                    $val = trim(substr($flag, $pos+1));
-                }
-                $flags[$flag] = $val;
-            }
-            $key = $matches[1];
-        }
-
-        return array($key, $flags);
-    }
-
-    private function populateObject($instance, $class, $name, $data)
-    {
-        $variables = array();
-
-        if (isset($data['__set'])) {
-            if (!method_exists($instance, $data['__set'])) {
-                throw new \RuntimeException('Setter ' . $data['__set'] . ' not found in object');
-            }
-            $customSetter = $data['__set'];
-            unset($data['__set']);
-        }
-
-        $this->references['self'] = $instance;
-
-        foreach ($data as $key => $val) {
-            list($key, $flags) = $this->parseFlags($key);
-            if (is_array($val) && '{' === key($val)) {
-                throw new \RuntimeException('Misformatted string in object '.$name.', '.$key.'\'s value should be quoted if you used yaml');
-            }
-
-            if (isset($flags['unique'])) {
-                $i = $uniqueTriesLimit = 128;
-
-                do {
-                    // process values
-                    $generatedVal = $this->process($val, $variables);
-
-                    if (is_object($generatedVal)) {
-                        $valHash = spl_object_hash($generatedVal);
-                    } elseif (is_array($generatedVal)) {
-                        $valHash = hash('md4', serialize($generatedVal));
-                    } else {
-                        $valHash = $generatedVal;
-                    }
-                } while (--$i > 0 && isset($this->uniqueValues[$class . $key][$valHash]));
-
-                if (isset($this->uniqueValues[$class . $key][$valHash])) {
-                    throw new \RuntimeException("Couldn't generate random unique value for $class: $key in $uniqueTriesLimit tries.");
-                }
-
-                $this->uniqueValues[$class . $key][$valHash] = true;
-            } else {
-                $generatedVal = $this->process($val, $variables);
-            }
-
-            // add relations if available
-            if (is_array($generatedVal) && $method = $this->findAdderMethod($instance, $key)) {
-                foreach ($generatedVal as $rel) {
-                    $rel = $this->checkTypeHints($instance, $method, $rel);
-                    $instance->{$method}($rel);
-                }
-            } elseif (isset($customSetter)) {
-                $instance->$customSetter($key, $generatedVal);
-                $variables[$key] = $generatedVal;
-            } elseif (is_array($generatedVal) && method_exists($instance, $key)) {
-                foreach ($generatedVal as $num => $param) {
-                    $generatedVal[$num] = $this->checkTypeHints($instance, $key, $param, $num);
-                }
-                call_user_func_array(array($instance, $key), $generatedVal);
-                $variables[$key] = $generatedVal;
-            } elseif (method_exists($instance, 'set'.$key)) {
-                $generatedVal = $this->checkTypeHints($instance, 'set'.$key, $generatedVal);
-                if(!is_callable(array($instance, 'set'.$key))) {
-                    $refl = new \ReflectionMethod($instance, 'set'.$key);
-                    $refl->setAccessible(true);
-                    $refl->invoke($instance, $generatedVal);
-                } else {
-                    $instance->{'set'.$key}($generatedVal);
-                }
-                $variables[$key] = $generatedVal;
-            } elseif (property_exists($instance, $key)) {
-                $refl = new \ReflectionProperty($instance, $key);
-                $refl->setAccessible(true);
-                $refl->setValue($instance, $generatedVal);
-
-                $variables[$key] = $generatedVal;
-            } else {
-                throw new \UnexpectedValueException('Could not determine how to assign '.$key.' to a '.$class.' object');
-            }
-        }
-
-        unset($this->references['self']);
     }
 
     /**
@@ -589,10 +543,6 @@ class Base implements LoaderInterface
         $replacePlaceholder = function ($matches) use ($variables, $that) {
             $args = isset($matches['args']) && '' !== $matches['args'] ? $matches['args'] : null;
 
-            if (trim($matches['name']) == '') {
-                $matches['name'] = 'identity';
-            }
-
             if (!$args) {
                 return $that->fake($matches['name'], $matches['locale']);
             }
@@ -607,12 +557,7 @@ class Base implements LoaderInterface
             }, $args);
 
             // replace references to other objects
-            $args = preg_replace_callback('{(?<string>".*?[^\\\\]")|(?:(?<multi>\d+)x )?(?<!\\\\)@(?<reference>[a-z0-9_.*]+)(?:\->(?<property>[a-z0-9_-]+))?}i', function ($match) use ($that, $args) {
-
-                if (!empty($match['string'])) {
-                    return $match['string'];
-                }
-
+            $args = preg_replace_callback('{(?:\b|^)(?:(?<multi>\d+)x )?(?<!\\\\)@(?<reference>[a-z0-9_.*-]+)(?:\->(?<property>[a-z0-9_-]+))?(?:\b|$)}i', function ($match) use ($that) {
                 $multi    = ('' !== $match['multi']) ? $match['multi'] : null;
                 $property = isset($match['property']) ? $match['property'] : null;
                 if (strpos($match['reference'], '*')) {
@@ -631,7 +576,7 @@ class Base implements LoaderInterface
         };
 
         // format placeholders without preg_replace if there is only one to avoid __toString() being called
-        $placeHolderRegex = '<(?:(?<locale>[a-z]+(?:_[a-z]+)?):)?(?<name>[a-z0-9_]+?)?\((?<args>(?:[^)]*|\)(?!>))*)\)>';
+        $placeHolderRegex = '<(?:(?<locale>[a-z]+(?:_[a-z]+)?):)?(?<name>[a-z0-9_]+?)\((?<args>(?:[^)]*|\)(?!>))*)\)>';
         if (preg_match('#^'.$placeHolderRegex.'$#i', $data, $matches)) {
             $data = $replacePlaceholder($matches);
         } else {

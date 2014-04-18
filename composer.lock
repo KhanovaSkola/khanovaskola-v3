@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1dc187e88532541c429017db88070ca4",
+    "hash": "94949fd6c7cc9fac45e5e8713430e77e",
     "packages": [
         {
             "name": "dg/dibi",
@@ -1384,16 +1384,16 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "dev-master",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177"
+                "reference": "e225020d8e1f0ca867b4219698d6089b7a997761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/6178f891f5dac28d28bbdb2721a0611add8d3177",
-                "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/e225020d8e1f0ca867b4219698d6089b7a997761",
+                "reference": "e225020d8e1f0ca867b4219698d6089b7a997761",
                 "shasum": ""
             },
             "require": {
@@ -1434,20 +1434,20 @@
                 "orm",
                 "test"
             ],
-            "time": "2014-04-11 08:51:55"
+            "time": "2014-02-05 22:35:38"
         },
         {
             "name": "nette/tester",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950"
+                "reference": "53767d1776d683c33b9cfe742b864311e89c318e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
-                "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
+                "url": "https://api.github.com/repos/nette/tester/zipball/53767d1776d683c33b9cfe742b864311e89c318e",
+                "reference": "53767d1776d683c33b9cfe742b864311e89c318e",
                 "shasum": ""
             },
             "require": {
@@ -1490,7 +1490,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2014-04-11 11:04:14"
+            "time": "2014-04-02 13:27:38"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1955,6 +1955,76 @@
             "time": "2013-01-13 10:24:48"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "a76a39b317ce8106abe6264daa505e24e1731860"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/a76a39b317ce8106abe6264daa505e24e1731860",
+                "reference": "a76a39b317ce8106abe6264daa505e24e1731860",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.1.2"
+            },
+            "suggest": {
+                "phpunit/php-timer": "dev-master"
+            },
+            "bin": [
+                "scripts/phpcs"
+            ],
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "CodeSniffer.php",
+                    "CodeSniffer/CLI.php",
+                    "CodeSniffer/Exception.php",
+                    "CodeSniffer/File.php",
+                    "CodeSniffer/Report.php",
+                    "CodeSniffer/Reporting.php",
+                    "CodeSniffer/Sniff.php",
+                    "CodeSniffer/Tokens.php",
+                    "CodeSniffer/Reports/",
+                    "CodeSniffer/CommentParser/",
+                    "CodeSniffer/Tokenizers/",
+                    "CodeSniffer/DocGenerators/",
+                    "CodeSniffer/Standards/AbstractPatternSniff.php",
+                    "CodeSniffer/Standards/AbstractScopeSniff.php",
+                    "CodeSniffer/Standards/AbstractVariableSniff.php",
+                    "CodeSniffer/Standards/IncorrectPatternException.php",
+                    "CodeSniffer/Standards/Generic/Sniffs/",
+                    "CodeSniffer/Standards/MySource/Sniffs/",
+                    "CodeSniffer/Standards/PEAR/Sniffs/",
+                    "CodeSniffer/Standards/PSR1/Sniffs/",
+                    "CodeSniffer/Standards/PSR2/Sniffs/",
+                    "CodeSniffer/Standards/Squiz/Sniffs/",
+                    "CodeSniffer/Standards/Zend/Sniffs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2014-02-04 23:49:58"
+        },
+        {
             "name": "symfony/browser-kit",
             "version": "v2.4.3",
             "target-dir": "Symfony/Component/BrowserKit",
@@ -2223,9 +2293,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "nette/tester": 20,
-        "elfet/deployer": 20,
-        "nelmio/alice": 20
+        "elfet/deployer": 20
     },
     "platform": {
         "php": ">= 5.5.0"

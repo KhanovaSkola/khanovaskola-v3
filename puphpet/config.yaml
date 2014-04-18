@@ -109,6 +109,7 @@ php:
     composer: '1'
     modules:
         php:
+            - cgi
             - cli
             - intl
             - mcrypt
