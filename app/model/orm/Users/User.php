@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Model;
-use Nette\Security\Passwords;
+
 use Nette\DateTime;
+use Nette\Security\Passwords;
 use Orm;
 
 

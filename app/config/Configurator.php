@@ -4,8 +4,8 @@ namespace App;
 
 use Nette;
 use Nette\DI;
-use Nette\Loaders\RobotLoader;
 use Nette\FileNotFoundException;
+use Nette\Loaders\RobotLoader;
 use RuntimeException;
 use SystemContainer;
 
@@ -21,12 +21,14 @@ class Configurator extends Nette\Configurator
 
 	/**
 	 * Occurs before first Container is created
+	 *
 	 * @var array of function(Configurator $sender)
 	 */
 	public $onInit = [];
 
 	/**
 	 * Occurs after first Container is created
+	 *
 	 * @var array of function(Configurator $sender)
 	 */
 	public $onAfter = [];
@@ -39,25 +41,30 @@ class Configurator extends Nette\Configurator
 	{
 		parent::__construct();
 
-		if ($tempDirectory === NULL) {
+		if ($tempDirectory === NULL)
+		{
 			$tempDirectory = realpath(__DIR__ . '/../../temp');
 		}
 		$this->addParameters((array) $params + array_map('realpath', [
-			'appDir' => __DIR__ . '/..',
-			'libsDir' => __DIR__ . '/../../vendor',
-			'logDir' => __DIR__ . '/../../vendor',
-			'wwwDir' => __DIR__ . '/../../www',
-		]));
+				'appDir' => __DIR__ . '/..',
+				'libsDir' => __DIR__ . '/../../vendor',
+				'logDir' => __DIR__ . '/../../vendor',
+				'wwwDir' => __DIR__ . '/../../www',
+			]));
 		$this->setTempDirectory($tempDirectory);
 
-		foreach (get_class_methods($this) as $name) {
-			if ($pos = strpos($name, 'onInit') === 0 && $name !== 'onInitPackages') {
+		foreach (get_class_methods($this) as $name)
+		{
+			if ($pos = strpos($name, 'onInit') === 0 && $name !== 'onInitPackages')
+			{
 				$this->onInit[lcfirst(substr($name, $pos + 5))] = [$this, $name];
 			}
 		}
 
-		foreach (get_class_methods($this) as $name) {
-			if ($pos = strpos($name, 'onAfter') === 0) {
+		foreach (get_class_methods($this) as $name)
+		{
+			if ($pos = strpos($name, 'onAfter') === 0)
+			{
 				$this->onAfter[lcfirst(substr($name, $pos + 5))] = [$this, $name];
 			}
 		}
@@ -81,8 +88,7 @@ class Configurator extends Nette\Configurator
 	{
 		$params = $this->getParameters();
 		$example = Nette\Utils\Neon::decode(file_get_contents($params['appDir'] . '/config/config.local.example.neon'));
-		if (!isset($container->parameters['configVersion'])
-		|| $container->parameters['configVersion'] !== $example['parameters']['configVersion'])
+		if (!isset($container->parameters['configVersion']) || $container->parameters['configVersion'] !== $example['parameters']['configVersion'])
 		{
 			throw new ConfigFileNotUpToDateException;
 		}
@@ -122,7 +128,8 @@ class Configurator extends Nette\Configurator
 		$this->onInit($this);
 		$this->onInit = [];
 
-		try {
+		try
+		{
 			$container = parent::createContainer();
 			$this->onAfter($container);
 

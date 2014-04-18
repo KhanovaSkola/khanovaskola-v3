@@ -8,7 +8,7 @@ use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
 
 
-class HomepagePresenter extends BasePresenter
+final class HomepagePresenter extends BasePresenter
 {
 
 	public function actionDefault()

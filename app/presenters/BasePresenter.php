@@ -2,10 +2,10 @@
 
 namespace App\Presenters;
 
+use App\Model\RepositoryContainer;
 use App\Services\Translator;
 use Monolog\Logger;
 use Nette;
-use App\Model\RepositoryContainer;
 
 
 /**
@@ -44,7 +44,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return $this->context->getService('log');
 	}
 
-	function beforeRender()
+	public function beforeRender()
 	{
 		$this->template->setTranslator($this->translator);
 	}

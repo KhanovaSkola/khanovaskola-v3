@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Nette;
 use App\Model\UsersRepository;
+use Nette;
 use Nette\Security\Passwords;
 
 
@@ -31,11 +31,11 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		{
 			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 		}
-		elseif (!Passwords::verify($password, $user->password))
+		else if (!Passwords::verify($password, $user->password))
 		{
 			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 		}
-		elseif (Passwords::needsRehash($user->password))
+		else if (Passwords::needsRehash($user->password))
 		{
 			$user->password = Passwords::hash($password);
 			$this->users->flush(); // TODO test

@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette;
 
 
-class SignPresenter extends BasePresenter
+final class SignPresenter extends BasePresenter
 {
 
 
