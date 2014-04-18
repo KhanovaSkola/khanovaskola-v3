@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - @localhost" uuid="b2685ccd-5c85-4d7b-b239-20f8c2d366b8">
+      <user-name>root</user-name>
+      <schema-pattern>clevents.*</schema-pattern>
+    </data-source>
+  </component>
+</project>
+
