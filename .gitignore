@@ -1,7 +1,6 @@
 .DS_Store
 log/*
 temp/*
-vendor/*
 .iws
 /.idea/workspace.xml
 

@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * This file is part of the Nette Tester.
+ * Copyright (c) 2009 David Grudl (http://davidgrudl.com)
+ */
+
+namespace Tester\Runner\Output;
+
+use Tester,
+	Tester\Runner\Runner;
+
+
+/**
+ * Test Anything Protocol, http://testanything.org
+ *
+ * @author     David Grudl
+ */
+class TapPrinter implements Tester\Runner\OutputHandler
+{
+	/** @var Runner */
+	private $runner;
+
+
+	public function __construct(Runner $runner)
+	{
+		$this->runner = $runner;
+	}
+
+
+	public function begin()
+	{
+		echo "TAP version 13\n";
+	}
+
+
+	public function result($testName, $result, $message)
+	{
+		$message = str_replace("\n", "\n# ", trim($message));
+		$outputs = array(
+			Runner::PASSED => "ok $testName",
+			Runner::SKIPPED => "ok $testName #skip $message",
+			Runner::FAILED => "not ok $testName\n# $message",
+		);
+		echo $outputs[$result] . "\n";
+	}
+
+
+	public function end()
+	{
+		echo '1..' . array_sum($this->runner->getResults());
+	}
+
+}

@@ -1,0 +1,27 @@
+{
+    "name": "morrisonlevi/ardent",
+    "type": "library",
+    "description": "A healthy library for PHP",
+    "keywords": ["ardent", "collections", "library", "php", "spl"],
+    "homepage": "https://github.com/morrisonlevi/Ardent",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Levi Morrison",
+            "email": "levim@php.net",
+            "homepage": "http://morrisonlevi.github.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~5.4"
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.13-dev"
+        }
+    }
+}
