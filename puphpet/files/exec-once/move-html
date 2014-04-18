@@ -1,0 +1,2 @@
+mv /var/www/khanovaskola.l/html/beanstalk_console /var/www/khanovaskola.l/www/beanstalk
+rm -rf /var/www/html

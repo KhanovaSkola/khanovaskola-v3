@@ -19,16 +19,13 @@ Info
 ----
 
 http server
-```
 http://khanovaskola.l/
-```
 
 adminer
-```
 http://khanovaskola.l/adminer
-```
 
 mail catcher
-```
 http://khanovaskola.l:1080
-```
+
+beanstalkd console
+http://khanovaskola.l/beanstalk/
