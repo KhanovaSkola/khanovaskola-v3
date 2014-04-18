@@ -9,3 +9,5 @@ vendor/*
 !.gitignore
 !.htaccess
 app/config/config.local.neon
+/html
+/.vagrant
