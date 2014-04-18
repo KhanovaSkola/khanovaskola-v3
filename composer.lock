@@ -3,27 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "eee7d5b5a45b33e6376d5249c1cea48b",
+    "hash": "0c1c2ea39c97cf32fe269baad9338d6a",
     "packages": [
-        {
-            "name": "dg/adminer-custom",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dg/adminer-custom.git",
-                "reference": "aeed2dbc97bdaf134efded1e8e2869f079d70b4b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/aeed2dbc97bdaf134efded1e8e2869f079d70b4b",
-                "reference": "aeed2dbc97bdaf134efded1e8e2869f079d70b4b",
-                "shasum": ""
-            },
-            "type": "project",
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Customization for the best database management tool written in PHP, Adminer",
-            "time": "2014-02-01 21:30:36"
-        },
         {
             "name": "dg/dibi",
             "version": "v2.1.1",
@@ -506,7 +487,7 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/ClassLoader",
             "source": {
                 "type": "git",
@@ -558,17 +539,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "d81bd01eac1514c10dcb3b11eaa9048d6b87dd1f"
+                "reference": "e98693981385224bd31667e56204f311d9e0f98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/d81bd01eac1514c10dcb3b11eaa9048d6b87dd1f",
-                "reference": "d81bd01eac1514c10dcb3b11eaa9048d6b87dd1f",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/e98693981385224bd31667e56204f311d9e0f98e",
+                "reference": "e98693981385224bd31667e56204f311d9e0f98e",
                 "shasum": ""
             },
             "require": {
@@ -604,7 +585,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-03-26 11:35:33"
         },
         {
             "name": "symfony/console",
@@ -663,7 +644,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -719,17 +700,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "7e65abb06d3b38f4be89266fe3fb4a759544e713"
+                "reference": "b717952487176a993e9b12a08b87beae25ae419c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/7e65abb06d3b38f4be89266fe3fb4a759544e713",
-                "reference": "7e65abb06d3b38f4be89266fe3fb4a759544e713",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/b717952487176a993e9b12a08b87beae25ae419c",
+                "reference": "b717952487176a993e9b12a08b87beae25ae419c",
                 "shasum": ""
             },
             "require": {
@@ -764,21 +745,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-03-26 11:55:03"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3"
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
-                "reference": "bb6ddaf8956139d1b8c360b4b713ed0138e876b3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
+                "reference": "77a41c2835ab7cfe8bf6d15e25d3af8f3eb3bacd",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +794,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:28:54"
+            "time": "2014-03-12 18:29:58"
         }
     ],
     "packages-dev": [
@@ -916,12 +897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "ff0b6576154ed748a934a0916f787ed38c74c413"
+                "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/ff0b6576154ed748a934a0916f787ed38c74c413",
-                "reference": "ff0b6576154ed748a934a0916f787ed38c74c413",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/6178f891f5dac28d28bbdb2721a0611add8d3177",
+                "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177",
                 "shasum": ""
             },
             "require": {
@@ -962,7 +943,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2014-03-18 17:23:48"
+            "time": "2014-04-11 08:51:55"
         },
         {
             "name": "nette/tester",
@@ -970,12 +951,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "53767d1776d683c33b9cfe742b864311e89c318e"
+                "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/53767d1776d683c33b9cfe742b864311e89c318e",
-                "reference": "53767d1776d683c33b9cfe742b864311e89c318e",
+                "url": "https://api.github.com/repos/nette/tester/zipball/fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
+                "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
                 "shasum": ""
             },
             "require": {
@@ -1018,7 +999,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2014-04-02 13:27:38"
+            "time": "2014-04-11 11:04:14"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1175,7 +1156,7 @@
         "nelmio/alice": 20
     },
     "platform": {
-        "php": ">= 5.3.7"
+        "php": ">= 5.5.0"
     },
     "platform-dev": [
 

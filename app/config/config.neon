@@ -6,7 +6,7 @@
 #
 parameters:
 	database:
-		driver: mysqli
+		driver: postgre
 		host: localhost
 		charset: utf8
 		sqlmode: TRADITIONAL
@@ -30,7 +30,11 @@ nette:
 services:
 	- App\Model\UsersRepository
 	- App\Services\Authenticator
+	- App\Services\Translator(%appDir%/localization)
 
+	log:
+		class: Monolog\Logger
+		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
 	router: App\Router
 	dibiConnection: DibiConnection(%database%)
 
