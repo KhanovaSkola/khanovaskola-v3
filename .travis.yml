@@ -1,16 +1,24 @@
 language: php
 php:
-    - 5.5
-    - 5.4
+  - 5.5
+  - 5.4
 env:
   - TEST_SUITE=unit
   - TEST_SUITE=acceptance
 
+matrix:
+  include:
+    - php: 5.5
+      env: TEST_SUITE=cs
+
 before_script:
-    - cp tests/travis/config.local.neon app/config/config.local.neon
-    - psql -c 'create database khanovaskola;' -U postgres
-    - rm tests/acceptance.suite.yml
-    - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
-    - php -S localhost:8000 -t www/ &
+  - cp tests/travis/config.local.neon app/config/config.local.neon
+  - psql -c 'create database khanovaskola;' -U postgres
+  - rm tests/acceptance.suite.yml
+  - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
+  - php -S localhost:8000 -t www/ &
 
 script: sh tests/travis/test.sh
+
+after_success:
+  - sh tests/travis/success.sh
