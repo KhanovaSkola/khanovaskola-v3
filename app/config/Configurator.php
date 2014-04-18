@@ -45,7 +45,7 @@ class Configurator extends Nette\Configurator
 		$this->addParameters((array) $params + array_map('realpath', [
 			'appDir' => __DIR__ . '/..',
 			'libsDir' => __DIR__ . '/../../vendor',
-			'logDir' => __DIR__ . '/../../log',
+			'logDir' => __DIR__ . '/../../vendor',
 			'wwwDir' => __DIR__ . '/../../www',
 		]));
 		$this->setTempDirectory($tempDirectory);
