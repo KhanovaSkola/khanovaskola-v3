@@ -13,10 +13,18 @@ while vagrant installs, add the following line to your `/etc/hosts`
 192.168.56.101 khanovaskola.l
 ```
 
-create database (presumably named `khanovaskola`) at http://khanovaskola.l/adminer
-
 Info
 ----
+
+run unit tests:
+```
+php vendor/bin/tester tests/unit/
+```
+
+run acceptance tests:
+```
+php vendor/bin/codecept run acceptance
+```
 
 http server
 http://khanovaskola.l/

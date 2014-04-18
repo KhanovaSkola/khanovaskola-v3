@@ -1064,120 +1064,6 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "nelmio/alice",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nelmio/alice.git",
-            "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nelmio/alice/zipball/6178f891f5dac28d28bbdb2721a0611add8d3177",
-            "reference": "6178f891f5dac28d28bbdb2721a0611add8d3177",
-            "shasum": ""
-        },
-        "require": {
-            "fzaninotto/faker": "~1.0",
-            "php": ">=5.3",
-            "symfony/yaml": "~2.0"
-        },
-        "require-dev": {
-            "doctrine/common": "~2.3",
-            "phpunit/phpunit": "3.7.*",
-            "symfony/property-access": "~2.2"
-        },
-        "time": "2014-04-11 08:51:55",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.6.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Nelmio\\Alice\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nelmio",
-                "homepage": "http://nelm.io"
-            }
-        ],
-        "description": "Expressive fixtures generator",
-        "keywords": [
-            "Fixture",
-            "data",
-            "orm",
-            "test"
-        ]
-    },
-    {
-        "name": "nette/tester",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nette/tester.git",
-            "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nette/tester/zipball/fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
-            "reference": "fa772a8b7d9a8e57dd3d3181dc6cc2937fb95950",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2014-04-11 11:04:14",
-        "bin": [
-            "Tester/tester"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "Tester/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "http://davidgrudl.com"
-            },
-            {
-                "name": "Nette Community",
-                "homepage": "http://nette.org/contributors"
-            }
-        ],
-        "description": "An easy-to-use PHP Unit Testing framework.",
-        "homepage": "http://nette.org",
-        "keywords": [
-            "nette",
-            "testing",
-            "unit"
-        ]
-    },
-    {
         "name": "morrisonlevi/ardent",
         "version": "0.14.0",
         "version_normalized": "0.14.0.0",
@@ -2287,6 +2173,192 @@
             "acceptance testing",
             "functional testing",
             "unit testing"
+        ]
+    },
+    {
+        "name": "nette/tester",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/tester.git",
+            "reference": "53767d1776d683c33b9cfe742b864311e89c318e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/tester/zipball/53767d1776d683c33b9cfe742b864311e89c318e",
+            "reference": "53767d1776d683c33b9cfe742b864311e89c318e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-04-02 13:27:38",
+        "bin": [
+            "Tester/tester"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "Tester/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "http://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "http://nette.org/contributors"
+            }
+        ],
+        "description": "An easy-to-use PHP Unit Testing framework.",
+        "homepage": "http://nette.org",
+        "keywords": [
+            "nette",
+            "testing",
+            "unit"
+        ]
+    },
+    {
+        "name": "nelmio/alice",
+        "version": "1.6.0",
+        "version_normalized": "1.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nelmio/alice.git",
+            "reference": "e225020d8e1f0ca867b4219698d6089b7a997761"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nelmio/alice/zipball/e225020d8e1f0ca867b4219698d6089b7a997761",
+            "reference": "e225020d8e1f0ca867b4219698d6089b7a997761",
+            "shasum": ""
+        },
+        "require": {
+            "fzaninotto/faker": "~1.0",
+            "php": ">=5.3",
+            "symfony/yaml": "~2.0"
+        },
+        "require-dev": {
+            "doctrine/common": "~2.3",
+            "phpunit/phpunit": "3.7.*",
+            "symfony/property-access": "~2.2"
+        },
+        "time": "2014-02-05 22:35:38",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.6.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Nelmio\\Alice\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nelmio",
+                "homepage": "http://nelm.io"
+            }
+        ],
+        "description": "Expressive fixtures generator",
+        "keywords": [
+            "Fixture",
+            "data",
+            "orm",
+            "test"
+        ]
+    },
+    {
+        "name": "squizlabs/php_codesniffer",
+        "version": "1.5.2",
+        "version_normalized": "1.5.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+            "reference": "a76a39b317ce8106abe6264daa505e24e1731860"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/a76a39b317ce8106abe6264daa505e24e1731860",
+            "reference": "a76a39b317ce8106abe6264daa505e24e1731860",
+            "shasum": ""
+        },
+        "require": {
+            "ext-tokenizer": "*",
+            "php": ">=5.1.2"
+        },
+        "suggest": {
+            "phpunit/php-timer": "dev-master"
+        },
+        "time": "2014-02-04 23:49:58",
+        "bin": [
+            "scripts/phpcs"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "CodeSniffer.php",
+                "CodeSniffer/CLI.php",
+                "CodeSniffer/Exception.php",
+                "CodeSniffer/File.php",
+                "CodeSniffer/Report.php",
+                "CodeSniffer/Reporting.php",
+                "CodeSniffer/Sniff.php",
+                "CodeSniffer/Tokens.php",
+                "CodeSniffer/Reports/",
+                "CodeSniffer/CommentParser/",
+                "CodeSniffer/Tokenizers/",
+                "CodeSniffer/DocGenerators/",
+                "CodeSniffer/Standards/AbstractPatternSniff.php",
+                "CodeSniffer/Standards/AbstractScopeSniff.php",
+                "CodeSniffer/Standards/AbstractVariableSniff.php",
+                "CodeSniffer/Standards/IncorrectPatternException.php",
+                "CodeSniffer/Standards/Generic/Sniffs/",
+                "CodeSniffer/Standards/MySource/Sniffs/",
+                "CodeSniffer/Standards/PEAR/Sniffs/",
+                "CodeSniffer/Standards/PSR1/Sniffs/",
+                "CodeSniffer/Standards/PSR2/Sniffs/",
+                "CodeSniffer/Standards/Squiz/Sniffs/",
+                "CodeSniffer/Standards/Zend/Sniffs/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Greg Sherwood",
+                "role": "lead"
+            }
+        ],
+        "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+        "homepage": "http://www.squizlabs.com/php-codesniffer",
+        "keywords": [
+            "phpcs",
+            "standards"
         ]
     }
 ]

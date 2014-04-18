@@ -28,8 +28,6 @@ To use it in Symfony2 you may want to use the [hautelook/alice-bundle](https://g
   - [References](#references)
   - [Multiple References](#multiple-references)
   - [Handling Unique Constraints](#handling-unique-constraints)
-  - [Fixture Inheritance](#fixture-inheritance)
-  - [Including files](#including-files)
   - [Variables](#variables)
   - [Value Objects](#value-objects)
   - [Custom Faker Data Providers](#custom-faker-data-providers)
@@ -40,7 +38,7 @@ To use it in Symfony2 you may want to use the [hautelook/alice-bundle](https://g
 
 ### Basic Usage ###
 
-The easiest way to use this is to call the static `Nelmio\Alice\Fixtures::load`
+The easiest way to use this is to call the static `Nelmio\Fixture\Fixture::load`
 method. It will bootstrap everything for you and return you a set of persisted
 objects in the container you give it.
 
@@ -187,16 +185,6 @@ array of Fixtures::load.
 Additionally, you can mix locales by adding a locale prefix to the faker key,
 i.e. `<fr_FR:phoneNumber()>` or `<de_DE:firstName()>`.
 
-#### Default Providers ####
-
-Alice includes a default identity provider, `<identity()>`, that
-simply returns whatever is passed to it.  This allows you among other
-things to use a PHP expression while still benefitting from
-[variable replacement](#variables).
-
-Some syntactic sugar is provided for this, `<($whatever)>` is an alias
-for `<identity($whatever)>`.
-
 ### Calling Methods ###
 
 Sometimes though you need to call a method to initialize some more data, you
@@ -248,7 +236,7 @@ example might be personal data you don't want to share, to reflect this in
 our fixtures and be sure the site works and looks alright even when users
 don't enter a favorite number, we can make Alice fill it in *sometimes* using
 the `50%? value : empty value` notation. It's a bit like the ternary operator,
-and you can omit the empty value if null is ok as such: `50%? value`.
+and you can omit the empty value if null is ok as such: `%50? value`.
 
 Let's update the user definition with this new information:
 
@@ -406,21 +394,6 @@ You can also randomize the amount by combining it with faker data:
 > **Note**: You do not need to define multi-references inside an array, since
 > they are automatically translated to an array of objects.
 
-#### Self reference ####
-
-The `@self` reference is assigned to the current fixture instance.
-
-#### Passing references to providers ####
-
-You can pass references to providers much like you can pass [variables](#variables):
-
-```yaml
-Nelmio\Entity\Group:
-    group1:
-        owner: <numberBetween(1, 200)>
-    group2:
-        owner: <numberBetween(@group1->owner, 200)>
-```
 ### Handling Unique Constraints ###
 
 Quite often some database fields have a unique constraint set on them, in which
@@ -437,96 +410,6 @@ Nelmio\Entity\User:
     user{1..10}:
         username (unique): <username()>
 ```
-
-### Fixture inheritance ###
-
-Base fixtures, to be extended from, can be created to be able to *only* need
-to define less additional values in a set of common fixture definitions.
-
-By declaring a fixture as a template using the `(template)` flag, Alice will set
-the instance as a template for that file. Templates instances are not persisted.
-
-Templates can also make use of inheritance themselves, by extending from other
-templates, allowing you to create, mix and match templates. For example:
-
-```yaml
-Nelmio\Entity\User:
-    user_bare (template):
-        username: <username()>
-    user_full (template, extends user_bare):
-        name: <firstName()>
-        lastname: <lastName()>
-        city: <city()>
-```
-
-Templates can be extended by other fixtures making use of the `(extends)` flag
-followed by the name of the template to extend.
-
-```yaml
-Nelmio\Entity\User:
-    user (template):
-        username: <username()>
-        age: <numberBetween(1, 20)>
-    user1 (extends user):
-        name: <firstName()>
-        lastname: <lastName()>
-        city: <city()>
-        age: <numberBetween(1, 50)>
-```
-
-Inheritance also allows to extend from several templates. The last declared `extends`
-will always override values from previous declared `extends` templates.
-
-In the following example, the age from `user_young` will override the age from `user`
-in `user1`
-
-```yaml
-Nelmio\Entity\User:
-    user (template):
-        username: <username()>
-        age: <numberBetween(1, 40)>
-    user_young (template):
-        age: <numberBetween(1, 20)>
-    user1 (extends user, extends user_young):
-        name: <firstName()>
-        lastname: <lastName()>
-        city: <city()>
-```
-
-### Including files ###
-
-You may include other files from your fixtures using the top-level `include` key:
-
-```yaml
-include:
-    - relative/path/to/file.yml
-    - relative/path/to/another/file.yml
-Nelmio\Entity\User:
-    user1 (extends user, extends user_young):
-        name: <firstName()>
-        lastname: <lastName()>
-        city: <city()>
-```
-
-In relative/path/to/file.yml:
-
-```yaml
-Nelmio\Entity\User:
-    user (template):
-        username: <username()>
-        age: <numberBetween(1, 40)>
-```
-
-In relative/path/to/another/file.yml:
-
-```yaml
-Nelmio\Entity\User:
-    user_young (template):
-        age: <numberBetween(1, 20)>
-```
-
-All files are merged in one data set before generation, and the includer's content
-takes precedence over included files' fixtures in case of duplicate keys.
 
 ### Variables ###
 
