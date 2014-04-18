@@ -1,6 +1,8 @@
 Khanova škola – verze 3
 =======================
 
+[![Build Status](https://travis-ci.org/KhanovaSkola/khanovaskola-v3.svg?branch=master)](https://travis-ci.org/KhanovaSkola/khanovaskola-v3)
+
 Setup
 -----
 

@@ -6,4 +6,4 @@ modules:
         - WebHelper
     config:
         PhpBrowser:
-            url: 'http://khanovaskola.l/'
+            url: 'http://localhost:8000/'
