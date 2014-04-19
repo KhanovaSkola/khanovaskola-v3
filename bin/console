@@ -3,25 +3,23 @@
 
 use Symfony\Component\Console\Application;
 
-if (file_exists(__DIR__ . '/../__vendor'))
-{
-    require __DIR__ . '/../__vendor/autoload.php';
-}
-else
-{
-    require __DIR__ . '/../vendor/autoload.php';
-}
-require __DIR__ . '/Commands/Command.php';
-require __DIR__ . '/Commands/CacheCommand.php';
-require __DIR__ . '/Commands/LogCommand.php';
-require __DIR__ . '/Commands/MaintenanceCommand.php';
-require __DIR__ . '/Commands/DatabaseCommand.php';
-require __DIR__ . '/Commands/SessionsCommand.php';
+$container = require __DIR__ . '/../app/bootstrap.php';
+/** @var Composer\Autoload\ClassLoader $loader */
 
-$application = new Application();
-$application->add(new CacheCommand);
-$application->add(new LogCommand);
-$application->add(new MaintenanceCommand);
-$application->add(new DatabaseCommand);
-$application->add(new SessionsCommand);
-$application->run();
+$loader->add('Commands', __DIR__);
+
+$app = new Application();
+foreach (glob(__DIR__ . '/Commands/*/?*Task.php') as $file)
+{
+	$match = NULL;
+	preg_match('~/(?P<command>\w+)/(?P<action>\w+).php$~i', $file, $match);
+	$class = 'Commands\\' . $match['command'] . '\\' . $match['action'];
+
+	$command = new $class;
+	$command->setContainer($container);
+	$command->setup();
+
+	$app->add($command);
+}
+
+$app->run();

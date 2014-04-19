@@ -8,9 +8,8 @@ deployer();
 
 task('prod_server', function() {
     connect('dev.clevents.cz', 'mikulas', rsa('~/.ssh/id_rsa'));
-	//migrations('status');die;
-    // up to date commands first
 
+    // update commands first
     uploadFromRoot('bin');
 
     $vendorChanged = !lockFileSame();
