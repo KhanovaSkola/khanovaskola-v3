@@ -21,12 +21,14 @@ module.exports = function(grunt) {
                     'www/js/compiled.js': [
                         'www/js/jquery.js',
                         'www/js/elasticsearch.jquery.min.js',
+                        'www/js/medium-editor.js',
                         //'www/js/bootstrap/foo.js',
                         'www/js/netteForm.js',
                         'www/js/typeahead.bundle.js',
 
-                        'www/js/clevents.js',
+                        'www/js/app.js',
                         'www/js/autocomplete.js',
+                        'www/js/inlineEditor.js'
                     ]
                 }
 			}

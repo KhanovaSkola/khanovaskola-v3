@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Services;
+namespace App\Services;
 
 use Elasticsearch\Client;
 use Mikulas\Diagnostics\ElasticSearchPanel;
