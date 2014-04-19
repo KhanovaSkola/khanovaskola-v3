@@ -15,4 +15,10 @@ use Orm;
 class Gist extends Entity
 {
 
+	public function setText($text)
+	{
+		$purifier = $this->model->getContext()->getService('purifier');
+		$this->setValue('text', $purifier->filter($text));
+	}
+
 }
