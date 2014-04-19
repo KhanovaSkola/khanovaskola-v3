@@ -24,7 +24,12 @@ class ProductionTask extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		// TODO fail if git HEAD is not clean
+		if ($this->isHeadDirty())
+		{
+			writeln('<error>HEAD is dirty, commit or stash before deploy</error>');
+			exit(1);
+		}
+
 		connect(self::SERVER, 'mikulas', rsa('~/.ssh/id_rsa'));
 
 		// update commands first
@@ -77,6 +82,13 @@ class ProductionTask extends Command
 		silent();
 		runLocally("git tag -f -a deploy/production -m 'Deployed at $time'");
 		silent(FALSE);
+	}
+
+	private function isHeadDirty()
+	{
+		$output = [];
+		exec('git diff --shortstat 2> /dev/null | tail -n1', $output);
+		return count($output);
 	}
 
 	private function lockFileSame()
