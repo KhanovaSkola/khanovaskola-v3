@@ -1,10 +1,10 @@
 
-Clevents.client = new $.es.Client({
+App.client = new $.es.Client({
     hosts: 'localhost:9200'
 });
 
-Clevents.autocomplete = function(query, cb) {
-    Clevents.client.search({
+App.autocomplete = function(query, cb) {
+    App.client.search({
         index: 'clevents',
         type: 'event',
         body: {

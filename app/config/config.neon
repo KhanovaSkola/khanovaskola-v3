@@ -40,18 +40,17 @@ services:
 	- App\Services\Authenticator
 	- App\Services\Translator(%appDir%/localization)
 
+	purifier: App\Services\HtmlPurifier
 	log:
 		class: Monolog\Logger
 		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
 	router: App\Router
 	dibiConnection: DibiConnection(%database%)
-
 	badgeProvider:
 		class: App\Services\BadgeProvider
 		tags: [kdyby.subscriber]
-
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
-	elastic: App\Model\Services\ElasticSearch(%elastic%, @elasticPanel)
+	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel)
 
 	orm: App\Model\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache, @container)

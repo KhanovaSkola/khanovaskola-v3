@@ -27,6 +27,7 @@ return array(
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Kdyby\\Redis\\' => array($vendorDir . '/kdyby/redis/src'),
     'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src'),
+    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
     'Goutte' => array($vendorDir . '/fabpot/goutte'),
