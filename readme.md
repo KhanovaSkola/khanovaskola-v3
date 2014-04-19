@@ -18,6 +18,8 @@ while vagrant installs, add the following line to your `/etc/hosts`
 Info
 ----
 
+**These commands are to be run on vagrant (`vagrant ssh`).**
+
 run unit tests:
 ```
 php vendor/bin/tester tests/unit/
@@ -31,6 +33,21 @@ php vendor/bin/codecept run acceptance
 run coding style (cs) tests:
 ```
 php vendor/bin/phpcs -p --standard=tests/cs app
+```
+
+create new migration from template:
+```
+php bin/console db:create whatAmIChanging
+```
+
+run migrations:
+```
+php bin/console db:migrate
+```
+
+start/stop maintenance mode:
+```
+php bin/console maintenance:[stop|start]
 ```
 
 http server

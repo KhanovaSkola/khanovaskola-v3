@@ -53,7 +53,7 @@ class Porm extends Yaml
 				$node['__set'] = '__setter';
 
 				// entity must be persisted before it can be attached to other entities
-				$repo = $this->map[$class];
+				$repo = $this->map[strToLower($class)];
 				$node[self::PERSIST_HACK] = $this->orm->$repo;
 			}
 		}

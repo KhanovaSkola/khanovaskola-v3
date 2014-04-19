@@ -37,6 +37,7 @@ class Porm implements ORMInterface
 		{
 			$class = get_class($class);
 		}
+		$class = strToLower($class);
 
 		if (!isset($this->map[$class]))
 		{
