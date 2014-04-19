@@ -54,6 +54,6 @@ services:
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel)
 
 	orm: App\Model\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
-	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache, @container)
+	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
 	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)

@@ -2,6 +2,7 @@
 namespace Clevis\Skeleton\Orm;
 
 use App\Model\MapperFactory;
+use App\Services\HtmlPurifier;
 use Nette;
 use Nette\Caching\Cache;
 use Orm;
@@ -27,15 +28,19 @@ class ServiceContainerFactory extends Nette\Object implements Orm\IServiceContai
 	/** @var Nette\DI\Container */
 	private $container;
 
+	/** @var \App\Services\HtmlPurifier */
+	private $purifier;
+
 	/**
 	 * @param DibiConnection
 	 * @param Cache|NULL cache for Orm\PerformanceHelper or null to disable the cache
 	 */
-	public function __construct(DibiConnection $dibiConnection, Cache $cache = NULL, Nette\DI\Container $container)
+	public function __construct(DibiConnection $dibiConnection, HtmlPurifier $purifier, Cache $cache = NULL, Nette\DI\Container $container)
 	{
 		$this->dibiConnection = $dibiConnection;
 		$this->cache = $cache;
 		$this->container = $container;
+		$this->purifier = $purifier;
 	}
 
 	/**
@@ -49,6 +54,7 @@ class ServiceContainerFactory extends Nette\Object implements Orm\IServiceContai
 		$container->addService('mapperFactory', array($this, 'createMapperFactory'));
 		$container->addService('repositoryHelper', 'Orm\RepositoryHelper');
 		$container->addService('dibi', $this->dibiConnection);
+		$container->addService('purifier', $this->purifier);
 
 		if ($this->cache !== NULL)
 		{

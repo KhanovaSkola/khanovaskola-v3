@@ -6,7 +6,7 @@ use Clevis\Skeleton;
 
 
 /**
- * @property-read EventsRepository events
+ * @property-read GistsRepository gists
  * @property-read UsersRepository users
  */
 class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
