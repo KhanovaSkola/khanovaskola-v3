@@ -1,2 +1,3 @@
 mv /var/www/khanovaskola.l/html/beanstalk_console /var/www/khanovaskola.l/www/beanstalk
-rm -rf /var/www/html
+rm -rf /var/www/khanovaskola.l/html
+cp /vagrant/puphpet/files/beanstalk_console_config.php /var/www/khanovaskola.l/www/beanstalk/config.php
