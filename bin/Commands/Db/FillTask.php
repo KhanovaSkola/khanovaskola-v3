@@ -38,7 +38,7 @@ class FillTask extends Command
 			$output->writeln("<info>$log</info>");
 		});
 
-		$objects = $loader->load(__DIR__ . '/../../fixtures.yml');
+		$objects = $loader->load(__DIR__ . '/../../../app/fixtures.yml');
 
 		try {
 			$persist = new Porm($orm, $map);
