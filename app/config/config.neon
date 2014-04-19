@@ -13,6 +13,7 @@ parameters:
 		profiler: on
 	repositories:
 		users: App\Model\UsersRepository
+		gists: App\Model\GistsRepository
 
 php:
 	date.timezone: Europe/Prague
