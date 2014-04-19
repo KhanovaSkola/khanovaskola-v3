@@ -24,6 +24,7 @@ class ProductionTask extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		// TODO fail if git HEAD is not clean
 		connect(self::SERVER, 'mikulas', rsa('~/.ssh/id_rsa'));
 
 		// update commands first

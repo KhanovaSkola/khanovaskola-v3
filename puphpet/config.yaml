@@ -179,7 +179,7 @@ redis:
 beanstalkd:
     install: '1'
     settings:
-        listenaddress: 0.0.0.0
+        listenaddress: 127.0.0.1
         listenport: '13000'
         maxjobsize: '65535'
         maxconnections: '1024'
