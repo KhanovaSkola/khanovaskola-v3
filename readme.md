@@ -50,6 +50,11 @@ start/stop maintenance mode:
 php bin/console maintenance:[stop|start]
 ```
 
+build both styles (`grunt less`) and scripts (`grunt uglify`):
+```
+grunt
+```
+
 http server
 http://khanovaskola.l/
 
