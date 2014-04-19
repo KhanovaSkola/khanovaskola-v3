@@ -9,4 +9,5 @@ return array(
     $vendorDir . '/nette/nette/Nette/common/shortcuts.php',
     $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
     $vendorDir . '/elfet/deployer/src/deployer.php',
+    $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
 );

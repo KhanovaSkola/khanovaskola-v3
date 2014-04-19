@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Kdyby\Events\DI\EventsExtension;
 use Kdyby\Redis\DI\RedisExtension;
 use Nette;
 use Nette\DI;
@@ -76,11 +77,6 @@ class Configurator extends Nette\Configurator
 		$params = $this->getParameters();
 		$this->addConfig($params['appDir'] . '/config/config.neon', FALSE);
 		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
-	}
-
-	public function onInitExtensions()
-	{
-		RedisExtension::register($this);
 	}
 
 	public function onAfterConfigVersion(DI\Container $container)

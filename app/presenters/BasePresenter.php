@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Model\RepositoryContainer;
 use App\Services\Translator;
+use Kdyby\Events\EventManager;
 use Monolog\Logger;
 use Nette;
 
@@ -12,6 +13,7 @@ use Nette;
  * @property-read RepositoryContainer $orm
  * @property-read Translator $translator
  * @property-read Logger $log
+ * @property-read EventManager $eventManager
  * @property-read Nette\Templating\FileTemplate $template
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
@@ -31,9 +33,20 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return $this->context->getService('orm');
 	}
 
+	/**
+	 * @return Translator
+	 */
 	public function getTranslator()
 	{
 		return $this->context->getByType('App\Services\Translator');
+	}
+
+	/**
+	 * @return EventManager
+	 */
+	public function getEventManager()
+	{
+		return $this->context->getByType('Kdyby\Events\EventManager');
 	}
 
 	/**

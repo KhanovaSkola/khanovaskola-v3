@@ -28,6 +28,7 @@ nette:
 
 extensions:
 	redis: Kdyby\Redis\DI\RedisExtension
+	events: Kdyby\Events\DI\EventsExtension
 
 redis:
 	journal: on
@@ -44,6 +45,10 @@ services:
 		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
 	router: App\Router
 	dibiConnection: DibiConnection(%database%)
+
+	badgeProvider:
+		class: App\Services\BadgeProvider
+		tags: [kdyby.subscriber]
 
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
 	elastic: App\Model\Services\ElasticSearch(%elastic%, @elasticPanel)
