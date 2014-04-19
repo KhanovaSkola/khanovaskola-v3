@@ -1,7 +1,6 @@
 <?php
 
-// require __DIR__ . '/shortcuts.php';
-require __DIR__ . '/../vendor/autoload.php';
+$loader = require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/config/Configurator.php';
 
 $configurator = new App\Configurator;

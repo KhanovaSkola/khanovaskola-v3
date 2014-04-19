@@ -11,3 +11,4 @@ app/config/config.local.neon
 /html
 /.vagrant
 tests/_data
+www/_index.php

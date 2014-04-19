@@ -1,70 +1,38 @@
 <?php
 
+namespace Commands;
+
+use Nette\DI\Container;
 use Symfony\Component\Console\Command\Command as BaseCommand;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
 abstract class Command extends BaseCommand
 {
 
-    protected $root;
+	use ContainerTrait;
 
-    public function setup()
-    {
-        $this->root = __DIR__ . '/../../';
-    }
+	public function getName()
+	{
+		$name = get_class($this);
+		$name = str_replace('Commands\\', '', $name);
+		$name = str_replace('Task', '', $name);
+		$name = str_replace('\\', ':', $name);
 
-    public function getName()
-    {
-        $name = str_replace('Command', '', get_class($this));
-        return strToLower($name);
-    }
+		return strToLower($name);
+	}
 
-    protected function getActions()
-    {
-        $ref = new ReflectionClass($this);
-        $actions = [];
-        $prefix = 'action';
-        foreach ($ref->getMethods() as $method)
-        {
-            if (strpos($method->name, $prefix) === 0)
-            {
-                $name = substr($method->name, strlen($prefix));
-                $actions[] = strToLower($name);
-            }
-        }
-        return $actions;
-    }
+	protected function configure()
+	{
+		$this->setName($this->getName());
+	}
 
-    protected function configure()
-    {
-        $allowed = implode('|', $this->getActions());
-        $this
-            ->setName($this->getName())
-            ->addArgument(
-                'action',
-                InputArgument::REQUIRED,
-                "[$allowed]"
-            )
-        ;
-        $this->setup();
-    }
+	public function setup() {}
 
-    final protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $actions = $this->getActions();
-        $action = $input->getArgument('action');
-
-        if (!in_array($action, $actions))
-        {
-            throw new Exception; // TODO
-        }
-
-        $method = 'action' . ucFirst($action);
-        $this->$method($input, $output);
-    }
+	protected function fail(OutputInterface $output, $msg)
+	{
+		$output->writeln("<error>$msg</error>");
+		exit(1);
+	}
 
 }
