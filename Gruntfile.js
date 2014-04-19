@@ -19,16 +19,16 @@ module.exports = function(grunt) {
 				preserveComments: false,
 				files: {
                     'www/js/compiled.js': [
-                        'www/js/jquery.js',
-                        'www/js/elasticsearch.jquery.min.js',
-                        'www/js/medium-editor.js',
-                        //'www/js/bootstrap/foo.js',
-                        'www/js/netteForm.js',
-                        'www/js/typeahead.bundle.js',
+                        'www/js/vendor/jquery.js',
+                        'www/js/vendor/elasticsearch.jquery.min.js',
+                        'www/js/vendor/medium-editor.js',
+                        //'www/js/vendor/bootstrap/foo.js',
+                        'www/js/vendor/netteForm.js',
+                        'www/js/vendor/typeahead.bundle.js',
 
-                        'www/js/app.js',
-                        'www/js/autocomplete.js',
-                        'www/js/inlineEditor.js'
+                        'www/js/app/app.js',
+                        'www/js/app/autocomplete.js',
+                        'www/js/app/inlineEditor.js'
                     ]
                 }
 			}
