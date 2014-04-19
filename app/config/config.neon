@@ -26,6 +26,13 @@ nette:
 	session:
 		expiration: 14 days
 
+extensions:
+	redis: Kdyby\Redis\DI\RedisExtension
+
+redis:
+	journal: on
+	storage: on
+	session: on
 
 services:
 	- App\Model\UsersRepository

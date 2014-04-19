@@ -1,0 +1,13 @@
+cd /tmp
+git clone https://github.com/nicolasff/phpredis.git
+cd phpredis
+phpize
+./configure
+make && sudo make install
+
+CONFIG='; configuration for php redis module
+; priority=20
+extension=redis.so'
+echo "$CONFIG" | sudo tee /etc/php5/fpm/conf.d/20-redis.ini
+
+sudo service php5-fpm restart
