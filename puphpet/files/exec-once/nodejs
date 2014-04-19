@@ -1,0 +1,19 @@
+cd /tmp
+git clone https://github.com/joyent/node.git
+cd node
+ 
+# 'git tag' shows all available versions: select the latest stable.
+git checkout v0.11.12
+ 
+# Configure seems not to find libssl by default so we give it an explicit pointer.
+# Optionally: you can isolate node by adding --prefix=/opt/node
+./configure --openssl-libpath=/usr/lib/ssl
+make
+sudo make install
+node -v
+ 
+# Lucky us: NPM is packaged with Node.js source so this is now installed too
+# curl http://npmjs.org/install.sh | sudo sh
+npm -v
+
+sudo npm install -g grunt-cli
