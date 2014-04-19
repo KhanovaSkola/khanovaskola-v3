@@ -1,1 +1,1 @@
-PGPASSWORD=123 createdb khanovaskola -U postgres -W -h localhost
+PGPASSWORD=123 createdb khanovaskola -U postgres -h localhost
