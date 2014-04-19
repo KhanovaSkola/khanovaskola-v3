@@ -60,4 +60,4 @@ mail catcher
 http://khanovaskola.l:1080
 
 beanstalkd console
-http://khanovaskola.l/beanstalk/
+http://khanovaskola.l/beanstalk/public/

@@ -26,9 +26,6 @@ alias gca="git commit -am"
 alias gp="git push"
 alias gd="LESSCHARSET=UTF-8 git diff --color-words"
 
-# http://superuser.com/questions/518119/how-to-make-ls-command-not-show-icon-files
-alias ls="gls --ignore $'Icon\r'"
-
 # http://stackoverflow.com/a/14127035/326257
 alias root='cd "$(git rev-parse --show-toplevel)"'
 
