@@ -6,6 +6,8 @@ DISABLE_AUTO_TITLE="true"
 
 LESSCHARSET=UTF-8
 
+cd /var/www/khanovaskola.l
+
 plugins=(composer compleat gitfast git-extras osx urltools web-search zmv)
 
 source $ZSH/oh-my-zsh.sh
