@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Kdyby\Redis\DI\RedisExtension;
 use Nette;
 use Nette\DI;
 use Nette\FileNotFoundException;
@@ -79,9 +80,7 @@ class Configurator extends Nette\Configurator
 
 	public function onInitExtensions()
 	{
-		// $this->onCompile['dibi'] = function ($configurator, DI\Compiler $compiler) {
-		// 	$compiler->addExtension('dibi', new \DibiNette21Extension);
-		// };
+		RedisExtension::register($this);
 	}
 
 	public function onAfterConfigVersion(DI\Container $container)

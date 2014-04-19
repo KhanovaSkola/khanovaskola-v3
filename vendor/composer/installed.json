@@ -2360,5 +2360,63 @@
             "phpcs",
             "standards"
         ]
+    },
+    {
+        "name": "kdyby/redis",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Redis.git",
+            "reference": "5be8b73239e485d8d8f5a768785c965d5acf56bd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Redis/zipball/5be8b73239e485d8d8f5a768785c965d5acf56bd",
+            "reference": "5be8b73239e485d8d8f5a768785c965d5acf56bd",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "nette/tester": "@dev"
+        },
+        "suggest": {
+            "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
+        },
+        "time": "2014-01-07 21:58:05",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Redis\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Redis/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Redis storage for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "cache",
+            "client",
+            "kdyby",
+            "nette",
+            "redis"
+        ]
     }
 ]
