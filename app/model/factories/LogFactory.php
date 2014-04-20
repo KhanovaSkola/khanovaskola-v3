@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Factories;
-
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
