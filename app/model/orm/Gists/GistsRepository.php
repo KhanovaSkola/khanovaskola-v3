@@ -8,7 +8,7 @@ use Orm\DibiCollection;
 /**
  * @mapper App\Model\Mapper
  *
- * @method DibiCollection findByName()
+ * @method Gist getByName()
  */
 class GistsRepository extends Repository
 {
