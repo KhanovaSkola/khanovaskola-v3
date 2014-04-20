@@ -5,6 +5,8 @@ namespace App\Presenters;
 use App\Model\Event;
 use App\Model\Gist;
 use App\Model\User;
+use App\Tasks\SendMail;
+use App\Tasks\SendMailTask;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
@@ -15,7 +17,8 @@ final class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		$this->context->getService('mailer')->send('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
+		$task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
+		$this->context->getService('queue')->enqueue($task);
 
 		$gist = $this->orm->gists->getByName('test');
 		$this['gist']->setEditable(TRUE);

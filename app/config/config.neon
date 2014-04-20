@@ -11,6 +11,8 @@ parameters:
 		charset: utf8
 		sqlmode: TRADITIONAL
 		profiler: on
+	beanstalk:
+		host: 127.0.0.1:13000
 	repositories:
 		users: App\Model\UsersRepository
 		gists: App\Model\GistsRepository
@@ -41,6 +43,7 @@ services:
 	- App\Services\Authenticator
 	- App\Services\Translator(%appDir%/localization)
 
+	queue: App\Services\Queue(%beanstalk.host%)
 	mailer: App\Services\Mailer(%smtp%)
 	purifier: App\Services\HtmlPurifier
 	log:

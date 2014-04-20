@@ -22,6 +22,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
     'Phinx' => array($vendorDir . '/robmorgan/phinx/src'),
+    'Pheanstalk' => array($vendorDir . '/pda/pheanstalk/classes'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Nelmio\\Alice\\' => array($vendorDir . '/nelmio/alice/src'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),

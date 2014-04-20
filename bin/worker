@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+/** @var \Nette\DI\Container $container */
+/** @var \App\Services\Queue $queue */
+use App\Tasks\Task;
+
+$container = require __DIR__ . '/../app/bootstrap.php';
+$queue = $container->getService('queue');
+
+while (TRUE)
+{
+	$queue->watch(function(Task $task, callable $next) use ($container) {
+		if (!$task->run($container))
+		{
+			/** @var \Monolog\Logger $log */
+			$log = $container->getService('log');
+			$log->addAlert(get_class($task) . ' failed', ['task' => $task]);
+		}
+		$next();
+	});
+}
