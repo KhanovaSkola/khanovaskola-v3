@@ -1,1 +1,3 @@
-<div id="{$_control->uniqueId}" class="editable" data-url-save="{link save!}">{$gist->text|noescape}</div>
+<div{if $editable} id="{$_control->uniqueId}" class="editable" data-url-save="{link save!}"{/if}>
+	{$gist->text|noescape}
+</div>
