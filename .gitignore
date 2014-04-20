@@ -9,5 +9,4 @@ app/config/config.local.neon
 /.vagrant
 tests/_data
 www/_index.php
-/www/beanstalk
 /notes.txt
