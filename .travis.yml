@@ -16,6 +16,8 @@ before_script:
   - psql -c 'create database khanovaskola;' -U postgres
   - rm tests/acceptance.suite.yml
   - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
+  - bin/console db:migrate
+  - bin/console db:fill
   - php -S localhost:8000 -t www/ &
 
 script: sh tests/travis/test.sh

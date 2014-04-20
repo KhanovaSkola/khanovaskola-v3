@@ -34,26 +34,31 @@ class FillTask extends Command
 
 		$loader = new Loader('cs_CZ');
 		$loader->setOrmMap($orm, $map);
-		$loader->setLogger(function($log) use ($output) {
+		$loader->setLogger(function ($log) use ($output)
+		{
 			$output->writeln("<info>$log</info>");
 		});
 
 		$objects = $loader->load(__DIR__ . '/../../../app/fixtures.yml');
 
-		try {
+		try
+		{
 			$persist = new Porm($orm, $map);
 			$persist->persist($objects);
-		} catch (\DibiDriverException $e) {
-			if ($e->getCode() === 1062)
+		}
+		catch (\DibiDriverException $e)
+		{
+			if (strpos($e->getMessage(), 'duplicate key') !== FALSE) // code not set
 			{
 				$output->writeln("<error>Duplicate entry, you are probably running on already populated database</error>");
+				$output->writeln("<comment>Reset database with <cmd>db:reset</cmd>, <cmd>db:migrate</cmd></comment>");
 				exit(1);
 			}
 			$output->writeln("<error>Database error. Do you have most recent migrations?</error>");
 			$output->writeln($e->getMessage());
 			exit(1);
 		}
-		$output->writeln("Database filled with fake data");
+		$output->writeln("<info>Database filled with fake data</info>");
 	}
 
 }

@@ -1,11 +1,5 @@
-App\Model\User:
-    user-tester:
-        name: Tester
+App\Model\Gist:
+    gist:
+        name: 'test'
+        text: <text(300)>
         createdAt: 'now'
-        email: test@example.com
-        plainPassword: test
-    user{1..10}:
-        name: <name()>
-        createdAt: <dateTimeBetween('-200 days', 'now')>
-        email: <email()>
-        plainPassword: pwd

@@ -17,7 +17,7 @@ class StopTask extends MaintenanceCommand
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		copy($this->getAppFile(), $this->getIndexFile());
-		$output->writeln('Maintenance mode stopped');
+		$output->writeln('<info>Maintenance mode stopped</info>');
 	}
 
 }

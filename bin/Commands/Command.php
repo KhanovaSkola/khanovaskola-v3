@@ -2,8 +2,9 @@
 
 namespace Commands;
 
-use Nette\DI\Container;
 use Symfony\Component\Console\Command\Command as BaseCommand;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
@@ -29,10 +30,12 @@ abstract class Command extends BaseCommand
 
 	public function setup() {}
 
-	protected function fail(OutputInterface $output, $msg)
+	public function run(InputInterface $input, OutputInterface $output)
 	{
-		$output->writeln("<error>$msg</error>");
-		exit(1);
+		$cmd = new OutputFormatterStyle('black', 'white', ['bold']);
+		$output->getFormatter()->setStyle('cmd', $cmd);
+
+		parent::run($input, $output);
 	}
 
 }

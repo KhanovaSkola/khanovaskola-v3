@@ -19,7 +19,6 @@ abstract class Entity extends Orm\Entity
 			/** @var Orm\Repository $value */
 			return $value->attach($this);
 		}
-
 		$this->$name = $value;
 	}
 
