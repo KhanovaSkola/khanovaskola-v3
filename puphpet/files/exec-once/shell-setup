@@ -1,4 +1,4 @@
 chsh -s /bin/zsh vagrant
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | ZSH=/home/vagrant/.oh-my-zsh sh
-rm .zshrc
-mv .zshrc.pre-oh-my-zsh .zshrc
+curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sudo -u vagrant sh
+sudo -u vagrant rm .zshrc
+sudo -u vagrant mv .zshrc.pre-oh-my-zsh .zshrc

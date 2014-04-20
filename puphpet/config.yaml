@@ -14,7 +14,7 @@ vagrantfile-local:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
-                    memory: '512'
+                    memory: '1024'
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
@@ -51,8 +51,8 @@ server:
         -
             bash_aliases: null
     _prevent_empty: ''
-mailcatcher:
-    install: '0'
+mailcatcher: # installs supervisord
+    install: '1'
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025

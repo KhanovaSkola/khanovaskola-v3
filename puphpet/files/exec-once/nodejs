@@ -11,9 +11,6 @@ git checkout v0.11.12
 make
 sudo make install
 node -v
- 
-# Lucky us: NPM is packaged with Node.js source so this is now installed too
-# curl http://npmjs.org/install.sh | sudo sh
 npm -v
 
 sudo npm install -g grunt-cli
