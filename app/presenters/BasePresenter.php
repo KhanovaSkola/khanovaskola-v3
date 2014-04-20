@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\GistRenderer;
 use App\Model\RepositoryContainer;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
@@ -60,6 +61,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public function beforeRender()
 	{
 		$this->template->setTranslator($this->translator);
+	}
+
+	public function createComponentGist()
+	{
+		return new GistRenderer();
 	}
 
 }
