@@ -11,11 +11,15 @@ matrix:
     - php: 5.5
       env: TEST_SUITE=cs
 
+install:
+  - sudo apt-get install beanstalkd
+
 before_script:
   - cp tests/travis/config.local.neon app/config/config.local.neon
   - psql -c 'create database khanovaskola;' -U postgres
   - rm tests/acceptance.suite.yml
   - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
+  - beanstalkd -l 127.0.0.1 -p 13000 &
   - bin/console db:migrate
   - bin/console db:fill
   - php -S localhost:8000 -t www/ &
@@ -24,3 +28,5 @@ script: sh tests/travis/test.sh
 
 after_success:
   - sh tests/travis/success.sh
+after_failure:
+  - sh tests/travis/fail.sh
