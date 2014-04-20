@@ -28,7 +28,8 @@ module.exports = function(grunt) {
 
                         'www/js/app/app.js',
                         'www/js/app/autocomplete.js',
-                        'www/js/app/inlineEditor.js'
+                        'www/js/app/inlineEditor.js',
+                        'www/js/app/urlFixes.js'
                     ]
                 }
 			}
