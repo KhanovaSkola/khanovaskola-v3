@@ -6,7 +6,9 @@ Khanova škola – verze 3
 Setup
 -----
 
-```
+**These commands are to be run on local machichine:**
+
+```sh
 vagrant up
 ```
 
@@ -15,43 +17,55 @@ while vagrant installs, add the following line to your `/etc/hosts`
 192.168.56.101 khanovaskola.l
 ```
 
+install git hooks
+```sh
+sh bin/install-hooks
+```
+
 Info
 ----
 
-**These commands are to be run on vagrant (`vagrant ssh`).**
+**These commands are to be run on local machichine:**
+
+skip codesniffer `pre-commit` hook
+```sh
+git commit --no-verify
+```
+
+**These commands are to be run on vagrant (`vagrant ssh`):**
 
 run unit tests:
-```
+```sh
 php -c /etc/php5/cli/php.ini vendor/bin/tester tests/unit/
 ```
 
 run acceptance tests:
-```
+```sh
 php vendor/bin/codecept run acceptance
 ```
 
 run coding style (cs) tests:
-```
+```sh
 php vendor/bin/phpcs -p --standard=tests/cs app
 ```
 
 create new migration from template:
-```
+```sh
 php bin/console db:create whatAmIChanging
 ```
 
 run migrations:
-```
+```sh
 php bin/console db:migrate
 ```
 
 start/stop maintenance mode:
-```
+```sh
 php bin/console maintenance:[stop|start]
 ```
 
 build both styles (`grunt less`) and scripts (`grunt uglify`):
-```
+```sh
 grunt
 ```
 
