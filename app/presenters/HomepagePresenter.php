@@ -8,6 +8,8 @@ use App\Model\User;
 use App\Tasks\SendMail;
 use App\Tasks\SendMailTask;
 use Kdyby\Events\EventArgsList;
+use Kdyby\Facebook\Facebook;
+use Kdyby\Facebook\FacebookApiException;
 use Nette\Application\UI\Form;
 use Nette\Utils\Strings;
 
@@ -28,6 +30,22 @@ final class HomepagePresenter extends BasePresenter
 		//	$this
 		// ]));
 		// dump($this->eventManager);
+	}
+
+	private function doesCurrentUserLikePage()
+	{
+		/** @var Facebook $fb */
+		$fb = $this->context->getByType('Kdyby\\Facebook\\Facebook');
+		$fb->setAccessToken($this->userEntity->facebookAccessToken);
+		$pageId = $this->context->parameters['fb']['pageId'];
+		try
+		{
+			return count($fb->api("me/likes/$pageId")->data) !== 0;
+		}
+		catch (FacebookApiException $e)
+		{
+			return FALSE; // safe fallback
+		}
 	}
 
 }
