@@ -15,9 +15,9 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		$this->flashSuccess('Nicely done.', 'That action you made us do went down jsut fine.');
-		$this->flashInfo('Just so you know…', 'While it worked, an inconsitency was found and fixed automatically.');
-		$this->flashError('Oh snap!', 'Database went away and I will fix it straight away.');
+		$this->flashSuccess('test.flash.success');
+		$this->flashInfo('test.flash.info');
+		$this->flashError('test.flash.error');
 	}
 
 }

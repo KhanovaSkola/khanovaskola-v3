@@ -74,22 +74,22 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return new GistRenderer();
 	}
 
-	public function flashError($title, $message)
+	public function flashError($key)
 	{
-		$this->flash($title, $message, self::FLASH_ERROR);
+		$this->flash($key, self::FLASH_ERROR);
 	}
 
-	public function flashInfo($title, $message)
+	public function flashInfo($key)
 	{
-		$this->flash($title, $message, self::FLASH_INFO);
+		$this->flash($key, self::FLASH_INFO);
 	}
 
-	public function flashSuccess($title, $message)
+	public function flashSuccess($key)
 	{
-		$this->flash($title, $message, self::FLASH_SUCCESS);
+		$this->flash($key, self::FLASH_SUCCESS);
 	}
 
-	private function flash($title, $message, $type)
+	private function flash($key, $type)
 	{
 		if (!in_array($type, [
 			self::FLASH_ERROR,
@@ -103,8 +103,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$id = $this->getParameterId('flash');
 		$messages = $this->getPresenter()->getFlashSession()->$id;
 		$messages[] = $flash = (object) [
-			'message' => $message,
-			'title' => $title,
+			'title' => $this->translator->translate("$key.title"),
+			'message' => $this->translator->translate("$key.message"),
 			'type' => $type,
 		];
 		$this->getTemplate()->flashes = $messages;

@@ -1,6 +1,42 @@
+#:Homepage
 homepage:
     title:
         zero: "Nula brambor"
         one: "Jedna brambora"
         few: "%1 brambory %1"
         many: "%1 brambor"
+
+# :Test
+test:
+    flash:
+        success:
+            title: "Skvěle."
+            message: "Něco co jste chtěli jsme udělali bezchybně."
+        info:
+            title: "Téměř hotovo…"
+            message: "Než budete moct pokračovat dál, raději to překontrolujte."
+        error:
+            title: "Všecko špatně!"
+            message: "Tohle se nedá opravit a doporučuju smazat appku."
+
+# :Auth
+auth:
+    flash:
+        fb:
+            denied:
+                title: "Nechcete se přihlásit?"
+                message: "Slibujeme, že vaše osobní informace nezneužijeme."
+            error:
+                title: "Přihlášení selhalo."
+                message: "Zkuste to prosím znovu."
+        login:
+            newUser:
+                title: "Vítejte na Khanově škole."
+                message: "" #TODO
+            returning:
+                title: "Vítejte zpět!"
+                message: "" #TODO
+        logout:
+            title: "Mějte se."
+            message: "Příště se naučíme ještě víc."
+

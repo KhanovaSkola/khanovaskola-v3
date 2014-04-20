@@ -12,6 +12,8 @@ Setup
 vagrant up
 ```
 
+(If you are running guest additions 4.3.10 and getting an error, see http://stackoverflow.com/a/22723807/326257.)
+
 while vagrant installs, add the following line to your `/etc/hosts`
 ```
 192.168.56.101 khanovaskola.l

@@ -9,7 +9,9 @@ use Orm\DibiCollection;
  * @mapper App\Model\Mapper
  *
  * @method DibiCollection findAll()
- * @method DibiCollection findByEmail()
+ *
+ * @method User getByFacebookId()
+ * @method User getByEmail()
  */
 class UsersRepository extends Repository
 {
