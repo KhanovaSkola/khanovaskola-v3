@@ -23,6 +23,7 @@ abstract class Control extends \Nette\Application\UI\Control
 		{
 			$view = $name === 'render' ? 'default' : substr($name, strlen('render'));
 			$this->render($view, $args);
+			return NULL;
 		}
 		else
 		{

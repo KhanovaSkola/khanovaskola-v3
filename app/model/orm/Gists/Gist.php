@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Nette\DateTime;
-use Nette\Security\Passwords;
+
 use Orm;
 
 
@@ -16,7 +16,7 @@ class Gist extends Entity
 {
 
 	/**
-	 * @param $text unsafe html
+	 * @param string $text unsafe html
 	 * @param bool $pure set to TRUE to skip purification
 	 */
 	public function setText($text, $pure = FALSE)

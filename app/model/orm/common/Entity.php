@@ -17,9 +17,12 @@ abstract class Entity extends Orm\Entity
 		if ($name === Porm::PERSIST_HACK)
 		{
 			/** @var Orm\Repository $value */
-			return $value->attach($this);
+			$value->attach($this);
 		}
-		$this->$name = $value;
+		else
+		{
+			$this->$name = $value;
+		}
 	}
 
 }

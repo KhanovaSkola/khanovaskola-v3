@@ -22,7 +22,8 @@ class MapperFactory extends \Orm\MapperFactory
 
 
 	/**
-	 * @param IRepository
+	 * @param IRepository $repository
+	 * @internal param $IRepository
 	 * @return IMapper
 	 */
 	public function createMapper(IRepository $repository)

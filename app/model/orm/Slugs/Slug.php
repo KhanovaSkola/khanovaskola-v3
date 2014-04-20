@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use Nette\DateTime;
+
 
 /**
  * @property string $slug
