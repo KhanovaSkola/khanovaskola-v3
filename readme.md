@@ -22,7 +22,7 @@ Info
 
 run unit tests:
 ```
-php vendor/bin/tester tests/unit/
+php -c /etc/php5/cli/php.ini vendor/bin/tester tests/unit/
 ```
 
 run acceptance tests:
