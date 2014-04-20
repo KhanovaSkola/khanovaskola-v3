@@ -1,9 +1,14 @@
 parameters:
-	configVersion: 1
+	configVersion: 2
 	database:
 		username:
 		password:
 		database:
+	smtp:
+		host: mailtrap.io
+		port: 25
+		username: "197407abde040f4e4"
+		password: "fd4cd6f1568ac1"
 	elastic:
 		hosts:
 			- localhost
