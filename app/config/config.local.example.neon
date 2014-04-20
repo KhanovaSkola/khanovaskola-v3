@@ -1,3 +1,9 @@
+#
+# After adding new keys, bump configVersion and
+# don't forget to update tests/travis/config.local.neon
+#
+# Passwords in this file are unsafe. We know they are public.
+#
 parameters:
 	configVersion: 2
 	database:
@@ -9,8 +15,9 @@ parameters:
 		port: 25
 		username: "197407abde040f4e4"
 		password: "fd4cd6f1568ac1"
+		# secure: ssl
 	elastic:
 		hosts:
 			- localhost
-		#connectionParams:
-		#	auth: [username, password", "Basic"]
+		# connectionParams:
+		# 	auth: [username, password", "Basic"]
