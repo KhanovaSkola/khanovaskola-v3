@@ -62,7 +62,7 @@ adminer
 http://khanovaskola.l/adminer
 
 mail catcher
-http://khanovaskola.l:1080
+https://mailtrap.io/inboxes/23883/messages
 
 beanstalkd console
 http://khanovaskola.l/beanstalk/public/

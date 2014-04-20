@@ -15,6 +15,8 @@ final class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
+		$this->context->getService('mailer')->send('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
+
 		$gist = $this->orm->gists->getByName('test');
 		$this['gist']->setEditable(TRUE);
 		$this['gist']->setGist($gist);

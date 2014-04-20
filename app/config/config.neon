@@ -41,6 +41,7 @@ services:
 	- App\Services\Authenticator
 	- App\Services\Translator(%appDir%/localization)
 
+	mailer: App\Services\Mailer(%smtp%)
 	purifier: App\Services\HtmlPurifier
 	log:
 		class: Monolog\Logger
