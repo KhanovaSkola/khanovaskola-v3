@@ -1,9 +1,10 @@
 parameters:
-	configVersion: 1
+	configVersion: 2
 	database:
 		username: postgres
 		password: 123
 		database: khanovaskola
+	smtp:
 	elastic:
 		hosts:
 			- localhost
