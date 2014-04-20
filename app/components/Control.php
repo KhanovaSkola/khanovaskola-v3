@@ -47,6 +47,8 @@ abstract class Control extends \Nette\Application\UI\Control
 		$this->template->render();
 	}
 
-	public function beforeRender() {}
+	public function beforeRender()
+	{
+	}
 
 }
