@@ -6,6 +6,7 @@ use App\Components\GistRenderer;
 use App\DeprecatedException;
 use App\InvalidArgumentException;
 use App\Model\RepositoryContainer;
+use App\Model\User;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Monolog\Logger;
@@ -18,6 +19,7 @@ use Nette;
  * @property-read Logger $log
  * @property-read EventManager $eventManager
  * @property-read Nette\Templating\FileTemplate $template
+ * @property-read User $userEntity
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
@@ -62,6 +64,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public function getLog()
 	{
 		return $this->context->getService('log');
+	}
+
+	/**
+	 * @return User
+	 */
+	public function getUserEntity()
+	{
+		return $this->orm->users->getById($this->user->id);
 	}
 
 	public function beforeRender()

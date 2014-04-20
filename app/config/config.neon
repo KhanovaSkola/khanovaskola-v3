@@ -16,6 +16,8 @@ parameters:
 	repositories:
 		users: App\Model\UsersRepository
 		gists: App\Model\GistsRepository
+	fb:
+		pageId: "268941846529405"
 
 php:
 	date.timezone: Europe/Prague
