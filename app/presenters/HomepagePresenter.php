@@ -17,8 +17,8 @@ final class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		$task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
-		$this->context->getService('queue')->enqueue($task);
+		// $task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
+		// $this->context->getService('queue')->enqueue($task);
 
 		$gist = $this->orm->gists->getByName('test');
 		$this['gist']->setEditable(TRUE);

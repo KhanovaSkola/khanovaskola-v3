@@ -9,8 +9,10 @@ use Orm;
 
 /**
  * @property string $name
- * @property string $password
+ * @property string|NULL $password
  * @property string $email
+ * @property string $facebookId
+ * @property string $facebookAccessToken
  * @property DateTime $createdAt {default now}
  */
 class User extends Entity
