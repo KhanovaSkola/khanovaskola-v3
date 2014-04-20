@@ -37,7 +37,7 @@ class Configurator extends Nette\Configurator
 
 	/**
 	 * @param string|NULL null means autodetect
-	 * @param array|NULL
+	 * @param array|NULL $params
 	 */
 	public function __construct($tempDirectory = NULL, array $params = NULL)
 	{
