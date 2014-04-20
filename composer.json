@@ -5,7 +5,7 @@
 	"authors": [
 		{"name": "Mikuláš Dítě"}
 	],
-    "preferred-install": "dist",
+	"preferred-install": "dist",
 	"require": {
 		"php": ">= 5.5.0",
 		"nette/nette": "~2.1.0",
@@ -24,9 +24,9 @@
 	"require-dev": {
 		"nette/tester": "~1.1.0",
 		"elfet/deployer": "@dev",
-        "nelmio/alice": "~1.6.0",
-        "codeception/codeception": "~1.8.0",
-        "squizlabs/php_codesniffer": "~1.5.2"
+		"nelmio/alice": "~1.6.0",
+		"codeception/codeception": "~1.8.0",
+		"squizlabs/php_codesniffer": "~1.5.2"
 	},
 	"repositories": [
 		{
@@ -34,8 +34,8 @@
 			"url": "https://github.com/Mikulas/deployer.git"
 		}
 	],
-    "scripts": {
-        "post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
-        "post-install-cmd": ["echo Warning: Deleting all .git dirs under vendor", "rm -rf vendor/**/**/.git"]
-    }
+	"scripts": {
+		"post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
+		"post-install-cmd": ["echo Warning: Deleting all .git dirs under vendor", "rm -rf vendor/**/**/.git"]
+	}
 }

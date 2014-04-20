@@ -18,20 +18,20 @@ module.exports = function(grunt) {
 			production: {
 				preserveComments: false,
 				files: {
-                    'www/js/compiled.js': [
-                        'www/js/vendor/jquery.js',
-                        'www/js/vendor/elasticsearch.jquery.min.js',
-                        'www/js/vendor/medium-editor.js',
-                        'www/js/vendor/bootstrap/alert.js',
-                        'www/js/vendor/netteForm.js',
-                        'www/js/vendor/typeahead.bundle.js',
+					'www/js/compiled.js': [
+						'www/js/vendor/jquery.js',
+						'www/js/vendor/elasticsearch.jquery.min.js',
+						'www/js/vendor/medium-editor.js',
+						'www/js/vendor/bootstrap/alert.js',
+						'www/js/vendor/netteForm.js',
+						'www/js/vendor/typeahead.bundle.js',
 
-                        'www/js/app/app.js',
-                        'www/js/app/autocomplete.js',
-                        'www/js/app/inlineEditor.js',
-                        'www/js/app/urlFixes.js'
-                    ]
-                }
+						'www/js/app/app.js',
+						'www/js/app/autocomplete.js',
+						'www/js/app/inlineEditor.js',
+						'www/js/app/urlFixes.js'
+					]
+				}
 			}
 		}
 	});

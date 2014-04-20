@@ -27,6 +27,11 @@ sh bin/install-hooks
 Info
 ----
 
+Commit tags:
+
+- `[cs]` coding standard, code smell removal, whitespace, etc.
+- `[dev]` vagrant setup
+
 **These commands are to be run on local machichine:**
 
 skip codesniffer `pre-commit` hook

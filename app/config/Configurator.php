@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette;
 use Nette\DI;
