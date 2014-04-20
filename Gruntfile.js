@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                         'www/js/vendor/jquery.js',
                         'www/js/vendor/elasticsearch.jquery.min.js',
                         'www/js/vendor/medium-editor.js',
-                        //'www/js/vendor/bootstrap/foo.js',
+                        'www/js/vendor/bootstrap/alert.js',
                         'www/js/vendor/netteForm.js',
                         'www/js/vendor/typeahead.bundle.js',
 

@@ -3,6 +3,8 @@
 namespace App\Presenters;
 
 use App\Components\GistRenderer;
+use App\DeprecatedException;
+use App\InvalidArgumentException;
 use App\Model\RepositoryContainer;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
@@ -19,6 +21,10 @@ use Nette;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+
+	const FLASH_ERROR = 'danger';
+	const FLASH_INFO = 'info';
+	const FLASH_SUCCESS = 'success';
 
 	public function startup()
 	{
@@ -66,6 +72,48 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public function createComponentGist()
 	{
 		return new GistRenderer();
+	}
+
+	public function flashError($title, $message)
+	{
+		$this->flash($title, $message, self::FLASH_ERROR);
+	}
+
+	public function flashInfo($title, $message)
+	{
+		$this->flash($title, $message, self::FLASH_INFO);
+	}
+
+	public function flashSuccess($title, $message)
+	{
+		$this->flash($title, $message, self::FLASH_SUCCESS);
+	}
+
+	private function flash($title, $message, $type)
+	{
+		if (!in_array($type, [
+			self::FLASH_ERROR,
+			self::FLASH_INFO,
+			self::FLASH_SUCCESS,
+		])) {
+			throw new InvalidArgumentException;
+		}
+
+		$id = $this->getParameterId('flash');
+		$messages = $this->getPresenter()->getFlashSession()->$id;
+		$messages[] = $flash = (object) [
+			'message' => $message,
+			'title' => $title,
+			'type' => $type,
+		];
+		$this->getTemplate()->flashes = $messages;
+		$this->getPresenter()->getFlashSession()->$id = $messages;
+		return $flash;
+	}
+
+	final public function flashMessage($message, $type = NULL, $title = NULL)
+	{
+		throw new DeprecatedException('Use flashError, flashInfo or flashSuccess instead');
 	}
 
 }
