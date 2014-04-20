@@ -16,6 +16,7 @@ final class HomepagePresenter extends BasePresenter
 	public function actionDefault()
 	{
 		$gist = $this->orm->gists->getByName('test');
+		$this['gist']->setEditable(TRUE);
 		$this['gist']->setGist($gist);
 
 		// $this->eventManager->dispatchEvent('onVideoWatched', new EventArgsList([
