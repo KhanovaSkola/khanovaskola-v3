@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT="$DIR/../.."
+
+php "$ROOT/vendor/bin/phpcs" --severity=1 -p --standard="$ROOT/tests/cs" "$ROOT/app"
