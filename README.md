@@ -29,8 +29,8 @@ Info
 
 Commit tags:
 
-- `[cs]` coding standard, code smell removal, whitespace, etc.
-- `[dev]` vagrant setup
+- `[cs]` Coding standard, code smell removal, whitespace, etc. Never affects build.
+- `[dev]` Vagrant setup. Never affects build.
 
 **These commands are to be run on local machichine:**
 
@@ -82,7 +82,7 @@ http://khanovaskola.l/
 adminer
 http://khanovaskola.l/adminer
 
-mail catcher
+mail trap
 https://mailtrap.io/inboxes/23883/messages
 
 beanstalkd console
