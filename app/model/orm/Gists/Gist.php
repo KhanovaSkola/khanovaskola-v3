@@ -15,10 +15,18 @@ use Orm;
 class Gist extends Entity
 {
 
-	public function setText($text)
+	/**
+	 * @param $text unsafe html
+	 * @param bool $pure set to TRUE to skip purification
+	 */
+	public function setText($text, $pure = FALSE)
 	{
-		$purifier = $this->model->getContext()->getService('purifier');
-		$this->setValue('text', $purifier->filter($text));
+		if (!$pure)
+		{
+			$purifier = $this->model->getContext()->getService('purifier');
+			$text = $purifier->filter($text);
+		}
+		$this->setValue('text', $text);
 	}
 
 }

@@ -46,7 +46,7 @@ class CreateTask extends Command
 
 		$out = $this->getFileName($name);
 		file_put_contents("$dir/$out", $template);
-		$output->writeln("Migration created at '$out'");
+		$output->writeln("<info>Migration created at '$out'</info>");
 	}
 
 }

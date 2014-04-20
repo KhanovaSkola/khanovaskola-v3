@@ -17,7 +17,7 @@ class StartTask extends MaintenanceCommand
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		copy($this->getMaintenanceFile(), $this->getIndexFile());
-		$output->writeln('Maintenance mode started');
+		$output->writeln('<info>Maintenance mode started</info>');
 	}
 
 }
