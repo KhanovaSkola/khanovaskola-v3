@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Kdyby\Events\DI\EventsExtension;
-use Kdyby\Redis\DI\RedisExtension;
+
+use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette;
 use Nette\DI;
 use Nette\FileNotFoundException;
@@ -91,7 +91,9 @@ class Configurator extends Nette\Configurator
 
 	public function onAfterDebug(DI\Container $container)
 	{
-		Nette\Diagnostics\Debugger::getBar()->addPanel($container->getService('elasticPanel'));
+		/** @var ElasticSearchPanel $panel */
+		$panel = $container->getService('elasticPanel');
+		Nette\Diagnostics\Debugger::getBar()->addPanel($panel);
 	}
 
 	/**

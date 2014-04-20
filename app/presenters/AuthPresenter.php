@@ -7,6 +7,7 @@ use Kdyby\Facebook\Dialog\LoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Nette;
+use Nette\Security\Identity;
 
 
 final class AuthPresenter extends BasePresenter
@@ -61,7 +62,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->orm->flush(); // persist $userEntity
 
-				$this->user->login(new \Nette\Security\Identity($userEntity->id, [], $userEntity));
+				$this->user->login(new Identity($userEntity->id, [], $userEntity));
 
 				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'));
 			}

@@ -10,6 +10,7 @@ use Nette\Security\Passwords;
 class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
 {
 
+	/** @var UsersRepository */
 	protected $users;
 
 	public function __construct(UsersRepository $users)
@@ -25,7 +26,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	public function authenticate(array $credentials)
 	{
 		list($email, $password) = $credentials;
-		$user = $this->users->findByEmail($email)->fetch();
+		$user = $this->users->getByEmail($email);
 
 		if (!$user)
 		{

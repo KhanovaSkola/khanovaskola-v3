@@ -3,7 +3,7 @@
 
 namespace App\Factories;
 
-use App\Configurator;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 

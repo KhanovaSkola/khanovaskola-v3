@@ -2,16 +2,9 @@
 
 namespace App\Presenters;
 
-use App\Model\Event;
-use App\Model\Gist;
-use App\Model\User;
-use App\Tasks\SendMail;
-use App\Tasks\SendMailTask;
-use Kdyby\Events\EventArgsList;
+use App\Components\GistRenderer;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
-use Nette\Application\UI\Form;
-use Nette\Utils\Strings;
 
 
 final class HomepagePresenter extends BasePresenter
@@ -23,8 +16,10 @@ final class HomepagePresenter extends BasePresenter
 		// $this->context->getService('queue')->enqueue($task);
 
 		$gist = $this->orm->gists->getByName('test');
-		$this['gist']->setEditable(TRUE);
-		$this['gist']->setGist($gist);
+		/** @var GistRenderer $gistRenderer */
+		$gistRenderer = $this['gist'];
+		$gistRenderer->setEditable(TRUE);
+		$gistRenderer->setGist($gist);
 
 		// $this->eventManager->dispatchEvent('onVideoWatched', new EventArgsList([
 		//	$this
