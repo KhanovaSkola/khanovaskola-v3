@@ -1,9 +1,6 @@
 .DS_Store
-log/*
-temp/*
 .iws
 /.idea/workspace.xml
-
 !vendor/others
 !.gitignore
 !.htaccess

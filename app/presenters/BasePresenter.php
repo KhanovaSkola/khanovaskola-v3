@@ -95,7 +95,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 			self::FLASH_ERROR,
 			self::FLASH_INFO,
 			self::FLASH_SUCCESS,
-		])) {
+		]))
+		{
 			throw new InvalidArgumentException;
 		}
 
@@ -108,6 +109,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		];
 		$this->getTemplate()->flashes = $messages;
 		$this->getPresenter()->getFlashSession()->$id = $messages;
+
 		return $flash;
 	}
 
