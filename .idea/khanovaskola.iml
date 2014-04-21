@@ -9,7 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/elasticsearch/elasticsearch/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/elasticsearch/elasticsearch/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/elasticsearch/elasticsearch/benchmarks" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/vendor/nette/nette" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/pimple/pimple/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/symfony/class-loader/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/fallback" isTestSource="false" packagePrefix="Apc" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/symfony/class-loader/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/alpha" isTestSource="false" />
@@ -38,6 +37,7 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/guzzle/guzzle/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/vendor/nette/nette" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.vagrant" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/tests/_data" />

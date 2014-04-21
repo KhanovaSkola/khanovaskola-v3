@@ -28,9 +28,9 @@ class MapperFactory extends \Orm\MapperFactory
 	 */
 	public function createMapper(IRepository $repository)
 	{
-		if ($repository instanceof EventsRepository)
+		if ($repository instanceof VideosRepository)
 		{
-			return new EventsMapper($repository, $this->container->getByType('Elasticsearch\Client'));
+			return new VideosMapper($repository, $this->container->getService('elastic'));
 		}
 
 		$class = $this->getMapperClass($repository);
