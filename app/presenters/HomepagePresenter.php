@@ -30,6 +30,18 @@ final class HomepagePresenter extends BasePresenter
 		// dump($this->eventManager);
 	}
 
+	public function actionSearch($query)
+	{
+		if (!$query)
+		{
+			$this->template->results = [];
+		}
+		else
+		{
+			$this->template->results = $this->orm->videos->getWithFulltext($query);
+		}
+	}
+
 	private function doesCurrentUserLikePage()
 	{
 		/** @var Facebook $fb */
