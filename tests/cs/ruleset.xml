@@ -73,7 +73,4 @@
 	<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing" />
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing" />
 	<rule ref="Zend.Files.ClosingTag" />
-	<rule ref="Zend.NamingConventions.ValidVariableName">
-		<exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
-	</rule>
 </ruleset>
