@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\FileNotFoundException;
+use App\InvalidArgumentException;
 use App\InvalidStateException;
 use Monolog\Logger;
 use Nette;
@@ -92,6 +93,11 @@ class Translator implements Nette\Localization\ITranslator
 	 */
 	public function translate($steps, $count = NULL)
 	{
+		if (strpos($steps, ' ') !== FALSE)
+		{
+			throw new InvalidArgumentException("Translator expects key such as 'homepage.flash.error', not an actual message.");
+		}
+
 		if ($this->language === NULL)
 		{
 			throw new InvalidStateException('Translator language not set');
