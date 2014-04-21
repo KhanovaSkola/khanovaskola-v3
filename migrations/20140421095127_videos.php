@@ -10,9 +10,9 @@ class Videos extends AbstractMigration
 	{
 		$this->table('videos')
 			->addColumn('title', 'string', ['limit' => 250])
-			->addColumn('description', 'string', ['limit' => 250])
-			->addColumn('youtube_id', 'string', ['limit' => 250])
-			->addColumn('youtube_id_original', 'string', ['limit' => 250])
+			->addColumn('description', 'text')
+			->addColumn('youtube_id', 'string', ['limit' => 50])
+			->addColumn('youtube_id_original', 'string', ['limit' => 50])
 			->addColumn('created_at', 'datetime')
 			->addIndex(['youtube_id'], ['unique' => TRUE, 'name' => 'youtube_id'])
 			->save();
