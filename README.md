@@ -80,5 +80,8 @@ http://vagrant.khanovaskola.cz/adminer
 mail trap
 https://mailtrap.io/inboxes/23883/messages
 
+elasticsearch console
+http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200
+
 beanstalkd console
 http://vagrant.khanovaskola.cz/beanstalk/public/
