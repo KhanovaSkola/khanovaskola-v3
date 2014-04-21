@@ -107,7 +107,7 @@ final class AuthPresenter extends BasePresenter
 			$this->redirect('Homepage:');
 
 		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError($e->getMessage());
+			$this->flashError($e->getMessage());
 		}
 	}
 
