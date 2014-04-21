@@ -8,8 +8,3 @@ parameters:
 	elastic:
 		hosts:
 			- localhost
-
-redis:
-	journal: off
-	storage: off
-	session: off
