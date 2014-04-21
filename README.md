@@ -14,11 +14,6 @@ vagrant up
 
 (If you are running guest additions 4.3.10 and getting an error, see http://stackoverflow.com/a/22723807/326257.)
 
-while vagrant installs, add the following line to your `/etc/hosts`
-```
-192.168.56.101 khanovaskola.l
-```
-
 install git hooks
 ```sh
 sh bin/install-hooks
@@ -77,13 +72,13 @@ grunt
 ```
 
 http server
-http://khanovaskola.l/
+http://vagrant.khanovaskola.cz/
 
 adminer
-http://khanovaskola.l/adminer
+http://vagrant.khanovaskola.cz/adminer
 
 mail trap
 https://mailtrap.io/inboxes/23883/messages
 
 beanstalkd console
-http://khanovaskola.l/beanstalk/public/
+http://vagrant.khanovaskola.cz/beanstalk/public/

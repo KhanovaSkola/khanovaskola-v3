@@ -6,7 +6,7 @@ DISABLE_AUTO_TITLE="true"
 
 LESSCHARSET=UTF-8
 
-cd /var/www/khanovaskola.l
+cd /var/www/khanovaskola.cz
 
 plugins=(composer compleat gitfast git-extras osx urltools web-search zmv)
 

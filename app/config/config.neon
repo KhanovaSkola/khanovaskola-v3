@@ -14,8 +14,9 @@ parameters:
 	beanstalk:
 		host: 127.0.0.1:13000
 	repositories:
-		users: App\Model\UsersRepository
 		gists: App\Model\GistsRepository
+		users: App\Model\UsersRepository
+		videos: App\Model\VideosRepository
 	fb:
 		pageId: "268941846529405"
 
