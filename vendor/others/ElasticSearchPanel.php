@@ -14,7 +14,7 @@ class ElasticSearchPanel extends Nette\Object implements \Nette\Diagnostics\IBar
 
 	public function onSearch(array $res, array $params)
 	{
-		unset($res['hits']['hits']);
+//		unset($res['hits']['hits']);
 		$this->queries[] = [$res, $params];
 	}
 
@@ -65,7 +65,11 @@ class ElasticSearchPanel extends Nette\Object implements \Nette\Diagnostics\IBar
 			$s .= '<tr><td>'
 				. $query['took']
 				. '</td><td>'
-				. Nette\Diagnostics\Debugger::dump($params['body'], $return = TRUE)
+//				. Nette\Diagnostics\Debugger::dump($params['body'], $return = TRUE)
+				. '<code>'
+				. json_encode($params['body'])
+				. '</code>'
+				. Nette\Diagnostics\Debugger::dump($query['hits']['hits'], $return = TRUE)
 				. '</td><td>'
 				. $query['hits']['total']
 				. '</td><tr>';
