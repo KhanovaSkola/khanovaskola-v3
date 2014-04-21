@@ -26,6 +26,13 @@ auth:
       error:
         title: "Přihlášení selhalo."
         message: "Zkuste to prosím znovu."
+    password:
+      wrongUsername:
+        title: "Neznámý email."
+        message: "Určitě jste už zaregistrovaní?"
+      wrongPassword:
+        title: "Špatné heslo."
+        message: "Pokud jste heslo zapomněli, můžete si nastavit nové."
     login:
       newUser:
         title: "Vítejte na Khanově škole."
