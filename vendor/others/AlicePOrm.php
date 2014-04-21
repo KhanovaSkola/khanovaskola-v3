@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml as YamlParser;
 class Porm extends Yaml
 {
 
-	const PERSIST_HACK = 'zzzzz';
+	const PERSIST_HACK = '__persist_hack';
 
 	protected $orm;
 	protected $map;
@@ -28,21 +28,26 @@ class Porm extends Yaml
 
 		// isolates the file from current context variables and gives
 		// it access to the $loader object to inline php blocks if needed
-		$includeWrapper = function () use ($file, $loader) {
+		$includeWrapper = function () use ($file, $loader)
+		{
 			return include $file;
 		};
 		$data = $includeWrapper();
 
-		if (1 === $data) {
+		if (1 === $data)
+		{
 			// include didn't return data but included correctly, parse it as yaml
 			$yaml = ob_get_clean();
 			$data = YamlParser::parse($yaml);
-		} else {
+		}
+		else
+		{
 			// make sure to clean up if theres a failure
 			ob_end_clean();
 		}
 
-		if (!is_array($data)) {
+		if (!is_array($data))
+		{
 			throw new \UnexpectedValueException('Yaml files must parse to an array of data');
 		}
 
@@ -51,12 +56,8 @@ class Porm extends Yaml
 			foreach ($nodes as &$node)
 			{
 				$repo = $this->map[strToLower($class)];
-
 				// entity must be persisted before it can be attached to other entities
-				$node = array_merge([
-					'__set' => '__setter',
-					self::PERSIST_HACK => $this->orm->$repo,
-				], $node);
+				$node = array_merge(['__set' => '__setter', self::PERSIST_HACK => $this->orm->$repo,], $node);
 			}
 		}
 

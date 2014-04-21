@@ -3,3 +3,11 @@ App\Model\Gist:
     name: 'test'
     text: <text(300)>
     createdAt: 'now'
+
+App\Model\Video:
+  video{1..50}:
+    title (unique): <text(30)>
+    description: <text(150)>
+    youtubeId (unique): <youtubeId()>
+    youtubeIdOriginal: ''
+    createdAt: <dateTimeBetween('-200 days', 'now')>
