@@ -3,8 +3,6 @@
 namespace App\Model;
 
 
-
-
 /**
  * @mapper App\Model\Mapper
  *
