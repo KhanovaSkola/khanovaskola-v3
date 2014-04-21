@@ -23,7 +23,7 @@ class VideosMapper extends Mapper
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
 			/** @var Video $e */
 			$e = $args->entity;
-			$this->elastic->addToIndex('video', $e->id, [
+			$this->elastic->addToIndex($this->getType(), $e->id, [
 				'title' => $e->title,
 				'description' => $e->description,
 				'subtitles' => $e->getSubtitles(),
@@ -31,6 +31,50 @@ class VideosMapper extends Mapper
 		});
 	}
 
+	public function getWithFulltext($query)
+	{
 
+//		$this->elastic->addMapping($this->getType(), [
+//			'description' => [
+//				'type' => 'string',
+//				'store' => TRUE,
+//				'boost' => 1.2,
+//			],
+//			'subtitles' => [
+//				'type' => 'string',
+//				'store' => TRUE,
+//			],
+//			'title' => [
+//				'type' => 'string',
+//				'store' => TRUE,
+//				'boost' => 1.5,
+//			],
+//		]);
+
+		$res = $this->elastic->fulltextSearch($this->getType(), $query, ['title']);
+		if ($res['hits']['total'] === 0)
+		{
+			return $this->findAll()->where('1 = 0');
+		}
+
+		$ids = [];
+		$highlights = [];
+		foreach ($res['hits']['hits'] as $hit)
+		{
+			$id = (int) $hit['_id'];
+
+			$ids[] = $id;
+			$highlights[$id] = isset($hit['highlight']) ? $hit['highlight'] : [];
+		}
+
+		$this->findById($ids)->fetchAll(); // hydrate
+		$result = new HighlightCollection();
+		foreach ($ids as $id)
+		{
+			$entity = $this->repository->getIdentityMap()->getById($id);
+			$result->add($entity, $highlights[$id]);
+		}
+		return $result;
+	}
 
 }
