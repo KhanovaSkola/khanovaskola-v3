@@ -34,27 +34,27 @@ class VideosMapper extends Mapper
 	public function getWithFulltext($query)
 	{
 
-//		$this->elastic->addMapping($this->getType(), [
-//			'description' => [
-//				'type' => 'string',
-//				'store' => TRUE,
-//				'boost' => 1.2,
-//			],
-//			'subtitles' => [
-//				'type' => 'string',
-//				'store' => TRUE,
-//			],
-//			'title' => [
-//				'type' => 'string',
-//				'store' => TRUE,
-//				'boost' => 1.5,
-//			],
-//		]);
+		//$this->elastic->addMapping($this->getType(), [
+		//	'description' => [
+		//		'type' => 'string',
+		//		'store' => TRUE,
+		//		'boost' => 1.2,
+		//	],
+		//	'subtitles' => [
+		//		'type' => 'string',
+		//		'store' => TRUE,
+		//	],
+		//	'title' => [
+		//		'type' => 'string',
+		//		'store' => TRUE,
+		//		'boost' => 1.5,
+		//	],
+		//]);
 
 		$res = $this->elastic->fulltextSearch($this->getType(), $query, ['title']);
 		if ($res['hits']['total'] === 0)
 		{
-			return $this->findAll()->where('1 = 0');
+			return new HighlightCollection();
 		}
 
 		$ids = [];
