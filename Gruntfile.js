@@ -25,13 +25,11 @@ module.exports = function(grunt) {
 						'www/js/vendor/bootstrap/alert.js',
 						'www/js/vendor/netteForm.js',
 						'www/js/vendor/typeahead.bundle.js',
-                        'www/js/vendor/mediaelement-and-player.min.js',
 
 						'www/js/app/app.js',
 						'www/js/app/autocomplete.js',
 						'www/js/app/inlineEditor.js',
-						'www/js/app/urlFixes.js',
-						'www/js/app/video.js'
+						'www/js/app/urlFixes.js'
 					]
 				}
 			}

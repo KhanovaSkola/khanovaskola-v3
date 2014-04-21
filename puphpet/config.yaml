@@ -28,7 +28,7 @@ vagrantfile-local:
         synced_folder:
             cN8bHNBktGfW:
                 source: ./
-                target: /var/www/khanovaskola.l
+                target: /var/www/khanovaskola.cz
                 nfs: 'true'
         usable_port_range: 2200..2250
     ssh:
@@ -94,10 +94,8 @@ nginx:
     install: '1'
     vhosts:
         clOMvOPkVaMU:
-            server_name: khanovaskola.l
-            server_aliases:
-                - www.khanovaskola.l
-            www_root: /var/www/khanovaskola.l/www
+            server_name: vagrant.khanovaskola.cz
+            www_root: /var/www/khanovaskola.cz/www
             listen_port: '80'
             index_files:
                 - index.php
