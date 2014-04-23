@@ -41,12 +41,18 @@ class Highlight extends Object
 				// One fragment, probably with whole field
 				// enforced by number_of_fragments: 0
 				$safe = htmlspecialchars($unsafe);
+
+				$words = ['']; // empty word to merge immediate tokens
+				foreach (ElasticSearch::getStopwords() as $word)
+				{
+					$words[] = preg_quote($word, '~');
+				}
 				$safe = preg_replace(
 					'~' .
 					preg_quote(ElasticSearch::HIGHLIGHT_END, '~') .
-					'\s*' .
+					'(\s*(' . implode('|', $words) . ')\s*)' .
 					preg_quote(ElasticSearch::HIGHLIGHT_START, '~') .
-					'~', ' ', $safe);
+					'~', '$1', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<em>', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_END, '</em>', $safe);
 				$result[] = $safe;
