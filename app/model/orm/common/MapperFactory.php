@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Services\ElasticSearch;
 use Nette\DI\Container;
 use Orm\AnnotationClassParser;
 use Orm\IMapper;
@@ -30,7 +31,9 @@ class MapperFactory extends \Orm\MapperFactory
 	{
 		if ($repository instanceof VideosRepository)
 		{
-			return new VideosMapper($repository, $this->container->getService('elastic'));
+			/** @var ElasticSearch $elastic */
+			$elastic = $this->container->getService('elastic');
+			return new VideosMapper($repository, $elastic);
 		}
 
 		$class = $this->getMapperClass($repository);

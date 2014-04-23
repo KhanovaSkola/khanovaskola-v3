@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Model\Video;
 use Kdyby\Events\Subscriber;
 use Nette\Object;
 

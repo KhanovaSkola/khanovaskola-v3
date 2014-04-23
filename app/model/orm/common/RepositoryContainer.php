@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Clevis\Skeleton;
 use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
 use Nette\DI\Container;
 
 
@@ -21,7 +22,9 @@ class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 	public function __construct($containerFactory = NULL, $repositories = [], Container $container = NULL)
 	{
 		parent::__construct($containerFactory, $repositories);
-		$this->cache = new Cache($container->getService('cacheStorage'));
+		/** @var IStorage $storage */
+		$storage = $container->getService('cacheStorage');
+		$this->cache = new Cache($storage);
 	}
 
 	/**

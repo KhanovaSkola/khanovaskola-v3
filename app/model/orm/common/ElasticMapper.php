@@ -20,7 +20,7 @@ class ElasticMapper extends Mapper
 
 		$events = $repository->getEvents();
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
-			/** @var IIndexable $e */
+			/** @var IIndexable|Entity $e */
 			$e = $args->entity;
 			$this->elastic->addToIndex($this->getEsType(), $e->id, $e->getIndexData());
 		});

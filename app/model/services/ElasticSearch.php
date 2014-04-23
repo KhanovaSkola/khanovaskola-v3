@@ -4,10 +4,10 @@ namespace App\Services;
 
 use App\DeprecatedException;
 use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Mikulas\Diagnostics\ElasticSearchPanel;
-use Nette\Utils\Json;
+
 use Nette\Utils\Neon;
 
 

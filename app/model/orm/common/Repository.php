@@ -16,6 +16,7 @@ abstract class Repository extends Orm\Repository
 	public function __construct(IRepositoryContainer $model)
 	{
 		parent::__construct($model);
+		/** @var Repository $model */
 		$this->cache = $model->getCache();
 	}
 
