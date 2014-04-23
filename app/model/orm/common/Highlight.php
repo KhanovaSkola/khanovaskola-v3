@@ -50,7 +50,7 @@ class Highlight extends Object
 				$safe = preg_replace(
 					'~' .
 					preg_quote(ElasticSearch::HIGHLIGHT_END, '~') .
-					'(\s*(' . implode('|', $words) . ')\s*)' .
+					'(\W*\s*(' . implode('|', $words) . ')\s*\W*)' .
 					preg_quote(ElasticSearch::HIGHLIGHT_START, '~') .
 					'~', '$1', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<em>', $safe);
