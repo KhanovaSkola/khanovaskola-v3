@@ -1,6 +1,6 @@
 {block content}
 
-<code>?query=</code>
+<h1>Výsledky pro <code>{$query}</code></h1>
 {foreach $results as $video}
 	<h2>{$video->title|noescape}</h2>
 	<p>{$video->description|noescape}</p>
