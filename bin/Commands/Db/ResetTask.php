@@ -17,7 +17,7 @@ class ResetTask extends Command
 
 	public function setup()
 	{
-		$this->setDescription('Remove all tables and data from database');
+		$this->setDescription('Remove all tables and data from database (DROPS DATA)');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)

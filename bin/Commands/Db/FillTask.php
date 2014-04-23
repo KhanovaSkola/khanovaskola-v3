@@ -5,6 +5,7 @@ namespace Commands\Db;
 use App\InvalidStateException;
 use App\Model\RepositoryContainer;
 use App\Model\UsersRepository;
+use App\Model\Video;
 use Commands\Command;
 use Nelmio\Alice\ORM\Porm;
 use Nelmio\Alice\Loader\Porm as Loader;
@@ -36,20 +37,26 @@ class FillTask extends Command
 		}
 
 		$loader = new Loader('cs_CZ', [$this]);
-//		$loader->addProccessor(function($key, $value) {
-//			if ($value === '<youtubeId()>')
-//			{
-//				return $this->getYoutubeId();
-//			}
-//			return $value;
-//		});
 		$loader->setOrmMap($orm, $map);
 		$loader->setLogger(function ($log) use ($output)
 		{
 			$output->writeln("<info>$log</info>");
 		});
 
-		$objects = $loader->load(__DIR__ . '/../../../app/fixtures.yml');
+		$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
+		$videos = array_slice($videos, 0, 400);
+		foreach ($videos as list($youtubeId, $title, $description))
+		{
+			$video = new Video;
+			$video->youtubeId = $youtubeId;
+			$video->youtubeIdOriginal = '';
+			$video->title = $title;
+			$video->description = $description;
+			$orm->videos->attach($video);
+		}
+		$orm->flush();
+
+		$objects = $loader->load(__DIR__ . '/../../../app/fixtures/fixtures.yml');
 
 		try
 		{
