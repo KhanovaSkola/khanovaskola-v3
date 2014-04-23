@@ -26,6 +26,7 @@ before_script:
   - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
   - beanstalkd -l 127.0.0.1 -p 13000 &
   - bin/console db:migrate
+  - bin/console es:recreate
   - bin/console db:fill --testdata
   - php -S localhost:8000 -t www/ &
 
