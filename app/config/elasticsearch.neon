@@ -23,11 +23,11 @@ mappings:
 			title:
 				type: string
 				store: 'true'
-				boost: 1.5
+				boost: 5
 			description:
 				type: string
 				store: 'true'
-				boost: 1.2
+				boost: 4
 			subtitles:
 				type: string
 				store: 'true'
