@@ -25,10 +25,11 @@ before_script:
   - rm tests/acceptance.suite.yml
   - mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
   - beanstalkd -l 127.0.0.1 -p 13000 &
+  - php -S localhost:8000 -t www/ &
+  - sleep 10 # wait for all services to load
   - bin/console db:migrate
   - bin/console es:recreate
   - bin/console db:fill --testdata
-  - php -S localhost:8000 -t www/ &
 
 script: sh tests/travis/test.sh
 
