@@ -19,6 +19,9 @@ install:
   - sudo apt-get install beanstalkd
 
 before_script:
+  - php -r "echo file_get_contents('http://localhost:9200');"
+  - sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/1.13.0
+  - sudo service elasticsearch restart
   - cat tests/travis/php-custom.ini >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - cp tests/travis/config.local.neon app/config/config.local.neon
   - psql -c 'create database khanovaskola;' -U postgres
