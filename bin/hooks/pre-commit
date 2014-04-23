@@ -1,6 +1,8 @@
 #!/bin/sh
+#
+# Run CodeSniffer on all staged files
+#
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ROOT="$DIR/../.."
-
-php "$ROOT/vendor/bin/phpcs" --severity=1 -p --standard="$ROOT/tests/cs" "$ROOT/app"
+cd "$DIR/../.."
+git diff --name-only --cached | grep .php | xargs php "vendor/bin/phpcs" --severity=1 -p --standard="tests/cs"
