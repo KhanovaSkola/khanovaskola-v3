@@ -2,7 +2,9 @@
 <ruleset name="KsCodingStandard">
 	<description>Clevis coding standard</description>
 	<rule ref="Generic.Classes.DuplicateClassName" />
-	<rule ref="Generic.CodeAnalysis.EmptyStatement" />
+	<rule ref="Generic.CodeAnalysis.EmptyStatement">
+        <exclude name="Generic.CodeAnalysis.EmptyStatement" />
+    </rule>
 	<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop" />
 	<rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
 	<rule ref="Generic.CodeAnalysis.JumbledIncrementer" />
