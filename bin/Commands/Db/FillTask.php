@@ -4,12 +4,10 @@ namespace Commands\Db;
 
 use App\InvalidStateException;
 use App\Model\RepositoryContainer;
-use App\Model\UsersRepository;
 use App\Model\Video;
 use Commands\Command;
-use Nelmio\Alice\ORM\Porm;
 use Nelmio\Alice\Loader\Porm as Loader;
-use Nette\Utils\Strings;
+use Nelmio\Alice\ORM\Porm;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -45,8 +43,9 @@ class FillTask extends Command
 
 		$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
 		$videos = array_slice($videos, 0, 400);
-		foreach ($videos as list($youtubeId, $title, $description))
+		foreach ($videos as $nodes)
 		{
+			list($youtubeId, $title, $description) = $nodes;
 			$video = new Video;
 			$video->youtubeId = $youtubeId;
 			$video->youtubeIdOriginal = '';
@@ -67,15 +66,15 @@ class FillTask extends Command
 		{
 			if (strpos($e->getMessage(), 'duplicate key') !== FALSE) // code not set
 			{
-				$output->writeln("<error>Duplicate entry, you are probably running on already populated database</error>");
-				$output->writeln("<comment>Reset database with <cmd>db:reset</cmd>, <cmd>db:migrate</cmd></comment>");
+				$output->writeln('<error>Duplicate entry, you are probably running on already populated database</error>');
+				$output->writeln('<comment>Reset database with <cmd>db:reset</cmd>, <cmd>db:migrate</cmd></comment>');
 				exit(1);
 			}
-			$output->writeln("<error>Database error. Do you have most recent migrations?</error>");
+			$output->writeln('<error>Database error. Do you have most recent migrations?</error>');
 			$output->writeln($e->getMessage());
 			exit(1);
 		}
-		$output->writeln("<info>Database filled with fake data</info>");
+		$output->writeln('<info>Database filled with fake data</info>');
 	}
 
 	/**
