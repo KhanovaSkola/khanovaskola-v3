@@ -15,7 +15,7 @@ final class HomepagePresenter extends BasePresenter
 		// $task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
 		// $this->context->getService('queue')->enqueue($task);
 
-		$video = $this->orm->videos->getById(1);
+		$video = $this->orm->videos->getById(3);
 		$this->template->video = $video;
 
 		$gist = $this->orm->gists->getByName('test');
