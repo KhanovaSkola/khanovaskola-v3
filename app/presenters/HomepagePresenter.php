@@ -32,14 +32,8 @@ final class HomepagePresenter extends BasePresenter
 
 	public function actionSearch($query)
 	{
-		if (!$query)
-		{
-			$this->template->results = [];
-		}
-		else
-		{
-			$this->template->results = $this->orm->videos->getWithFulltext($query);
-		}
+		$this->template->query = $query;
+		$this->template->results = $this->orm->videos->getWithFulltext($query);
 	}
 
 	private function doesCurrentUserLikePage()
