@@ -15,7 +15,7 @@ use Orm;
  * @property string $youtubeIdOriginal filled if dubbed {default ''}
  * @property DateTime $createdAt {default now}
  */
-class Video extends Entity
+class Video extends Entity implements IIndexable
 {
 
 	/**
@@ -75,4 +75,15 @@ class Video extends Entity
 		return Strings::replace($text, '~\n+~', ' ');
 	}
 
+	/**
+	 * @return array [field => data]
+	 */
+	public function getIndexData()
+	{
+		return [
+			'title' => $this->title,
+			'description' => $this->description,
+			'subtitles' => $this->getTextFromSubtitles(),
+		];
+	}
 }
