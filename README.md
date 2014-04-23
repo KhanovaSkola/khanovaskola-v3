@@ -38,7 +38,7 @@ git commit --no-verify
 
 run unit tests:
 ```sh
-php -c /etc/php5/cli/php.ini vendor/bin/tester tests/unit/
+php vendor/bin/tester -c /etc/php5/cgi/php.ini tests/unit/
 ```
 
 run acceptance tests:
@@ -59,6 +59,11 @@ php bin/console db:create whatAmIChanging
 run migrations:
 ```sh
 php bin/console db:migrate
+```
+
+recreate elasticsearch indices from config file:
+```sh
+php bin/console db:es recreate
 ```
 
 start/stop maintenance mode:

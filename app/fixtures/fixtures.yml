@@ -1,0 +1,5 @@
+App\Model\Gist:
+  gist:
+    name: 'test'
+    text: <text(300)>
+    createdAt: 'now'
