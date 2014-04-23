@@ -1,0 +1,3 @@
+cd /usr/share/elasticsearch
+sudo bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
+sudo service elasticsearch restart

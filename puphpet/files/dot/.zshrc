@@ -1,7 +1,7 @@
 ZSH=$HOME/.oh-my-zsh
 
 export UPDATE_ZSH_DAYS=6
-ZSH_THEME="robbyrussell"
+ZSH_THEME="no-git"
 DISABLE_AUTO_TITLE="true"
 
 LESSCHARSET=UTF-8
