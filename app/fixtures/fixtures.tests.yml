@@ -1,0 +1,11 @@
+App\Model\Gist:
+  gist:
+    name: 'test'
+    text: <text(300)>
+    createdAt: 'now'
+App\Model\Video:
+  video:
+    title: 'O rovnicích bez rovnic'
+    description: 'Algebra a aritmetika'
+    youtubeId: 'Ye13MIPv6n0'
+    createdAt: 'now'

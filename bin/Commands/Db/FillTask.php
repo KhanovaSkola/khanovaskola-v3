@@ -20,6 +20,7 @@ class FillTask extends Command
 	public function setup()
 	{
 		$this->setDescription('Fill database with fake data');
+		$this->addOption('testdata', 't', NULL, 'Fill with minimal static test data');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,21 +42,25 @@ class FillTask extends Command
 			$output->writeln("<info>$log</info>");
 		});
 
-		$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
-		$videos = array_slice($videos, 0, 400);
-		foreach ($videos as $nodes)
+		$testData = $input->getOption('testdata');
+		if (!$testData)
 		{
-			list($youtubeId, $title, $description) = $nodes;
-			$video = new Video;
-			$video->youtubeId = $youtubeId;
-			$video->youtubeIdOriginal = '';
-			$video->title = $title;
-			$video->description = $description;
-			$orm->videos->attach($video);
+			$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
+			$videos = array_slice($videos, 0, 400);
+			foreach ($videos as $nodes)
+			{
+				list($youtubeId, $title, $description) = $nodes;
+				$video = new Video;
+				$video->youtubeId = $youtubeId;
+				$video->youtubeIdOriginal = '';
+				$video->title = $title;
+				$video->description = $description;
+				$orm->videos->attach($video);
+			}
+			$orm->flush();
 		}
-		$orm->flush();
 
-		$objects = $loader->load(__DIR__ . '/../../../app/fixtures/fixtures.yml');
+		$objects = $loader->load(__DIR__ . '/../../../app/fixtures/' . ($testData ? 'fixtures.tests.yml' : 'fixtures.yml'));
 
 		try
 		{
