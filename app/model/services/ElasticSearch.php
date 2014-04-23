@@ -4,7 +4,10 @@ namespace App\Services;
 
 use App\DeprecatedException;
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Mikulas\Diagnostics\ElasticSearchPanel;
+use Nette\Utils\Json;
+use Nette\Utils\Neon;
 
 
 class ElasticSearch extends Client
@@ -19,11 +22,15 @@ class ElasticSearch extends Client
 	/** @var ElasticSearchPanel */
 	protected $panel;
 
-	public function __construct(array $params, ElasticSearchPanel $panel)
+	/** @var string path */
+	private $appDir;
+
+	public function __construct(array $params, ElasticSearchPanel $panel, $appDir)
 	{
 		parent::__construct($params);
 
 		$this->panel = $panel;
+		$this->appDir = $appDir;
 	}
 
 	/**
@@ -71,6 +78,10 @@ class ElasticSearch extends Client
 
 	public function fulltextSearch($type, $query, array $in = NULL)
 	{
+		if (!$in)
+		{
+			$in = '_all';
+		}
 		$args = [
 			'index' => self::INDEX,
 			'type' => $type,
@@ -78,10 +89,10 @@ class ElasticSearch extends Client
 				'fields' => ['id'],
 				'min_score' => self::MIN_SCORE,
 				'query' => [
-					'fuzzy_like_this' => [
-						'like_text' => $query,
-						'fields' => ['title', 'description', 'subtitles'],
-					],
+					'multi_match' => [
+						'query' => $query,
+						'fields' => $in,
+					]
 				],
 				'highlight' => [
 					'pre_tags' => [self::HIGHLIGHT_START],
@@ -96,6 +107,22 @@ class ElasticSearch extends Client
 		];
 
 		return $this->search($args);
+	}
+
+	/**
+	 * Drops index if exists, DROPS ALL DATA
+	 */
+	public function setupIndices()
+	{
+		$conf = file_get_contents($this->appDir . '/config/elasticsearch.neon');
+		$args = Neon::decode($conf);
+		$this->indices()->delete([
+			'index' => self::INDEX,
+		]);
+		$this->indices()->create([
+			'index' => self::INDEX,
+			'body' => $args
+		]);
 	}
 
 }

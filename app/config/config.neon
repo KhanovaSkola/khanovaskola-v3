@@ -64,7 +64,7 @@ services:
 		class: App\Services\BadgeProvider
 		tags: [kdyby.subscriber]
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
-	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel)
+	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
 
 	orm: App\Model\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)

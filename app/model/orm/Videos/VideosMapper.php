@@ -26,31 +26,13 @@ class VideosMapper extends Mapper
 			$this->elastic->addToIndex($this->getType(), $e->id, [
 				'title' => $e->title,
 				'description' => $e->description,
-				'subtitles' => $e->getSubtitles(),
+				'subtitles' => $e->getTextFromSubtitles(),
 			]);
 		});
 	}
 
 	public function getWithFulltext($query)
 	{
-
-		//$this->elastic->addMapping($this->getType(), [
-		//	'description' => [
-		//		'type' => 'string',
-		//		'store' => TRUE,
-		//		'boost' => 1.2,
-		//	],
-		//	'subtitles' => [
-		//		'type' => 'string',
-		//		'store' => TRUE,
-		//	],
-		//	'title' => [
-		//		'type' => 'string',
-		//		'store' => TRUE,
-		//		'boost' => 1.5,
-		//	],
-		//]);
-
 		$res = $this->elastic->fulltextSearch($this->getType(), $query, ['title']);
 		if ($res['hits']['total'] === 0)
 		{

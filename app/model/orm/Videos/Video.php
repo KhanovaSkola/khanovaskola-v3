@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Nette\Caching\Cache;
 use Nette\DateTime;
+use Nette\Utils\Strings;
 use Orm;
 
 
@@ -27,7 +28,6 @@ class Video extends Entity
 
 	protected function fetchSubtitles($cached)
 	{
-		$cached = FALSE;
 		$url = "https://report.khanovaskola.cz/api/1/subtitles/{$this->youtubeId}/cs" . ($cached ? '?cached=1' : '');
 		$res = file_get_contents($url);
 		if ($cached)
@@ -41,7 +41,7 @@ class Video extends Entity
 		$data = json_decode($res);
 		if ($data->found)
 		{
-			return $data->subtitles;
+			return Strings::normalize($data->subtitles);
 		}
 		return NULL;
 	}
@@ -66,6 +66,13 @@ class Video extends Entity
 		$cache->save($cacheKey, [time(), $subs]);
 
 		return $subs;
+	}
+
+	public function getTextFromSubtitles()
+	{
+		$srt = $this->getSubtitles();
+		$text = Strings::replace($srt, '~\d+\n+\d+:\d+:\d+[.,]\d+\s+-->\s+\d+:\d+:\d+[.,]\d+\n+~m');
+		return Strings::replace($text, '~\n+~', ' ');
 	}
 
 }
