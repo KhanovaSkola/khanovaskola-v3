@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DeprecatedException;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette\Utils\Json;
 use Nette\Utils\Neon;
@@ -116,9 +117,17 @@ class ElasticSearch extends Client
 	{
 		$conf = file_get_contents($this->appDir . '/config/elasticsearch.neon');
 		$args = Neon::decode($conf);
-		$this->indices()->delete([
-			'index' => self::INDEX,
-		]);
+		try
+		{
+			$this->indices()->delete([
+				'index' => self::INDEX,
+			]);
+		}
+		catch (Missing404Exception $e)
+		{
+			// ok, nothing to delete
+		}
+
 		$this->indices()->create([
 			'index' => self::INDEX,
 			'body' => $args
