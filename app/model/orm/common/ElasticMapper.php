@@ -44,15 +44,32 @@ class ElasticMapper extends Mapper
 			$highlights[$id] = isset($hit['highlight']) ? $hit['highlight'] : [];
 		}
 
-		$this->findById($ids)->fetchAll(); // hydrate // TODO
+		$entities = $this->findById($ids)->fetchAll();
+		$entities = $this->sortIdByList($entities, $ids);
+
 		$result = new HighlightCollection();
-		foreach ($ids as $id)
+		foreach ($entities as $entity)
 		{
-			$entity = $this->repository->getIdentityMap()->getById($id);
-			$result->add($entity, $highlights[$id]);
+			$result->add($entity, $highlights[$entity->id]);
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @param array $entities
+	 * @param array $list [position => id]
+	 * @return array sorted $entities
+	 */
+	private function sortIdByList(array $entities, array $list)
+	{
+		$sorted = [];
+		foreach ($entities as $entity)
+		{
+			$sorted[array_search($entity->id, $list)] = $entity;
+		}
+		ksort($sorted);
+		return $sorted;
 	}
 
 	/**
