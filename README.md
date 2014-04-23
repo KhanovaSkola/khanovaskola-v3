@@ -24,6 +24,7 @@ Info
 
 Commit tags:
 
+- `[test]`
 - `[cs]` Coding standard, code smell removal, whitespace, etc. Never affects build.
 - `[dev]` Vagrant setup. Never affects build.
 
@@ -54,6 +55,11 @@ php vendor/bin/phpcs -p --standard=tests/cs app
 create new migration from template:
 ```sh
 php bin/console db:create whatAmIChanging
+```
+
+drop all data, recreate schemas and indices:
+```sh
+bin/console db:reset && bin/console db:migrate && bin/console es:recreate && bin/console db:fill
 ```
 
 run migrations:
