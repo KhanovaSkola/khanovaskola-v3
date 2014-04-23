@@ -3,11 +3,6 @@
 namespace App\Model;
 
 
-use App\Services\ElasticSearch;
-use Orm\EventArguments;
-use Orm\IRepository;
-
-
 interface IIndexable
 {
 

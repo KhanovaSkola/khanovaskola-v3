@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use Nette\Caching\Cache;
+
 use Nette\DateTime;
 use Nette\Utils\Strings;
 use Orm;
@@ -48,8 +48,7 @@ class Video extends Entity implements IIndexable
 
 	public function getSubtitles()
 	{
-		/** @var Cache $cache */
-		$cache = $this->model->getCache();
+		$cache = $this->getCache();
 		$cacheKey = "subtitles/{$this->id}";
 
 		$cached = $cache->load($cacheKey);

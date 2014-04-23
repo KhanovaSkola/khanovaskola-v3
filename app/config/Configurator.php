@@ -5,10 +5,10 @@ namespace App;
 use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette;
 use Nette\DI;
+use Nette\DI\Container;
 use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
-use SystemContainer;
 
 
 /**
@@ -78,7 +78,7 @@ class Configurator extends Nette\Configurator
 		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
 	}
 
-	public function onAfterConfigVersion(DI\Container $container)
+	public function onAfterConfigVersion(Container $container)
 	{
 		$params = $this->getParameters();
 		$example = Nette\Utils\Neon::decode(file_get_contents($params['appDir'] . '/config/config.local.example.neon'));
@@ -88,7 +88,7 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	public function onAfterDebug(DI\Container $container)
+	public function onAfterDebug(Container $container)
 	{
 		/** @var ElasticSearchPanel $panel */
 		$panel = $container->getService('elasticPanel');
@@ -117,7 +117,7 @@ class Configurator extends Nette\Configurator
 	}
 
 	/**
-	 * @return SystemContainer
+	 * @return Container
 	 */
 	public function createContainer()
 	{

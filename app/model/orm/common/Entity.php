@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Nelmio\Alice\Loader\Porm;
+use Nette\Caching\Cache;
 use Orm;
 
 
@@ -23,6 +24,16 @@ abstract class Entity extends Orm\Entity
 		{
 			$this->$name = $value;
 		}
+	}
+
+	/**
+	 * @return Cache
+	 */
+	public function getCache()
+	{
+		/** @var Repository $model */
+		$model = $this->getModel();
+		return $model->getCache();
 	}
 
 }
