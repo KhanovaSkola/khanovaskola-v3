@@ -12,7 +12,7 @@ use Orm;
  * @property string $title
  * @property string $description
  * @property string $youtubeId
- * @property string $youtubeIdOriginal filled if dubbed
+ * @property string $youtubeIdOriginal filled if dubbed {default ''}
  * @property DateTime $createdAt {default now}
  */
 class Video extends Entity
