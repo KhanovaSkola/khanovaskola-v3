@@ -86,7 +86,7 @@ http server
 http://vagrant.khanovaskola.cz/
 
 adminer
-http://vagrant.khanovaskola.cz/adminer
+http://vagrant.khanovaskola.cz/tools/db/
 
 mail trap
 https://mailtrap.io/inboxes/23883/messages
@@ -95,4 +95,7 @@ elasticsearch console
 http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200
 
 beanstalkd console
-http://vagrant.khanovaskola.cz/beanstalk/public/
+http://vagrant.khanovaskola.cz/tools/beanstalk/public/
+
+opcache dashboard
+http://vagrant.khanovaskola.cz/tools/opcache/

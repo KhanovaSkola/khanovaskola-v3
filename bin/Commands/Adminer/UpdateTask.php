@@ -20,7 +20,7 @@ class UpdateTask extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$file = $this->container->parameters['appDir'] . '/../www/adminer/index.php';
+		$file = $this->container->parameters['appDir'] . '/../www/admin/db/index.php';
 
 		$output->writeln("Downloading...");
 		$content = file_get_contents('http://adminer.org/latest.php');
