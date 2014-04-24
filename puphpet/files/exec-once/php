@@ -5,11 +5,8 @@ phpize
 ./configure
 make && sudo make install
 
-CONFIG='; configuration for php redis module
-; priority=20
-extension=redis.so'
-echo "$CONFIG" | sudo tee /etc/php5/fpm/conf.d/20-redis.ini
-
+cat /vagrant/puphpet/files/xdebug.ini | sudo tee /etc/php5/fpm/conf.d/20-xdebug.ini
+echo "extension=redis.so" | sudo tee -a /etc/php5/fpm/php.ini
 echo "extension=redis.so\nextension=curl.so" | sudo tee -a /etc/php5/cgi/php.ini
 
 sudo service php5-fpm restart
