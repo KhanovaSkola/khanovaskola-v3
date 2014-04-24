@@ -13,6 +13,20 @@ abstract class Command extends BaseCommand
 
 	use ContainerTrait;
 
+	/**
+	 * @param string $desc
+	 * @return BaseCommand
+	 */
+	public function setDescription($desc)
+	{
+		if ($this instanceof IMightLoseData)
+		{
+			$desc .= ' <comment>(loses current data)</comment>';
+		}
+
+		return parent::setDescription($desc);
+	}
+
 	public function getName()
 	{
 		$name = get_class($this);
