@@ -48,6 +48,7 @@ class Configurator extends Nette\Configurator
 		}
 		$this->addParameters((array) $params + array_map('realpath', [
 				'appDir' => __DIR__ . '/..',
+				'backupDir' => __DIR__ . '/../../backups',
 				'libsDir' => __DIR__ . '/../../vendor',
 				'logDir' => __DIR__ . '/../../log',
 				'wwwDir' => __DIR__ . '/../../www',
