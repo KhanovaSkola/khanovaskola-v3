@@ -15,10 +15,18 @@ class Highlight extends Object
 	/** @var array */
 	private $highlights;
 
+	/** @var string precompiled */
+	private static $regex;
+
 	public function __construct(Entity $entity, array $highlights)
 	{
 		$this->entity = $entity;
 		$this->highlights = $highlights;
+
+		if (!self::$regex)
+		{
+			self::$regex = $this->buildRegex();
+		}
 	}
 
 	public function &__get($name)
@@ -41,18 +49,7 @@ class Highlight extends Object
 				// One fragment, probably with whole field
 				// enforced by number_of_fragments: 0
 				$safe = htmlspecialchars($unsafe);
-
-				$words = ['']; // empty word to merge immediate tokens
-				foreach (ElasticSearch::getStopwords() as $word)
-				{
-					$words[] = preg_quote($word, '~');
-				}
-				$safe = preg_replace(
-					'~' .
-					preg_quote(ElasticSearch::HIGHLIGHT_END, '~') .
-					'(\W*\s*(' . implode('|', $words) . ')\s*\W*)' .
-					preg_quote(ElasticSearch::HIGHLIGHT_START, '~') .
-					'~', '$1', $safe);
+				$safe = preg_replace(self::$regex, '$1', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<em>', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_END, '</em>', $safe);
 				$result[] = $safe;
@@ -66,6 +63,20 @@ class Highlight extends Object
 		}
 
 		return htmlspecialchars($this->entity->$key);
+	}
+
+	private static function buildRegex()
+	{
+		$words = ['']; // empty word to merge immediate tokens
+		foreach (ElasticSearch::getStopwords() as $word)
+		{
+			$words[] = preg_quote($word, '~');
+		}
+		return '~' .
+			preg_quote(ElasticSearch::HIGHLIGHT_END, '~') .
+			'(\W*\s*(' . implode('|', $words) . ')\s*\W*)' .
+			preg_quote(ElasticSearch::HIGHLIGHT_START, '~') .
+			'~';
 	}
 
 }
