@@ -56,7 +56,7 @@ class Video extends Entity implements IIndexable
 		if ($cached)
 		{
 			list($time, $subs) = $cached;
-			if ($subs && $time > $time - 5 * 60)
+			if ($time > $time - 5 * 60)
 			{
 				return $subs;
 			}
