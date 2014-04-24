@@ -5,6 +5,7 @@ namespace Commands\Db;
 use App\Model\RepositoryContainer;
 use App\Model\UsersRepository;
 use Commands\Command;
+use Commands\IMightLoseData;
 use Nelmio\Alice\ORM\Porm;
 use Nelmio\Alice\Loader\Porm as Loader;
 use Nette\Utils\Strings;
@@ -12,12 +13,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class ResetTask extends Command
+class ResetTask extends Command implements IMightLoseData
 {
 
 	public function setup()
 	{
-		$this->setDescription('Remove all tables and data from database (DROPS DATA)');
+		$this->setDescription('Remove all tables and data from database');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)

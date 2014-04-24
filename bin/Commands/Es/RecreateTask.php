@@ -6,6 +6,7 @@ use App\Model\RepositoryContainer;
 use App\Model\UsersRepository;
 use App\Services\ElasticSearch;
 use Commands\Command;
+use Commands\IMightLoseData;
 use Nelmio\Alice\ORM\Porm;
 use Nelmio\Alice\Loader\Porm as Loader;
 use Nette\Utils\Strings;
@@ -13,12 +14,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class RecreateTask extends Command
+class RecreateTask extends Command implements IMightLoseData
 {
 
 	public function setup()
 	{
-		$this->setDescription('Recreate all elasticsearch indices and mappings (DROPS DATA)');
+		$this->setDescription('Recreate all elasticsearch indices and mappings');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
