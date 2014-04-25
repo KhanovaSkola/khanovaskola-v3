@@ -7,6 +7,7 @@ use Nette\Utils\Strings;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 
 deployer();
@@ -14,8 +15,8 @@ deployer();
 class ProductionTask extends Command
 {
 
-	const SERVER = 'v3.khanovaskola.cz';
-	const PATH = '/srv/sites/v3.khanovaskola.cz';
+	const SERVER = 'alpha.khanovaskola.cz';
+	const PATH = '/srv/sites/alpha.khanovaskola.cz';
 
 	public function setup()
 	{
@@ -24,57 +25,52 @@ class ProductionTask extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		if ($this->isHeadDirty())
-		{
-			writeln('<error>HEAD is dirty, commit or stash before deploy</error>');
-			exit(1);
-		}
+		// if ($this->isHeadDirty())
+		// {
+		// 	writeln('<error>HEAD is dirty, commit or stash before deploy</error>');
+		// 	exit(1);
+		// }
 
-		connect(self::SERVER, 'mikulas', rsa('~/.ssh/id_rsa'));
+		connect(self::SERVER, 'deploy', rsa('~/.ssh/id_rsa'));
 
 		// update commands first
-		$this->uploadFromRoot('bin');
+		$this->uploadFromRoot('bin/');
 
-		$vendorChanged = !$this->lockFileSame();
-		if ($vendorChanged)
-		{
-			// we need something to run commands from
-			$this->uploadFromRoot('vendor', '__vendor');
-			$this->uploadFromRoot('composer.lock');
-		}
+		// we need something to run commands from
+		$this->uploadFromRoot('vendor/', '__vendor/');
 
-		$this->uploadFromRoot('migrations');
+		$this->uploadFromRoot('migrations/');
 
 		$this->uploadFromRoot('www/_maintenance.php', NULL, TRUE);
 		$this->uploadFromRoot('www/index.php', NULL, TRUE);
 
 		// uses __vendor if available
 		writeln("\n<fg=blue>Starting maintenance mode</fg=blue>");
-		$this->console('maintenance', 'start');
+		$this->console('maintenance:start');
 
 		ignore(['*/config.local.neon']);
-		$this->uploadFromRoot('app');
+		$this->uploadFromRoot('app/');
 
 		ignore(['*/index.php', '*/_maintenance.php']);
-		$this->uploadFromRoot('www');
-		if ($vendorChanged)
-		{
-			run('rm -rf', self::PATH . '/vendor');
-			run('mv', self::PATH . '/__vendor', self::PATH . '/vendor');
-		}
+		$this->uploadFromRoot('www/');
+
+		silent();
+		writeln("Staging new <info>vendor/</info>");
+		run('rm -rf', self::PATH . '/.vendor_unstage/');
+		run('mv', self::PATH . '/vendor/', self::PATH . '/.vendor_unstage');
+		run('mv', self::PATH . '/__vendor/', self::PATH . '/vendor/');
+		silent(FALSE);
 
 		writeln('Running migrations');
-		$this->migrations('migrate');
+		$this->console('db:migrate');
 
 		writeln('Purging cache');
-		// TODO purge cache
+		$this->console('cache:clear');
 
 		// TODO check if config local is set, if not, do not stop maintenance mode
 
-		// TODO purge opcache
-
 		writeln("<fg=blue>Stopping maintenance mode</fg=blue>\n");
-		$this->console('maintenance', 'stop');
+		$this->console('maintenance:stop');
 
 		$time = date('r');
 
@@ -102,6 +98,16 @@ class ProductionTask extends Command
 		return substr($remote, 0, 32) === substr($local, 0, 32);
 	}
 
+	private function printProgress($n, $outOf)
+	{
+		echo "\r" . str_repeat(' ', 80) . "\r";
+		$len = 30;
+		$p = $n / $outOf * $len - 1;
+		$fill = str_repeat('=', $p < 0 ? 0 : $p);
+		$empty = str_repeat(' ', $len - $n / $outOf * $len);
+		echo "[$fill>$empty] $n/$outOf";
+	}
+
 	private function uploadFromRoot($dir, $target = NULL, $silent = FALSE)
 	{
 		if ($target === NULL)
@@ -113,9 +119,28 @@ class ProductionTask extends Command
 		{
 			if (!$silent) writeln("Uploading <info>$dir</info> to <info>$target</info>");
 		}
+		$target = self::PATH . "/$target";
+
 		silent();
-		upload(__DIR__ . "/../../../$dir", self::PATH . "/$target");
+		run('mkdir -p ' . escapeshellarg($target));
 		silent(FALSE);
+
+		$root = realpath($this->container->parameters['appDir'] . "/..");
+		$query = sprintf('rsync -azP %s %s:%s',
+			escapeshellarg("$root/$dir"),
+			escapeshellarg('deploy@' . self::SERVER),
+			escapeshellarg($target)
+		);
+
+		$process = new Process($query);
+		$process->run(function($type, $buffer) {
+			$match = [];
+			if (preg_match('~to-check=(\d+)/(\d+)~', $buffer, $match))
+			{
+				$this->printProgress($match[2] - $match[1], $match[2]);
+			}
+		});
+		echo "\r" . str_repeat(' ', 50) . "\r";
 	}
 
 	private function console(/* ... */)
