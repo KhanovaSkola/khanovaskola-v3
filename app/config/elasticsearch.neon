@@ -31,3 +31,4 @@ mappings:
 			subtitles:
 				type: string
 				store: 'true'
+				index_options: offsets

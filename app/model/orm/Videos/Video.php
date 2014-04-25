@@ -71,7 +71,19 @@ class Video extends Entity implements IIndexable
 	{
 		$srt = $this->getSubtitles();
 		$text = Strings::replace($srt, '~\d+\n+\d+:\d+:\d+[.,]\d+\s+-->\s+\d+:\d+:\d+[.,]\d+\n+~m');
-		return Strings::replace($text, '~\n+~', ' ');
+		$text = Strings::replace($text, '~(.)\n+(.)~u', function($m) {
+			// add missing sentense fullstops
+			if (strpos('.?!…', $m[1]) === FALSE && $m[2] === Strings::upper($m[2]))
+			{
+				return "$m[1].\n$m[2]";
+			}
+			return $m[0];
+		});
+		$text = Strings::replace($text, '~\n+~', ' ');
+		return Strings::replace($text, '~[.!?…]\s+(\w)~u', function($m) {
+			// fix sentense capitalization
+			return Strings::upper($m[0]);
+		});
 	}
 
 	/**
