@@ -10,3 +10,4 @@ app/config/config.local.neon
 tests/_data
 www/_index.php
 /notes.txt
+/keys
