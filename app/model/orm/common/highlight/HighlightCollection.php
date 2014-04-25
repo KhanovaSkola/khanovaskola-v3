@@ -16,7 +16,8 @@ class HighlightCollection extends Object implements Iterator
 
 	public function add(Entity $entity, array $highlights)
 	{
-		$this->data[] = new Highlight($entity, $highlights);
+		$class = $entity->getHighlightEntityName();
+		$this->data[] = new $class($entity, $highlights);
 	}
 
 	/**

@@ -6,7 +6,7 @@ use App\Services\ElasticSearch;
 use Nette\Object;
 
 
-class Highlight extends Object
+abstract class Highlight extends Object
 {
 
 	/** @var Entity */
@@ -29,15 +29,14 @@ class Highlight extends Object
 		}
 	}
 
-	public function &__get($name)
+	public function getRaw($key)
 	{
-		$res = $this->getHighlit($name);
-		return $res;
+		return $this->entity->$key;
 	}
 
 	/**
 	 * @param string $key
-	 * @return string escaped
+	 * @return NULL|string escaped if highlit
 	 */
 	public function getHighlit($key)
 	{
@@ -62,7 +61,7 @@ class Highlight extends Object
 			return implode('<br>', $result);
 		}
 
-		return htmlspecialchars($this->entity->$key);
+		return FALSE;
 	}
 
 	private static function buildRegex()
