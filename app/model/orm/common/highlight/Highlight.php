@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Services\ElasticSearch;
 use Nette\Object;
+use Nette\Utils\Strings;
 
 
 abstract class Highlight extends Object
@@ -36,29 +37,30 @@ abstract class Highlight extends Object
 
 	/**
 	 * @param string $key
+	 * @param bool $forceArray
 	 * @return NULL|string escaped if highlit
 	 */
-	public function getHighlit($key)
+	public function getHighlit($key, $forceArray = FALSE)
 	{
 		if (isset($this->highlights[$key]))
 		{
 			$result = [];
 			foreach ($this->highlights[$key] as $unsafe)
 			{
-				// One fragment, probably with whole field
-				// enforced by number_of_fragments: 0
 				$safe = htmlspecialchars($unsafe);
 				$safe = preg_replace(self::$regex, '$1', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<em>', $safe);
 				$safe = str_replace(ElasticSearch::HIGHLIGHT_END, '</em>', $safe);
+
 				$result[] = $safe;
 			}
 
-			if (count($result) === 1)
+			if (count($result) === 1 && !$forceArray)
 			{
 				return $result[0];
 			}
-			return implode('<br>', $result);
+
+			return $result;
 		}
 
 		return FALSE;

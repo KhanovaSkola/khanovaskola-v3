@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Services\ElasticSearch;
 use Nette\Object;
+use Nette\Utils\Strings;
 
 
 class VideoHighlight extends Highlight
@@ -21,14 +22,14 @@ class VideoHighlight extends Highlight
 
 	public function getSubtitles()
 	{
-		$subs = $this->getHighlit('subtitles');
+		$subs = $this->getHighlit('subtitles', TRUE);
 		if ($subs)
 		{
-			return $subs;
+			return implode(' ', $subs);
 		}
 
 		$text = $this->getRaw('textFromSubtitles');
-		return substr($text, 0, 200);
+		return Strings::truncate($text, 150);
 	}
 
 }
