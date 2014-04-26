@@ -24,7 +24,11 @@ auth:
         title: "Nechcete se přihlásit?"
         message: "Slibujeme, že vaše osobní informace nezneužijeme."
       error:
-        title: "Přihlášení selhalo."
+        title: "Přihlášení přes Facebook selhalo."
+        message: "Zkuste to prosím znovu."
+    google:
+      error:
+        title: "Přihlášení přes Google+ selhalo."
         message: "Zkuste to prosím znovu."
     password:
       wrongUsername:
