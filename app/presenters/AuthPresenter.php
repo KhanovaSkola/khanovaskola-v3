@@ -60,11 +60,12 @@ final class AuthPresenter extends BasePresenter
 					$newUser = TRUE;
 					$userEntity = new User();
 					$this->orm->users->attach($userEntity);
-					$userEntity->name = $me['name'];
-					$userEntity->firstName = $me['first_name'];
-					$userEntity->lastName = $me['last_name'];
+
 					$userEntity->email = $me['email'];
 					$userEntity->gender = $me['gender'];
+					$userEntity->name = $me['name'];
+					$userEntity->familyName = $me['last_name'];
+					$userEntity->setNominativeAndVocative($me['first_name']);
 				}
 				$userEntity->facebookId = $me['id'];
 				$userEntity->facebookAccessToken = $fb->getAccessToken();
@@ -110,11 +111,12 @@ final class AuthPresenter extends BasePresenter
 					$newUser = TRUE;
 					$userEntity = new User();
 					$this->orm->users->attach($userEntity);
-					$userEntity->name = $me['name'];
-					$userEntity->firstName = $me['given_name'];
-					$userEntity->lastName = $me['family_name'];
+
 					$userEntity->email = $me['email'];
 					$userEntity->gender = $me['gender'];
+					$userEntity->name = $me['name'];
+					$userEntity->familyName = $me['family_name'];
+					$userEntity->setNominativeAndVocative($me['given_name']);
 				}
 				$userEntity->googleId = $me['sub'];
 				$userEntity->googleAccessToken = $google->getAccessToken();

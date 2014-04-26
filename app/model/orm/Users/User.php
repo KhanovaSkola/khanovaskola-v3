@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\InvalidStateException;
 use Nette\DateTime;
 use Nette\Security\Passwords;
 use Orm;
@@ -9,8 +10,9 @@ use Orm;
 
 /**
  * @property string $name
- * @property string $firstName
- * @property string $lastName
+ * @property string $familyName
+ * @property string $nominative
+ * @property string $vocative
  * @property string $gender {enum self::getGenders()}
  * @property string|NULL $password
  * @property string $email
@@ -35,6 +37,20 @@ class User extends Entity
 			self::GENDER_MALE => self::GENDER_MALE,
 			self::GENDER_FEMALE => self::GENDER_FEMALE,
 		];
+	}
+
+	public function setNominativeAndVocative($name)
+	{
+		if (!$this->gender)
+		{
+			throw new InvalidStateException;
+		}
+
+		/** @var UsersRepository $repo */
+		$repo = $this->getRepository();
+
+		$this->setValue('nominative', $name);
+		$this->setValue('vocative', $repo->getVocative($name, $this->gender));
 	}
 
 	public function setPlainPassword($plaintext)

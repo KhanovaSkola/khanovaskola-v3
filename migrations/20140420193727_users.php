@@ -12,10 +12,13 @@ class Users extends AbstractMigration
 			->addColumn('name', 'string', [
 				'limit' => 250
 			])
-			->addColumn('first_name', 'string', [
+			->addColumn('family_name', 'string', [
 				'limit' => 250
 			])
-			->addColumn('last_name', 'string', [
+			->addColumn('nominative', 'string', [
+				'limit' => 250
+			])
+			->addColumn('vocative', 'string', [
 				'limit' => 250
 			])
 			->addColumn('gender', 'string', [
