@@ -3,9 +3,11 @@
 namespace App\Presenters;
 
 use App\Model\User;
-use Kdyby\Facebook\Dialog\LoginDialog;
+use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
+use Mikulas\Google\Dialog\LoginDialog as GoogleLoginDialog;
+use Mikulas\Google\Google;
 use Nette;
 use Nette\Security\Identity;
 
@@ -16,21 +18,25 @@ final class AuthPresenter extends BasePresenter
 	/** @var Facebook */
 	protected $facebook;
 
-	public function __construct(Facebook $facebook)
+	/** @var Google */
+	protected $google;
+
+	public function __construct(Facebook $facebook, Google $google)
 	{
 		parent::__construct();
 		$this->facebook = $facebook;
+		$this->google = $google;
 	}
 
 	/**
-	 * @return LoginDialog
+	 * @return FacebookLoginDialog
 	 */
-	protected function createComponentFbLogin()
+	protected function createComponentFacebookLogin()
 	{
-		/** @var LoginDialog $dialog */
+		/** @var FacebookLoginDialog $dialog */
 		$dialog = $this->facebook->createDialog('login');
 
-		$dialog->onResponse[] = function (LoginDialog $dialog)
+		$dialog->onResponse[] = function (FacebookLoginDialog $dialog)
 		{
 			$fb = $dialog->getFacebook();
 
@@ -72,6 +78,54 @@ final class AuthPresenter extends BasePresenter
 					'error' => $e->getMessage(),
 				]);
 				$this->flashError('auth.flash.fb.error');
+			}
+
+			$this->redirect('this');
+		};
+
+		return $dialog;
+	}
+
+	protected function createComponentGoogleLogin()
+	{
+		/** @var GoogleLoginDialog $dialog */
+		$dialog = $this->google->createLoginDialog();
+		$dialog->onResponse[] = function(GoogleLoginDialog $dialog)
+		{
+			$newUser = FALSE;
+			try
+			{
+				$google = $dialog->getGoogle();
+				$me = $google->getIdentity();
+
+				$userEntity = $this->orm->users->getByGoogleId($me['sub']);
+				if (!$userEntity)
+				{
+					$userEntity = $this->orm->users->getByEmail($me['email']);
+				}
+				if (!$userEntity)
+				{
+					$newUser = TRUE;
+					$userEntity = new User();
+					$this->orm->users->attach($userEntity);
+					$userEntity->name = $me['name'];
+					$userEntity->email = $me['email'];
+				}
+				$userEntity->googleId = $me['sub'];
+				$userEntity->googleAccessToken = $google->getAccessToken();
+
+				$this->orm->flush(); // persist $userEntity
+
+				$this->user->login(new Identity($userEntity->id, [], $userEntity));
+
+				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'));
+			}
+			catch (FacebookApiException $e)
+			{
+				$this->log->addAlert('Google login request failed', [
+					'error' => $e->getMessage(),
+				]);
+				$this->flashError('auth.flash.google.error');
 			}
 
 			$this->redirect('this');
