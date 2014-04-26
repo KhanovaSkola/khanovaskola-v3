@@ -9,6 +9,9 @@ use Orm;
 
 /**
  * @property string $name
+ * @property string $firstName
+ * @property string $lastName
+ * @property string $gender {enum self::getGenders()}
  * @property string|NULL $password
  * @property string $email
  * @property string|NULL $facebookId
@@ -19,6 +22,20 @@ use Orm;
  */
 class User extends Entity
 {
+
+	const GENDER_MALE = 'male';
+	const GENDER_FEMALE = 'female';
+
+	/**
+	 * @return array
+	 */
+	public static function getGenders()
+	{
+		return [
+			self::GENDER_MALE => self::GENDER_MALE,
+			self::GENDER_FEMALE => self::GENDER_FEMALE,
+		];
+	}
 
 	public function setPlainPassword($plaintext)
 	{

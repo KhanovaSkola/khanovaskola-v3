@@ -12,6 +12,15 @@ class Users extends AbstractMigration
 			->addColumn('name', 'string', [
 				'limit' => 250
 			])
+			->addColumn('first_name', 'string', [
+				'limit' => 250
+			])
+			->addColumn('last_name', 'string', [
+				'limit' => 250
+			])
+			->addColumn('gender', 'string', [
+				'limit' => '6'
+			])
 			->addColumn('password', 'string', [
 				'limit' => 250, 'null' => TRUE
 			])
