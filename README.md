@@ -3,6 +3,11 @@ Khanova škola – verze 3
 
 [![Build Status](https://travis-ci.org/KhanovaSkola/khanovaskola-v3.svg?branch=master)](https://travis-ci.org/KhanovaSkola/khanovaskola-v3)
 
+License
+-------
+
+MIT License, see [LICENSE.md](LICENSE.md)
+
 Setup
 -----
 
