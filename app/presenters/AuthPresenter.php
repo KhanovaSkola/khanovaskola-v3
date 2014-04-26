@@ -60,10 +60,13 @@ final class AuthPresenter extends BasePresenter
 					$newUser = TRUE;
 					$userEntity = new User();
 					$this->orm->users->attach($userEntity);
-					$userEntity->name = $me->name;
-					$userEntity->email = $me->email;
+					$userEntity->name = $me['name'];
+					$userEntity->firstName = $me['first_name'];
+					$userEntity->lastName = $me['last_name'];
+					$userEntity->email = $me['email'];
+					$userEntity->gender = $me['gender'];
 				}
-				$userEntity->facebookId = $me->id;
+				$userEntity->facebookId = $me['id'];
 				$userEntity->facebookAccessToken = $fb->getAccessToken();
 
 				$this->orm->flush(); // persist $userEntity
@@ -97,7 +100,6 @@ final class AuthPresenter extends BasePresenter
 			{
 				$google = $dialog->getGoogle();
 				$me = $google->getIdentity();
-
 				$userEntity = $this->orm->users->getByGoogleId($me['sub']);
 				if (!$userEntity)
 				{
@@ -109,7 +111,10 @@ final class AuthPresenter extends BasePresenter
 					$userEntity = new User();
 					$this->orm->users->attach($userEntity);
 					$userEntity->name = $me['name'];
+					$userEntity->firstName = $me['given_name'];
+					$userEntity->lastName = $me['family_name'];
 					$userEntity->email = $me['email'];
+					$userEntity->gender = $me['gender'];
 				}
 				$userEntity->googleId = $me['sub'];
 				$userEntity->googleAccessToken = $google->getAccessToken();
