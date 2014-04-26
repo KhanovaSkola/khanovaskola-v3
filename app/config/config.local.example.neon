@@ -5,7 +5,7 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 parameters:
-	configVersion: 2
+	configVersion: 3
 	database:
 		username:
 		password:
@@ -21,3 +21,12 @@ parameters:
 			- localhost
 		# connectionParams:
 		# 	auth: [username, password", "Basic"]
+
+facebook:
+	appId: "273608052753035"
+	appSecret:
+
+google:
+	clientId: "653060487240.apps.googleusercontent.com"
+	clientSecret:
+	apiKey:

@@ -44,14 +44,7 @@ redis:
 	session: on
 
 facebook:
-	appId: "273608052753035"
-	appSecret: "039a8ad1d3359bc6b9d8919a57d87456"
 	permissions: [email, user_interests, user_likes, user_education_history]
-
-google:
-	clientId: "653060487240.apps.googleusercontent.com"
-	clientSecret: "sqKWXNodBrC0H1_4mlFonAX5"
-	apiKey: "AIzaSyA1mhQbhQfvYjWqAokrhutkX20dmFqyQZQ"
 
 services:
 	- App\Model\UsersRepository
