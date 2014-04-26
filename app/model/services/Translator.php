@@ -91,8 +91,15 @@ class Translator implements Nette\Localization\ITranslator
 	 * @param int $count
 	 * @return string
 	 */
-	public function translate($steps, $count = NULL)
+	public function translate($steps, $count = NULL, array $args = [])
 	{
+		// alias for translate($steps, $args)
+		if (is_array($count) && !$args)
+		{
+			$args = $count;
+			$count = NULL;
+		}
+
 		if (strpos($steps, ' ') !== FALSE)
 		{
 			throw new InvalidArgumentException("Translator expects key such as 'homepage.flash.error', not an actual message.");
@@ -109,10 +116,11 @@ class Translator implements Nette\Localization\ITranslator
 			return $this->fallback($steps, $count);
 		}
 
-		$values = array_slice(func_get_args(), 1);
-		return preg_replace_callback('~%(\d+)~', function ($match) use ($values, $steps)
+		$values = $args;
+		$values[1] = $count;
+		return preg_replace_callback('~%([\w\d]+)~', function ($match) use ($values, $steps)
 		{
-			$key = $match[1] - 1;
+			$key = $match[1];
 			if (!isset($values[$key]))
 			{
 				$count = count($values);

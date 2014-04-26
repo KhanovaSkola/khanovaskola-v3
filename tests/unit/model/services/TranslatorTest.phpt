@@ -68,12 +68,24 @@ class TranslatorTest extends Tester\TestCase
 		Assert::same('deset', $this->t->translate('fallback', 5));
 	}
 
-	function testPlaceholder()
+	function testNamed()
 	{
 		$this->t->setLanguage('test');
-		Assert::same('1 2 3', $this->t->translate('placeholder', 1, 2, 3));
-		Assert::same('1 2 3', $this->t->translate('placeholder', 1, 2, 3, 4));
-		Assert::same('1 2 %3', $this->t->translate('placeholder', 1, 2));
+		Assert::same('1 %name', $this->t->translate('named', 1));
+		Assert::same('1 Marco', $this->t->translate('named', 1, ['name' => 'Marco']));
+	}
+
+	function testShortNamed()
+	{
+		$this->t->setLanguage('test');
+		Assert::same('%1 Marco', $this->t->translate('named_short', ['name' => 'Marco']));
+	}
+
+	function testPluralsWithNamed()
+	{
+		$this->t->setLanguage('test');
+		Assert::same('One message, Marco', $this->t->translate('plurals_named', 1, ['name' => 'Marco']));
+		Assert::same('10 messages, Marco', $this->t->translate('plurals_named', 10, ['name' => 'Marco']));
 	}
 
 }
@@ -99,7 +111,12 @@ class MockTranslator extends Translator
 				'one' => 'jeden',
 				'many' => 'deset',
 			],
-			'placeholder' => '%1 %2 %3',
+			'named' => '%1 %name',
+			'named_short' => '%1 %name',
+			'plurals_named' => [
+				'one' => 'One message, %name',
+				'many' => '%1 messages, %name',
+			]
 		];
 	}
 
