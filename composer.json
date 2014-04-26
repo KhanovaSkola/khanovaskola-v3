@@ -6,6 +6,7 @@
 		{"name": "Mikuláš Dítě"}
 	],
 	"preferred-install": "dist",
+	"minimum-stability": "beta",
 	"require": {
 		"php": ">= 5.5.0",
 		"nette/nette": "~2.1.0",
@@ -19,7 +20,8 @@
 		"kdyby/events": "~2.0.2",
 		"ezyang/htmlpurifier": "~4.6.0",
 		"pda/pheanstalk": "~2.1.0",
-		"kdyby/facebook": "@dev"
+		"kdyby/facebook": "@dev",
+		"mikulas/nette-google": "~1.0.0-alpha"
 	},
 	"require-dev": {
 		"nette/tester": "~1.1.0",

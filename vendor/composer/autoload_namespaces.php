@@ -25,6 +25,7 @@ return array(
     'Pheanstalk' => array($vendorDir . '/pda/pheanstalk/classes'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Nelmio\\Alice\\' => array($vendorDir . '/nelmio/alice/src'),
+    'Mikulas\\Google\\' => array($vendorDir . '/mikulas/nette-google/src'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Kdyby\\Redis\\' => array($vendorDir . '/kdyby/redis/src'),
     'Kdyby\\Facebook\\' => array($vendorDir . '/kdyby/facebook/src'),

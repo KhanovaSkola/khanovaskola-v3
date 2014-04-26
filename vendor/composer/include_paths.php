@@ -15,4 +15,5 @@ return array(
     $vendorDir . '/phpunit/php-code-coverage',
     $vendorDir . '/phpunit/phpunit',
     $vendorDir . '/symfony/yaml',
+    $vendorDir . '/google/apiclient/src',
 );

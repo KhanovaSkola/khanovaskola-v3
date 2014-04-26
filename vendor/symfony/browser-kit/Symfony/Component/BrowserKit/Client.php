@@ -97,9 +97,7 @@ abstract class Client
     public function insulate($insulated = true)
     {
         if ($insulated && !class_exists('Symfony\\Component\\Process\\Process')) {
-            // @codeCoverageIgnoreStart
             throw new \RuntimeException('Unable to isolate requests as the Symfony Process Component is not installed.');
-            // @codeCoverageIgnoreEnd
         }
 
         $this->insulated = (Boolean) $insulated;
@@ -299,7 +297,7 @@ abstract class Client
         $uri = $this->getAbsoluteUri($uri);
 
         if (isset($server['HTTP_HOST'])) {
-            $uri = preg_replace('{^(https?\://)'.parse_url($uri, PHP_URL_HOST).'}', '\\1'.$server['HTTP_HOST'], $uri);
+            $uri = preg_replace('{^(https?\://)'.parse_url($uri, PHP_URL_HOST).'}', '${1}'.$server['HTTP_HOST'], $uri);
         }
 
         if (isset($server['HTTPS'])) {
@@ -393,9 +391,7 @@ abstract class Client
      */
     protected function getScript($request)
     {
-        // @codeCoverageIgnoreStart
         throw new \LogicException('To insulate requests, you need to override the getScript() method.');
-        // @codeCoverageIgnoreEnd
     }
 
     /**
