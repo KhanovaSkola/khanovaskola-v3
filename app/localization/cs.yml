@@ -39,10 +39,10 @@ auth:
         message: "Pokud jste heslo zapomněli, můžete si nastavit nové."
     login:
       newUser:
-        title: "Vítejte na Khanově škole."
+        title: "Vítejte na Khanově škole, %vocative."
         message: "" #TODO
       returning:
-        title: "Vítejte zpět!"
+        title: "Vítejte zpět, %vocative!"
         message: "" #TODO
     logout:
       title: "Mějte se."

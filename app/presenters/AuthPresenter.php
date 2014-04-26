@@ -74,7 +74,9 @@ final class AuthPresenter extends BasePresenter
 
 				$this->user->login(new Identity($userEntity->id, [], $userEntity));
 
-				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'));
+				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
+					'vocative' => $userEntity->vocative,
+				]);
 			}
 			catch (FacebookApiException $e)
 			{
@@ -125,7 +127,9 @@ final class AuthPresenter extends BasePresenter
 
 				$this->user->login(new Identity($userEntity->id, [], $userEntity));
 
-				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'));
+				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
+					'vocative' => $userEntity->vocative,
+				]);
 			}
 			catch (FacebookApiException $e)
 			{
