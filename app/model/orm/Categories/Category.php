@@ -21,7 +21,7 @@ class Category extends TitledEntity
 	/**
 	 * @return TitledEntity[]
 	 */
-	function getChildren()
+	public function getChildren()
 	{
 		/** @var Category[] $categories */
 		$categories = $this->categories->get()->fetchAll();
