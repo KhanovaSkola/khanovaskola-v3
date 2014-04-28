@@ -1,48 +1,27 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use Mikulas\Migrations\Migration;
+require __DIR__ . '/bootstrap.php';
 
 
-class Users extends AbstractMigration
+class Users extends Migration
 {
 
 	public function up()
 	{
 		$this->table('users')
-			->addColumn('name', 'string', [
-				'limit' => 250
-			])
-			->addColumn('family_name', 'string', [
-				'limit' => 250
-			])
-			->addColumn('nominative', 'string', [
-				'limit' => 250
-			])
-			->addColumn('vocative', 'string', [
-				'limit' => 250
-			])
-			->addColumn('gender', 'string', [
-				'limit' => '6'
-			])
-			->addColumn('password', 'string', [
-				'limit' => 250, 'null' => TRUE
-			])
-			->addColumn('email', 'string', [
-				'limit' => 250
-			])
-			->addColumn('facebook_id', 'string', [
-				'limit' => 250, 'null' => TRUE
-			])
-			->addColumn('facebook_access_token', 'string', [
-				'limit' => 250, 'null' => TRUE
-			])
-			->addColumn('google_id', 'string', [
-				'limit' => 250, 'null' => TRUE
-			])
-			->addColumn('google_access_token', 'string', [
-				'limit' => 250, 'null' => TRUE
-			])
-			->addColumn('created_at', 'datetime')
+			->addString('email')
+			->addDateTime('created_at')
+			->addString('name')
+			->addString('family_name')
+			->addString('nominative')
+			->addString('vocative')
+			->addString('gender', 6)
+			->addOptionalString('password')
+			->addOptionalString('facebook_id')
+			->addOptionalString('facebook_access_token')
+			->addOptionalString('google_id')
+			->addOptionalString('google_access_token')
 			->save();
 	}
 

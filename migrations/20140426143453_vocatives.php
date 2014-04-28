@@ -1,18 +1,19 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use Mikulas\Migrations\Migration;
+require __DIR__ . '/bootstrap.php';
 
 
-class Vocatives extends AbstractMigration
+class Vocatives extends Migration
 {
 
 	public function up()
 	{
 		$this->table('vocatives')
-			->addColumn('gender', 'string', ['limit' => 6])
-			->addColumn('nominative', 'string', ['limit' => 100])
-			->addColumn('vocative', 'string', ['limit' => 100])
-			->addIndex(['gender', 'nominative'], ['name' => 'gender_nominative'])
+			->addString('gender', 6)
+			->addString('nominative')
+			->addString('vocative')
+			->addNamedIndex(['gender', 'nominative'])
 			->save();
 		$this->query(file_get_contents(__DIR__ . '/../app/fixtures/vocatives.sql'));
 	}

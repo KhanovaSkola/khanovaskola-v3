@@ -1,9 +1,9 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+require __DIR__ . '/bootstrap.php';
 
 
-class __Example__ extends AbstractMigration
+class __Example__ extends Migration
 {
 
 	public function up()

@@ -1,20 +1,23 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use Mikulas\Migrations\Migration;
+require __DIR__ . '/bootstrap.php';
 
 
-class Videos extends AbstractMigration
+class Videos extends Migration
 {
 
 	public function up()
 	{
 		$this->table('videos')
-			->addColumn('title', 'string', ['limit' => 250])
-			->addColumn('description', 'text')
-			->addColumn('youtube_id', 'string', ['limit' => 50])
-			->addColumn('youtube_id_original', 'string', ['limit' => 50])
-			->addColumn('created_at', 'datetime')
-			->addIndex(['youtube_id'], ['unique' => TRUE, 'name' => 'youtube_id'])
+			->addString('title')
+			->addString('slug')
+			->addText('description')
+			->addString('youtube_id', 50)
+			->addString('youtube_id_original', 50)
+			->addDateTime('created_at')
+			->addOptionalRelation('redirect_to', 'videos')
+			->addUniqueIndex(['youtube_id'])
 			->save();
 	}
 
