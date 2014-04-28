@@ -1,5 +1,5 @@
 parameters:
-	configVersion: 2
+	configVersion: 3
 	database:
 		username: postgres
 		password: 123
@@ -8,3 +8,12 @@ parameters:
 	elastic:
 		hosts:
 			- localhost
+
+facebook:
+	appId: "123456789012345"
+	appSecret: "dummy123456789012345678901234567"
+
+google:
+	clientId: "dummy.apps.googleusercontent.com"
+	clientSecret: "dummy1234567890123456789"
+	apiKey: "dummy1234567890123456789012345678901234"
