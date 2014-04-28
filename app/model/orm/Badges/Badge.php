@@ -4,6 +4,7 @@ namespace App\Model;
 
 
 use App\NotSupportedException;
+use App\Services\Translator;
 use Kdyby\Events\Subscriber;
 use Nette\Reflection\ClassType;
 use Orm;

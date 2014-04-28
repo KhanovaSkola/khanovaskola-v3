@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Services\ElasticSearch;
+use App\Services\Translator;
 use Orm\EventArguments;
 use Orm\IRepository;
 
@@ -13,9 +14,9 @@ class ElasticMapper extends Mapper
 	/** @var \App\Services\ElasticSearch */
 	protected $elastic;
 
-	public function __construct(IRepository $repository, ElasticSearch $elastic)
+	public function __construct(IRepository $repository, Translator $translator, ElasticSearch $elastic)
 	{
-		parent::__construct($repository);
+		parent::__construct($repository, $translator);
 		$this->elastic = $elastic;
 
 		$events = $repository->getEvents();

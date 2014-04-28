@@ -6,7 +6,6 @@ use App\MustNeverHappenException;
 
 
 /**
- * @mapper App\Model\Mapper
  */
 class BadgeUserBridgesRepository extends Repository
 {
@@ -20,12 +19,12 @@ class BadgeUserBridgesRepository extends Repository
 			return self::getTypes();
 		}
 
-		if (isset($data['key']))
+		if (isset($data['badge']))
 		{
 			/** @var RepositoryContainer $orm */
 			$orm = $this->getModel();
-			$badge = $orm->badges->getById($data['badge_id']);
-			return "App\\Model\\{$badge->key}Badge";
+			$badge = $orm->badges->getById($data['badge']);
+			return "App\\Model\\{$badge->key}BadgeUserBridge";
 		}
 
 		throw new MustNeverHappenException;

@@ -48,3 +48,8 @@ auth:
       title: "Mějte se."
       message: "Příště se naučíme ještě víc."
 
+badges:
+  video:
+    watched:
+      title: "Shlédnuté video"
+      description: "%video"

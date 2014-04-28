@@ -20,4 +20,11 @@ class VideoWatchedBadgeUserBridge extends BadgeUserBridge
 		$this->video = $video;
 	}
 
+	public function getDescriptionArgs()
+	{
+		return [
+			'video' => $this->video->title,
+		];
+	}
+
 }
