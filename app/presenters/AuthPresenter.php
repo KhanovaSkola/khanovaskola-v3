@@ -72,7 +72,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->orm->flush(); // persist $userEntity
 
-				$this->user->login(new Identity($userEntity->id, [], $userEntity));
+				$this->user->login(new Identity($userEntity->id));
 
 				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
 					'vocative' => $userEntity->vocative,
@@ -125,7 +125,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->orm->flush(); // persist $userEntity
 
-				$this->user->login(new Identity($userEntity->id, [], $userEntity));
+				$this->user->login(new Identity($userEntity->id));
 
 				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
 					'vocative' => $userEntity->vocative,
