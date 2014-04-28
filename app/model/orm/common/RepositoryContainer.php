@@ -21,9 +21,9 @@ class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 	/** @var \Nette\Caching\Cache */
 	protected $cache;
 
-	public function __construct($containerFactory = NULL, $repositories = [], Container $container = NULL)
+	public function __construct($containerFactory = NULL, Container $container = NULL)
 	{
-		parent::__construct($containerFactory, $repositories);
+		parent::__construct($containerFactory);
 		/** @var IStorage $storage */
 		$storage = $container->getService('cacheStorage');
 		$this->cache = new Cache($storage);

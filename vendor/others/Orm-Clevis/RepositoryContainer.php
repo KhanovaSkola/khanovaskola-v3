@@ -2,11 +2,11 @@
 
 namespace Clevis\Skeleton\Orm;
 
-use Orm;
 use Nette;
 use Nette\Reflection;
-use Orm\Repository;
+use Orm;
 use Orm\IRepository;
+use Orm\Repository;
 use Orm\RepositoryNotFoundException;
 
 
@@ -27,21 +27,23 @@ class RepositoryContainer extends Orm\RepositoryContainer
 	 * Class constuctor – automatically registers repository aliases
 	 *
 	 * @param Orm\IServiceContainerFactory|Orm\IServiceContainer|NULL
-	 * @param array ($alias => $className)
 	 */
-	public function __construct($containerFactory = NULL, $repositories = array())
+	public function __construct($containerFactory = NULL)
 	{
 		parent::__construct($containerFactory);
 
 		$this->registerAnnotations();
 
-		// registers repositories from config
-		foreach ($repositories as $alias => $repositoryClass)
+		$ref = new Reflection\ClassType($this);
+		$ns = $ref->getNamespaceName();
+		foreach ($ref->getAnnotations()['property-read'] as $anno)
 		{
+			$anno = trim($anno);
+			list($class, $alias) = preg_split('~\s+~', $anno);
 			if (!$this->isRepository($alias))
 			{
-				$this->register($alias, $repositoryClass);
-				$this->aliases[$alias] = $repositoryClass;
+				$this->register($alias, "$ns\\$class");
+				$this->aliases[$alias] = "$ns\\$class";
 			}
 		}
 	}
