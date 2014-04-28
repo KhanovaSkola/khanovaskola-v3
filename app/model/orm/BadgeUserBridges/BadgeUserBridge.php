@@ -76,6 +76,17 @@ abstract class BadgeUserBridge extends Entity
 		return [];
 	}
 
+	/**
+	 * @return string path
+	 */
+	public function getImagePath()
+	{
+		$file = preg_replace_callback('~[A-Z]~', function($m) {
+			return '.' . strToLower($m[0]);
+		}, lcFirst($this->badge->key));
+		return "/images/badges/$file.svg";
+	}
+
 	public function injectTranslator(Translator $translator)
 	{
 		$this->translator = $translator;
