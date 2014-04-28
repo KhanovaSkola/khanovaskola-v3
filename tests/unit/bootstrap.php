@@ -15,7 +15,7 @@ Tester\Environment::setup();
 
 $configurator = new \App\Configurator("$root/tests/temp");
 
-$configurator->setDebugMode(TRUE);
+$configurator->setDebugMode(FALSE);
 $configurator->createRobotLoader()
 	->register();
 

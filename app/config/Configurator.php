@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\InvalidArgumentException;
 use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette;
 use Nette\DI;
@@ -78,11 +77,11 @@ class Configurator extends Nette\Configurator
 	 * @throws InvalidArgumentException
 	 * @return self
 	 */
-	public function setDebugMode($value = [])
+	public function setDebugMode($value = FALSE)
 	{
-		if (!is_array($value))
+		if ($value === TRUE)
 		{
-			throw new InvalidArgumentException;
+			throw new \InvalidArgumentException('Use array of allowed ips instead');
 		}
 		return parent::setDebugMode($value);
 	}
