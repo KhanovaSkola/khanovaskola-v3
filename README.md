@@ -8,6 +8,24 @@ License
 
 MIT License, see [LICENSE.md](LICENSE.md)
 
+Link directory
+--------------
+
+<dl>
+	<dt>http server</dt>
+		<dd>http://vagrant.khanovaskola.cz/</dd>
+	<dt>adminer</dt>
+		<dd>http://vagrant.khanovaskola.cz/tools/db/</dd>
+	<dt>mail trap</td>
+		<dd>https://mailtrap.io/inboxes/23883/messages</dd>
+	<dt>elasticsearch console</td>
+		<dd>http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200</dd>
+	<dt>beanstalkd console</td>
+		<dd>http://vagrant.khanovaskola.cz/tools/beanstalk/public/</dd>
+	<dt>opcache dashboard</td>
+		<dd>http://vagrant.khanovaskola.cz/tools/opcache/</dd>
+</dl>
+
 Setup
 -----
 
@@ -19,7 +37,7 @@ vagrant up
 
 (If you are running guest additions 4.3.10 and getting an error, see http://stackoverflow.com/a/22723807/326257.)
 
-install git hooks
+install git hooks:
 ```sh
 sh bin/install-hooks
 ```
@@ -86,21 +104,3 @@ build both styles (`grunt less`) and scripts (`grunt uglify`):
 ```sh
 grunt
 ```
-
-http server
-http://vagrant.khanovaskola.cz/
-
-adminer
-http://vagrant.khanovaskola.cz/tools/db/
-
-mail trap
-https://mailtrap.io/inboxes/23883/messages
-
-elasticsearch console
-http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200
-
-beanstalkd console
-http://vagrant.khanovaskola.cz/tools/beanstalk/public/
-
-opcache dashboard
-http://vagrant.khanovaskola.cz/tools/opcache/
