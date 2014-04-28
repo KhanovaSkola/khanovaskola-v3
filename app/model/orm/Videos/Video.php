@@ -99,7 +99,7 @@ class Video extends TitledEntity implements IIndexable
 	/**
 	 * @return TitledEntity[]
 	 */
-	final function getChildren()
+	final public function getChildren()
 	{
 		return [];
 	}

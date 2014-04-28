@@ -45,7 +45,7 @@ abstract class Badge extends Entity implements Subscriber
 		return $list;
 	}
 
-	final static function getKey()
+	final public static function getKey()
 	{
 		$name = get_called_class();
 		$short = substr($name, strrpos($name, '\\') + 1);
