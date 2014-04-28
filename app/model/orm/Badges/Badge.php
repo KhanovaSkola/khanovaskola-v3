@@ -73,6 +73,8 @@ abstract class Badge extends Entity implements Subscriber
 		$bridge = $createBridge($badge, $user);
 		$this->orm->badgeUserBridges->attach($bridge);
 
+		// TODO add to payload, notify user
+
 		return $bridge;
 	}
 

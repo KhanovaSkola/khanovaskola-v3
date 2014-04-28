@@ -20,7 +20,6 @@ class VideoWatchedBadge extends Badge
 		$this->awardTo($user, function(Badge $badge, User $user) use ($video) {
 			return new VideoWatchedBadgeUserBridge($badge, $user, $video);
 		});
-		// TODO send notification to user
 	}
 
 }
