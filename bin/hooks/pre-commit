@@ -1,8 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env php
+<?php
 #
 # Run CodeSniffer on all staged files
 #
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$DIR/../.."
-git diff --name-only --cached | grep .php | xargs php "vendor/bin/phpcs" --severity=1 -p --standard="tests/cs"
+$root = __DIR__ . '/../..';
+$files = [];
+exec(sprintf('cd %s; git diff --cached --name-only', escapeshellarg($root)), $files);
+
+$args = [];
+foreach ($files as $file)
+{
+	$path = "$root/$file";
+	if (file_exists($path) && preg_match('~\.php$~', $path))
+	{
+		$args[] = escapeshellarg($path);
+	}
+}
+$ret = 0;
+if ($args)
+{
+	passthru(sprintf('php "vendor/bin/phpcs" --severity=1 -p --standard="tests/cs" %s', implode(' ', $args)), $ret);
+}
+
+exit($ret);
