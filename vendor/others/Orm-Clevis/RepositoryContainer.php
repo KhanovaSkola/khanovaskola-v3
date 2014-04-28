@@ -48,6 +48,11 @@ class RepositoryContainer extends Orm\RepositoryContainer
 		}
 	}
 
+	public function getAliases()
+	{
+		return $this->aliases;
+	}
+
 	/**
 	 * Registers repositories from annotations
 	 */

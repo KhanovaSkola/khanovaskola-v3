@@ -29,9 +29,9 @@ class FillTask extends Command
 		/** @var RepositoryContainer $orm */
 		$orm = $this->container->getService('orm');
 
-		$repos = $this->container->parameters['repositories'];
+		$repos = $orm->getAliases();
 		$map = [];
-		foreach ($repos as $name => $repo)
+		foreach ($repos as $name => $repoClass)
 		{
 			$class = $orm->$name->getEntityClassName();
 			if (is_array($class))
