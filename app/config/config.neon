@@ -13,12 +13,12 @@ parameters:
 		profiler: on
 	beanstalk:
 		host: 127.0.0.1:13000
-	repositories:
-		badges: App\Model\BadgesRepository
-		badgeUserBridges: App\Model\BadgeUserBridgesRepository
-		gists: App\Model\GistsRepository
-		users: App\Model\UsersRepository
-		videos: App\Model\VideosRepository
+#	repositories:
+#		badges: App\Model\BadgesRepository
+#		badgeUserBridges: App\Model\BadgeUserBridgesRepository
+#		gists: App\Model\GistsRepository
+#		users: App\Model\UsersRepository
+#		videos: App\Model\VideosRepository
 	fb:
 		pageId: "268941846529405"
 
@@ -64,7 +64,7 @@ services:
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
 
-	orm: App\Model\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
+	orm: App\Model\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
 	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
