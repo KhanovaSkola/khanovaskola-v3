@@ -76,7 +76,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	public function beforeRender()
 	{
+		parent::beforeRender();
 		$this->template->setTranslator($this->translator);
+		$this->template->userEntity = $this->userEntity;
 	}
 
 	public function createComponentGist()
