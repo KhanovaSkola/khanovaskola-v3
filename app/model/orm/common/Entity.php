@@ -4,9 +4,13 @@ namespace App\Model;
 
 use Nelmio\Alice\Loader\Porm;
 use Nette\Caching\Cache;
+use Nette\DateTime;
 use Orm;
 
 
+/**
+ * @property DateTime $createdAt {default now}
+ */
 abstract class Entity extends Orm\Entity
 {
 

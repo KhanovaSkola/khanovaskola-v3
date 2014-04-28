@@ -20,7 +20,6 @@ use Orm;
  * @property string|NULL $facebookAccessToken
  * @property string|NULL $googleId
  * @property string|NULL $googleAccessToken
- * @property DateTime $createdAt {default now}
  */
 class User extends Entity
 {
