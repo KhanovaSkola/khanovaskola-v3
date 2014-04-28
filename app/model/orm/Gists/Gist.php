@@ -9,7 +9,6 @@ use Orm;
 /**
  * @property string $name
  * @property string $text purified html
- * @property DateTime $createdAt {default now}
  */
 class Gist extends Entity
 {
