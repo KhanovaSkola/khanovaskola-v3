@@ -9,6 +9,7 @@ namespace App;
  * `- Exception
  *    |- RuntimeException #důležitý je typ výjimky pro přesné zachytávání; nelze jí předejít
  *    |  |- App\InvalidStateException
+ *    |  |  `- App\MustNeverHappenException
  *    |  |- App\DuplicateEntryException
  *    |  `- App\IOException
  *    |     |- App\FileNotFoundException
@@ -35,6 +36,12 @@ namespace App;
  */
 class InvalidStateException extends \RuntimeException { }
 
+
+/**
+ * Výjimka vyhazovaná pokud jsou někde nekonzistentní data a aplikace
+ * se díky tomu dostala do špatných podmínek atp. Používat jako assert.
+ */
+class MustNeverHappenException extends InvalidStateException { }
 
 /**
  * Výjimky vyhazovaná v případě, že se nepodaří zapsat záznam (obvykle) do DB

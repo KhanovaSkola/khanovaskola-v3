@@ -20,6 +20,8 @@ use Orm;
  * @property string|NULL $facebookAccessToken
  * @property string|NULL $googleId
  * @property string|NULL $googleAccessToken
+ *
+ * @property Orm\OneToMany $badgeUserBridges {1:m badgeUserBridges $user}
  */
 class User extends Entity
 {

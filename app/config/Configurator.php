@@ -76,6 +76,7 @@ class Configurator extends Nette\Configurator
 	{
 		$params = $this->getParameters();
 		$this->addConfig($params['appDir'] . '/config/config.neon', FALSE);
+		$this->addConfig($params['appDir'] . '/config/badges.neon', FALSE);
 		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
 	}
 

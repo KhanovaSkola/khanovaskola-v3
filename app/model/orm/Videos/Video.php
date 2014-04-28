@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-
-use Nette\DateTime;
 use Nette\Utils\Strings;
 use Orm;
 
@@ -12,6 +10,8 @@ use Orm;
  * @property string $description
  * @property string $youtubeId
  * @property string $youtubeIdOriginal filled if dubbed {default ''}
+ *
+ * @property Orm\OneToMany $videoWatchedBadges {1:m badgeUserBridges $video}
  */
 class Video extends TitledEntity implements IIndexable
 {
