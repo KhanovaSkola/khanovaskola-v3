@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\InvalidArgumentException;
 use Mikulas\Diagnostics\ElasticSearchPanel;
 use Nette;
 use Nette\DI;
@@ -71,6 +72,33 @@ class Configurator extends Nette\Configurator
 			}
 		}
 	}
+
+	/**
+	 * @param bool|array $value
+	 * @throws InvalidArgumentException
+	 * @return self
+	 */
+	public function setDebugMode($value = [])
+	{
+		if (!is_array($value))
+		{
+			throw new InvalidArgumentException;
+		}
+		return parent::setDebugMode($value);
+	}
+
+
+	public static function detectDebugMode($list = NULL)
+	{
+		if (strpos(php_uname('n'), 'testing-worker-') !== FALSE)
+		{
+			// Travis
+			return TRUE;
+		}
+
+		return parent::detectDebugMode($list);
+	}
+
 
 	public function onInitConfigs()
 	{
