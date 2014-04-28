@@ -51,7 +51,7 @@ facebook:
 services:
 	- App\Model\UsersRepository
 	- App\Services\Authenticator
-	- App\Services\Translator(%appDir%/localization)
+	translator: App\Services\Translator(%appDir%/localization)
 
 	queue: App\Services\Queue(%beanstalk.host%)
 	mailer: App\Services\Mailer(%smtp%)
