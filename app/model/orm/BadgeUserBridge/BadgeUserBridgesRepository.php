@@ -11,13 +11,13 @@ use App\MustNeverHappenException;
 class BadgeUserBridgesRepository extends Repository
 {
 
+	private static $types;
+
 	public function getEntityClassName(array $data = NULL)
 	{
 		if ($data === NULL)
 		{
-			return [
-				'App\\Model\\VideoWatchedBadgeUserBridge',
-			];
+			return self::getTypes();
 		}
 
 		if (isset($data['key']))
@@ -31,5 +31,17 @@ class BadgeUserBridgesRepository extends Repository
 		throw new MustNeverHappenException;
 	}
 
+	public static function getTypes()
+	{
+		if (!self::$types)
+		{
+			self::$types = BadgesRepository::getTypes();
+			array_walk(self::$types, function(&$type) {
+				$type .= 'UserBridge';
+			});
+		}
+
+		return self::$types;
+	}
 
 }
