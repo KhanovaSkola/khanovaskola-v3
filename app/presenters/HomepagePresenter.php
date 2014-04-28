@@ -3,6 +3,8 @@
 namespace App\Presenters;
 
 use App\Components\GistRenderer;
+use App\Model\EventList;
+use Kdyby\Events\EventArgsList;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 
@@ -14,8 +16,13 @@ final class HomepagePresenter extends BasePresenter
 	{
 		// $task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
 		// $this->context->getService('queue')->enqueue($task);
-
 		$video = $this->orm->videos->getById(3);
+
+		//		$this->eventManager->dispatchEvent(EventList::VIDEO_WATCHED, new EventArgsList([
+		//			$video, $this->userEntity
+		//		]));
+		//		$this->orm->flush(); // persist bridge
+
 		$this->template->video = $video;
 
 		$gist = $this->orm->gists->getByName('test');
@@ -23,11 +30,6 @@ final class HomepagePresenter extends BasePresenter
 		$gistRenderer = $this['gist'];
 		$gistRenderer->setEditable(TRUE);
 		$gistRenderer->setGist($gist);
-
-		// $this->eventManager->dispatchEvent('onVideoWatched', new EventArgsList([
-		//	$this
-		// ]));
-		// dump($this->eventManager);
 	}
 
 	public function actionSearch($query)

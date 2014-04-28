@@ -14,7 +14,7 @@ use Orm;
 
 /**
  * @property \App\Model\Badge $badge {m:1 badges $badgeUserBridges}
- * @property \App\Model\User $user {m:1 users $badgeUserBridges}
+ * @property \App\Model\User $user {m:1 users $badges}
  *
  * @property-read string $title translated
  * @property-read string $description translated
