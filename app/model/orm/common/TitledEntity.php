@@ -11,18 +11,27 @@ use Orm;
 
 
 /**
- * @property $title
- * @property $slug
+ * @property string $title
+ * @property string $slug
  */
 abstract class TitledEntity extends Entity
 {
 
 	/**
-	 * Automatically updates slug
+	 * Automatically updates slug and creates RedirectEntity
 	 * @param $title
 	 */
 	public function setTitle($title)
 	{
+		try {
+			$update = $this->getValue('title') !== NULL;
+		}
+		catch (Orm\NotValidException $e)
+		{
+			// title is unset and null is not allowed
+			$update = FALSE;
+		}
+
 		$this->setValue('title', $title);
 		$this->setValue('slug', Strings::webalize($title));
 	}

@@ -14,6 +14,8 @@ parameters:
 	beanstalk:
 		host: 127.0.0.1:13000
 	repositories:
+		badges: App\Model\BadgesRepository
+		badgeUserBridges: App\Model\BadgeUserBridgesRepository
 		gists: App\Model\GistsRepository
 		users: App\Model\UsersRepository
 		videos: App\Model\VideosRepository
@@ -59,9 +61,6 @@ services:
 		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
 	router: App\Router
 	dibiConnection: DibiConnection(%database%)
-	badgeProvider:
-		class: App\Services\BadgeProvider
-		tags: [kdyby.subscriber]
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
 

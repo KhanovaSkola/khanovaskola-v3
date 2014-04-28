@@ -3,12 +3,10 @@
 namespace App\Model;
 
 
-
-
 /**
  * @method HighlightCollection getWithFulltext()
  */
-class VideosRepository extends Repository
+class VideosRepository extends NodeRepository
 {
 
 }

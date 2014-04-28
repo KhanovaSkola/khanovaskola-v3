@@ -1,0 +1,4 @@
+services:
+	-
+		class: App\Model\VideoWatchedBadge
+		tags: [kdyby.subscriber]
