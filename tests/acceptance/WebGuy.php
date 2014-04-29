@@ -2057,5 +2057,43 @@ class WebGuy extends \Codeception\AbstractGuy
         }
         return new Maybe();
     }
+
+ 
+    /**
+     * This method is generated.
+     * Documentation taken from corresponding module.
+     * ----------------------------------------------
+     *
+     *
+     * @see Codeception\Module\WebHelper::logInToFacebook()
+     * @return \Codeception\Maybe
+     */
+    public function logInToFacebook($user, $pass) {
+        $this->scenario->addStep(new \Codeception\Step\Action('logInToFacebook', func_get_args()));
+        if ($this->scenario->running()) {
+            $result = $this->scenario->runStep();
+            return new Maybe($result);
+        }
+        return new Maybe();
+    }
+
+ 
+    /**
+     * This method is generated.
+     * Documentation taken from corresponding module.
+     * ----------------------------------------------
+     *
+     *
+     * @see Codeception\Module\WebHelper::logInToGoogle()
+     * @return \Codeception\Maybe
+     */
+    public function logInToGoogle($user, $pass) {
+        $this->scenario->addStep(new \Codeception\Step\Action('logInToGoogle', func_get_args()));
+        if ($this->scenario->running()) {
+            $result = $this->scenario->runStep();
+            return new Maybe($result);
+        }
+        return new Maybe();
+    }
 }
 
