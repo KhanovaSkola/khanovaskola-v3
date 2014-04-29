@@ -63,3 +63,8 @@ badges:
     watched:
       title: "Shlédnuté video"
       description: "%video"
+  user:
+    old:
+      week:
+        title: "Nový uživatel" #TODO
+        description: "Na Khanovu školu jste zapsán[|a] od %date"

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Badges;
 
-use Kdyby\Events\Subscriber;
+use App\Model\Badge;
+use App\Model\BadgeUserBridges;
+use App\Model\User;
 use Nette\DateTime;
-use Nette\Utils\Strings;
 use Orm;
 
 
-class UserWeekOldBadge extends Badge
+class UserOldWeek extends Badge
 {
 
 	/** @subscribe */
@@ -18,7 +19,7 @@ class UserWeekOldBadge extends Badge
 		if ($user->createdAt > DateTime::from('-1 week'))
 		{
 			$this->awardTo($user, function(Badge $badge, User $user) {
-				return new UserWeekOldBadgeUserBridge($badge, $user);
+				return new BadgeUserBridges\UserOldWeek($badge, $user);
 			});
 		}
 	}
