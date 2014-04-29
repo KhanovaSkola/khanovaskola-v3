@@ -4,11 +4,7 @@ namespace App\Model;
 
 
 use App\MustNeverHappenException;
-use App\NotSupportedException;
 use App\Services\Translator;
-use Kdyby\Events\Subscriber;
-use Nette\DateTime;
-use Nette\Utils\Strings;
 use Orm;
 
 
@@ -16,8 +12,8 @@ use Orm;
  * @property \App\Model\Badge $badge {m:1 badges $badgeUserBridges}
  * @property \App\Model\User $user {m:1 users $badges}
  *
- * @property-read string $title translated
- * @property-read string $description translated
+ * @property-read string $title translated {ignore}
+ * @property-read string $description translated {ignore}
  */
 abstract class BadgeUserBridge extends Entity
 {

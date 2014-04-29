@@ -18,11 +18,6 @@ final class HomepagePresenter extends BasePresenter
 		// $this->context->getService('queue')->enqueue($task);
 		$video = $this->orm->videos->getById(3);
 
-		//		$this->eventManager->dispatchEvent(EventList::VIDEO_WATCHED, new EventArgsList([
-		//			$video, $this->userEntity
-		//		]));
-		//		$this->orm->flush(); // persist bridge
-
 		$this->template->video = $video;
 
 		$gist = $this->orm->gists->getByName('test');
