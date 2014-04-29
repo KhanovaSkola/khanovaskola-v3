@@ -5,6 +5,8 @@ namespace App\Model;
 
 use App\NotSupportedException;
 use App\Services\Translator;
+use Kdyby\Events\EventArgsList;
+use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Nette\Reflection\ClassType;
 use Orm;
@@ -18,13 +20,22 @@ use Orm;
 abstract class Badge extends Entity implements Subscriber
 {
 
+	/** @var EventManager */
+	private $eventManager;
+
 	/** @var RepositoryContainer */
 	private $orm;
 
-	public function __construct(RepositoryContainer $container)
+	public function __construct(RepositoryContainer $container, EventManager $eventManager = NULL)
 	{
 		parent::__construct();
 		$this->orm = $container;
+		$this->eventManager = $eventManager;
+	}
+
+	public function injectEventManager(EventManager $eventManager)
+	{
+		$this->eventManager = $eventManager;
 	}
 
 	/**
@@ -72,7 +83,7 @@ abstract class Badge extends Entity implements Subscriber
 		$bridge = $createBridge($badge, $user);
 		$this->orm->badgeUserBridges->attach($bridge);
 
-		// TODO add to payload, notify user
+		$this->eventManager->dispatchEvent(EventList::BADGE_AWARDED, new EventArgsList([$bridge]));
 
 		return $bridge;
 	}

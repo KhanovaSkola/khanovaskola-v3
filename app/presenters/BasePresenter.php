@@ -5,11 +5,14 @@ namespace App\Presenters;
 use App\Components\GistRenderer;
 use App\DeprecatedException;
 use App\InvalidArgumentException;
+use App\Model\BadgeUserBridge;
+use App\Model\EventList;
 use App\Model\RepositoryContainer;
 use App\Model\User;
 use App\Services\Translator;
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
+use Kdyby\Events\Subscriber;
 use Monolog\Logger;
 use Nette;
 use Nette\Http\Session;
@@ -22,7 +25,7 @@ use Nette\Http\Session;
  * @property-read Nette\Templating\FileTemplate $template
  * @property-read User $userEntity
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends Nette\Application\UI\Presenter implements Subscriber
 {
 
 	const FLASH_ERROR = 'danger';
@@ -33,6 +36,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 		$this->translator->setLanguage('cs');
+		$this->getEventManager()->addEventSubscriber($this);
+	}
+
+	public function getSubscribedEvents()
+	{
+		return [EventList::BADGE_AWARDED];
+	}
+
+	public function onBadgeAwarded(BadgeUserBridge $bridge)
+	{
+		// TODO notify user
 	}
 
 	/**
@@ -149,6 +163,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return $flash;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	final public function flashMessage($message, $type = NULL, $title = NULL)
 	{
 		throw new DeprecatedException('Use flashError, flashInfo or flashSuccess instead');
