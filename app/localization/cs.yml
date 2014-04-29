@@ -18,6 +18,9 @@ test:
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
 auth:
+  loginLink:
+    facebook: "Přihlásit se přes Facebook"
+    google: "Přihlásit se přes Google"
   flash:
     fb:
       denied:

@@ -1,8 +1,8 @@
 {block content}
 <h1 n:block=title>Sign in</h1>
 
-<a n:href="facebookLogin-open!">Login using facebook</a>
-<a n:href="googleLogin-open!">Login using google</a>
+<a n:href="facebookLogin-open!" id="login-facebook">Login using facebook</a>
+<a n:href="googleLogin-open!" id="login-google">Login using google</a>
 {control signInForm}
 
 {* or use {include '../components/form.latte', form => signInForm} *}
