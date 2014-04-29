@@ -4,7 +4,7 @@ use Mikulas\Migrations\Migration;
 require __DIR__ . '/bootstrap.php';
 
 
-class BadgeUserWeekOld extends Migration
+class BadgeUserOldWeek extends Migration
 {
 
 	public function up()

@@ -44,6 +44,9 @@ class ElasticSearch extends Client
 		return $res;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function index($params)
 	{
 		throw new DeprecatedException('Use addToIndex instead');
