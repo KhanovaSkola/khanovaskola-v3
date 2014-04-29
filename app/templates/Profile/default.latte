@@ -3,6 +3,7 @@
 <h1>{$profile->name}</h1>
 
 <h2>Badges</h2>
+<a n:href="getBadge!">Get badge</a>
 {foreach $userEntity->badges as $badge}
 	<img src="{$basePath.$badge->imagePath}" class="badge-image">
 	<h3>{$badge->title}</h3>
