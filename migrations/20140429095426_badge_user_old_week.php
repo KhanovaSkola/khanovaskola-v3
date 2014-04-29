@@ -10,7 +10,7 @@ class BadgeUserWeekOld extends Migration
 	public function up()
 	{
 		$this->query("INSERT INTO badges (key, created_at) VALUES
-			('UserWeekOld', Now())
+			('UserOldWeek', Now())
 		");
 	}
 

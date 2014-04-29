@@ -24,7 +24,7 @@ class BadgeUserBridgesRepository extends Repository
 			/** @var RepositoryContainer $orm */
 			$orm = $this->getModel();
 			$badge = $orm->badges->getById($data['badge']);
-			return "App\\Model\\{$badge->key}BadgeUserBridge";
+			return "App\\Model\\BadgeUserBridges\\{$badge->key}";
 		}
 
 		throw new MustNeverHappenException;
@@ -36,7 +36,7 @@ class BadgeUserBridgesRepository extends Repository
 		{
 			self::$types = BadgesRepository::getTypes();
 			array_walk(self::$types, function(&$type) {
-				$type .= 'UserBridge';
+				$type = str_replace('\\Badges\\', '\\BadgeUserBridges\\', $type);
 			});
 		}
 

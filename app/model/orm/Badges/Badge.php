@@ -49,7 +49,6 @@ abstract class Badge extends Entity implements Subscriber
 	{
 		$name = get_called_class();
 		$short = substr($name, strrpos($name, '\\') + 1);
-		$short = str_replace('Badge', '', $short);
 		return $short;
 	}
 
