@@ -5,12 +5,15 @@ namespace App\Services;
 use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
+use App\Model\User;
 use Monolog\Logger;
 use Nette;
 
 
 class Translator implements Nette\Localization\ITranslator
 {
+
+	const GENDER = 'gender';
 
 	/** @var string */
 	private $language;
@@ -118,7 +121,7 @@ class Translator implements Nette\Localization\ITranslator
 
 		$values = $args;
 		$values[1] = $count;
-		return preg_replace_callback('~%([\w\d]+)~', function ($match) use ($values, $steps)
+		$translated = preg_replace_callback('~%([\w\d]+)~', function ($match) use ($values, $steps)
 		{
 			$key = $match[1];
 			if (!isset($values[$key]))
@@ -130,6 +133,17 @@ class Translator implements Nette\Localization\ITranslator
 
 			return $values[$key];
 		}, $text);
+
+		if (isset($values[self::GENDER]))
+		{
+			// inflect by gender from '[he|she]' syntax
+			$isMale = $values[self::GENDER] === User::GENDER_MALE;
+			$translated = preg_replace_callback('~\[([^|]*)\|([^|]*)\]~', function($m) use ($isMale) {
+				return $isMale ? $m[1] : $m[2];
+			}, $translated);
+		}
+
+		return $translated;
 	}
 
 	protected function findTextByKey($steps, $count)
