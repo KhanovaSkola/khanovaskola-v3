@@ -59,4 +59,15 @@ class User extends Entity
 		$this->setValue('password', Passwords::hash($plaintext));
 	}
 
+	public function getBadges($key = NULL)
+	{
+		if ($key === NULL)
+		{
+			return $this->getValue('badges');
+		}
+		$id = $this->model->badges->getByKey($key)->id;
+
+		return $this->getValue('badges')->get()->findBy(['badgeId' => $id]);
+	}
+
 }
