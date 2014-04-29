@@ -18,6 +18,13 @@ test:
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
 auth:
+  reason:
+    generic:
+      title: "" #TODO
+      message: "Pro zobrazení stránky se musíte přihlásit."
+    inactivity:
+      title: "Byli jste odhlášeni." #TODO
+      message: "Pro zobrazení stránky se musíte přihlásit."
   loginLink:
     facebook: "Přihlásit se přes Facebook"
     google: "Přihlásit se přes Google"
