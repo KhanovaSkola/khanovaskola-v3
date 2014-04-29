@@ -47,6 +47,9 @@ final class ProfilePresenter extends BasePresenter
 
 	public function handleGetBadge()
 	{
+		$this->trigger(EventList::LOGIN, [$this->userEntity]);
+		$this->redirect('this');
+
 		$video = $this->orm->videos->getById(3);
 		$this->trigger(EventList::VIDEO_WATCHED, [$this->userEntity, $video]);
 		$this->redirect('this');
