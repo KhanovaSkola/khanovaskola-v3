@@ -88,6 +88,14 @@ class TranslatorTest extends Tester\TestCase
 		Assert::same('10 messages, Marco', $this->t->translate('plurals_named', 10, ['name' => 'Marco']));
 	}
 
+	function testGenderInflector()
+	{
+		$this->t->setLanguage('test');
+		Assert::same('[he|she] udelal[|a]', $this->t->translate('gender'));
+		Assert::same('he udelal', $this->t->translate('gender', ['gender' => 'male']));
+		Assert::same('she udelala', $this->t->translate('gender', ['gender' => 'female']));
+	}
+
 }
 
 class MockTranslator extends Translator
@@ -116,7 +124,8 @@ class MockTranslator extends Translator
 			'plurals_named' => [
 				'one' => 'One message, %name',
 				'many' => '%1 messages, %name',
-			]
+			],
+			'gender' => '[he|she] udelal[|a]'
 		];
 	}
 
