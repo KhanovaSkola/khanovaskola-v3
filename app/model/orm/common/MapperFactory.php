@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Services\ElasticSearch;
 use App\Services\Translator;
+use Kdyby\Events\EventManager;
 use Nette\DI\Container;
 use Orm\AnnotationClassParser;
 use Orm\IMapper;
@@ -38,6 +39,12 @@ class MapperFactory extends \Orm\MapperFactory
 			/** @var ElasticSearch $elastic */
 			$elastic = $this->container->getService('elastic');
 			return new VideosMapper($repository, $translator, $elastic);
+		}
+		else if ($repository instanceof BadgesRepository)
+		{
+			/** @var EventManager $eventManager */
+			$eventManager = $this->container->getByType('Kdyby\\Events\\EventManager');
+			return new BadgesMapper($repository, $translator, $eventManager);
 		}
 
 		$class = $this->getMapperClass($repository);

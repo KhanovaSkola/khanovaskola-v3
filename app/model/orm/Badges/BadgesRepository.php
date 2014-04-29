@@ -8,8 +8,6 @@ use Nette\Utils\Neon;
 
 
 /**
- * @mapper App\Model\Mapper
- *
  * @method App\Model\Badge getByKey()
  */
 class BadgesRepository extends Repository
