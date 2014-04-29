@@ -8,6 +8,7 @@ use App\InvalidArgumentException;
 use App\Model\RepositoryContainer;
 use App\Model\User;
 use App\Services\Translator;
+use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Monolog\Logger;
 use Nette;
@@ -18,7 +19,6 @@ use Nette\Http\Session;
  * @property-read RepositoryContainer $orm
  * @property-read Translator $translator
  * @property-read Logger $log
- * @property-read EventManager $eventManager
  * @property-read Nette\Templating\FileTemplate $template
  * @property-read User $userEntity
  */
@@ -54,9 +54,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * @return EventManager
 	 */
-	public function getEventManager()
+	private function getEventManager()
 	{
 		return $this->context->getByType('Kdyby\Events\EventManager');
+	}
+
+	protected function trigger($event, array $args = [])
+	{
+		$this->getEventManager()->dispatchEvent($event, new EventArgsList($args));
+		$this->orm->flush(); // persist badge if awarded
 	}
 
 	/**

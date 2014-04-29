@@ -8,14 +8,11 @@ use Nette\Utils\Strings;
 use Orm;
 
 
-/**
- * @property Orm\OneToMany $badgeUserBridges {1:m badgeUserBridges $badge}
- */
 class VideoWatchedBadge extends Badge
 {
 
 	/** @subscribe */
-	public function onVideoWatched(Video $video, User $user)
+	public function onVideoWatched(User $user, Video $video)
 	{
 		$this->awardTo($user, function(Badge $badge, User $user) use ($video) {
 			return new VideoWatchedBadgeUserBridge($badge, $user, $video);
