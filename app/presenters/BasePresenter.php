@@ -11,6 +11,7 @@ use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Monolog\Logger;
 use Nette;
+use Nette\Http\Session;
 
 
 /**
@@ -84,6 +85,23 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public function createComponentGist()
 	{
 		return new GistRenderer();
+	}
+
+	public function redirectToAuth()
+	{
+		/** @var Session $session */
+		$session = $this->context->getService('session');
+		$session->getSection('auth')->loginBacklink = $this->storeRequest();
+
+		if ($this->user->getLogoutReason() === Nette\Security\IUserStorage::INACTIVITY)
+		{
+			$this->flashInfo('auth.reason.inactivity');
+		}
+		else
+		{
+			$this->flashInfo('auth.reason.generic');
+		}
+		$this->redirect('Auth:in');
 	}
 
 	public function flashError($key, $count = NULL, array $args = [])

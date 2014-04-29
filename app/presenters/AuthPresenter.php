@@ -9,6 +9,7 @@ use Kdyby\Facebook\FacebookApiException;
 use Mikulas\Google\Dialog\LoginDialog as GoogleLoginDialog;
 use Mikulas\Google\Google;
 use Nette;
+use Nette\Http\Session;
 use Nette\Security\Identity;
 
 
@@ -26,6 +27,23 @@ final class AuthPresenter extends BasePresenter
 		parent::__construct();
 		$this->facebook = $facebook;
 		$this->google = $google;
+	}
+
+	private function onLogin(User $user, $newUser = FALSE)
+	{
+		$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
+			'vocative' => $user->vocative,
+		]);
+
+		/** @var Session $session */
+		$session = $this->context->getService('session');
+		$section = $session->getSection('auth');
+		if ($key = $section->loginBacklink)
+		{
+			unset($section->loginBacklink);
+			$this->restoreRequest($key);
+		}
+		$this->redirect('Profile:');
 	}
 
 	/**
@@ -74,9 +92,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->user->login(new Identity($userEntity->id));
 
-				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
-					'vocative' => $userEntity->vocative,
-				]);
+				$this->onLogin($userEntity, $newUser);
 			}
 			catch (FacebookApiException $e)
 			{
@@ -127,9 +143,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->user->login(new Identity($userEntity->id));
 
-				$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
-					'vocative' => $userEntity->vocative,
-				]);
+				$this->onLogin($userEntity, $newUser);
 			}
 			catch (FacebookApiException $e)
 			{

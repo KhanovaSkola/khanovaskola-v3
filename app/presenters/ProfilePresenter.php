@@ -8,11 +8,9 @@ use App\Model\User;
 final class ProfilePresenter extends BasePresenter
 {
 
-	const ME = 'me';
-
 	/**
 	 * @persistent
-	 * @var int|string self::ME
+	 * @var int self::ME
 	 */
 	public $userId;
 
@@ -21,7 +19,9 @@ final class ProfilePresenter extends BasePresenter
 
 	public function startup()
 	{
-		if ($this->userId === self::ME)
+		parent::startup();
+
+		if (!$this->userId)
 		{
 			if ($this->user->loggedIn)
 			{
@@ -29,15 +29,13 @@ final class ProfilePresenter extends BasePresenter
 			}
 			else
 			{
-				$this->redirect('Auth:'); // TODO refactor with backlink
+				$this->redirectToAuth();
 			}
 		}
 		else if (! $this->profile = $this->orm->users->getById($this->userId))
 		{
 			$this->error();
 		}
-
-		parent::startup();
 	}
 
 	public function renderDefault()
