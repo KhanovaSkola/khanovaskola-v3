@@ -2,7 +2,10 @@
 
 namespace App\Presenters;
 
+use App\Model\EventList;
 use App\Model\User;
+use Google_Exception;
+use Kdyby\Events\EventArgsList;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
@@ -34,6 +37,8 @@ final class AuthPresenter extends BasePresenter
 		$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
 			'vocative' => $user->vocative,
 		]);
+
+		$this->trigger(EventList::LOGIN, [$this->userEntity]);
 
 		/** @var Session $session */
 		$session = $this->context->getService('session');
@@ -145,7 +150,7 @@ final class AuthPresenter extends BasePresenter
 
 				$this->onLogin($userEntity, $newUser);
 			}
-			catch (FacebookApiException $e)
+			catch (Google_Exception $e)
 			{
 				$this->log->addAlert('Google login request failed', [
 					'error' => $e->getMessage(),

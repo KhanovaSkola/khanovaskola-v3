@@ -2,3 +2,6 @@ services:
 	-
 		class: App\Model\VideoWatchedBadge
 		tags: [kdyby.subscriber]
+	-
+		class: App\Model\UserWeekOldBadge
+		tags: [kdyby.subscriber]
