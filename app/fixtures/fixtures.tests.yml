@@ -5,7 +5,7 @@ App\Model\Gist:
     createdAt: 'now'
 App\Model\Video:
   video:
-    title: 'O rovnicích bez rovnic'
-    description: 'Algebra a aritmetika'
+    title: 'Sčítání funkcí'
+    description: 'F + g můžete brát jako novou funkci, která vznikla tím, …'
     youtubeId: 'Ye13MIPv6n0'
     createdAt: 'now'
