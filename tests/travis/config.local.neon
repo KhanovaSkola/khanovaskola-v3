@@ -10,10 +10,10 @@ parameters:
 			- localhost
 
 facebook:
-	appId: "123456789012345"
-	appSecret: "dummy123456789012345678901234567"
+	appId: "273608052753035"
+	appSecret: "<crypted in .travis.yml>"
 
 google:
-	clientId: "dummy.apps.googleusercontent.com"
-	clientSecret: "dummy1234567890123456789"
-	apiKey: "dummy1234567890123456789012345678901234"
+	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
+	clientSecret: "<crypted in .travis.yml>"
+	apiKey: "<crypted in .travis.yml>"
