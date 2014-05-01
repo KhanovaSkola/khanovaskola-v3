@@ -2,9 +2,7 @@
 
 namespace App\Model;
 
-
 use App\NotSupportedException;
-
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;

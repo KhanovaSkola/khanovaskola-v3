@@ -1,6 +1,6 @@
 {
 	"name": "khanovaskola/website",
-	"description": "",
+	"description": "Main website with videos, exercises and stats.",
 	"type": "project",
 	"authors": [
 		{"name": "Mikuláš Dítě"}
