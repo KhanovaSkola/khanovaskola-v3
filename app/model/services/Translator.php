@@ -92,6 +92,9 @@ class Translator implements Nette\Localization\ITranslator
 	 *
 	 * @param string $steps
 	 * @param int $count
+	 * @param array $args
+	 * @throws \App\InvalidStateException
+	 * @throws \App\InvalidArgumentException
 	 * @return string
 	 */
 	public function translate($steps, $count = NULL, array $args = [])

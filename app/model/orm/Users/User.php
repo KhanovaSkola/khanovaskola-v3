@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use App\InvalidStateException;
-use Nette\DateTime;
+
 use Nette\Security\Passwords;
 use Orm;
 

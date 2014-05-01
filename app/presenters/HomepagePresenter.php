@@ -3,8 +3,8 @@
 namespace App\Presenters;
 
 use App\Components\GistRenderer;
-use App\Model\EventList;
-use Kdyby\Events\EventArgsList;
+
+
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 
@@ -19,6 +19,11 @@ final class HomepagePresenter extends BasePresenter
 		$video = $this->orm->videos->getById(3);
 
 		$this->template->video = $video;
+
+		if ($this->user->loggedIn)
+		{
+			dump('likes?', $this->doesCurrentUserLikePage());
+		}
 
 		$gist = $this->orm->gists->getByName('test');
 		/** @var GistRenderer $gistRenderer */

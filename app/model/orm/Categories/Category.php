@@ -2,9 +2,9 @@
 
 namespace App\Model;
 
-use Nette\DateTime;
+
 use Orm;
-use Orm\DibiCollection;
+
 use Orm\ManyToMany;
 use Orm\OneToMany;
 

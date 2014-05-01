@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Model\EventList;
 use App\Model\User;
 use Google_Exception;
-use Kdyby\Events\EventArgsList;
+
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;

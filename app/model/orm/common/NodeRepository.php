@@ -2,10 +2,8 @@
 
 namespace App\Model;
 
-use Nette\Caching\Cache;
+
 use Orm;
-use Orm\Inflector;
-use Orm\IRepositoryContainer;
 
 
 abstract class NodeRepository extends Repository
