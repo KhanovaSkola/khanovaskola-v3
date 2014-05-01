@@ -6,7 +6,7 @@ then
 fi
 
 echo "Installing ElasticSearch ICU plugin"
-sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/1.13.0
+sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
 echo "Installing beanstalkd"
@@ -18,6 +18,7 @@ cat tests/travis/php-custom.ini >> ~/.phpenv/versions/$(phpenv version-name)/etc
 rm tests/acceptance.suite.yml
 mv tests/travis/acceptance.suite.yml tests/acceptance.suite.yml
 cp tests/travis/config.local.neon app/config/config.local.neon
+php tests/travis/decrypt.php
 
 if [ "$TEST_SUITE" = "acceptance" ]
 then
@@ -27,6 +28,7 @@ fi
 
 echo "Waiting for all services to load"
 sleep 10 # wait for all services to load
+curl "http://localhost:9200/" # check elastic search
 
 echo "Provisioning"
 psql -c 'create database khanovaskola;' -U postgres
