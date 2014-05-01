@@ -377,6 +377,7 @@ Column types are specified as strings and can be one of:
 -  string
 -  text
 -  integer
+-  biginteger
 -  float
 -  decimal
 -  datetime
@@ -385,6 +386,9 @@ Column types are specified as strings and can be one of:
 -  date
 -  binary
 -  boolean
+
+In addition, the Postgres adapter supports a ``json`` column type
+(PostgreSQL 9.3 and above).
 
 Determining Whether a Table Exists
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -527,6 +531,54 @@ To rename a column access an instance of the Table object then call the
             {
                 $table = $this->table('users');
                 $table->renameColumn('biography', 'bio');
+            }
+        }
+
+Adding a Column After Another Column
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When adding a column you can dictate it's position using the ``after`` option.
+
+.. code-block:: php
+
+        <?php
+
+        use Phinx\Migration\AbstractMigration;
+
+        class MyNewMigration extends AbstractMigration
+        {
+            /**
+             * Change Method.
+             */
+            public function change()
+            {
+                $table = $this->table('users');
+                $table->addColumn('city', 'string', array('after' => 'email'))
+                      ->update();
+            }
+        }
+
+Specifying a Column Limit
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can limit the maximum length of a column by using the ``limit`` option.
+
+.. code-block:: php
+
+        <?php
+
+        use Phinx\Migration\AbstractMigration;
+
+        class MyNewMigration extends AbstractMigration
+        {
+            /**
+             * Change Method.
+             */
+            public function change()
+            {
+                $table = $this->table('tags');
+                $table->addColumn('short_name', 'string', array('limit' => 30))
+                      ->update();
             }
         }
 
@@ -727,6 +779,24 @@ Finally to delete a foreign key use the ``dropForeignKey`` method.
 
             }
         }
+
+Valid Column Options
+~~~~~~~~~~~~~~~~~~~~
+
+The following are valid column options:
+
+-  limit
+-  length
+-  default
+-  null
+-  precision
+-  scale
+-  after
+-  update
+-  comment
+
+You can pass one or more of these options to any column with the optional
+third argument array.
 
 The Save Method
 ~~~~~~~~~~~~~~~
