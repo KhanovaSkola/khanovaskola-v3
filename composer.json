@@ -6,6 +6,7 @@
 		{"name": "Mikuláš Dítě"}
 	],
 	"preferred-install": "dist",
+	"license": "MIT",
 	"minimum-stability": "beta",
 	"require": {
 		"php": ">= 5.5.0",
