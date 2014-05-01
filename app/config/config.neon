@@ -63,6 +63,7 @@ services:
 	dibiConnection: DibiConnection(%database%)
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
+	facebookPage: App\Services\FacebookPage(%fb.pageId%)
 
 	orm: App\Model\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)

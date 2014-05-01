@@ -14,16 +14,7 @@ final class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		// $task = new SendMailTask('test', 'mikulas@khanovaskola.cz', ['foo' => 'bar']);
-		// $this->context->getService('queue')->enqueue($task);
-		$video = $this->orm->videos->getById(3);
-
-		$this->template->video = $video;
-
-		if ($this->user->loggedIn)
-		{
-			dump('likes?', $this->doesCurrentUserLikePage());
-		}
+		$this->template->video = $this->orm->videos->getById(3);
 
 		$gist = $this->orm->gists->getByName('test');
 		/** @var GistRenderer $gistRenderer */
@@ -36,22 +27,6 @@ final class HomepagePresenter extends BasePresenter
 	{
 		$this->template->query = $query;
 		$this->template->results = $this->orm->videos->getWithFulltext($query);
-	}
-
-	private function doesCurrentUserLikePage()
-	{
-		/** @var Facebook $fb */
-		$fb = $this->context->getByType('Kdyby\\Facebook\\Facebook');
-		$fb->setAccessToken($this->userEntity->facebookAccessToken);
-		$pageId = $this->context->parameters['fb']['pageId'];
-		try
-		{
-			return count($fb->api("me/likes/$pageId")->data) !== 0;
-		}
-		catch (FacebookApiException $e)
-		{
-			return FALSE; // safe fallback
-		}
 	}
 
 }
