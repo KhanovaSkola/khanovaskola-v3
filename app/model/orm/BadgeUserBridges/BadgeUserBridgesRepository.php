@@ -23,6 +23,7 @@ class BadgeUserBridgesRepository extends Repository
 		{
 			/** @var RepositoryContainer $orm */
 			$orm = $this->getModel();
+			/** @var Badge $badge */
 			$badge = $orm->badges->getById($data['badge']);
 			return "App\\Model\\BadgeUserBridges\\{$badge->key}";
 		}

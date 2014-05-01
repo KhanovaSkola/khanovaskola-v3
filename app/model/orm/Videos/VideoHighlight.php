@@ -2,8 +2,7 @@
 
 namespace App\Model;
 
-use App\Services\ElasticSearch;
-use Nette\Object;
+
 use Nette\Utils\Strings;
 
 

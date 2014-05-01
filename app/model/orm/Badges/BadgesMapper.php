@@ -5,9 +5,7 @@ namespace App\Model;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Orm\EventArguments;
-use Orm\IEntity;
 use Orm\IRepository;
-use Orm\scalar;
 
 
 class BadgesMapper extends Mapper

@@ -4,7 +4,7 @@ namespace App\Model;
 
 
 use App\NotSupportedException;
-use App\Services\Translator;
+
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;

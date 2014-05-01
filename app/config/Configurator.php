@@ -74,7 +74,7 @@ class Configurator extends Nette\Configurator
 
 	/**
 	 * @param bool|array $value
-	 * @throws InvalidArgumentException
+	 * @throws \InvalidArgumentException
 	 * @return self
 	 */
 	public function setDebugMode($value = FALSE)
@@ -146,6 +146,9 @@ class Configurator extends Nette\Configurator
 	}
 
 	/**
+	 * @throws MissingLocalConfigException
+	 * @throws \Exception
+	 * @throws \Nette\FileNotFoundException
 	 * @return Container
 	 */
 	public function createContainer()

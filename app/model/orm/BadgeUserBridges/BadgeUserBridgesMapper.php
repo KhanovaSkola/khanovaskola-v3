@@ -4,9 +4,7 @@ namespace App\Model;
 
 use App\Services\Translator;
 use Orm\EventArguments;
-use Orm\IEntity;
 use Orm\IRepository;
-use Orm\scalar;
 
 
 class BadgeUserBridgesMapper extends Mapper

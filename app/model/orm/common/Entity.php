@@ -10,6 +10,8 @@ use Orm;
 
 /**
  * @property DateTime $createdAt {default now}
+ *
+ * @property-read RepositoryContainer $model {ignore}
  */
 abstract class Entity extends Orm\Entity
 {

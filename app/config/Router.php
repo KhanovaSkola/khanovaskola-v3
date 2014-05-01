@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Model\RedirectsRepository;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 use Nette\DI\Container;
