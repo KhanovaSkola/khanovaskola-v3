@@ -1,6 +1,9 @@
 {var $robots = noindex}
 
 {block content}
-<h1 n:block=title>Oops...</h1>
+{**
+ * @param int $code
+ *}
+<h1 n:block=title>{_"errors.$code.title"}</h1>
 
-<p>Your browser sent a request that this server could not understand or process.</p>
+<p>{_"errors.$code.text"}</p>
