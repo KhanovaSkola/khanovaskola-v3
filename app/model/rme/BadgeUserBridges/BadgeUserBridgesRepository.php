@@ -26,7 +26,7 @@ class BadgeUserBridgesRepository extends Repository
 			$orm = $this->getModel();
 			/** @var Badge $badge */
 			$badge = $orm->badges->getById($data['badge']);
-			return "App\\Model\\BadgeUserBridges\\{$badge->key}";
+			return "App\\Rme\\BadgeUserBridges\\{$badge->key}";
 		}
 
 		throw new MustNeverHappenException;

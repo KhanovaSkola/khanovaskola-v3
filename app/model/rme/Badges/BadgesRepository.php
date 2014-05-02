@@ -25,7 +25,7 @@ class BadgesRepository extends Repository
 
 		if (isset($data['key']))
 		{
-			return "App\\Model\\Badges\\$data[key]";
+			return "App\\Rme\\Badges\\$data[key]";
 		}
 
 		throw new MustNeverHappenException;
