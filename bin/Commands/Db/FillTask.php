@@ -3,9 +3,8 @@
 namespace Commands\Db;
 
 use App\InvalidStateException;
-use App\Model\RepositoryContainer;
-use App\Model\Video;
-use App\NotSupportedException;
+use App\Rme\RepositoryContainer;
+use App\Rme\Video;
 use Commands\Command;
 use Nelmio\Alice\Loader\Porm as Loader;
 use Nelmio\Alice\ORM\Porm;
@@ -37,7 +36,6 @@ class FillTask extends Command
 			if (is_array($class))
 			{
 				continue;
-				// throw new NotSupportedException;
 			}
 			$map[$class] = $name;
 		}
