@@ -11,7 +11,7 @@
 
 namespace Nelmio\Alice\ORM;
 
-use App\Model\RepositoryContainer;
+use App\Rme\RepositoryContainer;
 use Nelmio\Alice\ORMInterface;
 
 
