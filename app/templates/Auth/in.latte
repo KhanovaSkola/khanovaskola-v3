@@ -1,8 +1,10 @@
 {block content}
+{**
+ * @param User $userEntity
+ *}
+
 <h1 n:block=title>Sign in</h1>
 
 <a n:href="facebookLogin-open!" id="login-facebook">{_'auth.loginLink.facebook'}</a>
 <a n:href="googleLogin-open!" id="login-google">{_'auth.loginLink.google'}</a>
 {control signInForm}
-
-{* or use {include '../components/form.latte', form => signInForm} *}
