@@ -5,8 +5,10 @@ namespace App\Orm;
 use App\Orm\Mapper\ElasticSearchTrait;
 use App\Orm\Mapper\EventManagerTrait;
 use App\Orm\Mapper\Mapper;
+use App\Orm\Mapper\Neo4jTrait;
 use App\Orm\Mapper\TranslatorTrait;
 use App\Services\ElasticSearch;
+use App\Services\Neo4j;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Nette\DI\Container;
@@ -60,6 +62,13 @@ class MapperFactory extends \Orm\MapperFactory
 			$eventManager = $this->container->getByType('Kdyby\\Events\\EventManager');
 			/** @var EventManagerTrait $mapper */
 			$mapper->injectEventManager($eventManager);
+		}
+		if (in_array('App\\Orm\\Mapper\\Neo4jTrait', $traits))
+		{
+			/** @var Neo4j $neo4j */
+			$neo4j = $this->container->getService('neo4j');
+			/** @var Neo4jTrait $mapper */
+			$mapper->injectNeo4j($neo4j);
 		}
 
 		$mapper->registerEvents($repository->getEvents());
