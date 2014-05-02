@@ -1625,70 +1625,6 @@
         ]
     },
     {
-        "name": "kdyby/facebook",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Facebook.git",
-            "reference": "d26ecaa10ed9c74b1622644cfb577641f1244428"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/d26ecaa10ed9c74b1622644cfb577641f1244428",
-            "reference": "d26ecaa10ed9c74b1622644cfb577641f1244428",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "time": "2014-04-10 01:36:33",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Facebook\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Facebook/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            },
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Facebook PHP SDK for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "facebook",
-            "nette",
-            "sdk"
-        ]
-    },
-    {
         "name": "guzzle/guzzle",
         "version": "v3.9.0",
         "version_normalized": "3.9.0.0",
@@ -2899,17 +2835,17 @@
     },
     {
         "name": "mikulas/lattecs",
-        "version": "v0.2.0-beta",
-        "version_normalized": "0.2.0.0-beta",
+        "version": "v0.3.0-beta",
+        "version_normalized": "0.3.0.0-beta",
         "source": {
             "type": "git",
             "url": "https://github.com/Mikulas/nette-lattecs.git",
-            "reference": "b72025647cffce9247b3bbd9fa993347cabe50a8"
+            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/b72025647cffce9247b3bbd9fa993347cabe50a8",
-            "reference": "b72025647cffce9247b3bbd9fa993347cabe50a8",
+            "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
             "shasum": ""
         },
         "require": {
@@ -2920,7 +2856,7 @@
         "require-dev": {
             "nette/tester": "~1.1.0"
         },
-        "time": "2014-05-02 13:00:14",
+        "time": "2014-05-02 16:39:29",
         "bin": [
             "bin/lattecs"
         ],
@@ -2951,6 +2887,70 @@
             "nette",
             "tool",
             "validator"
+        ]
+    },
+    {
+        "name": "kdyby/facebook",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Facebook.git",
+            "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/90d65ddb7a3392f75acf149a8efa06133ef0c597",
+            "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-02 16:46:04",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Facebook\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Facebook/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            },
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Facebook PHP SDK for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "facebook",
+            "nette",
+            "sdk"
         ]
     }
 ]

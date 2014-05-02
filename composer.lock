@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e0a1dcb1e9f44b363a66cacc39f067b1",
+    "hash": "05d30cbb90ee1ba3e0ade093eadfd7f6",
     "packages": [
         {
             "name": "dg/dibi",
@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Facebook.git",
-                "reference": "d26ecaa10ed9c74b1622644cfb577641f1244428"
+                "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/d26ecaa10ed9c74b1622644cfb577641f1244428",
-                "reference": "d26ecaa10ed9c74b1622644cfb577641f1244428",
+                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/90d65ddb7a3392f75acf149a8efa06133ef0c597",
+                "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +408,7 @@
                 "nette",
                 "sdk"
             ],
-            "time": "2014-04-10 01:36:33"
+            "time": "2014-05-02 16:46:04"
         },
         {
             "name": "kdyby/redis",
@@ -1793,16 +1793,16 @@
         },
         {
             "name": "mikulas/lattecs",
-            "version": "v0.2.0-beta",
+            "version": "v0.3.0-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/nette-lattecs.git",
-                "reference": "b72025647cffce9247b3bbd9fa993347cabe50a8"
+                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/b72025647cffce9247b3bbd9fa993347cabe50a8",
-                "reference": "b72025647cffce9247b3bbd9fa993347cabe50a8",
+                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
                 "shasum": ""
             },
             "require": {
@@ -1843,7 +1843,7 @@
                 "tool",
                 "validator"
             ],
-            "time": "2014-05-02 13:00:14"
+            "time": "2014-05-02 16:39:29"
         },
         {
             "name": "nelmio/alice",
