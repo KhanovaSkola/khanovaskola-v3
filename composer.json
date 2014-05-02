@@ -5,9 +5,11 @@
 	"authors": [
 		{"name": "Mikuláš Dítě"}
 	],
-	"preferred-install": "dist",
-	"license": "MIT",
-	"minimum-stability": "beta",
+    "license": "MIT",
+    "minimum-stability": "beta",
+    "config": {
+	    "preferred-install": "dist"
+    },
 	"require": {
 		"php": ">= 5.5.0",
 		"nette/nette": "~2.1.0",
