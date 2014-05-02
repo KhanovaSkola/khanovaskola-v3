@@ -15,6 +15,9 @@ parameters:
 		host: 127.0.0.1:13000
 	fb:
 		pageId: "268941846529405"
+	neo4j:
+		host: localhost
+		port: 7474
 
 php:
 	date.timezone: Europe/Prague
@@ -58,6 +61,7 @@ services:
 	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
 	facebookPage: App\Services\FacebookPage(%fb.pageId%)
+	neo4j: App\Services\Neo4j(%neo4j.host%, %neo4j.port%)
 
 	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
