@@ -12,7 +12,7 @@ abstract class Highlight extends Object
 	/** @var Entity */
 	private $entity;
 
-	/** @var array */
+	/** @var Highlight[] */
 	private $highlights;
 
 	/** @var string precompiled */
