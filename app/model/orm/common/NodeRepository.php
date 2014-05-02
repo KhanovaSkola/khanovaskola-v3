@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-
 use Orm;
 
 

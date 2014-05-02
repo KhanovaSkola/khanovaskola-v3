@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Services\Translator;
 use Clevis\Skeleton\Orm\DibiMapper;
 use Orm\DibiCollection;
+use Orm\Events;
 use Orm\IRepository;
 
 
@@ -14,13 +15,9 @@ use Orm\IRepository;
 class Mapper extends DibiMapper
 {
 
-	/** @var Translator */
-	protected $translator;
-
-	public function __construct(IRepository $repository, Translator $translator)
+	public function registerEvents(Events $events)
 	{
-		parent::__construct($repository);
-		$this->translator = $translator;
+
 	}
 
 }
