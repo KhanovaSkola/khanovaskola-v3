@@ -9,6 +9,8 @@ echo "Installing ElasticSearch ICU plugin"
 sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
+echo "127.0.0.1 travis.khanovaskola.cz" | sudo tee -a /etc/hosts
+
 echo "Installing beanstalkd"
 sudo apt-get install beanstalkd
 beanstalkd -l 127.0.0.1 -p 13000 &
@@ -23,7 +25,7 @@ php tests/travis/decrypt.php
 if [ "$TEST_SUITE" = "acceptance" ]
 then
 	echo "Starting local server"
-	php -S localhost:8000 -t www/ &
+	php -S travis.khanovaskola.cz:8000 -t www/ &
 fi
 
 echo "Waiting for all services to load"
