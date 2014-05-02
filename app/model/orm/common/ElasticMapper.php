@@ -2,24 +2,17 @@
 
 namespace App\Model;
 
-use App\Services\ElasticSearch;
-use App\Services\Translator;
 use Orm\EventArguments;
-use Orm\IRepository;
+use Orm\Events;
 
 
 class ElasticMapper extends Mapper
 {
 
-	/** @var \App\Services\ElasticSearch */
-	protected $elastic;
+	use ElasticSearchTrait;
 
-	public function __construct(IRepository $repository, Translator $translator, ElasticSearch $elastic)
+	public function registerEvents(Events $events)
 	{
-		parent::__construct($repository, $translator);
-		$this->elastic = $elastic;
-
-		$events = $repository->getEvents();
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
 			/** @var IIndexable|Entity $e */
 			$e = $args->entity;

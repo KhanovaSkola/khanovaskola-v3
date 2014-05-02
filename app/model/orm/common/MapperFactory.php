@@ -31,24 +31,51 @@ class MapperFactory extends \Orm\MapperFactory
 	 */
 	public function createMapper(IRepository $repository)
 	{
-		/** @var Translator $translator */
-		$translator = $this->container->getService('translator');
+		$class = $this->getMapperClass($repository);
+		/** @var Mapper $mapper */
+		$mapper = new $class($repository);
+		$traits = $this->getTraits($class);
 
-		if ($repository instanceof VideosRepository)
+		if (in_array('App\\Model\\ElasticSearchTrait', $traits))
 		{
 			/** @var ElasticSearch $elastic */
 			$elastic = $this->container->getService('elastic');
-			return new VideosMapper($repository, $translator, $elastic);
+			/** @var ElasticSearchTrait $mapper */
+			$mapper->injectElasticSearch($elastic);
 		}
-		else if ($repository instanceof BadgesRepository)
+		if (in_array('App\\Model\\TranslatorTrait', $traits))
+		{
+			/** @var Translator $translator */
+			$translator = $this->container->getService('translator');
+			/** @var TranslatorTrait $mapper */
+			$mapper->injectTranslator($translator);
+		}
+		if (in_array('App\\Model\\EventManagerTrait', $traits))
 		{
 			/** @var EventManager $eventManager */
 			$eventManager = $this->container->getByType('Kdyby\\Events\\EventManager');
-			return new BadgesMapper($repository, $translator, $eventManager);
+			/** @var EventManagerTrait $mapper */
+			$mapper->injectEventManager($eventManager);
 		}
 
-		$class = $this->getMapperClass($repository);
-		return new $class($repository, $translator);
+		$mapper->registerEvents($repository->getEvents());
+
+		return $mapper;
+	}
+
+	private function getTraits($class)
+	{
+		$traits = class_uses($class);
+		foreach (class_parents($class) as $parent)
+		{
+			$traits = array_merge($traits, class_uses($parent));
+			if ($parent === 'App\Model\Mapper')
+			{
+				break;
+			}
+		}
+
+		return $traits;
 	}
 
 }

@@ -5,21 +5,21 @@ namespace App\Model;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Orm\EventArguments;
+use Orm\Events;
 use Orm\IRepository;
 
 
 class BadgesMapper extends Mapper
 {
 
-	public function __construct(IRepository $repository, Translator $translator, EventManager $eventManager)
-	{
-		parent::__construct($repository, $translator);
+	use EventManagerTrait;
 
-		$events = $repository->getEvents();
-		$events->addCallbackListener($events::HYDRATE_AFTER, function(EventArguments $args) use ($eventManager) {
+	public function registerEvents(Events $events)
+	{
+		$events->addCallbackListener($events::HYDRATE_AFTER, function(EventArguments $args) {
 			/** @var Badge $entity */
 			$entity = $args->entity;
-			$entity->injectEventManager($eventManager);
+			$entity->injectEventManager($this->eventManager);
 		});
 	}
 
