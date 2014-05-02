@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Model\User;
+use App\Rme\User;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Nette\Object;

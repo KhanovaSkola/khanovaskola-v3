@@ -5,10 +5,6 @@ namespace App\Presenters;
 use App\Components\GistRenderer;
 
 
-use Kdyby\Facebook\Facebook;
-use Kdyby\Facebook\FacebookApiException;
-
-
 final class HomepagePresenter extends BasePresenter
 {
 

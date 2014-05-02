@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Model\UsersRepository;
+use App\Rme\UsersRepository;
 use Nette;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
