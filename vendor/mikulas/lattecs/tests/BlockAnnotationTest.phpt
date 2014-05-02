@@ -3,7 +3,8 @@
 use Tester\Assert;
 require __DIR__ . '/bootstrap.php';
 
-$runner = new \Mikulas\LatteCS\Runner(new \Latte\Parser());
+$rules = [new Mikulas\LatteCS\Rules\BlockAnnotation];
+$runner = new \Mikulas\LatteCS\Runner(new \Latte\Parser, $rules);
 
 assertError($runner, 'missing.latte', 'Block #content is not properly annotated', 3);
 assertError($runner, 'missing_star.latte', 'Lattedoc does not start with two stars but it should', 5);
@@ -13,7 +14,7 @@ assertError($runner, 'invalid_param_dollar.latte', "Invalid annotation '@param s
 
 Assert::same([], $runner->checkFile(__DIR__ . '/fixtures/inline.latte'));
 
-$rule = 'Mikulas\LatteCS\Rules\ParamsCommentInEachBlock';
+$rule = 'Mikulas\LatteCS\Rules\BlockAnnotation';
 Assert::same([
 	['message' => 'Block #content is not properly annotated', 'line' => 2, 'rule' => $rule],
 	['message' => 'Block #foo is not properly annotated', 'line' => 4, 'rule' => $rule],
@@ -29,7 +30,7 @@ function assertError($runner, $file, $message, $line)
 		[
 			'message' => $message,
 			'line' => $line,
-			'rule' => 'Mikulas\LatteCS\Rules\ParamsCommentInEachBlock',
+			'rule' => 'Mikulas\LatteCS\Rules\BlockAnnotation',
 		]
 	], $real);
 }
