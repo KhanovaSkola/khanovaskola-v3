@@ -1,7 +1,7 @@
 <?php
 namespace Clevis\Skeleton\Orm;
 
-use App\Model\MapperFactory;
+use App\Orm\MapperFactory;
 use App\Services\HtmlPurifier;
 use Nette;
 use Nette\Caching\Cache;

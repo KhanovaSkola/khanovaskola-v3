@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\EventList;
-use App\Model\User;
+use App\Rme\User;
 use Google_Exception;
 
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;

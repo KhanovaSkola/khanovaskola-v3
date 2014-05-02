@@ -2,7 +2,7 @@
 
 namespace App\Components;
 
-use App\Model\Gist;
+use App\Rme\Gist;
 
 
 class GistRenderer extends Control

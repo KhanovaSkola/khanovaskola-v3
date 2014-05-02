@@ -5,6 +5,7 @@
     <inspection_tool class="InconsistentLineSeparators" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PhpTraditionalSyntaxArrayLiteralInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PhpUndefinedCallbackInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedClassInspection" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="PhpUndefinedFieldInspection" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="PhpUsageOfSilenceOperatorInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">

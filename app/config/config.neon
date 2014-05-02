@@ -13,12 +13,6 @@ parameters:
 		profiler: on
 	beanstalk:
 		host: 127.0.0.1:13000
-#	repositories:
-#		badges: App\Model\BadgesRepository
-#		badgeUserBridges: App\Model\BadgeUserBridgesRepository
-#		gists: App\Model\GistsRepository
-#		users: App\Model\UsersRepository
-#		videos: App\Model\VideosRepository
 	fb:
 		pageId: "268941846529405"
 
@@ -49,7 +43,7 @@ facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
 
 services:
-	- App\Model\UsersRepository
+	- App\Rme\UsersRepository
 	- App\Services\Authenticator
 	translator: App\Services\Translator(%appDir%/localization)
 
@@ -65,7 +59,7 @@ services:
 	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
 	facebookPage: App\Services\FacebookPage(%fb.pageId%)
 
-	orm: App\Model\RepositoryContainer(@serviceContainerFactory, @container)
+	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
 	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
