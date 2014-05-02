@@ -10,7 +10,7 @@ then
 elif [ "$TEST_SUITE" = "cs" ]
 then
 	php -r 'echo "\n\n\e[1;30;44m Running CS tests \e[21m\n\n";'
-	php vendor/bin/phpcs -p --standard=tests/cs app
+	sh tests/cs/run.sh
 else
 	php -r 'echo "\n\n\e[1;30;41m Unknown TEST_SUITE \e[21m\n\n";'
 	exit 1

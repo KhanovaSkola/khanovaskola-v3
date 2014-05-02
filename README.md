@@ -72,7 +72,7 @@ php vendor/bin/codecept run acceptance
 
 run coding style (cs) tests:
 ```sh
-php vendor/bin/phpcs -p --standard=tests/cs app
+sh tests/cs/run.sh
 ```
 
 create new migration from template:
