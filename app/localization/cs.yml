@@ -68,3 +68,14 @@ badges:
       week:
         title: "Nový uživatel" #TODO
         description: "Na Khanovu školu jste zapsán[|a] od %date"
+
+errors: #TODO
+  403:
+    title: "Přístup zamítnut"
+    text: ""
+  404:
+    title: "Stránka nenalezena"
+    text: ""
+  410:
+    title: "Stránka odstraněna"
+    text: ""
