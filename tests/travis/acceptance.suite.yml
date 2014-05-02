@@ -6,4 +6,4 @@ modules:
         - WebHelper
     config:
         PhpBrowser:
-            url: 'http://localhost:8000/'
+            url: 'http://travis.khanovaskola.cz:8000/'
