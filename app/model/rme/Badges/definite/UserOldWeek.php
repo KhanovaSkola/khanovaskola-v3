@@ -21,7 +21,7 @@ class UserOldWeek extends Badge
 			return;
 		}
 
-		if ($user->createdAt > DateTime::from('-1 week'))
+		if ($user->createdAt < DateTime::from('-1 week'))
 		{
 			$this->awardTo($user, function(Badge $badge, User $user) {
 				return new BadgeUserBridges\UserOldWeek($badge, $user);
