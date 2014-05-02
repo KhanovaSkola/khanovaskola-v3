@@ -1,9 +1,9 @@
-App\Model\Gist:
+App\Rme\Gist:
   gist:
     name: 'test'
     text: <text(300)>
     createdAt: 'now'
-App\Model\Video:
+App\Rme\Video:
   video:
     title: 'Sčítání funkcí'
     description: 'F + g můžete brát jako novou funkci, která vznikla tím, …'

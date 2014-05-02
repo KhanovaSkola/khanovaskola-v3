@@ -1,4 +1,4 @@
-App\Model\Gist:
+App\Rme\Gist:
   gist:
     name: 'test'
     text: <text(300)>
