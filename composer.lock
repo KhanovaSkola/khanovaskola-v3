@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6d76fc7598077659c8fe6be57195dca7",
+    "hash": "5b5666141694f81b1f7a9549901adf05",
     "packages": [
         {
             "name": "dg/dibi",
