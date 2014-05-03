@@ -8,6 +8,9 @@ use Orm\EventArguments;
 use Orm\Events;
 
 
+/**
+ * Must only be used by Mapper
+ */
 trait Neo4jTrait
 {
 
@@ -26,11 +29,11 @@ trait Neo4jTrait
 			$e = $args->entity;
 
 			$node = $this->neo4j->makeNode();
-			/** @var Mapper $this */
-			$node->setProperties([
-				'id' => $e->id,
-				'type' => $this->getShortEntityName(),
-			])->save();
+			/** @var Mapper|Neo4jTrait $this */
+			$node->setProperty('eid', $e->id)->save();
+
+			$label = $this->neo4j->makeLabel(ucFirst($this->getShortEntityName()));
+			$node->addLabels([$label]);
 		});
 	}
 

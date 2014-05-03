@@ -5,6 +5,9 @@ namespace App\Orm\Mapper;
 use Kdyby\Events\EventManager;
 
 
+/**
+ * Must only be used by Mapper
+ */
 trait EventManagerTrait
 {
 

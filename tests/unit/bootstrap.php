@@ -15,6 +15,9 @@ Tester\Environment::setup();
 
 $configurator = new \App\Configurator("$root/tests/temp");
 
+$configurator->onInit[] = function(\App\Configurator $c) {
+	$c->addConfig(__DIR__ . '/config.neon');
+};
 $configurator->setDebugMode(FALSE);
 $configurator->createRobotLoader()
 	->register();
