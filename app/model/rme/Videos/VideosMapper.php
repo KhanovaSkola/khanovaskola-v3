@@ -44,7 +44,7 @@ class VideosMapper extends ElasticSearchMapper
 	{
 		$rel = Tag::REL_CONTAINS;
 		$q = new Query($this->neo4j, "
-			MATCH (t:Tag)-[:$rel]->(v:Video)
+			MATCH (t:Tag)-[:$rel*..20]->(v:Video)
 			WHERE t.eid={tagId}
 			RETURN v.eid  AS id
 		", [
