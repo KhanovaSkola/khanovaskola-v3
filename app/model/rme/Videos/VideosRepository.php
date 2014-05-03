@@ -3,13 +3,13 @@
 namespace App\Rme;
 
 use App\Orm\HighlightCollection;
-use App\Orm\NodeRepository;
+use App\Orm\Repository;
 
 
 /**
  * @method HighlightCollection getWithFulltext()
  */
-class VideosRepository extends NodeRepository
+class VideosRepository extends Repository
 {
 
 }

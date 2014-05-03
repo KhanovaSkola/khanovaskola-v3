@@ -10,7 +10,10 @@ use Orm\EventArguments;
 use Orm\Events;
 
 
-class ElasticMapper extends Mapper
+/**
+ * All entities handled by this mapper must implement IIndexable
+ */
+class ElasticSearchMapper extends Mapper
 {
 
 	use ElasticSearchTrait;
@@ -20,13 +23,13 @@ class ElasticMapper extends Mapper
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
 			/** @var IIndexable|Entity $e */
 			$e = $args->entity;
-			$this->elastic->addToIndex($this->getEsType(), $e->id, $e->getIndexData());
+			$this->elastic->addToIndex($this->getShortEntityName(), $e->id, $e->getIndexData());
 		});
 	}
 
 	public function getWithFulltext($query, array $fields = ['_all'])
 	{
-		$res = $this->elastic->fulltextSearch($this->getEsType(), $query, $fields);
+		$res = $this->elastic->fulltextSearch($this->getShortEntityName(), $query, $fields);
 		if ($res['hits']['total'] === 0)
 		{
 			return new HighlightCollection();
@@ -68,15 +71,6 @@ class ElasticMapper extends Mapper
 		}
 		ksort($sorted);
 		return $sorted;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEsType()
-	{
-		$class = $this->repository->getEntityClassName();
-		return substr($class, strrpos($class, '\\') + 1);
 	}
 
 }

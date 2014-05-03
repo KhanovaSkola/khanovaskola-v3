@@ -4,11 +4,10 @@ namespace App\Rme;
 
 use App\Orm\Mapper\ElasticSearchMapper;
 use App\Orm\Mapper\Neo4jTrait;
-
 use Orm\Events;
 
 
-class VideosMapper extends ElasticSearchMapper
+class TagsMapper extends ElasticSearchMapper
 {
 
 	use Neo4jTrait;
@@ -19,5 +18,4 @@ class VideosMapper extends ElasticSearchMapper
 
 		$this->registerOnPersistCreateNodeEvent($events);
 	}
-
 }
