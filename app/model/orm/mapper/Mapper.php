@@ -18,4 +18,14 @@ class Mapper extends DibiMapper
 
 	}
 
+	/**
+	 * example: App\VideosRepository => video
+	 * @return string
+	 */
+	public function getShortEntityName()
+	{
+		$class = $this->repository->getEntityClassName();
+		return lcFirst(substr($class, strrpos($class, '\\') + 1));
+	}
+
 }
