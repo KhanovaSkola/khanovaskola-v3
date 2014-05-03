@@ -13,6 +13,9 @@ abstract class Command extends BaseCommand
 
 	use ContainerTrait;
 
+	/** @var OutputInterface */
+	private $output;
+
 	/**
 	 * @param string $desc
 	 * @return BaseCommand
@@ -48,8 +51,24 @@ abstract class Command extends BaseCommand
 	{
 		$cmd = new OutputFormatterStyle('black', 'white', ['bold']);
 		$output->getFormatter()->setStyle('cmd', $cmd);
+		$this->output = $output;
 
 		parent::run($input, $output);
+	}
+
+	protected function writeLn()
+	{
+		return call_user_func_array([$this->output, 'writeLn'], func_get_args());
+	}
+
+	protected function writeLnVerbose()
+	{
+		if ($this->output->isVerbose())
+		{
+			return call_user_func_array([$this->output, 'writeLn'], func_get_args());
+		}
+
+		return FALSE;
 	}
 
 }

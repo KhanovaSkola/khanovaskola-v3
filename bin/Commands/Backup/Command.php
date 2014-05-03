@@ -11,6 +11,7 @@ abstract class Command extends BaseCommand
 	protected function cleanUp()
 	{
 		unlink($this->getTempNameDb());
+		unlink($this->getTempNameNeo());
 		rmdir($this->getTempDir());
 	}
 
@@ -44,6 +45,19 @@ abstract class Command extends BaseCommand
 	protected function getTempNameDb()
 	{
 		return $this->getTempDir() . '/' . $this->getNameDb();
+	}
+
+	protected function getNameNeo()
+	{
+		return 'neo4j.tar.gz';
+	}
+
+	/**
+	 * @return string file path
+	 */
+	protected function getTempNameNeo()
+	{
+		return $this->getTempDir() . '/' . $this->getNameNeo();
 	}
 
 

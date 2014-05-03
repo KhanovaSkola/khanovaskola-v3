@@ -2,7 +2,6 @@
 
 namespace Commands\Backup;
 
-
 use Commands\IMightLoseData;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,7 +13,7 @@ class RestoreTask extends Command implements IMightLoseData
 
 	public function setup()
 	{
-		$this->setDescription('Restore from backup');
+		$this->setDescription('Restore from backup (postgres, neo4j)');
 		$this->addArgument('file', InputArgument::REQUIRED,
 			'Timestamp of archive to restore');
 	}
@@ -25,33 +24,51 @@ class RestoreTask extends Command implements IMightLoseData
 		if (basename($stamp) !== $stamp)
 		{
 			$stamp = basename($stamp);
-			$output->writeln("<error>Expected timestamp, using '$stamp'</error>");
+			$this->writeln("<error>Expected timestamp, using '$stamp'</error>");
 		}
 
 		$file = $this->getDir() . "/$stamp.tar.gz";
 		if (!file_exists($file))
 		{
-			$output->writeln("<error>Archive not found at '$file'</error>");
-			$output->writeln("<comment>Run <cmd>backup:list</cmd> to see all available archives</comment>");
+			$this->writeln("<error>Archive not found at '$file'</error>");
+			$this->writeln("<comment>Run <cmd>backup:list</cmd> to see all available archives</comment>");
 			exit(1);
 		}
 
+		$this->writeLnVerbose("Unarchiving backup file");
 		$tempDir = $this->getTempDir();
-		exec('tar -C ' . escapeshellarg($tempDir) . ' -zxvf ' . escapeshellarg($file));
+		exec('tar -C ' . escapeshellarg($tempDir) . ' -zmxvf ' . escapeshellarg($file));
 
+		$this->writeLnVerbose("Importing postgres backup");
 		$p = $this->container->parameters['database'];
-		$query = sprintf('PGPASSWORD=%s psql --host=%s --user=%s %s -f %s',
+		$query = sprintf('PGPASSWORD=%s pg_restore --host=%s --user=%s %s',
 			escapeshellarg($p['password']),
 			escapeshellarg($p['host']),
 			escapeshellarg($p['username']),
-			escapeshellarg($p['database']),
 			escapeshellarg($this->getTempNameDb())
 		);
 		exec($query);
 
+		$this->writeLnVerbose("Importing neo4j backup");
+		$this->writeLnVerbose("  - stopping neo4j-service");
+		exec('sudo service neo4j-service stop');
+
+		$this->writeLnVerbose("  - unarchiving neo4j backup");
+		$target = '/var/lib/neo4j/data';
+		$query = sprintf('sudo rm -rf %s && sudo mkdir %s && sudo tar -C %s -zmxvf %s',
+			escapeshellarg($target),
+			escapeshellarg($target),
+			escapeshellarg($target),
+			escapeshellarg($this->getTempNameNeo())
+		);
+		exec($query);
+
+		$this->writeLnVerbose("  - starting neo4j-service");
+		exec('sudo service neo4j-service start');
+
 		$this->cleanUp();
 
-		$output->writeln("<info>Sucessfully restored from archive</info>");
+		$this->writeln("<info>Sucessfully restored from archive</info>");
 	}
 
 }
