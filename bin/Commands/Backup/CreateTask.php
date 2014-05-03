@@ -15,13 +15,14 @@ class CreateTask extends Command
 
 	public function setup()
 	{
-		$this->setDescription('Create new backup');
+		$this->setDescription('Create new backup (postgres, neo4j)');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		$this->writeLnVerbose('Backing up postgres database');
 		$p = $this->container->parameters['database'];
-		$query = sprintf('PGPASSWORD=%s pg_dump --host=%s --username=%s %s -f %s',
+		$query = sprintf('PGPASSWORD=%s pg_dump --format=tar --host=%s --username=%s %s -f %s',
 			escapeshellarg($p['password']),
 			escapeshellarg($p['host']),
 			escapeshellarg($p['username']),
@@ -30,6 +31,18 @@ class CreateTask extends Command
 		);
 		exec($query);
 
+		$this->writeLnVerbose('Backing up neo4j');
+		$this->writeLnVerbose('  - stopping neo4j-service');
+		exec('sudo service neo4j-service stop');
+		$this->writeLnVerbose('  - archiving neo4j files');
+		exec(sprintf('tar cfvz %s -C %s .',
+			escapeshellarg($this->getTempNameNeo()),
+			escapeshellarg('/var/lib/neo4j/data')
+		));
+		$this->writeLnVerbose('  - starting neo4j-service');
+		exec('sudo service neo4j-service start');
+
+		$this->writeLnVerbose('Archiving backup files');
 		$out = $this->getDir() . '/' . time() . '.tar.gz';
 		exec(sprintf('tar cfvz %s -C %s .',
 			escapeshellarg($out),
