@@ -5,6 +5,9 @@ namespace App\Orm\Mapper;
 use App\Services\Translator;
 
 
+/**
+ * Must only be used by Mapper
+ */
 trait TranslatorTrait
 {
 

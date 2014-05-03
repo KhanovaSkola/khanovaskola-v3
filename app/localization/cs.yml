@@ -5,7 +5,7 @@ homepage:
     few: "%1 brambory %1"
     many: "%1 brambor"
 
-test:
+test: #TODO remove
   flash:
     success:
       title: "Skvěle."

@@ -86,6 +86,13 @@ class Video extends TitledEntity implements IIndexable
 		});
 	}
 
+	public function addTag(Tag $tag)
+	{
+		/** @var VideosRepository $repo */
+		$repo = $this->getRepository();
+		$repo->addTagToVideo($this, $tag);
+	}
+
 	/**
 	 * @return array [field => data]
 	 */

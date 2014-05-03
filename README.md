@@ -16,14 +16,16 @@ Link directory
 		<dd>http://vagrant.khanovaskola.cz/</dd>
 	<dt>adminer</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/db/</dd>
-	<dt>mail trap</td>
+	<dt>mail trap</dt>
 		<dd>https://mailtrap.io/inboxes/23883/messages</dd>
-	<dt>elasticsearch console</td>
+	<dt>elasticsearch console</dt>
 		<dd>http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200</dd>
-	<dt>beanstalkd console</td>
+	<dt>beanstalkd console</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/beanstalk/public/</dd>
-	<dt>opcache dashboard</td>
+	<dt>opcache dashboard</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/opcache/</dd>
+	<dt>neo4j dashboard</dt>
+		<dd>http://vagrant.khanovaskola.cz:7474/webadmin</dd>
 </dl>
 
 Setup
