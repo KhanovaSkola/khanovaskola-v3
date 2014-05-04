@@ -1900,12 +1900,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikulas/nette-panel-queries.git",
-                "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0"
+                "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/d69cc83a164b8cee1f70064b37eb73e3683d73e0",
-                "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0",
+                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/1994e681b2a58946b281a767caf2bb820b8d08d5",
+                "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5",
                 "shasum": ""
             },
             "require": {
@@ -1928,7 +1928,7 @@
                 }
             ],
             "description": "Tracy panel listing queries to all storages",
-            "time": "2014-05-04 10:39:38"
+            "time": "2014-05-04 11:06:48"
         },
         {
             "name": "nelmio/alice",
