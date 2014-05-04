@@ -2,7 +2,13 @@
 
 namespace App;
 
-use Mikulas\Diagnostics\ElasticSearchPanel;
+use App\Services\ElasticSearch;
+use App\Services\Neo4j;
+use Everyman\Neo4j\Command\GetServerInfo;
+use Mikulas\Diagnostics\Queries\DibiQuery;
+use Mikulas\Diagnostics\Queries\ElasticSearchQuery;
+use Mikulas\Diagnostics\Queries\Neo4jQuery;
+use Mikulas\Diagnostics\QueryPanel;
 use Nette;
 use Nette\DI;
 use Nette\DI\Container;
@@ -117,11 +123,42 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	public function onAfterDebug(Container $container)
+	public function onAfterQueryPanel(Container $container)
 	{
-		/** @var ElasticSearchPanel $panel */
-		$panel = $container->getService('elasticPanel');
+		/** @var QueryPanel $panel */
+		$panel = $container->getService('queryPanel');
 		Nette\Diagnostics\Debugger::getBar()->addPanel($panel);
+
+		/** @var \DibiConnection $dibi */
+		$dibi = $container->getService('dibiConnection');
+		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
+			$panel->addQuery(new DibiQuery($event));
+		};
+
+		/** @var Neo4j $neo4j */
+		$neo4j = $container->getService('neo4j');
+		$neo4j->onEvent[] = function($command, $result) use ($panel, $neo4j) {
+			if (! $command instanceof GetServerInfo)
+			{
+				$panel->addQuery(new Neo4jQuery($command, $result, $neo4j->getTransport()));
+			}
+		};
+
+		/** @var ElasticSearch $elastic */
+		$elastic = $container->getService('elastic');
+		$request = NULL;
+		$elastic->onEvent[] = function($message, $content) use ($panel, &$request) {
+			if ($message === 'Request Body')
+			{
+				$request = $content[0];
+				return;
+			}
+			if ($message === 'Response')
+			{
+				$panel->addQuery(new ElasticSearchQuery($request, $content[0]));
+				$request = NULL;
+			}
+		};
 	}
 
 	/**

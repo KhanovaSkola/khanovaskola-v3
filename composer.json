@@ -33,7 +33,8 @@
 		"nelmio/alice": "~1.6.0",
 		"codeception/codeception": "~1.8.0",
 		"squizlabs/php_codesniffer": "~1.5.2",
-        "mikulas/lattecs": "~0.3.0-beta"
+        "mikulas/lattecs": "~0.3.0-beta",
+        "mikulas/nette-panel-queries": "@dev"
 	},
 	"repositories": [
 		{
