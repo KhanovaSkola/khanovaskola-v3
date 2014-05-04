@@ -19,10 +19,4 @@ final class HomepagePresenter extends BasePresenter
 		$gistRenderer->setGist($gist);
 	}
 
-	public function actionSearch($query)
-	{
-		$this->template->query = $query;
-		$this->template->results = $this->orm->videos->getWithFulltext($query);
-	}
-
 }

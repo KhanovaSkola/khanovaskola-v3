@@ -8,9 +8,9 @@ var libs = [
 ];
 var app = [
     'app.js',
-    'autocomplete.js',
-    'inlineEditor.js',
-    'urlFixes.js'
+    'urlFixes.js',
+    'components/gist.js',
+    'components/search.js'
 ];
 
 // map to root directory
