@@ -27,7 +27,8 @@ App.autocomplete = function(query, cb) {
 		$.each(results.hits.hits, function(i, v) {
 			titles.push({
 				id: v._id,
-				value: 'title' in v.highlight ? v.highlight.title[0] : v._source.title
+                value: v._source.title,
+				highlit: 'title' in v.highlight ? v.highlight.title[0] : v._source.title
 			});
 		});
 		cb(titles);
@@ -35,7 +36,7 @@ App.autocomplete = function(query, cb) {
 };
 
 $(function() {
-    $('#frm-autocomplete-query').typeahead(
+    $('#frm-search-form-query').typeahead(
         {
             hint: true,
             highlight: false,
@@ -43,7 +44,11 @@ $(function() {
         },
         {
             name: 'states',
-            displayKey: 'value',
+            templates: {
+                suggestion: function(row) {
+                    return '<p>' + row.highlit + '</p>'
+                }
+            },
             source: function(query, process) {
                 App.autocomplete(query, function(results) {
                     process(results);

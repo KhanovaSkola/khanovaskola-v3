@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\GistRenderer;
+use App\Components\Search;
 use App\DeprecatedException;
 use App\InvalidArgumentException;
 use App\Model\EventList;
@@ -109,6 +110,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	public function createComponentGist()
 	{
 		return new GistRenderer();
+	}
+
+	public function createComponentSearch()
+	{
+		return new Search();
 	}
 
 	public function redirectToAuth()
