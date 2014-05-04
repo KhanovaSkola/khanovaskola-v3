@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3092b1fcd1dc0399081b70cf3affb11d",
+    "hash": "bc250496b1279c39d7433acb58ab4335",
     "packages": [
         {
             "name": "dg/dibi",
@@ -1895,6 +1895,42 @@
             "time": "2014-05-02 16:39:29"
         },
         {
+            "name": "mikulas/nette-panel-queries",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikulas/nette-panel-queries.git",
+                "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/d69cc83a164b8cee1f70064b37eb73e3683d73e0",
+                "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": "~2.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mikulas\\Diagnostics\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite",
+                    "email": "mikulas@dite.pro"
+                }
+            ],
+            "description": "Tracy panel listing queries to all storages",
+            "time": "2014-05-04 10:39:38"
+        },
+        {
             "name": "nelmio/alice",
             "version": "1.6.0",
             "source": {
@@ -2916,7 +2952,8 @@
         "mikulas/nette-google": 15,
         "everyman/neo4jphp": 20,
         "elfet/deployer": 20,
-        "mikulas/lattecs": 10
+        "mikulas/lattecs": 10,
+        "mikulas/nette-panel-queries": 20
     },
     "platform": {
         "php": ">= 5.5.0"

@@ -11,3 +11,4 @@ tests/_data
 www/_index.php
 /notes.txt
 /keys
+/www/elasticsearch.log

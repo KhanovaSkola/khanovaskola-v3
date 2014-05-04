@@ -27,6 +27,7 @@ return array(
     'Nelmio\\Alice\\' => array($vendorDir . '/nelmio/alice/src'),
     'Mikulas\\LatteCS\\' => array($vendorDir . '/mikulas/lattecs/src'),
     'Mikulas\\Google\\' => array($vendorDir . '/mikulas/nette-google/src'),
+    'Mikulas\\Diagnostics\\' => array($vendorDir . '/mikulas/nette-panel-queries/src'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Kdyby\\Redis\\' => array($vendorDir . '/kdyby/redis/src'),
     'Kdyby\\Facebook\\' => array($vendorDir . '/kdyby/facebook/src'),

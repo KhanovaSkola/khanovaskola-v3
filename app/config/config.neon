@@ -10,7 +10,6 @@ parameters:
 		host: localhost
 		charset: utf8
 		sqlmode: TRADITIONAL
-		profiler: on
 	beanstalk:
 		host: 127.0.0.1:13000
 	fb:
@@ -41,6 +40,10 @@ redis:
 	journal: on
 	storage: on
 	session: on
+	debugger: off
+
+events:
+	debugger: off
 
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
@@ -58,10 +61,10 @@ services:
 		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
 	router: App\Router
 	dibiConnection: DibiConnection(%database%)
-	elasticPanel: Mikulas\Diagnostics\ElasticSearchPanel
-	elastic: App\Services\ElasticSearch(%elastic%, @elasticPanel, %appDir%)
+	elastic: App\Services\ElasticSearch(%elastic%, %appDir%)
 	facebookPage: App\Services\FacebookPage(%fb.pageId%)
 	neo4j: App\Services\Neo4j(%neo4j.host%, %neo4j.port%)
+	queryPanel: Mikulas\Diagnostics\QueryPanel
 
 	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)

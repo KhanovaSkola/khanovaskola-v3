@@ -1,6 +1,29 @@
-module.exports = function(grunt) {
+var libs = [
+    'jquery.js',
+    'elasticsearch.jquery.min.js',
+    'medium-editor.js',
+    'bootstrap/alert.js',
+    'netteForm.js',
+    'typeahead.bundle.js'
+];
+var app = [
+    'app.js',
+    'autocomplete.js',
+    'inlineEditor.js',
+    'urlFixes.js'
+];
 
-	// Project configuration.
+// map to root directory
+{
+    libs = libs.map(function(lib) {
+        return 'www/js/vendor/' + lib;
+    });
+    app = app.map(function(app) {
+        return 'www/js/app/' + app;
+    });
+}
+
+module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		less: {
@@ -18,19 +41,7 @@ module.exports = function(grunt) {
 			production: {
 				preserveComments: false,
 				files: {
-					'www/js/compiled.js': [
-						'www/js/vendor/jquery.js',
-						'www/js/vendor/elasticsearch.jquery.min.js',
-						'www/js/vendor/medium-editor.js',
-						'www/js/vendor/bootstrap/alert.js',
-						'www/js/vendor/netteForm.js',
-						'www/js/vendor/typeahead.bundle.js',
-
-						'www/js/app/app.js',
-						'www/js/app/autocomplete.js',
-						'www/js/app/inlineEditor.js',
-						'www/js/app/urlFixes.js'
-					]
+					'www/js/compiled.js': libs.concat(app)
 				}
 			}
 		}

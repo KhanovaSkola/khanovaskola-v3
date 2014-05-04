@@ -3003,5 +3003,43 @@
             "graph",
             "neo4j"
         ]
+    },
+    {
+        "name": "mikulas/nette-panel-queries",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/nette-panel-queries.git",
+            "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/d69cc83a164b8cee1f70064b37eb73e3683d73e0",
+            "reference": "d69cc83a164b8cee1f70064b37eb73e3683d73e0",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1.0"
+        },
+        "time": "2014-05-04 10:39:38",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Mikulas\\Diagnostics\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Tracy panel listing queries to all storages"
     }
 ]

@@ -6,6 +6,7 @@ use App\DeprecatedException;
 use Elasticsearch\Client;
 
 use Elasticsearch\Common\Exceptions\Missing404Exception;
+use Mikulas\Diagnostics\ElasticSearchLogger;
 use Mikulas\Diagnostics\ElasticSearchPanel;
 
 use Nette\Utils\Neon;
@@ -20,28 +21,23 @@ class ElasticSearch extends Client
 	const HIGHLIGHT_START = '{{%highlight%}}';
 	const HIGHLIGHT_END = '{{%/highlight%}}';
 
-	/** @var ElasticSearchPanel */
-	protected $panel;
-
 	/** @var string path */
 	private $appDir;
 
-	public function __construct(array $params, ElasticSearchPanel $panel, $appDir)
+	/** @var callable[] */
+	public $onEvent;
+
+	public function __construct(array $params, $appDir)
 	{
 		parent::__construct($params);
 
-		$this->panel = $panel;
 		$this->appDir = $appDir;
-	}
 
-	/**
-	 * @inheritdoc
-	 */
-	public function search($params = [])
-	{
-		$res = parent::search($params);
-		$this->panel->onSearch($res, $params);
-		return $res;
+		$log = $this->params['logObject'];
+		if ($log instanceof ElasticSearchLogger)
+		{
+			$log->injectElasticSearch($this);
+		}
 	}
 
 	/**
