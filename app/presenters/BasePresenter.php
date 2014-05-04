@@ -92,7 +92,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	 */
 	public function getUserEntity()
 	{
-		return $this->orm->users->getById($this->user->id);
+		$userEntity = $this->orm->users->getById($this->user->id);
+		if ($this->user->loggedIn && !$userEntity)
+		{
+			$this->user->logout(TRUE);
+		}
 	}
 
 	public function beforeRender()
