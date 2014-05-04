@@ -4,7 +4,7 @@ var libs = [
     'medium-editor.js',
     'bootstrap/alert.js',
     'netteForm.js',
-    'typeahead.bundle.js'
+    'typeahead.bundle.min.js'
 ];
 var app = [
     'app.js',

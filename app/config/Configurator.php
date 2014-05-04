@@ -153,7 +153,7 @@ class Configurator extends Nette\Configurator
 				$request = $content[0];
 				return;
 			}
-			if ($message === 'Response')
+			if ($request && $message === 'Response')
 			{
 				$panel->addQuery(new ElasticSearchQuery($request, $content[0]));
 				$request = NULL;
