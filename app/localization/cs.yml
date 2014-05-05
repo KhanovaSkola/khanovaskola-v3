@@ -1,9 +1,9 @@
 homepage:
   title:
-    zero: "Nula brambor"
-    one: "Jedna brambora"
-    few: "%1 brambory %1"
-    many: "%1 brambor"
+    zero: "Nula homepage"
+    one: "Jedna homepage"
+    few: "%1 homepage %1"
+    many: "%1 homepage"
 
 test: #TODO remove
   flash:
