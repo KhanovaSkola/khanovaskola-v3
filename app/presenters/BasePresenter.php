@@ -98,6 +98,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		{
 			$this->user->logout(TRUE);
 		}
+
+		return $userEntity;
 	}
 
 	public function beforeRender()
