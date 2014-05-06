@@ -22,6 +22,7 @@ class Users extends Migration
 			->addOptionalString('facebook_access_token')
 			->addOptionalString('google_id')
 			->addOptionalString('google_access_token')
+			->addUniqueIndex(['email'])
 			->save();
 	}
 

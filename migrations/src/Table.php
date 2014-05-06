@@ -48,10 +48,15 @@ class Table extends \Phinx\Db\Table
 		throw new DeprecatedException('use addNamedIndex');
 	}
 
+	/**
+	 * @param array $columns
+	 * @param bool $unique
+	 * @return self
+	 */
 	public function addNamedIndex(array $columns, $unique = FALSE)
 	{
-		$name = implode($columns);
-		return parent::addIndex($columns, ['name' => $name, 'unique' => $unique]);
+		$name = implode('_', $columns);
+		return parent::addIndex($columns, ['name' => "{$this->name}_$name", 'unique' => $unique]);
 	}
 
 	public function addUniqueIndex(array $columns)

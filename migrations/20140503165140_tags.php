@@ -14,6 +14,7 @@ class Tags extends Migration
 			->addString('title')
 			->addString('slug')
 			->addUniqueIndex(['title'])
+			->addUniqueIndex(['slug'])
 			->save();
 	}
 
