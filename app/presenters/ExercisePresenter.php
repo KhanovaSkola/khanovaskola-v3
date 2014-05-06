@@ -2,26 +2,27 @@
 
 namespace App\Presenters;
 
-use App\Rme\Exercise;
+use App\Rme\Blueprint;
+use App\Rme\BlueprintCompiler;
 
 
-class ExercisePresenter extends BasePresenter
+final class ExercisePresenter extends BasePresenter
 {
 
 	/**
 	 * @var int
 	 * @persistent
 	 */
-	public $exerciseId;
+	public $blueprintId;
 
-	/** @var Exercise */
-	protected $exercise;
+	/** @var Blueprint */
+	protected $blueprint;
 
 	public function startup()
 	{
 		parent::startup();
 
-		if (!$this->exercise = $this->orm->exercises->getById($this->exercise))
+		if (! $this->blueprint = $this->orm->blueprints->getById($this->blueprintId))
 		{
 			$this->error();
 		}
@@ -29,7 +30,9 @@ class ExercisePresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		$this->template->exercise = $this->exercise;
+		$compiler = new BlueprintCompiler();
+		//$compiler->setSeed(1114283787);
+		$this->template->exercise = $compiler->compile($this->blueprint);
 	}
 
 }

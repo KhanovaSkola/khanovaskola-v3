@@ -1,0 +1,15 @@
+{block scripts}{include '_script.latte'}{/block}
+{block content}
+	{**
+	 * @param Exercise $exercise
+	 *}
+	<h1>{$exercise->blueprint->title}</h1>
+	<h2>{$exercise->blueprint->description}</h2>
+
+	<h3>{$exercise->question}</h3>
+	<p>answer: ${$exercise->answer}$</p>
+
+	<ol>
+		<li n:foreach="$exercise->hints as $hint">{$hint}</li>
+	</ol>
+	<p>Seed: {$exercise->seed}</p>
