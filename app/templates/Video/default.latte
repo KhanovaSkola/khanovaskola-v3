@@ -1,0 +1,20 @@
+{block content}
+	{**
+	 * @param Video $video
+	 *}
+
+	<h1>{$video->title}</h1>
+
+	<script type="text/javascript" src="//cdn.sublimevideo.net/js/f065w0nj.js"></script>
+    <video id="video"
+	    class="sublime"
+	    poster="//img.youtube.com/vi/{$video->youtubeId}/hqdefault.jpg"
+	    width="640"
+	    height="360"
+	    title="{$video->title}"
+	    data-uid="{$video->youtubeId}"
+	    data-youtube-id="{$video->youtubeId}"
+	    data-x-autoresize="fit"
+	    preload="none">
+            <track src="{plink :Srt:, videoId => $video->id}" srclang="cs" default />
+    </video>
