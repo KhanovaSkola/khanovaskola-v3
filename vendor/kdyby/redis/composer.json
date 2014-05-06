@@ -8,7 +8,8 @@
 	"authors": [
 		{
 			"name": "Filip Procházka",
-			"homepage": "http://filip-prochazka.com"
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
 		}
 	],
 	"support": {
@@ -31,5 +32,10 @@
 		"classmap": [
 			"src/Kdyby/Redis/exceptions.php"
 		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "3.0-dev"
+		}
 	}
 }

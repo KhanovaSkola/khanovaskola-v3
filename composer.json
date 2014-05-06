@@ -19,7 +19,7 @@
 		"elasticsearch/elasticsearch": "~1.0.2",
 		"monolog/monolog": "~1.8.0",
 		"morrisonlevi/ardent": "~0.14.0",
-		"kdyby/redis": "~3.0.0",
+		"kdyby/redis": "@dev",
 		"kdyby/events": "~2.0.2",
 		"ezyang/htmlpurifier": "~4.6.0",
 		"pda/pheanstalk": "~2.1.0",

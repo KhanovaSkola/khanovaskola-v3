@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bc250496b1279c39d7433acb58ab4335",
+    "hash": "155878c9604ef04f54180be3092bafdd",
     "packages": [
         {
             "name": "dg/dibi",
@@ -461,16 +461,16 @@
         },
         {
             "name": "kdyby/redis",
-            "version": "v3.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Redis.git",
-                "reference": "5be8b73239e485d8d8f5a768785c965d5acf56bd"
+                "reference": "ee1c824fbc8162772b2082d6b51085719bd4baa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/5be8b73239e485d8d8f5a768785c965d5acf56bd",
-                "reference": "5be8b73239e485d8d8f5a768785c965d5acf56bd",
+                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/ee1c824fbc8162772b2082d6b51085719bd4baa6",
+                "reference": "ee1c824fbc8162772b2082d6b51085719bd4baa6",
                 "shasum": ""
             },
             "require": {
@@ -483,6 +483,11 @@
                 "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Kdyby\\Redis\\": "src/"
@@ -513,7 +518,7 @@
                 "nette",
                 "redis"
             ],
-            "time": "2014-01-07 21:58:05"
+            "time": "2014-05-06 00:21:36"
         },
         {
             "name": "mikulas/nette-google",
@@ -2948,6 +2953,7 @@
     ],
     "minimum-stability": "beta",
     "stability-flags": {
+        "kdyby/redis": 20,
         "kdyby/facebook": 20,
         "mikulas/nette-google": 15,
         "everyman/neo4jphp": 20,

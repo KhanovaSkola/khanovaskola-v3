@@ -13,15 +13,27 @@ namespace Kdyby\Redis\Diagnostics;
 use Kdyby;
 use Kdyby\Redis\RedisClientException;
 use Nette;
-use Nette\Diagnostics\Debugger;
 use Nette\PhpGenerator as Code;
+use Tracy\Debugger;
+use Tracy\IBarPanel;
 
 
+
+if (!class_exists('Tracy\Debugger')) {
+	class_alias('Nette\Diagnostics\Debugger', 'Tracy\Debugger');
+}
+
+if (!class_exists('Tracy\Bar')) {
+	class_alias('Nette\Diagnostics\Bar', 'Tracy\Bar');
+	class_alias('Nette\Diagnostics\BlueScreen', 'Tracy\BlueScreen');
+	class_alias('Nette\Diagnostics\Helpers', 'Tracy\Helpers');
+	class_alias('Nette\Diagnostics\IBarPanel', 'Tracy\IBarPanel');
+}
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
+class Panel extends Nette\Object implements IBarPanel
 {
 
 	/** @internal */
@@ -33,7 +45,7 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 	public static $maxLength = 1000;
 
 	/**
-	 * @var int
+	 * @var float
 	 */
 	private $totalTime = 0;
 
@@ -54,18 +66,44 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 
 
 
+	/**
+	 * @return int
+	 */
+	public function getQueryCount()
+	{
+		return count($this->queries);
+	}
+
+
+
+	/**
+	 * @return int milliseconds
+	 */
+	public function getTotalTime()
+	{
+		return $this->totalTime * 1000;
+	}
+
+
+
 	public function begin($args)
 	{
-		$cmd = array();
-		if ($this->renderPanel) {
+		if (!$this->renderPanel) {
+			$cmd = '';
+
+		} else {
+			$cmd = array();
 			foreach ($args as $arg) {
-				$cmd[] = is_array($arg) ? urldecode(http_build_query($arg, '', ' ')) : $arg;
+				if (!$arg instanceof \Closure) {
+					$cmd[] = is_array($arg) ? urldecode(http_build_query($arg, '', ' ')) : $arg;
+				}
 			}
+			$cmd = implode(' ', $cmd);
 		}
 
-		$this->queries[] = (object)array(
+		$this->queries[] = (object) array(
 			'errors' => array(),
-			'cmd' => implode(' ', $cmd),
+			'cmd' => $cmd,
 			'time' => 0
 		);
 
@@ -134,10 +172,14 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 		}
 
 		return empty($this->queries) ? '' :
-			'<style> #nette-debug div.kdyby-RedisClientPanel table td { text-align: right }
-			#nette-debug div.kdyby-RedisClientPanel table td.kdyby-RedisClientPanel-cmd { background: white !important; text-align: left } </style>
+			'<style>
+				#nette-debug div.kdyby-RedisClientPanel table td,
+				#tracy-debug div.kdyby-RedisClientPanel table td { text-align: right }
+				#nette-debug div.kdyby-RedisClientPanel table td.kdyby-RedisClientPanel-cmd,
+				#tracy-debug div.kdyby-RedisClientPanel table td.kdyby-RedisClientPanel-cmd { background: white !important; text-align: left }
+			</style>
 			<h1>Queries: ' . count($this->queries) . ($this->totalTime ? ', time: ' . sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : '') . '</h1>
-			<div class="nette-inner kdyby-RedisClientPanel">
+			<div class="nette-inner tracy-inner kdyby-RedisClientPanel">
 			<table>
 				<tr><th>Time&nbsp;µs</th><th>Command</th></tr>' . $s . '
 			</table>
@@ -195,21 +237,21 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 
 
 	/**
-	 * @return Nette\Diagnostics\Bar
+	 * @return \Tracy\Bar
 	 */
 	private static function getDebuggerBar()
 	{
-		return method_exists('Nette\Diagnostics\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
+		return method_exists('Tracy\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
 	}
 
 
 
 	/**
-	 * @return Nette\Diagnostics\BlueScreen
+	 * @return \Tracy\BlueScreen
 	 */
 	private static function getDebuggerBlueScreen()
 	{
-		return method_exists('Nette\Diagnostics\Debugger', 'getBlueScreen') ? Debugger::getBlueScreen() : Debugger::$blueScreen;
+		return method_exists('Tracy\Debugger', 'getBlueScreen') ? Debugger::getBlueScreen() : Debugger::$blueScreen;
 	}
 
 }
