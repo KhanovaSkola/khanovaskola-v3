@@ -3,3 +3,17 @@ App\Rme\Gist:
     name: 'test'
     text: <text(300)>
     createdAt: 'now'
+App\Rme\Blueprint:
+  b1:
+    title: 'Základní lineární rovnice'
+    description: 'Rovnice o jedné neznámé a jednoduché ekvivalentní úpravy'
+    defineInteger: ['a', 1, 10]
+    defineInteger: ['b', 11, 20]
+    defineList: ['name', ['John', 'Marco', 'Alex', 'Casey', 'David']]
+    definePlural: ['broskve', '{b-a}', 'broskev', 'broskve', 'broskví']
+    question: 'Pokud {name} sebere $x$ broskví a ${a} + x = {b}$, kolik broskví sebere?'
+    answer: '{b-a}'
+    addHint: 'Vyjádříme si z rovnice $x$.'
+    addHint: 'Osamostatníme $x$ tak, že od celé rovnice odečteme ${a}$.'
+    addHint: '${a} + x - {a} = {b} - {a}$, tedy $x = {b} - {a}$.'
+    addHint: 'Po úpravě víme, že $x = {b-a}$, {name} tedy sesbíral ${a-b}$ {broskve}.'
