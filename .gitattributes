@@ -1,3 +1,7 @@
 compiled.js binary
 compiled.css binary
-composer.lock
+composer.lock binary
+vendor/composer/autoload_real.php binary
+vendor/autoload.php binary
+vendor/composer/autoload_classmap.php binary
+vendor/composer/autoload_namespaces.php binary
