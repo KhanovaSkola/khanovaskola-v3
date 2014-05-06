@@ -5,6 +5,7 @@ namespace App\Services;
 use App\InvalidStateException;
 use App\Tasks\Task;
 use Nette\Object;
+use Pheanstalk_Job as Job;
 use Pheanstalk_Pheanstalk as Pheanstalk;
 
 
@@ -48,11 +49,22 @@ class Queue extends Object
 			->ignore('default')
 			->reserve();
 
+		/** @var Task $task */
 		$task = unserialize($job->getData());
+		$task->setJob($job);
 
 		$cb($task, function() use ($job) {
 			$this->stalk->delete($job);
-		});
+		}, $job);
+	}
+
+	/**
+	 * Remove (presumably failing) task from queue
+	 * @param Task $task
+	 */
+	public function buryTask(Task $task)
+	{
+		$this->stalk->bury($task->getJob());
 	}
 
 }
