@@ -2,6 +2,7 @@
 
 namespace App\Rme;
 
+use App\NotImplementedException;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -23,17 +24,17 @@ class BlueprintCompiler extends Object
 	}
 
 	/**
-	 * @param ExerciseBlueprint $blueprint
+	 * @param Blueprint $blueprint
 	 * @return Exercise
 	 * @throws \Exception
 	 */
-	public function compile(ExerciseBlueprint $blueprint)
+	public function compile(Blueprint $blueprint)
 	{
 		mt_srand($this->seed);
 
 		$exercise = [];
 		$vars = [];
-		foreach ($blueprint->getVariables() as $var => $options)
+		foreach ($blueprint->vars as $var => $options)
 		{
 			$type = array_shift($options);
 			switch ($type)
@@ -52,14 +53,14 @@ class BlueprintCompiler extends Object
 					$vars[$var] = $val === 1 ? $one : ($val >= 2 && $val <= 4 ? $few : $many);
 					break;
 				default:
-					throw new \Exception; // TODO
+					throw new NotImplementedException;
 			}
 		}
 
 		$exercise['vars'] = $vars;
-		$exercise['question'] = $this->expand($blueprint->getQuestion(), $vars);
-		$exercise['answer'] = $this->expand($blueprint->getAnswer(), $vars);
-		foreach ($blueprint->getHints() as $i => $hint)
+		$exercise['question'] = $this->expand($blueprint->question, $vars);
+		$exercise['answer'] = $this->expand($blueprint->answer, $vars);
+		foreach ($blueprint->hints as $i => $hint)
 		{
 			$exercise['hints'][$i] = $this->expand($hint, $vars);
 		}

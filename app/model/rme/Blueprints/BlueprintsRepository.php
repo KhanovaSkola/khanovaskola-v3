@@ -9,7 +9,7 @@ use Orm\DibiCollection;
 
 /**
  */
-class ExerciseBuildersRepository extends Repository
+class BlueprintsRepository extends Repository
 {
 
 }
