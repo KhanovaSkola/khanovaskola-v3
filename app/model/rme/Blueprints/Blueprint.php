@@ -4,27 +4,31 @@ namespace App\Rme;
 
 use App\InvalidArgumentException;
 use App\NotImplementedException;
-use Nette\Object;
+use App\Orm\TitledEntity;
+use Nette\Utils\Strings;
+use Orm;
 
 
-class ExerciseBlueprint extends Object
+/**
+ * @property string $description
+ * @property array $vars
+ * @property string $question
+ * @property string $answer
+ * @property array $hints
+ */
+class Blueprint extends TitledEntity
 {
 
 	const TYPE_INT = 'integer';
 	const TYPE_LIST = 'list';
 	const TYPE_PLURAL = 'plural';
 
-	/** @var array */
-	private $vars;
-
-	/** @var string */
-	private $question;
-
-	/** @var string */
-	private $answer;
-
-	/** @var string[] */
-	private $hints;
+	public function __construct()
+	{
+		parent::__construct();
+		$this->hints = [];
+		$this->vars = [];
+	}
 
 	/**
 	 * @param string $type
@@ -46,7 +50,10 @@ class ExerciseBlueprint extends Object
 
 		$args = func_get_args();
 		$name = array_shift($args);
-		$this->vars[$name] = $args;
+
+		$vars = $this->vars;
+		$vars[$name] = $args;
+		$this->setValue('vars', $vars);
 	}
 
 	/**
@@ -83,57 +90,11 @@ class ExerciseBlueprint extends Object
 		$this->defineVariable($name, self::TYPE_PLURAL, $value, $one, $few, $many);
 	}
 
-	public function setQuestion($question)
-	{
-		$this->question = $question;
-	}
-
-	public function setAnswer($answer)
-	{
-		$this->answer = $answer;
-	}
-
 	public function addHint($hint)
 	{
-		$this->hints[] = $hint;
-	}
-
-	public function validate()
-	{
-		// TODO validate syntax etc
-		return $this->question && $this->answer && $this->hints;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getVariables()
-	{
-		return $this->vars;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getQuestion()
-	{
-		return $this->question;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getAnswer()
-	{
-		return $this->answer;
-	}
-
-	/**
-	 * @return string[]
-	 */
-	public function getHints()
-	{
-		return $this->hints;
+		$hints = $this->hints;
+		$hints[] = $hint;
+		$this->setValue('hints', $hints);
 	}
 
 }
