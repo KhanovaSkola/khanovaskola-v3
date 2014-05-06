@@ -403,12 +403,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Facebook.git",
-                "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597"
+                "reference": "9033672fcd011b8165fded1029d2a441e1964552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/90d65ddb7a3392f75acf149a8efa06133ef0c597",
-                "reference": "90d65ddb7a3392f75acf149a8efa06133ef0c597",
+                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/9033672fcd011b8165fded1029d2a441e1964552",
+                "reference": "9033672fcd011b8165fded1029d2a441e1964552",
                 "shasum": ""
             },
             "require": {
@@ -457,7 +457,7 @@
                 "nette",
                 "sdk"
             ],
-            "time": "2014-05-02 16:46:04"
+            "time": "2014-05-06 00:21:36"
         },
         {
             "name": "kdyby/redis",
