@@ -10,8 +10,11 @@ class __Example__ extends Migration
 	public function up()
 	{
 		$this->table('')
-			->addString('username')
-			->addUniqueIndex(['username', 'email'])
+			->addDateTime('created_at')
+			->addString('title')
+			->addString('slug')
+			->addUniqueIndex(['title'])
+			->addUniqueIndex(['slug'])
 			->save();
 	}
 

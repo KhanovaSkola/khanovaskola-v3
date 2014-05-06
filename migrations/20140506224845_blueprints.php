@@ -18,6 +18,8 @@ class Blueprints extends Migration
 			->addText('question')
 			->addText('answer')
 			->addText('hints')
+			->addUniqueIndex(['title'])
+			->addUniqueIndex(['slug'])
 			->save();
 	}
 
