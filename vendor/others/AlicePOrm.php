@@ -38,6 +38,14 @@ class Porm extends Yaml
 		{
 			// include didn't return data but included correctly, parse it as yaml
 			$yaml = ob_get_clean();
+
+			// super hacky way to allow multiple calls of same method
+			$i = 0;
+			$yaml = preg_replace_callback('~^    ([^:]+)~m', function($m) use (&$i) {
+				$i++;
+				return "$m[0]_$i";
+			}, $yaml);
+
 			$data = YamlParser::parse($yaml);
 		}
 		else
