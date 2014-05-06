@@ -48,6 +48,9 @@ class FillTask extends Command
 		});
 
 		$testData = $input->getOption('testdata');
+
+		$objects = $loader->load(__DIR__ . '/../../../app/fixtures/' . ($testData ? 'fixtures.tests.yml' : 'fixtures.yml'));
+
 		if (!$testData)
 		{
 			$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
@@ -64,8 +67,6 @@ class FillTask extends Command
 			}
 			$orm->flush();
 		}
-
-		$objects = $loader->load(__DIR__ . '/../../../app/fixtures/' . ($testData ? 'fixtures.tests.yml' : 'fixtures.yml'));
 
 		try
 		{
