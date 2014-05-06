@@ -38,7 +38,7 @@ final class AuthPresenter extends BasePresenter
 			'vocative' => $user->vocative,
 		]);
 
-		$this->trigger(EventList::LOGIN, [$this->userEntity]);
+		$this->trigger(EventList::LOGIN, [$user]);
 
 		/** @var Session $session */
 		$session = $this->context->getService('session');
