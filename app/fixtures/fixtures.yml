@@ -16,4 +16,9 @@ App\Rme\Blueprint:
     addHint: 'Vyjádříme si z rovnice $x$.'
     addHint: 'Osamostatníme $x$ tak, že od celé rovnice odečteme ${a}$.'
     addHint: '${a} + x - {a} = {b} - {a}$, tedy $x = {b} - {a}$.'
-    addHint: 'Po úpravě víme, že $x = {b-a}$, {name} tedy sesbíral ${a-b}$ {broskve}.'
+    addHint: 'Po úpravě víme, že $x = {b-a}$, {name} tedy sesbíral ${b-a}$ {broskve}.'
+  b{2..100}:
+    title: <text(50)>
+    description: <text(150)>
+    question: <text(150)>
+    answer: <randomDigitNotNull()>

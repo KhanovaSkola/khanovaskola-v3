@@ -61,6 +61,7 @@ class BlueprintCompiler extends Object
 		$exercise['vars'] = $vars;
 		$exercise['question'] = $this->expand($blueprint->question, $vars);
 		$exercise['answer'] = $this->expand($blueprint->answer, $vars);
+		$exercise['hints'] = [];
 		foreach ($blueprint->hints as $i => $hint)
 		{
 			$exercise['hints'][$i] = $this->expand($hint, $vars);
