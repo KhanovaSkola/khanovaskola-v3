@@ -8,6 +8,7 @@ use Orm\DibiCollection;
 
 
 /**
+ * @method HighlightCollection getWithFulltext()
  */
 class BlueprintsRepository extends Repository
 {
