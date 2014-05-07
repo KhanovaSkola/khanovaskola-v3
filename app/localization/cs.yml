@@ -69,6 +69,14 @@ badges:
         title: "Nový uživatel" #TODO
         description: "Na Khanovu školu jste zapsán[|a] od %date"
 
+exercise:
+  correct:
+    title: "Výborně!"
+    message: "%answer je správná odpověď."
+  wrong:
+    title: "To není dobře."
+    message: "%answer není správná odpověď."
+
 errors: #TODO
   403:
     title: "Přístup zamítnut"

@@ -3,6 +3,7 @@
 namespace App\Rme;
 
 use App\NotImplementedException;
+use Nette\Diagnostics\Debugger;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -30,7 +31,7 @@ class BlueprintCompiler extends Object
 	 */
 	public function compile(Blueprint $blueprint)
 	{
-		mt_srand($this->seed);
+		srand($this->seed);
 
 		$exercise = [];
 		$vars = [];
@@ -41,11 +42,11 @@ class BlueprintCompiler extends Object
 			{
 				case 'integer':
 					list($min, $max) = $options;
-					$vars[$var] = mt_rand($min, $max);
+					$vars[$var] = rand($min, $max);
 					break;
 				case 'list':
 					$list = $options[0];
-					$vars[$var] = $list[mt_rand(0, count($list) - 1)];
+					$vars[$var] = $list[rand(0, count($list) - 1)];
 					break;
 				case 'plural':
 					list($val, $one, $few, $many) = $options;
