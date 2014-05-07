@@ -12,7 +12,7 @@ use Orm\Events;
 use Orm\IRepository;
 
 
-class BlueprintsMapper extends Mapper
+class BlueprintsMapper extends ElasticSearchMapper
 {
 
 	public function registerEvents(Events $events)

@@ -15,7 +15,10 @@ final class SearchPresenter extends BasePresenter
 		$input->setDefaultValue($query);
 
 		$this->template->query = $query;
-		$this->template->results = $this->orm->videos->getWithFulltext($query);
+		$this->template->results = (object) [
+			'videos' => $this->orm->videos->getWithFulltext($query),
+			'exercises' => $this->orm->blueprints->getWithFulltext($query),
+		];
 	}
 
 }

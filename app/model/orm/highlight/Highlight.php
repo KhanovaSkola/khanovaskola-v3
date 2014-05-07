@@ -29,6 +29,14 @@ abstract class Highlight extends Object
 		}
 	}
 
+	/**
+	 * @return int|string
+	 */
+	public function getId()
+	{
+		return $this->entity->id;
+	}
+
 	public function getRaw($key)
 	{
 		return $this->entity->$key;

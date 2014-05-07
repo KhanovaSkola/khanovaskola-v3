@@ -4,6 +4,7 @@ namespace App\Rme;
 
 use App\InvalidArgumentException;
 use App\NotImplementedException;
+use App\Orm\IIndexable;
 use App\Orm\TitledEntity;
 use Nette\Utils\Strings;
 use Orm;
@@ -16,7 +17,7 @@ use Orm;
  * @property string $answer
  * @property array $hints
  */
-class Blueprint extends TitledEntity
+class Blueprint extends TitledEntity implements IIndexable
 {
 
 	const TYPE_INT = 'integer';
@@ -95,6 +96,19 @@ class Blueprint extends TitledEntity
 		$hints = $this->hints;
 		$hints[] = $hint;
 		$this->setValue('hints', $hints);
+	}
+
+	/**
+	 * Values to be saved to es index
+	 *
+	 * @return array [field => data]
+	 */
+	public function getIndexData()
+	{
+		return [
+			'title' => $this->title,
+			'description' => $this->description,
+		];
 	}
 
 }
