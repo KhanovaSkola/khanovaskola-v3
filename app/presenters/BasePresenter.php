@@ -47,7 +47,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 
 	public function onBadgeAwarded(BadgeUserBridge $bridge)
 	{
-		// TODO notify user
+		$this->flashSuccess('badges.awarded', [
+			'badge' => $bridge->title
+		]);
 	}
 
 	/**
@@ -74,10 +76,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		return $this->context->getByType('Kdyby\Events\EventManager');
 	}
 
+	/**
+	 * Does not flush automatically!
+	 * @param $event
+	 * @param array $args
+	 */
 	protected function trigger($event, array $args = [])
 	{
 		$this->getEventManager()->dispatchEvent($event, new EventArgsList($args));
-		$this->orm->flush(); // persist badge if awarded
 	}
 
 	/**

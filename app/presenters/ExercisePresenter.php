@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\EventList;
 use App\Rme\Answer;
 use App\Rme\Blueprint;
 use App\Rme\BlueprintCompiler;
@@ -75,6 +76,11 @@ final class ExercisePresenter extends BasePresenter
 		$answer = new Answer($exercise, $input);
 		if ($exercise->verifyAnswer($input))
 		{
+			$this->trigger(EventList::CORRECT_ANSWER, [
+				'user' => $this->userEntity,
+				'exercise' => $exercise
+			]);
+
 			$answer->correct = TRUE;
 			$this->flashSuccess('exercise.correct', ['answer' => $input]);
 			$seed = NULL;

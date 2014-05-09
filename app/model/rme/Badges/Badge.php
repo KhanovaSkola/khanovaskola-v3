@@ -5,6 +5,7 @@ namespace App\Rme;
 use App\Model\EventList;
 use App\NotSupportedException;
 use App\Orm\Entity;
+use App\Services\Translator;
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
@@ -23,6 +24,9 @@ abstract class Badge extends Entity implements Subscriber
 	/** @var EventManager */
 	private $eventManager;
 
+	/** @var Translator */
+	protected $translator;
+
 	/** @var RepositoryContainer */
 	private $orm;
 
@@ -36,6 +40,11 @@ abstract class Badge extends Entity implements Subscriber
 	public function injectEventManager(EventManager $eventManager)
 	{
 		$this->eventManager = $eventManager;
+	}
+
+	public function injectTranslator(Translator $translator)
+	{
+		$this->translator = $translator;
 	}
 
 	/**
@@ -80,7 +89,9 @@ abstract class Badge extends Entity implements Subscriber
 	{
 		$badge = $this->orm->badges->getByKey($this->key);
 
+		/** @var BadgeUserBridge $bridge */
 		$bridge = $createBridge($badge, $user);
+		$bridge->injectTranslator($badge->translator);
 		$this->orm->badgeUserBridges->attach($bridge);
 
 		$this->eventManager->dispatchEvent(EventList::BADGE_AWARDED, new EventArgsList([$bridge]));

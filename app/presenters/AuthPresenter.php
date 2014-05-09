@@ -38,6 +38,7 @@ final class AuthPresenter extends BasePresenter
 		]);
 
 		$this->trigger(EventList::LOGIN, [$user]);
+		$this->orm->flush();
 
 		/** @var Session $session */
 		$session = $this->context->getService('session');
