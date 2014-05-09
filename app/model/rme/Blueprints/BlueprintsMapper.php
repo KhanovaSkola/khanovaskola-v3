@@ -3,13 +3,9 @@
 namespace App\Rme;
 
 use App\Orm\Mapper\ElasticSearchMapper;
-use App\Orm\Mapper\Mapper;
 use App\Orm\Mapper\Neo4jTrait;
-
-use Everyman\Neo4j\Cypher\Query;
 use Orm\EventArguments;
 use Orm\Events;
-use Orm\IRepository;
 
 
 class BlueprintsMapper extends ElasticSearchMapper

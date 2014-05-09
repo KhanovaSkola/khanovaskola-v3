@@ -3,7 +3,6 @@
 namespace App\Rme;
 
 use App\NotImplementedException;
-use Nette\Diagnostics\Debugger;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -77,7 +76,6 @@ class BlueprintCompiler extends Object
 	 */
 	private function expand($mask, array $vars)
 	{
-		$matches = [];
 		$string = preg_replace_callback('~\{([^}]+?)\}~', function($match) use ($vars) {
 			$eval = $match[1];
 			foreach ($vars as $var => $value)
