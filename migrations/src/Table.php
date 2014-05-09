@@ -23,6 +23,16 @@ class Table extends \Phinx\Db\Table
 		return $this->addRelation($column, $targetTable, TRUE);
 	}
 
+	public function addBool($column)
+	{
+		return $this->addColumn($column, 'boolean');
+	}
+
+	public function addInteger($column)
+	{
+		return $this->addColumn($column, 'integer');
+	}
+
 	public function addString($column, $length = 250, $nullable = FALSE)
 	{
 		return $this->addColumn($column, 'string', ['limit' => $length, 'null' => $nullable]);

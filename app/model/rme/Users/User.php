@@ -22,6 +22,7 @@ use Orm;
  * @property string|NULL $googleAccessToken
  *
  * @property Orm\OneToMany $badges {1:m badgeUserBridges $user}
+ * @property Orm\OneToMany $answers {1:m answers $user}
  */
 class User extends Entity
 {
