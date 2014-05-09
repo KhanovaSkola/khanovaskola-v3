@@ -83,7 +83,6 @@ final class ExercisePresenter extends BasePresenter
 		{
 			$answer->correct = FALSE;
 			$this->flashError('exercise.wrong', ['answer' => $input]);
-			$key = 'wrong';
 		}
 
 		$this->getUserEntity()->answers->add($answer);

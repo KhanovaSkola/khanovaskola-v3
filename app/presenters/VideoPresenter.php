@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Rme\Video;
 
 
-class VideoPresenter extends BasePresenter
+final class VideoPresenter extends BasePresenter
 {
 
 	/**

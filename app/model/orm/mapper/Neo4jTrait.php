@@ -3,7 +3,6 @@
 namespace App\Orm\Mapper;
 
 use App\NotImplementedException;
-use App\Orm\Entity;
 use App\Orm\TitledEntity;
 use App\Services\Neo4j;
 use Orm\EventArguments;

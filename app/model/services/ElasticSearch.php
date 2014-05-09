@@ -4,11 +4,8 @@ namespace App\Services;
 
 use App\DeprecatedException;
 use Elasticsearch\Client;
-
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Mikulas\Diagnostics\ElasticSearchLogger;
-use Mikulas\Diagnostics\ElasticSearchPanel;
-
 use Nette\Utils\Neon;
 
 
