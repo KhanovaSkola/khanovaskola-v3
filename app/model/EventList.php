@@ -10,5 +10,6 @@ class EventList
 
 	const LOGIN = 'onLogin';
 	const VIDEO_WATCHED = 'onVideoWatched';
+	const CORRECT_ANSWER = 'onCorrectAnswer';
 
 }

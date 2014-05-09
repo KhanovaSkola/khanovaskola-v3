@@ -5,3 +5,6 @@ services:
 	-
 		class: App\Rme\Badges\UserOldWeek
 		tags: [kdyby.subscriber]
+	-
+		class: App\Rme\Badges\ExerciseMastery
+		tags: [kdyby.subscriber]

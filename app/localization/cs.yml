@@ -59,6 +59,9 @@ auth:
       message: "Příště se naučíme ještě víc."
 
 badges:
+  awarded:
+    title: "Nový odznak:"
+    message: "%badge"
   video:
     watched:
       title: "Shlédnuté video"
@@ -68,6 +71,10 @@ badges:
       week:
         title: "Nový uživatel" #TODO
         description: "Na Khanovu školu jste zapsán[|a] od %date"
+  exercise:
+    mastery:
+      title: "Mistrovství v %exercise"
+      description: "" #TODO
 
 exercise:
   correct:

@@ -48,6 +48,7 @@ final class ProfilePresenter extends BasePresenter
 	{
 		$video = $this->orm->videos->getById(3);
 		$this->trigger(EventList::VIDEO_WATCHED, [$this->userEntity, $video]);
+		$this->orm->flush();
 		$this->redirect('this');
 	}
 
