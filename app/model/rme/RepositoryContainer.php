@@ -9,6 +9,7 @@ use Nette\DI\Container;
 
 
 /**
+ * @property-read AnswersRepository $answers
  * @property-read BadgesRepository $badges
  * @property-read BadgeUserBridgesRepository $badgeUserBridges
  * @property-read BlueprintsRepository $blueprints

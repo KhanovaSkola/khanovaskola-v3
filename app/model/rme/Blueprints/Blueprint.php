@@ -16,6 +16,8 @@ use Orm;
  * @property string $question
  * @property string $answer
  * @property array $hints
+ *
+ * @property Orm\OneToMany $answers {1:m answers $user}
  */
 class Blueprint extends TitledEntity implements IIndexable
 {
