@@ -2,9 +2,11 @@
 
 namespace App\Presenters;
 
+use App\Rme\Answer;
 use App\Rme\Blueprint;
 use App\Rme\BlueprintCompiler;
 use Nette\Application\UI\Form;
+use Nette\Forms\Controls\TextInput;
 
 
 final class ExercisePresenter extends BasePresenter
@@ -43,7 +45,11 @@ final class ExercisePresenter extends BasePresenter
 	public function renderDefault($seed = NULL)
 	{
 		$exercise = $this->getExercise($seed);
-		$this['answer-seed']->setDefaultValue($exercise->seed);
+
+		/** @var TextInput $seedInput */
+		$seedInput = $this['answer-seed'];
+		$seedInput->setDefaultValue($exercise->seed);
+
 		$this->template->exercise = $exercise;
 	}
 
@@ -63,19 +69,26 @@ final class ExercisePresenter extends BasePresenter
 	public function onSuccessAnswer(Form $form)
 	{
 		$seed = $form['seed']->value;
-		$answer = $form['answer']->value;
-
+		$input = $form['answer']->value;
 		$exercise = $this->getExercise($seed);
-		if ($exercise->verifyAnswer($answer))
+
+		$answer = new Answer($exercise, $input);
+		if ($exercise->verifyAnswer($input))
 		{
-			$this->flashSuccess('exercise.correct', ['answer' => $answer]);
-			$this->redirect('this', ['seed' => NULL]);
+			$answer->correct = TRUE;
+			$this->flashSuccess('exercise.correct', ['answer' => $input]);
+			$seed = NULL;
 		}
 		else
 		{
-			$this->flashError('exercise.wrong', ['answer' => $answer]);
-			$this->redirect('this', ['seed' => $seed]);
+			$answer->correct = FALSE;
+			$this->flashError('exercise.wrong', ['answer' => $input]);
+			$key = 'wrong';
 		}
+
+		$this->getUserEntity()->answers->add($answer);
+		$this->orm->flush();
+		$this->redirect('this', ['seed' => $seed]);
 	}
 
 }

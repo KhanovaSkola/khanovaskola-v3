@@ -11,10 +11,19 @@ use Orm;
  * @property bool $correct
  * @property int $seed
  *
- * @property \App\Rme\User $user {m:1 users $answers}
  * @property \App\Rme\Blueprint $blueprint {m:1 blueprints $answers}
+ * @property \App\Rme\User $user {m:1 users $answers}
  */
 class Answer extends Entity
 {
+
+	public function __construct(Exercise $exercise, $answer)
+	{
+		parent::__construct();
+
+		$this->blueprint = $exercise->getBlueprint();
+		$this->seed = $exercise->getSeed();
+		$this->answer = $answer;
+	}
 
 }
