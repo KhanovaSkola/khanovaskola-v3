@@ -5,6 +5,7 @@ namespace App\Orm\Mapper;
 use App\NotImplementedException;
 use App\Orm\TitledEntity;
 use App\Services\Neo4j;
+use Everyman\Neo4j\Cypher\Query;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -38,9 +39,23 @@ trait Neo4jTrait
 			$node->addLabels([$label]);
 		});
 
-		$events->addCallbackListener($events::PERSIST_AFTER_UPDATE, function(EventArguments $args) {
-			// TODO find node and update slug if changed
-			throw new NotImplementedException;
+		$events->addCallbackListener($events::PERSIST_BEFORE_UPDATE, function(EventArguments $args) {
+			/** @var TitledEntity $e */
+			$e = $args->entity;
+			/** @var Mapper|Neo4jTrait $this */
+			$type = ucFirst($this->getShortEntityName());
+			if ($e->isChanged('slug'))
+			{
+				$q = new Query($this->neo4j, "
+					MATCH (v:$type)
+					WHERE v.eid = {eid}
+					SET v.slug = {slug}
+				", [
+					'eid' => $e->id,
+					'slug' => $e->slug,
+				]);
+				$q->getResultSet();
+			}
 		});
 	}
 
