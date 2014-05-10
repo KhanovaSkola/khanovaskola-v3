@@ -13,7 +13,9 @@ module.exports = function(grunt) {
         'www/js/vendor/typeahead.bundle.min.js',
 
         'www/js/app/app.js',
+        'www/js/app/inactivity.js',
         'www/js/app/urlFixes.js',
+        'www/js/app/exercise.js',
         'www/js/app/components/gist.js',
         'www/js/app/components/search.js'
     ];
