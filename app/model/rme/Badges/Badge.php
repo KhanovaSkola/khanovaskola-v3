@@ -30,11 +30,12 @@ abstract class Badge extends Entity implements Subscriber
 	/** @var RepositoryContainer */
 	private $orm;
 
-	public function __construct(RepositoryContainer $container, EventManager $eventManager = NULL)
+	public function __construct(RepositoryContainer $container, EventManager $eventManager, Translator $translator)
 	{
 		parent::__construct();
 		$this->orm = $container;
 		$this->eventManager = $eventManager;
+		$this->translator = $translator;
 	}
 
 	public function injectEventManager(EventManager $eventManager)
@@ -88,7 +89,6 @@ abstract class Badge extends Entity implements Subscriber
 	public function awardTo(User $user, callable $createBridge)
 	{
 		$badge = $this->orm->badges->getByKey($this->key);
-
 		/** @var BadgeUserBridge $bridge */
 		$bridge = $createBridge($badge, $user);
 		$bridge->injectTranslator($badge->translator);
