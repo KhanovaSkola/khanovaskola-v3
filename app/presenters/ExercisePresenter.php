@@ -59,6 +59,8 @@ final class ExercisePresenter extends BasePresenter
 		$form = new Form();
 
 		$form->addHidden('seed');
+		$form->addHidden('time');
+		$form->addHidden('inactivity');
 		$form->addText('answer');
 
 		$form->addSubmit('send');
@@ -69,12 +71,13 @@ final class ExercisePresenter extends BasePresenter
 
 	public function onSuccessAnswer(Form $form)
 	{
-		$seed = $form['seed']->value;
-		$input = $form['answer']->value;
-		$exercise = $this->getExercise($seed);
+		$v = $form->values;
+		$exercise = $this->getExercise($v->seed);
 
-		$answer = new Answer($exercise, $input);
-		if ($exercise->verifyAnswer($input))
+		$answer = new Answer($exercise, $v->answer);
+		$answer->time = $v->time;
+		$answer->inactivity = $v->inactivity === 'true';
+		if ($exercise->verifyAnswer($answer))
 		{
 			$this->trigger(EventList::CORRECT_ANSWER, [
 				'user' => $this->userEntity,
@@ -82,13 +85,14 @@ final class ExercisePresenter extends BasePresenter
 			]);
 
 			$answer->correct = TRUE;
-			$this->flashSuccess('exercise.correct', ['answer' => $input]);
+			$this->flashSuccess('exercise.correct', ['answer' => $v->answer]);
 			$seed = NULL;
 		}
 		else
 		{
 			$answer->correct = FALSE;
-			$this->flashError('exercise.wrong', ['answer' => $input]);
+			$this->flashError('exercise.wrong', ['answer' => $v->answer]);
+			$seed = $v->seed;
 		}
 
 		$this->getUserEntity()->answers->add($answer);

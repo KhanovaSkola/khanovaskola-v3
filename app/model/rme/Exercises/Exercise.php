@@ -39,9 +39,9 @@ class Exercise extends Object
 		$this->hints = $hints;
 	}
 
-	public function verifyAnswer($userAnswer)
+	public function verifyAnswer(Answer $answer)
 	{
-		return $userAnswer == $this->answer; // TODO check typecasting
+		return $answer->answer == $this->answer; // TODO check typecasting
 	}
 
 	/**

@@ -1418,9 +1418,48 @@ var App = {};
 App.error = function(args) {
 	console.error('Error:', args);
     // TODO log to server
-}
+};
+
+App.getTime = function() {
+    var date = new Date;
+    return date.getTime();
+};
+
+App.getTimer = function(name) {
+    var then = App.getTime();
+    return function() {
+        return App.getTime() - then;
+    };
+};
+
+App._idleSince = null;
+
+App._resetIdleTime = function() {
+    App._idleSince = App.getTime();
+};
+
+App._checkIdle = function() {
+    if (App._idleSince === null)
+    {
+        return;
+    }
+
+    var idleFor = App.getTime() - App._idleSince;
+    if (idleFor > 60 * 1000)
+    {
+        App.onInactive.fire();
+        App._idleSince = null;
+    }
+};
 
 
+App._resetIdleTime();
+App.onInactive = $.Callbacks();
+
+$(document).mousemove(App._resetIdleTime);
+$(document).keypress(App._resetIdleTime);
+
+setInterval(App._checkIdle, 250);
 
 if (window.location.hash && window.location.hash == '#_=_') {
 	window.location.hash = '';
@@ -1441,6 +1480,22 @@ if (window.history.replaceState) {
 		window.history.replaceState('', document.title, uri);
 	}
 }
+
+$(function() {
+    var $exercise = $('#frm-answer');
+    if (!$exercise.length) {
+        return;
+    }
+
+    App.onInactive.add(function() {
+        $exercise.find('[name=inactivity]').val(true);
+    });
+
+    var timer = App.getTimer('exercise');
+    $exercise.on('submit', function() {
+        $(this).find('[name=time]').val(timer());
+    });
+});
 
 $(function() {
 	var previous;
