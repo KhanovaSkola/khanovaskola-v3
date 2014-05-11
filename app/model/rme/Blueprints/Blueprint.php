@@ -100,6 +100,11 @@ class Blueprint extends TitledEntity implements IIndexable
 		$this->setValue('hints', $hints);
 	}
 
+	public function getRecentAnswersBy(User $user)
+	{
+		return $this->model->answers->findRecentByUserAndBlueprint($user, $this);
+	}
+
 	/**
 	 * Values to be saved to es index
 	 *

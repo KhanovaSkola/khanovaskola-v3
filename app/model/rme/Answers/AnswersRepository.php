@@ -3,10 +3,12 @@
 namespace App\Rme;
 
 use App\Orm\Repository;
+use Orm\DibiCollection;
 
 
 /**
- * @mapper App\Orm\Mapper\Mapper
+ *
+ * @method DibiCollection findRecentByUserAndBlueprint()
  */
 class AnswersRepository extends Repository
 {
