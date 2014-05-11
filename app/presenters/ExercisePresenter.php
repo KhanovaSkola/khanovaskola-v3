@@ -47,6 +47,9 @@ final class ExercisePresenter extends BasePresenter
 	{
 		$exercise = $this->getExercise($seed);
 
+		$recentAnswers = $this->blueprint->getRecentAnswersBy($this->userEntity);
+		dump($recentAnswers->fetchAll());
+
 		/** @var TextInput $seedInput */
 		$seedInput = $this['answer-seed'];
 		$seedInput->setDefaultValue($exercise->seed);
