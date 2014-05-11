@@ -5,8 +5,11 @@ phpize
 ./configure
 make && sudo make install
 
+sudo rm /etc/php5/mods-available/curl.ini
 cat /vagrant/puphpet/files/xdebug.ini | sudo tee /etc/php5/fpm/conf.d/20-xdebug.ini
-echo "extension=redis.so" | sudo tee -a /etc/php5/fpm/php.ini
+echo "extension=redis.so\nextension=curl.so" | sudo tee -a /etc/php5/fpm/php.ini
+echo "extension=redis.so\nextension=curl.so" | sudo tee -a /etc/php5/cli/php.ini
 echo "extension=redis.so\nextension=curl.so" | sudo tee -a /etc/php5/cgi/php.ini
 
 sudo service php5-fpm restart
+sudo chmod 666 /var/run/php5-fpm.sock
