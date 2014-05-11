@@ -53,8 +53,11 @@ class FillTask extends Command
 
 		if (!$testData)
 		{
+			$output->writeln('<info>Loading and persisting fixtures.videos.php</info>');
+			$output->writeln('  On first run, this might take over 10 minutes as subs are downloaded from server');
 			$videos = require __DIR__ . '/../../../app/fixtures/fixtures.videos.php';
-			$videos = array_slice($videos, 0, 400);
+			$videos = array_slice($videos, 0, $outOf = 400);
+			$c = 0;
 			foreach ($videos as $nodes)
 			{
 				list($youtubeId, $title, $description) = $nodes;
@@ -64,12 +67,18 @@ class FillTask extends Command
 				$video->title = $title;
 				$video->description = $description;
 				$orm->videos->attach($video);
+
+				$orm->flush();
+				$p = number_format($c/$outOf * 100);
+				$output->write("\r                  \r  $c/$outOf [$p%]");
+				$c++;
 			}
-			$orm->flush();
+			$output->write("\n");
 		}
 
 		try
 		{
+			$output->writeln('<info>Persisting all entities</info>');
 			$persist = new Porm($orm, $map);
 			$persist->persist($objects);
 		}
