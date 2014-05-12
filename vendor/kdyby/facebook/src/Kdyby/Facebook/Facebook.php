@@ -12,10 +12,13 @@ namespace Kdyby\Facebook;
 
 use Kdyby\Facebook\Api\CurlClient;
 use Nette;
-use Nette\Diagnostics\Debugger;
-use Nette\Utils\Strings;
+use Nette\Utils\ArrayHash;
 
 
+
+if (!class_exists('Nette\Utils\ArrayHash')) {
+	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
+}
 
 /**
  * Provides access to the Facebook Platform.  This class provides
@@ -54,12 +57,12 @@ class Facebook extends Nette\Object
 	protected $apiClient;
 
 	/**
-	 * @var \Nette\Http\Response
+	 * @var \Nette\Http\IResponse
 	 */
 	protected $httpResponse;
 
 	/**
-	 * @var \Nette\Http\Request
+	 * @var \Nette\Http\IRequest
 	 */
 	protected $httpRequest;
 
@@ -106,7 +109,7 @@ class Facebook extends Nette\Object
 	 */
 	public function __construct(
 		Configuration $config, SessionStorage $session, ApiClient $client,
-		Nette\Http\Request $httpRequest, Nette\Http\Response $httpResponse)
+		Nette\Http\IRequest $httpRequest, Nette\Http\IResponse $httpResponse)
 	{
 		$this->config = $config;
 		$this->httpResponse = $httpResponse;
@@ -163,7 +166,7 @@ class Facebook extends Nette\Object
 	 * @param string $method
 	 * @param array $params
 	 * @throws \Kdyby\Facebook\FacebookApiException
-	 * @return \Nette\ArrayHash|bool|NULL The decoded response
+	 * @return ArrayHash|bool|NULL The decoded response
 	 */
 	public function api($pathOrParams, $method = NULL, array $params = array())
 	{
@@ -174,7 +177,7 @@ class Facebook extends Nette\Object
 			$response = $this->apiClient->graph($pathOrParams, $method, $params);
 		}
 
-		return !is_scalar($response) ? Nette\ArrayHash::from($response) : $response;
+		return !is_scalar($response) ? ArrayHash::from($response) : $response;
 	}
 
 
@@ -567,7 +570,7 @@ class Facebook extends Nette\Object
 	 */
 	public function getCurrentUrl()
 	{
-		$url = clone $this->httpRequest->url;
+		$url = clone $this->httpRequest->getUrl();
 		if ($this->config->trustForwarded && isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
 			$url->setHost($_SERVER['HTTP_X_FORWARDED_HOST']);
 		}
@@ -597,7 +600,7 @@ class Facebook extends Nette\Object
 
 		// Javascript sets a cookie that will be used in getSignedRequest that we need to clear if we can
 		$cookieName = $this->config->getSignedRequestCookieName();
-		if (array_key_exists($cookieName, $this->httpRequest->cookies)) {
+		if (array_key_exists($cookieName, $this->httpRequest->getCookies())) {
 			$this->httpResponse->deleteCookie($cookieName, '/', $this->getBaseDomain());
 			unset($_COOKIE[$cookieName]);
 		}

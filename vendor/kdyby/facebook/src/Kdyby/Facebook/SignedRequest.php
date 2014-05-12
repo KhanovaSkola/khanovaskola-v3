@@ -11,10 +11,19 @@
 namespace Kdyby\Facebook;
 
 use Nette;
-use Nette\Diagnostics\Debugger;
+use Tracy\Debugger;
+use Tracy\Dumper;
 use Nette\Utils\Json;
 
 
+
+if (!class_exists('Tracy\Debugger')) {
+	class_alias('Nette\Diagnostics\Debugger', 'Tracy\Debugger');
+}
+
+if (!class_exists('Tracy\Dumper')) {
+	class_alias('Nette\Diagnostics\Dumper', 'Tracy\Dumper');
+}
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
@@ -46,7 +55,7 @@ class SignedRequest extends Nette\Object
 		// check sig
 		$expected_sig = hash_hmac('sha256', $payload, $appSecret, $raw = TRUE);
 		if (strlen($expected_sig) !== strlen($sig)) {
-			Debugger::log('Bad Signed JSON signature! Expected ' . self::dump($expected_sig) . ', but given ' . self::dump($sig), 'facebook');
+			Debugger::log('Bad Signed JSON signature! Expected ' . Dumper::toText($expected_sig) . ', but given ' . Dumper::toText($sig), 'facebook');
 			return NULL;
 		}
 
@@ -56,7 +65,7 @@ class SignedRequest extends Nette\Object
 		}
 
 		if ($result !== 0) {
-			Debugger::log('Bad Signed JSON signature! Expected ' . self::dump($expected_sig) . ', but given ' . self::dump($sig), 'facebook');
+			Debugger::log('Bad Signed JSON signature! Expected ' . Dumper::toText($expected_sig) . ', but given ' . Dumper::toText($sig), 'facebook');
 			return NULL;
 		}
 
@@ -87,17 +96,6 @@ class SignedRequest extends Nette\Object
 		$sig = Helpers::base64UrlEncode($raw_sig);
 
 		return $sig . '.' . $b64;
-	}
-
-
-
-	private static function dump($struct)
-	{
-		if (class_exists('Nette\Diagnostics\Dumper')) {
-			return Nette\Diagnostics\Dumper::toText($struct);
-		}
-
-		return Nette\Diagnostics\Helpers::textDump($struct);
 	}
 
 }

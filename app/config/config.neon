@@ -35,6 +35,10 @@ extensions:
 	redis: Kdyby\Redis\DI\RedisExtension
 	events: Kdyby\Events\DI\EventsExtension
 	google: Mikulas\Google\DI\GoogleExtension
+	newrelic: VrtakCZ\NewRelic\Extension
+
+newrelic:
+	enabled: false
 
 redis:
 	journal: on

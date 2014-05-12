@@ -11,13 +11,18 @@
 namespace Kdyby\Facebook;
 
 use Nette;
+use Nette\Utils\ArrayHash;
 
 
+
+if (!class_exists('Nette\Utils\ArrayHash')) {
+	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
+}
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
  *
- * @property \Nette\ArrayHash $details
+ * @property ArrayHash $details
  * @property string $pictureUrl
  */
 class Profile extends Nette\Object
@@ -34,7 +39,7 @@ class Profile extends Nette\Object
 	private $profileId;
 
 	/**
-	 * @var \Nette\ArrayHash
+	 * @var ArrayHash
 	 */
 	private $details;
 
@@ -68,7 +73,7 @@ class Profile extends Nette\Object
 
 	/**
 	 * @param string $key
-	 * @return \Nette\ArrayHash|NULL
+	 * @return ArrayHash|NULL
 	 */
 	public function getDetails($key = NULL)
 	{
@@ -124,7 +129,7 @@ class Profile extends Nette\Object
 
 	/**
 	 * @param array $params
-	 * @return NULL|Nette\ArrayHash
+	 * @return NULL|ArrayHash
 	 */
 	public function getPermissions(array $params = array())
 	{
@@ -133,7 +138,7 @@ class Profile extends Nette\Object
 		try {
 			$response = $this->facebook->api("/{$this->profileId}/permissions", 'GET', $params);
 			if ($response && !empty($response->data[0])) {
-				return Nette\ArrayHash::from($response->data[0]);
+				return ArrayHash::from($response->data[0]);
 			}
 
 		} catch (FacebookApiException $e) {

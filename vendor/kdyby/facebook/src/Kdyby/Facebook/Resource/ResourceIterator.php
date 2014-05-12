@@ -13,9 +13,13 @@ namespace Kdyby\Facebook\Resource;
 use Iterator;
 use IteratorIterator;
 use Nette\Object;
-use Nette\Utils\Strings;
+use Nette\Utils\ArrayHash;
 
 
+
+if (!class_exists('Nette\Utils\ArrayHash')) {
+	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
+}
 
 /**
  * @author Martin Štekl <martin.stekl@gmail.com>
@@ -50,7 +54,7 @@ class ResourceIterator extends Object implements Iterator
 	/**
 	 * Return the current element.
 	 *
-	 * @return \Nette\ArrayHash|NULL
+	 * @return ArrayHash|NULL
 	 */
 	public function current()
 	{

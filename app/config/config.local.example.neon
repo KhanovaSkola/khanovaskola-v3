@@ -22,6 +22,9 @@ parameters:
 		# connectionParams:
 		# 	auth: [username, password", "Basic"]
 
+newrelic:
+	enabled: false
+
 facebook:
 	appId: "273608052753035"
 	appSecret:

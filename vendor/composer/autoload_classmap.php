@@ -1879,6 +1879,7 @@ return array(
     'InvalidElementCoordinatesWebDriverError' => $vendorDir . '/facebook/webdriver/lib/WebDriverExceptions.php',
     'InvalidElementStateWebDriverError' => $vendorDir . '/facebook/webdriver/lib/WebDriverExceptions.php',
     'InvalidSelectorWebDriverError' => $vendorDir . '/facebook/webdriver/lib/WebDriverExceptions.php',
+    'Kdyby\\CurlCaBundle\\CertificateHelper' => $vendorDir . '/kdyby/curl-ca-bundle/src/CertificateHelper.php',
     'Kdyby\\Events\\Exception' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\InvalidListenerException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\InvalidStateException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
