@@ -100,6 +100,10 @@ class Blueprint extends TitledEntity implements IIndexable
 		$this->setValue('hints', $hints);
 	}
 
+	/**
+	 * @param User $user
+	 * @return Orm\DibiCollection|Answer[]
+	 */
 	public function getRecentAnswersBy(User $user)
 	{
 		return $this->model->answers->findRecentByUserAndBlueprint($user, $this);

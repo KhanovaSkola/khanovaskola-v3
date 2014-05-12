@@ -7,7 +7,6 @@ use Orm\DibiCollection;
 
 
 /**
- *
  * @method DibiCollection findRecentByUserAndBlueprint()
  */
 class AnswersRepository extends Repository
