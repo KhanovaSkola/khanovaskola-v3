@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "155878c9604ef04f54180be3092bafdd",
+    "hash": "01dd7a8746f40d1d4f5d3123d8dcdf06",
     "packages": [
         {
             "name": "dg/dibi",
@@ -122,12 +122,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jadell/neo4jphp.git",
-                "reference": "6ca33b202b403c4f564f6a2f3bacc9482597b203"
+                "reference": "0b8c6b622c4885816aca06dee9ab45bcc096d827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jadell/neo4jphp/zipball/6ca33b202b403c4f564f6a2f3bacc9482597b203",
-                "reference": "6ca33b202b403c4f564f6a2f3bacc9482597b203",
+                "url": "https://api.github.com/repos/jadell/neo4jphp/zipball/0b8c6b622c4885816aca06dee9ab45bcc096d827",
+                "reference": "0b8c6b622c4885816aca06dee9ab45bcc096d827",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                 "graph",
                 "neo4j"
             ],
-            "time": "2014-03-13 03:35:01"
+            "time": "2014-05-10 01:59:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -249,16 +249,16 @@
         },
         {
             "name": "guzzle/guzzle",
-            "version": "v3.9.0",
+            "version": "v3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "e4d12d7d6acccf75a5e504114e2df9195e494108"
+                "reference": "92d9934f2fca1da15178c91239576ae26e505e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/e4d12d7d6acccf75a5e504114e2df9195e494108",
-                "reference": "e4d12d7d6acccf75a5e504114e2df9195e494108",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/92d9934f2fca1da15178c91239576ae26e505e60",
+                "reference": "92d9934f2fca1da15178c91239576ae26e505e60",
                 "shasum": ""
             },
             "require": {
@@ -337,7 +337,55 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-04-23 21:43:40"
+            "time": "2014-05-07 17:04:22"
+        },
+        {
+            "name": "kdyby/curl-ca-bundle",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kdyby/CurlCaBundle.git",
+                "reference": "44557bb1141a437479d9dfbaf384d7734bb1c258"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kdyby/CurlCaBundle/zipball/44557bb1141a437479d9dfbaf384d7734bb1c258",
+                "reference": "44557bb1141a437479d9dfbaf384d7734bb1c258",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Procházka",
+                    "email": "filip@prochazka.su",
+                    "homepage": "http://filip-prochazka.com"
+                }
+            ],
+            "description": "This package provides root certificates for usage in api clients on systems that have missing or outdated certificates.",
+            "homepage": "http://kdyby.org",
+            "keywords": [
+                "bundle",
+                "ca",
+                "certificate",
+                "curl",
+                "https",
+                "ssl"
+            ],
+            "time": "2014-05-08 13:23:25"
         },
         {
             "name": "kdyby/events",
@@ -403,17 +451,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Facebook.git",
-                "reference": "9033672fcd011b8165fded1029d2a441e1964552"
+                "reference": "901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/9033672fcd011b8165fded1029d2a441e1964552",
-                "reference": "9033672fcd011b8165fded1029d2a441e1964552",
+                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a",
+                "reference": "901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
+                "kdyby/curl-ca-bundle": "~1.0",
                 "nette/nette": "~2.1@dev"
             },
             "require-dev": {
@@ -457,7 +506,7 @@
                 "nette",
                 "sdk"
             ],
-            "time": "2014-05-06 00:21:36"
+            "time": "2014-05-08 13:30:34"
         },
         {
             "name": "kdyby/redis",
@@ -1254,6 +1303,49 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-18 20:40:13"
+        },
+        {
+            "name": "vrtak-cz/newrelic-nette",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Vrtak-CZ/NewRelic-Nette.git",
+                "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Vrtak-CZ/NewRelic-Nette/zipball/3cc7f2d906e6893dc787136e7ed57f46df59be00",
+                "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": "~2.1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "VrtakCZ\\NewRelic": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrik Votoček",
+                    "email": "patrik@votocek.cz",
+                    "homepage": "http://patrik.votocek.cz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "NewRelic PHP agent integration for Nette Framework",
+            "keywords": [
+                "nette",
+                "newrelic"
+            ],
+            "time": "2014-02-07 14:32:15"
         }
     ],
     "packages-dev": [
@@ -1592,16 +1684,16 @@
         },
         {
             "name": "fabpot/goutte",
-            "version": "v1.0.5",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Goutte.git",
-                "reference": "a30e84e28fbaf14909d2d007249c24cd0ecd425e"
+                "reference": "06a5451288ffddd204b10fa6c6f9ab2b86dd515d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Goutte/zipball/a30e84e28fbaf14909d2d007249c24cd0ecd425e",
-                "reference": "a30e84e28fbaf14909d2d007249c24cd0ecd425e",
+                "url": "https://api.github.com/repos/fabpot/Goutte/zipball/06a5451288ffddd204b10fa6c6f9ab2b86dd515d",
+                "reference": "06a5451288ffddd204b10fa6c6f9ab2b86dd515d",
                 "shasum": ""
             },
             "require": {
@@ -1646,7 +1738,7 @@
             "keywords": [
                 "scraper"
             ],
-            "time": "2014-01-31 18:02:50"
+            "time": "2014-03-14 13:02:09"
         },
         {
             "name": "facebook/webdriver",
@@ -1792,16 +1884,16 @@
         },
         {
             "name": "latte/latte",
-            "version": "v2.2-rc2",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "837eab7d3a43cfdd890a786c2a5d20c18a7b78a2"
+                "reference": "447cd516177b271cccbe250b2e392dc83a1b64ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/837eab7d3a43cfdd890a786c2a5d20c18a7b78a2",
-                "reference": "837eab7d3a43cfdd890a786c2a5d20c18a7b78a2",
+                "url": "https://api.github.com/repos/nette/latte/zipball/447cd516177b271cccbe250b2e392dc83a1b64ce",
+                "reference": "447cd516177b271cccbe250b2e392dc83a1b64ce",
                 "shasum": ""
             },
             "require": {
@@ -1811,11 +1903,6 @@
                 "nette/tester": "~1.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -1843,7 +1930,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2014-04-28 11:43:26"
+            "time": "2014-05-06 19:36:49"
         },
         {
             "name": "mikulas/lattecs",
@@ -1991,16 +2078,16 @@
         },
         {
             "name": "nette/finder",
-            "version": "v2.2-rc1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/finder.git",
-                "reference": "5781e5f16694aa882ac34e737fce7caa2b17d854"
+                "reference": "04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/finder/zipball/5781e5f16694aa882ac34e737fce7caa2b17d854",
-                "reference": "5781e5f16694aa882ac34e737fce7caa2b17d854",
+                "url": "https://api.github.com/repos/nette/finder/zipball/04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf",
+                "reference": "04be9fa88a3b7ec66624fe3d7a5dc965e10b4fdf",
                 "shasum": ""
             },
             "require": {
@@ -2011,11 +2098,6 @@
                 "nette/tester": "~1.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -2039,7 +2121,7 @@
             ],
             "description": "Nette Finder: Files Searching",
             "homepage": "http://nette.org",
-            "time": "2014-04-01 17:35:31"
+            "time": "2014-05-11 16:43:26"
         },
         {
             "name": "nette/tester",
@@ -2099,16 +2181,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v2.2-rc1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "1d41c89f34a49fd0815e7da69edd0100df56e2fd"
+                "reference": "94f2d07d1b72cfcc568e4615e40fc42516500541"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/1d41c89f34a49fd0815e7da69edd0100df56e2fd",
-                "reference": "1d41c89f34a49fd0815e7da69edd0100df56e2fd",
+                "url": "https://api.github.com/repos/nette/utils/zipball/94f2d07d1b72cfcc568e4615e40fc42516500541",
+                "reference": "94f2d07d1b72cfcc568e4615e40fc42516500541",
                 "shasum": ""
             },
             "require": {
@@ -2118,11 +2200,6 @@
                 "nette/tester": "~1.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -2146,7 +2223,7 @@
             ],
             "description": "Nette Utility Classes",
             "homepage": "http://nette.org",
-            "time": "2014-04-19 17:31:55"
+            "time": "2014-05-11 17:06:28"
         },
         {
             "name": "phpseclib/phpseclib",

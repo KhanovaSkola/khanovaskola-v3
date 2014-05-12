@@ -108,9 +108,15 @@ class Configurator extends Nette\Configurator
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();
-		$this->addConfig($params['appDir'] . '/config/config.neon', FALSE);
-		$this->addConfig($params['appDir'] . '/config/badges.neon', FALSE);
-		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
+		foreach ([
+			'newrelic.neon',
+			'badges.neon',
+			'config.neon',
+			'config.local.neon'
+		] as $file)
+		{
+			$this->addConfig($params['appDir'] . "/config/$file", FALSE);
+		}
 	}
 
 	public function onAfterConfigVersion(Container $container)

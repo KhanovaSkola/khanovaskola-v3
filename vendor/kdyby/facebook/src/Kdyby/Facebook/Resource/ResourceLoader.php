@@ -12,13 +12,15 @@ namespace Kdyby\Facebook\Resource;
 
 use IteratorAggregate;
 use Kdyby\Facebook\Facebook;
-use Nette\ArrayHash;
-use Nette\Http\UrlScript;
 use Nette\Object;
-use Nette\Utils\Strings;
+use Nette\Utils\ArrayHash;
 use Traversable;
 
 
+
+if (!class_exists('Nette\Utils\ArrayHash')) {
+	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
+}
 
 /**
  * @author Martin Štekl <martin.stekl@gmail.com>
@@ -47,7 +49,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	private $params = array();
 
 	/**
-	 * @var \Nette\ArrayHash|NULL
+	 * @var ArrayHash|NULL
 	 */
 	private $lastResult = NULL;
 
@@ -194,7 +196,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	/**
 	 * Returns collections of data from data source at one page.
 	 *
-	 * @return \Nette\ArrayHash
+	 * @return ArrayHash
 	 */
 	public function getNextPage()
 	{

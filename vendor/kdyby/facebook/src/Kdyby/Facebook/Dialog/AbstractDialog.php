@@ -111,7 +111,7 @@ abstract class AbstractDialog extends PresenterComponent implements Facebook\Dia
 			$this->presenter->redirectUrl($this->config->canvasBaseUrl);
 		}
 
-		$this->presenter->redirect('this');
+		$this->presenter->redirect('this', array('state' => NULL, 'code' => NULL));
 	}
 
 

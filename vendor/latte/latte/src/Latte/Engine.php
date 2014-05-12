@@ -25,7 +25,7 @@ class Engine extends Object
 		CONTENT_TEXT = Compiler::CONTENT_TEXT;
 
 	/** @var array */
-	public $onCompile;
+	public $onCompile = array();
 
 	/** @var Parser */
 	private $parser;
@@ -131,8 +131,9 @@ class Engine extends Object
 				$code = "<?php\n// source: $name\n?>" . $code;
 			}
 
-		} catch (CompileException $e) {
-			throw $e->setSource($source, $e->sourceLine, $name);
+		} catch (\Exception $e) {
+			$e = $e instanceof CompileException ? $e : new CompileException("Thrown exception '{$e->getMessage()}'", NULL, $e);
+			throw $e->setSource($source, $this->getCompiler()->getLine(), $name);
 		}
 		$code = Helpers::optimizePhp($code);
 		return $code;
