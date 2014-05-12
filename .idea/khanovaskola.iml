@@ -45,16 +45,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar://$MODULE_DIR$/vendor/nette/nette-minified/nette.phar" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar://$MODULE_DIR$/vendor/nette/nette-minified/nette.phar" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
 

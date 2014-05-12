@@ -16,7 +16,7 @@
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        .ticks(10, "%");
+        ;//.ticks(10, "%");
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -27,6 +27,7 @@
     var type = function(d) {
         d.x = d[0];
         d.y = +d[1];
+        d.correct = d[2];
         return d;
     };
 
@@ -57,7 +58,7 @@
                 svg.selectAll(".bar")
                     .data(data)
                     .enter().append("rect")
-                    .attr("class", "bar")
+                    .attr("class", function(d) { return 'column ' + (d.correct ? 'column-correct' : 'column-wrong'); })
                     .attr("x", function(d) { return x(d.x); })
                     .attr("width", x.rangeBand())
                     .attr("y", function(d) { return y(d.y); })

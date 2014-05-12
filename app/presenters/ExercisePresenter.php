@@ -103,13 +103,14 @@ final class ExercisePresenter extends BasePresenter
 
 	public function renderAnswerChartData()
 	{
-		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity);
+		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)
+			->where('inactivity = false')->applyLimit(30);
 		$data = [];
 		foreach ($answers as $i => $answer)
 		{
-			$data[] = [$i, $answer->time];
+			$data[] = [$i + 1, $answer->time / 1e3, $answer->correct];
 		}
-		$this->sendJson($data);
+		$this->sendJson(array_reverse($data));
 	}
 
 }
