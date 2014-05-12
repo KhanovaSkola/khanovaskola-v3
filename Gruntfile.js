@@ -11,13 +11,15 @@ module.exports = function(grunt) {
         'www/js/vendor/bootstrap/alert.js',
         'www/js/vendor/netteForm.js',
         'www/js/vendor/typeahead.bundle.min.js',
+        'www/js/vendor/d3.v3.min.js',
 
         'www/js/app/app.js',
         'www/js/app/inactivity.js',
         'www/js/app/urlFixes.js',
         'www/js/app/exercise.js',
         'www/js/app/components/gist.js',
-        'www/js/app/components/search.js'
+        'www/js/app/components/search.js',
+        'www/js/app/components/columnChart.js'
     ];
     var JS_COMPILED = 'www/js/compiled.js';
 
