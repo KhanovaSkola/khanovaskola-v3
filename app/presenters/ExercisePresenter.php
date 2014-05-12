@@ -6,6 +6,7 @@ use App\Model\EventList;
 use App\Rme\Answer;
 use App\Rme\Blueprint;
 use App\Rme\BlueprintCompiler;
+use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
@@ -46,9 +47,6 @@ final class ExercisePresenter extends BasePresenter
 	public function renderDefault($seed = NULL)
 	{
 		$exercise = $this->getExercise($seed);
-
-		$recentAnswers = $this->blueprint->getRecentAnswersBy($this->userEntity);
-		dump($recentAnswers->fetchAll());
 
 		/** @var TextInput $seedInput */
 		$seedInput = $this['answer-seed'];
@@ -101,6 +99,17 @@ final class ExercisePresenter extends BasePresenter
 		$this->getUserEntity()->answers->add($answer);
 		$this->orm->flush();
 		$this->redirect('this', ['seed' => $seed]);
+	}
+
+	public function renderAnswerChartData()
+	{
+		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity);
+		$data = [];
+		foreach ($answers as $i => $answer)
+		{
+			$data[] = [$i, $answer->time];
+		}
+		$this->sendJson($data);
 	}
 
 }

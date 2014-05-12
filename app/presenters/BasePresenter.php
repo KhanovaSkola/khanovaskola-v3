@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\ColumnChart;
 use App\Components\GistRenderer;
 use App\Components\Search;
 use App\DeprecatedException;
@@ -123,6 +124,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	public function createComponentSearch()
 	{
 		return new Search();
+	}
+
+	public function createComponentColumnChart()
+	{
+		return new ColumnChart();
 	}
 
 	public function redirectToAuth()
