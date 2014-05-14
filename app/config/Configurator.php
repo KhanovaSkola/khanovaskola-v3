@@ -131,6 +131,11 @@ class Configurator extends Nette\Configurator
 
 	public function onAfterQueryPanel(Container $container)
 	{
+		if (!$this->debugMode)
+		{
+			return;
+		}
+
 		/** @var QueryPanel $panel */
 		$panel = $container->getService('queryPanel');
 		Nette\Diagnostics\Debugger::getBar()->addPanel($panel);
