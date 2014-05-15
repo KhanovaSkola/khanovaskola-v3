@@ -28,13 +28,18 @@
         d.x = d[0];
         d.y = +d[1];
         d.correct = d[2];
+        d.score = d[3];
         return d;
     };
+
+    var line = d3.svg.line()
+        .x(function(d) { return x(d.x) + 13; }) // TODO offset must be dynamic
+        .y(function(d) { return y(d.score * 50); });
 
     $('.column-chart').each(function() {
         $chart = $(this);
         $.ajax({
-            url: $(this).data('url'),
+            url: $chart.data('url'),
             success: function(data) {
                 data = data.map(type);
                 x.domain(data.map(function(d) { return d.x; }));
@@ -63,6 +68,11 @@
                     .attr("width", x.rangeBand())
                     .attr("y", function(d) { return y(d.y); })
                     .attr("height", function(d) { return height - y(d.y); });
+
+                svg.append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("d", line);
             }
         });
     });

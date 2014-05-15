@@ -6357,6 +6357,11 @@ img.badge-image {
 .column:hover {
   fill: steelblue;
 }
+.line {
+  fill: none;
+  stroke: cyan;
+  stroke-width: 1.5px;
+}
 .axis {
   font: 10px sans-serif;
 }

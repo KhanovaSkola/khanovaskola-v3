@@ -105,12 +105,39 @@ final class ExercisePresenter extends BasePresenter
 	{
 		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)
 			->where('inactivity = false')->applyLimit(30);
+		$answers = array_reverse($answers->fetchAll());
+
 		$data = [];
 		foreach ($answers as $i => $answer)
 		{
-			$data[] = [$i + 1, $answer->time / 1e3, $answer->correct];
+			$score = $this->computeScore(array_slice($answers, 0, $i + 1));
+			$data[] = [$i + 1, $answer->time / 1e3, $answer->correct, $score];
 		}
-		$this->sendJson(array_reverse($data));
+		$this->sendJson($data);
+	}
+
+	/**
+	 * @param Answer[] $answers
+	 * @return float 0..1
+	 */
+	private function computeScore(array $answers)
+	{
+		$minRequired = 20;
+		$score = 0;
+		foreach ($answers as $answer)
+		{
+			if ($answer->correct)
+			{
+				$score += 1/$minRequired;
+			}
+			else
+			{
+				$score = max($score - 1/8, 0);
+			}
+		}
+		// TODO work with $answer->time
+
+		return $score;
 	}
 
 }
