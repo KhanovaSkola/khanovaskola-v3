@@ -14,6 +14,7 @@ use Nette\DI\Container;
  * @property-read BadgeUserBridgesRepository $badgeUserBridges
  * @property-read BlueprintsRepository $blueprints
  * @property-read GistsRepository $gists
+ * @property-read PathsRepository $paths
  * @property-read TagsRepository $tags
  * @property-read UsersRepository $users
  * @property-read VideosRepository $videos
