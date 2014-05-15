@@ -62,11 +62,11 @@ class VideosMapper extends ElasticSearchMapper
 
 	public function getNextFor(Video $video)
 	{
-		$q = new Query($this->neo4j, "
+		$q = new Query($this->neo4j, '
 			MATCH (current:Video)-[r:NEXT]->(next)
 			WHERE current.eid={eid}
 			RETURN next.eid AS video_id, r.eid AS path_id
-		", [
+		', [
 			'eid' => $video->id,
 		]);
 

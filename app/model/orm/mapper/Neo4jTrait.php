@@ -2,7 +2,7 @@
 
 namespace App\Orm\Mapper;
 
-use App\NotImplementedException;
+
 use App\Orm\TitledEntity;
 use App\Services\Neo4j;
 use Everyman\Neo4j\Cypher\Query;

@@ -6,7 +6,6 @@ use App\Rme\Badge;
 use App\Rme\BadgeUserBridges;
 use App\Rme\Exercise;
 use App\Rme\User;
-use App\Rme\Video;
 use Orm;
 
 

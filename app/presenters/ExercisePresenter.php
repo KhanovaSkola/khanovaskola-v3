@@ -6,7 +6,6 @@ use App\Model\EventList;
 use App\Rme\Answer;
 use App\Rme\Blueprint;
 use App\Rme\BlueprintCompiler;
-use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
@@ -50,7 +49,7 @@ final class ExercisePresenter extends BasePresenter
 
 		/** @var TextInput $seedInput */
 		$seedInput = $this['answer-seed'];
-		$seedInput->setDefaultValue($exercise->seed);
+		$seedInput->setDefaultValue($exercise->getSeed());
 
 		$this->template->exercise = $exercise;
 	}
