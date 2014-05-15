@@ -3,7 +3,6 @@
 namespace App\Rme;
 
 use App\InvalidArgumentException;
-use App\NotSupportedException;
 use App\Orm\Entity;
 use App\Orm\TitledEntity;
 use Orm;

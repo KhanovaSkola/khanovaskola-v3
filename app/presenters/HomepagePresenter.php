@@ -3,8 +3,6 @@
 namespace App\Presenters;
 
 use App\Components\GistRenderer;
-use App\Rme\Path;
-use Nette\Http\Session;
 
 
 final class HomepagePresenter extends BasePresenter

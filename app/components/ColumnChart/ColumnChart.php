@@ -8,6 +8,7 @@ class ColumnChart extends Control
 
 	/**
 	 * @param string $dataPath router
+	 * @param string $yTitle
 	 */
 	public function renderDefault($dataPath, $yTitle)
 	{

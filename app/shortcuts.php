@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreStart
+
 function d()
 {
 	$args = [];
@@ -17,3 +19,5 @@ function d()
 
 	return call_user_func_array('dump', $args);
 }
+
+// @codingStandardsIgnoreEnd
