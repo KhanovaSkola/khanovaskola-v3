@@ -18,3 +18,9 @@
 	    preload="none">
             <track src="{plink :Srt:, videoId => $video->id}" srclang="cs" default />
     </video>
+
+	<h2>Navazující videa:</h2>
+	{foreach $suggestions as $suggestion}
+		<a n:href="Video:, videoId => $suggestion->id"><h3>{$suggestion->title}</h3></a>
+		<p>{$suggestion->description}</p>
+	{/foreach}

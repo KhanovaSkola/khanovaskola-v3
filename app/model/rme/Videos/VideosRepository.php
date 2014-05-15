@@ -10,7 +10,10 @@ use Orm\DibiCollection;
 /**
  * @method HighlightCollection getWithFulltext()
  *
+ * @method DibiCollection findById()
  * @method DibiCollection findByTag()
+ *
+ * @method array getNextFor()
  *
  * @method void addTagToVideo()
  */
