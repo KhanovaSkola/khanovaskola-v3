@@ -2,6 +2,7 @@
 
 namespace App\Orm;
 
+use App\Orm\Mapper\Mapper;
 use App\Rme\RepositoryContainer;
 use Nelmio\Alice\Loader\Porm;
 use Nette\Caching\Cache;
@@ -56,6 +57,13 @@ abstract class Entity extends Orm\Entity
 	public function getHighlightEntityName()
 	{
 		return get_class($this) . 'Highlight';
+	}
+
+	public function getShortEntityName()
+	{
+		/** @var Mapper $mapper */
+		$mapper = $this->getRepository()->getMapper();
+		return $mapper->getShortEntityName();
 	}
 
 }
