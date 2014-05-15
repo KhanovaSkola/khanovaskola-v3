@@ -45,7 +45,7 @@ class VideosMapper extends ElasticSearchMapper
 		$q = new Query($this->neo4j, "
 			MATCH (t:Tag)-[:$rel*..20]->(v:Video)
 			WHERE t.eid={tagId}
-			RETURN v.eid  AS id
+			RETURN v.eid AS id
 		", [
 			'tagId' => $tag->id,
 		]);
@@ -58,6 +58,28 @@ class VideosMapper extends ElasticSearchMapper
 		}
 
 		return $this->findById($ids);
+	}
+
+	public function getNextFor(Video $video)
+	{
+		$q = new Query($this->neo4j, "
+			MATCH (current:Video)-[r:NEXT]->(next)
+			WHERE current.eid={eid}
+			RETURN next.eid AS video_id, r.eid AS path_id
+		", [
+			'eid' => $video->id,
+		]);
+
+		$res = [];
+		foreach ($q->getResultSet() as $row)
+		{
+			$res[] = (object) [
+				'videoId' => $row['video_id'],
+				'pathId' => $row['path_id'],
+			];
+		}
+
+		return $res;
 	}
 
 }
