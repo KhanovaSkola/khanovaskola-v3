@@ -14,7 +14,7 @@ $args = [];
 foreach ($files as $file)
 {
 	$path = "$root/$file";
-	if (file_exists($path) && preg_match('~\.php$~', $path))
+	if (file_exists($path) && preg_match('~^app/.*\.php$~', $path))
 	{
 		$args[] = escapeshellarg($path);
 	}
