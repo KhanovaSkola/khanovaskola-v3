@@ -12,12 +12,16 @@ use Nette\DI\Container;
 class UpdateSearchIndexTask extends Task
 {
 
-	/** @var \App\Rme\Video */
-	protected $video;
+	/** @var int */
+	protected $entityId;
 
-	public function __construct(Video $video)
+	/** @var string */
+	protected $type;
+
+	public function __construct($type, $entityId)
 	{
-		$this->video = $video;
+		$this->type = $type;
+		$this->entityId = $entityId;
 	}
 
 	public function run(Container $context)
@@ -25,10 +29,11 @@ class UpdateSearchIndexTask extends Task
 		/** @var Neo4j $neo4j */
 		$neo4j  = $context->getService('neo4j');
 
-		$to = $this->findPathIds($neo4j, $this->video,
-			'(previous:Video)-[r:NEXT]->(v:Video)');
-		$from = $this->findPathIds($neo4j, $this->video,
-			'(v:Video)-[r:NEXT]->(next:Video)');
+		$type = ucFirst($this->type);
+		$to = $this->findPathIds($neo4j, $this->entityId,
+			"(previous:Content)-[r:NEXT]->(v:$type)");
+		$from = $this->findPathIds($neo4j, $this->entityId,
+			"(v:$type)-[r:NEXT]->(next:Content)");
 
 		$pathsStartingHere = 0;
 		foreach ($from as $id)
@@ -41,19 +46,21 @@ class UpdateSearchIndexTask extends Task
 
 		/** @var ElasticSearch $elastic */
 		$elastic = $context->getService('elastic');
-		$elastic->updateDoc($this->video->getShortEntityName(), $this->video->id, [
+		$elastic->updateDoc($this->type, $this->entityId, [
 			'pathStarts' => $pathsStartingHere,
 		]);
+
+		return TRUE;
 	}
 
-	private function findPathIds(Neo4j $neo4j, Video $video, $match)
+	private function findPathIds(Neo4j $neo4j, $entityId, $match)
 	{
 		$q = new Query($neo4j, "
 			MATCH $match
 			WHERE v.eid = {eid}
 			RETURN r.eid
 		", [
-			'eid' => $this->video->id,
+			'eid' => $entityId,
 		]);
 
 		$ids = [];

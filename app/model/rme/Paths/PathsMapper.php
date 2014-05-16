@@ -2,10 +2,14 @@
 
 namespace App\Rme;
 
+use App\MustNeverHappenException;
 use App\Orm\Mapper\Mapper;
 use App\Orm\Mapper\Neo4jTrait;
+use App\Orm\Mapper\QueueTrait;
 use App\Orm\TitledEntity;
+use App\Tasks\UpdateSearchIndexTask;
 use Everyman\Neo4j\Cypher\Query;
+use Everyman\Neo4j\Query\Row;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -14,6 +18,21 @@ class PathsMapper extends Mapper
 {
 
 	use Neo4jTrait;
+	use QueueTrait;
+
+	private function getEntityType(Row $row)
+	{
+		$types = iterator_to_array($row);
+		$allowed = ['Video', 'Blueprint'];
+		foreach ($allowed as $type)
+		{
+			if (in_array($type, $types))
+			{
+				return $type;
+			}
+		}
+		throw new MustNeverHappenException;
+	}
 
 	public function registerEvents(Events $events)
 	{
@@ -34,18 +53,32 @@ class PathsMapper extends Mapper
 					MATCH (a)-[r:NEXT]->(next)
 					WHERE r.eid = {pathEid}
 					DELETE r
+					RETURN a.eid, labels(a) as types
 				', [
 				'pathEid' => $path->id,
 			]);
-			$q->getResultSet();
+			$res = $q->getResultSet();
+
+			$idsToUpdate = [];
+			foreach ($res as $row)
+			{
+				$id = $row['eid'];
+				$type = lcFirst($this->getEntityType($row['types'])); // TODO
+				$idsToUpdate["$id|$type"] = TRUE;
+			}
 
 			/** @var TitledEntity $current */
+			$newIds = [];
 			foreach ($path->list as $i => $current)
 			{
 				if (!isset($path->list[$i + 1]))
 				{
 					continue;
 				}
+
+				$id = $current->id;
+				$type = $current->getShortEntityName();
+				$idsToUpdate["$id|$type"] = TRUE;
 
 				/** @var TitledEntity $next */
 				$next = $path->list[$i + 1];
@@ -63,6 +96,14 @@ class PathsMapper extends Mapper
 				]);
 				$q->getResultSet();
 			}
+
+			foreach ($idsToUpdate as $key => $tmp)
+			{
+				list($id, $type) = explode('|', $key);
+				$task = new UpdateSearchIndexTask($type, $id);
+				$this->queue->enqueue($task);
+			}
+
 		});
 	}
 
