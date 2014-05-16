@@ -29,7 +29,6 @@ class RecreateTask extends Command implements IMightLoseData
 
 		$es->setupIndices();
 		$output->writeln("<info>Indices recreated</info>");
-		$output->writeln("<comment>Run <cmd>db:fill</cmd> to rebuild index</comment>");
 	}
 
 }
