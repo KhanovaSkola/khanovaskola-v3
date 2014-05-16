@@ -2,14 +2,13 @@
 
 namespace App\Rme;
 
-use App\MustNeverHappenException;
+
 use App\Orm\Mapper\Mapper;
 use App\Orm\Mapper\Neo4jTrait;
 use App\Orm\Mapper\QueueTrait;
 use App\Orm\TitledEntity;
 use App\Tasks\UpdateSearchIndexTask;
 use Everyman\Neo4j\Cypher\Query;
-use Everyman\Neo4j\Query\Row;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -54,7 +53,6 @@ class PathsMapper extends Mapper
 			}
 
 			/** @var TitledEntity $current */
-			$newIds = [];
 			foreach ($path->list as $i => $current)
 			{
 				if (!isset($path->list[$i + 1]))

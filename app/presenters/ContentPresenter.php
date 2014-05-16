@@ -2,14 +2,9 @@
 
 namespace App\Presenters;
 
-use App\Model\EventList;
+
 use App\Orm\ContentEntity;
-use App\Rme\Answer;
-use App\Rme\Blueprint;
-use App\Rme\BlueprintCompiler;
 use App\Services\PathFinder;
-use Nette\Application\UI\Form;
-use Nette\Forms\Controls\TextInput;
 use Nette\Http\Session;
 
 

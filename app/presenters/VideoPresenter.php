@@ -3,8 +3,6 @@
 namespace App\Presenters;
 
 use App\Rme\Video;
-use App\Services\PathFinder;
-use Nette\Http\Session;
 
 
 final class VideoPresenter extends ContentPresenter

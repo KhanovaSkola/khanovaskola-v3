@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Orm\ContentEntity;
 use App\Orm\ContentRepository;
 use App\Rme\RepositoryContainer;
-use App\Rme\User;
-use App\Rme\Video;
 use Nette\Http\Session;
 use Nette\Object;
 
@@ -32,7 +30,9 @@ class PathFinder extends Object
 	 */
 	public function suggestNext(ContentEntity $entity)
 	{
-		$res = $entity->getRepository()->getNextContent($entity);
+		/** @var ContentRepository $repo */
+		$repo = $entity->getRepository();
+		$res = $repo->getNextContent($entity);
 		foreach ($res as &$row)
 		{
 			$row->score = 0;
