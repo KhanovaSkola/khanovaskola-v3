@@ -3,9 +3,11 @@
 namespace App\Orm\Mapper;
 
 
+use App\MustNeverHappenException;
 use App\Orm\ContentEntity;
 use App\Orm\Entity;
 use App\Services\Neo4j;
+use Everyman\Neo4j\Query\Row;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -34,7 +36,7 @@ trait Neo4jTrait
 			/** @var Mapper|Neo4jTrait $this */
 			$node->setProperty('eid', $e->id)->save();
 
-			$label = $this->neo4j->makeLabel(ucFirst($this->getShortEntityName()));
+			$label = $this->neo4j->makeLabel($this->getShortEntityName());
 			$node->addLabels([$label]);
 
 			if ($e instanceof ContentEntity)
@@ -43,6 +45,20 @@ trait Neo4jTrait
 				$node->addLabels([$label]);
 			}
 		});
+	}
+
+	protected function getEntityTypeFromLabels(Row $row)
+	{
+		$types = iterator_to_array($row);
+		$allowed = ['Video', 'Blueprint'];
+		foreach ($allowed as $type)
+		{
+			if (in_array($type, $types))
+			{
+				return $type;
+			}
+		}
+		throw new MustNeverHappenException;
 	}
 
 }
