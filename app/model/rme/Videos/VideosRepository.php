@@ -2,22 +2,12 @@
 
 namespace App\Rme;
 
-use App\Orm\HighlightCollection;
-use App\Orm\Repository;
-use Orm\DibiCollection;
+use App\Orm\ContentRepository;
 
 
 /**
- * @method HighlightCollection getWithFulltext()
- *
- * @method DibiCollection findById()
- * @method DibiCollection findByTag()
- *
- * @method array getNextFor()
- *
- * @method void addTagToVideo()
  */
-class VideosRepository extends Repository
+class VideosRepository extends ContentRepository
 {
 
 }
