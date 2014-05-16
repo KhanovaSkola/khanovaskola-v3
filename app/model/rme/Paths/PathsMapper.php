@@ -48,7 +48,7 @@ class PathsMapper extends Mapper
 			foreach ($res as $row)
 			{
 				$id = $row['eid'];
-				$type = lcFirst($this->getEntityTypeFromLabels($row['types'])); // TODO
+				$type = $this->getEntityTypeFromLabels($row['types']);
 				$idsToUpdate["$id|$type"] = TRUE;
 			}
 
