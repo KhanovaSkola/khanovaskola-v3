@@ -20,20 +20,6 @@ class PathsMapper extends Mapper
 	use Neo4jTrait;
 	use QueueTrait;
 
-	private function getEntityType(Row $row)
-	{
-		$types = iterator_to_array($row);
-		$allowed = ['Video', 'Blueprint'];
-		foreach ($allowed as $type)
-		{
-			if (in_array($type, $types))
-			{
-				return $type;
-			}
-		}
-		throw new MustNeverHappenException;
-	}
-
 	public function registerEvents(Events $events)
 	{
 		$events->addCallbackListener($events::SERIALIZE_BEFORE, function(EventArguments $args) {
@@ -63,7 +49,7 @@ class PathsMapper extends Mapper
 			foreach ($res as $row)
 			{
 				$id = $row['eid'];
-				$type = lcFirst($this->getEntityType($row['types'])); // TODO
+				$type = lcFirst($this->getEntityTypeFromLabels($row['types'])); // TODO
 				$idsToUpdate["$id|$type"] = TRUE;
 			}
 
@@ -83,8 +69,8 @@ class PathsMapper extends Mapper
 				/** @var TitledEntity $next */
 				$next = $path->list[$i + 1];
 
-				$typeCurrent = ucFirst($current->getShortEntityName());
-				$typeNext = ucFirst($next->getShortEntityName());
+				$typeCurrent = $current->getShortEntityName();
+				$typeNext = $next->getShortEntityName();
 				$q = new Query($this->neo4j, "
 					MATCH (current:$typeCurrent), (next:$typeNext)
 					WHERE current.eid = {currentEid} AND next.eid = {nextEid}

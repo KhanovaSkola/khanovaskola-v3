@@ -23,7 +23,7 @@ abstract class ContentMapper extends ElasticSearchMapper
 
 	public function addTagToContent(ContentEntity $entity, Tag $tag)
 	{
-		$type = ucFirst($entity->getShortEntityName());
+		$type = $entity->getShortEntityName();
 
 		$rel = Tag::REL_CONTAINS;
 		$q = new Query($this->neo4j, "
@@ -66,7 +66,7 @@ abstract class ContentMapper extends ElasticSearchMapper
 
 	public function getNextContent(ContentEntity $entity)
 	{
-		$type = ucFirst($entity->getShortEntityName());
+		$type = $entity->getShortEntityName();
 		$q = new Query($this->neo4j, "
 			MATCH (current:$type)-[r:NEXT]->(next)
 			WHERE current.eid={eid}
@@ -80,7 +80,7 @@ abstract class ContentMapper extends ElasticSearchMapper
 		{
 			$res[] = (object) [
 				'entityId' => $row['entity_id'],
-				'entityType' => $row['types'],
+				'entityType' => $this->getEntityTypeFromLabels($row['types']),
 				'pathId' => $row['path_id'],
 			];
 		}

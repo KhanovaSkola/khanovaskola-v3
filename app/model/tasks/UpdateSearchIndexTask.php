@@ -29,11 +29,10 @@ class UpdateSearchIndexTask extends Task
 		/** @var Neo4j $neo4j */
 		$neo4j  = $context->getService('neo4j');
 
-		$type = ucFirst($this->type);
 		$to = $this->findPathIds($neo4j, $this->entityId,
-			"(previous:Content)-[r:NEXT]->(v:$type)");
+			"(previous:Content)-[r:NEXT]->(v:$this->type)");
 		$from = $this->findPathIds($neo4j, $this->entityId,
-			"(v:$type)-[r:NEXT]->(next:Content)");
+			"(v:$this->type)-[r:NEXT]->(next:Content)");
 
 		$pathsStartingHere = 0;
 		foreach ($from as $id)

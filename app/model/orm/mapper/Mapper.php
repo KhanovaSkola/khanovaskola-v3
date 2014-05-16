@@ -24,7 +24,7 @@ class Mapper extends DibiMapper
 	public function getShortEntityName()
 	{
 		$class = $this->repository->getEntityClassName();
-		return substr($class, strrpos($class, '\\') + 1);
+		return ucFirst(substr($class, strrpos($class, '\\') + 1));
 	}
 
 }
