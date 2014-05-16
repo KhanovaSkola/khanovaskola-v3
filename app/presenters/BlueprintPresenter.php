@@ -10,7 +10,7 @@ use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
 
-final class ExercisePresenter extends BasePresenter
+final class BlueprintPresenter extends ContentPresenter
 {
 
 	/**
@@ -52,6 +52,7 @@ final class ExercisePresenter extends BasePresenter
 		$seedInput->setDefaultValue($exercise->getSeed());
 
 		$this->template->exercise = $exercise;
+		$this->template->suggestions = $this->getSuggestions($this->blueprint);
 	}
 
 	public function createComponentAnswer()
