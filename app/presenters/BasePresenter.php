@@ -8,7 +8,9 @@ use App\Components\Search;
 use App\DeprecatedException;
 use App\InvalidArgumentException;
 use App\Model\EventList;
+use App\Orm\ContentEntity;
 use App\Rme\BadgeUserBridge;
+use App\Rme\Blueprint;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Services\Translator;
@@ -17,7 +19,11 @@ use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;
 use Nette;
+use Nette\Application\UI\destination;
+use Nette\Application\UI\InvalidLinkException;
+use Nette\Application\UI\Presenter;
 use Nette\Http\Session;
+use Nette\Templating\FileTemplate;
 
 
 /**
@@ -107,6 +113,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		}
 
 		return $userEntity;
+	}
+
+	public function link($destination, $args = [])
+	{
+		if ($destination instanceof ContentEntity)
+		{
+			$presenter = $type = $destination->getShortEntityName();
+			$param = lcFirst($type) . 'Id';
+			return parent::link("$presenter:", [$param => $destination->id]);
+		}
+		return parent::link($destination, $args);
 	}
 
 	public function beforeRender()
