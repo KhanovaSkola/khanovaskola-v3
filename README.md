@@ -84,7 +84,7 @@ php bin/console db:create whatAmIChanging
 
 drop all data, recreate schemas and indices:
 ```sh
-bin/console db:reset && bin/console db:migrate && bin/console es:recreate && bin/console db:fill
+bin/console db:reset && bin/console neo:reset && bin/console db:migrate && bin/console es:recreate && bin/console db:fill
 ```
 
 run migrations:
