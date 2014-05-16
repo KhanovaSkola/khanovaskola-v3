@@ -87,4 +87,12 @@ abstract class Highlight extends Object
 			'~';
 	}
 
+	/**
+	 * @return Entity
+	 */
+	public function getEntity()
+	{
+		return $this->entity;
+	}
+
 }

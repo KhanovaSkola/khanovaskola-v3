@@ -17,7 +17,7 @@ final class SearchPresenter extends BasePresenter
 		$this->template->query = $query;
 		$this->template->results = (object) [
 			'videos' => $this->orm->videos->getWithFulltext($query),
-			'exercises' => $this->orm->blueprints->getWithFulltext($query),
+			'blueprints' => $this->orm->blueprints->getWithFulltext($query),
 		];
 	}
 

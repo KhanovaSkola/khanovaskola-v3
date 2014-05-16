@@ -10,7 +10,7 @@
 	<h2>Videos:</h2>
 	{foreach $results->videos as $video}
 		<h3>
-			<a n:href="Video:, videoId => $video->id">
+			<a n:href="$video">
 				{$video->title|noescape}
 			</a>
 		</h3>
@@ -19,11 +19,11 @@
 	{/foreach}
 
 	<h2>Exercises:</h2>
-	{foreach $results->exercises as $exercise}
+	{foreach $results->blueprints as $blueprint}
         <h3>
-            <a n:href="Exercise:, blueprintId => $exercise->id">
-                {$exercise->title|noescape}
+            <a n:href="$blueprint">
+                {$blueprint->title|noescape}
             </a>
         </h3>
-        <p>{$exercise->description|noescape}</p>
+        <p>{$blueprint->description|noescape}</p>
     {/foreach}

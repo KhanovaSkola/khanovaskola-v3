@@ -9,7 +9,9 @@ use App\DeprecatedException;
 use App\InvalidArgumentException;
 use App\Model\EventList;
 use App\Orm\ContentEntity;
+use App\Orm\Highlight;
 use App\Rme\BadgeUserBridge;
+use App\Rme\Exercise;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Services\Translator;
@@ -112,12 +114,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 
 	public function link($destination, $args = [])
 	{
+		if ($destination instanceof Highlight)
+		{
+			$destination = $destination->getEntity();
+		}
 		if ($destination instanceof ContentEntity)
 		{
-			$presenter = $type = $destination->getShortEntityName();
+			$type = $destination->getShortEntityName();
 			$param = lcFirst($type) . 'Id';
-			return parent::link("$presenter:", [$param => $destination->id]);
+			return parent::link("$type:", [$param => $destination->id]);
 		}
+
 		return parent::link($destination, $args);
 	}
 
