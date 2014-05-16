@@ -2,14 +2,12 @@
 
 namespace App\Rme;
 
-use App\Orm\HighlightCollection;
-use App\Orm\Repository;
+use App\Orm\ContentRepository;
 
 
 /**
- * @method HighlightCollection getWithFulltext()
  */
-class BlueprintsRepository extends Repository
+class BlueprintsRepository extends ContentRepository
 {
 
 }

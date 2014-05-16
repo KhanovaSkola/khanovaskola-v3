@@ -2,20 +2,18 @@
 
 namespace App\Rme;
 
-use App\Orm\IIndexable;
-use App\Orm\TitledEntity;
+use App\Orm\ContentEntity;
 use Nette\Utils\Strings;
 use Orm;
 
 
 /**
- * @property string $description
  * @property string $youtubeId
  * @property string $youtubeIdOriginal filled if dubbed {default ''}
  *
  * @property Orm\OneToMany $videoWatchedBadges {1:m badgeUserBridges $video}
  */
-class Video extends TitledEntity implements IIndexable
+class Video extends ContentEntity
 {
 
 	/**
@@ -86,13 +84,6 @@ class Video extends TitledEntity implements IIndexable
 		});
 	}
 
-	public function addTag(Tag $tag)
-	{
-		/** @var VideosRepository $repo */
-		$repo = $this->getRepository();
-		$repo->addTagToVideo($this, $tag);
-	}
-
 	/**
 	 * @return array [field => data]
 	 */
@@ -104,14 +95,6 @@ class Video extends TitledEntity implements IIndexable
 			'subtitles' => $this->getTextFromSubtitles(),
 			'pathStarts' => 0 // computed in background worker
 		];
-	}
-
-	/**
-	 * @return TitledEntity[]
-	 */
-	final public function getChildren()
-	{
-		return [];
 	}
 
 }

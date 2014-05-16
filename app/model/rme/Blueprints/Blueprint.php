@@ -4,6 +4,7 @@ namespace App\Rme;
 
 use App\InvalidArgumentException;
 use App\NotImplementedException;
+use App\Orm\ContentEntity;
 use App\Orm\IIndexable;
 use App\Orm\TitledEntity;
 use Nette\Utils\Strings;
@@ -11,7 +12,6 @@ use Orm;
 
 
 /**
- * @property string $description
  * @property array $vars
  * @property string $question
  * @property string $answer
@@ -19,7 +19,7 @@ use Orm;
  *
  * @property Orm\OneToMany $answers {1:m answers $blueprint}
  */
-class Blueprint extends TitledEntity implements IIndexable
+class Blueprint extends ContentEntity
 {
 
 	const TYPE_INT = 'integer';

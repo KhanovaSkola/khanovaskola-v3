@@ -8,7 +8,7 @@ use Orm\EventArguments;
 use Orm\Events;
 
 
-class BlueprintsMapper extends ElasticSearchMapper
+class BlueprintsMapper extends ContentMapper
 {
 
 	public function registerEvents(Events $events)
@@ -28,6 +28,11 @@ class BlueprintsMapper extends ElasticSearchMapper
 				$args->values[$key] = json_encode($args->values[$key]);
 			}
 		});
+	}
+
+	public function findByTag(Tag $tag)
+	{
+		return parent::findByTagByType($tag, 'Blueprint');
 	}
 
 }
