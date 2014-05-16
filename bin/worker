@@ -20,20 +20,22 @@ $log = $container->getService('log');
 while (TRUE)
 {
 	$queue->watch(function(Task $task, callable $next) use ($container, $queue, $log) {
+		$class = get_class($task);
+		$log->addInfo("Running task $class");
 		try
 		{
 			if (!$task->run($container))
 			{
-				$class = get_class($task);
 				$log->addNotice("Task $class failed", ['task' => $task]);
 			}
 			$next();
 		}
 		catch (Exception $e)
 		{
+			$file = \Nette\Diagnostics\Debugger::log($e);
 			$queue->buryTask($task);
-			$class = get_class($task);
-			$log->addWarning("Task $class throwed exception and has been burried", ['task' => $task, 'exception' => $e]);
+			$name = get_class($e);
+			$log->addWarning("Task $class throwed $name and has been burried", ['dump' => $file]);
 		}
 	});
 }
