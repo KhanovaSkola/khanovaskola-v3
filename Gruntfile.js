@@ -21,7 +21,6 @@ module.exports = function(grunt) {
         'www/js/app/components/search.js',
         'www/js/app/components/columnChart.js'
     ];
-    var JS_COMPILED = 'www/js/compiled.js';
 
     var WATCH_FILES = [
         'www/js/compiled.js',
@@ -51,7 +50,7 @@ module.exports = function(grunt) {
                     nonull: true
                 },
                 src: JS_FILES,
-                dest: JS_COMPILED
+                dest: 'www/js/compiled.js'
             }
         },
 
@@ -62,7 +61,7 @@ module.exports = function(grunt) {
                         drop_console: true
                     }
                 },
-                files: {JS_COMPILED: JS_FILES}
+                files: {'www/js/compiled.js': JS_FILES}
             }
         },
 
@@ -99,7 +98,7 @@ module.exports = function(grunt) {
             },
 
             js: {
-                files: 'js/**/*.js',
+                files: 'www/js/**/*.js',
                 tasks: 'concat:dev'
             },
 
