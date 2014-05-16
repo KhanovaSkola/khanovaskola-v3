@@ -32,6 +32,8 @@ mappings:
 				type: string
 				store: 'true'
 				index_options: offsets
+			pathStarts:
+				type: integer
 	blueprint:
 		index_analyzer: cs_icu_analyzer
 		search_analyzer: cs_icu_analyzer

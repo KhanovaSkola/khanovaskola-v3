@@ -61,6 +61,23 @@ class ElasticSearch extends Client
 		]);
 	}
 
+	public function update($args)
+	{
+		throw new DeprecatedException('Use updateDoc or updateScript instead');
+	}
+
+	public function updateDoc($type, $id, array $data)
+	{
+		return parent::update([
+			'index' => self::INDEX,
+			'type' => $type,
+			'id' => $id,
+			'body' => [
+				'doc' => $data,
+			],
+		]);
+	}
+
 	public function addMapping($type, array $fields)
 	{
 		$args = [
@@ -86,10 +103,18 @@ class ElasticSearch extends Client
 				'fields' => ['id'],
 				'min_score' => self::MIN_SCORE,
 				'query' => [
-					'multi_match' => [
-						'query' => $query,
-						'fields' => $in,
-					]
+					'function_score' => [
+						'query' => [
+							'multi_match' => [
+								'query' => $query,
+								'fields' => $in,
+							]
+						],
+						'functions' => [
+							['script_score' => ['script' => '_score + doc[\'pathStarts\'].value']],
+						],
+						'score_mode' => 'max',
+					],
 				],
 				'highlight' => [
 					'pre_tags' => [self::HIGHLIGHT_START],

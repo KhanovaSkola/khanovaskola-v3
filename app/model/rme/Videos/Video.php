@@ -102,6 +102,7 @@ class Video extends TitledEntity implements IIndexable
 			'title' => $this->title,
 			'description' => $this->description,
 			'subtitles' => $this->getTextFromSubtitles(),
+			'pathStarts' => 0 // computed in background worker
 		];
 	}
 
