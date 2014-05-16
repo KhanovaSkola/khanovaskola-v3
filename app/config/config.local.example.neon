@@ -17,6 +17,9 @@ parameters:
 		password: "fd4cd6f1568ac1"
 		# secure: ssl
 	elastic:
+		logging: true
+		logObject: @elasticSearchLogger
+		traceObject: @elasticSearchLogger
 		hosts:
 			- localhost
 		# connectionParams:
