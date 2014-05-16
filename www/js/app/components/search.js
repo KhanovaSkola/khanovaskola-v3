@@ -5,7 +5,7 @@ App.elasticSearch = new $.es.Client({
 App.autocomplete = function(query, cb) {
 	App.elasticSearch.search({
 		index: 'khanovaskola',
-		type: 'video',
+		type: 'Video,Blueprint',
 		body: {
 			query: {
 				match: {
