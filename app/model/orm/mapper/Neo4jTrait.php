@@ -3,9 +3,9 @@
 namespace App\Orm\Mapper;
 
 
-use App\Orm\TitledEntity;
+use App\Orm\ContentEntity;
+use App\Orm\Entity;
 use App\Services\Neo4j;
-use Everyman\Neo4j\Cypher\Query;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -27,34 +27,20 @@ trait Neo4jTrait
 	protected function registerOnPersistCreateNodeEvent(Events $events)
 	{
 		$events->addCallbackListener($events::PERSIST_AFTER_INSERT, function(EventArguments $args) {
-			/** @var TitledEntity $e */
+			/** @var Entity $e */
 			$e = $args->entity;
 
 			$node = $this->neo4j->makeNode();
 			/** @var Mapper|Neo4jTrait $this */
 			$node->setProperty('eid', $e->id)->save();
-			$node->setProperty('slug', $e->slug)->save();
 
 			$label = $this->neo4j->makeLabel(ucFirst($this->getShortEntityName()));
 			$node->addLabels([$label]);
-		});
 
-		$events->addCallbackListener($events::PERSIST_BEFORE_UPDATE, function(EventArguments $args) {
-			/** @var TitledEntity $e */
-			$e = $args->entity;
-			/** @var Mapper|Neo4jTrait $this */
-			$type = ucFirst($this->getShortEntityName());
-			if ($e->isChanged('slug'))
+			if ($e instanceof ContentEntity)
 			{
-				$q = new Query($this->neo4j, "
-					MATCH (v:$type)
-					WHERE v.eid = {eid}
-					SET v.slug = {slug}
-				", [
-					'eid' => $e->id,
-					'slug' => $e->slug,
-				]);
-				$q->getResultSet();
+				$label = $this->neo4j->makeLabel('Content');
+				$node->addLabels([$label]);
 			}
 		});
 	}
