@@ -20,8 +20,8 @@ use RuntimeException;
 /**
  * app config, replaces bootstrap
  *
- * @method void onInit
- * @method void onAfter
+ * @method void onInit()
+ * @method void onAfter()
  */
 class Configurator extends Nette\Configurator
 {

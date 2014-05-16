@@ -10,7 +10,6 @@ use App\InvalidArgumentException;
 use App\Model\EventList;
 use App\Orm\ContentEntity;
 use App\Rme\BadgeUserBridge;
-use App\Rme\Blueprint;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Services\Translator;
@@ -19,11 +18,7 @@ use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;
 use Nette;
-use Nette\Application\UI\destination;
-use Nette\Application\UI\InvalidLinkException;
-use Nette\Application\UI\Presenter;
 use Nette\Http\Session;
-use Nette\Templating\FileTemplate;
 
 
 /**

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\InvalidStateException;
 use App\Tasks\Task;
 use Nette\Object;
+use Pheanstalk_Connection;
 use Pheanstalk_Job as Job;
 use Pheanstalk_Pheanstalk as Pheanstalk;
 
@@ -26,7 +27,9 @@ class Queue extends Object
 
 	protected function assertConnected()
 	{
-		if (!$this->stalk->getConnection()->isServiceListening())
+		/** @var Pheanstalk_Connection $conn */
+		$conn = $this->stalk->getConnection();
+		if (!$conn->isServiceListening())
 		{
 			throw new InvalidStateException("Beanstalkd is not running on '$this->host'");
 		}

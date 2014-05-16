@@ -2,7 +2,7 @@
 
 namespace App\Tasks;
 
-use App\Rme\Video;
+
 use App\Services\ElasticSearch;
 use App\Services\Neo4j;
 use Everyman\Neo4j\Cypher\Query;

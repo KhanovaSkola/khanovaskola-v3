@@ -6,8 +6,6 @@ use App\MustNeverHappenException;
 use App\Orm\Repository;
 
 
-/**
- */
 class BadgeUserBridgesRepository extends Repository
 {
 
