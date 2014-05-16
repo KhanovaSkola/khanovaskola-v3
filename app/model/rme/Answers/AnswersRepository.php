@@ -7,7 +7,7 @@ use Orm\DibiCollection;
 
 
 /**
- * @method DibiCollection findRecentByUserAndBlueprint()
+ * @method DibiCollection findRecentByUserAndBlueprint(User $user, Blueprint $blueprint)
  */
 class AnswersRepository extends Repository
 {
