@@ -7,7 +7,7 @@ use App\Services\PathFinder;
 use Nette\Http\Session;
 
 
-final class VideoPresenter extends BasePresenter
+final class VideoPresenter extends ContentPresenter
 {
 
 	/**
@@ -32,15 +32,7 @@ final class VideoPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->video = $this->video;
-
-		/** @var Session $session */
-		$session = $this->context->getService('session');
-		$section = $session->getSection('paths');
-		$section->steps = [4, 4]; // TODO save automatically all paths this video is part of
-
-		/** @var PathFinder $finder */
-		$finder = $this->context->getService('pathFinder');
-		$this->template->suggestions = $finder->suggestNext($this->video);
+		$this->template->suggestions = $this->getSuggestions($this->video);
 	}
 
 }
