@@ -46,3 +46,5 @@ mappings:
 				type: string
 				store: 'true'
 				boost: 4
+			pathStarts:
+				type: integer
