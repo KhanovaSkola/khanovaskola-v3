@@ -31,7 +31,18 @@ class ProductionTask extends Command
 		// 	exit(1);
 		// }
 
+		if (!file_exists('/home/vagrant/.ssh/id_rsa'))
+		{
+			writeln("<error>Deploy keys not found at '~/.ssh/id_rsa'</error>");
+			exit(1);
+		}
+
 		connect(self::SERVER, 'deploy', rsa('~/.ssh/id_rsa'));
+
+		writeln('Compiling resources for production');
+		silent();
+		runLocally("grunt dist");
+		silent(FALSE);
 
 		// update commands first
 		$this->uploadFromRoot('bin/');
