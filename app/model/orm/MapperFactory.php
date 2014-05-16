@@ -6,9 +6,11 @@ use App\Orm\Mapper\ElasticSearchTrait;
 use App\Orm\Mapper\EventManagerTrait;
 use App\Orm\Mapper\Mapper;
 use App\Orm\Mapper\Neo4jTrait;
+use App\Orm\Mapper\QueueTrait;
 use App\Orm\Mapper\TranslatorTrait;
 use App\Services\ElasticSearch;
 use App\Services\Neo4j;
+use App\Services\Queue;
 use App\Services\Translator;
 use Kdyby\Events\EventManager;
 use Nette\DI\Container;
@@ -69,6 +71,13 @@ class MapperFactory extends \Orm\MapperFactory
 			$neo4j = $this->container->getService('neo4j');
 			/** @var Neo4jTrait $mapper */
 			$mapper->injectNeo4j($neo4j);
+		}
+		if (in_array('App\\Orm\\Mapper\\QueueTrait', $traits))
+		{
+			/** @var Queue $queue */
+			$queue = $this->container->getService('queue');
+			/** @var QueueTrait $mapper */
+			$mapper->injectQueue($queue);
 		}
 
 		$mapper->registerEvents($repository->getEvents());
