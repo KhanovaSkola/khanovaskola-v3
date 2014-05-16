@@ -2,7 +2,6 @@
 
 namespace App\Orm\Mapper;
 
-
 use App\MustNeverHappenException;
 use App\Orm\ContentEntity;
 use App\Orm\Entity;

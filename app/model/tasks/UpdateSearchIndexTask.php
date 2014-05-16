@@ -2,7 +2,6 @@
 
 namespace App\Tasks;
 
-
 use App\Services\ElasticSearch;
 use App\Services\Neo4j;
 use Everyman\Neo4j\Cypher\Query;
