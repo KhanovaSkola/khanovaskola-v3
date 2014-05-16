@@ -2,7 +2,6 @@
 
 namespace App\Rme;
 
-
 use App\Orm\Mapper\Neo4jTrait;
 
 
