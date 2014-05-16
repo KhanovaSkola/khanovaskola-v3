@@ -2,3 +2,6 @@ wget -O - http://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -
 echo 'deb http://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list
 sudo aptitude update -y
 sudo aptitude install neo4j -y
+
+# uncomment line in config to allow webadmin and browser
+sed -e "s/^#org\.neo4j\.server\.webserver\.address/org.neo4j.server.webserver.address/g" /etc/neo4j/neo4j-server.properties | sudo tee /etc/neo4j/neo4j-server.properties

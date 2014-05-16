@@ -24,8 +24,8 @@ Link directory
 		<dd>http://vagrant.khanovaskola.cz/tools/beanstalk/public/</dd>
 	<dt>opcache dashboard</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/opcache/</dd>
-	<dt>neo4j dashboard</dt>
-		<dd>http://vagrant.khanovaskola.cz:7474/webadmin</dd>
+	<dt>neo4j browser</dt>
+		<dd>http://vagrant.khanovaskola.cz:7474/browser/</dd>
 </dl>
 
 Setup
