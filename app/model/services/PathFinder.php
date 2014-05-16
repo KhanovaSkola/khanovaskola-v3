@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Orm\ContentEntity;
+use App\Orm\ContentRepository;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Rme\Video;
@@ -25,18 +27,15 @@ class PathFinder extends Object
 	}
 
 	/**
-	 * @param Video $video
-	 * @return Video[] ordered by best path match
+	 * @param ContentEntity $entity
+	 * @return ContentEntity[] ordered by best path match
 	 */
-	public function suggestNext(Video $video)
+	public function suggestNext(ContentEntity $entity)
 	{
-		$res = $this->orm->videos->getNextFor($video);
-		$ids = [];
-		$scores = [];
+		$res = $entity->getRepository()->getNextContent($entity);
 		foreach ($res as &$row)
 		{
-			$ids[] = $row->videoId;
-			$scores[$row->videoId] = 0;
+			$row->score = 0;
 		}
 
 		$session = $this->session->getSection('paths');
@@ -46,18 +45,24 @@ class PathFinder extends Object
 			{
 				if ((int) $row->pathId === $step)
 				{
-					$scores[$row->videoId]++;
+					$row->score++;
 				}
 			}
 		}
 
-		$videos = $this->orm->videos->findById($ids)->fetchAll();
-
-		usort($videos, function($a, $b) use ($scores) {
-			return $scores[$a->id] > $scores[$b->id];
+		usort($res, function($a, $b) use ($res) {
+			return $a->score > $b->score;
 		});
 
-		return $videos;
+		$entities = [];
+		foreach ($res as $row)
+		{
+			/** @var ContentRepository $repo */
+			$repo = $this->orm->getByEntityName($row->entityType);
+			$entities[] = $repo->getById($row->entityId);
+		}
+
+		return $entities;
 	}
 
 }

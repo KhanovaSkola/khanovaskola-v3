@@ -33,6 +33,15 @@ class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 		$this->cache = new Cache($storage);
 	}
 
+	public function getByEntityName($name)
+	{
+		$alias = [
+			'blueprint' => 'blueprints',
+			'video' => 'videos',
+		];
+		return $this->{$alias[strToLower($name)]};
+	}
+
 	/**
 	 * @return Cache
 	 */
