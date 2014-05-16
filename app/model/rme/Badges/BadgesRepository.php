@@ -9,7 +9,7 @@ use Nette\Utils\Neon;
 
 
 /**
- * @method App\Rme\Badge getByKey()
+ * @method App\Rme\Badge getByKey($key)
  */
 class BadgesRepository extends Repository
 {

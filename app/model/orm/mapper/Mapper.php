@@ -8,7 +8,7 @@ use Orm\Events;
 
 
 /**
- * @method DibiCollection findById()
+ * @method DibiCollection findById($id)
  */
 class Mapper extends DibiMapper
 {
