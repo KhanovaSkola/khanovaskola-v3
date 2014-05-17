@@ -114,6 +114,7 @@ php:
             - curl
             - fpm
             - imagick
+            - pgsql
         pear: {  }
         pecl:
             - pecl_http
