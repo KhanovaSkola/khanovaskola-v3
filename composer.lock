@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "01dd7a8746f40d1d4f5d3123d8dcdf06",
+    "hash": "b2f72f3bc20405d18bdf2ea1820aa7bd",
     "packages": [
         {
             "name": "dg/dibi",
@@ -2234,6 +2234,44 @@
             "description": "Nette Utility Classes",
             "homepage": "http://nette.org",
             "time": "2014-05-11 17:06:28"
+        },
+        {
+            "name": "petrp/access",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PetrP/Access.git",
+                "reference": "7ad8a3655c4bc034200d7e20515e263fde1396ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PetrP/Access/zipball/7ad8a3655c4bc034200d7e20515e263fde1396ea",
+                "reference": "7ad8a3655c4bc034200d7e20515e263fde1396ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Access/Init.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Petr Procházka",
+                    "email": "prochazkapp@gmail.com",
+                    "homepage": "http://petrp.cz"
+                }
+            ],
+            "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
+            "homepage": "https://github.com/PetrP/Access",
+            "time": "2013-10-11 16:43:39"
         },
         {
             "name": "phpseclib/phpseclib",
