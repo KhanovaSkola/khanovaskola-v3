@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use HTMLPurifier as Purifier;
-use HTMLPurifier_Config as Config;
 use Nette\Object;
 
 

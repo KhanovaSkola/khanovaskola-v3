@@ -11,7 +11,6 @@ use App\Model\EventList;
 use App\Orm\ContentEntity;
 use App\Orm\Highlight;
 use App\Rme\BadgeUserBridge;
-use App\Rme\Exercise;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Services\Translator;

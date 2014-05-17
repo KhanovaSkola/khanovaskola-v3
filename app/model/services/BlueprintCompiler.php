@@ -192,7 +192,7 @@ class BlueprintCompiler extends Object
 	{
 		if (!in_array($color, [1, 2, 3, 4]))
 		{
-			throw new MustNeverHappenException("Undefined color");
+			throw new MustNeverHappenException('Undefined color');
 		}
 
 		if ($inLatex)
