@@ -231,11 +231,14 @@ class Configurator extends Nette\Configurator
 	 */
 	protected function getCacheDirectory()
 	{
-		if (empty($this->parameters['tempDir'])) {
-			throw new Nette\InvalidStateException("Set path to temporary directory using setTempDirectory().");
+		if (empty($this->parameters['tempDir']))
+		{
+			throw new Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
 		}
 		$dir = $this->parameters['tempDir'] . '/cache';
+		// @codingStandardsIgnoreStart
 		@mkdir($dir);
+		// @codingStandardsIgnoreEnd
 		return $dir;
 	}
 
