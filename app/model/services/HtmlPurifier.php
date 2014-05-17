@@ -14,7 +14,7 @@ class HtmlPurifier extends Object
 
 	public function __construct()
 	{
-		$this->filter = new Purifier(self::getConfig());
+		$this->filter = new Purifier(static::getConfig());
 	}
 
 	public function filter($html)
@@ -37,8 +37,8 @@ class HtmlPurifier extends Object
 		$config = Config::createDefault();
 		$config->set('Core.Encoding', 'UTF-8');
 		$config->set('HTML.Doctype', 'HTML 4.01 Transitional');
-		$config->set('HTML.AllowedElements', implode(', ', self::getAllowedElements()));
-		$config->set('HTML.AllowedAttributes', implode(', ', self::getAllowedAttributes()));
+		$config->set('HTML.AllowedElements', implode(', ', static::getAllowedElements()));
+		$config->set('HTML.AllowedAttributes', implode(', ', static::getAllowedAttributes()));
 		return $config;
 	}
 

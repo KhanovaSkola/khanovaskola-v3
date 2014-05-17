@@ -10,13 +10,13 @@ App\Rme\Blueprint:
     defineInteger: ['a', 1, 10]
     defineInteger: ['b', 11, 20]
     defineList: ['name', ['John', 'Marco', 'Alex', 'Casey', 'David']]
-    definePlural: ['broskve', '{b-a}', 'broskev', 'broskve', 'broskví']
-    question: 'Pokud {name} sebere $x$ broskví a ${a} + x = {b}$, kolik broskví sebere?'
-    answer: '{b-a}'
-    addHint: 'Vyjádříme si z rovnice $x$.'
-    addHint: 'Osamostatníme $x$ tak, že od celé rovnice odečteme ${a}$.'
-    addHint: '${a} + x - {a} = {b} - {a}$, tedy $x = {b} - {a}$.'
-    addHint: 'Po úpravě víme, že $x = {b-a}$, {name} tedy sesbíral ${b-a}$ {broskve}.'
+    definePlural: ['broskve', '<eval>b-a</eval>', 'broskev', 'broskve', 'broskví']
+    question: 'Pokud <eval>name</eval> sebere <color id="1"><latex>x</latex></color> broskví a <latex><eval>a</eval> + <color id="1">x</color> = <eval>b</eval></latex>, kolik broskví vlastně sebere?'
+    answer: '<eval>b-a</eval>'
+    addHint: 'Vyjádříme si z rovnice <color id="1"><latex>x</latex></color>.'
+    addHint: 'Osamostatníme <color id="1"><latex>x</latex></color> tak, že od celé rovnice odečteme <color id="2"><latex><eval>a</eval></latex></color>.'
+    addHint: '<latex><color id="2"><eval>a</eval></color> + <color id="1">x</color> - <color id="2"><eval>a</eval></color> = <eval>b</eval> - <color id="2"><eval>a</eval></color></latex>, tedy <latex><color id="1">x</color> = <eval>b</eval> - <color id="2"><eval>a</eval></color></latex>.'
+    addHint: 'Po úpravě víme, že <latex><color id="1">x = <eval>b-a</eval></color></latex>, <eval>name</eval> tedy sesbíral <latex><eval>b-a</eval></latex> <eval>broskve</eval>'
   b{2..100}:
     title: <text(50)>
     description: <text(150)>

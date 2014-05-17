@@ -55,6 +55,8 @@ facebook:
 services:
 	- App\Rme\UsersRepository
 	- App\Services\Authenticator
+	- App\Services\BlueprintCompiler
+	- App\Services\BlueprintPurifier
 	translator: App\Services\Translator(%appDir%/localization)
 
 	queue: App\Services\Queue(%beanstalk.host%)

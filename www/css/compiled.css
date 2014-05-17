@@ -6381,3 +6381,20 @@ img.badge-image {
 .editable:hover {
   background-color: rgba(255, 255, 140, 0.5);
 }
+.color {
+  /**
+     * Must also be changed in BlueprintCompiler.php
+     */
+}
+.color-1 {
+  color: #4ecdc4;
+}
+.color-2 {
+  color: #c7f464;
+}
+.color-3 {
+  color: #ff6b6b;
+}
+.color-4 {
+  color: #556270;
+}

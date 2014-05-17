@@ -6,13 +6,13 @@
 	<h1>{$exercise->blueprint->title}</h1>
 	<h2>{$exercise->blueprint->description}</h2>
 
-	<h3>{$exercise->question}</h3>
+	<h3>{$exercise->question|noescape}</h3>
 	<p>answer: ${$exercise->answer}$</p>
 
 	{control answer}
 
 	<ol>
-		<li n:foreach="$exercise->hints as $hint">{$hint}</li>
+		<li n:foreach="$exercise->hints as $hint">{$hint|noescape}</li>
 	</ol>
 	<p>Seed: {$exercise->seed}</p>
 
