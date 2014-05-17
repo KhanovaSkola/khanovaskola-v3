@@ -5,7 +5,6 @@ namespace App\Presenters;
 use App\Model\EventList;
 use App\Rme\Answer;
 use App\Rme\Blueprint;
-use App\Rme\BlueprintCompiler;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
@@ -34,7 +33,7 @@ final class BlueprintPresenter extends ContentPresenter
 
 	private function getExercise($seed = NULL)
 	{
-		$compiler = new BlueprintCompiler();
+		$compiler = $this->context->getByType('App\\Services\\BlueprintCompiler');
 		if ($seed !== NULL)
 		{
 			$compiler->setSeed($seed);
