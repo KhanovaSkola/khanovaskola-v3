@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -245,7 +241,7 @@ class DibiResult extends DibiObject implements IDataSource
 	 * Fetches all records from table.
 	 * @param  int  offset
 	 * @param  int  limit
-	 * @return array of DibiRow
+	 * @return DibiRow[]
 	 */
 	final public function fetchAll($offset = NULL, $limit = NULL)
 	{
@@ -518,26 +514,15 @@ class DibiResult extends DibiObject implements IDataSource
 				$row[$key] = is_float($tmp = $value * 1) ? $value : $tmp;
 
 			} elseif ($type === dibi::FLOAT) {
-				$row[$key] = (string) ($tmp = (float) $value) === rtrim(rtrim($value, '0'), '.') ? $tmp : $value;
+				$row[$key] = ltrim((string) ($tmp = (float) $value), '0') === ltrim(rtrim(rtrim($value, '0'), '.'), '0') ? $tmp : $value;
 
 			} elseif ($type === dibi::BOOL) {
 				$row[$key] = ((bool) $value) && $value !== 'f' && $value !== 'F';
 
 			} elseif ($type === dibi::DATE || $type === dibi::DATETIME) {
-				if ((int) $value === 0 && substr((string) $value, 0, 3) !== '00:') { // '', NULL, FALSE, '0000-00-00', ...
-
-				} elseif (empty($this->formats[$type])) { // return DateTime object (default)
-					$row[$key] = new DibiDateTime(is_numeric($value) ? date('Y-m-d H:i:s', $value) : $value);
-
-				} elseif ($this->formats[$type] === 'U') { // return timestamp
-					$row[$key] = is_numeric($value) ? (int) $value : strtotime($value);
-
-				} elseif (is_numeric($value)) { // formatted date
-					$row[$key] = date($this->formats[$type], $value);
-
-				} else {
+				if ((int) $value !== 0 || substr((string) $value, 0, 3) === '00:') { // '', NULL, FALSE, '0000-00-00', ...
 					$value = new DibiDateTime($value);
-					$row[$key] = $value->format($this->formats[$type]);
+					$row[$key] = empty($this->formats[$type]) ? $value : $value->format($this->formats[$type]);
 				}
 
 			} elseif ($type === dibi::BINARY) {
