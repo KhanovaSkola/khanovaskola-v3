@@ -224,6 +224,21 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
+	/**
+	 * Unlike parent implementation this one does not fail on nonatomic mkdir
+	 * @return string
+	 * @throws \Nette\InvalidStateException
+	 */
+	protected function getCacheDirectory()
+	{
+		if (empty($this->parameters['tempDir'])) {
+			throw new Nette\InvalidStateException("Set path to temporary directory using setTempDirectory().");
+		}
+		$dir = $this->parameters['tempDir'] . '/cache';
+		@mkdir($dir);
+		return $dir;
+	}
+
 }
 
 class MissingLocalConfigException extends RuntimeException
