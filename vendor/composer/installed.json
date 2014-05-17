@@ -1,61 +1,5 @@
 [
     {
-        "name": "dg/dibi",
-        "version": "v2.1.1",
-        "version_normalized": "2.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/dg/dibi.git",
-            "reference": "2c3fe68c6cf42e051b591d8897aedc3fad97024f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/dg/dibi/zipball/2c3fe68c6cf42e051b591d8897aedc3fad97024f",
-            "reference": "2c3fe68c6cf42e051b591d8897aedc3fad97024f",
-            "shasum": ""
-        },
-        "replace": {
-            "dg/dibi": "self.version"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "time": "2013-10-16 19:39:29",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "dibi/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3",
-            "GPLv2",
-            "GPLv3"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "http://davidgrudl.com"
-            }
-        ],
-        "description": "Dibi is Database Abstraction Library for PHP 5.",
-        "homepage": "http://dibiphp.com/",
-        "keywords": [
-            "access",
-            "database",
-            "dbal",
-            "mssql",
-            "mysql",
-            "odbc",
-            "oracle",
-            "pdo",
-            "postgresql",
-            "sqlite"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -2484,69 +2428,6 @@
         "description": "Tracy panel listing queries to all storages"
     },
     {
-        "name": "kdyby/redis",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Redis.git",
-            "reference": "ee1c824fbc8162772b2082d6b51085719bd4baa6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Redis/zipball/ee1c824fbc8162772b2082d6b51085719bd4baa6",
-            "reference": "ee1c824fbc8162772b2082d6b51085719bd4baa6",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "suggest": {
-            "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
-        },
-        "time": "2014-05-06 00:21:36",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Redis\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Redis/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Redis storage for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "cache",
-            "client",
-            "kdyby",
-            "nette",
-            "redis"
-        ]
-    },
-    {
         "name": "latte/latte",
         "version": "v2.2.0",
         "version_normalized": "2.2.0.0",
@@ -2901,71 +2782,6 @@
         ]
     },
     {
-        "name": "kdyby/facebook",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Facebook.git",
-            "reference": "901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a",
-            "reference": "901cc8e8be4ab32e96737d2b4547c53cbdc8cf7a",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "kdyby/curl-ca-bundle": "~1.0",
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "time": "2014-05-08 13:30:34",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Facebook\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Facebook/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            },
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Facebook PHP SDK for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "facebook",
-            "nette",
-            "sdk"
-        ]
-    },
-    {
         "name": "vrtak-cz/newrelic-nette",
         "version": "v3.0.1",
         "version_normalized": "3.0.1.0",
@@ -3126,6 +2942,200 @@
             "curl",
             "https",
             "ssl"
+        ]
+    },
+    {
+        "name": "dg/dibi",
+        "version": "v2.2.0-RC",
+        "version_normalized": "2.2.0.0-RC",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dg/dibi.git",
+            "reference": "3d1e2d1b7a3159b700a057b55858e013ba6179cd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dg/dibi/zipball/3d1e2d1b7a3159b700a057b55858e013ba6179cd",
+            "reference": "3d1e2d1b7a3159b700a057b55858e013ba6179cd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "replace": {
+            "dg/dibi": "self.version"
+        },
+        "require-dev": {
+            "nette/tester": "~1.1"
+        },
+        "time": "2014-05-13 15:45:47",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "dibi/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "http://davidgrudl.com"
+            }
+        ],
+        "description": "Dibi is Database Abstraction Library for PHP 5.",
+        "homepage": "http://dibiphp.com/",
+        "keywords": [
+            "access",
+            "database",
+            "dbal",
+            "mssql",
+            "mysql",
+            "odbc",
+            "oracle",
+            "pdo",
+            "postgresql",
+            "sqlite"
+        ]
+    },
+    {
+        "name": "kdyby/redis",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Redis.git",
+            "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Redis/zipball/892e5544f0bee338d9469d2e3a5307b60776ec8e",
+            "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "suggest": {
+            "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
+        },
+        "time": "2014-05-13 21:18:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Redis\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Redis/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Redis storage for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "cache",
+            "client",
+            "kdyby",
+            "nette",
+            "redis"
+        ]
+    },
+    {
+        "name": "kdyby/facebook",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Facebook.git",
+            "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/141b738f306ee7a7296a57a5506e5e05131f3d39",
+            "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "kdyby/curl-ca-bundle": "~1.0",
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-13 21:18:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Facebook\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Facebook/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            },
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Facebook PHP SDK for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "facebook",
+            "nette",
+            "sdk"
         ]
     }
 ]

@@ -4,9 +4,6 @@
  * dibi - smart database abstraction layer (http://dibiphp.com)
  *
  * Copyright (c) 2005, 2012 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -16,8 +13,6 @@
 if (version_compare(PHP_VERSION, '5.2.0', '<')) {
 	throw new Exception('dibi needs PHP 5.2.0 or newer.');
 }
-
-@set_magic_quotes_runtime(FALSE); // intentionally @
 
 
 require_once dirname(__FILE__) . '/libs/interfaces.php';
@@ -38,7 +33,7 @@ require_once dirname(__FILE__) . '/libs/DibiEvent.php';
 require_once dirname(__FILE__) . '/libs/DibiFileLogger.php';
 require_once dirname(__FILE__) . '/libs/DibiFirePhpLogger.php';
 if (interface_exists('Nette\Diagnostics\IBarPanel') || interface_exists('IBarPanel')) {
-	require_once dirname(__FILE__) . '/bridges/Nette/DibiNettePanel.php';
+	require_once dirname(__FILE__) . '/bridges/Nette-2.1/DibiNettePanel.php';
 }
 
 
@@ -63,7 +58,8 @@ class dibi
 		DATETIME = 't',
 		TIME = 't';
 
-	const IDENTIFIER = 'n';
+	const IDENTIFIER = 'n',
+		AFFECTED_ROWS = 'a';
 
 	/** @deprecated */
 	const FIELD_TEXT = dibi::TEXT,
@@ -76,7 +72,7 @@ class dibi
 		FIELD_TIME = dibi::TIME;
 
 	/** version */
-	const VERSION = '2.1.1',
+	const VERSION = '2.2-dev',
 		REVISION = '$WCREV$ released on $WCDATE$';
 
 	/** sorting order */
@@ -267,7 +263,7 @@ class dibi
 	/**
 	 * Executes SQL query and fetch results - Monostate for DibiConnection::query() & fetchAll().
 	 * @param  array|mixed    one or more arguments
-	 * @return array of DibiRow
+	 * @return DibiRow[]
 	 * @throws DibiException
 	 */
 	public static function fetchAll($args)

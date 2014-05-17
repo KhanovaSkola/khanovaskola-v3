@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -245,10 +241,11 @@ class DibiOdbcDriver extends DibiObject implements IDibiDriver, IDibiResultDrive
 				return $value ? 1 : 0;
 
 			case dibi::DATE:
-				return $value instanceof DateTime ? $value->format("#m/d/Y#") : date("#m/d/Y#", $value);
-
 			case dibi::DATETIME:
-				return $value instanceof DateTime ? $value->format("#m/d/Y H:i:s#") : date("#m/d/Y H:i:s#", $value);
+				if (!$value instanceof DateTime && !$value instanceof DateTimeInterface) {
+					$value = new DibiDateTime($value);
+				}
+				return $value->format($type === dibi::DATETIME ? "#m/d/Y H:i:s#" : "#m/d/Y#");
 
 			default:
 				throw new InvalidArgumentException('Unsupported type.');

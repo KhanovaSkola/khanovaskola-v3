@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -55,6 +51,8 @@ final class DibiTranslator extends DibiObject
 	public function __construct(DibiConnection $connection)
 	{
 		$this->connection = $connection;
+		$this->driver = $connection->getDriver();
+		$this->identifiers = new DibiHashMap(array($this, 'delimite'));
 	}
 
 
@@ -66,9 +64,6 @@ final class DibiTranslator extends DibiObject
 	 */
 	public function translate(array $args)
 	{
-		$this->identifiers = new DibiHashMap(array($this, 'delimite'));
-		$this->driver = $this->connection->getDriver();
-
 		$args = array_values($args);
 		while (count($args) === 1 && is_array($args[0])) { // implicit array expansion
 			$args = array_values($args[0]);
@@ -331,7 +326,7 @@ final class DibiTranslator extends DibiObject
 
 		// with modifier procession
 		if ($modifier) {
-			if ($value !== NULL && !is_scalar($value) && !($value instanceof DateTime)) {  // array is already processed
+			if ($value !== NULL && !is_scalar($value) && !$value instanceof DateTime && !$value instanceof DateTimeInterface) {  // array is already processed
 				$this->hasError = TRUE;
 				return '**Unexpected type ' . gettype($value) . '**';
 			}
@@ -449,7 +444,7 @@ final class DibiTranslator extends DibiObject
 		} elseif ($value === NULL) {
 			return 'NULL';
 
-		} elseif ($value instanceof DateTime) {
+		} elseif ($value instanceof DateTime || $value instanceof DateTimeInterface) {
 			return $this->driver->escape($value, dibi::DATETIME);
 
 		} elseif ($value instanceof DibiLiteral) {

@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -239,10 +235,11 @@ class DibiOracleDriver extends DibiObject implements IDibiDriver, IDibiResultDri
 				return $value ? 1 : 0;
 
 			case dibi::DATE:
-				return $value instanceof DateTime ? $value->format($this->fmtDate) : date($this->fmtDate, $value);
-
 			case dibi::DATETIME:
-				return $value instanceof DateTime ? $value->format($this->fmtDateTime) : date($this->fmtDateTime, $value);
+				if (!$value instanceof DateTime && !$value instanceof DateTimeInterface) {
+					$value = new DibiDateTime($value);
+				}
+				return $value->format($type === dibi::DATETIME ? $this->fmtDateTime : $this->fmtDate);
 
 			default:
 				throw new InvalidArgumentException('Unsupported type.');

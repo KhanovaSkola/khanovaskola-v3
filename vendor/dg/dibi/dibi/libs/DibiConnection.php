@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -118,7 +114,7 @@ class DibiConnection extends DibiObject
 				$this->onEvent[] = array(new DibiFirePhpLogger($filter), 'logEvent');
 			}
 
-			if (class_exists('DibiNettePanel', FALSE)) {
+			if (class_exists('DibiNettePanel', FALSE) && !interface_exists('Tracy\IBarPanel')) {
 				$panel = new DibiNettePanel(isset($profilerCfg['explain']) ? $profilerCfg['explain'] : TRUE, $filter);
 				$panel->register($this);
 			}
@@ -590,7 +586,7 @@ class DibiConnection extends DibiObject
 	/**
 	 * Executes SQL query and fetch results - shortcut for query() & fetchAll().
 	 * @param  array|mixed    one or more arguments
-	 * @return array of DibiRow
+	 * @return DibiRow[]
 	 * @throws DibiException
 	 */
 	public function fetchAll($args)
@@ -645,14 +641,21 @@ class DibiConnection extends DibiObject
 		}
 
 		$count = 0;
+		$delimiter = ';';
 		$sql = '';
 		while (!feof($handle)) {
-			$s = fgets($handle);
-			$sql .= $s;
-			if (substr(rtrim($s), -1) === ';') {
+			$s = rtrim(fgets($handle));
+			if (substr($s, 0, 10) === 'DELIMITER ') {
+				$delimiter = substr($s, 10);
+
+			} elseif (substr($s, -strlen($delimiter)) === $delimiter) {
+				$sql .= substr($s, 0, -strlen($delimiter));
 				$this->driver->query($sql);
 				$sql = '';
 				$count++;
+
+			} else {
+				$sql .= $s . "\n";
 			}
 		}
 		if (trim($sql) !== '') {

@@ -2,11 +2,7 @@
 
 /**
  * This file is part of the "dibi" - smart database abstraction layer.
- *
  * Copyright (c) 2005 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 
@@ -64,7 +60,7 @@ class DibiFileLogger extends DibiObject
 			fwrite($handle,
 				"OK: " . $event->sql
 				. ($event->count ? ";\n-- rows: " . $event->count : '')
-				. "\n-- takes: " . sprintf('%0.3f', $event->time * 1000) . ' ms'
+				. "\n-- takes: " . sprintf('%0.3f ms', $event->time * 1000)
 				. "\n-- source: " . implode(':', $event->source)
 				. "\n-- driver: " . $event->connection->getConfig('driver') . '/' . $event->connection->getConfig('name')
 				. "\n-- " . date('Y-m-d H:i:s')

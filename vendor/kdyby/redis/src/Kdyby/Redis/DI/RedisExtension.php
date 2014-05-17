@@ -76,7 +76,7 @@ class RedisExtension extends Nette\DI\CompilerExtension
 			->setClass(class_exists('Redis') ? 'Kdyby\Redis\Driver\PhpRedisDriver' : 'Kdyby\Redis\IRedisDriver')
 			->setFactory($this->prefix('@client') . '::getDriver');
 
-		if ($builder->parameters['debugMode'] && $config['debugger']) {
+		if ($builder->parameters['debugMode'] || $config['debugger']) {
 			$builder->addDefinition($this->prefix('panel'))
 				->setClass('Kdyby\Redis\Diagnostics\Panel')
 				->setFactory('Kdyby\Redis\Diagnostics\Panel::register')
