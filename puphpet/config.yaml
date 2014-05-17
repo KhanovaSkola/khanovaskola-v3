@@ -191,9 +191,3 @@ rabbitmq:
     install: 0
     settings:
         port: '5672'
-elastic_search:
-    install: '1'
-    settings:
-        java_install: true
-        autoupgrade: true
-
