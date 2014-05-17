@@ -13,7 +13,6 @@ class ElasticSearch extends Client
 {
 
 	const INDEX = 'khanovaskola';
-	const MIN_SCORE = 0.05;
 
 	const HIGHLIGHT_START = '{{%highlight%}}';
 	const HIGHLIGHT_END = '{{%/highlight%}}';
@@ -101,7 +100,8 @@ class ElasticSearch extends Client
 			'type' => $type,
 			'body' => [
 				'fields' => ['id'],
-				'min_score' => self::MIN_SCORE,
+				'from' => 0,
+				'size' => 10,
 				'query' => [
 					'function_score' => [
 						'query' => [
