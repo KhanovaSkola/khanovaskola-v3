@@ -23,8 +23,12 @@ sudo apt-get install neo4j -y
 
 echo '127.0.0.1 travis.khanovaskola.cz' | sudo tee -a /etc/hosts
 
+block "Installing bc"
+sudo apt-get install bc -y
+bc --version
+
 block "Installing beanstalkd"
-sudo apt-get install beanstalkd
+sudo apt-get install beanstalkd -y
 beanstalkd -l 127.0.0.1 -p 13000 &
 
 block "Setting configuration"
