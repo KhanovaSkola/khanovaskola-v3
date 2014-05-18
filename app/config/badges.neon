@@ -1,10 +1,5 @@
-services:
-	-
-		class: App\Rme\Badges\VideoWatched
-		tags: [kdyby.subscriber]
-	-
-		class: App\Rme\Badges\UserOldWeek
-		tags: [kdyby.subscriber]
-	-
-		class: App\Rme\Badges\ExerciseMastery
-		tags: [kdyby.subscriber]
+events:
+	subscribers:
+		- App\Rme\Badges\VideoWatched
+		- App\Rme\Badges\UserOldWeek
+		- App\Rme\Badges\ExerciseMastery
