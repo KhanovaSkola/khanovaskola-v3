@@ -5,7 +5,6 @@ namespace App\Components;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
 use App\Orm\Entity;
-use Nette\Application\UI\Form;
 use Nette\Forms\Controls;
 
 
