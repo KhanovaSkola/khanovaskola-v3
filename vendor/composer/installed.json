@@ -1422,60 +1422,6 @@
         ]
     },
     {
-        "name": "mikulas/nette-google",
-        "version": "v1.0.0-alpha",
-        "version_normalized": "1.0.0.0-alpha",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/nette-google.git",
-            "reference": "afd8f667dd1424cffca9d4388e79a60e119da7d9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/nette-google/zipball/afd8f667dd1424cffca9d4388e79a60e119da7d9",
-            "reference": "afd8f667dd1424cffca9d4388e79a60e119da7d9",
-            "shasum": ""
-        },
-        "require": {
-            "google/apiclient": "~1.0.4-beta",
-            "nette/nette": "~2.1",
-            "php": ">=5.4"
-        },
-        "time": "2014-04-26 10:16:15",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Mikulas\\Google\\": "src/"
-            },
-            "classmap": [
-                "src/Mikulas/Google/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikuláš Dítě",
-                "email": "mikulas@dite.pro"
-            },
-            {
-                "name": "Google",
-                "homepage": "https://github.com/google/google-api-php-client/graphs/contributors"
-            }
-        ],
-        "description": "Google authentication for Nette ~2.1",
-        "keywords": [
-            "Authentication",
-            "auth",
-            "google",
-            "login",
-            "nette"
-        ]
-    },
-    {
         "name": "symfony/yaml",
         "version": "v2.5.0-BETA2",
         "version_normalized": "2.5.0.0-beta2",
@@ -3177,5 +3123,77 @@
         ],
         "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
         "homepage": "https://github.com/PetrP/Access"
+    },
+    {
+        "name": "kdyby/google",
+        "version": "v0.1",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Google.git",
+            "reference": "3ce06f7d0efaedc2fa37c7cf0a7dc517d716d72d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Google/zipball/3ce06f7d0efaedc2fa37c7cf0a7dc517d716d72d",
+            "reference": "3ce06f7d0efaedc2fa37c7cf0a7dc517d716d72d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "google/apiclient": "~1.0.4@beta",
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-13 11:27:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Google\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Google/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            },
+            {
+                "name": "Mikuláš Dítě",
+                "email": "mikulas@dite.pro"
+            },
+            {
+                "name": "Google",
+                "homepage": "https://github.com/google/google-api-php-client/graphs/contributors"
+            }
+        ],
+        "description": "Google API wrapper and authentication for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "Authentication",
+            "auth",
+            "google",
+            "login",
+            "nette"
+        ]
     }
 ]

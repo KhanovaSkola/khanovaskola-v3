@@ -24,7 +24,7 @@
 		"ezyang/htmlpurifier": "~4.6.0",
 		"pda/pheanstalk": "~2.1.0",
 		"kdyby/facebook": "@dev",
-		"mikulas/nette-google": "~1.0.0-alpha",
+		"kdyby/google": "~0.1.0",
         "everyman/neo4jphp": "@dev",
 		"vrtak-cz/newrelic-nette": "~3.0.1"
 	},

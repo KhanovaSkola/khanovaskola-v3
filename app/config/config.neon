@@ -34,7 +34,7 @@ extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
 	redis: Kdyby\Redis\DI\RedisExtension
 	events: Kdyby\Events\DI\EventsExtension
-	google: Mikulas\Google\DI\GoogleExtension
+	google: Kdyby\Google\DI\GoogleExtension
 	newrelic: VrtakCZ\NewRelic\Extension
 
 newrelic:
@@ -51,6 +51,9 @@ events:
 
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
+
+google:
+	returnUri: 'Auth:googleResponse'
 
 services:
 	- App\Rme\UsersRepository
