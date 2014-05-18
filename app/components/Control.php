@@ -2,15 +2,20 @@
 
 namespace App\Components;
 
-use Nette\Latte\Engine;
-use Nette\Templating\FileTemplate;
+use Nette\Bridges\ApplicationLatte\Template;
 
 
-/**
- * @property-read FileTemplate $template
- */
 abstract class Control extends \Nette\Application\UI\Control
 {
+
+	/** @var Template */
+	protected $template;
+
+	protected function attached($presenter)
+	{
+		parent::attached($presenter);
+		$this->template = $this->presenter->getTemplateFactory()->createTemplate($this);
+	}
 
 	protected function getTemplateFile($view)
 	{
@@ -36,16 +41,12 @@ abstract class Control extends \Nette\Application\UI\Control
 		$method = 'render' . ucFirst($view);
 
 		$this->beforeRender();
-		$this->template->setFile($this->getTemplateFile($view));
-
-		$latte = new Engine;
-		$this->template->registerFilter($latte);
 
 		if (method_exists($this, $method))
 		{
 			call_user_func_array([$this, $method], $args);
 		}
-		$this->template->render();
+		$this->template->render($this->getTemplateFile($view));
 	}
 
 	public function beforeRender()

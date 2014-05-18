@@ -5,7 +5,7 @@ namespace App\Rme;
 use App;
 use App\MustNeverHappenException;
 use App\Orm\Repository;
-use Nette\Utils\Neon;
+use Nette\Neon\Neon;
 
 
 /**

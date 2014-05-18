@@ -6,7 +6,7 @@ use App\DeprecatedException;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Mikulas\Diagnostics\ElasticSearchLogger;
-use Nette\Utils\Neon;
+use Nette\Neon\Neon;
 
 
 class ElasticSearch extends Client

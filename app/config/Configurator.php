@@ -2,18 +2,12 @@
 
 namespace App;
 
-use App\Services\ElasticSearch;
-use App\Services\Neo4j;
-use Everyman\Neo4j\Command\GetServerInfo;
-use Mikulas\Diagnostics\Queries\DibiQuery;
-use Mikulas\Diagnostics\Queries\ElasticSearchQuery;
-use Mikulas\Diagnostics\Queries\Neo4jQuery;
-use Mikulas\Diagnostics\QueryPanel;
 use Nette;
 use Nette\DI;
 use Nette\DI\Container;
 use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
+use Nette\Neon\Neon;
 use RuntimeException;
 
 
@@ -122,54 +116,11 @@ class Configurator extends Nette\Configurator
 	public function onAfterConfigVersion(Container $container)
 	{
 		$params = $this->getParameters();
-		$example = Nette\Utils\Neon::decode(file_get_contents($params['appDir'] . '/config/config.local.example.neon'));
+		$example = Neon::decode(file_get_contents($params['appDir'] . '/config/config.local.example.neon'));
 		if (!isset($container->parameters['configVersion']) || $container->parameters['configVersion'] !== $example['parameters']['configVersion'])
 		{
 			throw new ConfigFileNotUpToDateException;
 		}
-	}
-
-	public function onAfterQueryPanel(Container $container)
-	{
-		if (!$this->debugMode)
-		{
-			return;
-		}
-
-		/** @var QueryPanel $panel */
-		$panel = $container->getService('queryPanel');
-		Nette\Diagnostics\Debugger::getBar()->addPanel($panel);
-
-		/** @var \DibiConnection $dibi */
-		$dibi = $container->getService('dibiConnection');
-		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
-			$panel->addQuery(new DibiQuery($event));
-		};
-
-		/** @var Neo4j $neo4j */
-		$neo4j = $container->getService('neo4j');
-		$neo4j->onEvent[] = function($command, $result) use ($panel, $neo4j) {
-			if (! $command instanceof GetServerInfo)
-			{
-				$panel->addQuery(new Neo4jQuery($command, $result, $neo4j->getTransport()));
-			}
-		};
-
-		/** @var ElasticSearch $elastic */
-		$elastic = $container->getService('elastic');
-		$request = NULL;
-		$elastic->onEvent[] = function($message, $content) use ($panel, &$request) {
-			if ($message === 'Request Body')
-			{
-				$request = $content[0];
-				return;
-			}
-			if ($request && $message === 'Response')
-			{
-				$panel->addQuery(new ElasticSearchQuery($request, $content[0]));
-				$request = NULL;
-			}
-		};
 	}
 
 	/**

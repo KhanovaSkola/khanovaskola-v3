@@ -6,7 +6,6 @@ use App\NotImplementedException;
 use App\Orm\Entity;
 use App\Rme\Blueprint;
 use Nette\Application\UI\Form;
-use Nette\ComponentModel\IContainer;
 
 
 class BlueprintForm extends FormWrapper

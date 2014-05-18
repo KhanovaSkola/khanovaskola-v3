@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Model;
 use Nette;
-use Nette\Diagnostics\Debugger;
+use Tracy\Debugger;
 
 
 final class ErrorPresenter extends BasePresenter

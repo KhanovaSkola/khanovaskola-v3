@@ -6,7 +6,7 @@ use App\Orm\Mapper\Mapper;
 use App\Rme\RepositoryContainer;
 use Nelmio\Alice\Loader\Porm;
 use Nette\Caching\Cache;
-use Nette\DateTime;
+use Nette\Utils\DateTime;
 use Orm;
 
 
