@@ -8,8 +8,8 @@ use Google_Exception;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
-use Mikulas\Google\Dialog\LoginDialog as GoogleLoginDialog;
-use Mikulas\Google\Google;
+use Kdyby\Google\Dialog\LoginDialog as GoogleLoginDialog;
+use Kdyby\Google\Google;
 use Nette;
 use Nette\Http\Session;
 use Nette\Security\Identity;
@@ -115,53 +115,51 @@ final class AuthPresenter extends BasePresenter
 
 	protected function createComponentGoogleLogin()
 	{
-		/** @var GoogleLoginDialog $dialog */
-		$dialog = $this->google->createLoginDialog();
-		$dialog->onResponse[] = function(GoogleLoginDialog $dialog)
+		return $this->google->createLoginDialog();
+	}
+
+	public function actionGoogleResponse()
+	{
+		try
 		{
+			$me = $this->google->getProfile();
+
 			$newUser = FALSE;
-			try
+			$userEntity = $this->orm->users->getByGoogleId($me->id);
+			if (!$userEntity)
 			{
-				$google = $dialog->getGoogle();
-				$me = $google->getIdentity();
-				$userEntity = $this->orm->users->getByGoogleId($me['sub']);
-				if (!$userEntity)
-				{
-					$userEntity = $this->orm->users->getByEmail($me['email']);
-				}
-				if (!$userEntity)
-				{
-					$newUser = TRUE;
-					$userEntity = new User();
-					$this->orm->users->attach($userEntity);
-
-					$userEntity->email = $me['email'];
-					$userEntity->gender = $me['gender'];
-					$userEntity->name = $me['name'];
-					$userEntity->familyName = $me['family_name'];
-					$userEntity->setNominativeAndVocative($me['given_name']);
-				}
-				$userEntity->googleId = $me['sub'];
-				$userEntity->googleAccessToken = $google->getAccessToken();
-
-				$this->orm->flush(); // persist $userEntity
-
-				$this->user->login(new Identity($userEntity->id));
-
-				$this->onLogin($userEntity, $newUser);
+				$userEntity = $this->orm->users->getByEmail($me->email);
 			}
-			catch (Google_Exception $e)
+			if (!$userEntity)
 			{
-				$this->log->addAlert('Google login request failed', [
-					'error' => $e->getMessage(),
-				]);
-				$this->flashError('auth.flash.google.error');
+				$newUser = TRUE;
+				$userEntity = new User();
+				$this->orm->users->attach($userEntity);
+
+				$userEntity->email = $me->email;
+				$userEntity->gender = $me->gender;
+				$userEntity->name = $me->name;
+				$userEntity->familyName = $me->familyName;
+				$userEntity->setNominativeAndVocative($me->givenName);
 			}
+			$userEntity->googleId = $me->id;
+			$userEntity->googleAccessToken = $this->google->getAccessToken()['access_token'];
 
-			$this->redirect('this');
-		};
+			$this->orm->flush();
 
-		return $dialog;
+			$this->user->login(new Identity($userEntity->id));
+
+			$this->onLogin($userEntity, $newUser);
+		}
+		catch (Google_Exception $e)
+		{
+			$this->log->addAlert('Google login request failed', [
+				'error' => $e->getMessage(),
+			]);
+			$this->flashError('auth.flash.google.error');
+		}
+
+		$this->redirect('this');
 	}
 
 	/**
