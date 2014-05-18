@@ -1232,66 +1232,6 @@
         ]
     },
     {
-        "name": "kdyby/events",
-        "version": "v2.0.2",
-        "version_normalized": "2.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Events.git",
-            "reference": "bbe97b55366457d920e30b3d7b90daa336375e54"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Events/zipball/bbe97b55366457d920e30b3d7b90daa336375e54",
-            "reference": "bbe97b55366457d920e30b3d7b90daa336375e54",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "time": "2014-03-13 23:29:55",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Events\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Events/exceptions.php"
-            ],
-            "files": [
-                "src/Doctrine/compatibility.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Events for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "kdyby",
-            "nette"
-        ]
-    },
-    {
         "name": "ezyang/htmlpurifier",
         "version": "v4.6.0",
         "version_normalized": "4.6.0.0",
@@ -2336,44 +2276,6 @@
         ]
     },
     {
-        "name": "mikulas/nette-panel-queries",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/mikulas/nette-panel-queries.git",
-            "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/1994e681b2a58946b281a767caf2bb820b8d08d5",
-            "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1.0"
-        },
-        "time": "2014-05-04 11:06:48",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Mikulas\\Diagnostics\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Tracy panel listing queries to all storages"
-    },
-    {
         "name": "latte/latte",
         "version": "v2.2.0",
         "version_normalized": "2.2.0.0",
@@ -2728,51 +2630,6 @@
         ]
     },
     {
-        "name": "vrtak-cz/newrelic-nette",
-        "version": "v3.0.1",
-        "version_normalized": "3.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Vrtak-CZ/NewRelic-Nette.git",
-            "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Vrtak-CZ/NewRelic-Nette/zipball/3cc7f2d906e6893dc787136e7ed57f46df59be00",
-            "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1.0",
-            "php": ">=5.3.0"
-        },
-        "time": "2014-02-07 14:32:15",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "VrtakCZ\\NewRelic": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Patrik Votoček",
-                "email": "patrik@votocek.cz",
-                "homepage": "http://patrik.votocek.cz",
-                "role": "Developer"
-            }
-        ],
-        "description": "NewRelic PHP agent integration for Nette Framework",
-        "keywords": [
-            "nette",
-            "newrelic"
-        ]
-    },
-    {
         "name": "nette/nette",
         "version": "v2.1.2",
         "version_normalized": "2.1.2.0",
@@ -2955,136 +2812,6 @@
         ]
     },
     {
-        "name": "kdyby/redis",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Redis.git",
-            "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Redis/zipball/892e5544f0bee338d9469d2e3a5307b60776ec8e",
-            "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.6",
-            "nette/tester": "@dev"
-        },
-        "suggest": {
-            "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
-        },
-        "time": "2014-05-13 21:18:09",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Redis\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Redis/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Redis storage for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "cache",
-            "client",
-            "kdyby",
-            "nette",
-            "redis"
-        ]
-    },
-    {
-        "name": "kdyby/facebook",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Facebook.git",
-            "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/141b738f306ee7a7296a57a5506e5e05131f3d39",
-            "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "kdyby/curl-ca-bundle": "~1.0",
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.6",
-            "nette/tester": "@dev"
-        },
-        "time": "2014-05-13 21:18:09",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Facebook\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Facebook/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            },
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Facebook PHP SDK for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "facebook",
-            "nette",
-            "sdk"
-        ]
-    },
-    {
         "name": "petrp/access",
         "version": "v0.2.2",
         "version_normalized": "0.2.2.0",
@@ -3195,5 +2922,280 @@
             "login",
             "nette"
         ]
+    },
+    {
+        "name": "kdyby/events",
+        "version": "v2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Events.git",
+            "reference": "505d12dc444355dc4eff9e2b1e861c2c4542cf5b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Events/zipball/505d12dc444355dc4eff9e2b1e861c2c4542cf5b",
+            "reference": "505d12dc444355dc4eff9e2b1e861c2c4542cf5b",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev",
+            "symfony/event-dispatcher": "~2.4"
+        },
+        "time": "2014-05-13 11:27:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Events\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Events/exceptions.php"
+            ],
+            "files": [
+                "src/Doctrine/compatibility.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Events for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "kdyby",
+            "nette"
+        ]
+    },
+    {
+        "name": "kdyby/redis",
+        "version": "v3.1.0",
+        "version_normalized": "3.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Redis.git",
+            "reference": "68d312a2193801b683e27d4423d356e72a68e640"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Redis/zipball/68d312a2193801b683e27d4423d356e72a68e640",
+            "reference": "68d312a2193801b683e27d4423d356e72a68e640",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "suggest": {
+            "ext-redis": "The php redis extension https://github.com/nicolasff/phpredis/ is required for connecting to redis server"
+        },
+        "time": "2014-05-13 11:27:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Redis\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Redis/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Redis storage for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "cache",
+            "client",
+            "kdyby",
+            "nette",
+            "redis"
+        ]
+    },
+    {
+        "name": "kdyby/facebook",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Facebook.git",
+            "reference": "b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d",
+            "reference": "b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "kdyby/curl-ca-bundle": "~1.0",
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-13 11:27:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Facebook\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Facebook/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            },
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Facebook PHP SDK for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "facebook",
+            "nette",
+            "sdk"
+        ]
+    },
+    {
+        "name": "vrtak-cz/newrelic-nette",
+        "version": "v3.0.1",
+        "version_normalized": "3.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Vrtak-CZ/NewRelic-Nette.git",
+            "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Vrtak-CZ/NewRelic-Nette/zipball/3cc7f2d906e6893dc787136e7ed57f46df59be00",
+            "reference": "3cc7f2d906e6893dc787136e7ed57f46df59be00",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1.0",
+            "php": ">=5.3.0"
+        },
+        "time": "2014-02-07 14:32:15",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "VrtakCZ\\NewRelic": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Patrik Votoček",
+                "email": "patrik@votocek.cz",
+                "homepage": "http://patrik.votocek.cz",
+                "role": "Developer"
+            }
+        ],
+        "description": "NewRelic PHP agent integration for Nette Framework",
+        "keywords": [
+            "nette",
+            "newrelic"
+        ]
+    },
+    {
+        "name": "mikulas/nette-panel-queries",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/nette-panel-queries.git",
+            "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/1994e681b2a58946b281a767caf2bb820b8d08d5",
+            "reference": "1994e681b2a58946b281a767caf2bb820b8d08d5",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1.0"
+        },
+        "time": "2014-05-04 11:06:48",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Mikulas\\Diagnostics\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Tracy panel listing queries to all storages"
     }
 ]

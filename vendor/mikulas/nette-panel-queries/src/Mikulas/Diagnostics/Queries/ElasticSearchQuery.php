@@ -30,10 +30,6 @@ class ElasticSearchQuery extends Query
 	 */
 	public function getQuery()
 	{
-		if (!property_exists($this->request, 'query'))
-		{
-			return '<pre>?</pre>';
-		}
 		// TODO render full query
 		$pretty = json_encode($this->request->query, JSON_PRETTY_PRINT);
 		// TODO highlight
@@ -53,10 +49,6 @@ class ElasticSearchQuery extends Query
 	 */
 	public function getRowCount()
 	{
-		if (!property_exists($this->response, 'hits'))
-		{
-			return NULL;
-		}
 		return $this->response->hits->total;
 	}
 

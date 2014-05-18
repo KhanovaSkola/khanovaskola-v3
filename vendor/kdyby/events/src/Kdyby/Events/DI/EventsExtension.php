@@ -33,8 +33,14 @@ if (isset(Nette\Loaders\NetteLoader::getInstance()->renamed['Nette\Configurator'
  */
 class EventsExtension extends Nette\DI\CompilerExtension
 {
-	const EVENT_TAG = 'kdyby.event';
-	const SUBSCRIBER_TAG = 'kdyby.subscriber';
+	/** @deprecated */
+	const EVENT_TAG = self::TAG_EVENT;
+	/** @deprecated */
+	const SUBSCRIBER_TAG = self::TAG_SUBSCRIBER;
+
+	const TAG_EVENT = 'kdyby.event';
+	const TAG_SUBSCRIBER = 'kdyby.subscriber';
+
 	const PANEL_COUNT_MODE = 'count';
 
 	/**
@@ -78,7 +84,14 @@ class EventsExtension extends Nette\DI\CompilerExtension
 			->setClass('Kdyby\Events\EventManager')
 			->setInject(FALSE);
 		if ($config['debugger']) {
-			$evm->addSetup('Kdyby\Events\Diagnostics\Panel::register(?, ?)->renderPanel = ?', array('@self', '@container', $config['debugger'] !== self::PANEL_COUNT_MODE));
+			$defaults = array('dispatchTree' => FALSE, 'dispatchLog' => TRUE, 'events' => TRUE, 'listeners' => FALSE);
+			if (is_array($config['debugger'])) {
+				$config['debugger'] = Nette\DI\Config\Helpers::merge($config['debugger'], $defaults);
+			} else {
+				$config['debugger'] = $config['debugger'] !== self::PANEL_COUNT_MODE;
+			}
+
+			$evm->addSetup('Kdyby\Events\Diagnostics\Panel::register(?, ?)->renderPanel = ?', array('@self', '@container', $config['debugger']));
 		}
 
 		if ($config['exceptionHandler'] !== NULL) {
@@ -99,6 +112,12 @@ class EventsExtension extends Nette\DI\CompilerExtension
 
 			$def->setAutowired(FALSE);
 			$def->addTag(self::SUBSCRIBER_TAG);
+		}
+
+		if (class_exists('Symfony\Component\EventDispatcher\Event')) {
+			$builder->addDefinition($this->prefix('symfonyProxy'))
+				->setClass('Symfony\Component\EventDispatcher\EventDispatcherInterface')
+				->setFactory('Kdyby\Events\SymfonyDispatcher');
 		}
 	}
 
@@ -258,6 +277,10 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	{
 		foreach ($builder->getDefinitions() as $def) {
 			/** @var Nette\DI\ServiceDefinition $def */
+			if ($def->factory instanceof Nette\DI\Statement && $def->factory->entity instanceof Nette\DI\ServiceDefinition) {
+				continue; // alias
+			}
+
 			if (!class_exists($class = $builder->expand($def->class))) {
 				if (!$def->factory) {
 					continue;
@@ -270,19 +293,25 @@ class EventsExtension extends Nette\DI\CompilerExtension
 				}
 			}
 
-			$properties = Nette\Reflection\ClassType::from($class)->getProperties(Nette\Reflection\Property::IS_PUBLIC);
-			foreach ($properties as $property) {
-				if (!preg_match('#^on[A-Z]#', $name = $property->getName())) {
-					continue 1;
-				}
+			$this->bindEventProperties($def, Nette\Reflection\ClassType::from($class));
+		}
+	}
 
-				$def->addSetup('$' . $name, array(
-					new Nette\DI\Statement($this->prefix('@manager') . '::createEvent', array(
-						array($property->getDeclaringClass()->getName(), $name),
-						new Code\PhpLiteral('$service->' . $name)
-					))
-				));
+
+
+	protected function bindEventProperties(Nette\DI\ServiceDefinition $def, Nette\Reflection\ClassType $class)
+	{
+		foreach ($class->getProperties(Nette\Reflection\Property::IS_PUBLIC) as $property) {
+			if (!preg_match('#^on[A-Z]#', $name = $property->getName())) {
+				continue 1;
 			}
+
+			$def->addSetup('$' . $name, array(
+				new Nette\DI\Statement($this->prefix('@manager') . '::createEvent', array(
+					array($property->getDeclaringClass()->getName(), $name),
+					new Code\PhpLiteral('$service->' . $name)
+				))
+			));
 		}
 	}
 
