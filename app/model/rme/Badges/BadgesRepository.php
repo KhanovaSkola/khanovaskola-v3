@@ -38,9 +38,9 @@ class BadgesRepository extends Repository
 			self::$types = [];
 			$raw = file_get_contents(__DIR__ . '/../../../config/badges.neon');
 			$config = Neon::decode($raw);
-			foreach ($config['services'] as $node)
+			foreach ($config['events']['subscribers'] as $class)
 			{
-				self::$types[] = $node['class'];
+				self::$types[] = $class;
 			}
 		}
 
