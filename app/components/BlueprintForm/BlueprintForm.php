@@ -94,7 +94,7 @@ class BlueprintForm extends FormWrapper
 
 	public function onEdit(Form $form, Entity $entity)
 	{
-		$blueprint = $this->updateBlueprint($form->values, $entity);
+		$this->updateBlueprint($form->values, $entity);
 		$this->blueprints->flush();
 
 		$this->flashMessage('edit ok');
