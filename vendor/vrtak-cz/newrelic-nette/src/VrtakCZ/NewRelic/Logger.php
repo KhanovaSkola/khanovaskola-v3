@@ -2,7 +2,9 @@
 
 namespace VrtakCZ\NewRelic;
 
-class Logger extends \Nette\Diagnostics\Logger
+use Nette\Application\Application;
+
+class Logger extends \Tracy\Logger
 {
 	/** @var array */
 	private $logLevel;
@@ -12,7 +14,7 @@ class Logger extends \Nette\Diagnostics\Logger
 	 */
 	public function __construct(array $logLevel)
 	{
-		$oldLogger = \Nette\Diagnostics\Debugger::getLogger();
+		$oldLogger = \Tracy\Debugger::getLogger();
 		$this->emailSnooze =& $oldLogger->emailSnooze;
 		$this->mailer =& $oldLogger->mailer;
 		$this->directory =& $oldLogger->directory;
