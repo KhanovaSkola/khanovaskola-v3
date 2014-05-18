@@ -75,6 +75,7 @@ services:
 	facebookPage: App\Services\FacebookPage(%fb.pageId%)
 	neo4j: App\Services\Neo4j(%neo4j.host%, %neo4j.port%)
 	pathFinder: App\Services\PathFinder
+	queryPanel: Tracy\QueryPanel\QueryPanel
 
 	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
