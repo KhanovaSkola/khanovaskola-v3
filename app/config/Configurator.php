@@ -2,6 +2,12 @@
 
 namespace App;
 
+use App\Services\ElasticSearch;
+use App\Services\Neo4j;
+use Everyman\Neo4j\Command\GetServerInfo;
+use Mikulas\Tracy\QueryPanel\DibiQuery;
+use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
+use Mikulas\Tracy\QueryPanel\Neo4jQuery;
 use Nette;
 use Nette\DI;
 use Nette\DI\Container;
@@ -9,6 +15,8 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use Nette\Neon\Neon;
 use RuntimeException;
+use Tracy\Debugger;
+use Tracy\QueryPanel\QueryPanel;
 
 
 /**
@@ -121,6 +129,44 @@ class Configurator extends Nette\Configurator
 		{
 			throw new ConfigFileNotUpToDateException;
 		}
+	}
+
+	public function onAfterQueryPanel(Container $container)
+	{
+		/** @var QueryPanel $panel */
+		$panel = $container->getService('queryPanel');
+		Debugger::getBar()->addPanel($panel);
+
+		/** @var \DibiConnection $dibi */
+		$dibi = $container->getService('dibiConnection');
+		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
+			$panel->addQuery(new DibiQuery($event));
+		};
+
+		/** @var Neo4j $neo4j */
+		$neo4j = $container->getService('neo4j');
+		$neo4j->onEvent[] = function($command, $result) use ($panel, $neo4j) {
+			if (! $command instanceof GetServerInfo)
+			{
+				$panel->addQuery(new Neo4jQuery($command, $result, $neo4j->getTransport()));
+			}
+		};
+
+		/** @var ElasticSearch $elastic */
+		$elastic = $container->getService('elastic');
+		$request = NULL;
+		$elastic->onEvent[] = function($message, $content) use ($panel, &$request) {
+			if ($message === 'Request Body')
+			{
+				$request = $content[0];
+				return;
+			}
+			if ($request && $message === 'Response')
+			{
+				$panel->addQuery(new ElasticSearchQuery($request, $content[0]));
+				$request = NULL;
+			}
+		};
 	}
 
 	/**

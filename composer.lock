@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f6418b8a9dc43285c8ad8f47895cf8ba",
+    "hash": "b68c8a85a1c02fb4f659e045b02af377",
     "packages": [
         {
             "name": "dg/dibi",
@@ -3026,6 +3026,37 @@
             "time": "2014-05-02 16:39:29"
         },
         {
+            "name": "mikulas/query-panel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "/Users/mikulas/Box Sync/Projects/query-panel",
+                "reference": "de3d13d02e4ef462f724f3d58a01a2f554031c8b"
+            },
+            "require": {
+                "latte/latte": "~2.2.0",
+                "nette/utils": "~2.2.0",
+                "tracy/tracy": "~2.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Tracy\\QueryPanel\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite",
+                    "email": "mikulas@dite.pro"
+                }
+            ],
+            "description": "Universal query panel for Tracy",
+            "time": "2014-05-18 22:03:46"
+        },
+        {
             "name": "nelmio/alice",
             "version": "1.6.0",
             "source": {
@@ -3981,7 +4012,8 @@
         "everyman/neo4jphp": 20,
         "kdyby/forms-replicator": 20,
         "elfet/deployer": 20,
-        "mikulas/lattecs": 10
+        "mikulas/lattecs": 10,
+        "mikulas/query-panel": 20
     },
     "platform": {
         "php": ">= 5.5.0"
