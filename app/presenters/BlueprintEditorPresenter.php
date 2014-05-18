@@ -32,6 +32,7 @@ final class BlueprintEditorPresenter extends BasePresenter
 	{
 		$form = new BlueprintForm;
 		$form->setEntity($this->blueprint);
+		$form->injectBlueprints($this->orm->blueprints);
 		return $form;
 	}
 
