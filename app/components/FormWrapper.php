@@ -6,7 +6,6 @@ use App\InvalidArgumentException;
 use App\InvalidStateException;
 use App\Orm\Entity;
 use Nette\Application\UI\Form;
-use Nette;
 use Nette\Forms\Controls;
 
 
