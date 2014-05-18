@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use App\NotImplementedException;
 use App\Orm\Entity;
 use App\Rme\Blueprint;
 use Nette\Application\UI\Form;
@@ -36,14 +37,12 @@ class BlueprintForm extends FormWrapper
 
 	public function onAdd(Form $form)
 	{
-		dump('add');
-		dump($form->values);
+		throw new NotImplementedException;
 	}
 
 	public function onEdit(Form $form, Entity $entity)
 	{
-		dump('edit');
-		dump($form->values);
+		throw new NotImplementedException;
 	}
 
 }
