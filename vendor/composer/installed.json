@@ -4053,5 +4053,63 @@
             "mvc",
             "templating"
         ]
+    },
+    {
+        "name": "kdyby/forms-replicator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Replicator.git",
+            "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/12d716f1b3d3a8c3fe34d2afd0247c7280436556",
+            "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-13 21:18:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Replicator\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Nette forms container replicator aka addDynamic",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "Forms",
+            "addDynamic",
+            "kdyby",
+            "nette",
+            "replicator"
+        ]
     }
 ]
