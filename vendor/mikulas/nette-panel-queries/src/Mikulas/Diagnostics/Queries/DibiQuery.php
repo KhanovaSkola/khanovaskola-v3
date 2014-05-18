@@ -38,7 +38,7 @@ class DibiQuery extends Query
 	 */
 	public function getRowCount()
 	{
-		return method_exists($this->event->result, 'count') ? $this->event->result->count() : NULL;
+		return $this->event->result->count();
 	}
 
 	/**

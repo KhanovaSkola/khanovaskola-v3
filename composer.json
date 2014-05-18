@@ -19,14 +19,14 @@
 		"elasticsearch/elasticsearch": "~1.0.2",
 		"monolog/monolog": "~1.8.0",
 		"morrisonlevi/ardent": "~0.14.0",
-		"kdyby/redis": "@dev",
-		"kdyby/events": "~2.0.2",
+        "kdyby/redis": "~3.1.0",
+        "kdyby/events": "~2.1.0",
 		"ezyang/htmlpurifier": "~4.6.0",
 		"pda/pheanstalk": "~2.1.0",
-		"kdyby/facebook": "@dev",
+        "kdyby/facebook": "~1.1.0",
 		"kdyby/google": "~0.1.0",
         "everyman/neo4jphp": "@dev",
-		"vrtak-cz/newrelic-nette": "~3.0.1"
+        "vrtak-cz/newrelic-nette": "~3.0.1"
 	},
 	"require-dev": {
 		"nette/tester": "~1.1.0",
@@ -35,7 +35,7 @@
 		"codeception/codeception": "~1.8.0",
 		"squizlabs/php_codesniffer": "~1.5.2",
 		"mikulas/lattecs": "~0.3.0-beta",
-		"mikulas/nette-panel-queries": "@dev",
+        "mikulas/nette-panel-queries": "@dev",
 		"petrp/access": "~0.2.2"
 	},
 	"repositories": [

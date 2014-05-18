@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9f7a9a6ada92074f9548a040f665f23a",
+    "hash": "e4a503a0621b94639b6de9f5115d45b3",
     "packages": [
         {
             "name": "dg/dibi",
@@ -397,23 +397,25 @@
         },
         {
             "name": "kdyby/events",
-            "version": "v2.0.2",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Events.git",
-                "reference": "bbe97b55366457d920e30b3d7b90daa336375e54"
+                "reference": "505d12dc444355dc4eff9e2b1e861c2c4542cf5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Events/zipball/bbe97b55366457d920e30b3d7b90daa336375e54",
-                "reference": "bbe97b55366457d920e30b3d7b90daa336375e54",
+                "url": "https://api.github.com/repos/Kdyby/Events/zipball/505d12dc444355dc4eff9e2b1e861c2c4542cf5b",
+                "reference": "505d12dc444355dc4eff9e2b1e861c2c4542cf5b",
                 "shasum": ""
             },
             "require": {
                 "nette/nette": "~2.1@dev"
             },
             "require-dev": {
-                "nette/tester": "@dev"
+                "jakub-onderka/php-parallel-lint": "~0.6",
+                "nette/tester": "@dev",
+                "symfony/event-dispatcher": "~2.4"
             },
             "type": "library",
             "extra": {
@@ -451,20 +453,20 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2014-03-13 23:29:55"
+            "time": "2014-05-13 11:27:42"
         },
         {
             "name": "kdyby/facebook",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Facebook.git",
-                "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39"
+                "reference": "b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/141b738f306ee7a7296a57a5506e5e05131f3d39",
-                "reference": "141b738f306ee7a7296a57a5506e5e05131f3d39",
+                "url": "https://api.github.com/repos/Kdyby/Facebook/zipball/b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d",
+                "reference": "b2f7cbdfc82da8a7f52e8ea262b6c4347d17750d",
                 "shasum": ""
             },
             "require": {
@@ -480,7 +482,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -515,7 +517,7 @@
                 "nette",
                 "sdk"
             ],
-            "time": "2014-05-13 21:18:09"
+            "time": "2014-05-13 11:27:42"
         },
         {
             "name": "kdyby/google",
@@ -589,16 +591,16 @@
         },
         {
             "name": "kdyby/redis",
-            "version": "dev-master",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Redis.git",
-                "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e"
+                "reference": "68d312a2193801b683e27d4423d356e72a68e640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/892e5544f0bee338d9469d2e3a5307b60776ec8e",
-                "reference": "892e5544f0bee338d9469d2e3a5307b60776ec8e",
+                "url": "https://api.github.com/repos/Kdyby/Redis/zipball/68d312a2193801b683e27d4423d356e72a68e640",
+                "reference": "68d312a2193801b683e27d4423d356e72a68e640",
                 "shasum": ""
             },
             "require": {
@@ -614,7 +616,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -647,7 +649,7 @@
                 "nette",
                 "redis"
             ],
-            "time": "2014-05-13 21:18:09"
+            "time": "2014-05-13 11:27:42"
         },
         {
             "name": "monolog/monolog",
@@ -3096,8 +3098,6 @@
     ],
     "minimum-stability": "beta",
     "stability-flags": {
-        "kdyby/redis": 20,
-        "kdyby/facebook": 20,
         "everyman/neo4jphp": 20,
         "elfet/deployer": 20,
         "mikulas/lattecs": 10,

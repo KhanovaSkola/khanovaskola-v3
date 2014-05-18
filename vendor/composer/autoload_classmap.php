@@ -1886,6 +1886,7 @@ return array(
     'Kdyby\\Events\\InvalidListenerException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\InvalidStateException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\MemberAccessException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\NotSupportedException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\OutOfRangeException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Facebook\\Exception' => $vendorDir . '/kdyby/facebook/src/Kdyby/Facebook/exceptions.php',
     'Kdyby\\Facebook\\FacebookApiException' => $vendorDir . '/kdyby/facebook/src/Kdyby/Facebook/exceptions.php',
