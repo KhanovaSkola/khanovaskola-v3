@@ -4,22 +4,20 @@
  *}
 
 <style n:syntax="off">
-	#tracy-queries .highlight td,
-	#tracy-queries tr:hover td { background-color: #EAFCFF !important; }
-	#tracy-queries .tracy-queries-item { min-width: 300px; }
-	#tracy-queries th.elapsed,
-	#tracy-queries td.elapsed { text-align: right; width: 3em; }
-	#tracy-queries th.count,
-	#tracy-queries td.count { text-align: right; width: 32px; }
-	#tracy-queries .storage,
-	#tracy-queries .query { border-left: 4px solid; }
-	#tracy-queries .query .outlier { color: red; }
 	#tracy-queries code pre b { color: blue; }
 	#tracy-queries pre.tracy-dump { background-color: inherit; }
-	#tracy-queries .tracy-queries-overview { margin-bottom: 2ex; }
-	#tracy-queries .tracy-queries-list-header th:first-of-type { padding-left: 11px; }
-	#tracy-queries .tracy-queries-list-header thead { width: 100%; }
-	#tracy-queries .tracy-queries-list-items tbody { max-height: 380px; overflow-y: scroll; display: block; width: 100%; }
+	#tracy-queries input[type="checkbox"] { margin-right: .2em; }
+	#tracy-queries .tracy-queries-item { min-width: 300px; }
+	#tracy-queries .tracy-queries-highlight td,
+	#tracy-queries tr:hover td { background-color: #EAFCFF !important; }
+	#tracy-queries th.tracy-queries-elapsed,
+	#tracy-queries td.tracy-queries-elapsed { text-align: right; width: 4em; }
+	#tracy-queries .tracy-queries-hidden { display: none; }
+	#tracy-queries .tracy-queries-storages { margin-bottom: 2ex; }
+	#tracy-queries .tracy-queries-borderfix { border: 1px solid #E6DFBF; border-width: 1px 0px; }
+	#tracy-queries .tracy-queries-overflow { max-height: 380px; overflow-y: scroll; box-sizing: border-box; display: block; }
+	#tracy-queries .tracy-queries-overflow > table > thead > tr:first-of-type > th { border-top: none; }
+	#tracy-queries .tracy-queries-overflow > table > tbody > tr:last-of-type > td { border-bottom: none; }
 	#tracy-queries .tracy-queries-label-info { position: relative; margin-left: -30px; }
 	#tracy-queries .tracy-queries-label-result { position: relative; margin-left: -40px; }
 	#tracy-queries .tracy-queries-label-fix { margin-top: -18px; }
@@ -27,79 +25,134 @@
 
 <h1>{$title|noescape}</h1>
 
-{var $perStorage = $collector->getElapsedTimePerStorage()}
+{var $perStorage = $collector->getPerStorageInfo()}
 <div id="tracy-queries" n:if="count($perStorage)">
-	<table class="tracy-queries-overview">
-		<tr>
-			<th class="elapsed">ms</th>
-			<th>Storage</th>
-		</tr>
-		<tr n:foreach="$perStorage as $node" data-type="{$node|color}" class="storage" style="border-color: #{$node|color}">
-			<td class="elapsed">{$node->elapsed|number:1}</td>
-			<td>
-				{$node->storageType}
-				<code n:if="$node->databaseName">({$node->databaseName})</code>
-			</td>
-		</tr>
-	</table>
-	<table class="tracy-queries-list-header">
+	<table class="tracy-queries-storages">
 		<thead>
 			<tr>
-				<th class="elapsed">ms</th>
-				<th class="tracy-queries-item">Query</th>
-				<th class="count">Rows</th>
+				<th class="tracy-queries-elapsed">ms</th>
+				<th>Storage</th>
+				<th>Count</th>
 			</tr>
 		</thead>
-	</table>{* css does not support floating headers well *}
-	<table class="tracy-queries-list-items">
 		<tbody>
-			{foreach $collector->queries as $query}
-				{var $isVoid = ! $query instanceof \Tracy\QueryPanel\IQuery}
-				{var $result = $isVoid ? NULL : $query->getResult()}
-				{var $info = $query->getInfo()}
-				<tr data-type="{$query|color}" class="query" style="border-color: #{$query|color}">
-					{var $time = $query->getElapsedTime()}
-					<td class="elapsed" style="color: {$time|colorRange|noescape}">{$time|number:1}</td>
-					<td class="tracy-queries-item">
-						<code>{$query->getQuery()}</code>
-						<div n:if="$info">
-							<span class="tracy-queries-label-info">info</span>
-							<div class="tracy-queries-label-fix">{$info}</div>
-						</div>
-						<div n:if="$result">
-							<span class="tracy-queries-label-result">result</span>
-							<div class="tracy-queries-label-fix">{$result}</div>
-						</div>
-					</td>
-					<td n:inner-if="!$isVoid" class="count">{$query->getResultCount()}</td>
-				</tr>
-			{/foreach}
+			<tr n:foreach="$perStorage as $node" data-storage-id="{$node|storageId}" class="storage">
+				<td class="tracy-queries-elapsed">{$node->elapsed|number:1}</td>
+				<td>
+					<input type="checkbox" checked>
+					{$node->storageType}
+					<code n:if="$node->databaseName">({$node->databaseName})</code>
+				</td>
+				<td>{$node->count}</td>
+			</tr>
 		</tbody>
 	</table>
+	<div class="tracy-queries-borderfix">
+		<div class="tracy-queries-overflow">
+			<table class="tracy-queries-list tracy-queries-border-fix">
+				<thead>
+					<tr>
+						<th class="tracy-queries-elapsed">ms</th>
+						<th class="tracy-queries-item">Query</th>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach $collector->queries as $query}
+						{var $isVoid = ! $query instanceof \Tracy\QueryPanel\IQuery}
+						{var $result = $isVoid ? NULL : $query->getResult()}
+						{var $info = $query->getInfo()}
+						<tr data-storage-id="{$query|storageId}">
+							{var $time = $query->getElapsedTime()}
+							<td class="tracy-queries-elapsed" style="color: {$time|colorRange|noescape}">{$time|number:1}</td>
+							<td class="tracy-queries-item">
+								<code>{$query->getQuery()}</code>
+								<div n:if="$info">
+									<span class="tracy-queries-label-info">info</span>
+									<div class="tracy-queries-label-fix">{$info}</div>
+								</div>
+								<div n:if="$result">
+									<span class="tracy-queries-label-result">result</span>
+									<div class="tracy-queries-label-fix">{$result}</div>
+								</div>
+							</td>
+						</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
 
 	<script type="text/javascript" n:syntax="off">
 		//<![CDATA[
-    	var findStorageRow = function(type) {
-    		var storageRows = document.querySelectorAll('.tracy-queries-overview tr');
-            for (i = 0; i < storageRows.length; ++i) {
-                var row = storageRows[i];
-                if (row.getAttribute('data-type') === type)
-                {
-    				return row;
-    			}
-    		}
-    	}
-    	var rows = document.querySelectorAll('.query');
-    	for (i = 0; i < rows.length; ++i) {
-    		rows[i].addEventListener("mouseenter", function(event) {
-    			var type = event.target.getAttribute('data-type');
-    			findStorageRow(type).setAttribute('class', 'storage highlight');
-    		});
-    		rows[i].addEventListener("mouseleave", function(event) {
-    			var type = event.target.getAttribute('data-type');
-    			findStorageRow(type).setAttribute('class', 'storage');
-    		});
-    	}
+		(function() {
+			var storageRows = document.querySelectorAll('.tracy-queries-storages tr[data-storage-id]');
+			var queryRows = document.querySelectorAll('.tracy-queries-list tr[data-storage-id]');
+			var filter = {};
+
+			var foreach = function(array, cb) {
+				for (i = 0; i < array.length; ++i) {
+					cb(array[i], array[i].getAttribute('data-storage-id'));
+				}
+			};
+
+	        var findStorageRow = function(type) {
+	            var row;
+	            foreach(storageRows, function(storage, t) {
+	                if (t === type) {
+	                    row = storage;
+	                }
+	            });
+	            return row;
+	        };
+
+	        var updateFilteredRows = function() {
+	            foreach(storageRows, function(storage, id) {
+	                filter[id] = storage.querySelector('input').checked;
+	            });
+	            saveState(filter);
+
+				foreach(queryRows, function(query, id) {
+					query.setAttribute('class', filter[id] ? '' : 'tracy-queries-hidden');
+				});
+	        };
+
+			var registerHandlers = function() {
+				foreach(queryRows, function(query, id) {
+					query.addEventListener("mouseenter", function(event) {
+						findStorageRow(id).setAttribute('class', 'storage tracy-queries-highlight');
+					});
+					query.addEventListener("mouseleave", function(event) {
+                        findStorageRow(id).setAttribute('class', 'storage');
+                    });
+				});
+		        foreach(storageRows, function(storage, id) {
+		            storage.addEventListener("click", function(event) {
+                        var checkbox = event.target;
+                        if (!checkbox.getAttribute("type"))
+                        {
+                            checkbox = event.target.parentNode.querySelector('input');
+                            checkbox.checked = !checkbox.checked;
+                        }
+
+                        updateFilteredRows();
+                    });
+		        });
+		    };
+
+	        var saveState = function(filter) {
+				localStorage.setItem("tracy-queries", JSON.stringify(filter));
+			};
+			var loadState = function() {
+				filter = JSON.parse(localStorage.getItem("tracy-queries") || "{}");
+				foreach(storageRows, function(storage, id) {
+					storage.querySelector('input').checked = !(id in filter) || filter[id];
+				});
+	            updateFilteredRows();
+			};
+
+			registerHandlers();
+			loadState();
+		})();
     	//]]>
     </script>
 </div>

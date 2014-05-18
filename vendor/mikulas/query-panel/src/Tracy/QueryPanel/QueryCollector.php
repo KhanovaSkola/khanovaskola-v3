@@ -5,6 +5,9 @@ namespace Tracy\QueryPanel;
 use Nette;
 
 
+/**
+ * @internal
+ */
 class QueryCollector extends Nette\Object
 {
 
@@ -12,7 +15,9 @@ class QueryCollector extends Nette\Object
 	protected $queries = array();
 
 
-
+	/**
+	 * @param IQuery $query
+	 */
 	public function addQuery(IQuery $query)
 	{
 		$this->queries[] = $query;
@@ -35,8 +40,10 @@ class QueryCollector extends Nette\Object
 	}
 
 
-
-	public function getElapsedTimePerStorage()
+	/**
+	 * @return array
+	 */
+	public function getPerStorageInfo()
 	{
 		$elapsed = array();
 		foreach ($this->queries as $query)
@@ -51,9 +58,11 @@ class QueryCollector extends Nette\Object
 					'storageType' => $storage,
 					'databaseName' => $db,
 					'elapsed' => 0,
+					'count' => 0
 				);
 			}
 			$elapsed[$key]->elapsed += $query->getElapsedTime();
+			$elapsed[$key]->count += 1;
 		}
 
 		usort($elapsed, function($a, $b) {

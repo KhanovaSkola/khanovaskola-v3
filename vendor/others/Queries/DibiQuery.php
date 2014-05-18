@@ -67,7 +67,8 @@ class DibiQuery extends Object implements IQuery
 	 */
 	public function getQuery()
 	{
-		return \dibi::dump($this->event->sql);
+		$html = \dibi::dump($this->event->sql, TRUE);
+		return Html::el()->setHtml($html);
 	}
 
 	/**

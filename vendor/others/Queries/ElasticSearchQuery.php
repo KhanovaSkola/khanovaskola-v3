@@ -17,6 +17,10 @@ class ElasticSearchQuery extends Object implements IQuery
 
 	private $response;
 
+	/**
+	 * @param string $request json
+	 * @param string $response json
+	 */
 	public function __construct($request, $response)
 	{
 		$this->request = json_decode($request, TRUE);
@@ -36,7 +40,7 @@ class ElasticSearchQuery extends Object implements IQuery
 	 */
 	public function getResult()
 	{
-		$html = Dumper::toHtml($this->response, [
+		$html = Dumper::toHtml($this->response['hits']['hits'], [
 			Dumper::COLLAPSE => TRUE,
 			Dumper::TRUNCATE => 50,
 		]);
@@ -89,7 +93,13 @@ class ElasticSearchQuery extends Object implements IQuery
 	 */
 	public function getInfo()
 	{
-		// TODO return explain
+		$info = $this->response;
+		unset($info['hits']['hits']);
+		$html = Dumper::toHtml($info, [
+			Dumper::COLLAPSE => TRUE,
+			Dumper::TRUNCATE => 50,
+		]);
+		return Html::el()->setHtml($html);
 	}
 
 }
