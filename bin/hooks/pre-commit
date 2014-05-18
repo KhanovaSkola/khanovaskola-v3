@@ -8,13 +8,13 @@ $ret = 0;
 
 $root = __DIR__ . '/../..';
 $files = [];
-exec(sprintf('cd %s; git diff --cached --name-only', escapeshellarg($root)), $files);
+exec(sprintf('cd %s; git diff-tree --no-commit-id --name-only -r HEAD', escapeshellarg($root)), $files);
 
 $args = [];
 foreach ($files as $file)
 {
 	$path = "$root/$file";
-	if (file_exists($path) && preg_match('~^app/.*\.php$~', $path))
+	if (file_exists($path) && preg_match('~^app/.*\.php$~', $file))
 	{
 		$args[] = escapeshellarg($path);
 	}
