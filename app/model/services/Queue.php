@@ -6,7 +6,6 @@ use App\InvalidStateException;
 use App\Tasks\Task;
 use Nette\Object;
 use Pheanstalk_Connection;
-use Pheanstalk_Job as Job;
 use Pheanstalk_Pheanstalk as Pheanstalk;
 
 

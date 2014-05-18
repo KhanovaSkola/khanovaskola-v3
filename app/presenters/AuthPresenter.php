@@ -8,7 +8,6 @@ use Google_Exception;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
-use Kdyby\Google\Dialog\LoginDialog as GoogleLoginDialog;
 use Kdyby\Google\Google;
 use Nette;
 use Nette\Http\Session;

@@ -8,6 +8,7 @@ use App\InvalidStateException;
 use App\Rme\User;
 use Monolog\Logger;
 use Nette;
+use Nette\Neon\Neon;
 
 
 class Translator implements Nette\Localization\ITranslator
@@ -47,7 +48,7 @@ class Translator implements Nette\Localization\ITranslator
 			throw new FileNotFoundException("Localization file for '$language' not found at '$file'");
 		}
 		$raw = file_get_contents($file);
-		return Nette\Utils\Neon::decode($raw);
+		return Neon::decode($raw);
 	}
 
 	/**

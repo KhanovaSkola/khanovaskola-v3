@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Nette\Object;
-
 
 class BlueprintPurifier extends HtmlPurifier
 {

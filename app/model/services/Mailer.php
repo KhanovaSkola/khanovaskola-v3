@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
+use Latte\Engine;
 use Monolog\Logger;
-use Nette\Latte\Engine;
 use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
 use Nette\Object;
-use Nette\Templating\FileTemplate;
 
 
 class Mailer extends Object
@@ -43,13 +42,8 @@ class Mailer extends Object
 		$msg->setFrom('Khanova škola <please-reply@khanovaskola.cz>');
 		$msg->addTo($recipient);
 
-		$template = new FileTemplate($this->getTemplate($view));
-		$template->registerFilter(new Engine);
-		foreach ($args as $key => $val)
-		{
-			$template->$key = $val;
-		}
-
+		$latte = new Engine;
+		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
 
 		try

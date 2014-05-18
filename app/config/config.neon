@@ -73,7 +73,6 @@ services:
 	elastic: App\Services\ElasticSearch(%elastic%, %appDir%)
 	facebookPage: App\Services\FacebookPage(%fb.pageId%)
 	neo4j: App\Services\Neo4j(%neo4j.host%, %neo4j.port%)
-	queryPanel: Mikulas\Diagnostics\QueryPanel
 	pathFinder: App\Services\PathFinder
 
 	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)

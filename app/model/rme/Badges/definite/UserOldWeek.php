@@ -5,7 +5,7 @@ namespace App\Rme\Badges;
 use App\Rme\Badge;
 use App\Rme\BadgeUserBridges;
 use App\Rme\User;
-use Nette\DateTime;
+use Nette\Utils\DateTime;
 use Orm;
 
 

@@ -3,7 +3,6 @@
 namespace App\Rme;
 
 use App\Orm\Highlight;
-use Nette\Utils\Strings;
 
 
 class BlueprintHighlight extends Highlight
