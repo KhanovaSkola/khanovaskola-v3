@@ -6,7 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/nette/nette/Nette/common/shortcuts.php',
+    $vendorDir . '/tracy/tracy/src/shortcuts.php',
+    $vendorDir . '/nette/nette/Nette/loader.php',
     $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
     $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/elfet/deployer/src/deployer.php',
