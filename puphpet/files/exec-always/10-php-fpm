@@ -1,1 +1,0 @@
-sudo chmod 666 /var/run/php5-fpm.sock

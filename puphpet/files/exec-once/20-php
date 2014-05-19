@@ -13,5 +13,9 @@ echo "$CONF" | sudo tee -a /etc/php5/fpm/php.ini
 echo "$CONF" | sudo tee -a /etc/php5/cli/php.ini
 echo "$CONF" | sudo tee -a /etc/php5/cgi/php.ini
 
+FPM="/etc/php5/fpm/pool.d/www.conf"
+sed -e "s/^;listen.owner/listen.owner/g" "$FPM" | sudo tee "$FPM"
+sed -e "s/^;listen.group/listen.owner/g" "$FPM" | sudo tee "$FPM"
+sed -e "s/^;listen.mode = 0666/listen.mode = 0660/g" "$FPM" | sudo tee "$FPM"
+
 sudo service php5-fpm restart
-sudo chmod 666 /var/run/php5-fpm.sock
