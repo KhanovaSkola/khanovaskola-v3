@@ -249,7 +249,12 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                 $this->clearCluster();
 
                 if ($setup !== null) {
-                    $this->executeTestCase($setup, $testFile);
+                    try {
+                        $this->executeTestCase($setup, $testFile);
+                    } catch (SetupSkipException $e) {
+                        break;  //exit this test since we skipped in the setup
+                    }
+
                 }
                $this->executeTestCase($doc['values'], $testFile);
 
@@ -359,6 +364,16 @@ class YamlRunnerTest extends \PHPUnit_Framework_TestCase
                         $response = array();
 
                     } catch (BadRequest400Exception $exception){
+                        if ($expectedError === 'request') {
+                            $this->assertTrue(true);
+                        } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {
+                            $this->assertTrue(true);
+                        } else {
+                            $this->fail($exception->getMessage());
+                        }
+                        $response = array();
+
+                    } catch (ServerErrorResponseException $exception){
                         if ($expectedError === 'request') {
                             $this->assertTrue(true);
                         } elseif (isset($expectedError) === true && preg_match("/$expectedError/", $exception->getMessage()) === 1) {

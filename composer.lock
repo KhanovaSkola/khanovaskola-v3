@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "23c421b96074063150b05e7b340f7557",
+    "hash": "cab21bb3ec18c99079bef44b0c085e6b",
     "packages": [
         {
             "name": "dg/dibi",
@@ -69,16 +69,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elasticsearch/elasticsearch-php.git",
-                "reference": "fb8241c8c148047d282ddbaddc377dd0690b1ae2"
+                "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/fb8241c8c148047d282ddbaddc377dd0690b1ae2",
-                "reference": "fb8241c8c148047d282ddbaddc377dd0690b1ae2",
+                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
+                "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +122,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2014-03-31 18:32:47"
+            "time": "2014-05-07 15:54:46"
         },
         {
             "name": "everyman/neo4jphp",
@@ -759,16 +759,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.8.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "392ef35fd470638e08d0160d6b1cbab63cb23174"
+                "reference": "65026b610f8c19e61d7242f600530677b0466aac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/392ef35fd470638e08d0160d6b1cbab63cb23174",
-                "reference": "392ef35fd470638e08d0160d6b1cbab63cb23174",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/65026b610f8c19e61d7242f600530677b0466aac",
+                "reference": "65026b610f8c19e61d7242f600530677b0466aac",
                 "shasum": ""
             },
             "require": {
@@ -796,7 +796,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8.x-dev"
+                    "dev-master": "1.9.x-dev"
                 }
             },
             "autoload": {
@@ -823,7 +823,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-03-23 19:50:26"
+            "time": "2014-04-24 13:29:03"
         },
         {
             "name": "morrisonlevi/ardent",
@@ -3054,20 +3054,20 @@
                 }
             ],
             "description": "Universal query panel for Tracy",
-            "time": "2014-05-18 22:03:46"
+            "time": "2014-05-18 22:01:56"
         },
         {
             "name": "nelmio/alice",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "e225020d8e1f0ca867b4219698d6089b7a997761"
+                "reference": "0730001c3be46dedf393ef4168d6239d9969c61c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/e225020d8e1f0ca867b4219698d6089b7a997761",
-                "reference": "e225020d8e1f0ca867b4219698d6089b7a997761",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/0730001c3be46dedf393ef4168d6239d9969c61c",
+                "reference": "0730001c3be46dedf393ef4168d6239d9969c61c",
                 "shasum": ""
             },
             "require": {
@@ -3083,7 +3083,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-master": "1.7.x-dev"
                 }
             },
             "autoload": {
@@ -3108,7 +3108,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2014-02-05 22:35:38"
+            "time": "2014-04-24 13:11:29"
         },
         {
             "name": "nette/tester",

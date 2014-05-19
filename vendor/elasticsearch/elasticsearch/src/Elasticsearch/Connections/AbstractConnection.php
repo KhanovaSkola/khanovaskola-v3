@@ -27,7 +27,7 @@ abstract class AbstractConnection implements ConnectionInterface
     /**
      * @var string
      */
-    protected $transportSchema = 'http';
+    protected $transportSchema = 'http';    // TODO depreciate this default
 
     /**
      * @var string
@@ -75,6 +75,9 @@ abstract class AbstractConnection implements ConnectionInterface
     /** @return string */
     abstract public function getTransportSchema();
 
+    /** @return array */
+    abstract public function getLastRequestInfo();
+
 
     /**
      * Constructor
@@ -86,6 +89,10 @@ abstract class AbstractConnection implements ConnectionInterface
      */
     public function __construct($hostDetails, $connectionParams, LoggerInterface $log, LoggerInterface $trace)
     {
+        if (isset($hostDetails['scheme'])) {
+            $this->transportSchema = $hostDetails['scheme'];
+        }
+
         $host = $this->transportSchema.'://'.$hostDetails['host'].':'.$hostDetails['port'];
         if (isset($hostDetails['path']) === true) {
             $host .= $hostDetails['path'];
