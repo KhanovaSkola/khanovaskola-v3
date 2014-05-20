@@ -5,7 +5,7 @@
     }
 
     var Renderer = {};
-    Renderer.update = function(def, $input, map) {
+    Renderer.saveHook = function(def, $input, map) {
         var serialize = function() {
             for (var k in map) {
                 def[k] = map[k].val();
@@ -15,6 +15,7 @@
         for (var k in map) {
             map[k].on('change', serialize);
         }
+        serialize();
     };
     Renderer.render = function(def, $input) {
         var $group = $('<div></div>')
@@ -30,7 +31,7 @@
         var $max = $('<input type="number" class="form-control">').val(def.max);
         $group.append($min).append($max);
 
-        Renderer.update(def, $input, {
+        Renderer.saveHook(def, $input, {
             'min': $min,
             'max': $max
         });
@@ -43,7 +44,7 @@
             inputs[key] = $('<input class="form-control">').val(def[key]);
             $group.append(inputs[key]);
         }
-        Renderer.update(def, $input, inputs);
+        Renderer.saveHook(def, $input, inputs);
     };
     Renderer.renderList = function(def, $group, $input) {
         var inputs = {};
@@ -51,13 +52,15 @@
             inputs[i] = $('<input class="form-control">').val(def.list[i]);
             $group.append(inputs[i]);
 
-            inputs[i].on('change', function() {
+            var serialize = function() {
                 def.list = [];
                 for (var i in inputs) {
                     def.list.push(inputs[i].val());
                 }
                 $input.val(JSON.stringify(def));
-            })
+            };
+            inputs[i].on('change', serialize);
+            serialize();
         }
         $input.val(JSON.stringify(def));
     };

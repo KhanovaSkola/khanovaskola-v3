@@ -58,13 +58,15 @@ class BlueprintForm extends FormWrapper
 			'answer' => $blueprint->answer,
 		]);
 
+		$id = 0;
 		foreach ($blueprint->vars as $name => $var)
 		{
 			/** @var TextInput $input */
-			$input = $form['vars'][$name]['name'];
+			$input = $form['vars'][$id]['name'];
 			$input->setValue($name);
-			$input = $form['vars'][$name]['definition'];
+			$input = $form['vars'][$id]['definition'];
 			$input->setValue(json_encode($var));
+			$id++;
 		}
 
 		foreach ($blueprint->hints as $i => $hint)
@@ -105,7 +107,10 @@ class BlueprintForm extends FormWrapper
 		$vars = [];
 		foreach ($v->vars as $row)
 		{
-			$vars[$row->name] = json_decode($row->definition);
+			if ($row->name && $row->definition)
+			{
+				$vars[$row->name] = json_decode($row->definition);
+			}
 		}
 		$blueprint->vars = $vars;
 
