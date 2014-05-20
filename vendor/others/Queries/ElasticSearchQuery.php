@@ -6,6 +6,7 @@ use Everyman\Neo4j\Query;
 use Everyman\Neo4j\Transport;
 use Nette\Object;
 use Nette\Utils\Html;
+use Tracy\Debugger;
 use Tracy\Dumper;
 use Tracy\QueryPanel\IQuery;
 
@@ -83,7 +84,7 @@ class ElasticSearchQuery extends Object implements IQuery
 	 */
 	public function getElapsedTime()
 	{
-		return $this->response['took'];
+		return isset($this->response['took']) ? $this->response['took'] : NULL;
 	}
 
 	/**

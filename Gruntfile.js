@@ -14,12 +14,13 @@ module.exports = function(grunt) {
         'www/js/vendor/d3.v3.min.js',
 
         'www/js/app/app.js',
+        'www/js/app/exercise.js',
         'www/js/app/inactivity.js',
         'www/js/app/urlFixes.js',
-        'www/js/app/exercise.js',
+        'www/js/app/components/blueprint.js',
+        'www/js/app/components/columnChart.js',
         'www/js/app/components/gist.js',
-        'www/js/app/components/search.js',
-        'www/js/app/components/columnChart.js'
+        'www/js/app/components/search.js'
     ];
 
     var WATCH_FILES = [

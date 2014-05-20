@@ -33,26 +33,24 @@ class Blueprint extends ContentEntity
 	/**
 	 * @param string $type
 	 * @param string $name
+	 * @param array $options
 	 * @throws \App\NotImplementedException
 	 * @throws \App\InvalidArgumentException
 	 */
-	private function defineVariable($type, $name)
+	private function defineVariable($type, $name, $options)
 	{
 		if (isset($this->vars[$name]))
 		{
 			throw new InvalidArgumentException("Variable '$name' is already defined'");
 		}
 
-		if (in_array($type, [self::TYPE_INT, self::TYPE_LIST, self::TYPE_PLURAL]))
+		if (!in_array($type, [self::TYPE_INT, self::TYPE_LIST, self::TYPE_PLURAL]))
 		{
 			throw new NotImplementedException;
 		}
 
-		$args = func_get_args();
-		$name = array_shift($args);
-
 		$vars = $this->vars;
-		$vars[$name] = $args;
+		$vars[$name] = array_merge(['type' => $type], $options);
 		$this->setValue('vars', $vars);
 	}
 
@@ -64,7 +62,10 @@ class Blueprint extends ContentEntity
 	 */
 	public function defineInteger($name, $min, $max)
 	{
-		$this->defineVariable($name, self::TYPE_INT, $min, $max);
+		$this->defineVariable(self::TYPE_INT, $name, [
+			'min' => $min,
+			'max' => $max,
+		]);
 	}
 
 	/**
@@ -74,7 +75,9 @@ class Blueprint extends ContentEntity
 	 */
 	public function defineList($name, array $values)
 	{
-		$this->defineVariable($name, self::TYPE_LIST, $values);
+		$this->defineVariable(self::TYPE_LIST, $name, [
+			'list' => $values,
+		]);
 	}
 
 	/**
@@ -87,7 +90,12 @@ class Blueprint extends ContentEntity
 	 */
 	public function definePlural($name, $value, $one, $few, $many)
 	{
-		$this->defineVariable($name, self::TYPE_PLURAL, $value, $one, $few, $many);
+		$this->defineVariable(self::TYPE_PLURAL, $name, [
+			'count' => $value,
+			'one' => $one,
+			'few' => $few,
+			'many' => $many
+		]);
 	}
 
 	public function addHint($hint)

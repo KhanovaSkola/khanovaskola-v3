@@ -60,23 +60,19 @@ class BlueprintCompiler extends Object
 
 		$exercise = [];
 		$vars = [];
-		foreach ($blueprint->vars as $var => $options)
+		foreach ($blueprint->vars as $var => $def)
 		{
-			$type = array_shift($options);
-			switch ($type)
+			switch ($def->type)
 			{
 				case 'integer':
-					list($min, $max) = $options;
-					$vars[$var] = rand($min, $max);
+					$vars[$var] = rand($def->min, $def->max);
 					break;
 				case 'list':
-					$list = $options[0];
-					$vars[$var] = $list[rand(0, count($list) - 1)];
+					$vars[$var] = $def->list[rand(0, count($def->list) - 1)];
 					break;
 				case 'plural':
-					list($val, $one, $few, $many) = $options;
-					$val = abs($this->compileString($val, $vars));
-					$vars[$var] = $val === 1 ? $one : ($val >= 2 && $val <= 4 ? $few : $many);
+					$val = abs($this->compileString($def->count, $vars));
+					$vars[$var] = $val === 1 ? $def->one : ($val >= 2 && $val <= 4 ? $def->few : $def->many);
 					break;
 				default:
 					throw new NotImplementedException;

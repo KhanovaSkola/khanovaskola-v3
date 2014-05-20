@@ -1437,6 +1437,22 @@ App.getTimer = function(name) {
     };
 };
 
+$(function() {
+    var $exercise = $('#frm-answer');
+    if (!$exercise.length) {
+        return;
+    }
+
+    App.onInactive.add(function() {
+        $exercise.find('[name=inactivity]').val(true);
+    });
+
+    var timer = App.getTimer('exercise');
+    $exercise.on('submit', function() {
+        $(this).find('[name=time]').val(timer());
+    });
+});
+
 App._idleSince = null;
 
 App._resetIdleTime = function() {
@@ -1486,21 +1502,155 @@ if (window.history.replaceState) {
 	}
 }
 
-$(function() {
-    var $exercise = $('#frm-answer');
-    if (!$exercise.length) {
+(function() {
+    $form = $('#frm-editor-form');
+    if (!$form.length) {
         return;
     }
 
-    App.onInactive.add(function() {
-        $exercise.find('[name=inactivity]').val(true);
-    });
+    var Renderer = {};
+    Renderer.update = function(def, $input, map) {
+        var serialize = function() {
+            for (var k in map) {
+                def[k] = map[k].val();
+            }
+            $input.val(JSON.stringify(def));
+        };
+        for (var k in map) {
+            map[k].on('change', serialize);
+        }
+    };
+    Renderer.render = function(def, $input) {
+        var $group = $('<div style="border:1px solid red"></div>')
+            .text('type: ' + def.type);
+        $input.hide();
+        $input.after($group);
 
-    var timer = App.getTimer('exercise');
-    $exercise.on('submit', function() {
-        $(this).find('[name=time]').val(timer());
+        var method = 'render' + def.type.charAt(0).toUpperCase() + def.type.slice(1);
+        Renderer[method](def, $group, $input);
+    };
+    Renderer.renderInteger = function(def, $group, $input) {
+        var $min = $('<input type="number" class="form-control">').val(def.min);
+        var $max = $('<input type="number" class="form-control">').val(def.max);
+        $group.append($min).append($max);
+
+        Renderer.update(def, $input, {
+            'min': $min,
+            'max': $max
+        });
+    };
+    Renderer.renderPlural = function(def, $group, $input) {
+        var inputs = {};
+        var keys = ['count', 'one', 'few', 'many'];
+        for (var name in keys) {
+            var key = keys[name];
+            inputs[key] = $('<input class="form-control">').val(def[key]);
+            $group.append(inputs[key]);
+        }
+        Renderer.update(def, $input, inputs);
+    };
+    Renderer.renderList = function(def, $group, $input) {
+        var inputs = {};
+        for (var i in def.list) {
+            inputs[i] = $('<input class="form-control">').val(def.list[i]);
+            $group.append(inputs[i]);
+
+            inputs[i].on('change', function() {
+                def.list = [];
+                for (var i in inputs) {
+                    def.list.push(inputs[i].val());
+                }
+                $input.val(JSON.stringify(def));
+            })
+        }
+        $input.val(JSON.stringify(def));
+    };
+
+    $form.find('[data-definition]').each(function(i, input) {
+        var def = JSON.parse($(input).val());
+        Renderer.render(def, $(input));
     });
-});
+})();
+
+(function() {
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width = 960 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom;
+
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        ;//.ticks(10, "%");
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var type = function(d) {
+        d.x = d[0];
+        d.y = +d[1];
+        d.correct = d[2];
+        d.score = d[3];
+        return d;
+    };
+
+    var line = d3.svg.line()
+        .x(function(d) { return x(d.x) + 13; }) // TODO offset must be dynamic
+        .y(function(d) { return y(d.score * 50); });
+
+    $('.column-chart').each(function() {
+        $chart = $(this);
+        $.ajax({
+            url: $chart.data('url'),
+            success: function(data) {
+                data = data.map(type);
+                x.domain(data.map(function(d) { return d.x; }));
+                y.domain([0, d3.max(data, function(d) { return d.y; })]);
+
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
+
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text($chart.data('y-title'));
+
+                svg.selectAll(".bar")
+                    .data(data)
+                    .enter().append("rect")
+                    .attr("class", function(d) { return 'column ' + (d.correct ? 'column-correct' : 'column-wrong'); })
+                    .attr("x", function(d) { return x(d.x); })
+                    .attr("width", x.rangeBand())
+                    .attr("y", function(d) { return y(d.y); })
+                    .attr("height", function(d) { return height - y(d.y); });
+
+                svg.append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("d", line);
+            }
+        });
+    });
+})();
 
 $(function() {
 	var previous;
@@ -1591,83 +1741,3 @@ $(function() {
         }
     );
 });
-
-(function() {
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 960 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
-
-    var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .1);
-
-    var y = d3.scale.linear()
-        .range([height, 0]);
-
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        ;//.ticks(10, "%");
-
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var type = function(d) {
-        d.x = d[0];
-        d.y = +d[1];
-        d.correct = d[2];
-        d.score = d[3];
-        return d;
-    };
-
-    var line = d3.svg.line()
-        .x(function(d) { return x(d.x) + 13; }) // TODO offset must be dynamic
-        .y(function(d) { return y(d.score * 50); });
-
-    $('.column-chart').each(function() {
-        $chart = $(this);
-        $.ajax({
-            url: $chart.data('url'),
-            success: function(data) {
-                data = data.map(type);
-                x.domain(data.map(function(d) { return d.x; }));
-                y.domain([0, d3.max(data, function(d) { return d.y; })]);
-
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(xAxis);
-
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text($chart.data('y-title'));
-
-                svg.selectAll(".bar")
-                    .data(data)
-                    .enter().append("rect")
-                    .attr("class", function(d) { return 'column ' + (d.correct ? 'column-correct' : 'column-wrong'); })
-                    .attr("x", function(d) { return x(d.x); })
-                    .attr("width", x.rangeBand())
-                    .attr("y", function(d) { return y(d.y); })
-                    .attr("height", function(d) { return height - y(d.y); });
-
-                svg.append("path")
-                    .datum(data)
-                    .attr("class", "line")
-                    .attr("d", line);
-            }
-        });
-    });
-})();

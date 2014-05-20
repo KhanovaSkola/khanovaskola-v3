@@ -18,7 +18,7 @@ class BlueprintsMapper extends ContentMapper
 		$events->addCallbackListener($events::HYDRATE_BEFORE, function(EventArguments $args) use ($keys) {
 			foreach ($keys as $key)
 			{
-				$args->data[$key] = json_decode($args->data[$key], TRUE);
+				$args->data[$key] = json_decode($args->data[$key]);
 			}
 		});
 		$events->addCallbackListener($events::SERIALIZE_BEFORE, function(EventArguments $args) use ($keys) {
