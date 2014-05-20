@@ -23,7 +23,7 @@ abstract class Control extends \Nette\Application\UI\Control
 	{
 		parent::attached($presenter);
 		$this->template = $presenter->getTemplateFactory()->createTemplate($this);
-		$this->translator = $presenter->getTranslator();
+		$this->translator = $presenter->translator;
 	}
 
 	protected function getTemplateFile($view)

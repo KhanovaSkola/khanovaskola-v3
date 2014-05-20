@@ -23,9 +23,6 @@ use Nette\Http\Session;
 
 
 /**
- * @property-read RepositoryContainer $orm
- * @property-read Translator $translator
- * @property-read Logger $log
  * @property-read Nette\Templating\FileTemplate $template
  * @property-read User $userEntity
  */
@@ -36,11 +33,26 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	const FLASH_INFO = 'info';
 	const FLASH_SUCCESS = 'success';
 
+	/** @var RepositoryContainer @inject */
+	public $orm;
+
+	/** @var Translator @inject */
+	public $translator;
+
+	/** @var EventManager @inject */
+	public $eventManager;
+
+	/** @var Logger @inject */
+	public $log;
+
+	/** @var Session @inject */
+	public $session;
+
 	public function startup()
 	{
 		parent::startup();
 		$this->translator->setLanguage('cs');
-		$this->getEventManager()->addEventSubscriber($this);
+		$this->eventManager->addEventSubscriber($this);
 	}
 
 	public function getSubscribedEvents()
@@ -56,45 +68,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	}
 
 	/**
-	 * @return RepositoryContainer
-	 */
-	public function getOrm()
-	{
-		return $this->context->getService('orm');
-	}
-
-	/**
-	 * @return Translator
-	 */
-	public function getTranslator()
-	{
-		return $this->context->getByType('App\Services\Translator');
-	}
-
-	/**
-	 * @return EventManager
-	 */
-	private function getEventManager()
-	{
-		return $this->context->getByType('Kdyby\Events\EventManager');
-	}
-
-	/**
 	 * Does not flush automatically!
 	 * @param $event
 	 * @param array $args
 	 */
 	protected function trigger($event, array $args = [])
 	{
-		$this->getEventManager()->dispatchEvent($event, new EventArgsList($args));
-	}
-
-	/**
-	 * @return Logger
-	 */
-	public function getLog()
-	{
-		return $this->context->getService('log');
+		$this->eventManager->dispatchEvent($event, new EventArgsList($args));
 	}
 
 	/**
@@ -151,9 +131,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 
 	public function redirectToAuth()
 	{
-		/** @var Session $session */
-		$session = $this->context->getService('session');
-		$session->getSection('auth')->loginBacklink = $this->storeRequest();
+		$this->session->getSection('auth')->loginBacklink = $this->storeRequest();
 
 		if ($this->user->getLogoutReason() === Nette\Security\IUserStorage::INACTIVITY)
 		{
