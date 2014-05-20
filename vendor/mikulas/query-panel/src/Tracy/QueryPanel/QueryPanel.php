@@ -124,11 +124,18 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 
 		list($min, $max) = $this->extremes;
 
-		$lin = ($value - $min) / ($max - $min);
-		$color = array();
-		for ($i = 0; $i < 3; ++$i)
+		if ($min === $max)
 		{
-			$color[$i] = (int) ($a[$i] + ($b[$i] - $a[$i]) * $lin);
+			$color = $a;
+		}
+		else
+		{
+			$lin = ($value - $min) / ($max - $min);
+			$color = array();
+			for ($i = 0; $i < 3; ++$i)
+			{
+				$color[$i] = (int) ($a[$i] + ($b[$i] - $a[$i]) * $lin);
+			}
 		}
 
 		return 'rgb(' . implode(',', $color) . ')';
