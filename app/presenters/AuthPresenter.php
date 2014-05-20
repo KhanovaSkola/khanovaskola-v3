@@ -102,7 +102,7 @@ final class AuthPresenter extends BasePresenter
 		try
 		{
 			$me = $this->google->getProfile();
-			list($userEntity, $newUser) = $this->registerOrLogin($me, function($id) {
+			$this->registerOrLogin($me, function($id) {
 				return $this->orm->users->getByFacebookId($id);
 			}, function(User $user, $me) {
 				$user->googleId = $me->id;

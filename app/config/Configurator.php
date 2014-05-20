@@ -135,7 +135,7 @@ class Configurator extends Nette\Configurator
 	{
 		if (!$this->isDebugMode())
 		{
-			return FALSE;
+			return;
 		}
 
 		/** @var QueryPanel $panel */

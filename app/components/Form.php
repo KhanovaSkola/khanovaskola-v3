@@ -10,7 +10,7 @@ use Nette\Forms\Controls;
 /**
  * @method Container addDynamic(\string $name, callable $cb)
  */
-class Form extends \Nette\Application\UI\Form
+class Form extends Nette\Application\UI\Form
 {
 
 	public function addSubmit($name = NULL, $caption = NULL)

@@ -6,7 +6,6 @@ use App\Orm\Entity;
 use App\Orm\Repository;
 use App\Rme\Blueprint;
 use App\Rme\BlueprintsRepository;
-use Kdyby\Replicator\Container as Replicator;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
 
@@ -88,6 +87,10 @@ class BlueprintForm extends FormWrapper
 		$this->redirect('this');
 	}
 
+	/**
+	 * @param Form $form
+	 * @param Entity|Blueprint $entity
+	 */
 	public function onEdit(Form $form, Entity $entity)
 	{
 		$this->updateBlueprint($form->values, $entity);
