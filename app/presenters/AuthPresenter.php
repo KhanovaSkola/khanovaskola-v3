@@ -11,7 +11,6 @@ use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Kdyby\Google\Google;
 use Nette;
-use Nette\Http\Session;
 use Nette\Security\Identity;
 use stdClass;
 

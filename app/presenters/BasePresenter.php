@@ -7,7 +7,6 @@ use App\Components\FlashTrait;
 use App\Components\GistRenderer;
 use App\Components\Search;
 use App\DeprecatedException;
-use App\InvalidArgumentException;
 use App\Model\EventList;
 use App\Orm\ContentEntity;
 use App\Orm\Highlight;

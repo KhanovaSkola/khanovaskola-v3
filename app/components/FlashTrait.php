@@ -39,7 +39,7 @@ trait FlashTrait
 			'message' => $this->translator->translate("$key.message", $count, $args),
 			'type' => $type,
 		];
-		$this->getTemplate()->flashes = $messages;
+		$this->getTemplate()->{'flashes'} = $messages;
 		$this->getPresenter()->getFlashSession()->$id = $messages;
 
 		return $flash;
@@ -50,6 +50,7 @@ trait FlashTrait
 	 */
 	final public function flashMessage($message, $type = NULL, $title = NULL)
 	{
+		unset($message, $type, $title); // use vars
 		throw new DeprecatedException('Use flashError, flashInfo or flashSuccess instead');
 	}
 
