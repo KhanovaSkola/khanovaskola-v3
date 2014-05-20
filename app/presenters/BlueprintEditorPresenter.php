@@ -30,7 +30,7 @@ final class BlueprintEditorPresenter extends BasePresenter
 
 	public function createComponentEditor()
 	{
-		$form = new BlueprintForm;
+		$form = new BlueprintForm($this->translator, $this->getTemplateFactory());
 		$form->setEntity($this->blueprint);
 		$form->injectBlueprints($this->orm->blueprints);
 		return $form;
