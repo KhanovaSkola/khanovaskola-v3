@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Model\EventList;
 use App\Rme\User;
 use Google_Exception;
-use Google_Service_Oauth2_Userinfoplus;
+use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
@@ -119,7 +119,7 @@ final class AuthPresenter extends BasePresenter
 	}
 
 	/**
-	 * @param StdClass|Google_Service_Oauth2_Userinfoplus $me
+	 * @param StdClass|ProfileInfo $me
 	 * @param callable $findById
 	 * @param callable $update
 	 * @return \App\Rme\User
@@ -142,8 +142,8 @@ final class AuthPresenter extends BasePresenter
 			$userEntity->email = $me->email;
 			$userEntity->gender = $me->gender;
 			$userEntity->name = $me->name;
-			$userEntity->familyName = $me->familyName;
-			$userEntity->setNominativeAndVocative($me->givenName);
+			$userEntity->familyName = $me instanceof ProfileInfo ? $me->familyName : $me->last_name;
+			$userEntity->setNominativeAndVocative($me instanceof ProfileInfo ? $me->givenName : $me->first_name);
 		}
 
 		$update($userEntity, $me);
