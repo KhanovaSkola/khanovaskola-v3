@@ -4,7 +4,6 @@ namespace App\Presenters;
 
 use App\Orm\ContentEntity;
 use App\Services\PathFinder;
-use Nette\Http\Session;
 
 
 abstract class ContentPresenter extends BasePresenter
