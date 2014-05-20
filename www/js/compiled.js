@@ -1521,7 +1521,7 @@ if (window.history.replaceState) {
         }
     };
     Renderer.render = function(def, $input) {
-        var $group = $('<div style="border:1px solid red"></div>')
+        var $group = $('<div></div>')
             .text('type: ' + def.type);
         $input.hide();
         $input.after($group);
@@ -1597,6 +1597,30 @@ if (window.history.replaceState) {
             };
         }
         Renderer.render(defaults, $input);
+    });
+
+    var $undo;
+    var $pointer;
+    var $undoLink;
+    $container.find('[data-var-remove]').click(function(e) {
+        if ($undoLink) {
+            $undoLink.remove();
+        }
+
+        var $link = $(e.target);
+        var $group = $container.find('[data-var-id="' + $link.data('var-remove') + '"]');
+        $pointer = $('<div></div>');
+        $group.after($pointer);
+        $undoLink = $('<a class="btn btn-link"></a>').text($link.data('label-undo'))
+            .on('click', function() {
+                $pointer.after($undo);
+                $pointer.remove();
+                $undoLink.remove();
+            });
+
+        $group.after($undoLink);
+        $group.detach();
+        $undo = $group;
     });
 })();
 
