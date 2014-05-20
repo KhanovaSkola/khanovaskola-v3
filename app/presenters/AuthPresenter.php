@@ -142,8 +142,8 @@ final class AuthPresenter extends BasePresenter
 			$userEntity->email = $me->email;
 			$userEntity->gender = $me->gender;
 			$userEntity->name = $me->name;
-			$userEntity->familyName = $me instanceof ProfileInfo ? $me->familyName : $me->last_name;
-			$userEntity->setNominativeAndVocative($me instanceof ProfileInfo ? $me->givenName : $me->first_name);
+			$userEntity->familyName = $me instanceof ProfileInfo ? $me->familyName : $me->{'last_name'};
+			$userEntity->setNominativeAndVocative($me instanceof ProfileInfo ? $me->givenName : $me->{'first_name'});
 		}
 
 		$update($userEntity, $me);
