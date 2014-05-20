@@ -22,6 +22,9 @@ final class BlueprintPresenter extends ContentPresenter
 	/** @var Blueprint */
 	protected $blueprint;
 
+	/** @var BlueprintCompiler @inject */
+	public $blueprintCompiler;
+
 	public function startup()
 	{
 		parent::startup();
@@ -34,14 +37,12 @@ final class BlueprintPresenter extends ContentPresenter
 
 	private function getExercise($seed = NULL)
 	{
-		/** @var BlueprintCompiler $compiler */
-		$compiler = $this->context->getByType('App\\Services\\BlueprintCompiler');
 		if ($seed !== NULL)
 		{
-			$compiler->setSeed($seed);
+			$this->blueprintCompiler->setSeed($seed);
 		}
 
-		return $compiler->compile($this->blueprint);
+		return $this->blueprintCompiler->compile($this->blueprint);
 	}
 
 	public function renderDefault($seed = NULL)

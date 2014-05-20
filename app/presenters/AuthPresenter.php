@@ -41,9 +41,7 @@ final class AuthPresenter extends BasePresenter
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();
 
-		/** @var Session $session */
-		$session = $this->context->getService('session');
-		$section = $session->getSection('auth');
+		$section = $this->session->getSection('auth');
 		if ($key = $section->loginBacklink)
 		{
 			unset($section->loginBacklink);
