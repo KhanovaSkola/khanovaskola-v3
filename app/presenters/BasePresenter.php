@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\ColumnChart;
+use App\Components\FlashTrait;
 use App\Components\GistRenderer;
 use App\Components\Search;
 use App\DeprecatedException;
@@ -29,9 +30,7 @@ use Nette\Http\Session;
 abstract class BasePresenter extends Nette\Application\UI\Presenter implements Subscriber
 {
 
-	const FLASH_ERROR = 'danger';
-	const FLASH_INFO = 'info';
-	const FLASH_SUCCESS = 'success';
+	use FlashTrait;
 
 	/** @var RepositoryContainer @inject */
 	public $orm;
@@ -154,53 +153,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 			$this->flashInfo('auth.reason.generic');
 		}
 		$this->redirect('Auth:in');
-	}
-
-	public function flashError($key, $count = NULL, array $args = [])
-	{
-		$this->flash($key, $count, $args, self::FLASH_ERROR);
-	}
-
-	public function flashInfo($key, $count = NULL, array $args = [])
-	{
-		$this->flash($key, $count, $args, self::FLASH_INFO);
-	}
-
-	public function flashSuccess($key, $count = NULL, array $args = [])
-	{
-		$this->flash($key, $count, $args, self::FLASH_SUCCESS);
-	}
-
-	private function flash($key, $count = NULL, array $args = [], $type = NULL)
-	{
-		if (!in_array($type, [
-			self::FLASH_ERROR,
-			self::FLASH_INFO,
-			self::FLASH_SUCCESS,
-		]))
-		{
-			throw new InvalidArgumentException;
-		}
-
-		$id = $this->getParameterId('flash');
-		$messages = $this->getPresenter()->getFlashSession()->$id;
-		$messages[] = $flash = (object) [
-			'title' => $this->translator->translate("$key.title", $count, $args),
-			'message' => $this->translator->translate("$key.message", $count, $args),
-			'type' => $type,
-		];
-		$this->getTemplate()->flashes = $messages;
-		$this->getPresenter()->getFlashSession()->$id = $messages;
-
-		return $flash;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	final public function flashMessage($message, $type = NULL, $title = NULL)
-	{
-		throw new DeprecatedException('Use flashError, flashInfo or flashSuccess instead');
 	}
 
 }

@@ -36,9 +36,4 @@ final class BlueprintEditorPresenter extends BasePresenter
 		return $form;
 	}
 
-	public function renderDefault()
-	{
-
-	}
-
 }
