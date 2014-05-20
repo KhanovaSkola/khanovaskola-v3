@@ -17,8 +17,13 @@
 			<label n:name="question">{_'blueprintEditor.vars'}</label>
 			<div data-definitions>
 		        {foreach $form['vars']->containers as $id => $_tmp}
-		            <input n:name="vars-$id-name" class="form-control">
-		            <input n:name="vars-$id-definition" data-definition class="form-control">
+		            <div data-var-id="{$id}">
+			            <input n:name="vars-$id-name" class="form-control">
+			            <input n:name="vars-$id-definition" data-definition class="form-control">
+			            <a data-var-remove="{$id}" data-label-undo="{_'blueprintEditor.removeUndo'}" class="btn btn-link">
+                            {_'blueprintEditor.removeVar'}
+                        </a>
+			        </div>
 		        {/foreach}
 		    </div>
 	        <div class="btn-group">
