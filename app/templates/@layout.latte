@@ -24,7 +24,9 @@
 		<strong>{$flash->title}</strong> {$flash->message}
 	</div>
 
-	{include content}
+	<div class="container">
+		{include content}
+	</div>
 
 	<script src="{$basePath}/js/compiled.js"></script>
 	{block scripts}{/block}

@@ -63,6 +63,11 @@ abstract class FormWrapper extends Control
 		return $form;
 	}
 
+	public function beforeRender()
+	{
+		$this->template->editMode = (bool) $this->entity;
+	}
+
 	abstract protected function setup(Form $form);
 
 	abstract protected function setupAdd(Form $form);

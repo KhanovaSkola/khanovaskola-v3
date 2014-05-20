@@ -25,7 +25,7 @@ class BlueprintForm extends FormWrapper
 	protected function setup(Form $form)
 	{
 		$form->addText('title');
-		$form->addText('description');
+		$form->addTextArea('description');
 
 		$form->addText('question');
 		$form->addText('answer');
