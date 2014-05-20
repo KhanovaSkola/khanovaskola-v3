@@ -1575,8 +1575,8 @@ if (window.history.replaceState) {
     $form.find('[data-add-type]').on('click', function() {
         var type = $(this).data('add-type');
         var id = $container.find('[data-definition]').length;
-        var $name = $('<input name="vars-' + id + '-name" class="form-control">');
-        var $input = $('<input name="vars-' + id + '-definition" data-definition class="form-control">');
+        var $name = $('<input name="vars[' + id + '][name]" class="form-control">');
+        var $input = $('<input name="vars[' + id + '][definition]" data-definition class="form-control">');
         $container.append($name).append($input);
 
         var defaults = {type: type};
