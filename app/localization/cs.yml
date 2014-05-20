@@ -31,6 +31,13 @@ blueprintEditor:
     integer: 'Celé číslo'
     list: 'Náhodné slovo'
     plural: 'Plurál'
+  submit:
+    new:
+      title: "Cvičení přidáno."
+      message: "Nezapomeň jej důkladně otestovat."
+    edit:
+      title: "Cvičení změněno."
+      message: ""
 
 auth:
   reason:

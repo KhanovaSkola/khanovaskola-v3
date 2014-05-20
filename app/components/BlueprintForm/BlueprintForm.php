@@ -83,7 +83,7 @@ class BlueprintForm extends FormWrapper
 		$this->blueprints->attach($blueprint);
 		$this->blueprints->flush();
 
-		$this->flashMessage('add ok');
+		$this->flashSuccess('blueprintEditor.submit.new');
 		$this->redirect('this');
 	}
 
@@ -96,7 +96,7 @@ class BlueprintForm extends FormWrapper
 		$this->updateBlueprint($form->values, $entity);
 		$this->blueprints->flush();
 
-		$this->flashMessage('edit ok');
+		$this->flashSuccess('blueprintEditor.submit.edit');
 		$this->redirect('this');
 	}
 
