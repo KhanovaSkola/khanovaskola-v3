@@ -43,12 +43,6 @@ class BlueprintForm extends FormWrapper
 
 	protected function setupAdd(Form $form)
 	{
-		/** @var Replicator $c */
-		$c = $form['vars'];
-		$c->createOne();
-
-		$c = $form['hints'];
-		$c->createOne();
 	}
 
 	/**
