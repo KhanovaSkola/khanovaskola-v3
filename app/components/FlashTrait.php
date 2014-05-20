@@ -26,7 +26,7 @@ trait FlashTrait
 
 	private function flash($key, $count = NULL, array $args = [], $type = NULL)
 	{
-		$id = $this->getParameterId('flash');
+		$id = 'flash';
 		$messages = $this->getPresenter()->getFlashSession()->$id;
 		$messages[] = $flash = (object) [
 			'title' => $this->translator->translate("$key.title", $count, $args),
