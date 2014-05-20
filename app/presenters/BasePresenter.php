@@ -48,6 +48,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	/** @var Session @inject */
 	public $session;
 
+	/** @deprecated */
+	public $context;
+
 	public function startup()
 	{
 		parent::startup();
@@ -65,6 +68,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		$this->flashSuccess('badges.awarded', [
 			'badge' => $bridge->title
 		]);
+	}
+
+	/**
+	 * @deprecated
+	 * @throws \App\DeprecatedException
+	 */
+	public function getContext()
+	{
+		throw new DeprecatedException('Use /** @var ClassName @inject */ on public property instead');
 	}
 
 	/**
