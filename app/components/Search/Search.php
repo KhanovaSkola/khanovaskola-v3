@@ -8,10 +8,6 @@ use Nette\Application\UI\Form;
 class Search extends Control
 {
 
-	protected function renderDefault()
-	{
-	}
-
 	protected function createComponentForm()
 	{
 		$form = new Form();

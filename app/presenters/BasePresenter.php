@@ -127,17 +127,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 
 	public function createComponentGist()
 	{
-		return new GistRenderer();
+		return new GistRenderer($this->translator, $this->getTemplateFactory());
 	}
 
 	public function createComponentSearch()
 	{
-		return new Search();
+		return new Search($this->translator, $this->getTemplateFactory());
 	}
 
 	public function createComponentColumnChart()
 	{
-		return new ColumnChart();
+		return new ColumnChart($this->translator, $this->getTemplateFactory());
 	}
 
 	public function redirectToAuth()

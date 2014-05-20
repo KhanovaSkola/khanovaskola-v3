@@ -2,8 +2,8 @@
 
 namespace App\Components;
 
-use App\Presenters\BasePresenter;
 use App\Services\Translator;
+use Nette\Application\UI\ITemplateFactory;
 use Nette\Bridges\ApplicationLatte\Template;
 
 
@@ -13,19 +13,15 @@ abstract class Control extends \Nette\Application\UI\Control
 	use FlashTrait;
 
 	/** @var Template */
-	protected $template;
+	public $template;
 
 	/** @var Translator */
-	protected $translator;
+	public $translator;
 
-	/**
-	 * @param BasePresenter $presenter
-	 */
-	protected function attached($presenter)
+	public function __construct(Translator $translator, ITemplateFactory $templateFactory)
 	{
-		parent::attached($presenter);
-		$this->template = $presenter->getTemplateFactory()->createTemplate($this);
-		$this->translator = $presenter->translator;
+		$this->template = $templateFactory->createTemplate($this);
+		$this->translator = $translator;
 	}
 
 	protected function getTemplateFile($view)
