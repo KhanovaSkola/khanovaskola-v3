@@ -3,4 +3,39 @@
 	 * @param BlueprintForm $control
 	 *}
 
-	{control form}
+	<form n:name="form" class="form-horizontal">
+		<div class="form-group">
+			<label n:name="title">{_'blueprintEditor.title'}</label>
+			<input n:name="title" class="form-control">
+		</div>
+		<div class="form-group">
+            <label n:name="description">{_'blueprintEditor.description'}</label>
+            <textarea n:name="description" class="form-control">...</textarea>
+        </div>
+
+		<div class="form-group">
+			<label n:name="question">{_'blueprintEditor.vars'}</label>
+	        {foreach $form['vars']->containers as $id => $_tmp}
+	            <input n:name="vars-$id-name" class="form-control">
+	            <input n:name="vars-$id-definition" data-definition class="form-control">
+	        {/foreach}
+	      </div>
+
+		<div class="form-group">
+            <label n:name="question">{_'blueprintEditor.question'}</label>
+            <input n:name="question" class="form-control">
+        </div>
+        <div class="form-group">
+            <label n:name="answer">{_'blueprintEditor.answer'}</label>
+            <input n:name="answer" class="form-control">
+        </div>
+
+		<div class="form-group">
+			<label n:name="question">{_'blueprintEditor.hints'}</label>
+			{foreach $form['hints']->containers as $id => $_tmp}
+				<input n:name="hints-$id-hint" class="form-control">
+			{/foreach}
+		</div>
+
+		<input n:name="send" value="{if $editMode}Uložit{else}Vytvořit{/if}" class="btn btn-default">
+	</form>

@@ -17,6 +17,13 @@ test: #TODO remove
       title: "Všecko špatně!"
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
+blueprintEditor:
+  title: 'Název'
+  description: 'Popisek'
+  question: 'Otázka'
+  answer: 'Odpověď'
+  vars: 'Proměnné'
+  hints: 'Nápovědy'
 auth:
   reason:
     generic:
