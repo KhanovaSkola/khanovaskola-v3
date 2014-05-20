@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\DeprecatedException;
+use App\NotSupportedException;
 use Nette\Application\UI\Control as NControl;
 
 
@@ -26,6 +27,11 @@ trait FlashTrait
 
 	private function flash($key, $count = NULL, array $args = [], $type = NULL)
 	{
+		if (! $this instanceof NControl)
+		{
+			throw new NotSupportedException;
+		}
+
 		$id = 'flash';
 		$messages = $this->getPresenter()->getFlashSession()->$id;
 		$messages[] = $flash = (object) [
