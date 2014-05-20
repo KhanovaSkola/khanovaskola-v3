@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Model\EventList;
 use App\Rme\User;
 use Google_Exception;
+use Google_Service_Oauth2_Userinfoplus;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
@@ -12,6 +13,7 @@ use Kdyby\Google\Google;
 use Nette;
 use Nette\Http\Session;
 use Nette\Security\Identity;
+use stdClass;
 
 
 final class AuthPresenter extends BasePresenter
@@ -61,42 +63,20 @@ final class AuthPresenter extends BasePresenter
 		$dialog->onResponse[] = function (FacebookLoginDialog $dialog)
 		{
 			$fb = $dialog->getFacebook();
-
-			if (!$fb->getUser())
-			{
-				$this->flashError('auth.flash.fb.denied');
-				return;
-			}
-
-			$newUser = FALSE;
 			try
 			{
+				if (!$fb->getUser())
+				{
+					$this->flashError('auth.flash.fb.denied');
+					return;
+				}
 				$me = $fb->api('/me');
-				$userEntity = $this->orm->users->getByFacebookId($me->id);
-				if (!$userEntity)
-				{
-					$userEntity = $this->orm->users->getByEmail($me->email);
-				}
-				if (!$userEntity)
-				{
-					$newUser = TRUE;
-					$userEntity = new User();
-					$this->orm->users->attach($userEntity);
-
-					$userEntity->email = $me['email'];
-					$userEntity->gender = $me['gender'];
-					$userEntity->name = $me['name'];
-					$userEntity->familyName = $me['last_name'];
-					$userEntity->setNominativeAndVocative($me['first_name']);
-				}
-				$userEntity->facebookId = $me['id'];
-				$userEntity->facebookAccessToken = $fb->getAccessToken();
-
-				$this->orm->flush(); // persist $userEntity
-
-				$this->user->login(new Identity($userEntity->id));
-
-				$this->onLogin($userEntity, $newUser);
+				$this->registerOrLogin($me, function($id) {
+					return $this->orm->users->getByFacebookId($id);
+				}, function(User $user, $me) use ($fb) {
+					$user->facebookId = $me->id;
+					$user->facebookAccessToken = $fb->getAccessToken();
+				});
 			}
 			catch (FacebookApiException $e)
 			{
@@ -122,33 +102,12 @@ final class AuthPresenter extends BasePresenter
 		try
 		{
 			$me = $this->google->getProfile();
-
-			$newUser = FALSE;
-			$userEntity = $this->orm->users->getByGoogleId($me->id);
-			if (!$userEntity)
-			{
-				$userEntity = $this->orm->users->getByEmail($me->email);
-			}
-			if (!$userEntity)
-			{
-				$newUser = TRUE;
-				$userEntity = new User();
-				$this->orm->users->attach($userEntity);
-
-				$userEntity->email = $me->email;
-				$userEntity->gender = $me->gender;
-				$userEntity->name = $me->name;
-				$userEntity->familyName = $me->familyName;
-				$userEntity->setNominativeAndVocative($me->givenName);
-			}
-			$userEntity->googleId = $me->id;
-			$userEntity->googleAccessToken = $this->google->getAccessToken()['access_token'];
-
-			$this->orm->flush();
-
-			$this->user->login(new Identity($userEntity->id));
-
-			$this->onLogin($userEntity, $newUser);
+			list($userEntity, $newUser) = $this->registerOrLogin($me, function($id) {
+				return $this->orm->users->getByFacebookId($id);
+			}, function(User $user, $me) {
+				$user->googleId = $me->id;
+				$user->googleAccessToken = $this->google->getAccessToken()['access_token'];
+			});
 		}
 		catch (Google_Exception $e)
 		{
@@ -159,6 +118,42 @@ final class AuthPresenter extends BasePresenter
 		}
 
 		$this->redirect('this');
+	}
+
+	/**
+	 * @param StdClass|Google_Service_Oauth2_Userinfoplus $me
+	 * @param callable $findById
+	 * @param callable $update
+	 * @return \App\Rme\User
+	 */
+	private function registerOrLogin($me, $findById, $update)
+	{
+		$userEntity = $findById($me->id);
+
+		$newUser = FALSE;
+		if (!$userEntity)
+		{
+			$userEntity = $this->orm->users->getByEmail($me->email);
+		}
+		if (!$userEntity)
+		{
+			$newUser = TRUE;
+			$userEntity = new User();
+			$this->orm->users->attach($userEntity);
+
+			$userEntity->email = $me->email;
+			$userEntity->gender = $me->gender;
+			$userEntity->name = $me->name;
+			$userEntity->familyName = $me->familyName;
+			$userEntity->setNominativeAndVocative($me->givenName);
+		}
+
+		$update($userEntity, $me);
+		$this->orm->flush();
+
+		$this->user->login(new Identity($userEntity->id));
+
+		$this->onLogin($userEntity, $newUser);
 	}
 
 	/**
