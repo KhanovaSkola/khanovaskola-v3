@@ -24,6 +24,12 @@ blueprintEditor:
   answer: 'Odpověď'
   vars: 'Proměnné'
   hints: 'Nápovědy'
+  addButton: 'přidat'
+  type:
+    integer: 'Celé číslo'
+    list: 'Náhodné slovo'
+    plural: 'Plurál'
+
 auth:
   reason:
     generic:
