@@ -64,6 +64,7 @@ final class BlueprintPresenter extends ContentPresenter
 		$form->addHidden('seed');
 		$form->addHidden('time');
 		$form->addHidden('inactivity');
+		$form->addHidden('hint');
 		$form->addText('answer');
 
 		$form->addSubmit('send');
@@ -79,7 +80,8 @@ final class BlueprintPresenter extends ContentPresenter
 
 		$answer = new Answer($exercise, $v->answer);
 		$answer->time = $v->time;
-		$answer->inactivity = $v->inactivity === 'true';
+		$answer->inactivity = $v->inactivity === 'true'; // js
+		$answer->hint = $v->hint === 'true'; // js
 		if ($exercise->verifyAnswer($answer))
 		{
 			$this->trigger(EventList::CORRECT_ANSWER, [

@@ -103,6 +103,7 @@ badges:
       description: "" #TODO
 
 exercise:
+  showHint: "Zobrazit nápovědu"
   correct:
     title: "Výborně!"
     message: "%answer je správná odpověď."

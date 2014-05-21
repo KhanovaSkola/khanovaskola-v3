@@ -6,14 +6,16 @@
 	<h1>{$exercise->blueprint->title}</h1>
 	<h2>{$exercise->blueprint->description}</h2>
 
-	<h3>{$exercise->question|noescape}</h3>
-	<p>answer: ${$exercise->answer}$</p>
+	<div data-exercise>
+		<h3>{$exercise->question|noescape}</h3>
+		<p>answer: ${$exercise->answer}$</p>
 
-	{control answer}
+		{control answer}
 
-	<ol>
-		<li n:foreach="$exercise->hints as $hint">{$hint|noescape}</li>
-	</ol>
-	<p>Seed: {$exercise->seed}</p>
+		<ol data-hints>
+			<li n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
+		</ol>
+		<a class="btn btn-link" data-show-hint>{_'exercise.showHint'}</a>
+	</div>
 
 	{control columnChart, 'answerChartData', 'blueprint.yAxis'}
