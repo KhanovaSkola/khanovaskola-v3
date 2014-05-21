@@ -13,7 +13,7 @@ class ColumnChart extends Control
 	public function renderDefault($dataPath, $yTitle)
 	{
 		$this->template->dataUrl = $this->presenter->link($dataPath);
-		$this->template->yTitle = $yTitle; // TODO translator
+		$this->template->yTitle = $this->translator->translate($yTitle);
 	}
 
 }
