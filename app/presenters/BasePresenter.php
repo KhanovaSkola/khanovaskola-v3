@@ -2,19 +2,14 @@
 
 namespace App\Presenters;
 
-use App\Components\ColumnChart;
+use App\Components\ControlTrait;
 use App\Components\FlashTrait;
-use App\Components\GistRenderer;
-use App\Components\Search;
 use App\DeprecatedException;
 use App\Model\EventList;
-use App\Orm\ContentEntity;
-use App\Orm\Highlight;
 use App\Rme\BadgeUserBridge;
 use App\Rme\RepositoryContainer;
 use App\Rme\User;
 use App\Services\Translator;
-use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;
@@ -29,7 +24,7 @@ use Nette\Http\Session;
 abstract class BasePresenter extends Nette\Application\UI\Presenter implements Subscriber
 {
 
-	use FlashTrait;
+	use ControlTrait;
 
 	/** @var RepositoryContainer @inject */
 	public $orm;
@@ -78,16 +73,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	}
 
 	/**
-	 * Does not flush automatically!
-	 * @param $event
-	 * @param array $args
-	 */
-	protected function trigger($event, array $args = [])
-	{
-		$this->eventManager->dispatchEvent($event, new EventArgsList($args));
-	}
-
-	/**
 	 * @return User
 	 */
 	public function getUserEntity()
@@ -101,42 +86,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		return $userEntity;
 	}
 
-	public function link($destination, $args = [])
-	{
-		if ($destination instanceof Highlight)
-		{
-			$destination = $destination->getEntity();
-		}
-		if ($destination instanceof ContentEntity)
-		{
-			$type = $destination->getShortEntityName();
-			$param = lcFirst($type) . 'Id';
-			return parent::link("$type:", [$param => $destination->id]);
-		}
-
-		return parent::link($destination, $args);
-	}
-
 	public function beforeRender()
 	{
 		parent::beforeRender();
 		$this->template->setTranslator($this->translator);
 		$this->template->userEntity = $this->userEntity;
-	}
-
-	public function createComponentGist()
-	{
-		return new GistRenderer($this->translator, $this->getTemplateFactory());
-	}
-
-	public function createComponentSearch()
-	{
-		return new Search($this->translator, $this->getTemplateFactory());
-	}
-
-	public function createComponentColumnChart()
-	{
-		return new ColumnChart($this->translator, $this->getTemplateFactory());
 	}
 
 	public function redirectToAuth()
