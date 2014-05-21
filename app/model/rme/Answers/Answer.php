@@ -9,9 +9,10 @@ use Orm;
 /**
  * @property string $answer
  * @property bool $correct
+ * @property bool $hint has user seen hint? {default false}
+ * @property bool $inactivity browser tab hidden during exercise {default false}
  * @property int $seed
  * @property int $time ms elapsed until answer
- * @property bool $inactivity browser tab hidden during exercise {default false}
  *
  * @property \App\Rme\Blueprint $blueprint {m:1 blueprints $answers}
  * @property \App\Rme\User $user {m:1 users $answers}

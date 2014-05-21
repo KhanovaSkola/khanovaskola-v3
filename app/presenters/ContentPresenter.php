@@ -14,6 +14,7 @@ abstract class ContentPresenter extends BasePresenter
 
 	public function beforeRender()
 	{
+		parent::beforeRender();
 		$this->setLayout('content');
 	}
 
