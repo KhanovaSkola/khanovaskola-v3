@@ -10,7 +10,7 @@ use Nette\Bridges\ApplicationLatte\Template;
 abstract class Control extends \Nette\Application\UI\Control
 {
 
-	use FlashTrait;
+	use ControlTrait;
 
 	/** @var Template */
 	public $template;
