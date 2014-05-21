@@ -13,7 +13,7 @@ final class TestPresenter extends BasePresenter
 		$this->error(NULL, IResponse::S404_NOT_FOUND);
 	}
 
-	public function actionDefault()
+	public function renderDefault()
 	{
 		$this->flashSuccess('test.flash.success');
 		$this->flashInfo('test.flash.info');
