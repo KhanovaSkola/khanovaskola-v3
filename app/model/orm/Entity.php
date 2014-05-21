@@ -18,6 +18,8 @@ use Orm;
 abstract class Entity extends Orm\Entity
 {
 
+	use ConstantGetterTrait;
+
 	/**
 	 * For Alice data generator
 	 */
