@@ -28,6 +28,9 @@ class Translator implements Nette\Localization\ITranslator
 	/** @var Logger */
 	private $log;
 
+	/** @var string */
+	private $prefix;
+
 	public function __construct($dir, Logger $log)
 	{
 		$this->dir = $dir;
@@ -41,6 +44,11 @@ class Translator implements Nette\Localization\ITranslator
 		$this->source = $this->getSource("$this->dir/$language.yml", $language);
 	}
 
+	public function setPrefix($prefix)
+	{
+		$this->prefix = $prefix;
+	}
+
 	protected function getSource($file, $language)
 	{
 		if (!file_exists($file))
@@ -52,7 +60,7 @@ class Translator implements Nette\Localization\ITranslator
 	}
 
 	/**
-	 * @param $count
+	 * @param int $count
 	 * @return array of possible keys, ordered by priority
 	 */
 	private function countToKey($count)
@@ -117,6 +125,7 @@ class Translator implements Nette\Localization\ITranslator
 			throw new InvalidStateException('Translator language not set');
 		}
 
+		$steps = $this->prefix . $steps;
 		$text = $this->findTextByKey($steps, $count);
 		if ($text === NULL)
 		{

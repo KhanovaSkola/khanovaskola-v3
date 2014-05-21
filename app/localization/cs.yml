@@ -17,7 +17,7 @@ test: #TODO remove
       title: "Všecko špatně!"
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
-blueprintEditor:
+editor:
   title: 'Název'
   description: 'Popisek'
   question: 'Otázka'
