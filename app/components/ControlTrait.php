@@ -9,7 +9,7 @@ use Nette\Application\UI\Control as NControl;
 
 
 /**
- * Must be used only by NConrol
+ * Must be used only by NControl
  */
 trait ControlTrait
 {
