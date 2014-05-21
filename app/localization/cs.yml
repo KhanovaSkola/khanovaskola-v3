@@ -18,19 +18,19 @@ test: #TODO remove
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
 editor:
-  title: 'Název'
-  description: 'Popisek'
-  question: 'Otázka'
-  answer: 'Odpověď'
-  vars: 'Proměnné'
-  hints: 'Nápovědy'
-  addButton: 'přidat'
-  removeVar: 'smazat proměnnou'
-  removeUndo: 'vrátit zpět'
+  title: "Název"
+  description: "Popisek"
+  question: "Otázka"
+  answer: "Odpověď"
+  vars: "Proměnné"
+  hints: "Nápovědy"
+  addButton: "přidat"
+  removeVar: "smazat proměnnou"
+  removeUndo: "vrátit zpět"
   type:
-    integer: 'Celé číslo'
-    list: 'Náhodné slovo'
-    plural: 'Plurál'
+    integer: "Celé číslo"
+    list: "Náhodné slovo"
+    plural: "Plurál"
   submit:
     new:
       title: "Cvičení přidáno."
@@ -38,6 +38,10 @@ editor:
     edit:
       title: "Cvičení změněno."
       message: ""
+
+columnChart:
+  blueprint:
+    yAxis: "Čas [s]"
 
 auth:
   reason:
