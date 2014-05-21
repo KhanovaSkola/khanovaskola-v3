@@ -5,15 +5,17 @@ namespace App\Components;
 use App\Orm\ContentEntity;
 use App\Orm\Highlight;
 use Kdyby\Events\EventArgsList;
-use Kdyby\Events\NotSupportedException;
 use Nette\Application\UI\Control as NControl;
-use Nette\Application\UI\ITemplateFactory;
 
 
+/**
+ * Must be used only by NConrol
+ */
 trait ControlTrait
 {
 
 	use FlashTrait;
+
 
 	/**
 	 * Does not flush automatically!
@@ -22,7 +24,8 @@ trait ControlTrait
 	 */
 	protected function trigger($event, array $args = [])
 	{
-		$this->getThisAsControl()->eventManager->dispatchEvent($event, new EventArgsList($args));
+		/** @var NControl $this */
+		$this->eventManager->dispatchEvent($event, new EventArgsList($args));
 	}
 
 	public function link($destination, $args = [])
@@ -35,46 +38,31 @@ trait ControlTrait
 		{
 			$type = $destination->getShortEntityName();
 			$param = lcFirst($type) . 'Id';
-			return parent::link("$type:", [$param => $destination->id]);
+
+			$args = [$param => $destination->id];
+			$destination = "$type:";
 		}
 
-		return parent::link($destination, $args);
+		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
+		return NControl::link($destination, $args);
 	}
 
 	public function createComponentGist()
 	{
-		return new GistRenderer($this->getThisAsControl()->translator, $this->getTemplateFactoryInTrait());
+		/** @var NControl $this */
+		return new GistRenderer($this->translator, $this->getPresenter()->getTemplateFactory());
 	}
 
 	public function createComponentSearch()
 	{
-		return new Search($this->getThisAsControl()->translator, $this->getTemplateFactoryInTrait());
+		/** @var NControl $this */
+		return new Search($this->translator, $this->getPresenter()->getTemplateFactory());
 	}
 
 	public function createComponentColumnChart()
 	{
-		return new ColumnChart($this->getThisAsControl()->translator, $this->getTemplateFactoryInTrait());
-	}
-
-	/**
-	 * @return NControl $this
-	 * @throws \Kdyby\Events\NotSupportedException
-	 */
-	private function getThisAsControl()
-	{
-		if (! $this instanceof NControl)
-		{
-			throw new NotSupportedException;
-		}
-		return $this;
-	}
-
-	/**
-	 * @return ITemplateFactory
-	 */
-	private function getTemplateFactoryInTrait()
-	{
-		return $this->getThisAsControl()->getPresenter()->getTemplateFactory();
+		/** @var NControl $this */
+		return new ColumnChart($this->translator, $this->getPresenter()->getTemplateFactory());
 	}
 
 }
