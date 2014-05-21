@@ -8,7 +8,7 @@ use Nette\Forms\Controls\TextInput;
 final class SearchPresenter extends BasePresenter
 {
 
-	public function actionResults($query)
+	public function renderResults($query)
 	{
 		/** @var TextInput $input */
 		$input = $this->getComponent('search-form-query');

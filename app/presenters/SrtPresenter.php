@@ -29,7 +29,7 @@ final class SrtPresenter extends BasePresenter
 		}
 	}
 
-	public function actionDefault()
+	public function renderDefault()
 	{
 		$this->sendResponse(new TextResponse($this->video->getSubtitles()));
 	}
