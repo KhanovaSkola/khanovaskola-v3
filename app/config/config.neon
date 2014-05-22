@@ -17,6 +17,7 @@ parameters:
 	neo4j:
 		host: localhost
 		port: 7474
+	tls: false
 
 php:
 	date.timezone: Europe/Prague
