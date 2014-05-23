@@ -15,8 +15,8 @@ deployer();
 class ProductionTask extends Command
 {
 
-	const SERVER = 'alpha.khanovaskola.cz';
-	const PATH = '/srv/sites/alpha.khanovaskola.cz';
+	const SERVER = 'dev.khanovaskola.cz';
+	const PATH = '/srv/sites/dev.khanovaskola.cz';
 
 	public function setup()
 	{
@@ -37,12 +37,14 @@ class ProductionTask extends Command
 			exit(1);
 		}
 
+//		writeln('Compiling resources for production');
+//		silent();
+//		runLocally('grunt dist');
+//		silent(FALSE);
+
 		connect(self::SERVER, 'deploy', rsa('~/.ssh/id_rsa'));
 
-		writeln('Compiling resources for production');
-		silent();
-		runLocally("grunt dist");
-		silent(FALSE);
+		$newInstallation = !trim(run('ls ' . escapeshellarg(self::PATH) . ' 2>/dev/null'));
 
 		// update commands first
 		$this->uploadFromRoot('bin/');
@@ -52,8 +54,8 @@ class ProductionTask extends Command
 
 		$this->uploadFromRoot('migrations/');
 
-		$this->uploadFromRoot('www/_maintenance.php', NULL, TRUE);
-		$this->uploadFromRoot('www/index.php', NULL, TRUE);
+		$this->uploadFromRootSingleFile('www/_maintenance.php', NULL, TRUE);
+		$this->uploadFromRootSingleFile('www/index.php', NULL, TRUE);
 
 		// uses __vendor if available
 		writeln("\n<fg=blue>Starting maintenance mode</fg=blue>");
@@ -66,7 +68,7 @@ class ProductionTask extends Command
 		$this->uploadFromRoot('www/');
 
 		silent();
-		writeln("Staging new <info>vendor/</info>");
+		writeln('Staging new <info>vendor/</info>');
 		run('rm -rf', self::PATH . '/.vendor_unstage/');
 		run('mv', self::PATH . '/vendor/', self::PATH . '/.vendor_unstage');
 		run('mv', self::PATH . '/__vendor/', self::PATH . '/vendor/');
@@ -75,13 +77,25 @@ class ProductionTask extends Command
 		writeln('Running migrations');
 		$this->console('db:migrate');
 
-		writeln('Purging cache');
-		$this->console('cache:clear');
-
 		// TODO check if config local is set, if not, do not stop maintenance mode
 
-		writeln("<fg=blue>Stopping maintenance mode</fg=blue>\n");
-		$this->console('maintenance:stop');
+		if ($newInstallation)
+		{
+			run('mkdir', self::PATH . '/temp');
+			run('mkdir', self::PATH . '/temp/cache');
+			run('mkdir', self::PATH . '/log');
+
+			writeln('<info>Initial deploy complete, add \'config.local.neon\'</info>');
+			writeln('<info>and then disable maintenance mode manually.</info>');
+		}
+		else
+		{
+			writeln('Purging cache');
+			$this->console('cache:clear');
+
+			writeln("<fg=blue>Stopping maintenance mode</fg=blue>\n");
+			$this->console('maintenance:stop');
+		}
 
 		$time = date('r');
 
@@ -119,6 +133,7 @@ class ProductionTask extends Command
 		echo "[$fill>$empty] $n/$outOf";
 	}
 
+	// TODO add ignored files array
 	private function uploadFromRoot($dir, $target = NULL, $silent = FALSE)
 	{
 		if ($target === NULL)
@@ -136,7 +151,7 @@ class ProductionTask extends Command
 		run('mkdir -p ' . escapeshellarg($target));
 		silent(FALSE);
 
-		$root = realpath($this->container->parameters['appDir'] . "/..");
+		$root = realpath($this->container->parameters['appDir'] . '/..');
 		$query = sprintf('rsync -azP %s %s:%s',
 			escapeshellarg("$root/$dir"),
 			escapeshellarg('deploy@' . self::SERVER),
@@ -152,6 +167,30 @@ class ProductionTask extends Command
 			}
 		});
 		echo "\r" . str_repeat(' ', 50) . "\r";
+	}
+
+	private function uploadFromRootSingleFile($file, $target = NULL, $silent = FALSE)
+	{
+		if ($target === NULL)
+		{
+			$target = $file;
+			if (!$silent) writeln("Uploading <info>$file</info>");
+		}
+		else
+		{
+			if (!$silent) writeln("Uploading <info>$file</info> to <info>$target</info>");
+		}
+		$target = self::PATH . "/$target";
+
+		$root = realpath($this->container->parameters['appDir'] . '/..');
+		$query = sprintf('rsync -avz %s %s:%s',
+			escapeshellarg("$root/$file"),
+			escapeshellarg('deploy@' . self::SERVER),
+			escapeshellarg($target)
+		);
+
+		$process = new Process($query);
+		$process->run();
 	}
 
 	private function console(/* ... */)
@@ -172,6 +211,5 @@ class ProductionTask extends Command
 		silent(FALSE);
 		return $res;
 	}
-
 
 }
