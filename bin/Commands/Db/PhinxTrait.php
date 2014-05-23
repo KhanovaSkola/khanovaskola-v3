@@ -12,8 +12,10 @@ trait PhinxTrait
 
 	use ContainerTrait;
 
+
 	public function setup()
 	{
+		/** @var \Phinx\Console\Command\AbstractCommand|PhinxTrait $this */
 		$this->setConfig($this->getAppConfig());
 
 		$this->setName('db:' . $this->getName());

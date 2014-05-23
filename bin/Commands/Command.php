@@ -5,6 +5,7 @@ namespace Commands;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
@@ -13,7 +14,7 @@ abstract class Command extends BaseCommand
 
 	use ContainerTrait;
 
-	/** @var OutputInterface */
+	/** @var ConsoleOutput */
 	private $output;
 
 	/**
@@ -45,7 +46,9 @@ abstract class Command extends BaseCommand
 		$this->setName($this->getName());
 	}
 
-	public function setup() {}
+	public function setup()
+	{
+	}
 
 	public function run(InputInterface $input, OutputInterface $output)
 	{

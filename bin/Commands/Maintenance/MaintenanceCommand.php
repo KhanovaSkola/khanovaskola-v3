@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Commands\Maintenance;
 
 use Commands\Command;
@@ -20,7 +19,7 @@ abstract class MaintenanceCommand extends Command
 	}
 
 	/**
-	 * Either app runner or mainenance page
+	 * Either app runner or maintenance page
 	 * @return string path
 	 */
 	protected function getIndexFile()

@@ -3,8 +3,6 @@
 namespace Commands\Cache;
 
 use Commands\Command;
-use Nette\Utils\Strings;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -21,10 +19,10 @@ class ClearTask extends Command
 	{
 		$tmp = $this->container->parameters['tempDir'];
 		exec('sudo rm -rf ' . escapeshellarg("$tmp/cache/_*"));
-		$output->writeln("<info>Cache cleared</info>");
+		$output->writeln('<info>Cache cleared</info>');
 
 		file_get_contents('http://vagrant.khanovaskola.cz/tools/opcache/index.php?reset');
-		$output->writeln("<info>Opcache cleared</info>");
+		$output->writeln('<info>Opcache cleared</info>');
 	}
 
 }

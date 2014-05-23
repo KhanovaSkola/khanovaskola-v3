@@ -2,16 +2,10 @@
 
 namespace Commands\Neo;
 
-use App\Model\RepositoryContainer;
-use App\Model\UsersRepository;
-use App\Services\ElasticSearch;
 use App\Services\Neo4j;
 use Commands\Command;
 use Commands\IMightLoseData;
 use Everyman\Neo4j\Cypher\Query;
-use Nelmio\Alice\ORM\Porm;
-use Nelmio\Alice\Loader\Porm as Loader;
-use Nette\Utils\Strings;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -34,9 +28,9 @@ class ResetTask extends Command implements IMightLoseData
 			OPTIONAL MATCH (n)-[r]-()
 			DELETE n,r
 		');
-		$res = $q->getResultSet();
+		$q->getResultSet();
 
-		$output->writeln("<info>All nodes deleted</info>");
+		$output->writeln('<info>All nodes deleted</info>');
 	}
 
 }

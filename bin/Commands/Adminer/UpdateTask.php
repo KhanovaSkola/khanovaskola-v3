@@ -3,8 +3,6 @@
 namespace Commands\Adminer;
 
 use Commands\Command;
-use Nette\Utils\Strings;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -15,14 +13,13 @@ class UpdateTask extends Command
 	public function setup()
 	{
 		$this->setDescription('Updates Adminer to most recent version');
-
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$file = $this->container->parameters['appDir'] . '/../www/tools/db/index.php';
 
-		$output->writeln("Downloading...");
+		$output->writeln('Downloading...');
 		$content = file_get_contents('http://adminer.org/latest.php');
 		file_put_contents($file, $content);
 
