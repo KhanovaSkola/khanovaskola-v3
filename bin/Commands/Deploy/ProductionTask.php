@@ -3,8 +3,6 @@
 namespace Commands\Deploy;
 
 use Commands\Command;
-use Nette\Utils\Strings;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
@@ -37,10 +35,10 @@ class ProductionTask extends Command
 			exit(1);
 		}
 
-//		writeln('Compiling resources for production');
-//		silent();
-//		runLocally('grunt dist');
-//		silent(FALSE);
+		writeln('Compiling resources for production');
+		silent();
+		runLocally('grunt dist');
+		silent(FALSE);
 
 		connect(self::SERVER, 'deploy', rsa('~/.ssh/id_rsa'));
 

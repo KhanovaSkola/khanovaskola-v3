@@ -99,6 +99,8 @@ class FillTask extends Command
 
 	/**
 	 * Formatter
+	 *
+	 * @throws \App\InvalidStateException
 	 * @return string
 	 */
 	public function youtubeId()

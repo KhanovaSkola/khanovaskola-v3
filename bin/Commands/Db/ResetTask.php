@@ -2,13 +2,8 @@
 
 namespace Commands\Db;
 
-use App\Model\RepositoryContainer;
-use App\Model\UsersRepository;
 use Commands\Command;
 use Commands\IMightLoseData;
-use Nelmio\Alice\ORM\Porm;
-use Nelmio\Alice\Loader\Porm as Loader;
-use Nette\Utils\Strings;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -30,8 +25,8 @@ class ResetTask extends Command implements IMightLoseData
 			DROP SCHEMA public CASCADE;
 			CREATE SCHEMA public;
 		');
-		$output->writeln("<info>Schema reset</info>");
-		$output->writeln("<comment>Run <cmd>db:migrate</cmd> to recreate schema</comment>");
+		$output->writeln('<info>Schema reset</info>');
+		$output->writeln('<comment>Run <cmd>db:migrate</cmd> to recreate schema</comment>');
 	}
 
 }

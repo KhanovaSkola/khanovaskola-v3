@@ -31,15 +31,15 @@ class RestoreTask extends Command implements IMightLoseData
 		if (!file_exists($file))
 		{
 			$this->writeln("<error>Archive not found at '$file'</error>");
-			$this->writeln("<comment>Run <cmd>backup:list</cmd> to see all available archives</comment>");
+			$this->writeln('<comment>Run <cmd>backup:list</cmd> to see all available archives</comment>');
 			exit(1);
 		}
 
-		$this->writeLnVerbose("Unarchiving backup file");
+		$this->writeLnVerbose('Unarchiving backup file');
 		$tempDir = $this->getTempDir();
 		exec('tar -C ' . escapeshellarg($tempDir) . ' -zmxvf ' . escapeshellarg($file));
 
-		$this->writeLnVerbose("Importing postgres backup");
+		$this->writeLnVerbose('Importing postgres backup');
 		$p = $this->container->parameters['database'];
 		$query = sprintf('PGPASSWORD=%s pg_restore --host=%s --user=%s %s',
 			escapeshellarg($p['password']),
@@ -49,11 +49,11 @@ class RestoreTask extends Command implements IMightLoseData
 		);
 		exec($query);
 
-		$this->writeLnVerbose("Importing neo4j backup");
-		$this->writeLnVerbose("  - stopping neo4j-service");
+		$this->writeLnVerbose('Importing neo4j backup');
+		$this->writeLnVerbose('  - stopping neo4j-service');
 		exec('sudo service neo4j-service stop');
 
-		$this->writeLnVerbose("  - unarchiving neo4j backup");
+		$this->writeLnVerbose('  - unarchiving neo4j backup');
 		$target = '/var/lib/neo4j/data';
 		$query = sprintf('sudo rm -rf %s && sudo mkdir %s && sudo tar -C %s -zmxvf %s',
 			escapeshellarg($target),
@@ -63,12 +63,12 @@ class RestoreTask extends Command implements IMightLoseData
 		);
 		exec($query);
 
-		$this->writeLnVerbose("  - starting neo4j-service");
+		$this->writeLnVerbose('  - starting neo4j-service');
 		exec('sudo service neo4j-service start');
 
 		$this->cleanUp();
 
-		$this->writeln("<info>Sucessfully restored from archive</info>");
+		$this->writeln('<info>Successfully restored from archive</info>');
 	}
 
 }
