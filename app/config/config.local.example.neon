@@ -7,9 +7,9 @@
 parameters:
 	configVersion: 3
 	database:
-		username:
-		password:
-		database:
+		username: postgres
+		password: 123
+		database: khanovaskola
 	smtp:
 		host: mailtrap.io
 		port: 25
@@ -36,3 +36,6 @@ google:
 	clientId: "653060487240.apps.googleusercontent.com"
 	clientSecret:
 	apiKey:
+
+services:
+	elasticSearchLogger: Mikulas\Diagnostics\ElasticSearchLogger
