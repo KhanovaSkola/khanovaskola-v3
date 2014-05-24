@@ -2,5 +2,5 @@
 
 $I = new WebGuy($scenario);
 $I->wantTo('search by stem');
-$I->amOnPage('/search/results?query=scitani+funkce');
-$I->see('Sčítání funkcí');
+$I->amOnPage('/search/results?query=ucourany+nohy');
+$I->see('nohy ucourané');
