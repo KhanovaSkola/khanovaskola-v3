@@ -34,10 +34,10 @@
 		"elfet/deployer": "@dev",
 		"mikulas/lattecs": "~0.3.0-beta",
 		"mikulas/query-panel": "@dev",
-		"nelmio/alice": "~1.7.0",
 		"nette/tester": "~1.1.0",
 		"petrp/access": "~0.2.2",
-		"squizlabs/php_codesniffer": "~1.5.2"
+		"squizlabs/php_codesniffer": "~1.5.2",
+        "fzaninotto/faker": "@dev"
 	},
 	"repositories": [
 		{

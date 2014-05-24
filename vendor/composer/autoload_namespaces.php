@@ -26,7 +26,6 @@ return array(
     'Phinx' => array($vendorDir . '/robmorgan/phinx/src'),
     'Pheanstalk' => array($vendorDir . '/pda/pheanstalk/classes'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
-    'Nelmio\\Alice\\' => array($vendorDir . '/nelmio/alice/src'),
     'Mikulas\\LatteCS\\' => array($vendorDir . '/mikulas/lattecs/src'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Kdyby\\Replicator\\' => array($vendorDir . '/kdyby/forms-replicator/src'),
