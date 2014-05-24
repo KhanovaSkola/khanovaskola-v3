@@ -3,6 +3,7 @@
 namespace Mikulas\Faker\Provider;
 
 use Faker\Provider\Base;
+use Nette\Utils\Strings;
 
 
 class Custom extends Base
@@ -21,7 +22,7 @@ class Custom extends Base
 
 	public function contentTitle()
 	{
-		$keyword = ucFirst($this->randomElement(static::$keywords));
+		$keyword = Strings::capitalize($this->randomElement(static::$keywords));
 		$for = $this->randomElement(static::$for);
 		$n = $this->optional(.3)->randomDigit();
 		$prepo = $this->randomElement(static::$prepo);
@@ -31,7 +32,7 @@ class Custom extends Base
 
 	public function exerciseQuestion()
 	{
-		$q = ucFirst(self::$interrogatives[array_rand(self::$interrogatives)]);
+		$q = Strings::capitalize(self::$interrogatives[array_rand(self::$interrogatives)]);
 		$verb = $this->randomElement(static::$verb);
 		$noun = $this->randomElement(static::$noun);
 		$prepo = $this->randomElement(static::$prepo);

@@ -20,28 +20,6 @@ abstract class Entity extends Orm\Entity
 
 	use ConstantGetterTrait;
 
-	/**
-	 * For Alice data generator
-	 */
-	public function __setter($name, $value)
-	{
-		// hack to allow multiple calls to same method
-		$name = preg_replace('~_\d+$~', '', $name);
-
-		if ($name === Porm::PERSIST_HACK)
-		{
-			/** @var Orm\Repository $value */
-			$value->attach($this);
-		}
-		else if (method_exists($this, $name))
-		{
-			call_user_func_array([$this, $name], is_array($value) ? $value : [$value]);
-		}
-		else
-		{
-			$this->$name = $value;
-		}
-	}
 
 	/**
 	 * @return Cache
