@@ -108,7 +108,7 @@ class Extension extends \Nette\DI\CompilerExtension
 		$initialize->addBody('$newRelicLogger = new \VrtakCZ\NewRelic\Logger(?);', array(
 			array_unique($config['logLevel'])
 		));
-		$initialize->addBody('\Tracy\Debugger::$logger = $newRelicLogger;');
+		$initialize->addBody('\Tracy\Debugger::setLogger($newRelicLogger);');
 
 		// Options
 		if ('auto' !== $config['rum']['enabled']) {
