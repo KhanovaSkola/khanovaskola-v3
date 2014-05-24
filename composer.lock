@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7c44e37f2742d9463bc006b80b6bbeff",
+    "hash": "6207ba0cb8bbc0056fe068ddc4a78925",
     "packages": [
         {
             "name": "dg/dibi",
@@ -2872,13 +2872,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "5476642acfe1e2851b55debc3f4b6d972338f2a0"
+                "url": "https://github.com/Mikulas/Faker.git",
+                "reference": "2a978ce1a8e031e1ff4863dc044d1178de4a47bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5476642acfe1e2851b55debc3f4b6d972338f2a0",
-                "reference": "5476642acfe1e2851b55debc3f4b6d972338f2a0",
+                "url": "https://api.github.com/repos/Mikulas/Faker/zipball/2a978ce1a8e031e1ff4863dc044d1178de4a47bd",
+                "reference": "2a978ce1a8e031e1ff4863dc044d1178de4a47bd",
                 "shasum": ""
             },
             "require": {
@@ -2900,7 +2900,6 @@
                     "Faker\\PHPUnit": "test/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2915,7 +2914,10 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-05-14 21:18:42"
+            "support": {
+                "source": "https://github.com/Mikulas/Faker/tree/patch-cs_CZ"
+            },
+            "time": "2014-05-24 17:53:46"
         },
         {
             "name": "instaclick/php-webdriver",
