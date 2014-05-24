@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\Comments;
 use App\Rme\Video;
 
 
@@ -31,6 +32,11 @@ final class VideoPresenter extends ContentPresenter
 	{
 		$this->template->video = $this->video;
 		$this->template->suggestions = $this->getSuggestions($this->video);
+	}
+
+	public function createComponentComments()
+	{
+		return new Comments($this->translator, $this->getTemplateFactory(), $this->video, $this->userEntity, $this->orm);
 	}
 
 }
