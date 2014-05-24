@@ -15,13 +15,14 @@ class UsersMapper extends Mapper
 	 */
 	public function getVocative($name, $gender)
 	{
-		return $this->connection->query('
+		$dat = $this->connection->query('
 			SELECT [vocative]
 			FROM [vocatives]
 			WHERE
 				[gender] = %s AND
 				[nominative] = %s
 		', $gender, $name)->fetchSingle();
+		return explode(':', $dat)[0];
 	}
 
 }
