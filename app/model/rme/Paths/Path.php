@@ -11,7 +11,7 @@ use Orm;
 /**
  * @property array $list
  *
- * @property User|NULL $author
+ * @property \App\Rme\User|NULL $author
  */
 class Path extends Entity
 {
