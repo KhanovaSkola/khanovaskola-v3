@@ -53,7 +53,7 @@ class User extends Entity
 		$repo = $this->getRepository();
 
 		$this->setValue('nominative', $name);
-		$this->setValue('vocative', $repo->getVocative($name, $this->gender));
+		$this->setValue('vocative', $repo->getVocative($name, $this->gender) ?: $name);
 	}
 
 	public function setPlainPassword($plaintext)
