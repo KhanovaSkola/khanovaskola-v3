@@ -1,0 +1,8 @@
+{block content}
+	{**
+	 * @param Comment[] $comments
+	 *}
+
+	<div n:foreach="$comments as $comment">
+		{$comment->text} {$comment->author->name}
+	</div>

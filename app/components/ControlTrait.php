@@ -65,4 +65,10 @@ trait ControlTrait
 		return new ColumnChart($this->translator, $this->getPresenter()->getTemplateFactory());
 	}
 
+	public function createComponentComments()
+	{
+		/** @var NControl $this */
+		return new Comments($this->translator, $this->getPresenter()->getTemplateFactory());
+	}
+
 }
