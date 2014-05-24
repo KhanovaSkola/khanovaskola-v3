@@ -47,7 +47,11 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
-		}
+		},
+        {
+            "type": "vcs",
+            "url": "https://github.com/Mikulas/Faker.git"
+        }
 	],
 	"scripts": {
 		"post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],

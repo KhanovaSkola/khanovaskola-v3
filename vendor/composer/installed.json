@@ -4047,13 +4047,13 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/fzaninotto/Faker.git",
-            "reference": "5476642acfe1e2851b55debc3f4b6d972338f2a0"
+            "url": "https://github.com/Mikulas/Faker.git",
+            "reference": "2a978ce1a8e031e1ff4863dc044d1178de4a47bd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5476642acfe1e2851b55debc3f4b6d972338f2a0",
-            "reference": "5476642acfe1e2851b55debc3f4b6d972338f2a0",
+            "url": "https://api.github.com/repos/Mikulas/Faker/zipball/2a978ce1a8e031e1ff4863dc044d1178de4a47bd",
+            "reference": "2a978ce1a8e031e1ff4863dc044d1178de4a47bd",
             "shasum": ""
         },
         "require": {
@@ -4063,7 +4063,7 @@
             "phpunit/phpunit": "~4.0",
             "squizlabs/php_codesniffer": "~1.5"
         },
-        "time": "2014-05-14 21:18:42",
+        "time": "2014-05-24 17:53:46",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4077,7 +4077,6 @@
                 "Faker\\PHPUnit": "test/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -4091,6 +4090,9 @@
             "data",
             "faker",
             "fixtures"
-        ]
+        ],
+        "support": {
+            "source": "https://github.com/Mikulas/Faker/tree/patch-cs_CZ"
+        }
     }
 ]

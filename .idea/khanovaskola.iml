@@ -70,7 +70,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/mikulas/query-panel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/morrisonlevi/ardent" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/nelmio/alice" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/application" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/caching" />
@@ -193,7 +192,6 @@
           <root url="file://$MODULE_DIR$/vendor/codeception/codeception" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
-          <root url="file://$MODULE_DIR$/vendor/nelmio/alice" />
           <root url="file://$MODULE_DIR$/vendor/fzaninotto/faker" />
           <root url="file://$MODULE_DIR$/vendor/nette/safe-stream" />
           <root url="file://$MODULE_DIR$/vendor/tracy/tracy" />
@@ -274,7 +272,6 @@
           <root url="file://$MODULE_DIR$/vendor/codeception/codeception" />
           <root url="file://$MODULE_DIR$/vendor/symfony/process" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
-          <root url="file://$MODULE_DIR$/vendor/nelmio/alice" />
           <root url="file://$MODULE_DIR$/vendor/fzaninotto/faker" />
           <root url="file://$MODULE_DIR$/vendor/nette/safe-stream" />
           <root url="file://$MODULE_DIR$/vendor/tracy/tracy" />
