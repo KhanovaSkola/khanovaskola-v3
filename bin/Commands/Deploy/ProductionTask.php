@@ -61,8 +61,8 @@ class ProductionTask extends Command
 		writeln("\n<fg=blue>Starting maintenance mode</fg=blue>");
 		$this->console('maintenance:start');
 
-		$this->uploadFromRoot('app/', NULL, FALSE, ['app/config/config.local.neon']);
-		$this->uploadFromRoot('www/', NULL, FALSE, ['www/index.php', 'www/_maintenance.php']);
+		$this->uploadFromRoot('app/', NULL, FALSE, ['config.local.neon']);
+		$this->uploadFromRoot('www/', NULL, FALSE, ['index.php', '_maintenance.php']);
 
 		silent();
 		writeln('Staging new <info>vendor/</info>');
