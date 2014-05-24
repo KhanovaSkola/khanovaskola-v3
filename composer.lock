@@ -525,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Replicator.git",
-                "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556"
+                "reference": "438d164dd40b607bff0860f08b4eb3f5dad12a6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/12d716f1b3d3a8c3fe34d2afd0247c7280436556",
-                "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556",
+                "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/438d164dd40b607bff0860f08b4eb3f5dad12a6f",
+                "reference": "438d164dd40b607bff0860f08b4eb3f5dad12a6f",
                 "shasum": ""
             },
             "require": {
@@ -573,7 +573,7 @@
                 "nette",
                 "replicator"
             ],
-            "time": "2014-05-13 21:18:09"
+            "time": "2014-05-21 17:03:55"
         },
         {
             "name": "kdyby/google",
@@ -2125,17 +2125,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.4",
+            "version": "v2.4.5",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "2e452005b1e1d003d23702d227e23614679eb5ca"
+                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/2e452005b1e1d003d23702d227e23614679eb5ca",
-                "reference": "2e452005b1e1d003d23702d227e23614679eb5ca",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/24f723436e62598c9dddee2a8573d6992504dc5d",
+                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d",
                 "shasum": ""
             },
             "require": {
@@ -2176,7 +2176,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-27 13:34:57"
+            "time": "2014-05-14 21:48:29"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2390,16 +2390,16 @@
         },
         {
             "name": "vrtak-cz/newrelic-nette",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/NewRelic-Nette.git",
-                "reference": "3e20ded1b428da8e5cdf73bb9861daac8ac534eb"
+                "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/NewRelic-Nette/zipball/3e20ded1b428da8e5cdf73bb9861daac8ac534eb",
-                "reference": "3e20ded1b428da8e5cdf73bb9861daac8ac534eb",
+                "url": "https://api.github.com/repos/Mikulas/NewRelic-Nette/zipball/77717d6596880f2a82738b6be9e0bb92b3e93e05",
+                "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05",
                 "shasum": ""
             },
             "require": {
@@ -2434,7 +2434,7 @@
                 "issues": "https://github.com/Vrtak-CZ/NewRelic-Nette/issues",
                 "source": "https://github.com/Vrtak-CZ/NewRelic-Nette"
             },
-            "time": "2014-05-18 11:57:16"
+            "time": "2014-05-24 11:41:19"
         }
     ],
     "packages-dev": [

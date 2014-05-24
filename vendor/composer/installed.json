@@ -1929,63 +1929,6 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "symfony/console",
-        "version": "v2.4.4",
-        "version_normalized": "2.4.4.0",
-        "target-dir": "Symfony/Component/Console",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Console.git",
-            "reference": "2e452005b1e1d003d23702d227e23614679eb5ca"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/2e452005b1e1d003d23702d227e23614679eb5ca",
-            "reference": "2e452005b1e1d003d23702d227e23614679eb5ca",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "symfony/event-dispatcher": "~2.1"
-        },
-        "suggest": {
-            "symfony/event-dispatcher": ""
-        },
-        "time": "2014-04-27 13:34:57",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Console\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com",
-                "homepage": "http://fabien.potencier.org",
-                "role": "Lead Developer"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Console Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "elfet/deployer",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -3374,56 +3317,6 @@
         ]
     },
     {
-        "name": "vrtak-cz/newrelic-nette",
-        "version": "v3.1.0",
-        "version_normalized": "3.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/NewRelic-Nette.git",
-            "reference": "3e20ded1b428da8e5cdf73bb9861daac8ac534eb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/NewRelic-Nette/zipball/3e20ded1b428da8e5cdf73bb9861daac8ac534eb",
-            "reference": "3e20ded1b428da8e5cdf73bb9861daac8ac534eb",
-            "shasum": ""
-        },
-        "require": {
-            "nette/application": "~2.2.0",
-            "nette/utils": "~2.2.0",
-            "php": ">=5.3.0",
-            "tracy/tracy": "~2.2.0"
-        },
-        "time": "2014-05-18 11:57:16",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "VrtakCZ\\NewRelic": "src"
-            }
-        },
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Patrik Votoček",
-                "email": "patrik@votocek.cz",
-                "homepage": "http://patrik.votocek.cz",
-                "role": "Developer"
-            }
-        ],
-        "description": "NewRelic PHP agent integration for Nette Framework",
-        "keywords": [
-            "nette",
-            "newrelic"
-        ],
-        "support": {
-            "issues": "https://github.com/Vrtak-CZ/NewRelic-Nette/issues",
-            "source": "https://github.com/Vrtak-CZ/NewRelic-Nette"
-        }
-    },
-    {
         "name": "nette/tokenizer",
         "version": "v2.2.0",
         "version_normalized": "2.2.0.0",
@@ -3870,64 +3763,6 @@
         ]
     },
     {
-        "name": "kdyby/forms-replicator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Replicator.git",
-            "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/12d716f1b3d3a8c3fe34d2afd0247c7280436556",
-            "reference": "12d716f1b3d3a8c3fe34d2afd0247c7280436556",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.6",
-            "nette/tester": "@dev"
-        },
-        "time": "2014-05-13 21:18:09",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Replicator\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Nette forms container replicator aka addDynamic",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "Forms",
-            "addDynamic",
-            "kdyby",
-            "nette",
-            "replicator"
-        ]
-    },
-    {
         "name": "mikulas/query-panel",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -4143,6 +3978,171 @@
             "data",
             "orm",
             "test"
+        ]
+    },
+    {
+        "name": "symfony/console",
+        "version": "v2.4.5",
+        "version_normalized": "2.4.5.0",
+        "target-dir": "Symfony/Component/Console",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Console.git",
+            "reference": "24f723436e62598c9dddee2a8573d6992504dc5d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/24f723436e62598c9dddee2a8573d6992504dc5d",
+            "reference": "24f723436e62598c9dddee2a8573d6992504dc5d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/event-dispatcher": "~2.1"
+        },
+        "suggest": {
+            "symfony/event-dispatcher": ""
+        },
+        "time": "2014-05-14 21:48:29",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Console\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": "http://fabien.potencier.org",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Console Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "vrtak-cz/newrelic-nette",
+        "version": "v3.1.1",
+        "version_normalized": "3.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/NewRelic-Nette.git",
+            "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/NewRelic-Nette/zipball/77717d6596880f2a82738b6be9e0bb92b3e93e05",
+            "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05",
+            "shasum": ""
+        },
+        "require": {
+            "nette/application": "~2.2.0",
+            "nette/utils": "~2.2.0",
+            "php": ">=5.3.0",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-05-24 11:41:19",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "VrtakCZ\\NewRelic": "src"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Patrik Votoček",
+                "email": "patrik@votocek.cz",
+                "homepage": "http://patrik.votocek.cz",
+                "role": "Developer"
+            }
+        ],
+        "description": "NewRelic PHP agent integration for Nette Framework",
+        "keywords": [
+            "nette",
+            "newrelic"
+        ],
+        "support": {
+            "issues": "https://github.com/Vrtak-CZ/NewRelic-Nette/issues",
+            "source": "https://github.com/Vrtak-CZ/NewRelic-Nette"
+        }
+    },
+    {
+        "name": "kdyby/forms-replicator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Replicator.git",
+            "reference": "438d164dd40b607bff0860f08b4eb3f5dad12a6f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/438d164dd40b607bff0860f08b4eb3f5dad12a6f",
+            "reference": "438d164dd40b607bff0860f08b4eb3f5dad12a6f",
+            "shasum": ""
+        },
+        "require": {
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-05-21 17:03:55",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Replicator\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Nette forms container replicator aka addDynamic",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "Forms",
+            "addDynamic",
+            "kdyby",
+            "nette",
+            "replicator"
         ]
     }
 ]
