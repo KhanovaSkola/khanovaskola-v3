@@ -17,6 +17,11 @@ test: #TODO remove
       title: "Všecko špatně!"
       message: "Tohle se nedá opravit a doporučuju smazat appku."
 
+comments:
+  added:
+    title: "Komentář přidán." # TODO if contains ? "Otázka přidána"
+    message: ""
+
 editor:
   title: "Název"
   description: "Popisek"
