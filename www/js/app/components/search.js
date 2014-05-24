@@ -1,5 +1,5 @@
 App.elasticSearch = new $.es.Client({
-	hosts: 'vagrant.khanovaskola.cz:9200'
+	hosts: '@@domain.elastic'
 });
 
 App.autocomplete = function(query, cb) {
