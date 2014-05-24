@@ -12,6 +12,7 @@ use Orm;
  * @property string $youtubeIdOriginal filled if dubbed {default ''}
  *
  * @property Orm\OneToMany $videoWatchedBadges {1:m badgeUserBridges $video}
+ * @property Orm\OneToMany $comments {1:m comments $video}
  */
 class Video extends ContentEntity
 {
