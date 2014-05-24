@@ -42,7 +42,9 @@ class ProductionTask extends Command
 
 		connect(self::SERVER, 'deploy', rsa('~/.ssh/id_rsa'));
 
+		silent();
 		$newInstallation = !trim(run('ls ' . escapeshellarg(self::PATH) . ' 2>/dev/null'));
+		silent(FALSE);
 
 		// update commands first
 		$this->uploadFromRoot('bin/');
@@ -59,11 +61,8 @@ class ProductionTask extends Command
 		writeln("\n<fg=blue>Starting maintenance mode</fg=blue>");
 		$this->console('maintenance:start');
 
-		ignore(['*/config.local.neon']);
-		$this->uploadFromRoot('app/');
-
-		ignore(['*/index.php', '*/_maintenance.php']);
-		$this->uploadFromRoot('www/');
+		$this->uploadFromRoot('app/', NULL, FALSE, ['app/config/config.local.neon']);
+		$this->uploadFromRoot('www/', NULL, FALSE, ['www/index.php', 'www/_maintenance.php']);
 
 		silent();
 		writeln('Staging new <info>vendor/</info>');
@@ -83,7 +82,7 @@ class ProductionTask extends Command
 			run('mkdir', self::PATH . '/temp/cache');
 			run('mkdir', self::PATH . '/log');
 
-			writeln('<info>Initial deploy complete, add \'config.local.neon\'</info>');
+			writeln("<info>Initial deploy complete, add 'config.local.neon'</info>");
 			writeln('<info>and then disable maintenance mode manually.</info>');
 		}
 		else
@@ -131,8 +130,7 @@ class ProductionTask extends Command
 		echo "[$fill>$empty] $n/$outOf";
 	}
 
-	// TODO add ignored files array
-	private function uploadFromRoot($dir, $target = NULL, $silent = FALSE)
+	private function uploadFromRoot($dir, $target = NULL, $silent = FALSE, array $exclude = [])
 	{
 		if ($target === NULL)
 		{
@@ -150,8 +148,15 @@ class ProductionTask extends Command
 		silent(FALSE);
 
 		$root = realpath($this->container->parameters['appDir'] . '/..');
-		$query = sprintf('rsync -azP %s %s:%s',
+
+		$excludeStr = '';
+		foreach ($exclude as $ex)
+		{
+			$excludeStr .= ' --exclude=' . escapeshellarg($ex);
+		}
+		$query = sprintf('rsync -azP %s %s %s:%s',
 			escapeshellarg("$root/$dir"),
+			$excludeStr,
 			escapeshellarg('deploy@' . self::SERVER),
 			escapeshellarg($target)
 		);
@@ -181,6 +186,7 @@ class ProductionTask extends Command
 		$target = self::PATH . "/$target";
 
 		$root = realpath($this->container->parameters['appDir'] . '/..');
+
 		$query = sprintf('rsync -avz %s %s:%s',
 			escapeshellarg("$root/$file"),
 			escapeshellarg('deploy@' . self::SERVER),
