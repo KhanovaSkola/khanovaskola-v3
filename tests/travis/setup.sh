@@ -52,4 +52,4 @@ block "Provisioning"
 psql -c 'create database khanovaskola;' -U postgres
 bin/console db:migrate
 bin/console es:recreate
-bin/console db:fill --testdata
+bin/console db:fill
