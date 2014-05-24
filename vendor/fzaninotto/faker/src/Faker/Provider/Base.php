@@ -3,7 +3,7 @@
 namespace Faker\Provider;
 
 use Faker\Generator;
-use Faker\NullGenerator;
+use Faker\DefaultGenerator;
 use Faker\UniqueGenerator;
 
 class Base
@@ -102,15 +102,15 @@ class Base
     /**
      * Returns a random number between $from and $to
      *
-     * @param integer $from
-     * @param integer $to
+     * @param integer $from default to 0
+     * @param integer $to   defaults to 32 bit max integer, ie 2147483647
      * @example 79907610
      *
      * @return integer
      */
-    public static function numberBetween($from = null, $to = null)
+    public static function numberBetween($from = 0, $to = 2147483647)
     {
-        return mt_rand($from ?: 0, $to ?: 2147483647); // 32bit compat default
+        return mt_rand($from, $to);
     }
 
     /**
@@ -124,6 +124,42 @@ class Base
     }
 
     /**
+     * Returns random elements from a provided array
+     *
+     * @param  array            $array Array to take elements from. Defaults to a-f
+     * @param  integer          $count Number of elements to take.
+     * @throws \LengthException When requesting more elements than provided
+     *
+     * @return array New array with $count elements from $array
+     */
+    public static function randomElements(array $array = array('a', 'b', 'c'), $count = 1)
+    {
+        $allKeys = array_keys($array);
+        $numKeys = count($allKeys);
+
+        if ($numKeys < $count) {
+            throw new \LengthException(sprintf('Cannot get %d elements, only %d in array', $count, $numKeys));
+        }
+
+        $highKey = $numKeys - 1;
+        $keys = $elements = array();
+        $numElements = 0;
+
+        while ($numElements < $count) {
+            $num = mt_rand(0, $highKey);
+            if (isset($keys[$num])) {
+                continue;
+            }
+
+            $keys[$num] = true;
+            $elements[] = $array[$allKeys[$num]];
+            $numElements++;
+        }
+
+        return $elements;
+    }
+
+    /**
      * Returns a random element from a passed array
      *
      * @param  array $array
@@ -131,7 +167,12 @@ class Base
      */
     public static function randomElement($array = array('a', 'b', 'c'))
     {
-        return $array ? $array[self::randomKey($array)] : null;
+        if (!$array) {
+            return null;
+        }
+        $elements = static::randomElements($array, 1);
+
+        return $elements[0];
     }
 
     /**
@@ -190,7 +231,8 @@ class Base
 
     /**
      * Converts string to lowercase.
-     * Uses mb_string extension if available
+     * Uses mb_string extension if available.
+     *
      * @param  string $string String that should be converted to lowercase
      * @return string
      */
@@ -201,7 +243,8 @@ class Base
 
     /**
      * Converts string to uppercase.
-     * Uses mb_string extension if available
+     * Uses mb_string extension if available.
+     *
      * @param  string $string String that should be converted to uppercase
      * @return string
      */
@@ -211,18 +254,19 @@ class Base
     }
 
     /**
-     * Chainable method for making any formatter optional
-     * @param float $weight Set the percentage that the formatter is empty.
-     *                      "0" would always return null, "1" would always return the formatter
+     * Chainable method for making any formatter optional.
+     *
+     * @param  float      $weight Set the probability of receiving a null value.
+     *                            "0" will always return null, "1" will always return the generator.
      * @return mixed|null
      */
-    public function optional($weight = 0.5)
+    public function optional($weight = 0.5, $default = null)
     {
         if (mt_rand() / mt_getrandmax() <= $weight) {
             return $this->generator;
         }
 
-        return new NullGenerator();
+        return new DefaultGenerator($default);
     }
 
     /**
@@ -233,9 +277,9 @@ class Base
      * $faker->unique()->randomElement(array(1, 2, 3));
      * </code>
      *
-     * @param boolean $reset      If set to true, resets the list of existing values
-     * @param integer $maxRetries Maximum number of retries to find a unique value,
-     *                            After which an OverflowExcption is thrown.
+     * @param  boolean           $reset      If set to true, resets the list of existing values
+     * @param  integer           $maxRetries Maximum number of retries to find a unique value,
+     *                                       After which an OverflowExcption is thrown.
      * @throws OverflowException When no unique value can be found by iterating $maxRetries times
      *
      * @return UniqueGenerator A proxy class returning only non-existing values

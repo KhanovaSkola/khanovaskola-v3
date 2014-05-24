@@ -52,6 +52,11 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual(BaseProvider::numberBetween($min, $max), $max);
     }
 
+    public function testNumberBetweenAcceptsZeroAsMax()
+    {
+        $this->assertEquals(0, BaseProvider::numberBetween(0, 0));
+    }
+
     public function testRandomFloat()
     {
         $min = 4;
@@ -82,6 +87,11 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
         $this->assertTrue(strpos($lowercaseLetters, BaseProvider::randomLetter()) !== false);
+    }
+
+    public function testRandomElementReturnsNullWhenArrayEmpty()
+    {
+        $this->assertNull(BaseProvider::randomElement(array()));
     }
 
     public function testRandomElementReturnsElementFromArray()
@@ -228,5 +238,28 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         }
         sort($values);
         $this->assertEquals(array(0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9), $values);
+    }
+
+    /**
+     * @expectedException LengthException
+     * @expectedExceptionMessage Cannot get 2 elements, only 1 in array
+     */
+    public function testRandomElementsThrowsWhenRequestingTooManyKeys()
+    {
+        BaseProvider::randomElements(array('foo'), 2);
+    }
+
+    public function testRandomElements()
+    {
+        $this->assertCount(1, BaseProvider::randomElements(), 'Should work without any input');
+
+        $empty = BaseProvider::randomElements(array(), 0);
+        $this->assertInternalType('array', $empty);
+        $this->assertCount(0, $empty);
+
+        $shuffled = BaseProvider::randomElements(array('foo', 'bar', 'baz'), 3);
+        $this->assertContains('foo', $shuffled);
+        $this->assertContains('bar', $shuffled);
+        $this->assertContains('baz', $shuffled);
     }
 }
