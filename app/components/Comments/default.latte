@@ -10,5 +10,10 @@
 			{$comment->createdAt|date}
 			<strong>{$comment->author->nominative}:</strong>
 		</p>
-		<p>{$comment->text}</p>
+		<p>
+			{if $comment->inReplyTo}
+				{$comment->inReplyTo->author->vocative}:
+			{/if}
+			{$comment->text}
+		</p>
 	</div>
