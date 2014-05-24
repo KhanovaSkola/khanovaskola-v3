@@ -110,6 +110,33 @@ module.exports = function(grunt) {
                 }
             }
 
+        },
+
+        replace: {
+            dev: {
+                options: {
+                    patterns: [{
+                        json: {
+                            domain: {
+                                elastic: 'http://vagrant.khanovaskola.cz:9200'
+                            }
+                        }
+                    }]
+                },
+                files: [{expand: true, flatten: true, src: ['www/js/compiled.js'], dest: 'www/js/'}]
+            },
+            dist: {
+                options: {
+                    patterns: [{
+                        json: {
+                            domain: {
+                                elastic: 'https://elastic-1.khanovaskola.cz/'
+                            }
+                        }
+                    }]
+                },
+                files: [{expand: true, flatten: true, src: ['www/js/compiled.js'], dest: 'www/js/'}]
+            }
         }
 
     });
@@ -119,8 +146,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-replace');
 
-    grunt.registerTask('dist', ['less:dist', 'uglify:dist']);
-    grunt.registerTask('default', ['less:dev', 'concat:dev', 'browserSync:dev', 'watch']);
+    grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'replace:dist']);
+    grunt.registerTask('default', ['less:dev', 'concat:dev', 'replace:dev', 'browserSync:dev', 'watch']);
 
 };
