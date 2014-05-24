@@ -39,10 +39,11 @@ trait PhinxTrait
 	protected function getAppConfig()
 	{
 		$p = $this->container->parameters['database'];
+		$migrations = $this->container->parameters['appDir'] . '/../migrations';
 
 		return new Config([
 			'paths' => [
-				'migrations' => 'migrations',
+				'migrations' => $migrations,
 			],
 			'environments' => [
 				'default_migration_table' => 'migrations',
