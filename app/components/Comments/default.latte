@@ -12,7 +12,7 @@
 		</p>
 		<p>
 			{if $comment->inReplyTo}
-				{$comment->inReplyTo->author->vocative}:
+				<strong>@{$comment->inReplyTo->author->vocative}:</strong>
 			{/if}
 			{$comment->text}
 		</p>
