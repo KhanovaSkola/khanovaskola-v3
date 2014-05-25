@@ -2,8 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Components\GistRenderer;
-
 
 final class HomepagePresenter extends BasePresenter
 {

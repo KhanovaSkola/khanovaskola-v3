@@ -26,7 +26,7 @@ class UpdateSearchIndexTask extends Task
 	public function run(Container $context)
 	{
 		/** @var Neo4j $neo4j */
-		$neo4j  = $context->getService('neo4j');
+		$neo4j = $context->getService('neo4j');
 
 		$to = $this->findPathIds($neo4j, $this->entityId,
 			"(previous:Content)-[r:NEXT]->(v:$this->type)");
