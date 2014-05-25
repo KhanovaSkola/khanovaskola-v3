@@ -4,7 +4,6 @@ namespace App\Components;
 
 use App\Services\Translator;
 use Nette\Application\UI\ITemplateFactory;
-use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
 
 
