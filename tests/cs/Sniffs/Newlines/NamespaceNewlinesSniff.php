@@ -32,11 +32,14 @@ class cs_Sniffs_Newlines_NamespaceNewlinesSniff implements PHP_CodeSniffer_Sniff
 		}
 		else
 		{
-			$nextClass = $phpcsFile->findNext(T_CLASS, ($stackPtr + 1), NULL, FALSE);
-			$nextTrait = $phpcsFile->findNext(T_TRAIT, ($stackPtr + 1), NULL, FALSE);
-			$nextDoc = $phpcsFile->findNext(T_DOC_COMMENT, ($stackPtr + 1), NULL, FALSE);
-			$next = min($nextDoc ?: 1e9, $nextClass ?: 1e9, $nextTrait ?: 1e9);
+			$nexts = [];
+			foreach ([T_CLASS, T_TRAIT, T_INTERFACE, T_DOC_COMMENT] as $type)
+			{
+				$nexts[] = $phpcsFile->findNext($type, ($stackPtr + 1), NULL, FALSE);
+			}
+			$nexts = array_filter($nexts);
 
+			$next = min($nexts);
 			if ($next && $tokens[$next]['line'] !== 6)
 			{
 				$phpcsFile->addError('Namespace declaration must have exactly two empty newlines below without usings', $stackPtr, 'NewlineBelowWithoutUsings');
