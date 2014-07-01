@@ -6,7 +6,7 @@ use App\Rme\Video;
 use Nette\Application\Responses\TextResponse;
 
 
-final class SrtPresenter extends BasePresenter
+final class Srt extends Presenter
 {
 
 	/**

@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette\Http\IResponse;
 
 
-final class TestPresenter extends BasePresenter
+final class Test extends Presenter
 {
 
 	public function renderE404()

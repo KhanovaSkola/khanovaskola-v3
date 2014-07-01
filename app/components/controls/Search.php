@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Components;
+namespace App\Components\Controls;
 
+use App\Components\Control;
 use Nette\Application\UI\Form;
 
 

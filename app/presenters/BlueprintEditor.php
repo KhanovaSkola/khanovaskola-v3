@@ -2,11 +2,12 @@
 
 namespace App\Presenters;
 
-use App\Components\BlueprintForm;
-use App\Rme\Blueprint;
+use App\Components\FormControl;
+use App\Components\Forms;
+use App\Rme;
 
 
-final class BlueprintEditorPresenter extends BasePresenter
+final class BlueprintEditor extends Presenter
 {
 
 	/**
@@ -15,7 +16,7 @@ final class BlueprintEditorPresenter extends BasePresenter
 	 */
 	public $blueprintId;
 
-	/** @var Blueprint|NULL */
+	/** @var Rme\Blueprint|NULL */
 	protected $blueprint;
 
 	public function startup()
@@ -30,10 +31,7 @@ final class BlueprintEditorPresenter extends BasePresenter
 
 	public function createComponentEditor()
 	{
-		$form = new BlueprintForm($this->translator, $this->getTemplateFactory());
-		$form->setEntity($this->blueprint);
-		$form->injectBlueprints($this->orm->blueprints);
-		return $form;
+		return $this->buildComponent(FormControl::class, [Forms\Blueprint::class, $this->blueprint]);
 	}
 
 }

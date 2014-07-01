@@ -27,7 +27,7 @@ nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: App\*Module\Presenters\*Presenter
+			*: App\Presenters\*\*
 	session:
 		expiration: 14 days
 

@@ -6,7 +6,7 @@ use App\Model\EventList;
 use App\Rme\User;
 
 
-final class ProfilePresenter extends BasePresenter
+final class Profile extends Presenter
 {
 
 	/**
