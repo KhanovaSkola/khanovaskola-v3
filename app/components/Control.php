@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\ImplementationException;
+use App\Models\Factories\TranslatorFactory;
 use App\Services\Translator;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
@@ -35,9 +36,14 @@ abstract class Control extends NControl
 	public $context;
 
 	/**
-	 * @var Translator @inject
+	 * @var TranslatorFactory @inject
 	 */
-	public $translator;
+	public $translatorFactory;
+
+	/**
+	 * @var Translator
+	 */
+	private $translator;
 
 	public function __construct()
 	{
@@ -54,16 +60,19 @@ abstract class Control extends NControl
 		}
 	}
 
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-		$this->translator->setPrefix($this->getName() . '.');
-	}
-
 	final public function render()
 	{
 		$args = func_get_args();
 		call_user_func([$this, 'wrapRender'], 'default', $args);
+	}
+
+	final public function getTranslator()
+	{
+		if (!$this->translator)
+		{
+			$this->translator = $this->translatorFactory->create($this->getName());
+		}
+		return $this->translator;
 	}
 
 	private function wrapRender($view = 'default', array $args = [])
@@ -76,7 +85,7 @@ abstract class Control extends NControl
 			call_user_func_array([$this, $method], $args);
 		}
 
-		$this->template->setTranslator($this->translator);
+		$this->template->setTranslator($this->getTranslator());
 		$this->template->render();
 	}
 
