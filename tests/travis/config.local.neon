@@ -11,9 +11,9 @@ parameters:
 
 facebook:
 	appId: "273608052753035"
-	appSecret: "<crypted in .travis.yml>"
+	appSecret: # crypted in .travis.yml
 
 google:
 	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
-	clientSecret: "<crypted in .travis.yml>"
-	apiKey: "<crypted in .travis.yml>"
+	clientSecret: # crypted in .travis.yml
+	apiKey: # crypted in .travis.yml

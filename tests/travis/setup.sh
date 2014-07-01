@@ -29,7 +29,7 @@ bc --version
 
 block "Installing beanstalkd"
 sudo apt-get install beanstalkd -y
-beanstalkd -l 127.0.0.1 -p 13000 &
+beanstalkd -l 127.0.0.1 &
 
 block "Setting configuration"
 cat tests/travis/php-custom.ini >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
