@@ -1,3 +1,0 @@
-sudo cp /vagrant/puphpet/files/program_worker-khanovaskola.conf /etc/supervisor.d
-sudo chmod ugo+x /etc/supervisor.d/program_worker-khanovaskola.conf
-sudo service supervisord restart
