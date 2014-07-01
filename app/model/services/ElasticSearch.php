@@ -111,7 +111,7 @@ class ElasticSearch extends Client
 							]
 						],
 						'functions' => [
-							['script_score' => ['script' => '_score + doc[\'pathStarts\'].value']],
+							['field_value_factor' => ['field' => 'pathStarts', 'factor' => 2]],
 						],
 						'score_mode' => 'max',
 					],
