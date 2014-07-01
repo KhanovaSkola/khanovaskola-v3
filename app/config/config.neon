@@ -62,7 +62,8 @@ services:
 	- App\Services\Authenticator
 	- App\Services\BlueprintCompiler
 	- App\Services\BlueprintPurifier
-	translator: App\Services\Translator(%appDir%/localization)
+	- App\Services\Translator(%appDir%/localization)
+	- App\Models\Factories\TranslatorFactory
 
 	queue: App\Services\Queue(%beanstalk.host%)
 	mailer: App\Services\Mailer(%smtp%)
