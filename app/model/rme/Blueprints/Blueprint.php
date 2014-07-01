@@ -124,6 +124,7 @@ class Blueprint extends ContentEntity
 		return [
 			'title' => $this->title,
 			'description' => $this->description,
+			'pathStarts' => 0, // set in background worker
 		];
 	}
 
