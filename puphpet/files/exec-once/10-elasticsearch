@@ -1,9 +1,0 @@
-wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb http://packages.elasticsearch.org/elasticsearch/1.1/debian stable main" | sudo tee -a /etc/apt/sources.list
-sudo apt-get update
-sudo apt-get install elasticsearch
-
-cd /usr/share/elasticsearch
-# https://github.com/elasticsearch/elasticsearch-analysis-icu
-sudo bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
-sudo service elasticsearch restart

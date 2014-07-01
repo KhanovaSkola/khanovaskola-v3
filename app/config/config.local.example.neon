@@ -8,7 +8,7 @@ parameters:
 	configVersion: 3
 	database:
 		username: postgres
-		password: 123
+		password: root
 		database: khanovaskola
 	smtp:
 		host: mailtrap.io
@@ -30,12 +30,12 @@ newrelic:
 
 facebook:
 	appId: "273608052753035"
-	appSecret:
+	appSecret: "7be86a7s3bc83aa6e260d032ce393a15" # dummy
 
 google:
 	clientId: "653060487240.apps.googleusercontent.com"
-	clientSecret:
-	apiKey:
+	clientSecret: "sT1mUz-XAAAX58fI1dXXXQWY" # dummy
+	apiKey: "AIzaSyC3wrCJAoz4jBytysfpNX7FqOHrFL1234E" # dummy
 
 services:
 	elasticSearchLogger: Mikulas\Diagnostics\ElasticSearchLogger

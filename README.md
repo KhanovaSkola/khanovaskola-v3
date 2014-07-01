@@ -29,6 +29,17 @@ Link directory
 		<dd>http://vagrant.khanovaskola.cz:7474/browser/</dd>
 </dl>
 
+Requirements
+------------
+
+- php 5.5
+- postgres
+- elasticsearch 1.2.
+- elasticsearch/elasticsearch-analysis-icu/2.2.0
+- neo4j
+- redis
+- beanstalkd
+
 Setup
 -----
 

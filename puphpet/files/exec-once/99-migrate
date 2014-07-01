@@ -1,2 +1,0 @@
-cd /vagrant
-bin/console db:reset && bin/console db:migrate && bin/console es:recreate

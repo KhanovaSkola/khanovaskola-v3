@@ -1,6 +1,0 @@
-chsh -s /bin/zsh vagrant
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sudo -u vagrant sh
-sudo -u vagrant mkdir ~vagrant/.oh-my-zsh/plugins/_app
-sudo -u vagrant cp /vagrant/bin/autocomplete.plugin.zsh ~vagrant/.oh-my-zsh/plugins/_app/_app.plugin.zsh
-sudo -u vagrant cp /vagrant/puphpet/files/dot/.zshrc ~vagrant/.zshrc
-sudo -u vagrant cp /vagrant/puphpet/files/no-git.zsh-theme ~vagrant/.oh-my-zsh/themes

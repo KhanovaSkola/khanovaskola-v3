@@ -11,7 +11,7 @@ parameters:
 		charset: utf8
 		sqlmode: TRADITIONAL
 	beanstalk:
-		host: 127.0.0.1:13000
+		host: 127.0.0.1:11300
 	fb:
 		pageId: "268941846529405"
 	neo4j:
