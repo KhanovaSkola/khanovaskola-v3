@@ -2,11 +2,11 @@
 
 namespace App\Presenters;
 
-use App\Components\Comments;
-use App\Rme\Video;
+use App\Components\Controls\Comments;
+use App\Rme;
 
 
-final class VideoPresenter extends ContentPresenter
+final class Video extends Content
 {
 
 	/**
@@ -15,7 +15,9 @@ final class VideoPresenter extends ContentPresenter
 	 */
 	public $videoId;
 
-	/** @var Video */
+	/**
+	 * @var Rme\Video
+	 */
 	protected $video;
 
 	public function startup()
@@ -36,7 +38,7 @@ final class VideoPresenter extends ContentPresenter
 
 	public function createComponentComments()
 	{
-		return new Comments($this->translator, $this->getTemplateFactory(), $this->video, $this->userEntity, $this->orm);
+		return $this->buildComponent(Comments::class, [$this->video, $this->userEntity, $this->orm]);
 	}
 
 }

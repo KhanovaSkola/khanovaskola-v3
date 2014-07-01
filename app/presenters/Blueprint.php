@@ -3,14 +3,13 @@
 namespace App\Presenters;
 
 use App\Model\EventList;
-use App\Rme\Answer;
-use App\Rme\Blueprint;
+use App\Rme;
 use App\Services\BlueprintCompiler;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
 
-final class BlueprintPresenter extends ContentPresenter
+final class Blueprint extends Content
 {
 
 	/**
@@ -19,7 +18,7 @@ final class BlueprintPresenter extends ContentPresenter
 	 */
 	public $blueprintId;
 
-	/** @var Blueprint */
+	/** @var Rme\Blueprint */
 	protected $blueprint;
 
 	/** @var BlueprintCompiler @inject */
@@ -78,7 +77,7 @@ final class BlueprintPresenter extends ContentPresenter
 		$v = $form->values;
 		$exercise = $this->getExercise($v->seed);
 
-		$answer = new Answer($exercise, $v->answer);
+		$answer = new Rme\Answer($exercise, $v->answer);
 		$answer->time = $v->time;
 		$answer->inactivity = $v->inactivity === 'true'; // js
 		$answer->hint = $v->hint === 'true'; // js
@@ -121,7 +120,7 @@ final class BlueprintPresenter extends ContentPresenter
 	}
 
 	/**
-	 * @param Answer[] $answers
+	 * @param Rme\Answer[] $answers
 	 * @return float 0..1
 	 */
 	private function computeScore(array $answers)

@@ -50,5 +50,5 @@
 			{/foreach}
 		</div>
 
-		<input n:name="send" value="{if $editMode}Uložit{else}Vytvořit{/if}" class="btn btn-default">
+		<input n:name="save" value="{if $form->editing}Uložit{else}Vytvořit{/if}" class="btn btn-default">
 	</form>

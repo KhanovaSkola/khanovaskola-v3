@@ -15,7 +15,7 @@ use Nette\Security\Identity;
 use stdClass;
 
 
-final class AuthPresenter extends BasePresenter
+final class Auth extends Presenter
 {
 
 	/** @var Facebook */

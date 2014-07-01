@@ -15,13 +15,14 @@ use Kdyby\Events\Subscriber;
 use Monolog\Logger;
 use Nette;
 use Nette\Http\Session;
+use Nette\Templating\FileTemplate;
 
 
 /**
- * @property-read Nette\Templating\FileTemplate $template
+ * @property-read FileTemplate $template
  * @property-read User $userEntity
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter implements Subscriber
+abstract class Presenter extends Nette\Application\UI\Presenter implements Subscriber
 {
 
 	use ControlTrait;
@@ -41,9 +42,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 	/** @var Session @inject */
 	public $session;
 
-	/** @deprecated */
-	public $context;
-
 	public function startup()
 	{
 		parent::startup();
@@ -61,15 +59,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 		$this->flashSuccess('badges.awarded', [
 			'badge' => $bridge->title
 		]);
-	}
-
-	/**
-	 * @deprecated
-	 * @throws \App\DeprecatedException
-	 */
-	public function getContext()
-	{
-		throw new DeprecatedException('Use /** @var ClassName @inject */ on public property instead');
 	}
 
 	/**
@@ -106,6 +95,36 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter implements S
 			$this->flashInfo('auth.reason.generic');
 		}
 		$this->redirect('Auth:in');
+	}
+
+	public function formatTemplateFiles()
+	{
+		$name = $this->getName();
+		$presenter = substr($name, strrpos(':' . $name, ':'));
+		$dir = dirname($this->getReflection()->getFileName());
+		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);
+		return [
+			"$dir/templates/views/$presenter/$this->view.latte",
+			"$dir/templates/views/$presenter.$this->view.latte",
+		];
+	}
+
+	public function formatLayoutTemplateFiles()
+	{
+		$name = $this->getName();
+		$presenter = substr($name, strrpos(':' . $name, ':'));
+		$layout = $this->layout ? $this->layout : 'layout';
+		$dir = dirname($this->getReflection()->getFileName());
+		$dir = is_dir("$dir/templates/views") ? $dir : dirname($dir);
+		$list = [
+			"$dir/templates/views/$presenter/@$layout.latte",
+			"$dir/templates/views/$presenter.@$layout.latte",
+		];
+		do {
+			$list[] = "$dir/templates/views/@$layout.latte";
+			$dir = dirname($dir);
+		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
+		return $list;
 	}
 
 }

@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette\Forms\Controls\TextInput;
 
 
-final class SearchPresenter extends BasePresenter
+final class Search extends Presenter
 {
 
 	public function renderResults($query)

@@ -3,13 +3,16 @@
 namespace App\Presenters;
 
 
-final class HomepagePresenter extends BasePresenter
+use App\Components\Controls\GistRenderer;
+
+
+final class Homepage extends Presenter
 {
 
 	public function createComponentGist()
 	{
 		$gist = $this->orm->gists->getByName('test');
-		$gistRenderer = parent::createComponentGist();
+		$gistRenderer = $this->context->createInstance(GistRenderer::class);
 		$gistRenderer->setEditable(TRUE);
 		$gistRenderer->setGist($gist);
 

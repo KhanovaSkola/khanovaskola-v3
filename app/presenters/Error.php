@@ -7,7 +7,7 @@ use Nette;
 use Tracy\Debugger;
 
 
-final class ErrorPresenter extends BasePresenter
+final class Error extends Presenter
 {
 
 	/**

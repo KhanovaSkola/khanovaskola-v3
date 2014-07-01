@@ -6,10 +6,13 @@ use App\Orm\ContentEntity;
 use App\Orm\Highlight;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
+use Nette\DI\Container;
 
 
 /**
  * Must be used only by NControl
+ *
+ * @property-read Container $context
  */
 trait ControlTrait
 {
@@ -47,22 +50,43 @@ trait ControlTrait
 		return NControl::link($destination, $args);
 	}
 
-	public function createComponentGist()
+	protected function createComponent($name, $args = [])
 	{
-		/** @var NControl $this */
-		return new GistRenderer($this->translator, $this->getPresenter()->getTemplateFactory());
+		$method = 'createComponent' . ucFirst($name);
+		if (method_exists($this, $method))
+		{
+			return $this->$method();
+		}
+		else if (substr($name, -4) === 'Form')
+		{
+			$formClass = 'App\\Components\\Forms\\' . ucFirst(substr($name, 0, -4));
+			if (class_exists($formClass))
+			{
+				array_unshift($args, $formClass);
+				return $this->buildComponent(FormControl::class, $args);
+			}
+		}
+		else
+		{
+			$controlClass = 'App\\Components\\Controls\\' . ucFirst($name);
+			if (class_exists($controlClass))
+			{
+				return $this->buildComponent($controlClass, $args);
+			}
+		}
+		return parent::createComponent($name);
 	}
 
-	public function createComponentSearch()
+	/**
+	 * @param string $class
+	 * @param array $args
+	 * @return Control
+	 */
+	protected function buildComponent($class, $args = [])
 	{
-		/** @var NControl $this */
-		return new Search($this->translator, $this->getPresenter()->getTemplateFactory());
-	}
-
-	public function createComponentColumnChart()
-	{
-		/** @var NControl $this */
-		return new ColumnChart($this->translator, $this->getPresenter()->getTemplateFactory());
+		$obj = $this->context->createInstance($class, $args);
+		$this->context->callInjects($obj);
+		return $obj;
 	}
 
 }

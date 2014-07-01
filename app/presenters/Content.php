@@ -6,7 +6,7 @@ use App\Orm\ContentEntity;
 use App\Services\PathFinder;
 
 
-abstract class ContentPresenter extends BasePresenter
+abstract class Content extends Presenter
 {
 
 	/** @var PathFinder @inject */
