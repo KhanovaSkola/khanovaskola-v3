@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use App\InvalidArgumentException;
 use App\Orm\Entity;
+use App\Rme\RepositoryContainer;
 use Nette;
 
 
@@ -15,13 +16,19 @@ abstract class EntityForm extends Form
 	 */
 	protected $entity;
 
-	public function __construct($entity)
+	/**
+	 * @var RepositoryContainer
+	 */
+	protected $repos;
+
+	public function __construct($entity, RepositoryContainer $repos)
 	{
 		if ($entity && !($entity instanceof Entity))
 		{
 			throw new InvalidArgumentException;
 		}
 		$this->entity = $entity;
+		$this->repos = $repos;
 
 		parent::__construct();
 	}
