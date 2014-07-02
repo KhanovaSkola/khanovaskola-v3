@@ -117,6 +117,7 @@ class Configurator extends Nette\Configurator
 			'newrelic.neon',
 			'badges.neon',
 			'bin.neon',
+			'deploy.neon',
 			'config.neon',
 			'config.local.neon'
 		] as $file)
