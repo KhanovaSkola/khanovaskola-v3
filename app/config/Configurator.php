@@ -57,8 +57,11 @@ class Configurator extends Nette\Configurator
 		$this->addParameters((array) $params + array_map('realpath', [
 				'appDir' => __DIR__ . '/..',
 				'backupDir' => __DIR__ . '/../../backups',
+				'binDir' => __DIR__ . '/../../bin',
 				'libsDir' => __DIR__ . '/../../vendor',
 				'logDir' => __DIR__ . '/../../log',
+				'migrationsDir' => __DIR__ . '/../../migrations',
+				'testsDir' => __DIR__ . '/../../tests',
 				'wwwDir' => __DIR__ . '/../../www',
 			]));
 		$this->setTempDirectory($tempDirectory);
@@ -113,6 +116,7 @@ class Configurator extends Nette\Configurator
 		foreach ([
 			'newrelic.neon',
 			'badges.neon',
+			'bin.neon',
 			'config.neon',
 			'config.local.neon'
 		] as $file)
@@ -182,6 +186,9 @@ class Configurator extends Nette\Configurator
 		$params = $this->getParameters();
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
+		$loader->addDirectory($params['binDir']);
+		$loader->addDirectory($params['appDir'] . '/../migrations');
+		$loader->addDirectory($params['appDir'] . '/../tests');
 		$loader->addDirectory($params['libsDir'] . '/others');
 
 		return $loader;

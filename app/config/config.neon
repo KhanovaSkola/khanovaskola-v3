@@ -38,6 +38,7 @@ extensions:
 	google: Kdyby\Google\DI\GoogleExtension
 	newrelic: VrtakCZ\NewRelic\Extension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
+	console: Kdyby\Console\DI\ConsoleExtension
 
 newrelic:
 	enabled: false
@@ -66,6 +67,7 @@ services:
 	- App\Models\Factories\TranslatorFactory
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
+	- App\Models\Services\Paths(@container)
 	-
 		class: Monolog\Logger
 		factory: App\Models\Factories\LogFactory::create(%logDir%, %debugMode%)

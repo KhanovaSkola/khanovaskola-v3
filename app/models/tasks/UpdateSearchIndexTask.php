@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tasks;
+namespace App\Models\Tasks;
 
 use App\Models\Services\ElasticSearch;
 use App\Models\Services\Neo4j;

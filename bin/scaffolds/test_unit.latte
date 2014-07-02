@@ -1,0 +1,20 @@
+namespace Tests\Cases\Unit;
+
+use App\Models\Model;
+use Tester\Assert;
+use Tests\TestCase;
+
+
+$container = require __DIR__ . '/../../bootstrap.php';
+
+class {$class} extends TestCase
+{
+
+	function testFoo()
+	{
+		Assert::true(TRUE);
+	}
+
+}
+
+runTests(__FILE__, $container);

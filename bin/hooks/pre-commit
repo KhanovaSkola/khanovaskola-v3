@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+#
+# Run CodeSniffer on all staged files
+#
+
+$ret = 0;
+
+$root = __DIR__ . '/../..';
+$files = [];
+exec(sprintf('cd %s; git diff-tree --no-commit-id --name-only -r HEAD', escapeshellarg($root)), $files);
+
+$args = [];
+foreach ($files as $file)
+{
+	$path = "$root/$file";
+	if (file_exists($path) && preg_match('~^app/.*\.php$~', $file))
+	{
+		$args[] = escapeshellarg($path);
+	}
+}
+
+if ($args)
+{
+	passthru(sprintf('php "vendor/bin/phpcs" --severity=1 -p --standard="tests/cs" %s', implode(' ', $args)), $ret);
+	if ($ret != 0)
+	{
+		exit($ret);
+	}
+}
+
+#
+# Check if travis config file is up to date
+#
+
+$example = getConfigVersion("$root/app/config/config.local.example.neon");
+$travis = getConfigVersion("$root/tests/travis/config.local.neon");
+if ($travis !== $example)
+{
+	echo "Travis config file is not up to date\n";
+	exit(1);
+}
+
+exit($ret);
+
+function getConfigVersion($file)
+{
+	$confExample = file_get_contents($file);
+	$match = [];
+	preg_match('~configVersion:\s+(\d+)~', $confExample, $match);
+	return $match[1];
+}
