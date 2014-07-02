@@ -3,10 +3,9 @@
 namespace App\Components\Controls;
 
 use App\Components\Control;
-use App\Rme\Comment;
-use App\Rme\RepositoryContainer;
-use App\Rme\User;
-use App\Rme\Video;
+use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\User;
+use App\Models\Rme\Video;
 
 
 class Comments extends Control

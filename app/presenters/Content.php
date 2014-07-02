@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use App\Orm\ContentEntity;
-use App\Services\PathFinder;
+use App\Models\Orm\ContentEntity;
+use App\Models\Services\PathFinder;
 
 
 abstract class Content extends Presenter

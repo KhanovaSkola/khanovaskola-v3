@@ -33,19 +33,6 @@ class RepositoryContainer extends Orm\RepositoryContainer
 		parent::__construct($containerFactory);
 
 		$this->registerAnnotations();
-
-		$ref = new Reflection\ClassType($this);
-		$ns = $ref->getNamespaceName();
-		foreach ($ref->getAnnotations()['property-read'] as $anno)
-		{
-			$anno = trim($anno);
-			list($class, $alias) = preg_split('~\s+~', $anno);
-			if (!$this->isRepository($alias))
-			{
-				$this->register($alias, "$ns\\$class");
-				$this->aliases[$alias] = "$ns\\$class";
-			}
-		}
 	}
 
 	public function getAliases()
@@ -58,7 +45,8 @@ class RepositoryContainer extends Orm\RepositoryContainer
 	 */
 	private function registerAnnotations()
 	{
-		$annotations = Nette\Reflection\ClassType::from($this)->getAnnotations();
+		$ref = Nette\Reflection\ClassType::from($this);
+		$annotations = $ref->getAnnotations();
 		if (isset($annotations['property-read']))
 		{
 			$c = get_called_class();
@@ -67,7 +55,7 @@ class RepositoryContainer extends Orm\RepositoryContainer
 			{
 				if (preg_match('#^([\\\\\\w]+Repository)\\s+\\$(\\w+)$#', $value, $m))
 				{
-					$class = strpos($m[1], '\\') === FALSE ? $namespace . '\\' . $m[1] : $m[1];
+					$class = '\\' . Reflection\AnnotationsParser::expandClassName($m[1], $ref);
 					$this->register($m[2], $class);
 					$this->aliases[$m[2]] = $class;
 				}

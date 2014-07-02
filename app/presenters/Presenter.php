@@ -3,13 +3,11 @@
 namespace App\Presenters;
 
 use App\Components\ControlTrait;
-use App\Components\FlashTrait;
-use App\DeprecatedException;
-use App\Model\EventList;
-use App\Rme\BadgeUserBridge;
-use App\Rme\RepositoryContainer;
-use App\Rme\User;
-use App\Services\Translator;
+use App\Models\EventList;
+use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\BadgeUserBridge;
+use App\Models\Rme\User;
+use App\Models\Services\Translator;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;

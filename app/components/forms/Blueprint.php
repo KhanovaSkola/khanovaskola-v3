@@ -2,7 +2,7 @@
 
 namespace App\Components\Forms;
 
-use App\Rme;
+use App\Models\Rme;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
 
