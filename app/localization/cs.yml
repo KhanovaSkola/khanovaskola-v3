@@ -22,7 +22,7 @@ comments:
     title: "Komentář přidán." # TODO if contains ? "Otázka přidána"
     message: ""
 
-editor:
+blueprintEditor:
   title: "Název"
   description: "Popisek"
   question: "Otázka"
