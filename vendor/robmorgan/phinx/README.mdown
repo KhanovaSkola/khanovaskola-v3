@@ -1,6 +1,7 @@
 # [Phinx](http://phinx.org): Simple PHP Database Migrations
 
 [![Build Status](https://travis-ci.org/robmorgan/phinx.png?branch=0.2.x-dev)](https://travis-ci.org/robmorgan/phinx)
+[![Build status](https://ci.appveyor.com/api/projects/status/9vag4892hfq6effr)](https://ci.appveyor.com/project/robmorgan/phinx)
 [![Code Coverage](https://scrutinizer-ci.com/g/robmorgan/phinx/badges/coverage.png?s=9776e35b967f5adb0f4958bd72b617e0a9519f7d)](https://scrutinizer-ci.com/g/robmorgan/phinx/)
 [![Latest Stable Version](https://poser.pugx.org/robmorgan/phinx/version.png)](https://packagist.org/packages/robmorgan/phinx)
 [![Total Downloads](https://poser.pugx.org/robmorgan/phinx/d/total.png)](https://packagist.org/packages/robmorgan/phinx)
@@ -115,6 +116,19 @@ Follow Rob (@\_rjm\_) on Twitter to stay to date (http://twitter.com/_rjm_)
 ## Misc
 
 ### Version History
+
+**0.3.6** (Sunday, 29th June 2014)
+
+* Add custom adapter support
+* Fix PHP 5.3 compatibility for SQL Server
+
+**0.3.5** (Saturday, 21st June 2014)
+
+* Added Microsoft SQL Server support
+* Removed Primary Key column type
+* Cleaned up and optimized many methods
+* Updated Symfony dependencies to v2.5.0
+* PHPDoc improvements
 
 **0.3.4** (Sunday, 27th April 2014)
 

@@ -1,13 +1,15 @@
 <!DOCTYPE html><link rel="stylesheet" href="data/style.css">
 
-<h1>Result Set Data Types  | dibi</h1>
+<h1>Result Set Data Types | dibi</h1>
 
 <?php
 
-require dirname(__FILE__) . '/Nette/Debugger.php';
-require dirname(__FILE__) . '/../dibi/dibi.php';
+if (@!include __DIR__ . '/../vendor/autoload.php') {
+	die('Install dependencies using `composer install --dev`');
+}
 
-ndebug();
+Tracy\Debugger::enable();
+
 date_default_timezone_set('Europe/Prague');
 
 
@@ -25,7 +27,7 @@ $res->setType('customer_id', Dibi::INTEGER)
 	->setFormat(dibi::DATETIME, 'Y-m-d H:i:s');
 
 
-dump( $res->fetch() );
+Tracy\Dumper::dump( $res->fetch() );
 // outputs:
 // DibiRow(3) {
 //    customer_id => 1
@@ -36,7 +38,7 @@ dump( $res->fetch() );
 // using auto-detection (works well with MySQL or other strictly typed databases)
 $res = dibi::query('SELECT * FROM [customers]');
 
-dump( $res->fetch() );
+Tracy\Dumper::dump( $res->fetch() );
 // outputs:
 // DibiRow(3) {
 //    customer_id => 1

@@ -4,10 +4,12 @@
 
 <?php
 
-require dirname(__FILE__) . '/Nette/Debugger.php';
-require dirname(__FILE__) . '/../dibi/dibi.php';
+if (@!include __DIR__ . '/../vendor/autoload.php') {
+	die('Install dependencies using `composer install --dev`');
+}
 
-ndebug();
+Tracy\Debugger::enable();
+
 
 dibi::connect(array(
 	'driver'   => 'sqlite3',
@@ -16,15 +18,15 @@ dibi::connect(array(
 
 
 // using the "prototype" to add custom method to class DibiResult
-function DibiResult_prototype_fetchShuffle(DibiResult $obj)
+DibiResult::extensionMethod('fetchShuffle', function(DibiResult $obj)
 {
 	$all = $obj->fetchAll();
 	shuffle($all);
 	return $all;
-}
+});
 
 
 // fetch complete result set shuffled
 $res = dibi::query('SELECT * FROM [customers]');
 $all = $res->fetchShuffle();
-dump($all);
+Tracy\Dumper::dump($all);

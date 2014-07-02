@@ -373,7 +373,6 @@ Valid Column Types
 
 Column types are specified as strings and can be one of: 
 
--  primary_key
 -  string
 -  text
 -  integer
@@ -707,9 +706,9 @@ Let's add a foreign key to an example table:
         
                 $refTable = $this->table('tag_relationships');
                 $refTable->addColumn('tag_id', 'integer')
+                         ->addForeignKey('tag_id', 'tags', 'id', array('delete'=> 'SET_NULL', update=> 'NO_ACTION'))
                          ->save();
                 
-                $refTable->addForeignKey('tag_id', 'tags', 'id');
             }
 
             /**
@@ -720,6 +719,8 @@ Let's add a foreign key to an example table:
 
             }
         }
+
+"On delete" and "On update" actions are defined with a 'delete' and 'update' options array. Possibles values are 'SET_NULL', 'NO_ACTION', 'CASCADE' and 'RESTRICT'.
 
 We can also easily check if a foreign key exists:
 

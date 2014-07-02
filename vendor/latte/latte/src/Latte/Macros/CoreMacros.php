@@ -91,7 +91,7 @@ class CoreMacros extends MacroSet
 	 */
 	public function finalize()
 	{
-		return array('list($_l, $_g) = $template->initialize('
+		return array('list($_b, $_g, $_l) = $template->initialize('
 			. var_export($this->getCompiler()->getTemplateId(), TRUE) . ', '
 			. var_export($this->getCompiler()->getContentType(), TRUE)
 		. ')');
@@ -128,7 +128,7 @@ class CoreMacros extends MacroSet
 			return $writer->write('if (%node.args) '
 				. (isset($node->data->else) ? '{ ob_end_clean(); ob_end_flush(); }' : 'ob_end_flush();')
 				. ' else '
-				. (isset($node->data->else) ? '{ $_else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_else; }' : 'ob_end_clean();')
+				. (isset($node->data->else) ? '{ $_l->else = ob_get_contents(); ob_end_clean(); ob_end_clean(); echo $_l->else; }' : 'ob_end_clean();')
 			);
 		}
 		return '}';
@@ -157,7 +157,7 @@ class CoreMacros extends MacroSet
 	 */
 	public function macroIfContent(MacroNode $node, PhpWriter $writer)
 	{
-		if (!$node->htmlNode) {
+		if (!$node->prefix) {
 			throw new CompileException("Unknown macro {{$node->name}}, use n:{$node->name} attribute.");
 		} elseif ($node->prefix !== MacroNode::PREFIX_NONE) {
 			throw new CompileException("Unknown attribute n:{$node->prefix}-{$node->name}, use n:{$node->name} attribute.");
@@ -176,9 +176,9 @@ class CoreMacros extends MacroSet
 		$node->content = $parts[1]
 			. '<?php ob_start() ?>'
 			. $parts[2]
-			. '<?php $_ifcontent = ob_get_contents(); ob_end_flush() ?>'
+			. '<?php $_l->ifcontent = ob_get_contents(); ob_end_flush() ?>'
 			. $parts[3];
-		return 'rtrim($_ifcontent) === "" ? ob_end_clean() : ob_end_flush()';
+		return 'rtrim($_l->ifcontent) === "" ? ob_end_clean() : ob_end_flush()';
 	}
 
 
@@ -204,7 +204,7 @@ class CoreMacros extends MacroSet
 	 */
 	public function macroInclude(MacroNode $node, PhpWriter $writer)
 	{
-		$code = $writer->write('$_l->templates[%var]->renderChildTemplate(%node.word, %node.array? + $template->getParameters())',
+		$code = $writer->write('$_b->templates[%var]->renderChildTemplate(%node.word, %node.array? + $template->getParameters())',
 			$this->getCompiler()->getTemplateId());
 
 		if ($node->modifiers) {
@@ -344,6 +344,9 @@ class CoreMacros extends MacroSet
 				$var = FALSE;
 
 			} elseif ($tokens->isCurrent(',') && $tokens->depth === 0) {
+				if ($var === NULL) {
+					$res->append($node->name === 'default' ? '=>NULL' : '=NULL');
+				}
 				$res->append($node->name === 'default' ? ',' : ';');
 				$var = TRUE;
 
@@ -353,6 +356,9 @@ class CoreMacros extends MacroSet
 			} else {
 				$res->append($tokens->currentToken());
 			}
+		}
+		if ($var === NULL) {
+			$res->append($node->name === 'default' ? '=>NULL' : '=NULL');
 		}
 		$out = $writer->quoteFilter($res)->joinAll();
 		return $node->name === 'default' ? "extract(array($out), EXTR_SKIP)" : $out;

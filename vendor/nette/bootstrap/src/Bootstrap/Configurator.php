@@ -59,7 +59,7 @@ class Configurator extends Object
 	 * @param  bool|string|array
 	 * @return self
 	 */
-	public function setDebugMode($value = TRUE)
+	public function setDebugMode($value)
 	{
 		$this->parameters['debugMode'] = is_string($value) || is_array($value) ? static::detectDebugMode($value) : (bool) $value;
 		$this->parameters['productionMode'] = !$this->parameters['debugMode']; // compatibility
@@ -198,7 +198,9 @@ class Configurator extends Object
 		$me = $this;
 		$factory->onCompile[] = function(DI\ContainerFactory $factory, DI\Compiler $compiler, $config) use ($me) {
 			foreach ($me->defaultExtensions as $name => $class) {
-				$compiler->addExtension($name, new $class);
+				if (class_exists($class)) {
+					$compiler->addExtension($name, new $class);
+				}
 			}
 			$factory->parentClass = $config['parameters']['container']['parent'];
 			$me->onCompile($me, $compiler);

@@ -27,7 +27,9 @@
 		"php": ">= 5.5.0",
 		"robmorgan/phinx": "~0.3.3",
 		"symfony/console": "~2.4.4",
-		"vrtak-cz/newrelic-nette": "~3.1.0"
+		"vrtak-cz/newrelic-nette": "~3.1.0",
+		"kdyby/console": "dev-master#9564ff1",
+		"nextras/migrations": "~2.3.0"
 	},
 	"require-dev": {
 		"codeception/codeception": "~1.8.0",
@@ -37,7 +39,10 @@
 		"nette/tester": "~1.1.0",
 		"petrp/access": "~0.2.2",
 		"squizlabs/php_codesniffer": "~1.5.2",
-        "fzaninotto/faker": "@dev"
+        "fzaninotto/faker": "@dev",
+		"doctrine/dbal": "~2.4.0",
+		"jdorn/sql-formatter": "~1.2.17",
+		"oodle/inflect": "~0.2.0"
 	},
 	"repositories": [
 		{

@@ -1,7 +1,7 @@
 <?php
 namespace Codeception\Module;
 
-use Codeception\Codecept;
+use Codeception\Exception\ModuleConfig;
 use Codeception\Subscriber\ErrorHandler;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Testing\Client;
@@ -27,6 +27,8 @@ use Illuminate\Support\MessageBag;
  * * Contact: davert.codeception@mailican.com
  *
  * ## Config
+ *
+ * * start: `bootstrap/start.php` - relative path to start.php config file
  * * cleanup: true - all db queries will be run in transaction, which will be rolled back at the end of test.
  *
  *
@@ -42,15 +44,31 @@ use Illuminate\Support\MessageBag;
  *
  */
 class Laravel4 extends \Codeception\Util\Framework implements \Codeception\Util\ActiveRecordInterface
-
 {
+    /**
+     * @var \Illuminate\Foundation\Application
+     */
+    public $kernel;
 
-    protected $config = array('cleanup' => true);
+    protected $config = array();
+
+    public function __construct($config = null)
+    {
+        $this->config = array_merge(
+            array(
+                'cleanup' => true,
+                'start' => 'bootstrap'  . DIRECTORY_SEPARATOR .  'start.php'
+            ),
+            (array) $config
+        );
+
+        parent::__construct();
+    }
 
     public function _initialize()
     {
         $projectDir = \Codeception\Configuration::projectDir();
-        require $projectDir . '/vendor/autoload.php';
+        require $projectDir .  'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
         \Illuminate\Support\ClassLoader::register();
 
@@ -59,7 +77,12 @@ class Laravel4 extends \Codeception\Util\Framework implements \Codeception\Util\
         }
         $unitTesting = true;
         $testEnvironment = 'testing';
-        $app = require $projectDir . 'bootstrap/start.php';
+
+        $startFile = $projectDir . $this->config['start'];
+        if (!file_exists($startFile)) {
+            throw new ModuleConfig($this, "Laravel start.php file not found in $startFile.\nPlease provide a valid path to it using 'start' config param. ");
+        }
+        $app = require $startFile;
         $app->boot();
         $this->kernel = $app;
 

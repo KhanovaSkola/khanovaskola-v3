@@ -2,16 +2,19 @@
 
 /**
  * Default error page.
+ * @param  string $error
  */
 
 namespace Tracy;
 
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html><!-- "' --></script></style></noscript></xmp>
 <meta charset="utf-8">
 <meta name=robots content=noindex>
 <meta name=generator content="Tracy">
-<script>document.body.innerHTML = ''</script>
+<title>Server Error</title>
+
+<div id="tracy-error-body">
 <style>
 	body { color: #333; background: white; width: 500px; margin: 100px auto }
 	h1 { font: bold 47px/1.5 sans-serif; margin: .6em 0 }
@@ -19,11 +22,15 @@ namespace Tracy;
 	small { font-size: 70%; color: gray }
 </style>
 
-<title>Server Error</title>
-
 <h1>Server Error</h1>
 
 <p>We're sorry! The server encountered an internal error and
 was unable to complete your request. Please try again later.</p>
 
-<p><small>error 500</small></p>
+<p><small>error 500<?php if (!empty($error)) echo "<br>Tracy says: ", htmlspecialchars($error) ?></small></p>
+<div>
+
+<script>
+document.documentElement.innerHTML = '<title>Server Error<\/title>' +
+	document.getElementById('tracy-error-body').innerHTML;
+</script>

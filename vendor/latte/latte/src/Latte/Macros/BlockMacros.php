@@ -73,8 +73,8 @@ class BlockMacros extends MacroSet
 				$func = '_lb' . substr(md5($this->getCompiler()->getTemplateId() . $name), 0, 10) . '_' . preg_replace('#[^a-z0-9_]#i', '_', $name);
 				$snippet = $name[0] === '_';
 				$prolog[] = "//\n// block $name\n//\n"
-					. "if (!function_exists(\$_l->blocks[" . var_export($name, TRUE) . "][] = '$func')) { "
-					. "function $func(\$_l, \$_args) { foreach (\$_args as \$__k => \$__v) \$\$__k = \$__v"
+					. "if (!function_exists(\$_b->blocks[" . var_export($name, TRUE) . "][] = '$func')) { "
+					. "function $func(\$_b, \$_args) { foreach (\$_args as \$__k => \$__v) \$\$__k = \$__v"
 					. ($snippet ? '; $_control->redrawControl(' . var_export(substr($name, 1), TRUE) . ', FALSE)' : '')
 					. "\n?>$code<?php\n}}";
 			}
@@ -85,8 +85,8 @@ class BlockMacros extends MacroSet
 			$prolog[] = '// template extending';
 
 			$prolog[] = '$_l->extends = '
-				. ($this->extends ? $this->extends : 'empty($template->_extended) && isset($_control) && $_control instanceof Nette\Application\UI\Presenter ? $_control->findLayoutTemplateFile() : NULL')
-				. '; $template->_extended = $_extended = TRUE;';
+				. ($this->extends ? $this->extends : 'empty($_g->extended) && isset($_control) && $_control instanceof Nette\Application\UI\Presenter ? $_control->findLayoutTemplateFile() : NULL')
+				. '; $_g->extended = TRUE;';
 
 			$prolog[] = 'if ($_l->extends) { ' . ($this->namedBlocks ? 'ob_start();' : 'return $template->renderChildTemplate($_l->extends, get_defined_vars());') . '}';
 		}
@@ -120,9 +120,9 @@ class BlockMacros extends MacroSet
 
 		$name = strpos($destination, '$') === FALSE ? var_export($destination, TRUE) : $destination;
 		if (isset($this->namedBlocks[$destination]) && !$parent) {
-			$cmd = "call_user_func(reset(\$_l->blocks[$name]), \$_l, %node.array? + get_defined_vars())";
+			$cmd = "call_user_func(reset(\$_b->blocks[$name]), \$_b, %node.array? + get_defined_vars())";
 		} else {
-			$cmd = 'Latte\Macros\BlockMacros::callBlock' . ($parent ? 'Parent' : '') . "(\$_l, $name, %node.array? + " . ($parent ? 'get_defined_vars' : '$template->getParameters') . '())';
+			$cmd = 'Latte\Macros\BlockMacros::callBlock' . ($parent ? 'Parent' : '') . "(\$_b, $name, %node.array? + " . ($parent ? 'get_defined_vars' : '$template->getParameters') . '())';
 		}
 
 		if ($node->modifiers) {
@@ -138,7 +138,7 @@ class BlockMacros extends MacroSet
 	 */
 	public function macroIncludeBlock(MacroNode $node, PhpWriter $writer)
 	{
-		return $writer->write('$_l->templates[%var]->renderChildTemplate(%node.word, %node.array? + get_defined_vars())',
+		return $writer->write('$_b->templates[%var]->renderChildTemplate(%node.word, %node.array? + get_defined_vars())',
 			$this->getCompiler()->getTemplateId());
 	}
 
@@ -199,25 +199,25 @@ class BlockMacros extends MacroSet
 				}
 				$parent->data->dynamic = TRUE;
 				$node->data->leave = TRUE;
-				$node->closingCode = "<?php \$_dynSnippets[\$_dynSnippetId] = ob_get_flush() ?>";
+				$node->closingCode = "<?php \$_l->dynSnippets[\$_l->dynSnippetId] = ob_get_flush() ?>";
 
 				if ($node->prefix) {
-					$node->attrCode = $writer->write("<?php echo ' id=\"' . (\$_dynSnippetId = \$_control->getSnippetId({$writer->formatWord($name)})) . '\"' ?>");
+					$node->attrCode = $writer->write("<?php echo ' id=\"' . (\$_l->dynSnippetId = \$_control->getSnippetId({$writer->formatWord($name)})) . '\"' ?>");
 					return $writer->write('ob_start()');
 				}
 				$tag = trim($node->tokenizer->fetchWord(), '<>');
 				$tag = $tag ? $tag : 'div';
 				$node->closingCode .= "\n</$tag>";
-				return $writer->write("?>\n<$tag id=\"<?php echo \$_dynSnippetId = \$_control->getSnippetId({$writer->formatWord($name)}) ?>\"><?php ob_start()");
+				return $writer->write("?>\n<$tag id=\"<?php echo \$_l->dynSnippetId = \$_control->getSnippetId({$writer->formatWord($name)}) ?>\"><?php ob_start()");
 
 			} else {
 				$node->data->leave = TRUE;
 				$fname = $writer->formatWord($name);
-				$node->closingCode = "<?php }} " . ($node->name === 'define' ? '' : "call_user_func(reset(\$_l->blocks[$fname]), \$_l, get_defined_vars())") . " ?>";
+				$node->closingCode = "<?php }} " . ($node->name === 'define' ? '' : "call_user_func(reset(\$_b->blocks[$fname]), \$_b, get_defined_vars())") . " ?>";
 				$func = '_lb' . substr(md5($this->getCompiler()->getTemplateId() . $name), 0, 10) . '_' . preg_replace('#[^a-z0-9_]#i', '_', $name);
 				return "\n\n//\n// block $name\n//\n"
-					. "if (!function_exists(\$_l->blocks[$fname]['{$this->getCompiler()->getTemplateId()}'] = '$func')) { "
-					. "function $func(\$_l, \$_args) { foreach (\$_args as \$__k => \$__v) \$\$__k = \$__v";
+					. "if (!function_exists(\$_b->blocks[$fname]['{$this->getCompiler()->getTemplateId()}'] = '$func')) { "
+					. "function $func(\$_b, \$_args) { foreach (\$_args as \$__k => \$__v) \$\$__k = \$__v";
 			}
 		}
 
@@ -236,7 +236,7 @@ class BlockMacros extends MacroSet
 		$prolog = $this->namedBlocks ? '' : "if (\$_l->extends) { ob_end_clean(); return \$template->renderChildTemplate(\$_l->extends, get_defined_vars()); }\n";
 		$this->namedBlocks[$name] = TRUE;
 
-		$include = 'call_user_func(reset($_l->blocks[%var]), $_l, ' . (($node->name === 'snippet' || $node->name === 'snippetArea') ? '$template->getParameters()' : 'get_defined_vars()') . ')';
+		$include = 'call_user_func(reset($_b->blocks[%var]), $_b, ' . (($node->name === 'snippet' || $node->name === 'snippetArea') ? '$template->getParameters()' : 'get_defined_vars()') . ')';
 		if ($node->modifiers) {
 			$include = "ob_start(); $include; echo %modify(ob_get_clean())";
 		}
@@ -283,7 +283,7 @@ class BlockMacros extends MacroSet
 					$node->content = "<?php \$_control->snippetMode = isset(\$_snippetMode) && \$_snippetMode; ?>{$node->content}<?php \$_control->snippetMode = FALSE; ?>";
 				}
 				if (!empty($node->data->dynamic)) {
-					$node->content .= '<?php if (isset($_dynSnippets)) return $_dynSnippets; ?>';
+					$node->content .= '<?php if (isset($_l->dynSnippets)) return $_l->dynSnippets; ?>';
 				}
 				if ($node->name === 'snippetArea') {
 					$node->content .= '<?php return FALSE; ?>';
@@ -309,7 +309,7 @@ class BlockMacros extends MacroSet
 		}
 		$list = array();
 		while (($name = $node->tokenizer->fetchWord()) !== FALSE) {
-			$list[] = $name[0] === '#' ? '$_l->blocks["' . substr($name, 1) . '"]' : $name;
+			$list[] = $name[0] === '#' ? '$_b->blocks["' . substr($name, 1) . '"]' : $name;
 		}
 		return 'if (isset(' . implode(', ', $list) . ')) {';
 	}
