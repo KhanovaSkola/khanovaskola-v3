@@ -18,6 +18,9 @@ services:
 		class: Bin\Commands\Backup\Restore
 		tags: [kdyby.console.command]
 	-
+		class: Bin\Commands\Deploy\Development
+		tags: [kdyby.console.command]
+	-
 		class: Bin\Commands\ElasticSearch\Recreate
 		tags: [kdyby.console.command]
 	-
