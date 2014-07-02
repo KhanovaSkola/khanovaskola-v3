@@ -77,9 +77,9 @@ class Dumper
 		);
 		list($file, $line, $code) = $options[self::LOCATION] ? self::findLocation() : NULL;
 		return '<pre class="tracy-dump"'
-			. ($file ? ' title="' . htmlspecialchars("$code\nin file $file on line $line", ENT_IGNORE | ENT_QUOTES) . '">' : '>')
+			. ($file ? Helpers::createHtml(' title="%in file % on line %" data-tracy-href="%"', "$code\n", $file, $line, Helpers::editorUri($file, $line)) . '>' : '>')
 			. self::dumpVar($var, $options)
-			. ($file ? '<small>in <a href="editor://open/?file=' . rawurlencode($file) . "&amp;line=$line\">" . htmlspecialchars($file, ENT_IGNORE) . ":$line</a></small>" : '')
+			. ($file ? '<small>in ' . Helpers::editorLink($file, $line) . '</small>' : '')
 			. "</pre>\n";
 	}
 
@@ -219,7 +219,7 @@ class Dumper
 		static $list = array();
 		$rc = $var instanceof \Closure ? new \ReflectionFunction($var) : new \ReflectionClass($var);
 		$out = '<span class="tracy-dump-object"'
-			. ($rc->getFileName() ? ' data-tracy-href="' . htmlspecialchars(strtr(Debugger::$editor, array('%file' => rawurlencode($rc->getFileName()), '%line' => $rc->getStartLine()))) . '"' : '')
+			. ($options[self::LOCATION] && ($editor = Helpers::editorUri($rc->getFileName(), $rc->getStartLine())) ? ' data-tracy-href="' . htmlspecialchars($editor) . '"' : '')
 			. '>' . get_class($var) . '</span> <span class="tracy-dump-hash">#' . substr(md5(spl_object_hash($var)), 0, 4) . '</span>';
 
 		if (empty($fields)) {

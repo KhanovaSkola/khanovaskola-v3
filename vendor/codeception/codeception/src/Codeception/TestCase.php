@@ -79,14 +79,34 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase implements \PHPUnit_
         if (empty($this->dependencies)) return true;
 
         $passed     = $this->getTestResultObject()->passed();
-        $testNames = array_map(function($testname) { return preg_replace('~with data set (.*?)~','', $testname); }, array_keys($passed));
+        $testNames = array_map(function($testname) {
+            if ($this instanceof \Codeception\TestCase\Cest) {
+                $testname = str_replace('Codeception\TestCase\Cest::', get_class($this->getTestClass()).'::', $testname);
+            }
+            return preg_replace('~with data set (.*?)~','', $testname);
+        }, array_keys($passed));
         $testNames = array_unique($testNames);
 
+        $dependencyInput = array();
         foreach ($this->dependencies as $dependency) {
-            if (in_array($dependency, $testNames)) continue;
-            $this->getTestResultObject()->addError($this, new \PHPUnit_Framework_SkippedTestError("This test depends on '$dependency' to pass."),0);
-            return false;
+            if (strpos($dependency, '::') === FALSE) {
+                $className = $this instanceof \Codeception\TestCase\Cest
+                    ? get_class($this->getTestClass())
+                    : get_class($this);
+                $dependency = "$className::$dependency";
+            }
+
+            if (!in_array($dependency, $testNames)) {
+                $this->getTestResultObject()->addError($this, new \PHPUnit_Framework_SkippedTestError("This test depends on '$dependency' to pass."),0);
+                return false;
+            }
+            if (isset($passed[$dependency])) {
+                $dependencyInput[] = $passed[$dependency]['result'];
+            } else {
+                $dependencyInput[] = NULL;
+            }
         }
+        $this->setDependencyInput($dependencyInput);
 
         return true;
     }

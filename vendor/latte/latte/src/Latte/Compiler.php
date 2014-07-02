@@ -205,7 +205,7 @@ class Compiler extends Object
 
 	private function processText(Token $token)
 	{
-		if (($this->context[0] === self::CONTEXT_SINGLE_QUOTED_ATTR || $this->context[0] === self::CONTEXT_DOUBLE_QUOTED_ATTR)
+		if (in_array($this->context[0], array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)
 			&& $token->text === $this->context[0]
 		) {
 			$this->setContext(self::CONTEXT_UNQUOTED_ATTR);
@@ -254,7 +254,7 @@ class Compiler extends Object
 
 		} else {
 			$this->htmlNode = new HtmlNode($token->name, $this->htmlNode);
-			$this->htmlNode->isEmpty = in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML))
+			$this->htmlNode->isEmpty = in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML), TRUE)
 				&& isset(Helpers::$emptyElements[strtolower($token->name)]);
 			$this->htmlNode->offset = strlen($this->output);
 			$this->setContext(self::CONTEXT_UNQUOTED_ATTR);
@@ -275,7 +275,7 @@ class Compiler extends Object
 		$isEmpty = !$htmlNode->closing && (strpos($token->text, '/') !== FALSE || $htmlNode->isEmpty);
 		$end = '';
 
-		if ($isEmpty && in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML))) { // auto-correct
+		if ($isEmpty && in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML), TRUE)) { // auto-correct
 			$token->text = preg_replace('#^.*>#', $htmlNode->isEmpty && $this->contentType === self::CONTENT_XHTML ? ' />' : '>', $token->text);
 			if (!$htmlNode->isEmpty) {
 				$end = "</$htmlNode->name>";
@@ -315,10 +315,10 @@ class Compiler extends Object
 		if (strncmp($token->name, Parser::N_PREFIX, strlen(Parser::N_PREFIX)) === 0) {
 			$name = substr($token->name, strlen(Parser::N_PREFIX));
 			if (isset($this->htmlNode->macroAttrs[$name])) {
-				throw new CompileException("Found multiple macro-attributes $token->name.");
+				throw new CompileException("Found multiple attributes $token->name.");
 
 			} elseif ($this->macroNode && $this->macroNode->htmlNode === $this->htmlNode) {
-				throw new CompileException("Macro-attributes must not appear inside macro; found $token->name inside {{$this->macroNode->name}}.");
+				throw new CompileException("n:attributes must not appear inside macro; found $token->name inside {{$this->macroNode->name}}.");
 			}
 			$this->htmlNode->macroAttrs[$name] = $token->value;
 			return;
@@ -327,20 +327,25 @@ class Compiler extends Object
 		$this->htmlNode->attrs[$token->name] = TRUE;
 		$this->output .= $token->text;
 
+		$contextMain = in_array($token->value, array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)
+			? $token->value
+			: self::CONTEXT_UNQUOTED_ATTR;
+
 		$context = NULL;
-		if (in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML))) {
+		if (in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML), TRUE)) {
 			$lower = strtolower($token->name);
 			if (substr($lower, 0, 2) === 'on') {
 				$context = self::CONTENT_JS;
 			} elseif ($lower === 'style') {
 				$context = self::CONTENT_CSS;
-			} elseif (in_array($lower, array('href', 'src', 'action', 'formaction'))
+			} elseif (in_array($lower, array('href', 'src', 'action', 'formaction'), TRUE)
 				|| ($lower === 'data' && strtolower($this->htmlNode->name) === 'object')
 			) {
 				$context = self::CONTENT_URL;
 			}
 		}
-		$this->setContext($token->value ?: self::CONTEXT_UNQUOTED_ATTR, $context);
+
+		$this->setContext($contextMain, $context);
 	}
 
 
@@ -395,7 +400,7 @@ class Compiler extends Object
 			|| $nPrefix !== $node->prefix
 		) {
 			$name = $nPrefix
-				? "</{$this->htmlNode->name}> for macro-attribute " . Parser::N_PREFIX . implode(' and ' . Parser::N_PREFIX, array_keys($this->htmlNode->macroAttrs))
+				? "</{$this->htmlNode->name}> for " . Parser::N_PREFIX . implode(' and ' . Parser::N_PREFIX, array_keys($this->htmlNode->macroAttrs))
 				: '{/' . $name . ($args ? ' ' . $args : '') . $modifiers . '}';
 			throw new CompileException("Unexpected $name" . ($node ? ', expecting ' . self::printEndTag($node) : ''));
 		}
@@ -476,7 +481,7 @@ class Compiler extends Object
 		}
 
 		if ($attrs) {
-			throw new CompileException('Unknown macro-attribute ' . Parser::N_PREFIX
+			throw new CompileException('Unknown attribute ' . Parser::N_PREFIX
 				. implode(' and ' . Parser::N_PREFIX, array_keys($attrs)));
 		}
 
@@ -519,7 +524,7 @@ class Compiler extends Object
 	 */
 	public function expandMacro($name, $args, $modifiers = NULL, $nPrefix = NULL)
 	{
-		$inScript = in_array($this->context[0], array(self::CONTENT_JS, self::CONTENT_CSS));
+		$inScript = in_array($this->context[0], array(self::CONTENT_JS, self::CONTENT_CSS), TRUE);
 
 		if (empty($this->macros[$name])) {
 			throw new CompileException("Unknown macro {{$name}}" . ($inScript ? ' (in JavaScript or CSS, try to put a space after bracket.)' : ''));
@@ -548,14 +553,17 @@ class Compiler extends Object
 			}
 		}
 
-		throw new CompileException($nPrefix ? 'Unknown macro-attribute ' . Parser::N_PREFIX . "$nPrefix-$name" : "Unhandled macro {{$name}}");
+		throw new CompileException('Unknown ' . ($nPrefix
+			? 'attribute ' . Parser::N_PREFIX . ($nPrefix === MacroNode::PREFIX_NONE ? '' : "$nPrefix-") . $name
+			: 'macro {' . $name . ($args ? " $args" : '') . '}'
+		));
 	}
 
 
 	private static function printEndTag(MacroNode $node)
 	{
 		if ($node->prefix) {
-			return  "</{$node->htmlNode->name}> for macro-attribute " . Parser::N_PREFIX
+			return  "</{$node->htmlNode->name}> for " . Parser::N_PREFIX
 				. implode(' and ' . Parser::N_PREFIX, array_keys($node->htmlNode->macroAttrs));
 		} else {
 			return "{/$node->name}";

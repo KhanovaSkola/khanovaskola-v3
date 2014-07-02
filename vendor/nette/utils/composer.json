@@ -19,6 +19,14 @@
 	"require-dev": {
 		"nette/tester": "~1.0"
 	},
+	"suggest": {
+		"ext-iconv": "to use Strings::webalize() and toAscii()",
+		"ext-mbstring": "to use Strings::lower() etc...",
+		"ext-gd": "to use Image"
+	},
+	"conflict": {
+		"nette/nette": "<2.2"
+	},
 	"autoload": {
 		"classmap": ["src/"]
 	},

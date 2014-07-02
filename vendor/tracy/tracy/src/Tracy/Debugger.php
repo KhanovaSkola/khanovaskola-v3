@@ -23,7 +23,7 @@ use Tracy,
 class Debugger
 {
 	/** @var string */
-	public static $version = '2.2.0';
+	public static $version = '2.2.2';
 
 	/** @var bool in production mode is suppressed any debugging output */
 	public static $productionMode = self::DETECT;
@@ -34,7 +34,7 @@ class Debugger
 	/** @var string  requested URI or command line */
 	public static $source;
 
-	/** @var string URL pattern mask to open editor */
+	/** @var string URI pattern mask to open editor */
 	public static $editor = 'editor://open/?file=%file&line=%line';
 
 	/** @var string command to open browser (use 'start ""' in Windows) */
@@ -100,7 +100,7 @@ class Debugger
 	/** @var FireLogger */
 	private static $fireLogger;
 
-	/** @var string name of the directory where errors should be logged; FALSE means that logging is disabled */
+	/** @var string name of the directory where errors should be logged */
 	public static $logDirectory;
 
 	/** @var string|array email(s) to which send error notifications */
@@ -144,6 +144,7 @@ class Debugger
 	 */
 	public static function enable($mode = NULL, $logDirectory = NULL, $email = NULL)
 	{
+		self::$enabled = TRUE;
 		self::$time = isset($_SERVER['REQUEST_TIME_FLOAT']) ? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(TRUE);
 		if (isset($_SERVER['REQUEST_URI'])) {
 			self::$source = (!empty($_SERVER['HTTPS']) && strcasecmp($_SERVER['HTTPS'], 'off') ? 'https://' : 'http://')
@@ -168,14 +169,16 @@ class Debugger
 		}
 
 		// logging configuration
+		if ($email !== NULL) {
+			self::$email = $email;
+		}
 		if (is_string($logDirectory)) {
 			self::$logDirectory = realpath($logDirectory);
 			if (self::$logDirectory === FALSE) {
-				echo __METHOD__ . "() error: Log directory is not found or is not directory.\n";
-				exit(254);
+				self::_exceptionHandler(new \RuntimeException("Log directory is not found or is not directory."));
 			}
-		} elseif ($logDirectory === FALSE || self::$logDirectory === NULL) {
-			self::$logDirectory = FALSE;
+		} elseif ($logDirectory === FALSE) {
+			self::$logDirectory = NULL;
 		}
 		if (self::$logDirectory) {
 			ini_set('error_log', self::$logDirectory . '/php_error.log');
@@ -188,28 +191,16 @@ class Debugger
 			ini_set('log_errors', FALSE);
 
 		} elseif (ini_get('display_errors') != !self::$productionMode && ini_get('display_errors') !== (self::$productionMode ? 'stderr' : 'stdout')) { // intentionally ==
-			echo __METHOD__ . "() error: Unable to set 'display_errors' because function ini_set() is disabled.\n";
-			exit(254);
+			self::_exceptionHandler(new \RuntimeException("Unable to set 'display_errors' because function ini_set() is disabled."));
 		}
 
-		if ($email) {
-			if (!is_string($email) && !is_array($email)) {
-				echo __METHOD__ . "() error: Email address must be a string.\n";
-				exit(254);
-			}
-			self::$email = $email;
-		}
+		register_shutdown_function(array(__CLASS__, '_shutdownHandler'));
+		set_exception_handler(array(__CLASS__, '_exceptionHandler'));
+		set_error_handler(array(__CLASS__, '_errorHandler'));
 
-		if (!self::$enabled) {
-			register_shutdown_function(array(__CLASS__, '_shutdownHandler'));
-			set_exception_handler(array(__CLASS__, '_exceptionHandler'));
-			set_error_handler(array(__CLASS__, '_errorHandler'));
-
-			foreach (array('Tracy\Bar', 'Tracy\BlueScreen', 'Tracy\DefaultBarPanel', 'Tracy\Dumper',
-				'Tracy\FireLogger', 'Tracy\Helpers', 'Tracy\Logger', ) as $class) {
-				class_exists($class);
-			}
-			self::$enabled = TRUE;
+		foreach (array('Tracy\Bar', 'Tracy\BlueScreen', 'Tracy\DefaultBarPanel', 'Tracy\Dumper',
+			'Tracy\FireLogger', 'Tracy\Helpers', 'Tracy\Logger', ) as $class) {
+			class_exists($class);
 		}
 	}
 
@@ -307,11 +298,8 @@ class Debugger
 	 */
 	public static function log($message, $priority = self::INFO)
 	{
-		if (self::$logDirectory === FALSE) {
+		if (!self::$logDirectory) {
 			return;
-
-		} elseif (!self::$logDirectory) {
-			throw new \RuntimeException('Logging directory is not specified in Tracy\Debugger::$logDirectory.');
 		}
 
 		$exceptionFilename = NULL;
@@ -375,7 +363,7 @@ class Debugger
 		}
 
 		$error = error_get_last();
-		if (in_array($error['type'], array(E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE))) {
+		if (in_array($error['type'], array(E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE), TRUE)) {
 			self::_exceptionHandler(Helpers::fixStack(new ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line'])), FALSE);
 
 		} elseif (!connection_aborted() && !self::$productionMode && self::isHtmlMode()) {
@@ -401,51 +389,52 @@ class Debugger
 			$protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
 			$code = isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE ') !== FALSE ? 503 : 500;
 			header("$protocol $code", TRUE, $code);
+			if (self::isHtmlMode()) {
+				header('Content-Type: text/html; charset=UTF-8');
+			}
+		}
+
+		$logMsg = 'Unable to log error. Check if directory is writable and path is absolute.';
+		if (self::$productionMode) {
+			try {
+				self::log($exception, self::EXCEPTION);
+			} catch (\Exception $e) {
+			}
+
+			$error = isset($e) ? $logMsg : NULL;
+			if (self::isHtmlMode()) {
+				require __DIR__ . '/templates/error.phtml';
+			} else {
+				echo "ERROR: application encountered an error and can not continue.\n$error\n";
+			}
+
+		} elseif (!connection_aborted() && self::isHtmlMode()) {
+			self::getBlueScreen()->render($exception);
+			self::getBar()->render();
+
+		} elseif (connection_aborted() || !self::fireLog($exception)) {
+			try {
+				$file = self::log($exception, self::EXCEPTION);
+				if ($file && !headers_sent()) {
+					header("X-Tracy-Error-Log: $file");
+				}
+				echo "$exception\n" . ($file ? "(stored in $file)\n" : '');
+				if ($file && self::$browser) {
+					exec(self::$browser . ' ' . escapeshellarg($file));
+				}
+			} catch (\Exception $e) {
+				echo "$exception\n$logMsg {$e->getMessage()}\n";
+			}
 		}
 
 		try {
-			if (self::$productionMode) {
-				try {
-					self::log($exception, self::EXCEPTION);
-				} catch (\Exception $e) {
-					echo 'FATAL ERROR: unable to log error';
-				}
-
-				if (self::isHtmlMode()) {
-					require __DIR__ . '/templates/error.phtml';
-
-				} else {
-					echo "ERROR: the server encountered an internal error and was unable to complete your request.\n";
-				}
-
-			} else {
-				if (!connection_aborted() && self::isHtmlMode()) {
-					self::getBlueScreen()->render($exception);
-					self::getBar()->render();
-
-				} elseif (connection_aborted() || !self::fireLog($exception)) {
-					$file = self::log($exception, self::ERROR);
-					if (!headers_sent()) {
-						header("X-Tracy-Error-Log: $file");
-					}
-					echo "$exception\n" . ($file ? "(stored in $file)\n" : '');
-					if (self::$browser) {
-						exec(self::$browser . ' ' . escapeshellarg($file));
-					}
-				}
-			}
-
 			foreach (self::$onFatalError as $handler) {
 				call_user_func($handler, $exception);
 			}
-
 		} catch (\Exception $e) {
-			if (self::$productionMode) {
-				echo self::isHtmlMode() ? '<meta name=robots content=noindex>FATAL ERROR' : 'FATAL ERROR';
-			} else {
-				echo 'FATAL ERROR: thrown ', get_class($e), ': ', $e->getMessage(),
-					"\nwhile processing ", get_class($exception), ': ', $exception->getMessage(), "\n";
-			}
+			try {
+				self::log($e, self::EXCEPTION);
+			} catch (\Exception $e) {}
 		}
 
 		if ($exit) {

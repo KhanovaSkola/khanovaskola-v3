@@ -42,7 +42,6 @@ use Phinx\Migration\MigrationInterface;
  */
 interface AdapterInterface
 {
-    const PHINX_TYPE_PRIMARY_KEY    = 'primary_key';
     const PHINX_TYPE_STRING         = 'string';
     const PHINX_TYPE_TEXT           = 'text';
     const PHINX_TYPE_INTEGER        = 'integer';
@@ -56,6 +55,8 @@ interface AdapterInterface
     const PHINX_TYPE_BINARY         = 'binary';
     const PHINX_TYPE_BOOLEAN        = 'boolean';
     const PHINX_TYPE_JSON           = 'json';
+    const PHINX_TYPE_UUID           = 'uuid';
+    const PHINX_TYPE_FILESTREAM     = 'filestream';
 
     /**
      * Get all migrated version numbers.

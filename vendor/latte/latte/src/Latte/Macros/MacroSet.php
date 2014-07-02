@@ -48,12 +48,6 @@ class MacroSet extends Latte\Object implements Latte\IMacro
 	}
 
 
-	public static function install(Latte\Compiler $compiler)
-	{
-		return new static($compiler);
-	}
-
-
 	/**
 	 * Initializes before template parsing.
 	 * @return void
@@ -94,7 +88,7 @@ class MacroSet extends Latte\Object implements Latte\IMacro
 
 		} elseif ($begin) {
 			$res = $this->compile($node, $begin);
-			if ($res === FALSE) {
+			if ($res === FALSE || ($node->isEmpty && $node->prefix)) {
 				return FALSE;
 			} elseif (!$node->openingCode) {
 				$node->openingCode = "<?php $res ?>";

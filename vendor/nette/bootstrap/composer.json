@@ -19,7 +19,7 @@
 		"nette/utils": "~2.2"
 	},
 	"require-dev": {
-		"nette/application": "~2.2",
+		"nette/application": "~2.2.0",
 		"nette/database": "~2.2",
 		"nette/mail": "~2.2",
 		"nette/robot-loader": "~2.2",
@@ -28,6 +28,9 @@
 		"latte/latte": "~2.2",
 		"tracy/tracy": "~2.2",
 		"nette/tester": "~1.0"
+	},
+	"conflict": {
+		"nette/nette": "<2.2"
 	},
 	"autoload": {
 		"classmap": ["src/"]
