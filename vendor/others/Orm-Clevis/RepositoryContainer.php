@@ -21,7 +21,10 @@ class RepositoryContainer extends Orm\RepositoryContainer
 {
 
 	/** @var array */
-	private $aliases = array();
+	private $aliases = [];
+
+	/** @var array */
+	private $repoClasses = [];
 
 	/**
 	 * Class constuctor – automatically registers repository aliases
@@ -38,6 +41,17 @@ class RepositoryContainer extends Orm\RepositoryContainer
 	public function getAliases()
 	{
 		return $this->aliases;
+	}
+
+	public function register($alias, $repositoryClass)
+	{
+		$this->repoClasses[] = $repositoryClass;
+		parent::register($alias, $repositoryClass);
+	}
+
+	public function getRepositoryClasses()
+	{
+		return $this->repoClasses;
 	}
 
 	/**

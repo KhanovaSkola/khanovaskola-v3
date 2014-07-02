@@ -1,0 +1,59 @@
+services:
+  # Services
+	- Bin\Services\DoctrineFactory(%database%)
+	- Bin\Services\Scaffolding(%appDir%)
+	- Bin\Services\SchemaBuilder
+
+  # Commands
+	-
+		class: Bin\Commands\Adminer\Update
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Backup\Create
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Backup\ListAll
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Backup\Restore
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\ElasticSearch\Recreate
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Migrations\Migrate
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Neo4j\Reset
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Migration\Php
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Migration\Sql
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Rme
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Test\Unit
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Schema\Diff
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Tests\Run
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Worker
+		tags: [kdyby.console.command]
+
+console:
+	url: http://localhost.dev/
+
+database:
+	dsn: 'pgsql:host=127.0.0.1;dbname=%database.database%'
+	user: %database.username%
+	password: %database.password%
+	options:
+		lazy: yes

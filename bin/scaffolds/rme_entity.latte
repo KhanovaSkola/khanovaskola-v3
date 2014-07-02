@@ -1,0 +1,16 @@
+namespace App\Models\Rme;
+
+{foreach $usings as $use}
+use {$use};
+{/foreach}
+
+
+/**
+{foreach $properties as $property => $type}
+ * @property {$type} ${$property}
+{/foreach}
+ */
+class {$class} extends Entity
+{
+
+}

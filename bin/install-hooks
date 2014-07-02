@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+for f in "$DIR/hooks"/*
+do
+	NAME=$(basename "$f")
+	TARGET="$DIR/../.git/hooks/$NAME"
+	echo "Linking hook $NAME"
+	rm "$TARGET"
+	ln -s "$f" "$TARGET"
+	chmod ugo+x "$TARGET"
+done

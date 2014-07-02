@@ -13,6 +13,11 @@ use Orm\Events;
 class Mapper extends DibiMapper
 {
 
+	public function getTableName()
+	{
+		return (string) parent::getTableName();
+	}
+
 	public function registerEvents(Events $events)
 	{
 

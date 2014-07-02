@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tasks;
+namespace App\Models\Tasks;
 
 use Nette\DI\Container;
 use Nette\Object;
