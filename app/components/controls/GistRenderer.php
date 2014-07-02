@@ -3,7 +3,7 @@
 namespace App\Components\Controls;
 
 use App\Components\Control;
-use App\Rme\Gist;
+use App\Models\Rme\Gist;
 
 
 class GistRenderer extends Control

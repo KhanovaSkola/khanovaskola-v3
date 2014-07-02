@@ -2,8 +2,8 @@
 
 namespace App\Components;
 
-use App\Orm\ContentEntity;
-use App\Orm\Highlight;
+use App\Models\Orm\ContentEntity;
+use App\Models\Orm\Highlight;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
 use Nette\DI\Container;

@@ -3,8 +3,8 @@
 namespace App\Components\Forms;
 
 use App\InvalidArgumentException;
-use App\Orm\Entity;
-use App\Rme\RepositoryContainer;
+use App\Models\Orm\Entity;
+use App\Models\Orm\RepositoryContainer;
 use Nette;
 
 

@@ -1,8 +1,8 @@
 <?php
 namespace Clevis\Skeleton\Orm;
 
-use App\Orm\MapperFactory;
-use App\Services\HtmlPurifier;
+use App\Models\Orm\MapperFactory;
+use App\Models\Services\HtmlPurifier;
 use Nette;
 use Nette\Caching\Cache;
 use Orm;

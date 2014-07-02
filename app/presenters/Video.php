@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\Controls\Comments;
-use App\Rme;
+use App\Models\Rme;
 
 
 final class Video extends Content

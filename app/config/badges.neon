@@ -1,5 +1,5 @@
 events:
 	subscribers:
-		- App\Rme\Badges\VideoWatched
-		- App\Rme\Badges\UserOldWeek
-		- App\Rme\Badges\ExerciseMastery
+		- App\Models\Rme\Badges\VideoWatched
+		- App\Models\Rme\Badges\UserOldWeek
+		- App\Models\Rme\Badges\ExerciseMastery

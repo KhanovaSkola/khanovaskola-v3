@@ -58,28 +58,29 @@ google:
 	returnUri: 'Auth:googleResponse'
 
 services:
-	- App\Rme\UsersRepository
-	- App\Services\Authenticator
-	- App\Services\BlueprintCompiler
-	- App\Services\BlueprintPurifier
-	- App\Services\Translator(%appDir%/localization)
+	- App\Models\Rme\UsersRepository
+	- App\Models\Services\Authenticator
+	- App\Models\Services\BlueprintCompiler
+	- App\Models\Services\BlueprintPurifier
+	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Factories\TranslatorFactory
-
-	queue: App\Services\Queue(%beanstalk.host%)
-	mailer: App\Services\Mailer(%smtp%)
-	purifier: App\Services\HtmlPurifier
-	log:
+	- App\Models\Services\Queue(%beanstalk.host%)
+	- App\Models\Services\Mailer(%smtp%)
+	-
 		class: Monolog\Logger
-		factory: App\Factories\LogFactory::create(%logDir%, %debugMode%)
-	router: App\Router
-	dibiConnection: DibiConnection(%database%)
-	elastic: App\Services\ElasticSearch(%elastic%, %appDir%)
-	facebookPage: App\Services\FacebookPage(%fb.pageId%)
-	neo4j: App\Services\Neo4j(%neo4j.host%, %neo4j.port%)
-	pathFinder: App\Services\PathFinder
-	queryPanel: Tracy\QueryPanel\QueryPanel
+		factory: App\Models\Factories\LogFactory::create(%logDir%, %debugMode%)
+	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
+	- App\Models\Services\FacebookPage(%fb.pageId%)
+	- App\Models\Services\Neo4j(%neo4j.host%, %neo4j.port%)
+	- App\Models\Services\PathFinder
+	- Tracy\QueryPanel\QueryPanel
 
-	orm: App\Rme\RepositoryContainer(@serviceContainerFactory, @container)
+	purifier: App\Models\Services\HtmlPurifier
+	router: App\Config\Router
+
+  # Orm \ Database
+	dibiConnection: DibiConnection(%database%)
+	orm: App\Models\Orm\RepositoryContainer(@serviceContainerFactory, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @purifier, @performanceHelperCache, @container)
 	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
-	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
+	performanceHelperCache: Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)

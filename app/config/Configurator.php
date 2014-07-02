@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Config;
 
-use App\Services\ElasticSearch;
-use App\Services\Neo4j;
+use App\Models\Services\ElasticSearch;
+use App\Models\Services\Neo4j;
 use Everyman\Neo4j\Command\GetServerInfo;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
@@ -139,7 +139,7 @@ class Configurator extends Nette\Configurator
 		}
 
 		/** @var QueryPanel $panel */
-		$panel = $container->getService('queryPanel');
+		$panel = $container->getByType(QueryPanel::class);
 		Debugger::getBar()->addPanel($panel);
 
 		/** @var \DibiConnection $dibi */
@@ -149,7 +149,7 @@ class Configurator extends Nette\Configurator
 		};
 
 		/** @var Neo4j $neo4j */
-		$neo4j = $container->getService('neo4j');
+		$neo4j = $container->getByType(Neo4j::class);
 		$neo4j->onEvent[] = function($command, $result) use ($panel, $neo4j) {
 			if (! $command instanceof GetServerInfo)
 			{
@@ -158,7 +158,7 @@ class Configurator extends Nette\Configurator
 		};
 
 		/** @var ElasticSearch $elastic */
-		$elastic = $container->getService('elastic');
+		$elastic = $container->getByType(ElasticSearch::class);
 		$request = NULL;
 		$elastic->onEvent[] = function($message, $content) use ($panel, &$request) {
 			if ($message === 'Request Body')
