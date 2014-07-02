@@ -21,6 +21,7 @@ return array(
     'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
     'Symfony\\Component\\ClassLoader\\' => array($vendorDir . '/symfony/class-loader'),
     'Symfony\\Component\\BrowserKit\\' => array($vendorDir . '/symfony/browser-kit'),
+    'Ssh' => array($vendorDir . '/herzult/php-ssh/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
     'Phinx' => array($vendorDir . '/robmorgan/phinx/src'),
