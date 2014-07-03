@@ -1,3 +1,11 @@
+CREATE TABLE vocatives (
+  id SERIAL NOT NULL,
+  gender CHAR(6) NOT NULL,
+  nominative VARCHAR(255) NOT NULL,
+  vocative VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id)
+);
+
 INSERT INTO vocatives (gender, nominative, vocative) VALUES
 ('male',	'A',	'O'),
 ('male',	'Aaldert',	'Aalderte'),

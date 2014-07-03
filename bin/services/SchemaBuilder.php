@@ -141,15 +141,32 @@ class SchemaBuilder extends Object
 			}
 			else if ($relation === NULL)
 			{
-				$typesByPriority = ['id', 'datetime', 'string', 'float', 'integer'];
+				$typesByPriority = [
+					'id' => ['id'],
+					'datetime' => ['datetime'],
+					'string' => ['string'],
+					'text' => ['text', 'array'],
+					'float' => ['double', 'float'],
+					'integer' => ['int', 'integer'],
+					'boolean' => ['bool', 'boolean'],
+				];
 
-				foreach ($typesByPriority as $type)
+				$found = FALSE;
+				foreach ($typesByPriority as $type => $specs)
 				{
-					if (isset($param['types'][$type]))
+					foreach ($specs as $spec)
 					{
-						$table->addColumn($name, $type, $options);
-						break;
+						if (isset($param['types'][$spec]))
+						{
+							$found = TRUE;
+							$table->addColumn($name, $type, $options);
+							break;
+						}
 					}
+				}
+				if (!$found)
+				{
+					$table->addColumn("{$paramName}_id", 'integer', $options);
 				}
 			}
 			else

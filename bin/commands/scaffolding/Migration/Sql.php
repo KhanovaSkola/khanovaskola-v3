@@ -7,6 +7,7 @@ use Bin\Services\DoctrineFactory;
 use Bin\Services\Scaffolding;
 use Bin\Services\SchemaBuilder;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
+use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\DBAL\Schema\Comparator;
 use SqlFormatter;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,7 +33,7 @@ class Sql extends Command
 		{
 			$current = $factory->create()->getSchemaManager()->createSchema();
 			$target = $schema->create();
-			$sqls = Comparator::compareSchemas($current, $target)->toSql(new MySqlPlatform());
+			$sqls = Comparator::compareSchemas($current, $target)->toSql(new PostgreSqlPlatform());
 
 			$parts = [];
 			foreach ($sqls as $sql)

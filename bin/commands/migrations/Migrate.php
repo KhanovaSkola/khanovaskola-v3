@@ -7,6 +7,7 @@ use Bin\Commands\Command;
 use Nette\Database\Context;
 use Nette\DI\Container;
 use Nextras\Migrations\Drivers\MySqlNetteDbDriver;
+use Nextras\Migrations\Drivers\PostgreSqlNetteDbDriver;
 use Nextras\Migrations\Engine\Runner;
 use Nextras\Migrations\Entities\Group;
 use Nextras\Migrations\Extensions;
@@ -26,7 +27,7 @@ class Migrate extends Command
 
 	public function invoke(Container $container, Context $db)
 	{
-		$driver = new MySqlNetteDbDriver($db, 'migrations');
+		$driver = new PostgreSqlNetteDbDriver($db, 'migrations');
 		$printer = new Console;
 		$runner = new Runner($driver, $printer);
 
