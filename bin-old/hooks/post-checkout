@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# skip migration check if commit has not changed
-if [ "$1" == "$2" ]; then
-	exit 0
-fi
-
-vagrant ssh -c "cd /vagrant; bin/console db:status" | tail -n+3
