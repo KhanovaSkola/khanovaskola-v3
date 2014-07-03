@@ -60,7 +60,7 @@ class Scaffolding extends Object
 	{
 		$name = Inflect::pluralize($singularName);
 		$class = "{$name}Mapper";
-		$path =  $this->getRmePath($name) . "/$class.php";
+		$path = $this->getRmePath($name) . "/$class.php";
 		$this->buildFromTemplate($path, 'rme_mapper', [
 			'class' => $class,
 		]);
