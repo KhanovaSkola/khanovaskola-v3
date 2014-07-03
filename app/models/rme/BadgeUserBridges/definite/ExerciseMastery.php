@@ -2,12 +2,13 @@
 
 namespace App\Models\Rme\BadgeUserBridges;
 
+use App;
 use App\Models\Rme;
 use Orm;
 
 
 /**
- * @property Rme\Blueprint $blueprint {m:1 blueprints}
+ * @property App\Models\Rme\Blueprint $blueprint {m:1 blueprints}
  */
 class ExerciseMastery extends Rme\BadgeUserBridge
 {

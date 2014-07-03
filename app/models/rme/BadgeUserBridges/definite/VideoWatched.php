@@ -2,12 +2,13 @@
 
 namespace App\Models\Rme\BadgeUserBridges;
 
+use App;
 use App\Models\Rme;
 use Orm;
 
 
 /**
- * @property Rme\Video $video {m:1 videos $videoWatchedBadges}
+ * @property App\Models\Rme\Video $video {m:1 videos $videoWatchedBadges}
  */
 class VideoWatched extends Rme\BadgeUserBridge
 {

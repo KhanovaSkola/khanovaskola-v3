@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use App\Model\EventList;
-use App\Rme\User;
+use App\Models\EventList;
+use App\Models\Rme\User;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
