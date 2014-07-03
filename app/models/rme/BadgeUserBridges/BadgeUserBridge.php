@@ -2,15 +2,15 @@
 
 namespace App\Models\Rme;
 
+use App;
 use App\Models\Orm\Entity;
-use App\Models\Rme;
 use App\Models\Services\Translator;
 use Orm;
 
 
 /**
- * @property Rme\Badge $badge {m:1 badges $badgeUserBridges}
- * @property Rme\User $user {m:1 users $badges}
+ * @property App\Models\Rme\Badge $badge {m:1 badges $badgeUserBridges}
+ * @property App\Models\Rme\User $user {m:1 users $badges}
  *
  * @property-read string $title translated {ignore}
  * @property-read string $description translated {ignore}
