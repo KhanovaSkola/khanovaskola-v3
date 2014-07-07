@@ -17,7 +17,7 @@ class TestCase extends Tester\TestCase
 	/**
 	 * @var \Nette\DI\Container
 	 */
-	private $container;
+	protected $container;
 
 	public function __construct(Container $container)
 	{

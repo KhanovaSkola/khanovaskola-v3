@@ -9,33 +9,25 @@ use App\Models\Services\Neo4j;
 use Nette;
 use Tester;
 use Tester\Assert;
+use Tests\TestCase;
 
 
 $container = require __DIR__ . '/../../../../../bootstrap.php';
 
-class Neo4jTraitTest extends Tester\TestCase
+class Neo4jTraitTest extends TestCase
 {
 
-	/** @var Neo4j */
-	private $neo4j;
+	/**
+	 * @var Neo4j @inject
+	 */
+	public $neo4j;
 
-	/** @var RepositoryContainer */
-	private $orm;
+	/**
+	 * @var RepositoryContainer @inject
+	 */
+	public $orm;
 
-	private $container;
-
-	function __construct(Nette\DI\Container $container)
-	{
-		$this->container = $container;
-	}
-
-	function setUp()
-	{
-		$this->neo4j = $this->container->getService('neo4j');
-		$this->orm = $this->container->getService('orm');
-	}
-
-	function testCrud()
+	public function testCrud()
 	{
 		$video = new Video;
 		$video->title = 'Dummy video';

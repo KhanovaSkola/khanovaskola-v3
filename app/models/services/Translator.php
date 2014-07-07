@@ -5,7 +5,7 @@ namespace App\Models\Services;
 use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
-use App\Rme\User;
+use App\Models\Rme\User;
 use Monolog\Logger;
 use Nette;
 use Nette\Neon\Neon;
