@@ -3,13 +3,16 @@ Pheanstalk
 
 [![Build Status](https://travis-ci.org/pda/pheanstalk.png?branch=master)](https://travis-ci.org/pda/pheanstalk)
 
-Pheanstalk is a pure PHP 5.2+ client for the [beanstalkd workqueue][1].  It has
+Pheanstalk is a pure PHP 5.3+ client for the [beanstalkd workqueue][1].  It has
 been actively developed, and used in production by many, since late 2008.
 
 Created by [Paul Annesley][2], Pheanstalk is rigorously unit tested and written
 using encapsulated, maintainable object oriented design.  Community feedback,
-bug reports and patches has led to a stable 1.0.0 release in 2010, and a 2.0.0
-release in 2013.
+bug reports and patches has led to a stable 1.0 release in 2010, a 2.0 release
+in 2013, and a 3.0 release in 2014.
+
+Pheanstalk 3.0 introduces PHP namespaces, PSR-1 and PSR-2 coding standards,
+and PSR-4 autoloader standard.
 
 beanstalkd up to the latest version 1.4 is supported.  All commands and
 responses specified in the [protocol documentation][3] for beanstalkd 1.3 are
@@ -18,7 +21,6 @@ implemented.
   [1]: http://xph.us/software/beanstalkd/
   [2]: http://paul.annesley.cc/
   [3]: http://github.com/kr/beanstalkd/tree/v1.3/doc/protocol.txt?raw=true
-  [4]: http://semver.org/
 
 Installation with Composer
 -------------
@@ -28,10 +30,14 @@ Declare pheanstalk as a dependency in your projects `composer.json` file:
 ``` json
 {
   "require": {
-    "pda/pheanstalk": "dev-master"
+    "pda/pheanstalk": "$VERSION"
   }
 }
 ```
+
+Replace `$VERSION` with one of the stable versions available on
+[Packagist](https://packagist.org/packages/pda/pheanstalk) or `2.*@dev` to get
+the current development version for the 2.x Pheanstalk API.
 
 Usage Example
 -------------
@@ -39,10 +45,11 @@ Usage Example
 ```php
 <?php
 
-// If you aren't using composer, register Pheanstalk class loader
-require_once('pheanstalk_init.php');
+// Hopefully you're using Composer autoloading.
 
-$pheanstalk = new Pheanstalk_Pheanstalk('127.0.0.1');
+use Pheanstalk\Pheanstalk;
+
+$pheanstalk = new Pheanstalk('127.0.0.1');
 
 // ----------------------------------------
 // producer (queues jobs)
@@ -80,28 +87,24 @@ Since porting to PHPUnit, all tests are run at once. Feel free to submit
 a pull request to rectify this.
 
 ```
-# ensure you have PHPUnit
-$ sudo pear channel-discover pear.phpunit.de
-$ sudo pear channel-discover components.ez.no
-$ sudo pear channel-discover pear.symfony.com
-$ sudo pear install phpunit/PHPUnit
-$ hash -r
-
 # ensure you have Composer set up
 $ wget http://getcomposer.org/composer.phar
 $ php composer.phar install
 
-$ phpunit
-PHPUnit 3.7.10 by Sebastian Bergmann.
+# ensure you have PHPUnit
+$ composer install --dev
+
+$ ./vendor/bin/phpunit
+PHPUnit 4.0.19 by Sebastian Bergmann.
 
 Configuration read from /Users/pda/code/pheanstalk/phpunit.xml.dist
 
-................................................................. 65 / 79 ( 82%)
-..............
+................................................................. 65 / 83 ( 78%)
+..................
 
-Time: 0 seconds, Memory: 8.75Mb
+Time: 239 ms, Memory: 6.00Mb
 
-OK (79 tests, 387 assertions)
+OK (83 tests, 378 assertions)
 ```
 
 
@@ -111,16 +114,20 @@ Contributors
   * [Paul Annesley](https://github.com/pda)
   * [Lachlan Donald](https://github.com/lox)
   * [Joakim Bick](https://github.com/minimoe)
-  * [SlNPacifist](https://github.com/SlNPacifist)
+  * [Vyacheslav](https://github.com/SlNPacifist)
   * [leprechaun](https://github.com/leprechaun)
   * [Peter McArthur](https://github.com/ptrmcrthr)
   * [robbiehudson](https://github.com/robbiehudson)
   * [Geoff Catlin](https://github.com/gcatlin)
-  * [srjlewis](https://github.com/srjlewis)
+  * [Steven Lewis](https://github.com/srjlewis)
   * [Lars Yencken](https://github.com/larsyencken)
   * [Josh Butts](https://github.com/jimbojsb)
   * [Henry Smith](https://github.com/h2s)
   * [Javier Spagnoletti](https://github.com/phansys)
+  * [Graham Campbell](https://github.com/GrahamCampbell)
+  * [Thomas Tourlourat](https://github.com/armetiz)
+  * [Matthieu Napoli](https://github.com/mnapoli)
+  * [Christoph](https://github.com/xrstf)
   * .. [more?](https://github.com/pda/pheanstalk/contributors) Let me know if you're missing.
 
 
