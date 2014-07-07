@@ -1,154 +1,192 @@
+
+var STYLE_FILES = [
+	'www/styles/screen.styl'
+];
+
+var JS_FILES = [
+	'www/js/app.js',
+	'www/js/exercise.js',
+	'www/js/inactivity.js',
+	'www/js/urlFixes.js',
+	'www/js/controls/*.js'
+];
+
+var DIST_FOLDER = 'www/build';
+
+var WATCH_FILES = [
+	DIST_FOLDER + '/*'
+];
+
+
+/**
+ * Grunt project itself with defined tasks and theirs options
+ */
 module.exports = function(grunt) {
+	grunt.initConfig({
 
-    var LESS_FILES = {
-        "www/css/compiled.css": "www/less/style.less"
-    };
+		// Clean dist folder from obsolete files
+		clean: {
+			dist: DIST_FOLDER + '/*'
+		},
 
-    var JS_FILES = [
-        'www/js/vendor/jquery.js',
-        'www/js/vendor/elasticsearch.jquery.min.js',
-        'www/js/vendor/medium-editor.js',
-        'www/js/vendor/bootstrap/alert.js',
-        'www/js/vendor/netteForm.js',
-        'www/js/vendor/typeahead.bundle.min.js',
-        'www/js/vendor/d3.v3.min.js',
+		// Compile Stylus styles into CSS
+		stylus: {
 
-        'www/js/app/app.js',
-        'www/js/app/exercise.js',
-        'www/js/app/inactivity.js',
-        'www/js/app/urlFixes.js',
-        'www/js/app/components/blueprint.js',
-        'www/js/app/components/columnChart.js',
-        'www/js/app/components/gist.js',
-        'www/js/app/components/search.js'
-    ];
+			dev: {
+				options: {
+					'include css': true,
+					compress: false
+				},
+				expand: true,
+				flatten: true,
+				src: STYLE_FILES,
+				dest: DIST_FOLDER + '/',
+				ext: '.css'
+			},
 
-    var WATCH_FILES = [
-        'www/js/compiled.js',
-        'www/css/compiled.css'
-    ];
+			dist: {
+				options: {
+					'include css': true
+				},
+				expand: true,
+				flatten: true,
+				src: STYLE_FILES,
+				dest: DIST_FOLDER + '/',
+				ext: '.css'
+			}
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+		},
 
-        less: {
-            dev: {
-                files: LESS_FILES
-            },
+		// Concat and minify JavaScript files to single app.js file
+		uglify: {
 
-            dist: {
-                options: {
-                    cleancss: true
-                },
-                files: LESS_FILES
-            }
-        },
+			dev: {
+				options: {
+					compress: false,
+					sourceMap: true
+				},
+				files: (function() {
+					var files = {};
+					files[DIST_FOLDER + '/app.js'] = JS_FILES;
+					return files;
+				})()
+			},
 
-        concat: {
-            dev: {
-                options: {
-                    stripBanners: true,
-                    nonull: true
-                },
-                src: JS_FILES,
-                dest: 'www/js/compiled.js'
-            }
-        },
+			dist: {
+				files: (function() {
+					var files = {};
+					files[DIST_FOLDER + '/app.js'] = JS_FILES;
+					return files;
+				})()
+			}
 
-        uglify: {
-            dist: {
-                options: {
-                    compress: {
-                        drop_console: true
-                    }
-                },
-                files: {'www/js/compiled.js': JS_FILES}
-            }
-        },
+		},
 
-        browserSync: {
+		// Minify CSS even more, every byte counts
+		cssmin: {
+			dist: {
+				expand: true,
+				cwd: DIST_FOLDER + '/',
+				src: '*.css',
+				dest: DIST_FOLDER + '/'
+			}
+		},
 
-            dev: {
-                options: {
-                    watchTask: true,
-                    debugInfo: true,
-                    proxy: 'vagrant.khanovaskola.cz',
-                    ghostMode: {
-                        clicks: true,
-                        scroll: true,
-                        links: false,
-                        forms: true
-                    }
-                },
-                bsFiles: {
-                    src: WATCH_FILES
-                }
-            }
+		// Development mode with resources auto reload and browser actions synchronizations
+		browserSync: {
 
-        },
+			dev: {
+				options: {
+					watchTask: true,
+					debugInfo: true,
+					// Only static files
+					server: {
+						baseDir: '.',
+						index: DIST_FOLDER + '/index.html'
+					},
+					// Dynamic files (PHP etc) - proxy to running server
+					// proxy: 'localhost',
+					ghostMode: {
+						clicks: true,
+						scroll: true,
+						links: false,
+						forms: true
+					}
+				},
+				bsFiles: {
+					src: WATCH_FILES
+				}
+			}
 
-        watch: {
+		},
 
-            options: {
-                spawn: false
-            },
+		// Watch sources for change and compile them. Starts Livereload server as fallback of browserSync.
+		watch: {
 
-            styles: {
-                files: 'www/less/**/*.less',
-                tasks: 'less:dev'
-            },
+			options: {
+				spawn: false
+			},
 
-            js: {
-                files: 'www/js/**/*.js',
-                tasks: 'concat:dev'
-            },
+			styles: {
+				files: 'www/styles/**/*.styl',
+				tasks: 'stylus:dev'
+			},
 
-            livereload: {
-                files: WATCH_FILES,
-                options: {
-                    livereload: true
-                }
-            }
+			js: {
+				files: 'www/js/**/*.js',
+				tasks: ['uglify:dev', 'replace:dev']
+			},
 
-        },
+			livereload: {
+				files: WATCH_FILES,
+				options: {
+					livereload: true
+				}
+			}
 
-        replace: {
-            dev: {
-                options: {
-                    patterns: [{
-                        json: {
-                            domain: {
-                                elastic: 'http://vagrant.khanovaskola.cz:9200'
-                            }
-                        }
-                    }]
-                },
-                files: [{expand: true, flatten: true, src: ['www/js/compiled.js'], dest: 'www/js/'}]
-            },
-            dist: {
-                options: {
-                    patterns: [{
-                        json: {
-                            domain: {
-                                elastic: 'https://elastic-1.khanovaskola.cz/'
-                            }
-                        }
-                    }]
-                },
-                files: [{expand: true, flatten: true, src: ['www/js/compiled.js'], dest: 'www/js/'}]
-            }
-        }
+		},
 
-    });
+		replace: {
+			dev: {
+				options: {
+					patterns: [{
+						json: {
+							domain: {
+								elastic: 'http://vagrant.khanovaskola.cz:9200'
+							}
+						}
+					}]
+				},
+				files: [{expand: true, flatten: true, src: ['www/build/app.js'], dest: 'www/build/'}]
+			},
+			dist: {
+				options: {
+					patterns: [{
+						json: {
+							domain: {
+								elastic: 'https://elastic-1.khanovaskola.cz/'
+							}
+						}
+					}]
+				},
+				files: [{expand: true, flatten: true, src: ['www/build/app.js'], dest: 'www/build/'}]
+			}
+		}
 
-    grunt.loadNpmTasks('grunt-browser-sync');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-replace');
+	});
 
-    grunt.registerTask('dist', ['less:dist', 'uglify:dist', 'replace:dist']);
-    grunt.registerTask('default', ['less:dev', 'concat:dev', 'replace:dev', 'browserSync:dev', 'watch']);
+	// Load plugins
+	grunt.loadNpmTasks('grunt-browser-sync');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-stylus');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-notify');
+	grunt.loadNpmTasks('grunt-replace');
+
+	// Register tasks
+	grunt.registerTask('default', ['clean:dist', 'stylus:dist', 'uglify:dist', 'replace:dist', 'cssmin:dist']);
+	grunt.registerTask('dev', ['clean:dist', 'stylus:dev', 'uglify:dev', 'replace:dev', 'browserSync:dev', 'watch']);
 
 };
