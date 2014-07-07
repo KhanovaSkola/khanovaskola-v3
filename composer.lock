@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f56c469f6d3a282b5634644fea40626",
+    "hash": "777819fa9d424cb14d49d49b36be4851",
     "packages": [
         {
             "name": "dg/dibi",
@@ -3114,12 +3114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikulas/nette-panel-queries.git",
-                "reference": "31755e3"
+                "reference": "a246eb6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/31755e329b4067593ebb90aa8cd86efde1cc6074",
-                "reference": "31755e3",
+                "reference": "a246eb6",
                 "shasum": ""
             },
             "require": {
