@@ -28,30 +28,30 @@ class Comments extends Control
 		$this->orm = $orm;
 	}
 
-//	public function createComponentComment($name)
-//	{
-//		$form = new Form($this, $name);
-//
-//		$form->addTextArea('text');
-//
-//		$form->addSubmit();
-//		$form->onSuccess[] = $this->onSuccessComment;
-//
-//		return $form;
-//	}
-//
-//	public function onSuccessComment(Form $form)
-//	{
-//		$comment = new Comment();
-//		$comment->video = $this->video;
-//		$comment->author = $this->user;
-//		$comment->text = $form['text']->value;
-//
-//		$this->orm->comments->attach($comment);
-//		$this->orm->flush();
-//		$this->flashSuccess('added');
-//		$this->redirect('this');
-//	}
+	//	public function createComponentComment($name)
+	//	{
+	//		$form = new Form($this, $name);
+	//
+	//		$form->addTextArea('text');
+	//
+	//		$form->addSubmit();
+	//		$form->onSuccess[] = $this->onSuccessComment;
+	//
+	//		return $form;
+	//	}
+	//
+	//	public function onSuccessComment(Form $form)
+	//	{
+	//		$comment = new Comment();
+	//		$comment->video = $this->video;
+	//		$comment->author = $this->user;
+	//		$comment->text = $form['text']->value;
+	//
+	//		$this->orm->comments->attach($comment);
+	//		$this->orm->flush();
+	//		$this->flashSuccess('added');
+	//		$this->redirect('this');
+	//	}
 
 	protected function renderDefault(Video $video)
 	{

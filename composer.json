@@ -48,10 +48,6 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/Mikulas/Faker.git"
 		}
 	],
 	"scripts": {
