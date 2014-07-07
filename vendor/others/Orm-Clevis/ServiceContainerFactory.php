@@ -55,6 +55,7 @@ class ServiceContainerFactory extends Nette\Object implements Orm\IServiceContai
 		$container->addService('repositoryHelper', 'Orm\RepositoryHelper');
 		$container->addService('dibi', $this->dibiConnection);
 		$container->addService('purifier', $this->purifier);
+		$container->addService('container', $this->container);
 
 		if ($this->cache !== NULL)
 		{
