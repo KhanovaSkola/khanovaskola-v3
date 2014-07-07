@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "777819fa9d424cb14d49d49b36be4851",
+    "hash": "f9195b254c4c2c4c0d296a9db22bdbc3",
     "packages": [
         {
             "name": "dg/dibi",
@@ -3056,21 +3056,22 @@
         },
         {
             "name": "mikulas/lattecs",
-            "version": "v0.3.0-beta",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/nette-lattecs.git",
-                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
+                "reference": "19cf73c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
-                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/19cf73c068c6a68245bca8d99f8884be0462bbf7",
+                "reference": "19cf73c",
                 "shasum": ""
             },
             "require": {
                 "latte/latte": "~2.2-rc2",
                 "nette/finder": "~2.2-rc1",
+                "nette/neon": "~2.2-rc2",
                 "symfony/console": "~2.4.4"
             },
             "require-dev": {
@@ -3106,7 +3107,7 @@
                 "tool",
                 "validator"
             ],
-            "time": "2014-05-02 16:39:29"
+            "time": "2014-07-07 15:09:06"
         },
         {
             "name": "mikulas/nette-panel-queries",
@@ -3423,7 +3424,7 @@
         "google/apiclient": 10,
         "kdyby/console": 20,
         "kdyby/forms-replicator": 20,
-        "mikulas/lattecs": 10,
+        "mikulas/lattecs": 20,
         "mikulas/nette-panel-queries": 20
     },
     "platform": {

@@ -37,7 +37,7 @@
 		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
 		"mikulas/code-sniffs": "~1.1",
-		"mikulas/lattecs": "~0.3.0-beta",
+		"mikulas/lattecs": "dev-master#19cf73c",
 		"mikulas/nette-panel-queries": "dev-master#a246eb6",
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
