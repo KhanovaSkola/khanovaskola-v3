@@ -32,6 +32,8 @@ Link directory
 Requirements
 ------------
 
+*Server:*
+
 - php 5.5
 - postgres
 - elasticsearch 1.2.
@@ -39,6 +41,13 @@ Requirements
 - neo4j
 - redis
 - beanstalkd
+
+*Dev / tests:*
+
+- phantomjs
+- casperjs
+- nodejs
+- grunt
 
 Setup
 -----

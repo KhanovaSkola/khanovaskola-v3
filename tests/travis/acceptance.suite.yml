@@ -1,9 +1,0 @@
-
-class_name: WebGuy
-modules:
-    enabled:
-        - PhpBrowser
-        - WebHelper
-    config:
-        PhpBrowser:
-            url: 'http://travis.khanovaskola.cz:8000/'
