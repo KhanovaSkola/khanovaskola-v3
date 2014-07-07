@@ -24,6 +24,7 @@ use Orm;
  * @property Orm\OneToMany $badges {1:m badgeUserBridges $user}
  * @property Orm\OneToMany $answers {1:m answers $user}
  * @property Orm\OneToMany $comments {1:m comments $author}
+ * @property Orm\OneToMany $videosViewed {1:m videoViews $user}
  */
 class User extends Entity
 {
