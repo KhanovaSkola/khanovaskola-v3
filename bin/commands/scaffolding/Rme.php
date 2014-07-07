@@ -20,7 +20,6 @@ class Rme extends Command
 	public function invoke(Scaffolding $scaffolding)
 	{
 		$name = ucFirst($this->in->getArgument('entityName'));
-
 		$file = $scaffolding->createRepository($name);
 		$this->writeCreatedFilesHeader();
 		$this->writeCreatedFile($file);

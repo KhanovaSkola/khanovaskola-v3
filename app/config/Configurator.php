@@ -4,6 +4,7 @@ namespace App\Config;
 
 use App\Models\Services\ElasticSearch;
 use App\Models\Services\Neo4j;
+use Bin\Support\VariadicArgvInput;
 use Everyman\Neo4j\Command\GetServerInfo;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
@@ -15,6 +16,7 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use Nette\Neon\Neon;
 use RuntimeException;
+use SystemContainer;
 use Tracy\Debugger;
 use Tracy\QueryPanel\QueryPanel;
 
@@ -133,6 +135,16 @@ class Configurator extends Nette\Configurator
 		if (!isset($container->parameters['configVersion']) || $container->parameters['configVersion'] !== $example['parameters']['configVersion'])
 		{
 			throw new ConfigFileNotUpToDateException;
+		}
+	}
+
+	public function onAfterConsole($c)
+	{
+		/** @var SystemContainer $c */
+		$s = 'console.router';
+		if ($c->hasService($s))
+		{
+			$c->getService($s)->setInput(new VariadicArgvInput());
 		}
 	}
 
