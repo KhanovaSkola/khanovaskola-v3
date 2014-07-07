@@ -33,6 +33,7 @@ abstract class Command extends SCommand
 	public function setApplication(Application $application = NULL)
 	{
 		parent::setApplication($application);
+		$application->setAutoExit(TRUE);
 
 		/** @var Container $container */
 		$container = $this->getHelper('container')->getContainer();
