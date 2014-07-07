@@ -1,14 +1,15 @@
 /* TEAM */
 	Mikuláš Dítě
-	Contact: mikulas [at] khanovaskola.cz
+	Contact: mikulas@khanovaskola.cz
 	Twitter: @MikulasDite
 	From: Prague, Czech Republic
 
 /* TECHNOLOGIES & TOOLS */
 	PhpStorm
 	PHP 5.5
-	Nette
+	Nette 2.2
 	Redis
 	Nginx
-	ElasticSearch
+	Elasticsearch
 	Postgresql
+	Neo4j
