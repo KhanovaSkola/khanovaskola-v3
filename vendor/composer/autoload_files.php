@@ -8,9 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     $vendorDir . '/tracy/tracy/src/shortcuts.php',
     $vendorDir . '/nette/nette/Nette/loader.php',
-    $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
     $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
     $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-    $vendorDir . '/elfet/deployer/src/deployer.php',
     $vendorDir . '/petrp/access/Access/Init.php',
 );
