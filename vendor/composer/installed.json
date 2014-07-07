@@ -2331,62 +2331,6 @@
         "description": "Code sniffer rules for Clevis coding standard"
     },
     {
-        "name": "mikulas/lattecs",
-        "version": "v0.3.0-beta",
-        "version_normalized": "0.3.0.0-beta",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/nette-lattecs.git",
-            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
-            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
-            "shasum": ""
-        },
-        "require": {
-            "latte/latte": "~2.2-rc2",
-            "nette/finder": "~2.2-rc1",
-            "symfony/console": "~2.4.4"
-        },
-        "require-dev": {
-            "nette/tester": "~1.1.0"
-        },
-        "time": "2014-05-02 16:39:29",
-        "bin": [
-            "bin/lattecs"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Mikulas\\LatteCS\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Coding standard validator for Latte templates",
-        "keywords": [
-            "Coding Standard",
-            "checker",
-            "console",
-            "cs",
-            "latte",
-            "nette",
-            "tool",
-            "validator"
-        ]
-    },
-    {
         "name": "oodle/inflect",
         "version": "v0.2.0",
         "version_normalized": "0.2.0.0",
@@ -3527,5 +3471,62 @@
             }
         ],
         "description": "Universal query panel for Tracy"
+    },
+    {
+        "name": "mikulas/lattecs",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/nette-lattecs.git",
+            "reference": "19cf73c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/19cf73c068c6a68245bca8d99f8884be0462bbf7",
+            "reference": "19cf73c",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2-rc2",
+            "nette/finder": "~2.2-rc1",
+            "nette/neon": "~2.2-rc2",
+            "symfony/console": "~2.4.4"
+        },
+        "require-dev": {
+            "nette/tester": "~1.1.0"
+        },
+        "time": "2014-07-07 15:09:06",
+        "bin": [
+            "bin/lattecs"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Mikulas\\LatteCS\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Coding standard validator for Latte templates",
+        "keywords": [
+            "Coding Standard",
+            "checker",
+            "console",
+            "cs",
+            "latte",
+            "nette",
+            "tool",
+            "validator"
+        ]
     }
 ]
