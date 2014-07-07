@@ -10,8 +10,6 @@ namespace Tester;
 
 /**
  * Single test case.
- *
- * @author     David Grudl
  */
 class TestCase
 {
@@ -31,14 +29,18 @@ class TestCase
 			return $rm->getName();
 		}, $r->getMethods())));
 
-		if (($method === NULL || $method === self::LIST_METHODS) && isset($_SERVER['argv'][1])) {
-			if ($_SERVER['argv'][1] === self::LIST_METHODS) {
+		if (substr($method, 0, 2) === '--') { // back compatibility
+			$method = NULL;
+		}
+
+		if ($method === NULL && isset($_SERVER['argv']) && ($tmp = preg_filter('#(--method=)?([\w-]+)$#Ai', '$2', $_SERVER['argv']))) {
+			$method = reset($tmp);
+			if ($method === self::LIST_METHODS) {
 				Environment::$checkAssertions = FALSE;
 				header('Content-Type: application/json');
 				echo json_encode($methods);
 				return;
 			}
-			$method = $_SERVER['argv'][1];
 		}
 
 		if ($method === NULL) {
@@ -75,13 +77,21 @@ class TestCase
 			$throws = preg_split('#\s+#', $info['throws'], 2) + array(NULL, NULL);
 		}
 
+		$defaultParams = array();
+		foreach ($method->getParameters() as $param) {
+			$defaultParams[$param->getName()] = $param->isDefaultValueAvailable() ? $param->getDefaultValue() : NULL;
+		}
+
 		foreach ((array) $info['dataprovider'] as $provider) {
 			$res = $this->getData($provider);
 			if (!is_array($res)) {
 				throw new TestCaseException("Data provider $provider() doesn't return array.");
 			}
-			$data = array_merge($data, $res);
+			foreach ($res as $set) {
+				$data[] = is_string(key($set)) ? array_merge($defaultParams, $set) : $set;
+			}
 		}
+
 		if (!$info['dataprovider']) {
 			if ($method->getNumberOfRequiredParameters()) {
 				throw new TestCaseException("Method {$method->getName()}() has arguments, but @dataProvider is missing.");

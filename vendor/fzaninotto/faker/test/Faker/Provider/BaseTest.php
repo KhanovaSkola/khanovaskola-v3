@@ -23,9 +23,26 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(BaseProvider::randomDigitNotNull() < 10);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRandomNumberThrowsExceptionWhenCalledWithAMax()
+    {
+        BaseProvider::randomNumber(5, 200);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRandomNumberThrowsExceptionWhenCalledWithATooHighNumberOfDigits()
+    {
+        BaseProvider::randomNumber(10);   
+    }
+
     public function testRandomNumberReturnsInteger()
     {
         $this->assertTrue(is_integer(BaseProvider::randomNumber()));
+        $this->assertTrue(is_integer(BaseProvider::randomNumber(5, false)));
     }
 
     public function testRandomNumberReturnsDigit()
@@ -34,13 +51,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(BaseProvider::randomNumber(3) < 1000);
     }
 
-    public function testRandomNumberAcceptsMinMax()
+    public function testRandomNumberAcceptsStrictParamToEnforceNumberSize()
     {
-        $min = 5;
-        $max = 6;
-
-        $this->assertGreaterThanOrEqual($min, BaseProvider::randomNumber($min, $max));
-        $this->assertGreaterThanOrEqual(BaseProvider::randomNumber($min, $max), $max);
+        $this->assertEquals(5, strlen((string) BaseProvider::randomNumber(5, true)));
     }
 
     public function testNumberBetween()
@@ -126,12 +139,18 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals('0', BaseProvider::numerify('%'));
     }
 
+    public function testNumerifyCanGenerateALargeNumberOfDigits()
+    {
+        $largePattern = str_repeat('#', 20); // definitely larger than PHP_INT_MAX on all systems
+        $this->assertEquals(20, strlen(BaseProvider::numerify($largePattern)));
+    }
+
     public function testLexifyReturnsSameStringWhenItContainsNoQuestionMark()
     {
         $this->assertEquals('fooBar#', BaseProvider::lexify('fooBar#'));
     }
 
-    public function testNumerifyReturnsStringWithQuestionMarksReplacedByLetters()
+    public function testLexifyReturnsStringWithQuestionMarksReplacedByLetters()
     {
         $this->assertRegExp('/foo[a-z]Ba[a-z]r/', BaseProvider::lexify('foo?Ba?r'));
     }

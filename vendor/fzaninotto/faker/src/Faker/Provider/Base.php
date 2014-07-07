@@ -47,27 +47,32 @@ class Base
     }
 
     /**
-     * Returns a random number with 0 to $nbDigits digits
+     * Returns a random number with 0 to $nbDigits digits.
      *
-     * If $upTo is passed, it returns a number between $nbDigits (read as from) and $upTo
+     * The maximum value returned is mt_getrandmax()
      *
-     * @param integer $nbDigits
-     * @param integer $upTo
+     * @param integer $nbDigits Defaults to a random number between 1 and 9
+     * @param boolean $strict Whether the returned number should have exactly $nbDigits
      * @example 79907610
      *
      * @return integer
      */
-    public static function randomNumber($nbDigits = null, $upTo = null)
+    public static function randomNumber($nbDigits = null, $strict = false)
     {
+        if (!is_bool($strict)) {
+            throw new \InvalidArgumentException('randomNumber() generates numbers of fixed width. To generate numbers between two boundaries, use numberBetween() instead.');
+        }
         if (null === $nbDigits) {
-            $nbDigits = static::randomDigit();
+            $nbDigits = static::randomDigitNotNull();
         }
-
-        if (null !== $upTo) {
-            return static::numberBetween($nbDigits, $upTo);
+        $max = pow(10, $nbDigits) - 1;
+        if ($max > mt_getrandmax()) {
+            throw new \InvalidArgumentException('randomNumber() can only generate numbers up to mt_getrandmax()');
         }
-
-        return mt_rand(0, pow(10, $nbDigits) - 1);
+        if ($strict) {
+            return mt_rand(pow(10, $nbDigits - 1), $max);
+        }
+        return mt_rand(0, $max);
     }
 
     /**
@@ -100,17 +105,17 @@ class Base
     }
 
     /**
-     * Returns a random number between $from and $to
+     * Returns a random number between $min and $max
      *
-     * @param integer $from default to 0
-     * @param integer $to   defaults to 32 bit max integer, ie 2147483647
+     * @param integer $min default to 0
+     * @param integer $max   defaults to 32 bit max integer, ie 2147483647
      * @example 79907610
      *
      * @return integer
      */
-    public static function numberBetween($from = 0, $to = 2147483647)
+    public static function numberBetween($min = 0, $max = 2147483647)
     {
-        return mt_rand($from, $to);
+        return mt_rand($min, $max);
     }
 
     /**
@@ -201,7 +206,27 @@ class Base
      */
     public static function numerify($string = '###')
     {
-        $string = preg_replace_callback('/\#/u', 'static::randomDigit', $string);
+        // instead of using randomDigit() several times, which is slow,
+        // count the number of hashes and generate once a large number
+        $toReplace = array();
+        for ($i = 0, $count = strlen($string); $i < $count; $i++) {
+            if ($string[$i] === '#') {
+                $toReplace []= $i;
+            }
+        }
+        if ($nbReplacements = count($toReplace)) {
+            $maxAtOnce = strlen((string) mt_getrandmax()) - 1;
+            $numbers = '';
+            $i = 0;
+            while ($i < $nbReplacements) {
+                $size = min($nbReplacements - $i, $maxAtOnce);
+                $numbers .= str_pad(static::randomNumber($size), $size, '0', STR_PAD_LEFT);
+                $i += $size;
+            }
+            for ($i = 0; $i < $nbReplacements; $i++) {
+                $string[$toReplace[$i]] = $numbers[$i];
+            }
+        }
         $string = preg_replace_callback('/\%/u', 'static::randomDigitNotNull', $string);
 
         return $string;

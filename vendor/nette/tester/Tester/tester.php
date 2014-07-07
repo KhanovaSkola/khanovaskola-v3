@@ -33,7 +33,7 @@ ob_start();
 echo <<<XX
  _____ ___  ___ _____ ___  ___
 |_   _/ __)( __/_   _/ __)| _ )
-  |_| \___ /___) |_| \___ |_|_\  v1.1.0
+  |_| \___ /___) |_| \___ |_|_\  v1.2.0
 
 
 XX;
@@ -43,20 +43,21 @@ Usage:
     tester.php [options] [<test file> | <directory>]...
 
 Options:
-    -p <path>             Specify PHP executable to run (default: php-cgi).
-    -c <path>             Look for php.ini file (or look in directory) <path>.
-    -l | --log <path>     Write log to file <path>.
-    -d <key=value>...     Define INI entry 'key' with value 'val'.
-    -s                    Show information about skipped tests.
-    --tap                 Generate Test Anything Protocol.
-    -j <num>              Run <num> jobs in parallel (default: 33).
-    -w | --watch <path>   Watch directory.
-    -i | --info           Show tests environment info and exit.
-    --setup <path>        Script for runner setup.
-    --colors [1|0]        Enable or disable colors.
-    --coverage <path>     Generate code coverage report to file.
-    --coverage-src <dir>  Directory with source code.
-    -h | --help           This help.
+    -p <path>              Specify PHP executable to run (default: php-cgi).
+    -c <path>              Look for php.ini file (or look in directory) <path>.
+    -l | --log <path>      Write log to file <path>.
+    -d <key=value>...      Define INI entry 'key' with value 'val'.
+    -s                     Show information about skipped tests.
+    --stop-on-fail         Stop execution upon the first failure.
+    --tap                  Generate Test Anything Protocol.
+    -j <num>               Run <num> jobs in parallel (default: 33).
+    -w | --watch <path>    Watch directory.
+    -i | --info            Show tests environment info and exit.
+    --setup <path>         Script for runner setup.
+    --colors [1|0]         Enable or disable colors.
+    --coverage <path>      Generate code coverage report to file.
+    --coverage-src <path>  Path to source code.
+    -h | --help            This help.
 
 XX
 , array(
@@ -122,6 +123,7 @@ if ($options['--coverage']) {
 $runner = new Tester\Runner\Runner($php);
 $runner->paths = $options['paths'];
 $runner->threadCount = max(1, (int) $options['-j']);
+$runner->stopOnFail = $options['--stop-on-fail'];
 
 $runner->outputHandlers[] = $options['--tap']
 	? new Tester\Runner\Output\TapPrinter($runner)

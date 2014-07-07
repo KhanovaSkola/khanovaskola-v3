@@ -10,8 +10,6 @@ namespace Tester;
 
 /**
  * Assertion test helpers.
- *
- * @author     David Grudl
  */
 class Assert
 {
@@ -109,7 +107,7 @@ class Assert
 				self::fail('%1 should contain %2', $actual, $needle);
 			}
 		} elseif (is_string($actual)) {
-			if (strpos($actual, $needle) === FALSE) {
+			if ($needle !== '' && strpos($actual, $needle) === FALSE) {
 				self::fail('%1 should contain %2', $actual, $needle);
 			}
 		} else {
@@ -130,7 +128,7 @@ class Assert
 				self::fail('%1 should not contain %2', $actual, $needle);
 			}
 		} elseif (is_string($actual)) {
-			if (strpos($actual, $needle) !== FALSE) {
+			if ($needle === '' || strpos($actual, $needle) !== FALSE) {
 				self::fail('%1 should not contain %2', $actual, $needle);
 			}
 		} else {
@@ -224,6 +222,24 @@ class Assert
 
 
 	/**
+	 * Checks if subject has expected count.
+	 * @param  int    expected count
+	 * @param  mixed  subject
+	 * @return void
+	 */
+	public static function count($count, $value)
+	{
+		self::$counter++;
+		if (!$value instanceof \Countable && !is_array($value)) {
+			self::fail('%1 should be array or countable object', $value);
+
+		} elseif (count($value) !== $count) {
+			self::fail('Count %1 should be %2', count($value), $count);
+		}
+	}
+
+
+	/**
 	 * Checks assertion.
 	 * @return void
 	 */
@@ -242,11 +258,12 @@ class Assert
 			'int', 'integer', 'null', 'object', 'resource', 'scalar', 'string'), TRUE)
 		) {
 			if (!call_user_func("is_$type", $value)) {
-				self::fail("%1 should be $type", $value);
+				self::fail(gettype($value) . " should be $type");
 			}
 
 		} elseif (!$value instanceof $type) {
-			self::fail("%1 should be instance of $type", $value);
+			$actual = is_object($value) ? get_class($value) : gettype($value);
+			self::fail("$actual should be instance of $type");
 		}
 	}
 
@@ -257,7 +274,7 @@ class Assert
 	 * @param  string class
 	 * @param  string message
 	 * @param  integer code
-	 * @return Exception
+	 * @return \Exception
 	 */
 	public static function exception($function, $class, $message = NULL, $code = NULL)
 	{
@@ -284,7 +301,7 @@ class Assert
 
 	/**
 	 * Checks if the function throws exception, alias for exception().
-	 * @return Exception
+	 * @return \Exception
 	 */
 	public static function throws($function, $class, $message = NULL, $code = NULL)
 	{
@@ -297,7 +314,7 @@ class Assert
 	 * @param  callable
 	 * @param  int|string|array
 	 * @param  string message
-	 * @return null|Exception
+	 * @return null|\Exception
 	 */
 	public static function error($function, $expectedType, $expectedMessage = NULL)
 	{
@@ -514,8 +531,6 @@ class Assert
 
 /**
  * Assertion exception.
- *
- * @author     David Grudl
  */
 class AssertException extends \Exception
 {

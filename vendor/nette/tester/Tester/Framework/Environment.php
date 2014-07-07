@@ -10,8 +10,6 @@ namespace Tester;
 
 /**
  * Testing environment.
- *
- * @author     David Grudl
  */
 class Environment
 {
@@ -144,8 +142,8 @@ class Environment
 	 */
 	public static function loadData()
 	{
-		if (isset($_SERVER['argv'][2])) {
-			list(, $query, $file) = $_SERVER['argv'];
+		if (isset($_SERVER['argv']) && ($tmp = preg_filter('#--dataprovider=(.*)#Ai', '$1', $_SERVER['argv']))) {
+			list($query, $file) = explode('|', reset($tmp), 2);
 
 		} else {
 			$annotations = self::getTestAnnotations();

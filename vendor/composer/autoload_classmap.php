@@ -2383,6 +2383,7 @@ return array(
     'Tester\\DomQuery' => $vendorDir . '/nette/tester/Tester/Framework/DomQuery.php',
     'Tester\\Dumper' => $vendorDir . '/nette/tester/Tester/Framework/Dumper.php',
     'Tester\\Environment' => $vendorDir . '/nette/tester/Tester/Framework/Environment.php',
+    'Tester\\FileMock' => $vendorDir . '/nette/tester/Tester/Framework/FileMock.php',
     'Tester\\Helpers' => $vendorDir . '/nette/tester/Tester/Framework/Helpers.php',
     'Tester\\Runner\\CommandLine' => $vendorDir . '/nette/tester/Tester/Runner/CommandLine.php',
     'Tester\\Runner\\Job' => $vendorDir . '/nette/tester/Tester/Runner/Job.php',
