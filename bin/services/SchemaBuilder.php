@@ -133,7 +133,10 @@ class SchemaBuilder extends Object
 			{
 				// add foo_id
 				/** @var NULL|RelationshipMetaDataManyToOne $relation */
-				$table->addColumn("{$paramName}_id", 'integer', $options);
+				$col = "{$paramName}_id";
+				$table->addColumn($col, 'integer', $options);
+				$mapper = $this->repos->getRepository($relation->getChildRepository())->getMapper();
+				$table->addForeignKeyConstraint($mapper->getTableName(), [$col], ['id']);
 			}
 			else if ($relation === NULL && isset($param['types']['id']))
 			{
