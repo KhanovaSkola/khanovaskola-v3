@@ -2387,46 +2387,6 @@
         ]
     },
     {
-        "name": "mikulas/nette-panel-queries",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/mikulas/nette-panel-queries.git",
-            "reference": "31755e3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/31755e329b4067593ebb90aa8cd86efde1cc6074",
-            "reference": "31755e3",
-            "shasum": ""
-        },
-        "require": {
-            "latte/latte": "~2.2.0",
-            "nette/utils": "~2.2.0",
-            "tracy/tracy": "~2.2.0"
-        },
-        "time": "2014-05-19 14:56:15",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Tracy\\QueryPanel\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Universal query panel for Tracy"
-    },
-    {
         "name": "oodle/inflect",
         "version": "v0.2.0",
         "version_normalized": "0.2.0.0",
@@ -3527,5 +3487,45 @@
         ],
         "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
         "homepage": "https://github.com/PetrP/Access"
+    },
+    {
+        "name": "mikulas/nette-panel-queries",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/nette-panel-queries.git",
+            "reference": "a246eb6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/31755e329b4067593ebb90aa8cd86efde1cc6074",
+            "reference": "a246eb6",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2.0",
+            "nette/utils": "~2.2.0",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-05-19 14:56:15",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Tracy\\QueryPanel\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Universal query panel for Tracy"
     }
 ]
