@@ -30,10 +30,13 @@ class Run extends Command
 		if ($runAll || $this->in->getOption('cs'))
 		{
 			$lattecs = ["$root/vendor/bin/lattecs", "$root/app/templates"];
-			$r = $this->callSystem($lattecs);
+			if ($r = $this->callSystem($lattecs))
+			{
+				return $r;
+			}
 
 			$phpcs = ["$root/vendor/bin/phpcs", '-p --standard=vendor/mikulas/code-sniffs/cs/' => FALSE, "$root/app"];
-			if ($r &= $this->callSystem($phpcs))
+			if ($r = $this->callSystem($phpcs))
 			{
 				return $r;
 			}
