@@ -3,10 +3,10 @@
 namespace App\Models\Services;
 
 use App\InvalidStateException;
-use App\Tasks\Task;
+use App\Models\Tasks\Task;
 use Nette\Object;
-use Pheanstalk_Connection;
-use Pheanstalk_Pheanstalk as Pheanstalk;
+use Pheanstalk\Connection;
+use Pheanstalk\Pheanstalk;
 
 
 class Queue extends Object
@@ -26,7 +26,7 @@ class Queue extends Object
 
 	protected function assertConnected()
 	{
-		/** @var Pheanstalk_Connection $conn */
+		/** @var Connection $conn */
 		$conn = $this->stalk->getConnection();
 		if (!$conn->isServiceListening())
 		{

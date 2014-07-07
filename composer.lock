@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b41923744948321591ee4f34be144c3c",
+    "hash": "157ea4cc06fad256b86afa9085efb65e",
     "packages": [
         {
             "name": "dg/dibi",
@@ -71,16 +71,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elasticsearch/elasticsearch-php.git",
-                "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d"
+                "reference": "7ea796b54f8f71c82be4db92b4f5625abf3c40eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
-                "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
+                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/7ea796b54f8f71c82be4db92b4f5625abf3c40eb",
+                "reference": "7ea796b54f8f71c82be4db92b4f5625abf3c40eb",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "guzzle/guzzle": "~3.7",
                 "monolog/monolog": "~1.5",
                 "php": ">=5.3.9",
-                "pimple/pimple": "~1.0",
+                "pimple/pimple": "~2.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
@@ -124,7 +124,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2014-05-07 15:54:46"
+            "time": "2014-06-18 16:48:46"
         },
         {
             "name": "everyman/neo4jphp",
@@ -2047,25 +2047,33 @@
         },
         {
             "name": "pda/pheanstalk",
-            "version": "v2.1.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pda/pheanstalk.git",
-                "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f"
+                "reference": "8c9568db39e78004455a327f02c347e2133d4ab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
-                "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
+                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/8c9568db39e78004455a327f02c347e2133d4ab5",
+                "reference": "8c9568db39e78004455a327f02c347e2133d4ab5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Pheanstalk": "classes/"
+                "psr-4": {
+                    "Pheanstalk\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2085,20 +2093,20 @@
             "keywords": [
                 "beanstalkd"
             ],
-            "time": "2013-04-03 09:15:34"
+            "time": "2014-06-18 16:33:53"
         },
         {
             "name": "pimple/pimple",
-            "version": "v1.1.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d"
+                "reference": "90b4710f115766d12e1a579b816c0974887b87a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/2019c145fe393923f3441b23f29bbdfaa5c58c4d",
-                "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/90b4710f115766d12e1a579b816c0974887b87a7",
+                "reference": "90b4710f115766d12e1a579b816c0974887b87a7",
                 "shasum": ""
             },
             "require": {
@@ -2107,12 +2115,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Pimple": "lib/"
+                    "Pimple": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2133,7 +2141,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2014-05-01 10:34:00"
         },
         {
             "name": "psr/log",
@@ -3021,16 +3029,16 @@
         },
         {
             "name": "mikulas/code-sniffs",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/code-sniffs.git",
-                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81"
+                "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
-                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
+                "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
+                "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
                 "shasum": ""
             },
             "require": {
@@ -3052,20 +3060,20 @@
                 }
             ],
             "description": "Code sniffer rules for Clevis coding standard",
-            "time": "2014-06-25 10:04:58"
+            "time": "2014-07-07 16:08:35"
         },
         {
             "name": "mikulas/lattecs",
-            "version": "dev-master",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/nette-lattecs.git",
-                "reference": "19cf73c"
+                "reference": "19cf73c068c6a68245bca8d99f8884be0462bbf7"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/19cf73c068c6a68245bca8d99f8884be0462bbf7",
-                "reference": "19cf73c",
+                "reference": "19cf73c068c6a68245bca8d99f8884be0462bbf7",
                 "shasum": ""
             },
             "require": {
@@ -3111,16 +3119,16 @@
         },
         {
             "name": "mikulas/nette-panel-queries",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikulas/nette-panel-queries.git",
-                "reference": "a246eb6"
+                "reference": "a246eb60fb22e2331df79db27341cac6d7250b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/31755e329b4067593ebb90aa8cd86efde1cc6074",
-                "reference": "a246eb6",
+                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/a246eb60fb22e2331df79db27341cac6d7250b34",
+                "reference": "a246eb60fb22e2331df79db27341cac6d7250b34",
                 "shasum": ""
             },
             "require": {
@@ -3145,7 +3153,7 @@
                 }
             ],
             "description": "Universal query panel for Tracy",
-            "time": "2014-05-19 14:56:15"
+            "time": "2014-07-07 14:50:19"
         },
         {
             "name": "nette/tester",
@@ -3423,9 +3431,7 @@
         "everyman/neo4jphp": 20,
         "google/apiclient": 10,
         "kdyby/console": 20,
-        "kdyby/forms-replicator": 20,
-        "mikulas/lattecs": 20,
-        "mikulas/nette-panel-queries": 20
+        "kdyby/forms-replicator": 20
     },
     "platform": {
         "php": ">= 5.5.0"

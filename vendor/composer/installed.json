@@ -195,56 +195,6 @@
         ]
     },
     {
-        "name": "pimple/pimple",
-        "version": "v1.1.1",
-        "version_normalized": "1.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fabpot/Pimple.git",
-            "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fabpot/Pimple/zipball/2019c145fe393923f3441b23f29bbdfaa5c58c4d",
-            "reference": "2019c145fe393923f3441b23f29bbdfaa5c58c4d",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-11-22 08:30:29",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Pimple": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com",
-                "homepage": "http://fabien.potencier.org",
-                "role": "Lead Developer"
-            }
-        ],
-        "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
-        "homepage": "http://pimple.sensiolabs.org",
-        "keywords": [
-            "container",
-            "dependency injection"
-        ]
-    },
-    {
         "name": "monolog/monolog",
         "version": "1.10.0",
         "version_normalized": "1.10.0.0",
@@ -312,65 +262,6 @@
             "log",
             "logging",
             "psr-3"
-        ]
-    },
-    {
-        "name": "elasticsearch/elasticsearch",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/elasticsearch/elasticsearch-php.git",
-            "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
-            "reference": "fd304b1c12778c9eab9b1c1a9e07d791f40bd56d",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "guzzle/guzzle": "~3.7",
-            "monolog/monolog": "~1.5",
-            "php": ">=5.3.9",
-            "pimple/pimple": "~1.0",
-            "psr/log": "~1.0"
-        },
-        "require-dev": {
-            "athletic/athletic": "~0.1",
-            "cpliakas/git-wrapper": "~1.0",
-            "mikey179/vfsstream": "~1.2",
-            "mockery/mockery": "dev-master@dev",
-            "phpunit/phpunit": "3.7.*",
-            "satooshi/php-coveralls": "dev-master",
-            "symfony/yaml": "2.4.3 as 2.4.2",
-            "twig/twig": "1.*"
-        },
-        "time": "2014-05-07 15:54:46",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Elasticsearch": "src/",
-                "Elasticsearch\\Tests": "tests/",
-                "Elasticsearch\\Benchmarks": "benchmarks/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache 2"
-        ],
-        "authors": [
-            {
-                "name": "Zachary Tong"
-            }
-        ],
-        "description": "PHP Client for Elasticsearch",
-        "keywords": [
-            "client",
-            "elasticsearch",
-            "search"
         ]
     },
     {
@@ -2014,50 +1905,6 @@
         "description": "Simple database migrations runner"
     },
     {
-        "name": "pda/pheanstalk",
-        "version": "v2.1.0",
-        "version_normalized": "2.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pda/pheanstalk.git",
-            "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pda/pheanstalk/zipball/ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
-            "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-04-03 09:15:34",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Pheanstalk": "classes/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paul Annesley",
-                "email": "paul@annesley.cc",
-                "homepage": "http://paul.annesley.cc/",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP client for beanstalkd queue",
-        "homepage": "https://github.com/pda/pheanstalk",
-        "keywords": [
-            "beanstalkd"
-        ]
-    },
-    {
         "name": "fzaninotto/faker",
         "version": "v1.4.0",
         "version_normalized": "1.4.0.0",
@@ -2292,43 +2139,6 @@
             "phpcs",
             "standards"
         ]
-    },
-    {
-        "name": "mikulas/code-sniffs",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/code-sniffs.git",
-            "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
-            "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "squizlabs/php_codesniffer": "~1.5.3"
-        },
-        "require-dev": {
-            "nette/tester": "~1.2.0"
-        },
-        "time": "2014-06-25 10:04:58",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Code sniffer rules for Clevis coding standard"
     },
     {
         "name": "oodle/inflect",
@@ -3433,33 +3243,191 @@
         "homepage": "https://github.com/PetrP/Access"
     },
     {
-        "name": "mikulas/nette-panel-queries",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "pda/pheanstalk",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/mikulas/nette-panel-queries.git",
-            "reference": "a246eb6"
+            "url": "https://github.com/pda/pheanstalk.git",
+            "reference": "8c9568db39e78004455a327f02c347e2133d4ab5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/31755e329b4067593ebb90aa8cd86efde1cc6074",
-            "reference": "a246eb6",
+            "url": "https://api.github.com/repos/pda/pheanstalk/zipball/8c9568db39e78004455a327f02c347e2133d4ab5",
+            "reference": "8c9568db39e78004455a327f02c347e2133d4ab5",
             "shasum": ""
         },
         "require": {
-            "latte/latte": "~2.2.0",
-            "nette/utils": "~2.2.0",
-            "tracy/tracy": "~2.2.0"
+            "php": ">=5.3.0"
         },
-        "time": "2014-05-19 14:56:15",
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-06-18 16:33:53",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Pheanstalk\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paul Annesley",
+                "email": "paul@annesley.cc",
+                "homepage": "http://paul.annesley.cc/",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP client for beanstalkd queue",
+        "homepage": "https://github.com/pda/pheanstalk",
+        "keywords": [
+            "beanstalkd"
+        ]
+    },
+    {
+        "name": "pimple/pimple",
+        "version": "v2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fabpot/Pimple.git",
+            "reference": "90b4710f115766d12e1a579b816c0974887b87a7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fabpot/Pimple/zipball/90b4710f115766d12e1a579b816c0974887b87a7",
+            "reference": "90b4710f115766d12e1a579b816c0974887b87a7",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-05-01 10:34:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Pimple": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": "http://fabien.potencier.org",
+                "role": "Lead Developer"
+            }
+        ],
+        "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+        "homepage": "http://pimple.sensiolabs.org",
+        "keywords": [
+            "container",
+            "dependency injection"
+        ]
+    },
+    {
+        "name": "elasticsearch/elasticsearch",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/elasticsearch/elasticsearch-php.git",
+            "reference": "7ea796b54f8f71c82be4db92b4f5625abf3c40eb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/7ea796b54f8f71c82be4db92b4f5625abf3c40eb",
+            "reference": "7ea796b54f8f71c82be4db92b4f5625abf3c40eb",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "guzzle/guzzle": "~3.7",
+            "monolog/monolog": "~1.5",
+            "php": ">=5.3.9",
+            "pimple/pimple": "~2.0",
+            "psr/log": "~1.0"
+        },
+        "require-dev": {
+            "athletic/athletic": "~0.1",
+            "cpliakas/git-wrapper": "~1.0",
+            "mikey179/vfsstream": "~1.2",
+            "mockery/mockery": "dev-master@dev",
+            "phpunit/phpunit": "3.7.*",
+            "satooshi/php-coveralls": "dev-master",
+            "symfony/yaml": "2.4.3 as 2.4.2",
+            "twig/twig": "1.*"
+        },
+        "time": "2014-06-18 16:48:46",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
-                "Tracy\\QueryPanel\\": "src/"
+                "Elasticsearch": "src/",
+                "Elasticsearch\\Tests": "tests/",
+                "Elasticsearch\\Benchmarks": "benchmarks/"
             }
         },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache 2"
+        ],
+        "authors": [
+            {
+                "name": "Zachary Tong"
+            }
+        ],
+        "description": "PHP Client for Elasticsearch",
+        "keywords": [
+            "client",
+            "elasticsearch",
+            "search"
+        ]
+    },
+    {
+        "name": "mikulas/code-sniffs",
+        "version": "v1.1.1",
+        "version_normalized": "1.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/code-sniffs.git",
+            "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
+            "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "squizlabs/php_codesniffer": "~1.5.3"
+        },
+        "require-dev": {
+            "nette/tester": "~1.2.0"
+        },
+        "time": "2014-07-07 16:08:35",
+        "type": "library",
+        "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
@@ -3470,21 +3438,21 @@
                 "email": "mikulas@dite.pro"
             }
         ],
-        "description": "Universal query panel for Tracy"
+        "description": "Code sniffer rules for Clevis coding standard"
     },
     {
         "name": "mikulas/lattecs",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.3.0",
+        "version_normalized": "0.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Mikulas/nette-lattecs.git",
-            "reference": "19cf73c"
+            "reference": "19cf73c068c6a68245bca8d99f8884be0462bbf7"
         },
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/19cf73c068c6a68245bca8d99f8884be0462bbf7",
-            "reference": "19cf73c",
+            "reference": "19cf73c068c6a68245bca8d99f8884be0462bbf7",
             "shasum": ""
         },
         "require": {
@@ -3528,5 +3496,45 @@
             "tool",
             "validator"
         ]
+    },
+    {
+        "name": "mikulas/nette-panel-queries",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/nette-panel-queries.git",
+            "reference": "a246eb60fb22e2331df79db27341cac6d7250b34"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/a246eb60fb22e2331df79db27341cac6d7250b34",
+            "reference": "a246eb60fb22e2331df79db27341cac6d7250b34",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2.0",
+            "nette/utils": "~2.2.0",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-07-07 14:50:19",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Tracy\\QueryPanel\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Universal query panel for Tracy"
     }
 ]
