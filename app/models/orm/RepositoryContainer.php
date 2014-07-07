@@ -20,6 +20,7 @@ use Nette\DI\Container;
  * @property-read Rme\TagsRepository $tags
  * @property-read Rme\UsersRepository $users
  * @property-read Rme\VideosRepository $videos
+ * @property-read Rme\VideoViewsRepository $videoViews
  */
 class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 {
