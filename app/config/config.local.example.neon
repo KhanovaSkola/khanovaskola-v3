@@ -5,7 +5,7 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 parameters:
-	configVersion: 3
+	configVersion: 4
 	database:
 		username: postgres
 		password: root
@@ -24,6 +24,9 @@ parameters:
 			- localhost
 		# connectionParams:
 		# 	auth: [username, password", "Basic"]
+
+console:
+	url: http://vagrant.khanovaskola.cz/
 
 newrelic:
 	enabled: false
