@@ -150,7 +150,7 @@ class Configurator extends Nette\Configurator
 
 	public function onAfterQueryPanel(Container $container)
 	{
-		if (!$this->isDebugMode())
+		if (!$this->isDebugMode() || php_uname('n') === 'travis')
 		{
 			return;
 		}

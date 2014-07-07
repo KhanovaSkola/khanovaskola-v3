@@ -6,6 +6,9 @@ block() {
 	php -r "echo \"\n\e[1;30;44m$1\e[21m\n\";"
 }
 
+block "Setting hostname"
+sudo hostname travis
+
 block "Installing ElasticSearch ICU plugin"
 sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
