@@ -41,7 +41,14 @@ class Run extends Command
 
 		if ($runAll || $this->in->getOption('unit'))
 		{
-			$tester = ["$root/vendor/bin/tester", "$root/tests/cases/unit"];
+			$tester = [
+				"$root/vendor/bin/tester",
+				'-p', '/usr/bin/php',
+				'-c', '/etc/php5/cli',
+				'-d', 'extension=curl.so',
+				'-d', 'extension=redis.so',
+				'-d', 'extension=pgsql.so',
+				"$root/tests/cases/unit"];
 			if ($r = $this->callSystem($tester))
 			{
 				return $r;

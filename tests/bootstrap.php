@@ -1,10 +1,10 @@
 <?php
 
-/** @var Container $container */
 use Nette\DI\Container;
 use Tests\TestCase;
 
 
+/** @var Container $container */
 $container = require __DIR__ . '/../app/bootstrap.php';
 return $container;
 
@@ -54,6 +54,11 @@ function runTests($path, Container $container)
 
 	foreach (file_get_php_classes($path) as $class)
 	{
+		if (!is_subclass_of($class, TestCase::class))
+		{
+			continue;
+		}
+
 		/** @var TestCase $test */
 		$test = new $class($container);
 		if (!$tests)

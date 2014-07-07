@@ -3,52 +3,47 @@
 namespace Tests\Cases\Unit;
 
 use App\Models\Services\Translator;
+use Monolog\Logger;
 use Nette;
 use Tester;
 use Tester\Assert;
+use Tests\TestCase;
 
 
 $container = require __DIR__ . '/../../../../bootstrap.php';
 
-class TranslatorTest extends Tester\TestCase
+class TranslatorTest extends TestCase
 {
 
 	/** @var MockTranslator */
 	private $t;
 
-	private $container;
-
-	function __construct(Nette\DI\Container $container)
+	public function setUp()
 	{
-		$this->container = $container;
+		$this->t = new MockTranslator(NULL, $this->container->getByType(Logger::class));
 	}
 
-	function setUp()
-	{
-		$this->t = new MockTranslator(NULL, $this->container->getService('log'));
-	}
-
-	function testUnsetLanguageFails()
+	public function testUnsetLanguageFails()
 	{
 		Assert::exception(function() {
 			$this->t->translate('one');
 		}, 'App\InvalidStateException');
 	}
 
-	function testPathExpands()
+	public function testPathExpands()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('value', $this->t->translate('one.two.three'));
 	}
 
-	function testUnset()
+	public function testUnset()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('[foo.bar]', $this->t->translate('foo.bar'));
 		Assert::same('[foo.bar (few|many)]', $this->t->translate('foo.bar', 3));
 	}
 
-	function testPlurals()
+	public function testPlurals()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('nula', $this->t->translate('plural', 0));
@@ -58,7 +53,7 @@ class TranslatorTest extends Tester\TestCase
 		Assert::same('deset', $this->t->translate('plural', 5));
 	}
 
-	function testPluralsFallback()
+	public function testPluralsFallback()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('deset', $this->t->translate('fallback', 0));
@@ -68,27 +63,27 @@ class TranslatorTest extends Tester\TestCase
 		Assert::same('deset', $this->t->translate('fallback', 5));
 	}
 
-	function testNamed()
+	public function testNamed()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('1 %name', $this->t->translate('named', 1));
 		Assert::same('1 Marco', $this->t->translate('named', 1, ['name' => 'Marco']));
 	}
 
-	function testShortNamed()
+	public function testShortNamed()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('%1 Marco', $this->t->translate('named_short', ['name' => 'Marco']));
 	}
 
-	function testPluralsWithNamed()
+	public function testPluralsWithNamed()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('One message, Marco', $this->t->translate('plurals_named', 1, ['name' => 'Marco']));
 		Assert::same('10 messages, Marco', $this->t->translate('plurals_named', 10, ['name' => 'Marco']));
 	}
 
-	function testGenderInflector()
+	public function testGenderInflector()
 	{
 		$this->t->setLanguage('test');
 		Assert::same('[he|she] udelal[|a]', $this->t->translate('gender'));
