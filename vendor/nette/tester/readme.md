@@ -1,6 +1,9 @@
 [Nette Tester](http://tester.nette.org): enjoyable unit testing
 ===============================================================
 
+[![Downloads this Month](https://img.shields.io/packagist/dm/nette/tester.svg)](https://packagist.org/packages/nette/tester)
+[![Build Status](https://travis-ci.org/nette/tester.svg?branch=master)](https://travis-ci.org/nette/tester)
+
 Nette Tester is a productive and enjoyable unit testing framework. It's used by
 the [Nette Framework](http://nette.org) and is capable of testing any PHP code.
 
@@ -58,7 +61,7 @@ Now we run tests from command-line using the `tester` command:
 > tester
  _____ ___  ___ _____ ___  ___
 |_   _/ __)( __/_   _/ __)| _ )
-  |_| \___ /___) |_| \___ |_|_\  v1.1.0
+  |_| \___ /___) |_| \___ |_|_\  v1.2.0
 
 PHP 5.3.16 | "php-cgi" -n | 33 threads
 .
@@ -92,6 +95,7 @@ This table shows all assertions (class `Assert` means `Tester\Assert`):
 - `Assert::error($closure, $level, $message = NULL)` -  Checks if the function $closure throws PHP warning/notice/error.
 - `Assert::match($pattern, $value)` - Compares result using regular expression or mask.
 - `Assert::matchFile($file, $value)` - Compares result using regular expression or mask sorted in file.
+- `Assert::count($count, $value)` - Reports an error if number of items in $value is not $count.
 
 Testing exceptions:
 
@@ -174,22 +178,19 @@ Usage:
     tester.php [options] [<test file> | <directory>]...
 
 Options:
-    -p <path>             Specify PHP executable to run (default: php-cgi).
-    -c <path>             Look for php.ini file (or look in directory) <path>.
-    -l | --log <path>     Write log to file <path>.
-    -d <key=value>...     Define INI entry 'key' with value 'val'.
-    -s                    Show information about skipped tests.
-    --tap                 Generate Test Anything Protocol.
-    -j <num>              Run <num> jobs in parallel (default: 33).
-    -w | --watch <path>   Watch directory.
-    -i | --info           Show tests environment info and exit.
-    --setup <path>        Script for runner setup.
-    --colors [1|0]        Enable or disable colors.
-    --coverage <path>     Generate code coverage report to file.
-    --coverage-src <dir>  Directory with source code.
-    -h | --help           This help.
+    -p <path>              Specify PHP executable to run (default: php-cgi).
+    -c <path>              Look for php.ini file (or look in directory) <path>.
+    -l | --log <path>      Write log to file <path>.
+    -d <key=value>...      Define INI entry 'key' with value 'val'.
+    -s                     Show information about skipped tests.
+    --stop-on-fail         Stop execution upon the first failure.
+    --tap                  Generate Test Anything Protocol.
+    -j <num>               Run <num> jobs in parallel (default: 33).
+    -w | --watch <path>    Watch directory.
+    -i | --info            Show tests environment info and exit.
+    --setup <path>         Script for runner setup.
+    --colors [1|0]         Enable or disable colors.
+    --coverage <path>      Generate code coverage report to file.
+    --coverage-src <path>  Path to source code.
+    -h | --help            This help.
 ```
-
------
-
-[![Build Status](https://secure.travis-ci.org/nette/tester.png?branch=master)](http://travis-ci.org/nette/tester)

@@ -8,10 +8,20 @@ namespace Faker\Provider\cs_CZ;
  */
 class DateTime extends \Faker\Provider\DateTime
 {
-
-    protected static $days = array('neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota');
-    protected static $months = array('leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec');
-    protected static $monthsGenitive  = array('ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince');
+    protected static $days = array(
+        'neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'
+    );
+    protected static $months = array(
+        'leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec',
+        'srpen', 'září', 'říjen', 'listopad', 'prosinec'
+    );
+    protected static $monthsGenitive  = array(
+        'ledna', 'února', 'března', 'dubna', 'května', 'června', 'července',
+        'srpna', 'září', 'října', 'listopadu', 'prosince'
+    );
+    protected static $formattedDateFormat = array(
+        '{{dayOfMonth}}. {{monthNameGenitive}} {{year}}',
+    );
 
     public static function monthName($max = 'now')
     {
@@ -39,12 +49,14 @@ class DateTime extends \Faker\Provider\DateTime
     }
 
     /**
-     * @param string $max
+     * Full date with inflected month
      * @return string
-     * @example 16. listopadu 2003
+     * @example '16. listopadu 2003'
      */
-    public function formattedDate($max = 'now')
+    public function formattedDate()
     {
-        return $this->generator->parse('{{dayOfMonth}}. {{monthNameGenitive}} {{year}}');
+        $format = static::randomElement(static::$formattedDateFormat);
+
+        return $this->generator->parse($format);
     }
 }

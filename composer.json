@@ -6,53 +6,53 @@
 		{"name": "Mikuláš Dítě"}
 	],
 	"license": "MIT",
-	"minimum-stability": "beta",
+	"minimum-stability": "stable",
 	"config": {
 		"preferred-install": "dist"
 	},
 	"require": {
+		"php": ">= 5.5.0",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1.0",
 		"everyman/neo4jphp": "@dev",
 		"ezyang/htmlpurifier": "~4.6.0",
+		"google/apiclient": "~1.0.4-beta",
+		"kdyby/console": "dev-master#9564ff1",
 		"kdyby/events": "~2.1.0",
 		"kdyby/facebook": "~1.1.0",
-		"kdyby/forms-replicator": "@dev",
-		"kdyby/google": "~0.1.0",
-		"kdyby/redis": "~3.1.0",
-		"monolog/monolog": "~1.9.1",
-		"morrisonlevi/ardent": "~0.14.0",
+		"kdyby/forms-replicator": "dev-master#b99ff40",
+		"kdyby/google": "~0.1",
+		"kdyby/redis": "~3.1",
+		"monolog/monolog": "~1.9",
+		"morrisonlevi/ardent": "~0.14",
 		"nette/nette": "~2.2.0",
-		"pda/pheanstalk": "~2.1.0",
-		"php": ">= 5.5.0",
-		"robmorgan/phinx": "~0.3.3",
-		"symfony/console": "~2.4.4",
-		"vrtak-cz/newrelic-nette": "~3.1.0",
-		"kdyby/console": "dev-master#9564ff1",
-		"nextras/migrations": "~2.3.0"
+		"nextras/migrations": "~2.3",
+		"pda/pheanstalk": "~2.1",
+		"symfony/console": "~2.4",
+		"vrtak-cz/newrelic-nette": "~3.1"
 	},
 	"require-dev": {
-		"mikulas/lattecs": "~0.3.0-beta",
-		"mikulas/query-panel": "@dev",
-		"nette/tester": "~1.1.0",
-		"petrp/access": "~0.2.2",
-		"mikulas/code-sniffs": "~1.1.0",
-		"fzaninotto/faker": "@dev",
-		"doctrine/dbal": "~2.4.0",
+		"doctrine/dbal": "~2.4",
+		"fzaninotto/faker": "~1.4",
+		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
-		"oodle/inflect": "~0.2.0",
-		"symfony/process": "~2.5.0",
-		"herzult/php-ssh": "~1.0.0"
+		"mikulas/code-sniffs": "~1.1",
+		"mikulas/lattecs": "~0.3.0-beta",
+		"mikulas/nette-panel-queries": "dev-master#31755e3",
+		"nette/tester": "~1.1",
+		"oodle/inflect": "~0.2",
+		"petrp/access": "~0.2",
+		"symfony/process": "~2.5"
 	},
 	"repositories": [
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
 		},
-        {
-            "type": "vcs",
-            "url": "https://github.com/Mikulas/Faker.git"
-        }
+		{
+			"type": "vcs",
+			"url": "https://github.com/Mikulas/Faker.git"
+		}
 	],
 	"scripts": {
 		"post-update-cmd": ["echo Notice: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
