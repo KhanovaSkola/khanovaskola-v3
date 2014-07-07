@@ -12,6 +12,10 @@ env:
     - TEST_SUITE=acceptance
     - TEST_SUITE=cs
 
+addons:
+  hosts:
+    - travis
+
 services:
   - elasticsearch
   - redis-server
