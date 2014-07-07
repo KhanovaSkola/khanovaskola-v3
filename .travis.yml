@@ -1,6 +1,7 @@
 language: php
 php:
-  - 5.4
+  - 5.5
+  - 5.6
 env:
   global:
     - secure: "jYIOGZdXOciJOVJVMXmvCf+AvxwBsVETYAQN/4dhpfuQVmJu2bbkwa5Q1tsMI7rbFqlhVFb+tmjXLBWi/IQgI0An8aUvEQ8lP8W3IuD+ADhtTAKzGgLvAeuhU1yUyRyAvLh6BpwUU5ksJpqrvR10av8nH8oo062zA092/DbrAA0=" # FB_SECRET
