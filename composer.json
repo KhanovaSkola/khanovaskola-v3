@@ -1,6 +1,6 @@
 {
 	"name": "khanovaskola/website",
-	"description": "Main website with videos, exercises and stats.",
+	"description": "Main website with videos, exercises and teacher reports.",
 	"type": "project",
 	"authors": [
 		{"name": "Mikuláš Dítě"}
@@ -32,14 +32,12 @@
 		"nextras/migrations": "~2.3.0"
 	},
 	"require-dev": {
-		"codeception/codeception": "~1.8.0",
-		"elfet/deployer": "@dev",
 		"mikulas/lattecs": "~0.3.0-beta",
 		"mikulas/query-panel": "@dev",
 		"nette/tester": "~1.1.0",
 		"petrp/access": "~0.2.2",
-		"squizlabs/php_codesniffer": "~1.5.2",
-        "fzaninotto/faker": "@dev",
+		"mikulas/code-sniffs": "~1.1.0",
+		"fzaninotto/faker": "@dev",
 		"doctrine/dbal": "~2.4.0",
 		"jdorn/sql-formatter": "~1.2.17",
 		"oodle/inflect": "~0.2.0",
@@ -47,10 +45,6 @@
 		"herzult/php-ssh": "~1.0.0"
 	},
 	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/Mikulas/deployer.git"
-		},
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
@@ -61,7 +55,7 @@
         }
 	],
 	"scripts": {
-		"post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
-		"post-install-cmd": ["echo Warning: Deleting all .git dirs under vendor", "rm -rf vendor/**/**/.git"]
+		"post-update-cmd": ["echo Notice: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
+		"post-install-cmd": ["echo Notice: Deleting all .git dirs under vendor", "rm -rf vendor/**/**/.git"]
 	}
 }
