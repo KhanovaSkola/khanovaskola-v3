@@ -1,7 +1,7 @@
 Khanova škola – verze 3
 =======================
 
-[![Build Status](https://travis-ci.org/KhanovaSkola/khanovaskola-v3.svg?branch=master)](https://travis-ci.org/KhanovaSkola/khanovaskola-v3)
+[![Build Status](http://img.shields.io/travis/KhanovaSkola/khanovaskola-v3.svg?style=flat)](https://travis-ci.org/KhanovaSkola/khanovaskola-v3)
 [![Dependency Status](https://www.versioneye.com/user/projects/53ba5861609ff0f61c00006c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53ba5861609ff0f61c00006c)
 
 License
