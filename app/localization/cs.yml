@@ -1,9 +1,13 @@
 homepage:
   title:
-    zero: "Nula homepage"
-    one: "Jedna homepage"
-    few: "%1 homepage %1"
-    many: "%1 homepage"
+    zero: "Homepage nula"
+    one: "Homepage jedna"
+    few: "Homepage %1 few"
+    many: "Homepage %1 many"
+
+layout:
+  log:
+    out: "Odhlásit se"
 
 test: #TODO remove
   flash:
