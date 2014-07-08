@@ -10,6 +10,7 @@
 	"elasticsearch": "latest",
 	"medium-editor": "latest",
 	"typeahead.js": "latest",
-	"d3": "latest"
+	"d3": "latest",
+	"jquery-timeago": "latest"
   }
 }

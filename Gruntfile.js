@@ -5,9 +5,7 @@ var STYLE_FILES = [
 
 var JS_FILES = [
 	'www/js/app.js',
-	'www/js/exercise.js',
-	'www/js/inactivity.js',
-	'www/js/urlFixes.js',
+	'www/js/snippets/*.js',
 	'www/js/controls/*.js'
 ];
 
