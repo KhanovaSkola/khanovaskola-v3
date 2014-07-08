@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Model;
 use Nette;
 use Tracy\Debugger;
 

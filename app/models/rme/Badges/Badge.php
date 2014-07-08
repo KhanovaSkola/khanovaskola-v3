@@ -2,10 +2,10 @@
 
 namespace App\Models\Rme;
 
-use App\Models\EventList;
 use App\Models\Orm\Entity;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Translator;
+use App\Models\Structs\EventList;
 use App\NotSupportedException;
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;

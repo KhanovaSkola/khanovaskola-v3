@@ -39,6 +39,10 @@ abstract class ContentMapper extends ElasticSearchMapper
 	/**
 	 * Traverses all relations: root category returns
 	 * ContentEntity of all subcategories.
+	 *
+	 * @param Tag $tag
+	 * @param $type
+	 * @return \Orm\DibiCollection
 	 */
 	protected function findByTagByType(Tag $tag, $type)
 	{

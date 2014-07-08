@@ -3,11 +3,11 @@
 namespace App\Presenters;
 
 use App\Components\ControlTrait;
-use App\Models\EventList;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\BadgeUserBridge;
 use App\Models\Rme\User;
 use App\Models\Services\Translator;
+use App\Models\Structs\EventList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;

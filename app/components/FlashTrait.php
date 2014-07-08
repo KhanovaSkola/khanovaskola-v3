@@ -47,6 +47,9 @@ trait FlashTrait
 
 	/**
 	 * @deprecated
+	 * @param $message
+	 * @param $type
+	 * @param $title
 	 */
 	final public function flashMessage($message, $type = NULL, $title = NULL)
 	{

@@ -10,7 +10,11 @@ use Orm;
 class ExerciseMastery extends Rme\Badge
 {
 
-	/** @subscribe */
+	/**
+	 * @subscribe
+	 * @param Rme\User $user
+	 * @param Rme\Exercise $exercise
+	 */
 	public function onCorrectAnswer(Rme\User $user, Rme\Exercise $exercise)
 	{
 		$blueprint = $exercise->getBlueprint();

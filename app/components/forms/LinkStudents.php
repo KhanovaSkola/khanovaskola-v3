@@ -4,7 +4,7 @@ namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Queue;
-use App\Models\Tasks\EntityPointer;
+use App\Models\Structs\EntityPointer;
 use App\Models\Tasks\SendMailTask;
 use Nette\Forms\Container;
 

@@ -38,6 +38,8 @@ class ElasticSearch extends Client
 
 	/**
 	 * @deprecated
+	 * @param $params
+	 * @return void
 	 */
 	public function index($params)
 	{

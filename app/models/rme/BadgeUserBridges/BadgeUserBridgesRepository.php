@@ -4,6 +4,7 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
+use App\NotImplementedException;
 
 
 class BadgeUserBridgesRepository extends Repository
@@ -27,7 +28,7 @@ class BadgeUserBridgesRepository extends Repository
 			return "App\\Models\\Rme\\BadgeUserBridges\\{$badge->key}";
 		}
 
-		throw new MustNeverHappenException;
+		throw new NotImplementedException;
 	}
 
 	public static function getTypes()
