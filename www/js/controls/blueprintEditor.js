@@ -1,5 +1,5 @@
 (function() {
-    $form = $('#frm-editor-form');
+    $form = $('#frm-blueprintEditor-form');
     if (!$form.length) {
         return;
     }
