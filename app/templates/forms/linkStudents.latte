@@ -1,0 +1,8 @@
+<form n:name="form" class="form-horizontal">
+	<div class="form-group">
+		{foreach $form['emails']->containers as $id => $_tmp}
+			<input type="email" n:name="emails-$id-email" class="form-control">
+        {/foreach}
+    </div>
+	<input n:name="save" value="Odeslat pozvánky" class="btn btn-default">
+</form>

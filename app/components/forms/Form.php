@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\Presenters\Presenter;
+use Kdyby\Replicator\Container;
 use Nette;
 use Nette\Application\UI\Form as NForm;
 
@@ -12,7 +13,7 @@ use Nette\Application\UI\Form as NForm;
  * - addSubmit name is optional
  *
  * @property-read Presenter $presenter
- * @method addDynamic(string $name, callable $cb)
+ * @method Container addDynamic(string $name, callable $cb)
  */
 abstract class Form extends NForm
 {
