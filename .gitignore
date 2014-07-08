@@ -12,3 +12,4 @@ elasticsearch.log
 /notes.txt
 /tests/_data
 /www/_index.php
+/temp/cachegrind*
