@@ -9,6 +9,9 @@ layout:
   log:
     out: "Odhlásit se"
 
+profile:
+  linkStudents: "Přiřadit studenty"
+
 test: #TODO remove
   flash:
     success:

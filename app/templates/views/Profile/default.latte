@@ -5,6 +5,8 @@
 
 	<h1>{$profile->name}</h1>
 
+	<a n:href="linkStudents">{_'profile.linkStudents'}</a>
+
 	<h2>Badges</h2>
 	<a n:href="getBadge!">Get badge</a>
 	{foreach $userEntity->badges as $badge}
