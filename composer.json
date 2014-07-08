@@ -8,7 +8,8 @@
 	"license": "MIT",
 	"minimum-stability": "stable",
 	"config": {
-		"preferred-install": "dist"
+		"preferred-install": "dist",
+		"optimize-autoloader": true
 	},
 	"require": {
 		"php": ">= 5.5.0",
