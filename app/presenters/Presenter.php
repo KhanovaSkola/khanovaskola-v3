@@ -76,6 +76,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	public function beforeRender()
 	{
 		parent::beforeRender();
+		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
 		$this->template->userEntity = $this->userEntity;
 	}

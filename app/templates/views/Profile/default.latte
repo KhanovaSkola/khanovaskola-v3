@@ -7,6 +7,17 @@
 
 	<a n:href="linkStudents">{_'profile.linkStudents'}</a>
 
+	<h2>Invites</h2>
+	<ul>
+		<li n:foreach="$userEntity->studentInvitesSent as $invite">
+			{if $invite->accepted}
+				{$invite->student->name}: accepted
+			{else}
+				{$invite->email} pozvánka poslána {$invite->createdAt|timeAgo}
+			{/if}
+		</li>
+	</ul>
+
 	<h2>Badges</h2>
 	<a n:href="getBadge!">Get badge</a>
 	{foreach $userEntity->badges as $badge}

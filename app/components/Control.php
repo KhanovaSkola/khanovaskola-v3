@@ -85,6 +85,7 @@ abstract class Control extends NControl
 			call_user_func_array([$this, $method], $args);
 		}
 
+		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->getTranslator());
 		$this->template->render();
 	}

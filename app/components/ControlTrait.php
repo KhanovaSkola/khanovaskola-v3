@@ -4,9 +4,12 @@ namespace App\Components;
 
 use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Highlight;
+use DateTime;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
+use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;
+use Nette\Utils\Html;
 
 
 /**
@@ -29,6 +32,20 @@ trait ControlTrait
 	{
 		/** @var NControl $this */
 		$this->eventManager->dispatchEvent($event, new EventArgsList($args));
+	}
+
+	/**
+	 * @param Template $template
+	 */
+	protected function registerFilters($template)
+	{
+		$template->addFilter('timeAgo', function(DateTime $d) {
+			return Html::el('time')
+				->setText($d->format('j.n.Y H:i'))
+				->addAttributes([
+					'datetime' => $d->format('c')
+				]);
+		});
 	}
 
 	public function link($destination, $args = [])
