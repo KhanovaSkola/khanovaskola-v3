@@ -39,10 +39,12 @@ class Mailer extends Object
 	public function send($view, $recipient, array $args = [])
 	{
 		$msg = new Message();
-		$msg->setFrom('Khanova škola <please-reply@khanovaskola.cz>');
+		$msg->setFrom('Khanova škola <napiste-nam@khanovaskola.cz>');
+		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
 		$msg->addTo($recipient);
 
 		$latte = new Engine;
+		$args['email'] = $msg;
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
 

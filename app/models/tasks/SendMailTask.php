@@ -2,6 +2,7 @@
 
 namespace App\Models\Tasks;
 
+use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Mailer;
 use Nette\DI\Container;
 
@@ -25,10 +26,15 @@ class SendMailTask extends Task
 		$this->args = $args;
 	}
 
-	public function run(Container $context)
+	public function run(Mailer $mailer, RepositoryContainer $orm)
 	{
-		/** @var Mailer $mailer */
-		$mailer = $context->getService('mailer');
+		foreach ($this->args as $i => $arg)
+		{
+			if ($arg instanceof EntityPointer)
+			{
+				$this->args[$i] = $arg->resolve($orm);
+			}
+		}
 
 		return $mailer->send($this->view, $this->recipient, $this->args);
 	}

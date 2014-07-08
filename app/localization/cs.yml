@@ -12,6 +12,12 @@ layout:
 profile:
   linkStudents: "Přiřadit studenty"
 
+mentor:
+  linkStudent:
+    awaitApproval:
+      title: "Emaily odeslány."
+      message: "Nyní prosím počkejte, než studenti pozvánku potvrdí."
+
 test: #TODO remove
   flash:
     success:

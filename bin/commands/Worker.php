@@ -24,6 +24,7 @@ class Worker extends Command
 		{
 			$queue->watch(function(Task $task, callable $next) use ($container, $queue) {
 				$this->out->writeln(get_class($task));
+				$task->setOutput($this->out);
 				try
 				{
 					$result = $container->callMethod([$task, 'run']);
@@ -31,6 +32,7 @@ class Worker extends Command
 				}
 				catch (Exception $e)
 				{
+					$this->out->writeln("<error>Task buried: {$e->getMessage()}</error>");
 					$queue->buryTask($task);
 				}
 			});
