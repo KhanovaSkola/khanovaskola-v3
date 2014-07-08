@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\StudentInvite;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
 use App\Models\Tasks\SendMailTask;
@@ -49,26 +50,31 @@ class LinkStudents extends Form
 		}
 		$emails = array_unique($emails);
 
+		$teacher = $this->presenter->getUserEntity();
 		$args = [
-			'teacher' => new EntityPointer($this->presenter->getUserEntity()),
+			'teacher' => new EntityPointer($teacher),
 		];
 		foreach ($emails as $email)
 		{
-			if ($user = $this->orm->users->getByEmail($email))
+			if ($student = $this->orm->users->getByEmail($email))
 			{
-				$task = new SendMailTask('mentor.linkStudent.existing', "$user->name <$user->email>", $args + [
-					'invitee' => new EntityPointer($user),
+				$task = new SendMailTask('mentor.linkStudent.existing', "$student->name <$student->email>", $args + [
+					'invitee' => new EntityPointer($student),
 				]);
+				$invite = new StudentInvite($teacher, $student);
 			}
 			else
 			{
-				$task = new SendMailTask('mentor.linkStudent.new', $email, $args + [
-				]);
+				$task = new SendMailTask('mentor.linkStudent.new', $email, $args);
+				$invite = new StudentInvite($teacher, $email);
 			}
+
+			$teacher->studentInvitesSent->add($invite);
 
 			$this->queue->enqueue($task);
 		}
 
+		$this->orm->flush();
 		$this->presenter->flashSuccess('mentor.linkStudent.awaitApproval');
 		$this->presenter->redirect('Profile:default');
 	}

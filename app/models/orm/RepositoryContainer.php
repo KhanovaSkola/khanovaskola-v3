@@ -17,6 +17,7 @@ use Nette\DI\Container;
  * @property-read Rme\CommentsRepository $comments
  * @property-read Rme\GistsRepository $gists
  * @property-read Rme\PathsRepository $paths
+ * @property-read Rme\StudentInvitesRepository $studentInvites
  * @property-read Rme\TagsRepository $tags
  * @property-read Rme\UsersRepository $users
  * @property-read Rme\VideosRepository $videos

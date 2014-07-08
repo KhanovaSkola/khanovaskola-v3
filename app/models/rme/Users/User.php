@@ -25,6 +25,8 @@ use Orm;
  * @property Orm\OneToMany $badges {1:m badgeUserBridges $user}
  * @property Orm\OneToMany $comments {1:m comments $author}
  * @property Orm\OneToMany $paths {1:m paths $author}
+ * @property Orm\OneToMany $studentInvitesSent {1:m studentInvites $sender}
+ * @property Orm\OneToMany $studentInvitesReceived {1:m studentInvites $student}
  * @property Orm\OneToMany $videosViewed {1:m videoViews $user}
  */
 class User extends Entity
