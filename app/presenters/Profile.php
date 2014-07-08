@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use App\Models\EventList;
 use App\Models\Rme\User;
+use App\Models\Structs\EventList;
 
 
 final class Profile extends Presenter

@@ -33,7 +33,7 @@ abstract class BadgeUserBridge extends Entity
 	{
 		if (!$this->translator)
 		{
-			throw new MustNeverHappenException;
+			throw new App\InvalidArgumentException;
 		}
 
 		$path = $this->getTranslationPath($this->badge->key, $field);

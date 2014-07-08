@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Tasks;
+namespace App\Models\Structs;
 
 use App\Models\Orm\Entity;
 use App\Models\Orm\RepositoryContainer;

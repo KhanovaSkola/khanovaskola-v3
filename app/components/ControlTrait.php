@@ -84,6 +84,7 @@ trait ControlTrait
 	 */
 	protected function buildComponent($class, $args = [])
 	{
+		/** @var Control $this */
 		$obj = $this->context->createInstance($class, $args);
 		$this->context->callInjects($obj);
 		return $obj;

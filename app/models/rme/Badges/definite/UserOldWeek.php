@@ -11,7 +11,10 @@ use Orm;
 class UserOldWeek extends Rme\Badge
 {
 
-	/** @subscribe */
+	/**
+	 * @subscribe
+	 * @param Rme\User $user
+	 */
 	public function onLogin(Rme\User $user)
 	{
 		if ($user->getBadges($this->getKey())->count() !== 0)

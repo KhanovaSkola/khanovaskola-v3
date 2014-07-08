@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
 use App\Models\Rme\Exercise;
 use App\NotImplementedException;
@@ -109,7 +110,6 @@ class BlueprintCompiler extends Object
 	 * @param array $vars
 	 * @param $inLatex
 	 * @param $inColor
-	 * @throws MustNeverHappenException
 	 * @return string
 	 */
 	private function compileNode(array $node, array $vars, &$inLatex, &$inColor)
@@ -122,7 +122,7 @@ class BlueprintCompiler extends Object
 			case self::T_EVAL:
 				if ($node['type'] !== self::S_COMPLETE)
 				{
-					throw new MustNeverHappenException;
+					throw new InvalidArgumentException;
 				}
 				return $this->evaluate($node['value'], $vars);
 
@@ -187,7 +187,7 @@ class BlueprintCompiler extends Object
 				}
 
 			default:
-				throw new NotImplementedException("Unkown tag '$node[tag]''");
+				throw new NotImplementedException("Unknown tag '$node[tag]''");
 		}
 	}
 
@@ -195,7 +195,7 @@ class BlueprintCompiler extends Object
 	{
 		if (!in_array($color, [1, 2, 3, 4]))
 		{
-			throw new MustNeverHappenException('Undefined color');
+			throw new InvalidArgumentException('Undefined color');
 		}
 
 		if ($inLatex)
@@ -209,13 +209,13 @@ class BlueprintCompiler extends Object
 
 	private function tokenize($string)
 	{
-		$vals = [];
+		$values = [];
 
 		$p = xml_parser_create();
-		xml_parse_into_struct($p, "<text>$string</text>", $vals);
+		xml_parse_into_struct($p, "<text>$string</text>", $values);
 		xml_parser_free($p);
 
-		return $vals;
+		return $values;
 	}
 
 	/**

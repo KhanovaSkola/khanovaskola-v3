@@ -11,6 +11,9 @@ class VideosMapper extends Mappers\ContentMapper
 	/**
 	 * Traverses all relations: root category returns
 	 * videos of all subcategories.
+	 *
+	 * @param Tag $tag
+	 * @return \Orm\DibiCollection
 	 */
 	public function findByTag(Tag $tag)
 	{

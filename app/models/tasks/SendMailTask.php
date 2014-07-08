@@ -4,7 +4,7 @@ namespace App\Models\Tasks;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Mailer;
-use Nette\DI\Container;
+use App\Models\Structs\EntityPointer;
 
 
 class SendMailTask extends Task

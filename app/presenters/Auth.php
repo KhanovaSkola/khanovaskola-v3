@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use App\Models\EventList;
 use App\Models\Rme\User;
+use App\Models\Structs\EventList;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
@@ -121,7 +121,7 @@ final class Auth extends Presenter
 	 * @param StdClass|ProfileInfo $me
 	 * @param callable $findById
 	 * @param callable $update
-	 * @return \App\Rme\User
+	 * @return User
 	 */
 	private function registerOrLogin($me, $findById, $update)
 	{

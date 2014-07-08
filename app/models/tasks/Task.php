@@ -2,7 +2,6 @@
 
 namespace App\Models\Tasks;
 
-use Nette\DI\Container;
 use Nette\Object;
 use Pheanstalk\Job;
 use Symfony\Component\Console\Output\ConsoleOutput;

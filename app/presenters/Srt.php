@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\Rme\Video;
+use App\Models\Rme\Video;
 use Nette\Application\Responses\TextResponse;
 
 

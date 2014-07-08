@@ -28,7 +28,7 @@ class BadgesRepository extends Repository
 			return "App\\Models\\Rme\\Badges\\$data[key]";
 		}
 
-		throw new MustNeverHappenException;
+		throw new App\NotImplementedException;
 	}
 
 	public static function getTypes()

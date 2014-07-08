@@ -2,9 +2,9 @@
 
 namespace App\Presenters;
 
-use App\Models\EventList;
 use App\Models\Rme;
 use App\Models\Services\BlueprintCompiler;
+use App\Models\Structs\EventList;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 

@@ -5,6 +5,7 @@ namespace App\Models\Orm\Mappers;
 use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Entity;
 use App\Models\Services\Neo4j;
+use App\NotImplementedException;
 use Everyman\Neo4j\Query\Row;
 use Orm\EventArguments;
 use Orm\Events;
@@ -56,7 +57,7 @@ trait Neo4jTrait
 				return $type;
 			}
 		}
-		throw new MustNeverHappenException;
+		throw new NotImplementedException;
 	}
 
 }
