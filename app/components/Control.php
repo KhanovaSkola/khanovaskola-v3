@@ -4,7 +4,7 @@ namespace App\Components;
 
 use App\ImplementationException;
 use App\Models\Factories\TranslatorFactory;
-use App\Services\Translator;
+use App\Models\Services\Translator;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;

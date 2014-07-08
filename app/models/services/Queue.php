@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\ImplementationException;
 use App\InvalidStateException;
 use App\Models\Tasks\Task;
 use Nette\Object;
@@ -37,6 +38,12 @@ class Queue extends Object
 	public function enqueue(Task $task)
 	{
 		$this->assertConnected();
+
+		if (!method_exists($task, 'run'))
+		{
+			$class = get_class($task);
+			throw new ImplementationException("Task '$class' does not implement method 'run'.");
+		}
 
 		$this->stalk
 			->useTube('tasks')
