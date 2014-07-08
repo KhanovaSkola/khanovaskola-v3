@@ -30,10 +30,10 @@ class Blueprint extends EntityForm
 	}
 
 	/**
-	 * @param Blueprint $blueprint
+	 * @param Rme\Blueprint $blueprint
 	 * @return mixed|void
 	 */
-	public function setupEdit(Blueprint $blueprint = NULL)
+	public function setupEdit(Rme\Blueprint $blueprint = NULL)
 	{
 		$this->setDefaults([
 			'title' => $blueprint->title,
@@ -73,10 +73,10 @@ class Blueprint extends EntityForm
 	}
 
 	/**
-	 * @param Blueprint $blueprint
+	 * @param Rme\Blueprint $blueprint
 	 * @return mixed|void
 	 */
-	public function onEdit(Blueprint $blueprint = NULL)
+	public function onEdit(Rme\Blueprint $blueprint = NULL)
 	{
 		$this->updateBlueprint($this->values, $blueprint);
 		$this->repos->blueprints->flush();
