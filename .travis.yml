@@ -13,6 +13,7 @@ env:
     - TEST_SUITE=cs
 
 addons:
+  postgresql: "9.3"
   hosts:
     - travis
 
