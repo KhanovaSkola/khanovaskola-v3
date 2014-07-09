@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\InvalidStateException;
 use App\Models\Orm\Entity;
 use Nette\Security\Passwords;
+use Nette\Utils\Strings;
 use Orm;
 
 
@@ -80,6 +81,15 @@ class User extends Entity
 		$id = $this->model->badges->getByKey($key)->id;
 
 		return $this->getValue('badges')->get()->findBy(['badgeId' => $id]);
+	}
+
+	public function setEmail($email)
+	{
+		/**
+		 * Not according to RFC 5321, but as per SO this is ok
+		 * @see http://stackoverflow.com/a/9808332/326257
+		 */
+		$this->setValue('email', Strings::lower($email));
 	}
 
 }
