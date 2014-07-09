@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\StudentInvite;
 use App\Models\Rme\Token;
+use App\Models\Rme\User;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
 use App\Models\Tasks\SendMailTask;
@@ -52,32 +53,40 @@ class LinkStudents extends Form
 		$emails = array_unique($emails);
 
 		$teacher = $this->presenter->getUserEntity();
-		$args = [
-			'teacher' => new EntityPointer($teacher),
-		];
 		foreach ($emails as $email)
 		{
-			if ($student = $this->orm->users->getByEmail($email))
+			$student = $this->orm->users->getByEmail($email);
+
+			$tokenType = Token::TYPE_STUDENT_INVITE;
+			$template = 'mentor.linkStudent.existing';
+
+			if (!$student)
 			{
-				$invite = new StudentInvite($teacher, $student);
+				$student = new User();
+				$student->registered = FALSE;
+				$student->email = $email;
 
-				$token = Token::createFromUser(Token::TYPE_STUDENT_INVITE, $student);
-				$token->studentInvite = $invite;
+				$this->orm->users->attach($student);
 
-				$this->orm->tokens->persist($token);
-				$this->orm->flush(); // prevent race condition with queue
+				$tokenType = Token::TYPE_STUDENT_INVITE_REGISTER;
+				$template = 'mentor.linkStudent.new';
+			}
 
-				$task = new SendMailTask('mentor.linkStudent.existing', "$student->name <$student->email>", $args + [
+			$invite = new StudentInvite($teacher, $student);
+
+			$token = Token::createFromUser($tokenType, $student);
+			$token->studentInvite = $invite;
+
+			$this->orm->tokens->persist($token);
+			$this->orm->flush(); // prevent race condition with queue
+
+			$task = new SendMailTask($template,
+				"$student->name <$student->email>", [
+					'teacher' => new EntityPointer($teacher),
 					'invitee' => new EntityPointer($student),
 					'token' => new EntityPointer($token),
 					'unsafe' => $token->getUnsafe(),
-				]);
-			}
-			else
-			{
-				$task = new SendMailTask('mentor.linkStudent.new', $email, $args);
-				$invite = new StudentInvite($teacher, $email);
-			}
+			]);
 
 			$teacher->studentInvitesSent->add($invite);
 

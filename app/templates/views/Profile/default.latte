@@ -11,9 +11,9 @@
 	<ul>
 		<li n:foreach="$userEntity->studentInvitesSent as $invite">
 			{if $invite->accepted}
-				{$invite->student->name}: accepted
+				{$invite->student->name} potvrzeno
 			{else}
-				{$invite->email} pozvánka poslána {$invite->createdAt|timeAgo}
+				{$invite->student->email} pozvánka poslána {$invite->createdAt|timeAgo}
 			{/if}
 		</li>
 	</ul>

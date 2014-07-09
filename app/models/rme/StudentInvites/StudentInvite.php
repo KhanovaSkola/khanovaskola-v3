@@ -8,8 +8,7 @@ use App\Models\Orm\Entity;
 
 /**
  * @property App\Models\Rme\User $sender {m:1 users $studentInvitesSent}
- * @property NULL|App\Models\Rme\User $student {m:1 users $studentInvitesReceived}
- * @property string $email original recipient
+ * @property App\Models\Rme\User $student {m:1 users $studentInvitesReceived}
  * @property bool $accepted {default false}
  */
 class StudentInvite extends Entity
@@ -17,22 +16,13 @@ class StudentInvite extends Entity
 
 	/**
 	 * @param User $teacher
-	 * @param User|string $recipient entity or email
+	 * @param User $student
 	 */
-	public function __construct(User $teacher, $recipient)
+	public function __construct(User $teacher, $student)
 	{
 		parent::__construct();
 		$this->sender = $teacher;
-
-		if ($recipient instanceof User)
-		{
-			$this->student = $recipient;
-			$this->email = $recipient->email;
-		}
-		else
-		{
-			$this->email = $recipient;
-		}
+		$this->student = $student;
 	}
 
 	public function setAccepted($accepted = TRUE)

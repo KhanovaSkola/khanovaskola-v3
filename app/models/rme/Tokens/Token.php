@@ -22,6 +22,7 @@ class Token extends Entity
 
 	const TYPE_LOGIN = 'login';
 	const TYPE_STUDENT_INVITE = 'student_invite';
+	const TYPE_STUDENT_INVITE_REGISTER = 'student_invite_register';
 
 	protected $unsafe;
 
