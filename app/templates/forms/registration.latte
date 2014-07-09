@@ -1,0 +1,29 @@
+<form n:name="form" class="form-horizontal">
+	<div class="form-group">
+		<label n:name="email">Email address</label>
+		<input n:name="email" type="email" class="form-control" placeholder="Enter email">
+	</div>
+	<div class="form-group">
+        <label n:name="name">Name</label>
+        <input n:name="name" type="text" class="form-control" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <div class="radio">
+	        <label>
+	            <input type="radio" n:name="gender:male">
+	            Chlapec
+	        </label>
+	    </div>
+		<div class="radio">
+			<label>
+				<input type="radio" n:name="gender:female">
+				Děvče
+			</label>
+		</div>
+    </div>
+	<div class="form-group">
+        <label n:name="password">Heslo</label>
+        <input n:name="password" type="text" class="form-control" placeholder="Enter password">
+    </div>
+	<input n:name="save" value="Registrovat se" class="btn btn-default">
+</form>

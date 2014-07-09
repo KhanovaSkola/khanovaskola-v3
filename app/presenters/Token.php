@@ -18,6 +18,7 @@ final class Token extends Presenter
 		$map = [
 			Rme\Token::TYPE_LOGIN => $this->onLogin,
 			Rme\Token::TYPE_STUDENT_INVITE => $this->onStudentInvite,
+			Rme\Token::TYPE_STUDENT_INVITE_REGISTER => $this->onStudentInviteRegister,
 		];
 		if (!isset($map[$type]))
 		{
@@ -41,7 +42,10 @@ final class Token extends Presenter
 			$this->redirect('Homepage:');
 		}
 
-		$token->setUsed();
+		if (!$this->context->parameters['debugMode'])
+		{
+			$token->setUsed();
+		}
 		$this->orm->tokens->flush();
 
 		$handler = $this->getHandler($token->type);
@@ -75,6 +79,14 @@ final class Token extends Presenter
 		$this->flashSuccess('student.approveMentor');
 
 		$this->redirect('Profile:');
+	}
+
+	public function onStudentInviteRegister(Rme\Token $token)
+	{
+		$token->studentInvite->setAccepted();
+		$this->orm->flush();
+
+		$this->redirect('Auth:registration', ['email' => $token->user->email]);
 	}
 
 }

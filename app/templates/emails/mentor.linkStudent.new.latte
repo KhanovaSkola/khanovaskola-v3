@@ -2,4 +2,8 @@
 
 {$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
 
-registrace link
+<p>
+	<center><b>
+		<a href="{$token|token:$unsafe}">Zaregistrovat se a potvrdit pozvánku</a>
+	</b></center>
+</p>

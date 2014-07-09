@@ -92,4 +92,21 @@ class User extends Entity
 		$this->setValue('email', Strings::lower($email));
 	}
 
+	/**
+	 * @param $fullName
+	 */
+	public function setNames($fullName)
+	{
+		$this->name = $fullName;
+
+		$parts = preg_split('~\s+~', $fullName);
+		if ($parts)
+		{
+			$this->setNominativeAndVocative($parts[0]);
+			array_shift($parts);
+
+			$this->familyName = implode(' ', $parts);
+		}
+	}
+
 }
