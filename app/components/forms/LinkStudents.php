@@ -80,12 +80,11 @@ class LinkStudents extends Form
 			$this->orm->tokens->persist($token);
 			$this->orm->flush(); // prevent race condition with queue
 
-			$task = new SendMailTask($template,
-				"$student->name <$student->email>", [
-					'teacher' => new EntityPointer($teacher),
-					'invitee' => new EntityPointer($student),
-					'token' => new EntityPointer($token),
-					'unsafe' => $token->getUnsafe(),
+			$task = new SendMailTask($template, $student->email, $student->name, [
+				'teacher' => new EntityPointer($teacher),
+				'invitee' => new EntityPointer($student),
+				'token' => new EntityPointer($token),
+				'unsafe' => $token->getUnsafe(),
 			]);
 
 			$teacher->studentInvitesSent->add($invite);
