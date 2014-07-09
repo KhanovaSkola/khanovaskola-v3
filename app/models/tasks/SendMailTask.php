@@ -13,16 +13,20 @@ class SendMailTask extends Task
 	/** @var string */
 	private $view;
 
-	/** @var string email or "John Doe <john@example.com>" */
-	private $recipient;
+	/** @var string */
+	private $email;
+
+	/** @var NULL|string */
+	private $name;
 
 	/** @var array|NULL template variables */
 	private $args;
 
-	public function __construct($view, $recipient, array $args = [])
+	public function __construct($view, $email, $name = NULL, array $args = [])
 	{
 		$this->view = $view;
-		$this->recipient = $recipient;
+		$this->email = $email;
+		$this->name = $name;
 		$this->args = $args;
 	}
 
@@ -36,7 +40,7 @@ class SendMailTask extends Task
 			}
 		}
 
-		return $mailer->send($this->view, $this->recipient, $this->args);
+		return $mailer->send($this->view, $this->email, $this->name, $this->args);
 	}
 
 }

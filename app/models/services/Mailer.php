@@ -40,16 +40,17 @@ class Mailer extends Object
 
 	/**
 	 * @param string $view email template
-	 * @param string $recipient email or "John Doe <john@example.com>"
+	 * @param string $email
+	 * @param string $name
 	 * @param array|NULL $args template variables
 	 * @return bool
 	 */
-	public function send($view, $recipient, array $args = [])
+	public function send($view, $email, $name, array $args = [])
 	{
 		$msg = new Message();
 		$msg->setFrom('Khanova škola <napiste-nam@khanovaskola.cz>');
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
-		$msg->addTo($recipient);
+		$msg->addTo($email, $name);
 
 		$args['email'] = $msg;
 
@@ -69,7 +70,8 @@ class Mailer extends Object
 			$this->mailer->send($msg);
 			$this->logger->addInfo('Email send', [
 				'view' => $view,
-				'recipient' => $recipient,
+				'email' => $email,
+				'name' => $name,
 				'args' => $args
 			]);
 			return TRUE;
@@ -79,7 +81,8 @@ class Mailer extends Object
 			$this->logger->addAlert('Mailing to smtp failed', [
 				'error' => $e->getMessage(),
 				'view' => $view,
-				'recipient' => $recipient,
+				'email' => $email,
+				'name' => $name,
 				'args' => $args
 			]);
 			return FALSE;
