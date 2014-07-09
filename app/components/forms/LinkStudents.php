@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\StudentInvite;
+use App\Models\Rme\Token;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
 use App\Models\Tasks\SendMailTask;
@@ -58,10 +59,19 @@ class LinkStudents extends Form
 		{
 			if ($student = $this->orm->users->getByEmail($email))
 			{
+				$invite = new StudentInvite($teacher, $student);
+
+				$token = Token::createFromUser(Token::TYPE_STUDENT_INVITE, $student);
+				$token->studentInvite = $invite;
+
+				$this->orm->tokens->persist($token);
+				$this->orm->flush(); // prevent race condition with queue
+
 				$task = new SendMailTask('mentor.linkStudent.existing', "$student->name <$student->email>", $args + [
 					'invitee' => new EntityPointer($student),
+					'token' => new EntityPointer($token),
+					'unsafe' => $token->getUnsafe(),
 				]);
-				$invite = new StudentInvite($teacher, $student);
 			}
 			else
 			{

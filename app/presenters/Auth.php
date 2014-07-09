@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Structs\EventList;
 use Google_Exception;

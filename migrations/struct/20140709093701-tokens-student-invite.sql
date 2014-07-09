@@ -1,0 +1,11 @@
+ALTER TABLE
+  tokens
+ADD
+  student_invite_id INT DEFAULT NULL;
+
+CREATE INDEX IDX_AA5A118EA76ED391 ON tokens (student_invite_id);
+
+ALTER TABLE
+  tokens
+ADD
+CONSTRAINT FK_AA5A118EA76ED391 FOREIGN KEY (student_invite_id) REFERENCES student_invites (id) NOT DEFERRABLE INITIALLY IMMEDIATE;

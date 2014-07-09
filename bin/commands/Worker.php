@@ -6,6 +6,7 @@ use App\Models\Services\Queue;
 use App\Models\Tasks\Task;
 use Exception;
 use Nette\DI\Container;
+use Tracy\Debugger;
 
 
 class Worker extends Command
@@ -32,7 +33,9 @@ class Worker extends Command
 				}
 				catch (Exception $e)
 				{
+					$file = Debugger::log($e);
 					$this->out->writeln("<error>Task buried: {$e->getMessage()}</error>");
+					$this->out->writeln("<error>  $file</error>");
 					$queue->buryTask($task);
 				}
 			});

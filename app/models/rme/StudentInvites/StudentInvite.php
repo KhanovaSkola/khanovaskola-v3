@@ -35,4 +35,9 @@ class StudentInvite extends Entity
 		}
 	}
 
+	public function setAccepted($accepted = TRUE)
+	{
+		$this->setValue('accepted', $accepted);
+	}
+
 }
