@@ -2,12 +2,16 @@
 
 namespace App\Models\Services;
 
+use App\Models\Rme\Token;
+use App\Presenters;
 use Latte\Engine;
 use Monolog\Logger;
+use Nette\Application\IPresenterFactory;
 use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
 use Nette\Object;
+use Nette\Utils\Html;
 
 
 class Mailer extends Object
@@ -19,10 +23,14 @@ class Mailer extends Object
 	/** @var Logger */
 	private $logger;
 
-	public function __construct($config, Logger $logger)
+	/** @var \Nette\Application\IPresenterFactory */
+	private $factory;
+
+	public function __construct($config, Logger $logger, IPresenterFactory $factory)
 	{
 		$this->mailer = new SmtpMailer($config);
 		$this->logger = $logger;
+		$this->factory = $factory;
 	}
 
 	private function getTemplate($view)
@@ -43,8 +51,16 @@ class Mailer extends Object
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
 		$msg->addTo($recipient);
 
-		$latte = new Engine;
 		$args['email'] = $msg;
+
+		$latte = new Engine;
+
+		/** @var Presenters\Token $presenter */
+		$presenter = $this->factory->createPresenter('Token');
+		$presenter->autoCanonicalize = FALSE;
+		$latte->addFilter('token', function(Token $token, $unsafe) use ($presenter) {
+			return $presenter->link('//Token:', ['token' => $token->toString($unsafe)]);
+		});
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
 

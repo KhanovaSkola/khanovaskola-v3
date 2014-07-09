@@ -4,33 +4,34 @@ namespace App\Models\Rme;
 
 use App;
 use App\Models\Orm\Entity;
+use App\Models\Orm\RepositoryContainer;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 use Nette\Utils\Random;
-use Serializable;
 
 
 /**
  * @property NULL|App\Models\Rme\User $user {m:1 users $tokens}
- * @property string $type {enum self::getTypes}
+ * @property string $type {enum self::getTypes()}
  * @property string $hash bcrypt of unsafe hash
  * @property bool $used {default false}
+ * @property NULL|App\Models\Rme\StudentInvite $studentInvite {m:1 studentInvites}
  */
 class Token extends Entity
 {
 
 	const TYPE_LOGIN = 'login';
-	const TYPE_STUDENT_INVITE = 'student-invite';
+	const TYPE_STUDENT_INVITE = 'student_invite';
 
 	protected $unsafe;
 
 
 	/**
 	 * @param string $str as serialized by static::toString()
-	 * @param TokensRepository $tokens
-	 * @return NULL|static
+	 * @param RepositoryContainer $orm
+	 * @return NULL|Token
 	 */
-	public static function createFromString($str, TokensRepository $tokens)
+	public static function createFromString($str, RepositoryContainer $orm)
 	{
 		$json = base64_decode($str, TRUE);
 		$data = json_decode($json, TRUE);
@@ -39,7 +40,11 @@ class Token extends Entity
 			throw new TokenNotValidException;
 		}
 
-		return $tokens->getById($data['id']);
+		/** @var Token $token */
+		$token = $orm->tokens->getById($data['id']);
+		$token->unsafe = $data['unsafe'];
+
+		return $token;
 	}
 
 	/**
@@ -65,7 +70,7 @@ class Token extends Entity
 	 */
 	protected function computeUnsafeHash()
 	{
-		if ($this->hash)
+		if ($this->getValue('hash', FALSE))
 		{
 			throw new App\InvalidStateException('Hash already set');
 		}
@@ -86,7 +91,7 @@ class Token extends Entity
 		return $this->unsafe;
 	}
 
-	public function validate($unsafe)
+	public function validate()
 	{
 		if ($this->createdAt < DateTime::from('- 3 days'))
 		{
@@ -98,7 +103,7 @@ class Token extends Entity
 			throw new TokenAlreadyUsedException;
 		}
 
-		if (!Passwords::verify($unsafe, $this->hash))
+		if (!Passwords::verify($this->unsafe, $this->hash))
 		{
 			throw new TokenNotValidException;
 		}
@@ -106,14 +111,14 @@ class Token extends Entity
 
 	public function setUsed($used = TRUE)
 	{
-		$this->used = $used;
+		$this->setValue('used', $used);
 	}
 
-	public function toString()
+	public function toString($unsafe)
 	{
 		return base64_encode(json_encode([
 			'id' => $this->id,
-			'hash' => $this->hash,
+			'unsafe' => $unsafe,
 		]));
 	}
 

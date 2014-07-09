@@ -5,10 +5,31 @@ namespace App\Models\Rme;
 use RuntimeException;
 
 
-abstract class TokenException extends RuntimeException {}
+abstract class TokenException extends RuntimeException
+{
+	abstract public function getType();
+}
 
-class TokenNotValidException extends TokenException {}
+class TokenNotValidException extends TokenException
+{
+	public function getType()
+	{
+		return 'notValid';
+	}
+}
 
-class TokenExpiredException extends TokenException {}
+class TokenExpiredException extends TokenException
+{
+	public function getType()
+	{
+		return 'expired';
+	}
+}
 
-class TokenAlreadyUsedException extends TokenException {}
+class TokenAlreadyUsedException extends TokenException
+{
+	public function getType()
+	{
+		return 'alreadyUsed';
+	}
+}
