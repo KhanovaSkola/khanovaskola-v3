@@ -53,7 +53,7 @@ class Login extends Form
 		}
 		catch (AuthenticationException $e)
 		{
-			$presenter->flashError($e->getMessage()); // TODO translate to keys
+			$presenter->flashError($e->getMessage());
 		}
 	}
 }

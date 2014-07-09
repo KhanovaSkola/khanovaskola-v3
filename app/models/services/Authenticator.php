@@ -12,6 +12,8 @@ use Nette\Security\Passwords;
 class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
 {
 
+	const PASSWORD_NOT_SET = 5;
+
 	/** @var UsersRepository */
 	protected $users;
 
@@ -33,6 +35,10 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		if (!$user)
 		{
 			throw new AuthenticationException('auth.flash.password.wrongUsername', self::IDENTITY_NOT_FOUND);
+		}
+		else if (!$user->password)
+		{
+			throw new AuthenticationException('auth.flash.password.notSet', self::PASSWORD_NOT_SET);
 		}
 		else if (!Passwords::verify($password, $user->password))
 		{
