@@ -15,7 +15,13 @@
 	    data-uid="{$video->youtubeId}"
 	    data-youtube-id="{$video->youtubeId}"
 	    data-x-autoresize="fit"
-	    preload="none">
+	    preload="none"
+	    data-url-begin="{plink Js:videoViewBegin, videoId => $video->id}"
+	    data-url-seek="{plink Js:videoViewSeek, viewId => '{viewId}'}"
+	    data-url-pause="{plink Js:videoViewPause, viewId => '{viewId}'}"
+	    data-url-changeView="{plink Js:videoViewChangeView, viewId => '{viewId}'}"
+	    data-url-tick="{plink Js:videoViewTick, viewId => '{viewId}'}"
+	>
             <track src="{plink :Srt:, videoId => $video->id}" srclang="cs" default />
     </video>
 

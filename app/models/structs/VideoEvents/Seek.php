@@ -3,7 +3,7 @@
 namespace App\Models\Structs\VideoEvents;
 
 
-class Skip extends Event
+class Seek extends Event
 {
 
 	/**
@@ -14,11 +14,11 @@ class Skip extends Event
 	/**
 	 * @param float $from seconds
 	 * @param float $to seconds
-	 * @return Skip
+	 * @return Seek
 	 */
 	public static function from($from, $to)
 	{
-		$e = new Skip;
+		$e = new Seek;
 		$e->timeAt = $from;
 		$e->timeTo = $to;
 

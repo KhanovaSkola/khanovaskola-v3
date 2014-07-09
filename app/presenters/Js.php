@@ -33,14 +33,14 @@ final class Js extends Presenter
 	 * @param float $from
 	 * @param float $to
 	 */
-	public function actionVideoViewSkipTo($viewId, $from, $to)
+	public function actionVideoViewSeek($viewId, $from, $to)
 	{
 		/** @var VideoView $view */
 		if (!$view = $this->orm->videoViews->getById($viewId))
 		{
 			$this->error();
 		}
-		$view->addEvent(VideoEvents\Skip::from($from, $to));
+		$view->addEvent(VideoEvents\Seek::from($from, $to));
 		$this->orm->flush();
 		$this->sendJson(['status' => 'ok']);
 	}
@@ -67,7 +67,7 @@ final class Js extends Presenter
 	 * @param int $viewId
 	 * @param boolean $isFullscreenNow
 	 */
-	public function actionVideoChangeView($viewId, $at, $isFullscreenNow)
+	public function actionVideoViewChangeView($viewId, $at, $isFullscreenNow)
 	{
 		/** @var VideoView $view */
 		if (!$view = $this->orm->videoViews->getById($viewId))
@@ -86,7 +86,7 @@ final class Js extends Presenter
 	 * @param float $time total of real time watched
 	 * @param float $furthest
 	 */
-	public function actionVideoTick($viewId, $percent, $time, $furthest)
+	public function actionVideoViewTick($viewId, $percent, $time, $furthest)
 	{
 		/** @var VideoView $view */
 		if (!$view = $this->orm->videoViews->getById($viewId))
