@@ -9,17 +9,22 @@ use Orm;
 
 
 /**
- * @property string $name
- * @property string $familyName
- * @property string $nominative
- * @property string $vocative
- * @property string $gender {enum self::getGenders()}
- * @property string|NULL $password
- * @property string $email
- * @property string|NULL $facebookId
- * @property string|NULL $facebookAccessToken
- * @property string|NULL $googleId
- * @property string|NULL $googleAccessToken
+ * @property bool $registered {default true}
+ *
+ * NOT NULL if user is registered:
+ * @property NULL|string $email also not NULL if created for student invite
+ * @property NULL|string $name
+ * @property NULL|string $familyName
+ * @property NULL|string $nominative
+ * @property NULL|string $vocative
+ * @property NULL|string $gender {enum self::getGenders()}
+ *
+ * MIGHT BE NULL even if user is registered:
+ * @property NULL|string $password
+ * @property NULL|string $facebookId
+ * @property NULL|string $facebookAccessToken
+ * @property NULL|string $googleId
+ * @property NULL|string $googleAccessToken
  *
  * @property Orm\OneToMany $answers {1:m answers $user}
  * @property Orm\OneToMany $badges {1:m badgeUserBridges $user}
