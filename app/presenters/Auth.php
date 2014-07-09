@@ -12,6 +12,7 @@ use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Kdyby\Google\Google;
 use Nette;
+use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
 use stdClass;
 
@@ -32,8 +33,10 @@ final class Auth extends Presenter
 		$this->google = $google;
 	}
 
-	private function onLogin(User $user, $newUser = FALSE)
+	public function onLogin(User $user, $newUser = FALSE)
 	{
+		$this->user->setExpiration('5 years', FALSE);
+
 		$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
 			'vocative' => $user->vocative,
 		]);
@@ -48,6 +51,39 @@ final class Auth extends Presenter
 			$this->restoreRequest($key);
 		}
 		$this->redirect('Profile:');
+	}
+
+	/**
+	 * @param NULL|string $email
+	 */
+	public function renderIn($email = NULL)
+	{
+		/** @var TextInput $input */
+		$input = $this['loginForm-form-email'];
+		$input->setDefaultValue($email);
+	}
+
+	/**
+	 * @param NULL|string $email
+	 */
+	public function renderRegistration($email = NULL)
+	{
+		if ($this->user->loggedIn)
+		{
+			$this->flashInfo('alreadyRegistered.loggedIn');
+			$this->redirect('Profile:');
+		}
+
+		$user = $this->orm->users->getByEmail($email);
+		if ($user && $user->registered)
+		{
+			$this->flashInfo('alreadyRegistered.loggedOut');
+			$this->redirect('Auth:in', ['email' => $email]);
+		}
+
+		/** @var TextInput $input */
+		$input = $this['registrationForm-form-email'];
+		$input->setDefaultValue($email);
 	}
 
 	/**

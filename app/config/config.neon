@@ -29,7 +29,7 @@ nette:
 		mapping:
 			*: App\Presenters\*\*
 	session:
-		expiration: 14 days
+		expiration: 5 years
 
 extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
