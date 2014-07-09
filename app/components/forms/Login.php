@@ -47,8 +47,13 @@ class Login extends Form
 		$presenter = $this->presenter;
 		try
 		{
-			$presenter->user->login($v->email, $v->password);
 			$userEntity = $this->orm->users->getByEmail($v->email);
+			if ($userEntity && !$userEntity->registered)
+			{
+				$presenter->redirect('Auth:registration', ['email' => $v->email]);
+			}
+
+			$presenter->user->login($v->email, $v->password);
 			$presenter->onLogin($userEntity);
 		}
 		catch (AuthenticationException $e)
