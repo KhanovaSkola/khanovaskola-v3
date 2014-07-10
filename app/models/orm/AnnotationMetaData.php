@@ -1,53 +1,27 @@
 <?php
-/**
- * Orm
- * @author Petr Procházka (petr@petrp.cz)
- * @license "New" BSD License
- */
 
-namespace Orm;
+namespace App\Models\Orm;
 
 use Nette\Reflection\AnnotationsParser as NetteAnnotationsParser;
+use Orm;
+use Orm\AnnotationMetaDataException;
+use Orm\AnnotationsParser;
+use Orm\Callback;
+use Orm\MetaData;
 use ReflectionClass;
 
+
 /**
- * Fills MetaData from annotation.
- *
- * <code>
- * /**
- *  * @property int $id
- *  * @property string $param
- *  * @property float|NULL $price
- *  * @property DateTime $date {default now}
- *  * @property Bar $bar {m:1 Bars}
- *  * /
- * class Foo extends Entity
- * </code>
- * @author Petr Procházka
- * @package Orm
- * @subpackage Entity\MetaData
+ * Adds support for FQN classes in property
  */
-class AnnotationMetaData extends Object
+class AnnotationMetaData extends Orm\AnnotationMetaData
 {
 
-	/** @var array mozne aliasy method */
-	static protected $aliases = array(
-		'1:1' => 'onetoone',
-		'm:1' => 'manytoone',
-		'n:1' => 'manytoone',
-		'm:m' => 'manytomany',
-		'n:n' => 'manytomany',
-		'm:n' => 'manytomany',
-		'n:m' => 'manytomany',
-		'1:m' => 'onetomany',
-		'1:n' => 'onetomany',
-	);
-
-	static private $modes = array(
+	static private $modes = [
 		'property' => MetaData::READWRITE,
 		'property-read' => MetaData::READ,
 		'property-write' => MetaData::WRITE,
-	);
+	];
 
 	/** @var AnnotationsParser */
 	private $parser;
@@ -63,34 +37,15 @@ class AnnotationMetaData extends Object
 	private $property;
 
 	/**
-	 * Fill MetaData from annotation.
-	 * @param MetaData|string|IEntity class name or object
-	 * @param AnnotationsParser|NULL
-	 * @return MetaData
-	 */
-	public static function getMetaData($metaData, AnnotationsParser $parser = NULL)
-	{
-		if (!($metaData instanceof MetaData))
-		{
-			$metaData = new MetaData($metaData);
-		}
-		if ($parser === NULL)
-		{
-			$parser = new AnnotationsParser();
-		}
-		new static($metaData, $parser);
-		return $metaData;
-	}
-
-	/**
-	 * @param MetaData
-	 * @param AnnotationsParser
+	 * @param MetaData $metaData
+	 * @param AnnotationsParser $parser
+	 * @throws AnnotationMetaDataException
 	 */
 	protected function __construct(MetaData $metaData, AnnotationsParser $parser)
 	{
 		$this->parser = $parser;
 		$this->class = $metaData->getEntityClass();
-$r = new ReflectionClass($metaData->getEntityClass());
+		$ref = new ReflectionClass($metaData->getEntityClass());
 
 		foreach ($this->getClasses($this->class) as $class)
 		{
@@ -100,7 +55,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 				{
 					foreach ($tmp as $string)
 					{
-						$this->addProperty($metaData, $string, self::$modes[$annotation], $class, $r);
+						$this->addProperty($metaData, $string, self::$modes[$annotation], $class, $ref);
 					}
 					continue;
 				}
@@ -116,7 +71,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 
 	/**
 	 * Returns phpdoc annotations.
-	 * @param string class name
+	 * @param string $class
 	 * @return array of annotation => array
 	 * @see AnnotationsParser
 	 */
@@ -131,7 +86,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	 */
 	private function getClasses($class)
 	{
-		$classes = array($class);
+		$classes = [$class];
 		while ($class = get_parent_class($class))
 		{
 			$i = class_implements($class);
@@ -149,10 +104,11 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	}
 
 	/**
-	 * @param MetaData
-	 * @param string
-	 * @param MetaData::READWRITE|MetaData::READ|MetaData::WRITE
-	 * @param string
+	 * @param MetaData $metaData
+	 * @param string $string
+	 * @param string $mode ::READWRITE|MetaData::READ|MetaData::WRITE
+	 * @param string $class
+	 * @param ReflectionClass $r
 	 */
 	private function addProperty(MetaData $metaData, $string, $mode, $class, ReflectionClass $r)
 	{
@@ -192,15 +148,20 @@ $r = new ReflectionClass($metaData->getEntityClass());
 
 		$propertyName = $property;
 
-		$fqn = NetteAnnotationsParser::expandClassName($type, $r);
-		if (class_exists($fqn))
+		$parts = explode('|', $type);
+		foreach ($parts as &$part)
 		{
-			$type = $fqn;
+			$fqn = NetteAnnotationsParser::expandClassName($part, $r);
+			if (class_exists($fqn))
+			{
+				$part = $fqn;
+			}
 		}
+		$type = implode('|', $parts);
 
 		$property = $metaData->addProperty($propertyName, $type, $mode, $class);
-		$this->property = array($propertyName, $property);
-		$string = preg_replace_callback('#\{\s*([^\s\}\{]+)(?:\s+([^\}\{]*))?\s*\}#si', array($this, 'callOnMacro'), $string);
+		$this->property = [$propertyName, $property];
+		$string = preg_replace_callback('#\{\s*([^\s\}\{]+)(?:\s+([^\}\{]*))?\s*\}#si', [$this, 'callOnMacro'], $string);
 		$this->property = NULL;
 
 		if (preg_match('#\{|\}#', $string))
@@ -236,9 +197,9 @@ $r = new ReflectionClass($metaData->getEntityClass());
 		}
 		else
 		{
-			$params = array($params);
+			$params = [$params];
 		}
-		call_user_func_array(array($property, $method), $params);
+		call_user_func_array([$property, $method], $params);
 	}
 
 	/**
@@ -275,7 +236,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	 * </code>
 	 *
 	 * @param string
-	 * @param int internal
+	 * @param int $slice
 	 * @return array
 	 * @see MetaDataProperty::setOneToMany()
 	 */
@@ -304,9 +265,9 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	public function builtParamsManyToMany($string)
 	{
 		$arr = $this->builtParamsOneToMany($string, 3);
-		if (isset($arr[2]) AND stripos($arr[2], 'map') !== false)
+		if (isset($arr[2]) AND stripos($arr[2], 'map') !== FALSE)
 		{
-			$arr[2] = true;
+			$arr[2] = TRUE;
 		}
 		else
 		{
@@ -341,7 +302,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 		}
 		else
 		{
-			$original = $enum = array();
+			$original = $enum = [];
 			foreach (explode(',', $string) as $d)
 			{
 				$d = $this->parseSelf($d);
@@ -350,7 +311,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 				$original[] = $d;
 			}
 		}
-		return array($enum, implode(', ', $original));
+		return [$enum, implode(', ', $original)];
 	}
 
 	/**
@@ -373,7 +334,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	{
 		$string = $this->parseSelf($string);
 		$string = $this->parseString($string, "{default {$string}}");
-		return array($string);
+		return [$string];
 	}
 
 	/**
@@ -384,7 +345,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	 */
 	public function builtParamsInjection($string)
 	{
-		return array(rtrim($this->parseSelf($string), '()'));
+		return [rtrim($this->parseSelf($string), '()')];
 	}
 
 	/**
@@ -428,7 +389,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 		{
 			$value = constant($value);
 		}
-		else if (strpos($value, '::') !== false)
+		else if (strpos($value, '::') !== FALSE)
 		{
 			throw new AnnotationMetaDataException("'{$this->class}' '$errorMessage': Constant $value not exists");
 		}

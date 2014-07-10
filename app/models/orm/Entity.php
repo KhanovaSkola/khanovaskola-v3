@@ -29,6 +29,16 @@ abstract class Entity extends Orm\Entity
 	}
 
 	/**
+	 * Adds support for FQN annotations
+	 * @param $entityClass
+	 * @return Orm\MetaData
+	 */
+	public static function createMetaData($entityClass)
+	{
+		return AnnotationMetaData::getMetaData($entityClass);
+	}
+
+	/**
 	 * @return Cache
 	 */
 	public function getCache()
