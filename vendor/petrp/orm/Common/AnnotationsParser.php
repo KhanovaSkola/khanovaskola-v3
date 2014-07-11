@@ -78,18 +78,6 @@ class AnnotationsParser extends Object
 	 */
 	public function getByReflection(Reflector $r)
 	{
-		$annos = call_user_func($this->callback, $r);
-		if (isset($annos['property-read']))
-		{
-			foreach ($annos['property-read'] as $i => $anno)
-			{
-				if (stripos($anno, '{ignore}') !== FALSE)
-				{
-					unset($annos['property-read'][$i]);
-				}
-			}
-		}
-
-		return $annos;
+		return call_user_func($this->callback, $r);
 	}
 }

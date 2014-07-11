@@ -9,6 +9,7 @@ namespace Orm;
 
 use ArrayObject;
 use DateTime;
+use DateTimeZone;
 use Exception;
 
 /**
@@ -165,11 +166,13 @@ class ValidationHelper
 		}
 		else if (is_numeric($time))
 		{
-			if ($time <= 31557600) // year
+			if ($time <= 31557600 AND $time >= -31557600) // year
 			{
 				$time += time();
 			}
-			return new DateTime(date('Y-m-d H:i:s', $time));
+			$dt = new DateTime('@' . floor($time));
+			$dt->setTimezone(new DateTimeZone(date_default_timezone_get())); // php bug #40743
+			return $dt;
 		}
 		// textual or NULL
 		return new DateTime($time);

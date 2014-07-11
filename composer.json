@@ -28,6 +28,7 @@
 		"morrisonlevi/ardent": "~0.14",
 		"nette/nette": "~2.2.0",
 		"nextras/migrations": "~2.3",
+		"petrp/orm": "0.4.*",
 		"pda/pheanstalk": "~3.0",
 		"symfony/console": "~2.4",
 		"vrtak-cz/newrelic-nette": "~3.1"
@@ -46,6 +47,10 @@
 		"symfony/process": "~2.5"
 	},
 	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://orm.petrprochazka.com/composer"
+		},
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
