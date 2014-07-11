@@ -11,13 +11,19 @@ use App\Models\Rme\Video;
 class Comments extends Control
 {
 
-	/** @var Video */
+	/**
+	 * @var Video
+	 */
 	private $video;
 
-	/** @var User */
+	/**
+	 * @var User
+	 */
 	private $user;
 
-	/** @var RepositoryContainer */
+	/**
+	 * @var RepositoryContainer
+	 */
 	private $orm;
 
 	public function __construct(Video $video, User $user, RepositoryContainer $orm)

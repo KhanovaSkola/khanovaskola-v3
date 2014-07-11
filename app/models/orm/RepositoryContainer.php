@@ -27,7 +27,9 @@ use Nette\DI\Container;
 class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 {
 
-	/** @var \Nette\Caching\Cache */
+	/**
+	 * @var Cache
+	 */
 	protected $cache;
 
 	public function __construct($containerFactory = NULL, Container $container = NULL)

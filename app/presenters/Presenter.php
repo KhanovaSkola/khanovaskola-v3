@@ -12,12 +12,12 @@ use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;
 use Nette;
+use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
-use Nette\Templating\FileTemplate;
 
 
 /**
- * @property-read FileTemplate $template
+ * @property-read Template $template
  * @property-read User $userEntity
  */
 abstract class Presenter extends Nette\Application\UI\Presenter implements Subscriber
@@ -25,19 +25,34 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 	use ControlTrait;
 
-	/** @var RepositoryContainer @inject */
+	/**
+	 * @var RepositoryContainer
+	 * @inject
+	 */
 	public $orm;
 
-	/** @var Translator @inject */
+	/**
+	 * @var Translator
+	 * @inject
+	 */
 	public $translator;
 
-	/** @var EventManager @inject */
+	/**
+	 * @var EventManager
+	 * @inject
+	 */
 	public $eventManager;
 
-	/** @var Logger @inject */
+	/**
+	 * @var Logger
+	 * @inject
+	 */
 	public $log;
 
-	/** @var Session @inject */
+	/**
+	 * @var Session
+	 * @inject
+	 */
 	public $session;
 
 	public function startup()
@@ -78,7 +93,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		parent::beforeRender();
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
-		$this->template->userEntity = $this->userEntity;
+		$this->template->add('userEntity', $this->getUserEntity());
 	}
 
 	public function redirectToAuth()

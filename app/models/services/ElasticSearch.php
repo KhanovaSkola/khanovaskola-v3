@@ -17,10 +17,14 @@ class ElasticSearch extends Client
 	const HIGHLIGHT_START = '{{%highlight%}}';
 	const HIGHLIGHT_END = '{{%/highlight%}}';
 
-	/** @var string path */
+	/**
+	 * @var string path
+	 */
 	private $appDir;
 
-	/** @var callable[] */
+	/**
+	 * @var callable[]
+	 */
 	public $onEvent;
 
 	public function __construct(array $params, $appDir)

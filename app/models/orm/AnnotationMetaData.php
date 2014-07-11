@@ -23,10 +23,14 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 		'property-write' => MetaData::WRITE,
 	];
 
-	/** @var AnnotationsParser */
+	/**
+	 * @var AnnotationsParser
+	 */
 	private $parser;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $class;
 
 	/**
@@ -153,25 +157,24 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 
 		$propertyName = $property;
 
-		if (substr($type, -2) === '[]')
+		// Support for simplified FQN '@property Foo' instead of '@property \App\Foo'
+		$parts = explode('|', $type);
+		foreach ($parts as &$part)
 		{
-			// Support for '@property Foo[]' instead of '@property Orm\OneToMany'
-			$type = 'Orm\OneToMany';
-		}
-		else
-		{
-			// Support for simplified FQN '@property Foo' instead of '@property \App\Foo'
-			$parts = explode('|', $type);
-			foreach ($parts as &$part)
+			$fqn = NetteAnnotationsParser::expandClassName($part, $r);
+			if (class_exists($fqn))
 			{
-				$fqn = NetteAnnotationsParser::expandClassName($part, $r);
-				if (class_exists($fqn))
-				{
-					$part = $fqn;
-				}
+				$part = $fqn;
 			}
-			$type = implode('|', $parts);
+
+			if ($part === Orm\OneToMany::class)
+			{
+				// Support for '@property OtM|Foo[]' instead of '@property Orm\OneToMany'
+				$parts = [Orm\OneToMany::class];
+				break;
+			}
 		}
+		$type = implode('|', $parts);
 
 		$property = $metaData->addProperty($propertyName, $type, $mode, $class);
 		$this->property = [$propertyName, $property];
@@ -257,7 +260,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	public function builtParamsOneToMany($string, $slice = 2)
 	{
 		$string = preg_replace('#\s+#', ' ', trim($string));
-		$arr = array_slice(array_filter(array_map('trim', explode(' ', $string, 3))), 0, $slice) + array(NULL, NULL);
+		$arr = array_slice(array_filter(array_map('trim', explode(' ', $string, 3))), 0, $slice) + [NULL, NULL];
 		if ($arr[1])
 		{
 			$arr[1] = ltrim($arr[1], '$');
@@ -381,10 +384,9 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	}
 
 	/**
-	 * Na hodnutu konstanty, cislo nebo string
 	 * @param string
 	 * @param string
-	 * @return scalar
+	 * @return string|float|int|boolean
 	 * @see self::builtParamsEnum()
 	 * @see self::builtParamsDefault()
 	 */

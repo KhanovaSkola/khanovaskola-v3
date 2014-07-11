@@ -16,7 +16,9 @@ final class BlueprintEditor extends Presenter
 	 */
 	public $blueprintId;
 
-	/** @var Rme\Blueprint|NULL */
+	/**
+	 * @var Rme\Blueprint|NULL
+	 */
 	protected $blueprint;
 
 	public function startup()

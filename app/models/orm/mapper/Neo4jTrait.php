@@ -17,7 +17,9 @@ use Orm\Events;
 trait Neo4jTrait
 {
 
-	/** @var Neo4j */
+	/**
+	 * @var Neo4j
+	 */
 	protected $neo4j;
 
 	public function injectNeo4j(Neo4j $neo4j)

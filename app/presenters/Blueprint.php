@@ -18,10 +18,15 @@ final class Blueprint extends Content
 	 */
 	public $blueprintId;
 
-	/** @var Rme\Blueprint */
+	/**
+	 * @var Rme\Blueprint
+	 */
 	protected $blueprint;
 
-	/** @var BlueprintCompiler @inject */
+	/**
+	 * @var BlueprintCompiler
+	 * @inject
+	 */
 	public $blueprintCompiler;
 
 	public function startup()

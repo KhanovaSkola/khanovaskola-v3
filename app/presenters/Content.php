@@ -9,7 +9,10 @@ use App\Models\Services\PathFinder;
 abstract class Content extends Presenter
 {
 
-	/** @var PathFinder @inject */
+	/**
+	 * @var PathFinder
+	 * @inject
+	 */
 	public $pathFinder;
 
 	public function beforeRender()

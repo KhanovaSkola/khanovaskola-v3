@@ -11,7 +11,9 @@ class HighlightCollection extends Object implements Iterator
 
 	private $key = 0;
 
-	/** @var Highlight[] */
+	/**
+	 * @var Highlight[]
+	 */
 	protected $data;
 
 	public function add(Entity $entity, array $highlights)

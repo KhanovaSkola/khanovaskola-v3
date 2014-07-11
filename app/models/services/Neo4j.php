@@ -11,7 +11,9 @@ use Everyman\Neo4j\Transport;
 class Neo4j extends Client
 {
 
-	/** @var callable[] (Command, ResultSet) */
+	/**
+	 * @var callable[] (Command, ResultSet)
+	 */
 	public $onEvent;
 
 	protected function runCommand(Command $command)

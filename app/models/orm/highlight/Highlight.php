@@ -9,13 +9,19 @@ use Nette\Object;
 abstract class Highlight extends Object
 {
 
-	/** @var Entity */
+	/**
+	 * @var Entity
+	 */
 	private $entity;
 
-	/** @var Highlight[] */
+	/**
+	 * @var Highlight[]
+	 */
 	private $highlights;
 
-	/** @var string precompiled */
+	/**
+	 * @var string precompiled
+	 */
 	private static $regex;
 
 	public function __construct(Entity $entity, array $highlights)

@@ -6,15 +6,16 @@ use App\InvalidArgumentException;
 use App\Models\Orm\ContentEntity;
 use App\NotImplementedException;
 use Orm;
+use Orm\OneToMany as OtM;
 
 
 /**
- * @property array    $vars
- * @property string   $question
- * @property string   $answer
- * @property array    $hints
+ * @property array        $vars
+ * @property string       $question
+ * @property string       $answer
+ * @property array        $hints
  *
- * @property Answer[] $answers {1:m answers $blueprint}
+ * @property OtM|Answer[] $answers {1:m answers $blueprint}
  */
 class Blueprint extends ContentEntity
 {
