@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\ContentEntity;
+use App\Models\Rme\BadgeUserBridges\VideoWatched;
 use App\Models\Services\RemoteSubtitles;
 use Orm;
 
@@ -11,9 +12,9 @@ use Orm;
  * @property string $youtubeId
  * @property string $youtubeIdOriginal filled if dubbed {default ''}
  *
- * @property Orm\OneToMany $videoWatchedBadges {1:m badgeUserBridges $video}
- * @property Orm\OneToMany $comments {1:m comments $video}
- * @property Orm\OneToMany $views {1:m videoViews $video}
+ * @property VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
+ * @property Comment[] $comments {1:m comments $video}
+ * @property VideoView[] $views {1:m videoViews $video}
  */
 class Video extends ContentEntity
 {

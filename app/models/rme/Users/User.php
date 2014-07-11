@@ -27,14 +27,14 @@ use Orm;
  * @property NULL|string $googleId
  * @property NULL|string $googleAccessToken
  *
- * @property Orm\OneToMany $answers {1:m answers $user}
- * @property Orm\OneToMany $badges {1:m badgeUserBridges $user}
- * @property Orm\OneToMany $comments {1:m comments $author}
- * @property Orm\OneToMany $paths {1:m paths $author}
- * @property Orm\OneToMany $studentInvitesSent {1:m studentInvites $sender}
- * @property Orm\OneToMany $studentInvitesReceived {1:m studentInvites $student}
- * @property Orm\OneToMany $tokens {1:m tokens $user}
- * @property Orm\OneToMany $videosViewed {1:m videoViews $user}
+ * @property Answer[] $answers {1:m answers $user}
+ * @property BadgeUserBridge[] $badges {1:m badgeUserBridges $user}
+ * @property Comment[] $comments {1:m comments $author}
+ * @property Path[] $paths {1:m paths $author}
+ * @property StudentInvite[] $studentInvitesSent {1:m studentInvites $sender}
+ * @property StudentInvite[] $studentInvitesReceived {1:m studentInvites $student}
+ * @property Token[] $tokens {1:m tokens $user}
+ * @property VideoView[] $videosViewed {1:m videoViews $user}
  */
 class User extends Entity
 {
