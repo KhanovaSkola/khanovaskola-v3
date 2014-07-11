@@ -14,7 +14,9 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 
 	const PASSWORD_NOT_SET = 5;
 
-	/** @var UsersRepository */
+	/**
+	 * @var UsersRepository
+	 */
 	protected $users;
 
 	public function __construct(UsersRepository $users)

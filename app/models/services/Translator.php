@@ -16,19 +16,29 @@ class Translator implements Nette\Localization\ITranslator
 
 	const GENDER = 'gender';
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $language;
 
-	/** @var string path */
+	/**
+	 * @var string path
+	 */
 	private $dir;
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $source;
 
-	/** @var Logger */
+	/**
+	 * @var Logger
+	 */
 	private $log;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $prefix;
 
 	public function __construct($dir, Logger $log)

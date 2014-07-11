@@ -17,7 +17,9 @@ use Orm\IRepository;
 class MapperFactory extends \Orm\MapperFactory
 {
 
-	/** @var Container */
+	/**
+	 * @var Container
+	 */
 	private $container;
 
 	public function __construct(AnnotationClassParser $parser, Container $container)

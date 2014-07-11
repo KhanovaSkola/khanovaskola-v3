@@ -11,10 +11,14 @@ use Nette\Object;
 class FacebookPage extends Object
 {
 
-	/** @var \Kdyby\Facebook\Facebook */
+	/**
+	 * @var Facebook
+	 */
 	private $facebook;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $pageId;
 
 	public function __construct($pageId, Facebook $facebook)

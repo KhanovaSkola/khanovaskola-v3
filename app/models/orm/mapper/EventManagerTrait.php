@@ -11,7 +11,9 @@ use Kdyby\Events\EventManager;
 trait EventManagerTrait
 {
 
-	/** @var EventManager */
+	/**
+	 * @var EventManager
+	 */
 	protected $eventManager;
 
 	public function injectEventManager(EventManager $eventManager)

@@ -11,16 +11,24 @@ use Nette\Mail\SmtpException;
 class SendMailTask extends Task
 {
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $view;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $email;
 
-	/** @var NULL|string */
+	/**
+	 * @var NULL|string
+	 */
 	private $name;
 
-	/** @var array|NULL template variables */
+	/**
+	 * @var array|NULL template variables
+	 */
 	private $args;
 
 	public function __construct($view, $email, $name = NULL, array $args = [])

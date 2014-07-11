@@ -15,7 +15,9 @@ final class Profile extends Presenter
 	 */
 	public $userId;
 
-	/** @var User */
+	/**
+	 * @var User
+	 */
 	protected $profile;
 
 	public function startup()

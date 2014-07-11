@@ -18,7 +18,9 @@ use Orm;
 abstract class BadgeUserBridge extends Entity
 {
 
-	/** @var Translator */
+	/**
+	 * @var Translator
+	 */
 	protected $translator;
 
 	public function __construct(Badge $badge, User $user)

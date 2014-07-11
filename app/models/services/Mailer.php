@@ -11,19 +11,24 @@ use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
 use Nette\Object;
-use Nette\Utils\Html;
 
 
 class Mailer extends Object
 {
 
-	/** @var SmtpMailer */
+	/**
+	 * @var SmtpMailer
+	 */
 	protected $mailer;
 
-	/** @var Logger */
+	/**
+	 * @var Logger
+	 */
 	private $logger;
 
-	/** @var \Nette\Application\IPresenterFactory */
+	/**
+	 * @var \Nette\Application\IPresenterFactory
+	 */
 	private $factory;
 
 	public function __construct($config, Logger $logger, IPresenterFactory $factory)
@@ -43,6 +48,8 @@ class Mailer extends Object
 	 * @param string $email
 	 * @param string $name
 	 * @param array|NULL $args template variables
+	 *
+	 * @throws SmtpException
 	 */
 	public function send($view, $email, $name, array $args = [])
 	{

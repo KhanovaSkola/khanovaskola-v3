@@ -9,10 +9,14 @@ use App\Models\Rme\Gist;
 class GistRenderer extends Control
 {
 
-	/** @var Gist */
+	/**
+	 * @var Gist
+	 */
 	private $gist;
 
-	/** @var bool */
+	/**
+	 * @var bool
+	 */
 	private $editable = FALSE;
 
 	public function setGist(Gist $gist)

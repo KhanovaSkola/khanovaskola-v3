@@ -10,7 +10,9 @@ use Orm\IRepositoryContainer;
 abstract class Repository extends Orm\Repository
 {
 
-	/** @var \Nette\Caching\Cache */
+	/**
+	 * @var Cache
+	 */
 	protected $cache;
 
 	public function __construct(IRepositoryContainer $model)

@@ -12,10 +12,14 @@ use Nette\Object;
 class PathFinder extends Object
 {
 
-	/** @var RepositoryContainer */
+	/**
+	 * @var RepositoryContainer
+	 */
 	protected $orm;
 
-	/** @var \Nette\Http\Session */
+	/**
+	 * @var Session
+	 */
 	protected $session;
 
 	public function __construct(RepositoryContainer $orm, Session $session)

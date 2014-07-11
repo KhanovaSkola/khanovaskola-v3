@@ -11,10 +11,14 @@ use Nette\DI\Container;
 class UpdateSearchIndexTask extends Task
 {
 
-	/** @var int */
+	/**
+	 * @var int
+	 */
 	protected $entityId;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	protected $type;
 
 	public function __construct($type, $entityId)

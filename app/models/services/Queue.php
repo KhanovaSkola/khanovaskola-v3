@@ -13,10 +13,14 @@ use Pheanstalk\Pheanstalk;
 class Queue extends Object
 {
 
-	/** @var Pheanstalk */
+	/**
+	 * @var Pheanstalk
+	 */
 	private $stalk;
 
-	/** @var string url */
+	/**
+	 * @var string url
+	 */
 	private $host;
 
 	public function __construct($host)

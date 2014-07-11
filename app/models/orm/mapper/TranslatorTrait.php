@@ -11,7 +11,9 @@ use App\Models\Services\Translator;
 trait TranslatorTrait
 {
 
-	/** @var Translator */
+	/**
+	 * @var Translator
+	 */
 	protected $translator;
 
 	public function injectTranslator(Translator $translator)

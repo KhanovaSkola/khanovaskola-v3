@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\InvalidArgumentException;
 use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Structs\EventList;

@@ -8,7 +8,9 @@ use App\Models\Services\ElasticSearch;
 trait ElasticSearchTrait
 {
 
-	/** @var ElasticSearch */
+	/**
+	 * @var ElasticSearch
+	 */
 	protected $elastic;
 
 	public function injectElasticSearch(ElasticSearch $elastic)

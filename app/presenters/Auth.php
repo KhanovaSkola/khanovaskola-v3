@@ -20,10 +20,14 @@ use stdClass;
 final class Auth extends Presenter
 {
 
-	/** @var Facebook */
+	/**
+	 * @var Facebook
+	 */
 	protected $facebook;
 
-	/** @var Google */
+	/**
+	 * @var Google
+	 */
 	protected $google;
 
 	public function __construct(Facebook $facebook, Google $google)

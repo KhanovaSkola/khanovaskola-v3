@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme\VideoView;
 use App\Models\Structs\VideoEvents;
+use Nette\Application\BadRequestException;
 
 
 final class Js extends Presenter
@@ -65,7 +66,9 @@ final class Js extends Presenter
 
 	/**
 	 * @param int $viewId
+	 * @param float $at seconds
 	 * @param boolean $isFullscreenNow
+	 * @throws BadRequestException
 	 */
 	public function actionVideoViewChangeView($viewId, $at, $isFullscreenNow)
 	{

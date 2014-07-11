@@ -15,7 +15,9 @@ final class Srt extends Presenter
 	 */
 	public $videoId;
 
-	/** @var Video */
+	/**
+	 * @var Video
+	 */
 	public $video;
 
 	public function startup()

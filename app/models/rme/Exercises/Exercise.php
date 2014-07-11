@@ -8,19 +8,29 @@ use Nette\Object;
 class Exercise extends Object
 {
 
-	/** @var Blueprint */
+	/**
+	 * @var Blueprint
+	 */
 	private $blueprint;
 
-	/** @var int */
+	/**
+	 * @var int
+	 */
 	private $seed;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $question;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $answer;
 
-	/** @var string[] */
+	/**
+	 * @var string[]
+	 */
 	private $hints;
 
 	/**

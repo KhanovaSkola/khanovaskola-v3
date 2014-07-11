@@ -14,10 +14,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Task extends Object
 {
 
-	/** @var OutputInterface|ConsoleOutput */
+	/**
+	 * @var OutputInterface|ConsoleOutput
+	 */
 	protected $out;
 
-	/** @var Job */
+	/**
+	 * @var Job
+	 */
 	private $job;
 
 	public function setJob(Job $job)

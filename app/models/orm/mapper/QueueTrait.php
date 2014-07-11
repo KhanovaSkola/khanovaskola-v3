@@ -11,7 +11,9 @@ use App\Models\Services\Queue;
 trait QueueTrait
 {
 
-	/** @var Queue */
+	/**
+	 * @var Queue
+	 */
 	protected $queue;
 
 	public function injectQueue(Queue $queue)

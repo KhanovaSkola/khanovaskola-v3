@@ -32,10 +32,14 @@ class BlueprintCompiler extends Object
 	const COLOR3 = '255,107,107';
 	const COLOR4 = '85,98,112';
 
-	/** @var int */
+	/**
+	 * @var int
+	 */
 	private $seed;
 
-	/** @var BlueprintPurifier */
+	/**
+	 * @var BlueprintPurifier
+	 */
 	private $purifier;
 
 	public function __construct(BlueprintPurifier $purifier)

@@ -12,23 +12,30 @@ use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Nette\Reflection\ClassType;
 use Orm;
+use Orm\OneToMany as OtM;
 
 
 /**
- * @property string            $key              title and description translation, image {default getKey()}
+ * @property string                $key              title and description translation, image {default getKey()}
  *
- * @property BadgeUserBridge[] $badgeUserBridges {1:m badgeUserBridges $badge}
+ * @property OtM|BadgeUserBridge[] $badgeUserBridges {1:m badgeUserBridges $badge}
  */
 abstract class Badge extends Entity implements Subscriber
 {
 
-	/** @var EventManager */
+	/**
+	 * @var EventManager
+	 */
 	private $eventManager;
 
-	/** @var Translator */
+	/**
+	 * @var Translator
+	 */
 	protected $translator;
 
-	/** @var RepositoryContainer */
+	/**
+	 * @var RepositoryContainer
+	 */
 	private $orm;
 
 	public function __construct(RepositoryContainer $container, EventManager $eventManager, Translator $translator)
