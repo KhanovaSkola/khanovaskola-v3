@@ -2,15 +2,15 @@
 
 namespace App\Models\Rme;
 
-use App;
+use App\InvalidArgumentException;
 use App\Models\Orm\Entity;
 use App\Models\Services\Translator;
 use Orm;
 
 
 /**
- * @property App\Models\Rme\Badge $badge {m:1 badges $badgeUserBridges}
- * @property App\Models\Rme\User $user {m:1 users $badges}
+ * @property Badge $badge {m:1 badges $badgeUserBridges}
+ * @property User $user {m:1 users $badges}
  *
  * @property-read string $title translated {ignore}
  * @property-read string $description translated {ignore}
@@ -33,7 +33,7 @@ abstract class BadgeUserBridge extends Entity
 	{
 		if (!$this->translator)
 		{
-			throw new App\InvalidArgumentException;
+			throw new InvalidArgumentException;
 		}
 
 		$path = $this->getTranslationPath($this->badge->key, $field);

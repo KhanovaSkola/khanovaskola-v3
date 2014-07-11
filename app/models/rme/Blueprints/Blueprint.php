@@ -34,8 +34,8 @@ class Blueprint extends ContentEntity
 	 * @param string $type
 	 * @param string $name
 	 * @param array $options
-	 * @throws \App\NotImplementedException
-	 * @throws \App\InvalidArgumentException
+	 * @throws NotImplementedException
+	 * @throws InvalidArgumentException
 	 */
 	private function defineVariable($type, $name, $options)
 	{
