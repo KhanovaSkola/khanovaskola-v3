@@ -17,6 +17,7 @@ return array(
     'Mikulas\\LatteCS\\' => array($vendorDir . '/mikulas/lattecs/src'),
     'Kdyby\\Replicator\\' => array($vendorDir . '/kdyby/forms-replicator/src'),
     'Kdyby\\Redis\\' => array($vendorDir . '/kdyby/redis/src'),
+    'Kdyby\\Monolog\\' => array($vendorDir . '/kdyby/monolog/src'),
     'Kdyby\\Google\\' => array($vendorDir . '/kdyby/google/src'),
     'Kdyby\\Facebook\\' => array($vendorDir . '/kdyby/facebook/src'),
     'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src'),
