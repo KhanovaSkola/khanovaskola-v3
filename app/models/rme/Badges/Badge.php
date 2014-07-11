@@ -17,7 +17,7 @@ use Orm;
 /**
  * @property string $key title and description translation, image {default getKey()}
  *
- * @property Orm\OneToMany $badgeUserBridges {1:m badgeUserBridges $badge}
+ * @property BadgeUserBridge[] $badgeUserBridges {1:m badgeUserBridges $badge}
  */
 abstract class Badge extends Entity implements Subscriber
 {

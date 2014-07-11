@@ -9,13 +9,16 @@ use Orm;
 
 
 /**
- * @property array $list
+ * @property TitledEntity[] $list
  *
  * @property User|NULL $author {m:1 users $paths}
  */
 class Path extends Entity
 {
 
+	/**
+	 * @param TitledEntity[] $entities
+	 */
 	public function setList(array $entities)
 	{
 		foreach ($entities as $entity)

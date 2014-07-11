@@ -14,7 +14,7 @@ use Orm;
  * @property string $answer
  * @property array $hints
  *
- * @property Orm\OneToMany $answers {1:m answers $blueprint}
+ * @property Answer[] $answers {1:m answers $blueprint}
  */
 class Blueprint extends ContentEntity
 {

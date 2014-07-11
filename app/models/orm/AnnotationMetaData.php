@@ -122,7 +122,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 			}
 		}
 
-		if (preg_match('#^([a-z0-9_\|\\\\]+)\s+\$([a-z0-9_]+)($|\s(.*)$)#si', $string, $match))
+		if (preg_match('#^([a-z0-9_\[\]\|\\\\]+)\s+\$([a-z0-9_]+)($|\s(.*)$)#si', $string, $match))
 		{
 			$property = $match[2];
 			$type = $match[1];
@@ -153,16 +153,25 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 
 		$propertyName = $property;
 
-		$parts = explode('|', $type);
-		foreach ($parts as &$part)
+		if (substr($type, -2) === '[]')
 		{
-			$fqn = NetteAnnotationsParser::expandClassName($part, $r);
-			if (class_exists($fqn))
-			{
-				$part = $fqn;
-			}
+			// Support for '@property Foo[]' instead of '@property Orm\OneToMany'
+			$type = 'Orm\OneToMany';
 		}
-		$type = implode('|', $parts);
+		else
+		{
+			// Support for simplified FQN '@property Foo' instead of '@property \App\Foo'
+			$parts = explode('|', $type);
+			foreach ($parts as &$part)
+			{
+				$fqn = NetteAnnotationsParser::expandClassName($part, $r);
+				if (class_exists($fqn))
+				{
+					$part = $fqn;
+				}
+			}
+			$type = implode('|', $parts);
+		}
 
 		$property = $metaData->addProperty($propertyName, $type, $mode, $class);
 		$this->property = [$propertyName, $property];
