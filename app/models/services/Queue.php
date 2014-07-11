@@ -67,13 +67,4 @@ class Queue extends Object
 		}, $job);
 	}
 
-	/**
-	 * Remove (presumably failing) task from queue
-	 * @param Task $task
-	 */
-	public function buryTask(Task $task)
-	{
-		$this->stalk->bury($task->getJob());
-	}
-
 }

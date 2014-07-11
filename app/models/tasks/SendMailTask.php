@@ -5,6 +5,7 @@ namespace App\Models\Tasks;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Mailer;
 use App\Models\Structs\EntityPointer;
+use Nette\Mail\SmtpException;
 
 
 class SendMailTask extends Task
@@ -30,6 +31,12 @@ class SendMailTask extends Task
 		$this->args = $args;
 	}
 
+	/**
+	 * @param Mailer $mailer
+	 * @param RepositoryContainer $orm
+	 *
+	 * @throws SmtpException
+	 */
 	public function run(Mailer $mailer, RepositoryContainer $orm)
 	{
 		foreach ($this->args as $i => $arg)
@@ -40,7 +47,7 @@ class SendMailTask extends Task
 			}
 		}
 
-		return $mailer->send($this->view, $this->email, $this->name, $this->args);
+		$mailer->send($this->view, $this->email, $this->name, $this->args);
 	}
 
 }

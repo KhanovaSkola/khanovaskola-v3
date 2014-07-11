@@ -32,13 +32,14 @@ nette:
 		expiration: 5 years
 
 extensions:
-	facebook: Kdyby\Facebook\DI\FacebookExtension
-	redis: Kdyby\Redis\DI\RedisExtension
-	events: Kdyby\Events\DI\EventsExtension
-	google: Kdyby\Google\DI\GoogleExtension
-	newrelic: VrtakCZ\NewRelic\Extension
-	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 	console: Kdyby\Console\DI\ConsoleExtension
+	events: Kdyby\Events\DI\EventsExtension
+	facebook: Kdyby\Facebook\DI\FacebookExtension
+	google: Kdyby\Google\DI\GoogleExtension
+	monolog: Kdyby\Monolog\DI\MonologExtension
+	newrelic: VrtakCZ\NewRelic\Extension
+	redis: Kdyby\Redis\DI\RedisExtension
+	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 
 newrelic:
 	enabled: false
@@ -68,9 +69,6 @@ services:
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
 	- App\Models\Services\Paths(@container)
-	-
-		class: Monolog\Logger
-		factory: App\Models\Factories\LogFactory::create(%logDir%, %debugMode%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Neo4j(%neo4j.host%, %neo4j.port%)

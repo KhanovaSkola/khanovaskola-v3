@@ -43,7 +43,6 @@ class Mailer extends Object
 	 * @param string $email
 	 * @param string $name
 	 * @param array|NULL $args template variables
-	 * @return bool
 	 */
 	public function send($view, $email, $name, array $args = [])
 	{
@@ -65,28 +64,8 @@ class Mailer extends Object
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
 
-		try
-		{
-			$this->mailer->send($msg);
-			$this->logger->addInfo('Email send', [
-				'view' => $view,
-				'email' => $email,
-				'name' => $name,
-				'args' => $args
-			]);
-			return TRUE;
-		}
-		catch (SmtpException $e)
-		{
-			$this->logger->addAlert('Mailing to smtp failed', [
-				'error' => $e->getMessage(),
-				'view' => $view,
-				'email' => $email,
-				'name' => $name,
-				'args' => $args
-			]);
-			return FALSE;
-		}
+		$this->mailer->send($msg);
+		$this->logger->addInfo('Email send', ['view' => $view, 'email' => $email]);
 	}
 
 }
