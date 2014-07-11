@@ -8,6 +8,7 @@ use Orm\AnnotationMetaDataException;
 use Orm\AnnotationsParser;
 use Orm\Callback;
 use Orm\MetaData;
+use Orm\MetaDataProperty;
 use ReflectionClass;
 
 
@@ -116,7 +117,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	 */
 	private function addProperty(MetaData $metaData, $string, $mode, $class, ReflectionClass $r)
 	{
-		if ($mode === MetaData::READWRITE) // bc; drive AnnotationsParser na pomlcce zkoncil
+		if ($mode === MetaData::READWRITE) // bc; drive AnnotationsParser na pomlčce skončil
 		{
 			if (preg_match('#^(-read|-write)?\s?(.*)$#si', $string, $match))
 			{
@@ -190,12 +191,13 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 
 	/**
 	 * callback
-	 * Vola metodu na property. To je cokoli v kudrnatych zavorkach.
+	 * Vola metodu na property. To je cokoli v kudrnatých závorkách.
 	 * @param array
 	 * @see MetaDataProperty::$property
 	 */
 	private function callOnMacro($match)
 	{
+		/** @var MetaDataProperty $property */
 		list($propertyName, $property) = $this->property;
 
 		$name = strtolower($match[1]);
@@ -294,15 +296,15 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	}
 
 	/**
-	 * Upravi vstupni parametry pro enum, kdyz jsou zadavany jako string (napr. v anotaci)
-	 * Vytvori pole z hodnot rozdelenych carkou, umoznuje zapis konstant.
-	 * Nebo umoznuje zavolat statickou tridu ktera vrati pole hodnot (pouzijou se klice)
+	 * Upraví vstupní parametry pro enum, když jsou zadány jako string (např. v annotation)
+	 * Vytvoří pole z hodnot rozdělených čárkou, umožňuje zápis konstant.
+	 * Nebo umožňuje zavolat statickou třídu, která vrátí pole hodnot (použijí se klice)
 	 *
 	 * <code>
 	 * 1, 2, 3
 	 * bla1, 'bla2', "bla3"
 	 * TRUE, false, NULL, self::CONSTANT, Foo::CONSTANT
-	 * self::tadyZiskejHodnoty()
+	 * self::getValuesHere()
 	 * </code>
 	 *
 	 * @param string
@@ -313,7 +315,9 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	{
 		if (preg_match('#^([a-z0-9_\\\\]+::[a-z0-9_]+)\(\)$#si', trim($string), $tmp))
 		{
-			$enum = Callback::create($this->parseSelf($tmp[1]))->invoke();
+			/** @var Callback $tmp */
+			$tmp = Callback::create($this->parseSelf($tmp[1]));
+			$enum = $tmp->invoke();
 			if (!is_array($enum)) throw new AnnotationMetaDataException("'{$this->class}' '{enum {$string}}': callback must return array, " . (is_object($enum) ? get_class($enum) : gettype($enum)) . ' given');
 			$original = $enum = array_keys($enum);
 		}
@@ -332,8 +336,8 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	}
 
 	/**
-	 * Upravi vstupni parametry pro default, kdyz jsou zadavany jako string (napr. v anotaci)
-	 * Umoznuje zapsat konstantu.
+	 * Upraví vstupní parametry pro default, když jsou zadány jako string (např. v annotation)
+	 * Umožňuje zapsat konstantu.
 	 *
 	 * <code>
 	 * 568
@@ -355,7 +359,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	}
 
 	/**
-	 * Umoznuje zapis self::method()
+	 * Umožňuje zápis self::method()
 	 * @param mixed
 	 * @return mixed
 	 * @see MetaDataProperty::setInjection()
@@ -366,7 +370,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	}
 
 	/**
-	 * Nahradi self:: za nazev entity
+	 * Nahradí self:: za název entity
 	 * @param string
 	 * @return string
 	 * @see self::builtParamsEnum()
