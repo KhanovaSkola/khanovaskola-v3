@@ -4,6 +4,7 @@ namespace App\Components;
 
 use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Highlight;
+use App\Presenters\Presenter;
 use DateTime;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
@@ -91,7 +92,8 @@ trait ControlTrait
 				return $this->buildComponent($controlClass, $args);
 			}
 		}
-		return parent::createComponent($name);
+
+		return Presenter::createComponent($name);
 	}
 
 	/**
