@@ -409,7 +409,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 		}
 		else
 		{
-			$value = trim($value, '\'"'); // todo lepe?
+			$value = trim($value, '\'"');
 		}
 		return $value;
 	}
