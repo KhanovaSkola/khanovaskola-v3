@@ -67,8 +67,8 @@ sh bin/install-hooks
 
 Schema
 ------
-As of `20140707101042-paths-fix`:
-![screenshot 2014-07-07 10 17 15](https://cloud.githubusercontent.com/assets/192200/3492743/3deeb808-05af-11e4-83dc-0d15e77e1314.png)
+As of `20140709125311-video-view`:
+![screenshot 2014-07-11 11 29 11](https://cloud.githubusercontent.com/assets/192200/3550789/db88f4bc-08dd-11e4-9922-77e9b9526ced.png)
 
 Info
 ----
