@@ -146,6 +146,11 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 			throw new AnnotationMetaDataException("Invalid annotation format '@property$tmp $string' in $class");
 		}
 
+		if (strpos(strToLower($string), '{ignore}') !== FALSE)
+		{
+			return;
+		}
+
 		$propertyName = $property;
 
 		$parts = explode('|', $type);
