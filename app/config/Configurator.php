@@ -203,6 +203,7 @@ class Configurator extends Nette\Configurator
 		$loader->addDirectory($params['appDir'] . '/../migrations');
 		$loader->addDirectory($params['appDir'] . '/../tests');
 		$loader->addDirectory($params['libsDir'] . '/others');
+		$loader->addDirectory($params['libsDir'] . '/mikulas/nette-panel-queries/queries');
 
 		return $loader;
 	}
