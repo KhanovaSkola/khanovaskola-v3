@@ -9,10 +9,10 @@ use Orm;
 
 
 /**
- * @property Badge $badge {m:1 badges $badgeUserBridges}
- * @property User $user {m:1 users $badges}
+ * @property Badge       $badge       {m:1 badges $badgeUserBridges}
+ * @property User        $user        {m:1 users $badges}
  *
- * @property-read string $title translated {ignore}
+ * @property-read string $title       translated {ignore}
  * @property-read string $description translated {ignore}
  */
 abstract class BadgeUserBridge extends Entity

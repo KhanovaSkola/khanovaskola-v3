@@ -15,7 +15,7 @@ use Orm;
 
 
 /**
- * @property string $key title and description translation, image {default getKey()}
+ * @property string            $key              title and description translation, image {default getKey()}
  *
  * @property BadgeUserBridge[] $badgeUserBridges {1:m badgeUserBridges $badge}
  */

@@ -9,12 +9,12 @@ use Orm;
 
 
 /**
- * @property string $youtubeId
- * @property string $youtubeIdOriginal filled if dubbed {default ''}
+ * @property string         $youtubeId
+ * @property string         $youtubeIdOriginal  filled if dubbed {default ''}
  *
  * @property VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
- * @property Comment[] $comments {1:m comments $video}
- * @property VideoView[] $views {1:m videoViews $video}
+ * @property Comment[]      $comments           {1:m comments $video}
+ * @property VideoView[]    $views              {1:m videoViews $video}
  */
 class Video extends ContentEntity
 {

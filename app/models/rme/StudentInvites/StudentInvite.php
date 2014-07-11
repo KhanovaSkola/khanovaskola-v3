@@ -6,8 +6,8 @@ use App\Models\Orm\Entity;
 
 
 /**
- * @property User $sender {m:1 users $studentInvitesSent}
- * @property User $student {m:1 users $studentInvitesReceived}
+ * @property User $sender   {m:1 users $studentInvitesSent}
+ * @property User $student  {m:1 users $studentInvitesReceived}
  * @property bool $accepted {default false}
  */
 class StudentInvite extends Entity

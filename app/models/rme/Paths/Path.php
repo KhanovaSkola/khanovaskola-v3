@@ -10,8 +10,7 @@ use Orm;
 
 /**
  * @property TitledEntity[] $list
- *
- * @property User|NULL $author {m:1 users $paths}
+ * @property User|NULL      $author {m:1 users $paths}
  */
 class Path extends Entity
 {
