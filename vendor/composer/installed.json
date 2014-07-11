@@ -3182,43 +3182,6 @@
         ]
     },
     {
-        "name": "mikulas/code-sniffs",
-        "version": "v1.1.1",
-        "version_normalized": "1.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/code-sniffs.git",
-            "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
-            "reference": "f9ba40ebe0a98ad619a999544d78f94fe3c66b7c",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "squizlabs/php_codesniffer": "~1.5.3"
-        },
-        "require-dev": {
-            "nette/tester": "~1.2.0"
-        },
-        "time": "2014-07-07 16:08:35",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Code sniffer rules for Clevis coding standard"
-    },
-    {
         "name": "mikulas/lattecs",
         "version": "v0.3.0",
         "version_normalized": "0.3.0.0",
@@ -3614,5 +3577,42 @@
             "monolog",
             "nette"
         ]
+    },
+    {
+        "name": "mikulas/code-sniffs",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/code-sniffs.git",
+            "reference": "119b59ff34d47cab18be44555e14b6336cbe39e7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/119b59ff34d47cab18be44555e14b6336cbe39e7",
+            "reference": "119b59ff34d47cab18be44555e14b6336cbe39e7",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "squizlabs/php_codesniffer": "~1.5.3"
+        },
+        "require-dev": {
+            "nette/tester": "~1.2.0"
+        },
+        "time": "2014-07-11 11:14:25",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Code sniffer rules for Clevis coding standard"
     }
 ]
