@@ -19,11 +19,6 @@ class PathsMapper extends Mappers\Mapper
 	public function registerEvents(Events $events)
 	{
 		$events->addCallbackListener($events::SERIALIZE_BEFORE, function(EventArguments $args) {
-			$args->values['author_id'] = $args->values['author']; // TODO wtf?
-			$args->params['author_id'] = TRUE;
-			unset($args->values['author']);
-			unset($args->params['author']);
-
 			$args->params['list'] = FALSE;
 		});
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
