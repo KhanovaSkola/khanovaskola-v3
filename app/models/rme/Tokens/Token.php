@@ -2,7 +2,8 @@
 
 namespace App\Models\Rme;
 
-use App;
+use App\InvalidArgumentException;
+use App\InvalidStateException;
 use App\Models\Orm\Entity;
 use App\Models\Orm\RepositoryContainer;
 use Nette\Security\Passwords;
@@ -11,11 +12,11 @@ use Nette\Utils\Random;
 
 
 /**
- * @property NULL|App\Models\Rme\User $user {m:1 users $tokens}
+ * @property NULL|User $user {m:1 users $tokens}
  * @property string $type {enum self::getTypes()}
  * @property string $hash bcrypt of unsafe hash
  * @property bool $used {default false}
- * @property NULL|App\Models\Rme\StudentInvite $studentInvite {m:1 studentInvites}
+ * @property NULL|StudentInvite $studentInvite {m:1 studentInvites}
  */
 class Token extends Entity
 {
@@ -73,11 +74,11 @@ class Token extends Entity
 	{
 		if ($this->getValue('hash', FALSE))
 		{
-			throw new App\InvalidStateException('Hash already set');
+			throw new InvalidStateException('Hash already set');
 		}
 		if (!$this->user)
 		{
-			throw new App\InvalidArgumentException;
+			throw new InvalidArgumentException;
 		}
 
 		return md5($this->createdAt->format('u') . $this->user->email) . Random::generate(15);

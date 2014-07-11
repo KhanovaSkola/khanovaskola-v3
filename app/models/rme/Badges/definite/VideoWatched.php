@@ -2,22 +2,24 @@
 
 namespace App\Models\Rme\Badges;
 
-use App\Models\Rme;
+use App\Models\Rme\Badge;
 use App\Models\Rme\BadgeUserBridges as Bridges;
+use App\Models\Rme\User;
+use App\Models\Rme\Video;
 use Orm;
 
 
-class VideoWatched extends Rme\Badge
+class VideoWatched extends Badge
 {
 
 	/**
 	 * @subscribe
-	 * @param Rme\User $user
-	 * @param Rme\Video $video
+	 * @param User $user
+	 * @param Video $video
 	 */
-	public function onVideoWatched(Rme\User $user, Rme\Video $video)
+	public function onVideoWatched(User $user, Video $video)
 	{
-		$this->awardTo($user, function(Rme\Badge $badge, Rme\User $user) use ($video) {
+		$this->awardTo($user, function(Badge $badge, User $user) use ($video) {
 			return new Bridges\VideoWatched($badge, $user, $video);
 		});
 	}

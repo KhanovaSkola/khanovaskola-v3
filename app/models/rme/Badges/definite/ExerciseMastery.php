@@ -3,19 +3,22 @@
 namespace App\Models\Rme\Badges;
 
 use App\Models\Rme;
+use App\Models\Rme\Badge;
 use App\Models\Rme\BadgeUserBridges as Bridges;
+use App\Models\Rme\Exercise;
+use App\Models\Rme\User;
 use Orm;
 
 
-class ExerciseMastery extends Rme\Badge
+class ExerciseMastery extends Badge
 {
 
 	/**
 	 * @subscribe
-	 * @param Rme\User $user
-	 * @param Rme\Exercise $exercise
+	 * @param User $user
+	 * @param Exercise $exercise
 	 */
-	public function onCorrectAnswer(Rme\User $user, Rme\Exercise $exercise)
+	public function onCorrectAnswer(User $user, Exercise $exercise)
 	{
 		$blueprint = $exercise->getBlueprint();
 
@@ -28,7 +31,7 @@ class ExerciseMastery extends Rme\Badge
 			return;
 		}
 
-		$this->awardTo($user, function(Rme\Badge $badge, Rme\User $user) use ($blueprint) {
+		$this->awardTo($user, function(Badge $badge, User $user) use ($blueprint) {
 			return new Bridges\ExerciseMastery($badge, $user, $blueprint);
 		});
 	}

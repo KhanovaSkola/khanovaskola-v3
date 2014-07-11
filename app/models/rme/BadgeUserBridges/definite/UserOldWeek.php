@@ -2,12 +2,12 @@
 
 namespace App\Models\Rme\BadgeUserBridges;
 
-use App\Models\Rme;
+use App\Models\Rme\BadgeUserBridge;
 use App\Models\Services\Translator;
 use Orm;
 
 
-class UserOldWeek extends Rme\BadgeUserBridge
+class UserOldWeek extends BadgeUserBridge
 {
 
 	public function getDescriptionArgs()

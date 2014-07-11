@@ -2,7 +2,6 @@
 
 namespace App\Models\Rme;
 
-use App;
 use App\Models\Orm\Entity;
 use Orm;
 
@@ -15,8 +14,8 @@ use Orm;
  * @property int $seed
  * @property int $time ms elapsed until answer
  *
- * @property App\Models\Rme\Blueprint $blueprint {m:1 blueprints $answers}
- * @property App\Models\Rme\User $user {m:1 users $answers}
+ * @property Blueprint $blueprint {m:1 blueprints $answers}
+ * @property User $user {m:1 users $answers}
  */
 class Answer extends Entity
 {

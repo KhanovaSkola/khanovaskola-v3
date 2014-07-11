@@ -3,19 +3,21 @@
 namespace App\Models\Rme\Badges;
 
 use App\Models\Rme;
+use App\Models\Rme\Badge;
 use App\Models\Rme\BadgeUserBridges as Bridges;
+use App\Models\Rme\User;
 use Nette\Utils\DateTime;
 use Orm;
 
 
-class UserOldWeek extends Rme\Badge
+class UserOldWeek extends Badge
 {
 
 	/**
 	 * @subscribe
-	 * @param Rme\User $user
+	 * @param User $user
 	 */
-	public function onLogin(Rme\User $user)
+	public function onLogin(User $user)
 	{
 		if ($user->getBadges($this->getKey())->count() !== 0)
 		{
@@ -25,7 +27,7 @@ class UserOldWeek extends Rme\Badge
 
 		if ($user->createdAt < DateTime::from('-1 week'))
 		{
-			$this->awardTo($user, function(Rme\Badge $badge, Rme\User $user) {
+			$this->awardTo($user, function(Badge $badge, User $user) {
 				return new Bridges\UserOldWeek($badge, $user);
 			});
 		}
