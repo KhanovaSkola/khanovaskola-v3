@@ -6,6 +6,8 @@ use App\Models\Orm\Entity;
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Comment;
+use App\Models\Rme\Path;
+use App\Models\Rme\PathsRepository;
 use App\Models\Rme\User;
 use App\Models\Rme\Video;
 use Bin\Commands\Command;
@@ -39,9 +41,11 @@ class Fake extends Command
 		$users = $this->create(50, User::class, $orm->users, [$this, 'fillUser']);
 		$videos = $this->create(20, Video::class, $orm->videos, [$this, 'fillVideo']);
 		$this->createComments(10, $videos, $users, $orm->videos);
+		$this->createPaths(10, $videos, $users, $orm->paths);
 
-		$this->out->writeln('<info>done</info>');
+		$this->out->writeln('flushing');
 		$orm->flush();
+		$this->out->writeln('<info>done</info>');
 	}
 
 	/**
@@ -74,6 +78,33 @@ class Fake extends Command
 			}
 			$repo->persist($video);
 		}
+		$progress->finish();
+	}
+
+	/**
+	 * @param int $count
+	 * @param Video[] $videos
+	 * @param User[] $users
+	 * @param PathsRepository $paths
+	 */
+	private function createPaths($count, array $videos, array $users, PathsRepository $paths)
+	{
+		$this->out->writeln(Path::class);
+
+		/** @var ProgressHelper $progress */
+		$progress = $this->getHelperSet()->get('progress');
+		$progress->start($this->out, $count);
+
+		for ($i = 0; $i < $count; ++$i)
+		{
+			$path = new Path();
+			$path->author = $this->faker->randomElement($users);
+			$path->setList($this->faker->randomElements($videos, 7));
+
+			$progress->advance();
+			$paths->attach($path);
+		}
+
 		$progress->finish();
 	}
 
