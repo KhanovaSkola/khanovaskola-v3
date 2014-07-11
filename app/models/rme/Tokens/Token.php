@@ -12,10 +12,10 @@ use Nette\Utils\Random;
 
 
 /**
- * @property NULL|User $user {m:1 users $tokens}
- * @property string $type {enum self::getTypes()}
- * @property string $hash bcrypt of unsafe hash
- * @property bool $used {default false}
+ * @property NULL|User          $user          {m:1 users $tokens}
+ * @property string             $type          {enum self::getTypes()}
+ * @property string             $hash          bcrypt of unsafe hash
+ * @property bool               $used          {default false}
  * @property NULL|StudentInvite $studentInvite {m:1 studentInvites}
  */
 class Token extends Entity
