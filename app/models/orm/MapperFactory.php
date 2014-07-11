@@ -39,35 +39,35 @@ class MapperFactory extends \Orm\MapperFactory
 		$mapper = new $class($repository);
 		$traits = $this->getTraits($class);
 
-		if (in_array('App\\Models\\Orm\\Mappers\\ElasticSearchTrait', $traits))
+		if (in_array(Mappers\ElasticSearchTrait::class, $traits))
 		{
 			/** @var ElasticSearch $elastic */
 			$elastic = $this->container->getByType(ElasticSearch::class);
 			/** @var Mappers\ElasticSearchTrait $mapper */
 			$mapper->injectElasticSearch($elastic);
 		}
-		if (in_array('App\\Models\\Orm\\Mappers\\TranslatorTrait', $traits))
+		if (in_array(Mappers\TranslatorTrait::class, $traits))
 		{
 			/** @var Translator $translator */
 			$translator = $this->container->getByType(Translator::class);
 			/** @var Mappers\TranslatorTrait $mapper */
 			$mapper->injectTranslator($translator);
 		}
-		if (in_array('App\\Models\\Orm\\Mappers\\EventManagerTrait', $traits))
+		if (in_array(Mappers\EventManagerTrait::class, $traits))
 		{
 			/** @var EventManager $eventManager */
 			$eventManager = $this->container->getByType(EventManager::class);
 			/** @var Mappers\EventManagerTrait $mapper */
 			$mapper->injectEventManager($eventManager);
 		}
-		if (in_array('App\\Models\\Orm\\Mappers\\Neo4jTrait', $traits))
+		if (in_array(Mappers\Neo4jTrait::class, $traits))
 		{
 			/** @var Neo4j $neo4j */
 			$neo4j = $this->container->getByType(Neo4j::class);
 			/** @var Mappers\Neo4jTrait $mapper */
 			$mapper->injectNeo4j($neo4j);
 		}
-		if (in_array('App\\Models\\Orm\\Mappers\\QueueTrait', $traits))
+		if (in_array(Mappers\QueueTrait::class, $traits))
 		{
 			/** @var Queue $queue */
 			$queue = $this->container->getByType(Queue::class);
@@ -86,7 +86,7 @@ class MapperFactory extends \Orm\MapperFactory
 		foreach (class_parents($class) as $parent)
 		{
 			$traits = array_merge($traits, class_uses($parent));
-			if ($parent === 'App\\Models\\Orm\\Mappers\\Mapper')
+			if ($parent === Mappers\Mapper::class)
 			{
 				break;
 			}

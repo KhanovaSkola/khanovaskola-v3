@@ -29,12 +29,10 @@ class FacebookPage extends Object
 	 */
 	public function doesUserLikePage(User $user)
 	{
-		/** @var Facebook $fb */
-		$fb = $this->context->getByType('Kdyby\\Facebook\\Facebook');
-		$fb->setAccessToken($user->facebookAccessToken);
+		$this->facebook->setAccessToken($user->facebookAccessToken);
 		try
 		{
-			return count($fb->api("me/likes/{$this->pageId}")->data) !== 0;
+			return count($this->facebook->api("me/likes/{$this->pageId}")->data) !== 0;
 		}
 		catch (FacebookApiException $e)
 		{
