@@ -26,7 +26,7 @@ class UpdateSearchIndexTask extends Task
 	public function run(Container $context)
 	{
 		/** @var Neo4j $neo4j */
-		$neo4j = $context->getService('neo4j');
+		$neo4j = $context->getByType(Neo4j::class);
 
 		$to = $this->findPathIds($neo4j, $this->entityId,
 			"(previous:Content)-[r:NEXT]->(v:$this->type)");
@@ -43,12 +43,10 @@ class UpdateSearchIndexTask extends Task
 		}
 
 		/** @var ElasticSearch $elastic */
-		$elastic = $context->getService('elastic');
+		$elastic = $context->getByType(ElasticSearch::class);
 		$elastic->updateDoc($this->type, $this->entityId, [
 			'pathStarts' => $pathsStartingHere,
 		]);
-
-		return TRUE;
 	}
 
 	private function findPathIds(Neo4j $neo4j, $entityId, $match)
