@@ -1691,59 +1691,6 @@
         ]
     },
     {
-        "name": "morrisonlevi/ardent",
-        "version": "0.14.0",
-        "version_normalized": "0.14.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/morrisonlevi/Ardent.git",
-            "reference": "0cc32e448436929787683a0aa1fdc45a2cadac9e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/morrisonlevi/Ardent/zipball/0cc32e448436929787683a0aa1fdc45a2cadac9e",
-            "reference": "0cc32e448436929787683a0aa1fdc45a2cadac9e",
-            "shasum": ""
-        },
-        "require": {
-            "php": "~5.4"
-        },
-        "time": "2014-04-10 17:06:39",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.13-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Levi Morrison",
-                "email": "levim@php.net",
-                "homepage": "http://morrisonlevi.github.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "A healthy library for PHP",
-        "homepage": "https://github.com/morrisonlevi/Ardent",
-        "keywords": [
-            "ardent",
-            "collections",
-            "library",
-            "php",
-            "spl"
-        ]
-    },
-    {
         "name": "nextras/migrations",
         "version": "v2.3.0",
         "version_normalized": "2.3.0.0",
