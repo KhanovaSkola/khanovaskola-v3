@@ -7,7 +7,6 @@
 
 namespace Orm;
 
-use Nette\Reflection\AnnotationsParser as NetteAnnotationsParser;
 use ReflectionClass;
 
 /**
@@ -90,7 +89,6 @@ class AnnotationMetaData extends Object
 	{
 		$this->parser = $parser;
 		$this->class = $metaData->getEntityClass();
-$r = new ReflectionClass($metaData->getEntityClass());
 
 		foreach ($this->getClasses($this->class) as $class)
 		{
@@ -100,7 +98,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 				{
 					foreach ($tmp as $string)
 					{
-						$this->addProperty($metaData, $string, self::$modes[$annotation], $class, $r);
+						$this->addProperty($metaData, $string, self::$modes[$annotation], $class);
 					}
 					continue;
 				}
@@ -154,7 +152,7 @@ $r = new ReflectionClass($metaData->getEntityClass());
 	 * @param MetaData::READWRITE|MetaData::READ|MetaData::WRITE
 	 * @param string
 	 */
-	private function addProperty(MetaData $metaData, $string, $mode, $class, ReflectionClass $r)
+	private function addProperty(MetaData $metaData, $string, $mode, $class)
 	{
 		if ($mode === MetaData::READWRITE) // bc; drive AnnotationsParser na pomlcce zkoncil
 		{
@@ -191,13 +189,6 @@ $r = new ReflectionClass($metaData->getEntityClass());
 		}
 
 		$propertyName = $property;
-
-		$fqn = NetteAnnotationsParser::expandClassName($type, $r);
-		if (class_exists($fqn))
-		{
-			$type = $fqn;
-		}
-
 		$property = $metaData->addProperty($propertyName, $type, $mode, $class);
 		$this->property = array($propertyName, $property);
 		$string = preg_replace_callback('#\{\s*([^\s\}\{]+)(?:\s+([^\}\{]*))?\s*\}#si', array($this, 'callOnMacro'), $string);

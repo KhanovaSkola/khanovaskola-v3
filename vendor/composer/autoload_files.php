@@ -11,4 +11,5 @@ return array(
     $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
     $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/petrp/access/Access/Init.php',
+    $vendorDir . '/petrp/orm/Orm.php',
 );

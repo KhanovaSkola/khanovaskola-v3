@@ -16,13 +16,13 @@ final class Orm
 {
 
 	/** @var string <generation>.<major>.<minor> */
-	const VERSION = '0.4.0-RC9';
+	const VERSION = '0.4.0';
 
 	/** @var int <generation> * 10000 + <major> * 100 + <minor> */
-	const VERSION_ID = 399.999999999;
+	const VERSION_ID = 400;
 
 	/** @var string <gitCommitHash> released on <date> */
-	const REVISION = '4f566e0 released on 2014-02-26';
+	const REVISION = '1dafd2f released on 2014-04-04';
 
 	/** @var string 5.3|5.2 */
 	const PACKAGE = '5.3';
