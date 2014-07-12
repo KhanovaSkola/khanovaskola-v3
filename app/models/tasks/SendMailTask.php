@@ -27,7 +27,7 @@ class SendMailTask extends Task
 	private $name;
 
 	/**
-	 * @var array|NULL template variables
+	 * @var NULL|array template variables
 	 */
 	private $args;
 

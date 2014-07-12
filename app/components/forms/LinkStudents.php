@@ -16,12 +16,14 @@ class LinkStudents extends Form
 {
 
 	/**
-	 * @var Queue @inject
+	 * @var Queue
+	 * @inject
 	 */
 	public $queue;
 
 	/**
-	 * @var RepositoryContainer @inject
+	 * @var RepositoryContainer
+	 * @inject
 	 */
 	public $orm;
 

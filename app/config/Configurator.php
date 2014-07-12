@@ -45,8 +45,8 @@ class Configurator extends Nette\Configurator
 	public $onAfter = [];
 
 	/**
-	 * @param string|NULL null means autodetect
-	 * @param array|NULL $params
+	 * @param NULL|string null means autodetect
+	 * @param NULL|array $params
 	 */
 	public function __construct($tempDirectory = NULL, array $params = NULL)
 	{

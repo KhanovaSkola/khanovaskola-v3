@@ -14,7 +14,8 @@ class Registration extends Form
 {
 
 	/**
-	 * @var RepositoryContainer @inject
+	 * @var RepositoryContainer
+	 * @inject
 	 */
 	public $orm;
 

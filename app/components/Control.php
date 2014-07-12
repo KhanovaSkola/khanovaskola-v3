@@ -31,12 +31,14 @@ abstract class Control extends NControl
 	use ControlTrait;
 
 	/**
-	 * @var Container @inject
+	 * @var Container
+	 * @inject
 	 */
 	public $context;
 
 	/**
-	 * @var TranslatorFactory @inject
+	 * @var TranslatorFactory
+	 * @inject
 	 */
 	public $translatorFactory;
 

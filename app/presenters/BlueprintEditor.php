@@ -11,13 +11,13 @@ final class BlueprintEditor extends Presenter
 {
 
 	/**
-	 * @var int|NULL
+	 * @var NULL|int
 	 * @persistent
 	 */
 	public $blueprintId;
 
 	/**
-	 * @var Rme\Blueprint|NULL
+	 * @var NULL|Rme\Blueprint
 	 */
 	protected $blueprint;
 

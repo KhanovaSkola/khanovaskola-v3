@@ -25,7 +25,8 @@ class FormControl extends Control
 	private $formClass;
 
 	/**
-	 * @var Container @inject
+	 * @var Container
+	 * @inject
 	 */
 	public $container;
 
