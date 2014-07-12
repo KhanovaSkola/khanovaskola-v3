@@ -5,6 +5,8 @@ namespace App\Components\Forms;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\StudentInvite;
 use App\Models\Rme\Token;
+use App\Models\Rme\Tokens\LinkExistingStudent;
+use App\Models\Rme\Tokens\LinkNewStudent;
 use App\Models\Rme\User;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
@@ -59,29 +61,27 @@ class LinkStudents extends Form
 		{
 			$student = $this->orm->users->getByEmail($email);
 
-			$tokenType = Token::TYPE_STUDENT_INVITE;
-			$template = 'mentor.linkStudent.existing';
-
-			if (!$student)
+			if (!$student || !$student->registered)
 			{
-				$student = new User();
-				$student->registered = FALSE;
-				$student->email = $email;
+				if (!$student)
+				{
+					$student = new User();
+					$student->registered = FALSE;
+					$student->email = $email;
 
-				$this->orm->users->attach($student);
+					$this->orm->users->attach($student);
+				}
 
-				$tokenType = Token::TYPE_STUDENT_INVITE_REGISTER;
+				$token = LinkNewStudent::createFromUser($student);
 				$template = 'mentor.linkStudent.new';
 			}
-			else if (!$student->registered)
+			else
 			{
-				$tokenType = Token::TYPE_STUDENT_INVITE_REGISTER;
-				$template = 'mentor.linkStudent.new';
+				$token = LinkExistingStudent::createFromUser($student);
+				$template = 'mentor.linkStudent.existing';
 			}
 
 			$invite = new StudentInvite($teacher, $student);
-
-			$token = Token::createFromUser($tokenType, $student);
 			$token->studentInvite = $invite;
 
 			$this->orm->tokens->persist($token);

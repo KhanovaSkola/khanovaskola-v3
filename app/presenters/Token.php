@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Rme\Tokens;
 use App\Models\Rme\User;
 use App\Models\Structs\EventList;
 use App\NotImplementedException;
@@ -12,20 +13,19 @@ use Nette\Security\Identity;
 final class Token extends Presenter
 {
 
-	public function getHandler($type)
+	public function getHandler(Rme\Token $token)
 	{
 		$map = [
-			Rme\Token::TYPE_LOGIN => $this->onLogin,
-			Rme\Token::TYPE_STUDENT_INVITE => $this->onStudentInvite,
-			Rme\Token::TYPE_STUDENT_INVITE_REGISTER => $this->onStudentInviteRegister,
-			Rme\Token::TYPE_UNSUBSCRIBE => $this->onUnsubscribe,
+			Tokens\LinkExistingStudent::class => $this->onStudentInvite,
+			Tokens\LinkNewStudent::class => $this->onStudentInviteRegister,
+			Tokens\Login::class => $this->onLogin,
+			Tokens\Unsubscribe::class => $this->onUnsubscribe,
 		];
-		if (!isset($map[$type]))
+		if (!isset($map[get_class($token)]))
 		{
 			throw new NotImplementedException;
 		}
-
-		return $map[$type];
+		return $map[get_class($token)];
 	}
 
 	public function actionDefault($token)
@@ -48,7 +48,7 @@ final class Token extends Presenter
 		}
 		$this->orm->tokens->flush();
 
-		$handler = $this->getHandler($token->type);
+		$handler = $this->getHandler($token);
 		$handler($token);
 		$this->redirect('Homepage:'); // just a fallback
 	}

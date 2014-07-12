@@ -5,6 +5,7 @@ namespace App\Models\Services;
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Token;
+use App\Models\Rme\Tokens\Unsubscribe;
 use App\Models\Rme\User;
 use App\Presenters;
 use Exception;
@@ -77,7 +78,7 @@ class Mailer extends Object
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
 		$msg->addTo($user->email, $user->name);
 
-		$token = Token::createFromUser(Token::TYPE_UNSUBSCRIBE, $user);
+		$token = Unsubscribe::createFromUser($user);
 		$token->emailType = $view;
 		$this->orm->tokens->attach($token);
 		$this->orm->flush();
