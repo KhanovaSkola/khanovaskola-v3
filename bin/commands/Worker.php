@@ -36,8 +36,8 @@ class Worker extends Command
 				}
 				catch (Exception $e)
 				{
-					$this->out->writeln("<error>Task $class, see:</error>");
-					Debugger::log($e);
+					$file = Debugger::log($e);
+					$this->out->writeln("<error>Task $class failed, see '$file'</error>");
 				}
 				finally
 				{
