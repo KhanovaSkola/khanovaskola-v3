@@ -3,6 +3,7 @@
 namespace App\Models\Tasks;
 
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\User;
 use App\Models\Services\Mailer;
 use App\Models\Structs\EntityPointer;
 use Nette\Mail\SmtpException;
@@ -17,25 +18,19 @@ class SendMailTask extends Task
 	private $view;
 
 	/**
-	 * @var string
+	 * @var EntityPointer to User
 	 */
-	private $email;
-
-	/**
-	 * @var NULL|string
-	 */
-	private $name;
+	private $pUser;
 
 	/**
 	 * @var NULL|array template variables
 	 */
 	private $args;
 
-	public function __construct($view, $email, $name = NULL, array $args = [])
+	public function __construct($view, User $user, array $args = [])
 	{
 		$this->view = $view;
-		$this->email = $email;
-		$this->name = $name;
+		$this->pUser = new EntityPointer($user);
 		$this->args = $args;
 	}
 
@@ -54,8 +49,10 @@ class SendMailTask extends Task
 				$this->args[$i] = $arg->resolve($orm);
 			}
 		}
+		/** @var User $user */
+		$user = $this->pUser->resolve($orm);
 
-		$mailer->send($this->view, $this->email, $this->name, $this->args);
+		$mailer->send($this->view, $user, $this->args);
 	}
 
 }
