@@ -2,6 +2,6 @@ CREATE TABLE unsubscribes (
   id SERIAL NOT NULL,
   created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
   email VARCHAR(255) NOT NULL,
-  "from" VARCHAR(255) NOT NULL,
+  email_type VARCHAR(255) NOT NULL,
   PRIMARY KEY(id)
 );

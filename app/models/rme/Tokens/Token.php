@@ -16,7 +16,13 @@ use Nette\Utils\Random;
  * @property string             $type          {enum self::getTypes()}
  * @property string             $hash          bcrypt of unsafe hash
  * @property bool               $used          {default false}
+ *
+ * Data that might be refactored to child Tokens:
+ * # student invite / student invite register
  * @property NULL|StudentInvite $studentInvite {m:1 studentInvites}
+ *
+ * # unsubscribe
+ * @property NULL|string             $emailType     view name
  */
 class Token extends Entity
 {
@@ -24,6 +30,7 @@ class Token extends Entity
 	const TYPE_LOGIN = 'login';
 	const TYPE_STUDENT_INVITE = 'student_invite';
 	const TYPE_STUDENT_INVITE_REGISTER = 'student_invite_register';
+	const TYPE_UNSUBSCRIBE = 'unsubscribe';
 
 	protected $unsafe;
 

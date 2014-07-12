@@ -1,0 +1,4 @@
+ALTER TABLE
+  tokens
+ADD
+  email_type VARCHAR(255) DEFAULT NULL;
