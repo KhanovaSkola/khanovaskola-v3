@@ -73,6 +73,11 @@ class LinkStudents extends Form
 				$tokenType = Token::TYPE_STUDENT_INVITE_REGISTER;
 				$template = 'mentor.linkStudent.new';
 			}
+			else if (!$student->registered)
+			{
+				$tokenType = Token::TYPE_STUDENT_INVITE_REGISTER;
+				$template = 'mentor.linkStudent.new';
+			}
 
 			$invite = new StudentInvite($teacher, $student);
 
