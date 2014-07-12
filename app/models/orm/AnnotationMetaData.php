@@ -36,7 +36,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 
 	/**
 	 * Temporary save
-	 * @var array|NULL array(string, MetaDataProperty)
+	 * @var NULL|array array(string, MetaDataProperty)
 	 * @see self::callOnMacro()
 	 */
 	private $property;

@@ -48,7 +48,7 @@ class Mailer extends Object
 	 * @param string $view email template
 	 * @param string $email
 	 * @param string $name
-	 * @param array|NULL $args template variables
+	 * @param NULL|array $args template variables
 	 *
 	 * @throws Exception from Latte\Engine
 	 * @throws SmtpException from Mailer
