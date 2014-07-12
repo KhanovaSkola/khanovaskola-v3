@@ -18,6 +18,7 @@ final class Token extends Presenter
 			Rme\Token::TYPE_LOGIN => $this->onLogin,
 			Rme\Token::TYPE_STUDENT_INVITE => $this->onStudentInvite,
 			Rme\Token::TYPE_STUDENT_INVITE_REGISTER => $this->onStudentInviteRegister,
+			Rme\Token::TYPE_UNSUBSCRIBE => $this->onUnsubscribe,
 		];
 		if (!isset($map[$type]))
 		{
@@ -86,6 +87,16 @@ final class Token extends Presenter
 		$this->orm->flush();
 
 		$this->redirect('Auth:registration', ['email' => $token->user->email]);
+	}
+
+	public function onUnsubscribe(Rme\Token $token)
+	{
+		$us = new Rme\Unsubscribe($token->user->email, $token->emailType);
+		$this->orm->unsubscribes->attach($us);
+		$this->orm->flush();
+
+		$this->flashSuccess('unsubscribe');
+		$this->redirect('Homepage:');
 	}
 
 }
