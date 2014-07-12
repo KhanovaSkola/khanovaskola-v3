@@ -74,8 +74,15 @@ final class Auth extends Presenter
 	{
 		if ($this->user->loggedIn)
 		{
-			$this->flashInfo('alreadyRegistered.loggedIn');
-			$this->redirect('Profile:');
+			if ($email && $this->userEntity->email !== $email)
+			{
+				$this->user->logout(TRUE);
+			}
+			else
+			{
+				$this->flashInfo('alreadyRegistered.loggedIn');
+				$this->redirect('Profile:');
+			}
 		}
 
 		$user = $this->orm->users->getByEmail($email);
