@@ -3203,16 +3203,16 @@
         },
         {
             "name": "mikulas/nette-panel-queries",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikulas/nette-panel-queries.git",
-                "reference": "a246eb60fb22e2331df79db27341cac6d7250b34"
+                "reference": "7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/a246eb60fb22e2331df79db27341cac6d7250b34",
-                "reference": "a246eb60fb22e2331df79db27341cac6d7250b34",
+                "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8",
+                "reference": "7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8",
                 "shasum": ""
             },
             "require": {
@@ -3237,7 +3237,7 @@
                 }
             ],
             "description": "Universal query panel for Tracy",
-            "time": "2014-07-07 14:50:19"
+            "time": "2014-07-12 15:29:39"
         },
         {
             "name": "nette/tester",
