@@ -1,7 +1,9 @@
+{layout @layout.latte}
 {var $email->subject = "Přihlášení Khanova škola"}
+{block body}
 
-<p>
-	<center><b>
-		<a href="{$token|token:$unsafe}">Přihlásit se</a>
-	</b></center>
-</p>
+	<p>
+		<center><b>
+			<a href="{$token|token:$unsafe}">Přihlásit se</a>
+		</b></center>
+	</p>
