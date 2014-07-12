@@ -20,6 +20,7 @@ use Nette\DI\Container;
  * @property-read Rme\StudentInvitesRepository $studentInvites
  * @property-read Rme\TagsRepository $tags
  * @property-read Rme\TokensRepository $tokens
+ * @property-read Rme\UnsubscribesRepository $unsubscribes
  * @property-read Rme\UsersRepository $users
  * @property-read Rme\VideosRepository $videos
  * @property-read Rme\VideoViewsRepository $videoViews
