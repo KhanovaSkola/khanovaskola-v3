@@ -2,6 +2,7 @@
 
 namespace Bin\Services;
 
+use App\Models\Orm\AnnotationMetaData;
 use App\Models\Orm\Mappers\Mapper;
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
@@ -10,7 +11,6 @@ use Clevis\Skeleton\Orm\SqlConventional;
 use Doctrine\DBAL\Schema\Schema;
 use Inflect\Inflect;
 use Nette\Object;
-use Orm\AnnotationMetaData;
 use Orm\AnnotationsParser;
 use Orm\MetaData;
 use Orm\RelationshipMetaData;
