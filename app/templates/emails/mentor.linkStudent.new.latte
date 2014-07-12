@@ -1,9 +1,11 @@
+{layout @layout.latte}
 {var $email->subject = "Pozvánka Khanova škola"}
+{block body}
 
-{$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
+	{$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
 
-<p>
-	<center><b>
-		<a href="{$token|token:$unsafe}">Zaregistrovat se a potvrdit pozvánku</a>
-	</b></center>
-</p>
+	<p>
+		<center><b>
+			<a href="{$token|token:$unsafe}">Zaregistrovat se a potvrdit pozvánku</a>
+		</b></center>
+	</p>
