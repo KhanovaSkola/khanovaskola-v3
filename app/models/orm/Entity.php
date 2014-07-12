@@ -3,9 +3,9 @@
 namespace App\Models\Orm;
 
 use App\Models\Orm\Mappers\Mapper;
+use DateTime;
 use Nette\Caching\Cache;
 use Nette\DI\Container;
-use Nette\Utils\DateTime;
 use Orm;
 
 
