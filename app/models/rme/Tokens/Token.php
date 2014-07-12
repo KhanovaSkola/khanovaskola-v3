@@ -12,25 +12,13 @@ use Nette\Utils\Random;
 
 
 /**
- * @property NULL|User          $user          {m:1 users $tokens}
- * @property string             $type          {enum self::getTypes()}
- * @property string             $hash          bcrypt of unsafe hash
- * @property bool               $used          {default false}
- *
- * Data that might be refactored to child Tokens:
- * # student invite / student invite register
- * @property NULL|StudentInvite $studentInvite {m:1 studentInvites}
- *
- * # unsubscribe
- * @property NULL|string             $emailType     view name
+ * @property NULL|User $user {m:1 users $tokens}
+ * @property string    $type
+ * @property string    $hash bcrypt of unsafe hash
+ * @property bool      $used {default false}
  */
-class Token extends Entity
+abstract class Token extends Entity
 {
-
-	const TYPE_LOGIN = 'login';
-	const TYPE_STUDENT_INVITE = 'student_invite';
-	const TYPE_STUDENT_INVITE_REGISTER = 'student_invite_register';
-	const TYPE_UNSUBSCRIBE = 'unsubscribe';
 
 	protected $unsafe;
 
@@ -57,17 +45,16 @@ class Token extends Entity
 	}
 
 	/**
-	 * @param string $type
 	 * @param User $user
 	 * @return static
 	 */
-	public static function createFromUser($type, User $user)
+	public static function createFromUser(User $user)
 	{
 		$token = new static;
 
-		$token->type = $type;
+		$ref = new \ReflectionClass($token);
+		$token->type = $ref->getShortName();
 		$token->user = $user;
-
 		$token->unsafe = $token->computeUnsafeHash();
 		$token->hash = Passwords::hash($token->unsafe);
 
