@@ -3171,46 +3171,6 @@
         ]
     },
     {
-        "name": "mikulas/nette-panel-queries",
-        "version": "v1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/mikulas/nette-panel-queries.git",
-            "reference": "a246eb60fb22e2331df79db27341cac6d7250b34"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/a246eb60fb22e2331df79db27341cac6d7250b34",
-            "reference": "a246eb60fb22e2331df79db27341cac6d7250b34",
-            "shasum": ""
-        },
-        "require": {
-            "latte/latte": "~2.2.0",
-            "nette/utils": "~2.2.0",
-            "tracy/tracy": "~2.2.0"
-        },
-        "time": "2014-07-07 14:50:19",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Tracy\\QueryPanel\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Universal query panel for Tracy"
-    },
-    {
         "name": "symfony/console",
         "version": "v2.4.7",
         "version_normalized": "2.4.7.0",
@@ -3622,5 +3582,45 @@
             "persistence",
             "queryobject"
         ]
+    },
+    {
+        "name": "mikulas/nette-panel-queries",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/nette-panel-queries.git",
+            "reference": "7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/nette-panel-queries/zipball/7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8",
+            "reference": "7c6f4617dbf3c1a354ddb099f135b6f644a1b1e8",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2.0",
+            "nette/utils": "~2.2.0",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-07-12 15:29:39",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Tracy\\QueryPanel\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Universal query panel for Tracy"
     }
 ]
