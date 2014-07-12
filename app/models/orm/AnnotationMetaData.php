@@ -50,10 +50,10 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	{
 		$this->parser = $parser;
 		$this->class = $metaData->getEntityClass();
-		$ref = new ReflectionClass($metaData->getEntityClass());
 
 		foreach ($this->getClasses($this->class) as $class)
 		{
+			$ref = new ReflectionClass($class);
 			foreach ($this->getAnnotation($class) as $annotation => $tmp)
 			{
 				if (isset(self::$modes[$annotation]))
