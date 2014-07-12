@@ -2,7 +2,9 @@
 
 namespace App\Models\Services;
 
+use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Token;
+use App\Models\Rme\User;
 use App\Presenters;
 use Exception;
 use Latte\Engine;
@@ -28,15 +30,21 @@ class Mailer extends Object
 	private $logger;
 
 	/**
-	 * @var \Nette\Application\IPresenterFactory
+	 * @var IPresenterFactory
 	 */
 	private $factory;
 
-	public function __construct($config, Logger $logger, IPresenterFactory $factory)
+	/**
+	 * @var RepositoryContainer
+	 */
+	private $orm;
+
+	public function __construct($config, Logger $logger, IPresenterFactory $factory, RepositoryContainer $orm)
 	{
 		$this->mailer = new SmtpMailer($config);
 		$this->logger = $logger;
 		$this->factory = $factory;
+		$this->orm = $orm;
 	}
 
 	private function getTemplate($view)
@@ -46,21 +54,30 @@ class Mailer extends Object
 
 	/**
 	 * @param string $view email template
-	 * @param string $email
-	 * @param string $name
+	 * @param User $user
 	 * @param NULL|array $args template variables
 	 *
 	 * @throws Exception from Latte\Engine
 	 * @throws SmtpException from Mailer
 	 */
-	public function send($view, $email, $name, array $args = [])
+	public function send($view, User $user, array $args = [])
 	{
 		$msg = new Message();
 		$msg->setFrom('Khanova škola <napiste-nam@khanovaskola.cz>');
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
-		$msg->addTo($email, $name);
+		$msg->addTo($user->email, $user->name);
+
+
+		$token = Token::createFromUser(Token::TYPE_UNSUBSCRIBE, $user);
+		$token->emailType = $view;
+		$this->orm->tokens->attach($token);
+		$this->orm->flush();
 
 		$args['email'] = $msg;
+		$args['unsubscribe'] = (object) [
+			'token' => $token,
+			'code' => $token->getUnsafe(),
+		];
 
 		$latte = new Engine;
 
@@ -74,7 +91,7 @@ class Mailer extends Object
 		$msg->setHtmlBody($template);
 
 		$this->mailer->send($msg);
-		$this->logger->addInfo('Email send', ['view' => $view, 'email' => $email]);
+		$this->logger->addInfo('Email send', ['view' => $view, 'email' => $user->email]);
 	}
 
 }
