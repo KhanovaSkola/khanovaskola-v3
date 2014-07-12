@@ -7,6 +7,7 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Translator;
 use App\Models\Structs\EventList;
 use App\NotSupportedException;
+use Exception;
 use Kdyby\Events\EventArgsList;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
@@ -92,6 +93,7 @@ abstract class Badge extends Entity implements Subscriber
 	/**
 	 * @param User $user
 	 * @param callable $createBridge
+	 * @throws Exception
 	 * @return BadgeUserBridge
 	 */
 	public function awardTo(User $user, callable $createBridge)

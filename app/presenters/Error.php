@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use Exception;
 use Nette;
 use Tracy\Debugger;
 
@@ -10,8 +11,8 @@ final class Error extends Presenter
 {
 
 	/**
-	 * @param Exception
-	 * @return void
+	 * @param Exception $exception
+	 * @throws Nette\Application\AbortException
 	 */
 	public function renderDefault($exception)
 	{
