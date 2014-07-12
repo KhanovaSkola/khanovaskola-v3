@@ -20,7 +20,7 @@ class Foo
 
 Allowed:
 ```php
-/** 
+/**
  * @property-read $bar
  */
 class Foo
@@ -31,6 +31,22 @@ class Foo
 	public $bar;
 }
 ```
+
+*NullFirstSniff*
+
+Disallowed:
+```php
+/** @property-read Foo|NULL $bar */
+```
+
+Allowed:
+```php
+/** @property-read NULL|Foo $bar */
+```
+
+*SeparateInjectSniff*
+
+`@inject` must not be on same line as `@var`.
 
 ControlStructures
 -----------------
@@ -130,7 +146,7 @@ Strings
 *ConcatenationSpacingSniff*
 
 Concatenation operator (`.`) must be separated by exacly one
-space on both sides. 
+space on both sides.
 
 Variables
 ---------

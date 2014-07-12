@@ -3105,16 +3105,16 @@
         },
         {
             "name": "mikulas/code-sniffs",
-            "version": "v1.2.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/code-sniffs.git",
-                "reference": "119b59ff34d47cab18be44555e14b6336cbe39e7"
+                "reference": "99386c00bc7eebef36b4ac191fa3304d0557f378"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/119b59ff34d47cab18be44555e14b6336cbe39e7",
-                "reference": "119b59ff34d47cab18be44555e14b6336cbe39e7",
+                "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/99386c00bc7eebef36b4ac191fa3304d0557f378",
+                "reference": "99386c00bc7eebef36b4ac191fa3304d0557f378",
                 "shasum": ""
             },
             "require": {
@@ -3136,7 +3136,7 @@
                 }
             ],
             "description": "Code sniffer rules for Clevis coding standard",
-            "time": "2014-07-11 11:14:25"
+            "time": "2014-07-11 16:39:11"
         },
         {
             "name": "mikulas/lattecs",
