@@ -1,7 +1,10 @@
+{**
+ * @param stdClass $unsubscribe [Token $token, string $code]
+ *}
+
 header
 
 {include body}
-
 <p>
 	<center><b>
 		<a href="{$unsubscribe->token|token:$unsubscribe->code}">Zrušit zasílání emailů / Unsubscribe</a>
