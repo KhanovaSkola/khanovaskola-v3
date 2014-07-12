@@ -12,6 +12,7 @@ final class Js extends Presenter
 
 	/**
 	 * @param int $videoId
+	 * @throws BadRequestException
 	 */
 	public function actionVideoViewBegin($videoId)
 	{
@@ -33,6 +34,7 @@ final class Js extends Presenter
 	 * @param int $viewId
 	 * @param float $from
 	 * @param float $to
+	 * @throws BadRequestException
 	 */
 	public function actionVideoViewSeek($viewId, $from, $to)
 	{
@@ -50,6 +52,7 @@ final class Js extends Presenter
 	 * @param int $viewId
 	 * @param float $at
 	 * @param float $duration
+	 * @throws BadRequestException
 	 */
 	public function actionVideoViewPause($viewId, $at, $duration)
 	{
@@ -88,6 +91,7 @@ final class Js extends Presenter
 	 * @param float $percent
 	 * @param float $time total of real time watched
 	 * @param float $furthest
+	 * @throws BadRequestException
 	 */
 	public function actionVideoViewTick($viewId, $percent, $time, $furthest)
 	{

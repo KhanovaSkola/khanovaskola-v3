@@ -4,6 +4,7 @@ namespace App\Models\Services;
 
 use App\Models\Rme\Token;
 use App\Presenters;
+use Exception;
 use Latte\Engine;
 use Monolog\Logger;
 use Nette\Application\IPresenterFactory;
@@ -49,7 +50,8 @@ class Mailer extends Object
 	 * @param string $name
 	 * @param array|NULL $args template variables
 	 *
-	 * @throws SmtpException
+	 * @throws Exception from Latte\Engine
+	 * @throws SmtpException from Mailer
 	 */
 	public function send($view, $email, $name, array $args = [])
 	{
