@@ -2,8 +2,10 @@
 
 namespace App\Models\Rme\Tokens;
 
+use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\StudentInvite;
 use App\Models\Rme\Token;
+use App\Presenters;
 
 
 /**
@@ -11,5 +13,16 @@ use App\Models\Rme\Token;
  */
 class LinkExistingStudent extends Token
 {
+
+	public function invoke(Presenters\Token $presenter, RepositoryContainer $orm)
+	{
+		$presenter->login($this->user);
+
+		$this->studentInvite->setAccepted();
+		$orm->flush();
+		$presenter->flashSuccess('student.approveMentor');
+
+		$presenter->redirect('Profile:');
+	}
 
 }

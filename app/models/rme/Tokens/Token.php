@@ -16,6 +16,8 @@ use Nette\Utils\Random;
  * @property string    $type
  * @property string    $hash bcrypt of unsafe hash
  * @property bool      $used {default false}
+ *
+ * @method invoke() autowired
  */
 abstract class Token extends Entity
 {
