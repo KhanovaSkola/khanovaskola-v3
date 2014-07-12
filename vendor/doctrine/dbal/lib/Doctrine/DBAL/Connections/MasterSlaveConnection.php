@@ -109,10 +109,10 @@ class MasterSlaveConnection extends Connection
      */
     public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null)
     {
-        if ( !isset($params['slaves']) || !isset($params['master']) ) {
+        if ( !isset($params['slaves']) || !isset($params['master'])) {
             throw new \InvalidArgumentException('master or slaves configuration missing');
         }
-        if ( count($params['slaves']) == 0 ) {
+        if (count($params['slaves']) == 0) {
             throw new \InvalidArgumentException('You have to configure at least one slaves.');
         }
 
@@ -144,7 +144,7 @@ class MasterSlaveConnection extends Connection
         $requestedConnectionChange = ($connectionName !== null);
         $connectionName            = $connectionName ?: 'slave';
 
-        if ( $connectionName !== 'slave' && $connectionName !== 'master' ) {
+        if ($connectionName !== 'slave' && $connectionName !== 'master') {
             throw new \InvalidArgumentException("Invalid option to connect(), only master or slave allowed.");
         }
 
@@ -163,11 +163,12 @@ class MasterSlaveConnection extends Connection
         }
 
         if ($this->connections[$connectionName]) {
-            if ($forceMasterAsSlave) {
-                $this->connections['slave'] = $this->_conn = $this->connections['master'];
-            } else {
-                $this->_conn = $this->connections[$connectionName];
+            $this->_conn = $this->connections[$connectionName];
+
+            if ($forceMasterAsSlave && ! $this->keepSlave) {
+                $this->connections['slave'] = $this->_conn;
             }
+
             return false;
         }
 
@@ -278,6 +279,17 @@ class MasterSlaveConnection extends Connection
         $this->connect('master');
 
         return parent::delete($tableName, $identifier, $types);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function close()
+    {
+        unset($this->connections['master']);
+        unset($this->connections['slave']);
+
+        parent::close();
     }
 
     /**

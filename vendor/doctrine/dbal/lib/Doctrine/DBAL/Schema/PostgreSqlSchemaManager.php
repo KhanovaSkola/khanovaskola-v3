@@ -19,6 +19,8 @@
 
 namespace Doctrine\DBAL\Schema;
 
+use Doctrine\DBAL\Types\Type;
+
 /**
  * PostgreSQL Schema Manager.
  *
@@ -43,7 +45,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
     {
         $rows = $this->_conn->fetchAll("SELECT nspname as schema_name FROM pg_namespace WHERE nspname !~ '^pg_.*' and nspname != 'information_schema'");
 
-        return array_map(function($v) { return $v['schema_name']; }, $rows);
+        return array_map(function ($v) { return $v['schema_name']; }, $rows);
     }
 
     /**
@@ -182,7 +184,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
      */
     protected function _getPortableViewDefinition($view)
     {
-        return new View($view['viewname'], $view['definition']);
+        return new View($view['schemaname'].'.'.$view['viewname'], $view['definition']);
     }
 
     /**
@@ -402,6 +404,12 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
             'comment'       => $tableColumn['comment'],
         );
 
-        return new Column($tableColumn['field'], \Doctrine\DBAL\Types\Type::getType($type), $options);
+        $column = new Column($tableColumn['field'], Type::getType($type), $options);
+
+        if (isset($tableColumn['collation']) && !empty($tableColumn['collation'])) {
+            $column->setPlatformOption('collation', $tableColumn['collation']);
+        }
+
+        return $column;
     }
 }
