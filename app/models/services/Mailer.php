@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Token;
 use App\Models\Rme\User;
@@ -57,16 +58,24 @@ class Mailer extends Object
 	 * @param User $user
 	 * @param NULL|array $args template variables
 	 *
+	 * @throws InvalidStateException if user unsubscribed
 	 * @throws Exception from Latte\Engine
 	 * @throws SmtpException from Mailer
 	 */
 	public function send($view, User $user, array $args = [])
 	{
+		if ($this->orm->unsubscribes->getByEmail($user->email))
+		{
+			// Last line of defense. Make sure unsubscribed users
+			// really dont receive any email. This should however
+			// be handled before the task is queued.
+			throw new InvalidStateException;
+		}
+
 		$msg = new Message();
 		$msg->setFrom('Khanova škola <napiste-nam@khanovaskola.cz>');
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
 		$msg->addTo($user->email, $user->name);
-
 
 		$token = Token::createFromUser(Token::TYPE_UNSUBSCRIBE, $user);
 		$token->emailType = $view;
