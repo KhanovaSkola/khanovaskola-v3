@@ -61,6 +61,14 @@ class Run extends Command
 		if ($runAll || $this->in->getOption('cept'))
 		{
 			$tester = ['casperjs', 'test', "$root/tests/cases/cept"];
+			if ($this->out->isVerbose())
+			{
+				$tester[] = '--verbose';
+				if ($this->out->isVeryVerbose())
+				{
+					$tester[] = '--log-level=debug';
+				}
+			}
 			if ($r = $this->callSystem($tester))
 			{
 				return $r;
