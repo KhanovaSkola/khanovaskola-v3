@@ -21,7 +21,7 @@ class Unsubscribe extends Token
 		$orm->flush();
 
 		$presenter->flashSuccess('unsubscribe');
-		$presenter->redirect('Homepage:');
+		$presenter->redirect('Profile:');
 	}
 
 }
