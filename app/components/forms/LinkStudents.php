@@ -57,60 +57,80 @@ class LinkStudents extends Form
 		$emails = array_unique($emails);
 
 		$teacher = $this->presenter->getUserEntity();
-		$failedEmails = [];
+
+		$awaitingEmails = [];
+		foreach ($teacher->studentInvitesSent->get()->findBy(['accepted' => 'false']) as $invite)
+		{
+			$awaitingEmails[] = $invite->student->email;
+		}
+
+		$fails = (object) [
+			'unsubscribed' => [],
+			'awaiting' => [],
+		];
 		foreach ($emails as $email)
 		{
 			if ($this->orm->unsubscribes->getByEmail($email))
 			{
-				$failedEmails[] = $email;
-				continue;
+				$fails->unsubscribed[] = $email;
 			}
-			$this->inviteUser($teacher, $email);
+			else if (in_array($email, $awaitingEmails))
+			{
+				$fails->awaiting[] = $email;
+			}
+			else
+			{
+				$this->inviteUser($teacher, $email);
+			}
 		}
 
 		$this->orm->flush();
 
-		$this->flashStatus($failedEmails, $emails);
+		$this->flashStatus($fails, $emails);
 		$this->presenter->redirect('Profile:default');
 	}
 
 	/**
-	 * @param string[] $failedEmails
+	 * @param \stdClass $fails
 	 * @param string[] $emails
 	 */
-	protected function flashStatus(array $failedEmails, array $emails)
+	protected function flashStatus($fails, array $emails)
 	{
-		if (count($failedEmails) === count($emails) && count($failedEmails) === 1)
+		if (count($fails->unsubscribed) === count($emails) && count($fails->unsubscribed) === 1)
 		{
 			$this->presenter->flashError('mentor.linkStudent.failOne', [
-				'email' => $failedEmails[0],
+				'email' => $fails->unsubscribed[0],
 			]);
 		}
-		else if (count($failedEmails) === count($emails))
+		else if (count($fails->unsubscribed) === count($emails))
 		{
 			$this->presenter->flashError('mentor.linkStudent.failAll', [
-				'emails' => implode(', ', $failedEmails),
+				'emails' => implode(', ', $fails->unsubscribed),
 			]);
 		}
-		else if (count($failedEmails) === 1)
+		else if (count($fails->unsubscribed) === 1)
 		{
 			$this->presenter->flashError('mentor.linkStudent.failPartialOne', [
-				'emails' => implode(', ', $failedEmails),
+				'emails' => implode(', ', $fails->unsubscribed),
 			]);
 		}
-		else if ($failedEmails)
+		else if ($fails->unsubscribed)
 		{
 			$this->presenter->flashError('mentor.linkStudent.failPartial', [
-				'emails' => implode(', ', $failedEmails),
+				'emails' => implode(', ', $fails->unsubscribed),
 			]);
 		}
-		else if (count($emails) === 1)
+
+		if ($fails->awaiting)
 		{
-			$this->presenter->flashInfo('mentor.linkStudent.awaitApprovalOne');
+			$this->presenter->flashInfo('mentor.linkStudent.alreadySent' . (count($fails->awaiting) === 1 ? 'One' : ''), [
+				'emails' => implode(', ', $fails->awaiting),
+			]);
 		}
-		else
+
+		if (!$fails->unsubscribed && !$fails->awaiting)
 		{
-			$this->presenter->flashInfo('mentor.linkStudent.awaitApproval');
+			$this->presenter->flashInfo('mentor.linkStudent.awaitApproval' . (count($emails) === 1 ? 'One' : ''));
 		}
 	}
 

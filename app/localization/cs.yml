@@ -32,6 +32,12 @@ mentor:
     failPartialOne:
       title: "Jedna pozvánka neodeslána."
       message: "Uživatel s emailem %emails se odhlásil z emailů Khanovy školy. Požádejte jej, ať si emaily znovu povolí a pozvánku mu znovu zašlete. Ostatní pozvánky byli odeslány v pořádku – u nich počkejte, než je studenti potvrdí."
+    alreadySent:
+      title: "Pozvánky odeslány už dřív."
+      message: "Uživatele s emaily %emails jste již pozvali. Počkejte, než pozvánky studenti potvrdí."
+    alreadySentOne:
+      title: "Pozvánka odeslána už dřív."
+      message: "Uživatele s emailem %emails jste již pozvali. Počkejte, než pozvánku student potvrdí."
 
 test: #TODO remove
   flash:
