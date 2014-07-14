@@ -57,14 +57,61 @@ class LinkStudents extends Form
 		$emails = array_unique($emails);
 
 		$teacher = $this->presenter->getUserEntity();
+		$failedEmails = [];
 		foreach ($emails as $email)
 		{
+			if ($this->orm->unsubscribes->getByEmail($email))
+			{
+				$failedEmails[] = $email;
+				continue;
+			}
 			$this->inviteUser($teacher, $email);
 		}
 
 		$this->orm->flush();
-		$this->presenter->flashSuccess('mentor.linkStudent.awaitApproval');
+
+		$this->flashStatus($failedEmails, $emails);
 		$this->presenter->redirect('Profile:default');
+	}
+
+	/**
+	 * @param string[] $failedEmails
+	 * @param string[] $emails
+	 */
+	protected function flashStatus(array $failedEmails, array $emails)
+	{
+		if (count($failedEmails) === count($emails) && count($failedEmails) === 1)
+		{
+			$this->presenter->flashError('mentor.linkStudent.failOne', [
+				'email' => $failedEmails[0],
+			]);
+		}
+		else if (count($failedEmails) === count($emails))
+		{
+			$this->presenter->flashError('mentor.linkStudent.failAll', [
+				'emails' => implode(', ', $failedEmails),
+			]);
+		}
+		else if (count($failedEmails) === 1)
+		{
+			$this->presenter->flashError('mentor.linkStudent.failPartialOne', [
+				'emails' => implode(', ', $failedEmails),
+			]);
+		}
+		else if ($failedEmails)
+		{
+			$this->presenter->flashError('mentor.linkStudent.failPartial', [
+				'emails' => implode(', ', $failedEmails),
+			]);
+		}
+		else if (count($emails) === 1)
+		{
+			$this->presenter->flashInfo('mentor.linkStudent.awaitApprovalOne');
+		}
+		else
+		{
+			$this->presenter->flashInfo('mentor.linkStudent.awaitApproval');
+		}
 	}
 
 	/**

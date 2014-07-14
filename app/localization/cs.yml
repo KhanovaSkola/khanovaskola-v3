@@ -14,9 +14,24 @@ profile:
 
 mentor:
   linkStudent:
+    awaitApprovalOne:
+      title: "Pozvánka odeslána."
+      message: "Nyní prosím počkejte, než student pozvánku potvrdí."
     awaitApproval:
-      title: "Emaily odeslány."
+      title: "Pozvánky odeslány."
       message: "Nyní prosím počkejte, než studenti pozvánku potvrdí."
+    failOne:
+      title: "Pozvánka neodeslána."
+      message: "Uživatel s emailem %email se odhlásil z emailů Khanovy školy. Požádejte jej, ať si emaily znovu povolí a pozvánku mu zašlete znovu."
+    failAll:
+      title: "Žádné pozvánky neodeslány."
+      message: "Uživatelé s emaily %emails se odhlásili z emailů Khanovy školy. Požádejte je, ať si emaily znovu povolí a pozvánku jim znovu zašlete."
+    failPartial:
+      title: "Některé pozvánky neodeslány."
+      message: "Uživatelé s emaily %emails se odhlásili z emailů Khanovy školy. Požádejte je, ať si emaily znovu povolí a pozvánku jim znovu zašlete. Ostatní pozvánky byli odeslány v pořádku – u nich počkejte, než je studenti potvrdí."
+    failPartialOne:
+      title: "Jedna pozvánka neodeslána."
+      message: "Uživatel s emailem %emails se odhlásil z emailů Khanovy školy. Požádejte jej, ať si emaily znovu povolí a pozvánku mu znovu zašlete. Ostatní pozvánky byli odeslány v pořádku – u nich počkejte, než je studenti potvrdí."
 
 test: #TODO remove
   flash:
