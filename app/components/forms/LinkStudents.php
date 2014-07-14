@@ -59,49 +59,68 @@ class LinkStudents extends Form
 		$teacher = $this->presenter->getUserEntity();
 		foreach ($emails as $email)
 		{
-			$student = $this->orm->users->getByEmail($email);
-
-			if (!$student || !$student->registered)
-			{
-				if (!$student)
-				{
-					$student = new User();
-					$student->registered = FALSE;
-					$student->email = $email;
-
-					$this->orm->users->attach($student);
-				}
-
-				$token = LinkNewStudent::createFromUser($student);
-				$template = 'mentor.linkStudent.new';
-			}
-			else
-			{
-				$token = LinkExistingStudent::createFromUser($student);
-				$template = 'mentor.linkStudent.existing';
-			}
-
-			$invite = new StudentInvite($teacher, $student);
-			$token->studentInvite = $invite;
-
-			$this->orm->tokens->persist($token);
-			$this->orm->flush(); // prevent race condition with queue
-
-			$task = new SendMailTask($template, $student, [
-				'teacher' => new EntityPointer($teacher),
-				'invitee' => new EntityPointer($student),
-				'token' => new EntityPointer($token),
-				'unsafe' => $token->getUnsafe(),
-			]);
-
-			$teacher->studentInvitesSent->add($invite);
-
-			$this->queue->enqueue($task);
+			$this->inviteUser($teacher, $email);
 		}
 
 		$this->orm->flush();
 		$this->presenter->flashSuccess('mentor.linkStudent.awaitApproval');
 		$this->presenter->redirect('Profile:default');
+	}
+
+	/**
+	 * @param User $teacher
+	 * @param string $email
+	 * @throws \Exception
+	 */
+	protected function inviteUser(User $teacher, $email)
+	{
+		$student = $this->getOrCreateUser($email);
+
+		if ($student->registered)
+		{
+			$token = LinkExistingStudent::createFromUser($student);
+			$template = 'mentor.linkStudent.existing';
+		}
+		else
+		{
+			$token = LinkNewStudent::createFromUser($student);
+			$template = 'mentor.linkStudent.new';
+		}
+
+		$invite = new StudentInvite($teacher, $student);
+		$token->studentInvite = $invite;
+
+		$this->orm->tokens->persist($token);
+		$this->orm->flush(); // prevent race condition with queue
+
+		$task = new SendMailTask($template, $student, [
+			'teacher' => new EntityPointer($teacher),
+			'invitee' => new EntityPointer($student),
+			'token' => new EntityPointer($token),
+			'unsafe' => $token->getUnsafe(),
+		]);
+
+		$teacher->studentInvitesSent->add($invite);
+
+		$this->queue->enqueue($task);
+	}
+
+	/**
+	 * @param string $email
+	 * @return User
+	 */
+	protected function getOrCreateUser($email)
+	{
+		$student = $this->orm->users->getByEmail($email);
+		if (!$student)
+		{
+			$student = new User();
+			$student->registered = FALSE;
+			$student->email = $email;
+
+			$this->orm->users->attach($student);
+		}
+		return $student;
 	}
 
 }
