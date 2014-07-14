@@ -59,9 +59,17 @@ class LinkStudents extends Form
 		$teacher = $this->presenter->getUserEntity();
 
 		$awaitingEmails = [];
-		foreach ($teacher->studentInvitesSent->get()->findBy(['accepted' => 'false']) as $invite)
+		$ignoredEmails = [];
+		foreach ($teacher->studentInvitesSent as $invite)
 		{
-			$awaitingEmails[] = $invite->student->email;
+			if ($invite->accepted)
+			{
+				$ignoredEmails[] = $invite->student->email;
+			}
+			else
+			{
+				$awaitingEmails[] = $invite->student->email;
+			}
 		}
 
 		$fails = (object) [
@@ -77,6 +85,11 @@ class LinkStudents extends Form
 			else if (in_array($email, $awaitingEmails))
 			{
 				$fails->awaiting[] = $email;
+			}
+			else if (in_array($email, $ignoredEmails))
+			{
+				// student already accepted invite from this teacher
+				// but there is no point in informing teacher about it
 			}
 			else
 			{
