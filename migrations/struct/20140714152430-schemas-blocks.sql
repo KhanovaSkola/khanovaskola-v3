@@ -1,0 +1,15 @@
+CREATE TABLE blocks (
+  id SERIAL NOT NULL,
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  author_id INT NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE schemas (
+  id SERIAL NOT NULL,
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  author_id INT NOT NULL,
+  PRIMARY KEY(id)
+);

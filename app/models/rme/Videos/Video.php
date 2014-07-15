@@ -13,9 +13,10 @@ use Orm\OneToMany as OtM;
  * @property string             $youtubeId
  * @property string             $youtubeIdOriginal  filled if dubbed {default ''}
  *
- * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
+ * @property Block[]            $blocks             {ignore} {m:m blocks $videos} mapped in neo4j
  * @property OtM|Comment[]      $comments           {1:m comments $video}
  * @property OtM|VideoView[]    $views              {1:m videoViews $video}
+ * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
  */
 class Video extends ContentEntity
 {
