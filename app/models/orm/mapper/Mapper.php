@@ -2,6 +2,7 @@
 
 namespace App\Models\Orm\Mappers;
 
+use App\Models\Orm\RepositoryContainer;
 use Clevis\Skeleton\Orm\DibiMapper;
 use Orm\DibiCollection;
 use Orm\Events;
@@ -9,6 +10,8 @@ use Orm\Events;
 
 /**
  * @method DibiCollection findById($id)
+ *
+ * @property-read RepositoryContainer $model
  */
 class Mapper extends DibiMapper
 {

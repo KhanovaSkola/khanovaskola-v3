@@ -31,8 +31,10 @@ use Orm\OneToMany as OtM;
  * Relations:
  * @property OtM|Answer[]          $answers                {1:m answers $user}
  * @property OtM|BadgeUserBridge[] $badges                 {1:m badgeUserBridges $user}
+ * @property OtM|Block[]           $blocksAuthored         {1:m blocks $author}
  * @property OtM|Comment[]         $comments               {1:m comments $author}
  * @property OtM|Path[]            $paths                  {1:m paths $author}
+ * @property OtM|Schema[]          $schemasAuthored        {1:m schemas $author}
  * @property OtM|StudentInvite[]   $studentInvitesSent     {1:m studentInvites $sender}
  * @property OtM|StudentInvite[]   $studentInvitesReceived {1:m studentInvites $student}
  * @property OtM|Token[]           $tokens                 {1:m tokens $user}

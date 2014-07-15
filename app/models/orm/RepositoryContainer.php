@@ -13,6 +13,7 @@ use Nette\DI\Container;
  * @property-read Rme\AnswersRepository $answers
  * @property-read Rme\BadgesRepository $badges
  * @property-read Rme\BadgeUserBridgesRepository $badgeUserBridges
+ * @property-read Rme\BlocksRepository $blocks
  * @property-read Rme\BlueprintsRepository $blueprints
  * @property-read Rme\CommentsRepository $comments
  * @property-read Rme\GistsRepository $gists
@@ -24,6 +25,7 @@ use Nette\DI\Container;
  * @property-read Rme\UsersRepository $users
  * @property-read Rme\VideosRepository $videos
  * @property-read Rme\VideoViewsRepository $videoViews
+ * @property-read Rme\SchemasRepository $schemas
  */
 class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 {
