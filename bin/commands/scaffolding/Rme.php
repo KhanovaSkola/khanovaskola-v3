@@ -14,7 +14,10 @@ class Rme extends Command
 	{
 		$this->setName('scaffolding:rme')
 			->setDescription('Creates classes for new repository, mapper and entity')
-			->addArgument('entityName', InputArgument::REQUIRED);
+			->addArgument('entityName', InputArgument::REQUIRED, "singular, such as 'User' ('user' is also accepted)")
+			->setHelp("Specify entity properties in the <fg=blue>name:type</fg=blue> format:\n" .
+				"<fg=blue>name:string publishedAt:DateTime visible:boolean</fg=blue>\n"
+			);
 	}
 
 	public function invoke(Scaffolding $scaffolding)
