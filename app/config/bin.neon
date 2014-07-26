@@ -20,6 +20,7 @@ console:
 		- Bin\Commands\Neo4j\Reset
 		- Bin\Commands\Scaffolding\Migration\Php
 		- Bin\Commands\Scaffolding\Migration\Sql
+		- Bin\Commands\Scaffolding\Presenter
 		- Bin\Commands\Scaffolding\Rme
 		- Bin\Commands\Scaffolding\Test\Unit
 		- Bin\Commands\Schema\Diff

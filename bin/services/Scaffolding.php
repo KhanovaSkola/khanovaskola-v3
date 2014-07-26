@@ -37,7 +37,7 @@ class Scaffolding extends Object
 		}
 		sort($usings);
 
-		$this->buildFromTemplate($path, 'rme_entity', [
+		$this->buildPhpFromTemplate($path, 'rme_entity', [
 			'class' => $singularName,
 			'properties' => $params,
 			'usings' => $usings,
@@ -50,7 +50,7 @@ class Scaffolding extends Object
 		$name = Inflect::pluralize($singularName);
 		$class = "{$name}Repository";
 		$path =  $this->getRmePath($name) . "/$class.php";
-		$this->buildFromTemplate($path, 'rme_repository', [
+		$this->buildPhpFromTemplate($path, 'rme_repository', [
 			'class' => $class,
 			'entity' => $singularName,
 		]);
@@ -61,14 +61,19 @@ class Scaffolding extends Object
 	{
 		$name = Inflect::pluralize($singularName);
 		$class = "{$name}Mapper";
-		$path = $this->getRmePath($name) . "/$class.php";
-		$this->buildFromTemplate($path, 'rme_mapper', [
+		$path =  $this->getRmePath($name) . "/$class.php";
+		$this->buildPhpFromTemplate($path, 'rme_mapper', [
 			'class' => $class,
 		]);
 		return $path;
 	}
 
-	protected function buildFromTemplate($file, $template, $args = [])
+	protected function buildPhpFromTemplate($file, $template, $args = [])
+	{
+		$this->buildFileFromTemplate($file, $template, $args, "<?php\n\n");
+	}
+
+	protected function buildFileFromTemplate($file, $template, $args = [], $prefix = '')
 	{
 		if (is_file($file))
 		{
@@ -82,7 +87,7 @@ class Scaffolding extends Object
 		}
 
 		$latte = new Engine();
-		$content = "<?php\n\n" . $latte->renderToString(__DIR__ . "/../scaffolds/$template.latte", $args);
+		$content = $prefix . $latte->renderToString(__DIR__ . "/../scaffolds/$template.latte", $args);
 		file_put_contents($file, $content);
 	}
 
@@ -106,7 +111,7 @@ class Scaffolding extends Object
 		$name = ucFirst($name);
 		$class = "{$name}Test";
 		$path =  $this->getUnitTestPath() . "/$class.phpt";
-		$this->buildFromTemplate($path, 'test_unit', [
+		$this->buildPhpFromTemplate($path, 'test_unit', [
 			'class' => $class,
 		]);
 		return $path;
@@ -126,7 +131,7 @@ class Scaffolding extends Object
 	{
 		$name = date('YmdHis');
 		$path = $this->getMigrationFile($name, $postfix) . '.php';
-		$this->buildFromTemplate($path, 'migration_php', [
+		$this->buildPhpFromTemplate($path, 'migration_php', [
 			'class' => "Migration$name",
 			'note' => $postfix,
 		]);
@@ -139,6 +144,65 @@ class Scaffolding extends Object
 		$path = $this->getMigrationFile($name, $postfix) . '.sql';
 		file_put_contents($path, '');
 		return $path;
+	}
+
+	/**
+	 * Creates module if applicable
+	 *
+	 * @param string $name such as Homepage or Front:Homepage
+	 * @return string presenter path
+	 */
+	public function createPresenter($name)
+	{
+		$parts = explode(':', $name);
+		foreach ($parts as &$part)
+		{
+			$part = ucFirst($part);
+		}
+		$modules = $parts;
+		$presenter = array_pop($modules);
+
+		$presenterDir = "$this->appDir/presenters" . ($modules ? '/' . implode('/', $modules) : '');
+		if (!is_dir($presenterDir))
+		{
+			mkdir($presenterDir, 0755, TRUE);
+		}
+
+		$presenterFile = "$presenterDir/$presenter.php";
+		$this->buildPhpFromTemplate($presenterFile, 'rme_presenter', [
+			'module' => $modules ? '\\' . implode('\\', $modules) : '',
+			'class' => $presenter,
+		]);
+
+		return $presenterFile;
+	}
+
+	/**
+	 * Creates module if applicable
+	 *
+	 * @param string $name such as Homepage or Front:Homepage
+	 * @return string template path
+	 */
+	public function createDefaultView($name)
+	{
+		$parts = explode(':', $name);
+		foreach ($parts as &$part)
+		{
+			$part = ucFirst($part);
+		}
+
+		$templateDir = "$this->appDir/templates/views/" . implode('/', $parts);
+		if (!is_dir($templateDir))
+		{
+			mkdir($templateDir, 0755, TRUE);
+		}
+
+		$templateFile = "$templateDir/default.latte";
+		$this->buildFileFromTemplate($templateFile, 'rme_view', [
+			'name' => implode(':', $parts) . ":default",
+		]);
+
+		return $templateFile;
 	}
 
 }
