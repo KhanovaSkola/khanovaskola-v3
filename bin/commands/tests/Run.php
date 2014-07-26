@@ -14,9 +14,9 @@ class Run extends Command
 	{
 		$this->setName('tests:run')
 			->setDescription('Runs all tests or a certain subgroup')
-			->addOption('unit', 'u', InputOption::VALUE_NONE)
-			->addOption('cept', 'c', InputOption::VALUE_NONE)
-			->addOption('cs', NULL, InputOption::VALUE_NONE);
+			->addOption('unit', 'u', InputOption::VALUE_NONE, 'Runs all unit tests')
+			->addOption('cept', 'c', InputOption::VALUE_NONE, 'Runs all acceptance tests')
+			->addOption('cs', NULL, InputOption::VALUE_NONE, 'Runs latte cs and code sniffer');
 	}
 
 	public function invoke()

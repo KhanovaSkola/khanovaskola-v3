@@ -17,7 +17,7 @@ class Diff extends Command
 	protected function configure()
 	{
 		$this->setName('schema:diff')
-			->setDescription('Builds database schema from mappers');
+			->setDescription('Prints database schema as deduced from RME');
 	}
 
 	public function invoke(DoctrineFactory $factory, SchemaBuilder $schema)

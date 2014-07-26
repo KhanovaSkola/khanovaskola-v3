@@ -14,7 +14,7 @@ class Php extends Command
 	{
 		$this->setName('scaffolding:migration:php')
 			->setDescription('Creates new php migration')
-			->addArgument('note', InputArgument::OPTIONAL, 'Migration note');
+			->addArgument('note', InputArgument::OPTIONAL, 'Migration name');
 	}
 
 	public function invoke(Scaffolding $scaffolding)

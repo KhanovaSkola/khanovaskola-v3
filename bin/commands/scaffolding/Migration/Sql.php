@@ -21,7 +21,7 @@ class Sql extends Command
 	{
 		$this->setName('scaffolding:migration:sql')
 			->setDescription('Creates new sql migration')
-			->addArgument('note', InputArgument::OPTIONAL, 'Migration note')
+			->addArgument('note', InputArgument::OPTIONAL, 'Migration name')
 			->addOption('from-diff', 'd', InputOption::VALUE_NONE, 'Fill migration with changes from RMEs in app');
 	}
 
