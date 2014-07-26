@@ -5,11 +5,13 @@ use {$use};
 {/foreach}
 
 
+{if $properties}
 /**
 {foreach $properties as $property => $type}
  * @property {$type} ${$property}
 {/foreach}
  */
+{/if}
 class {$class} extends Entity
 {
 
