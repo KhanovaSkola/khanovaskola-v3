@@ -52,21 +52,24 @@ class Configurator extends Nette\Configurator
 	{
 		parent::__construct();
 
-		if ($tempDirectory === NULL)
-		{
-			$tempDirectory = realpath(__DIR__ . '/../../temp');
-		}
-		$this->addParameters((array) $params + array_map('realpath', [
-				'appDir' => __DIR__ . '/..',
-				'backupDir' => __DIR__ . '/../../backups',
-				'binDir' => __DIR__ . '/../../bin',
-				'libsDir' => __DIR__ . '/../../vendor',
-				'logDir' => __DIR__ . '/../../log',
-				'migrationsDir' => __DIR__ . '/../../migrations',
-				'testsDir' => __DIR__ . '/../../tests',
-				'wwwDir' => __DIR__ . '/../../www',
-			]));
-		$this->setTempDirectory($tempDirectory);
+		$root = __DIR__ . '/../..';
+
+		$this->setTempDirectory(realpath("$root/temp"));
+
+		$defaults = array_map('realpath', [
+			'appDir' => "$root/app",
+			'binDir' => "$root/bin",
+			'libsDir' => "$root/vendor",
+			'logDir' => "$root/log",
+			'migrationsDir' => "$root/migrations",
+			'testsDir' => "$root/tests",
+			'wwwDir' => "$root/www",
+		]);
+		$defaults += [
+			'testMode' => FALSE,
+		];
+
+		$this->addParameters((array) $params + $defaults);
 
 		foreach (get_class_methods($this) as $name)
 		{
