@@ -3,6 +3,7 @@
 namespace Bin\Commands\Tests;
 
 use Bin\Commands\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 
@@ -16,7 +17,8 @@ class Run extends Command
 			->setDescription('Runs all tests or a certain subgroup')
 			->addOption('unit', 'u', InputOption::VALUE_NONE, 'Runs all unit tests')
 			->addOption('cept', 'c', InputOption::VALUE_NONE, 'Runs all acceptance tests')
-			->addOption('cs', NULL, InputOption::VALUE_NONE, 'Runs latte cs and code sniffer');
+			->addOption('cs', NULL, InputOption::VALUE_NONE, 'Runs latte cs and code sniffer')
+			->addArgument('case', InputArgument::OPTIONAL, 'Run only specific unit test case');
 	}
 
 	public function invoke()
@@ -26,6 +28,15 @@ class Run extends Command
 		$runAll = !$this->in->getOption('unit')
 			&& !$this->in->getOption('cept')
 			&& !$this->in->getOption('cs');
+
+		if (!$this->in->getOption('unit')
+			&& !$runAll
+			&& $this->in->getArgument('case')
+		)
+		{
+			$this->out->writeln("<error>Argument 'case' can only be used when running unit tests</error>");
+			exit(1);
+		}
 
 		if ($runAll || $this->in->getOption('cs'))
 		{
@@ -51,7 +62,10 @@ class Run extends Command
 				'-d', 'extension=curl.so',
 				'-d', 'extension=redis.so',
 				'-d', 'extension=pgsql.so',
-				"$root/tests/cases/unit"];
+				// '--coverage', "$root/temp/coverage.html",
+				// '--coverage-src', "$root/app",
+				$this->in->getArgument('case') ?: "$root/tests/cases/unit",
+			];
 			if ($r = $this->callSystem($tester))
 			{
 				return $r;
