@@ -3,14 +3,11 @@
 namespace App\Config;
 
 use App\Models\Services\ElasticSearch;
-use App\Models\Services\Neo4j;
 use Bin\Support\VariadicArgvInput;
 use Clevis\Version\DI\VersionExtension;
 use DibiConnection;
-use Everyman\Neo4j\Command\GetServerInfo;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
-use Mikulas\Tracy\QueryPanel\Neo4jQuery;
 use Nette;
 use Nette\DI;
 use Nette\DI\Container;
@@ -177,15 +174,6 @@ class Configurator extends Nette\Configurator
 		$dibi = $container->getService('dibiConnection');
 		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
 			$panel->addQuery(new DibiQuery($event));
-		};
-
-		/** @var Neo4j $neo4j */
-		$neo4j = $container->getByType(Neo4j::class);
-		$neo4j->onEvent[] = function($command, $result) use ($panel, $neo4j) {
-			if (! $command instanceof GetServerInfo)
-			{
-				$panel->addQuery(new Neo4jQuery($command, $result, $neo4j->getTransport()));
-			}
 		};
 
 		/** @var ElasticSearch $elastic */
