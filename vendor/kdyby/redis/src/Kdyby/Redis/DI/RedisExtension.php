@@ -19,17 +19,6 @@ use Nette\Utils\Validators;
 
 
 
-if (!class_exists('Nette\DI\CompilerExtension')) {
-	class_alias('Nette\Config\CompilerExtension', 'Nette\DI\CompilerExtension');
-	class_alias('Nette\Config\Compiler', 'Nette\DI\Compiler');
-	class_alias('Nette\Config\Helpers', 'Nette\DI\Config\Helpers');
-}
-
-if (isset(Nette\Loaders\NetteLoader::getInstance()->renamed['Nette\Configurator']) || !class_exists('Nette\Configurator')) {
-	unset(Nette\Loaders\NetteLoader::getInstance()->renamed['Nette\Configurator']); // fuck you
-	class_alias('Nette\Config\Configurator', 'Nette\Configurator');
-}
-
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
@@ -37,6 +26,7 @@ class RedisExtension extends Nette\DI\CompilerExtension
 {
 
 	const DEFAULT_SESSION_PREFIX = Kdyby\Redis\RedisSessionHandler::NS_NETTE;
+	const PANEL_COUNT_MODE = 'count';
 
 	/**
 	 * @var array
@@ -50,6 +40,7 @@ class RedisExtension extends Nette\DI\CompilerExtension
 		'port' => NULL,
 		'timeout' => 10,
 		'database' => 0,
+		'persistent' => FALSE,
 		'debugger' => '%debugMode%',
 		'versionCheck' => TRUE,
 		'auth' => NULL,
@@ -68,7 +59,8 @@ class RedisExtension extends Nette\DI\CompilerExtension
 				'port' => $config['port'],
 				'database' => $config['database'],
 				'timeout' => $config['timeout'],
-				'auth' => $config['auth']
+				'auth' => $config['auth'],
+				'persistent' => $config['persistent'],
 			))
 			->addSetup('setupLockDuration', array($config['lockDuration']));
 
@@ -76,11 +68,11 @@ class RedisExtension extends Nette\DI\CompilerExtension
 			->setClass(class_exists('Redis') ? 'Kdyby\Redis\Driver\PhpRedisDriver' : 'Kdyby\Redis\IRedisDriver')
 			->setFactory($this->prefix('@client') . '::getDriver');
 
-		if ($builder->parameters['debugMode'] || $config['debugger']) {
+ 		if ($config['debugger']) {
 			$builder->addDefinition($this->prefix('panel'))
 				->setClass('Kdyby\Redis\Diagnostics\Panel')
 				->setFactory('Kdyby\Redis\Diagnostics\Panel::register')
-				->addSetup('$renderPanel', array($config['debugger']));
+				->addSetup('$renderPanel', array($config['debugger'] !== self::PANEL_COUNT_MODE));
 
 			$client->addSetup('setPanel', array($this->prefix('@panel')));
 		}
@@ -121,6 +113,7 @@ class RedisExtension extends Nette\DI\CompilerExtension
 				'auth' => $config['auth'],
 				'native' => TRUE,
 				'lockDuration' => $config['lockDuration'],
+				'persistent' => $config['persistent'],
 			));
 
 			if ($sessionConfig['native']) {
@@ -133,7 +126,8 @@ class RedisExtension extends Nette\DI\CompilerExtension
 						'port' => $sessionConfig['port'],
 						'database' => $sessionConfig['database'],
 						'timeout' => $sessionConfig['timeout'],
-						'auth' => $sessionConfig['auth']
+						'auth' => $sessionConfig['auth'],
+						'persistent' => $config['persistent'],
 					))
 					->addSetup('setupLockDuration', array($sessionConfig['lockDuration']))
 					->setAutowired(FALSE);
@@ -153,12 +147,20 @@ class RedisExtension extends Nette\DI\CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		$params = array_intersect_key($session, array_flip(array('weight', 'timeout', 'database', 'prefix', 'auth')));
+		$params = array_intersect_key($session, array_flip(array('weight', 'timeout', 'database', 'prefix', 'auth', 'persistent')));
 		if (substr($session['host'], 0, 1) === '/') {
 			$savePath = $session['host'];
 
 		} else {
 			$savePath = sprintf('tcp://%s:%d', $session['host'], $session['port']);
+		}
+
+		if (!$params['persistent']) {
+			unset($params['persistent']);
+		}
+
+		if (!$params['auth']) {
+			unset($params['auth']);
 		}
 
 		$options = array(

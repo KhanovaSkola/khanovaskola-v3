@@ -14,7 +14,6 @@ use Kdyby;
 use Nette;
 use Nette\Caching\Cache;
 use Nette\Caching\Storages\IJournal;
-use Nette\Utils\Json;
 
 
 
@@ -23,7 +22,7 @@ use Nette\Utils\Json;
  *
  * @author Filip Procházka <filip@prochazka.su>
  */
-class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
+class RedisStorage extends Nette\Object implements IMultiReadStorage
 {
 
 	/** @internal cache structure */
@@ -89,19 +88,37 @@ class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
 			return NULL;
 		}
 
-		if (empty($stored[0][self::META_SERIALIZED])) {
-			return $stored[1];
-
-		} else {
-			return @unserialize($stored[1]); // intentionally @
-		}
+		return self::getUnserializedValue($stored);
 	}
 
 
 
+
+
 	/**
-	 * Verifies dependencies.
+	 * Read multiple entries from cache (using mget)
 	 *
+	 * @param array $keys
+	 * @return array
+	 */
+	public function multiRead(array $keys)
+	{
+		$values = array();
+		foreach ($this->doMultiRead($keys) as $key => $stored) {
+			$values[$key] = NULL;
+			if ($stored !== NULL && $this->verify($stored[0])) {
+				$values[$key] = self::getUnserializedValue($stored);
+			}
+		}
+
+		return $values;
+	}
+
+
+
+    /**
+     * Verifies dependencies.
+     *
 	 * @param  array
 	 *
 	 * @return bool
@@ -201,11 +218,13 @@ class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
 			$meta[self::META_CALLBACKS] = $dp[Cache::CALLBACKS];
 		}
 
+		$cacheKey = $this->formatEntryKey($key);
+
 		if (isset($dp[Cache::TAGS]) || isset($dp[Cache::PRIORITY])) {
 			if (!$this->journal) {
 				throw new Nette\InvalidStateException('CacheJournal has not been provided.');
 			}
-			$this->journal->write($key, $dp);
+			$this->journal->write($cacheKey, $dp);
 		}
 
 		if (!is_string($data) || $data === NULL) {
@@ -217,10 +236,10 @@ class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
 
 		try {
 			if (isset($dp[Cache::EXPIRATION])) {
-				$this->client->send('setEX', array($this->formatEntryKey($key), $dp[Cache::EXPIRATION], $store));
+				$this->client->send('setEX', array($cacheKey, $dp[Cache::EXPIRATION], $store));
 
 			} else {
-				$this->client->send('set', array($this->formatEntryKey($key), $store));
+				$this->client->send('set', array($cacheKey, $store));
 			}
 
 			$this->unlock($key);
@@ -268,8 +287,8 @@ class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
 
 		// cleaning using journal
 		if ($this->journal) {
-			foreach ($this->journal->clean($conds, $this) as $key) {
-				$this->remove($key);
+			if ($keys = $this->journal->clean($conds, $this)) {
+				$this->client->send('del', $keys);
 			}
 		}
 	}
@@ -314,8 +333,55 @@ class RedisStorage extends Nette\Object implements Nette\Caching\IStorage
 			return NULL;
 		}
 
-		list($meta, $data) = explode(Cache::NAMESPACE_SEPARATOR, $stored, 2) + array(NULL, NULL);
+		return self::processStoredValue($key, $stored);
+	}
+
+
+
+	/**
+	 * @param array $keys
+	 * @return array
+	 */
+	private function doMultiRead(array $keys)
+	{
+		$formatedKeys = array_map(array($this, 'formatEntryKey'), $keys);
+
+		$result = array();
+		foreach ($this->client->send('mget', array($formatedKeys)) as $index => $stored) {
+			$key = $keys[$index];
+			$result[$key] = $stored !== FALSE ? self::processStoredValue($key, $stored) : NULL;
+		}
+
+		return $result;
+	}
+
+
+
+	/**
+	 * @param string $key
+	 * @param string $storedValue
+	 * @return array
+	 */
+	private static function processStoredValue($key, $storedValue)
+	{
+		list($meta, $data) = explode(Cache::NAMESPACE_SEPARATOR, $storedValue, 2) + array(NULL, NULL);
 		return array(array(self::KEY => $key) + json_decode($meta, TRUE), $data);
+	}
+
+
+
+	/**
+	 * @param $stored
+	 * @return mixed
+	 */
+	private static function getUnserializedValue($stored)
+	{
+		if (empty($stored[0][self::META_SERIALIZED])) {
+			return $stored[1];
+
+		} else {
+			return @unserialize($stored[1]); // intentionally @
+		}
 	}
 
 }

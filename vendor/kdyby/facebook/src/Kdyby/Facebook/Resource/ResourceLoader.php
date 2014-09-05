@@ -18,10 +18,6 @@ use Traversable;
 
 
 
-if (!class_exists('Nette\Utils\ArrayHash')) {
-	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
-}
-
 /**
  * @author Martin Štekl <martin.stekl@gmail.com>
  */
