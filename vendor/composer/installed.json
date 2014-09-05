@@ -3663,5 +3663,47 @@
             }
         ],
         "description": "Versions for sample/local Nette configuration files"
+    },
+    {
+        "name": "mikulas/adminer-package",
+        "version": "v4.1.0",
+        "version_normalized": "4.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/adminer-package.git",
+            "reference": "d08b05d0847bf269b2c67f89ed480ad7259d6b84"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/adminer-package/zipball/d08b05d0847bf269b2c67f89ed480ad7259d6b84",
+            "reference": "d08b05d0847bf269b2c67f89ed480ad7259d6b84",
+            "shasum": ""
+        },
+        "time": "2014-09-03 14:48:12",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0",
+            "GPL-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite"
+            },
+            {
+                "name": "Jakub Vrána",
+                "homepage": "http://www.vrana.cz/"
+            }
+        ],
+        "description": "Adminer as a convinient package",
+        "homepage": "http://www.adminer.org/",
+        "keywords": [
+            "adminer",
+            "database",
+            "mysql",
+            "postgres",
+            "psql"
+        ]
     }
 ]

@@ -44,7 +44,8 @@
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2",
-		"symfony/process": "~2.5"
+		"symfony/process": "~2.5",
+		"mikulas/adminer-package": "~4.0"
 	},
 	"repositories": [
 		{
