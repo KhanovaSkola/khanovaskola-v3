@@ -2,6 +2,7 @@
 
 namespace Bin\Commands;
 
+use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Queue;
 use App\Models\Tasks\Task;
 use Exception;
@@ -19,12 +20,14 @@ class Worker extends Command
 			->setDescription('Queue worker (should be run with supervisord)');
 	}
 
-	public function invoke(Queue $queue, Logger $logger, Container $container)
+	public function invoke(Queue $queue, Logger $logger, RepositoryContainer $orm, Container $container)
 	{
 		$this->out->writeln('<info>Worker is running...</info>');
 		while (TRUE)
 		{
-			$queue->watch(function(Task $task, callable $next) use ($queue, $logger, $container) {
+			$queue->watch(function(Task $task, callable $next) use ($queue, $logger, $orm, $container) {
+				$orm->purge(); // flush identity map
+
 				$class = get_class($task);
 				$this->out->writeln($class);
 				$logger->addInfo("Running task $class");
