@@ -52,6 +52,7 @@ class Scaffolding extends Object
 		$path =  $this->getRmePath($name) . "/$class.php";
 		$this->buildFromTemplate($path, 'rme_repository', [
 			'class' => $class,
+			'entity' => $singularName,
 		]);
 		return $path;
 	}
