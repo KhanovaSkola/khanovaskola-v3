@@ -25,8 +25,6 @@ Link directory
 		<dd>http://vagrant.khanovaskola.cz/tools/beanstalk/public/</dd>
 	<dt>opcache dashboard</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/opcache/</dd>
-	<dt>neo4j browser</dt>
-		<dd>http://vagrant.khanovaskola.cz:7474/browser/</dd>
 </dl>
 
 Requirements
@@ -36,11 +34,16 @@ Requirements
 
 - php 5.5
 - postgres
+- redis
 - elasticsearch 1.2.
 - elasticsearch/elasticsearch-analysis-icu/2.2.0
-- neo4j
-- redis
 - beanstalkd
+
+<img src="http://www.jasoncavett.com/wp-content/uploads/2014/08/postgresql_logo.png" width="170">
+<img width="30">
+<img src="http://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/467px-Redis_Logo.svg.png" width="150">
+<img width="30">
+<img src="http://blog.trifork.com/wp-content/uploads/2013/04/elasticsearch-logo.png" width="170">
 
 *Dev / tests:*
 
@@ -51,14 +54,6 @@ Requirements
 
 Setup
 -----
-
-**These commands are to be run on local machichine:**
-
-```sh
-vagrant up
-```
-
-(If you are running guest additions 4.3.10 and getting an error, see http://stackoverflow.com/a/22723807/326257.)
 
 install git hooks:
 ```sh
@@ -76,17 +71,13 @@ Info
 Commit tags:
 
 - `[test]`
-- `[cs]` Coding standard, code smell removal, whitespace, etc. Never affects build.
-- `[dev]` Vagrant setup. Never affects build.
-
-**These commands are to be run on local machichine:**
+- `[cs]` Coding standard, code smell removal, whitespace, etc. Should not affect build.
+- `[dev]` Vagrant setup, dev stack edits, etc. Should not affect build.
 
 skip codesniffer `pre-commit` hook
 ```sh
 git commit --no-verify
 ```
-
-**These commands are to be run on vagrant (`vagrant ssh`):**
 
 run unit tests:
 ```sh
