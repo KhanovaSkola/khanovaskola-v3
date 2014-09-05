@@ -30,7 +30,6 @@
 		"petrp/orm": "0.4.*",
 		"pda/pheanstalk": "~3.0",
 		"symfony/console": "~2.4",
-		"vrtak-cz/newrelic-nette": "~3.1",
 		"clevis/config-version-extension": "~1.1"
 },
 	"require-dev": {
@@ -45,7 +44,8 @@
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2",
 		"symfony/process": "~2.5",
-		"mikulas/adminer-package": "~4.0"
+		"mikulas/adminer-package": "~4.0",
+		"vrtak-cz/newrelic-tracy": "~4.0"
 	},
 	"repositories": [
 		{
