@@ -13,12 +13,6 @@ block "Installing ElasticSearch ICU plugin"
 sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
-block "Installing Neo4j"
-wget -O - http://debian.neo4j.org/neotechnology.gpg.key| sudo apt-key add -
-echo 'deb http://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list
-sudo apt-get update -y
-sudo apt-get install neo4j -y
-
 echo '127.0.0.1 travis.khanovaskola.cz' | sudo tee -a /etc/hosts
 
 block "Installing bc"
