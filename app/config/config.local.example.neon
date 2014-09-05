@@ -1,11 +1,13 @@
 #
-# After adding new keys, bump configVersion and
+# After adding new keys, bump version key and
 # don't forget to update tests/travis/config.local.neon
 #
 # Passwords in this file are unsafe. We know they are public.
 #
+
+version: [4]
+
 parameters:
-	configVersion: 4
 	database:
 		username: postgres
 		password: root

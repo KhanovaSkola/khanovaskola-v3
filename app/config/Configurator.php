@@ -5,6 +5,7 @@ namespace App\Config;
 use App\Models\Services\ElasticSearch;
 use App\Models\Services\Neo4j;
 use Bin\Support\VariadicArgvInput;
+use Clevis\Version\DI\VersionExtension;
 use Everyman\Neo4j\Command\GetServerInfo;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
@@ -16,7 +17,6 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use Nette\Neon\Neon;
 use RuntimeException;
-use SystemContainer;
 use Tracy\Debugger;
 use Tracy\QueryPanel\QueryPanel;
 
@@ -53,6 +53,8 @@ class Configurator extends Nette\Configurator
 		parent::__construct();
 
 		$root = __DIR__ . '/../..';
+
+		VersionExtension::$samplePath = '%appDir%/config/config.local.example.neon';
 
 		$this->setTempDirectory(realpath("$root/temp"));
 
@@ -131,19 +133,9 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	public function onAfterConfigVersion(Container $container)
-	{
-		$params = $this->getParameters();
-		$example = Neon::decode(file_get_contents($params['appDir'] . '/config/config.local.example.neon'));
-		if (!isset($container->parameters['configVersion']) || $container->parameters['configVersion'] !== $example['parameters']['configVersion'])
-		{
-			throw new ConfigFileNotUpToDateException;
-		}
-	}
-
 	public function onAfterConsole($c)
 	{
-		/** @var SystemContainer $c */
+		/** @var Container $c */
 		$s = 'console.router';
 		if ($c->hasService($s))
 		{
