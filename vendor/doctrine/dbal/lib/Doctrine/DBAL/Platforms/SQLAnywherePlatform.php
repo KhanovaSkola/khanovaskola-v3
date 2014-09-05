@@ -251,7 +251,9 @@ class SQLAnywherePlatform extends AbstractPlatform
      */
     protected function getAlterTableRenameColumnClause($oldColumnName, Column $column)
     {
-        return 'RENAME ' . $oldColumnName .' TO ' . $column->getQuotedName($this);
+        $oldColumnName = new Identifier($oldColumnName);
+
+        return 'RENAME ' . $oldColumnName->getQuotedName($this) .' TO ' . $column->getQuotedName($this);
     }
 
     /**
@@ -355,7 +357,7 @@ class SQLAnywherePlatform extends AbstractPlatform
      */
     public function getCommentOnColumnSQL($tableName, $columnName, $comment)
     {
-        $comment = $comment === null ? 'NULL' : "'$comment'";
+        $comment = $comment === null ? 'NULL' : $this->quoteStringLiteral($comment);
 
         return "COMMENT ON COLUMN $tableName.$columnName IS $comment";
     }
@@ -418,14 +420,6 @@ class SQLAnywherePlatform extends AbstractPlatform
     /**
      * {@inheritdoc}
      */
-    public function getCreateSchemaSQL($schemaName)
-    {
-        return 'CREATE SCHEMA AUTHORIZATION ' . $schemaName;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCreateTemporaryTableSnippetSQL()
     {
         return 'CREATE ' . $this->getTemporaryTableSQL() . ' TABLE';
@@ -466,25 +460,15 @@ class SQLAnywherePlatform extends AbstractPlatform
     /**
      * {@inheritdoc}
      */
-    public function getDateAddDaysExpression($date, $days)
+    protected function getDateArithmeticIntervalExpression($date, $operator, $interval, $unit)
     {
-        return 'DATEADD(day, ' . $days . ', ' . $date . ')';
-    }
+        $factorClause = '';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDateAddHourExpression($date, $hours)
-    {
-        return 'DATEADD(hour, ' . $hours . ', ' . $date . ')';
-    }
+        if ('-' === $operator) {
+            $factorClause = '-1 * ';
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDateAddMonthExpression($date, $months)
-    {
-        return 'DATEADD(month, ' . $months . ', ' . $date . ')';
+        return 'DATEADD(' . $unit . ', ' . $factorClause . $interval . ', ' . $date . ')';
     }
 
     /**
@@ -493,30 +477,6 @@ class SQLAnywherePlatform extends AbstractPlatform
     public function getDateDiffExpression($date1, $date2)
     {
         return 'DATEDIFF(day, ' . $date2 . ', ' . $date1 . ')';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDateSubDaysExpression($date, $days)
-    {
-        return 'DATEADD(day, -1 * ' . $days . ', ' . $date . ')';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDateSubHourExpression($date, $hours)
-    {
-        return 'DATEADD(hour, -1 * ' . $hours . ', ' . $date . ')';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDateSubMonthExpression($date, $months)
-    {
-        return 'DATEADD(month, -1 * ' . $months . ', ' . $date . ')';
     }
 
     /**
@@ -538,17 +498,17 @@ class SQLAnywherePlatform extends AbstractPlatform
     /**
      * {@inheritdoc}
      */
-    public function getDateTypeDeclarationSQL(array $fieldDeclaration)
+    public function getDateTimeTzFormatString()
     {
-        return 'DATE';
+        return $this->getDateTimeFormatString();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getDefaultSchemaName()
+    public function getDateTypeDeclarationSQL(array $fieldDeclaration)
     {
-        return 'DBA';
+        return 'DATE';
     }
 
     /**
@@ -697,7 +657,7 @@ class SQLAnywherePlatform extends AbstractPlatform
      */
     public function getForUpdateSQL()
     {
-        return 'FOR UPDATE BY LOCK';
+        return '';
     }
 
     /**
@@ -971,10 +931,10 @@ class SQLAnywherePlatform extends AbstractPlatform
     public function getLocateExpression($str, $substr, $startPos = false)
     {
         if ($startPos == false) {
-            return 'CHARINDEX(' . $substr . ', ' . $str . ')';
+            return 'LOCATE(' . $str . ', ' . $substr . ')';
         }
 
-        return 'CHARINDEX(' . $substr . ', SUBSTR(' . $str . ', ' . ($startPos + 1) . '))';
+        return 'LOCATE(' . $str . ', ' . $substr . ', ' . $startPos . ')';
     }
 
     /**
@@ -1128,7 +1088,7 @@ class SQLAnywherePlatform extends AbstractPlatform
             }
         }
 
-        $pattern = "'%[^$char]%'";
+        $pattern = "'%[^' + $char + ']%'";
 
         switch ($pos) {
             case self::TRIM_LEADING:
@@ -1206,14 +1166,6 @@ class SQLAnywherePlatform extends AbstractPlatform
     /**
      * {@inheritdoc}
      */
-    public function schemaNeedsCreation($schemaName)
-    {
-        return $schemaName !== 'DBA';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function supportsCommentOnStatement()
     {
         return true;
@@ -1223,14 +1175,6 @@ class SQLAnywherePlatform extends AbstractPlatform
      * {@inheritdoc}
      */
     public function supportsIdentityColumns()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsSchemas()
     {
         return true;
     }

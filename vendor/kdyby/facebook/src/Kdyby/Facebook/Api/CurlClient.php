@@ -19,10 +19,10 @@ use Nette\Utils\Json;
 use Nette\Utils\Strings;
 
 
+
 if (!defined('CURLE_SSL_CACERT_BADFILE')) {
 	define('CURLE_SSL_CACERT_BADFILE', 77);
 }
-
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
@@ -40,11 +40,13 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 	 */
 	public static $defaultCurlOptions = array(
 		CURLOPT_CONNECTTIMEOUT => 10,
+		CURLOPT_TIMEOUT => 60,
+		CURLOPT_HTTPHEADER => array(
+			'User-Agent: kdyby-facebook-1.1',
+		),
+		CURLINFO_HEADER_OUT => TRUE,
+		CURLOPT_HEADER => TRUE,
 		CURLOPT_RETURNTRANSFER => TRUE,
-		CURLOPT_TIMEOUT => 20,
-		CURLOPT_USERAGENT => 'facebook-php-3.2',
-		CURLOPT_HTTPHEADER => array(),
-		CURLINFO_HEADER_OUT => TRUE
 	);
 
 	/**
@@ -187,7 +189,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 			$params['access_token'] = $this->fb->getAccessToken();
 		}
 
-		if (isset($params['access_token'])) {
+		if (isset($params['access_token']) && !isset($params['appsecret_proof'])) {
 			$params['appsecret_proof'] = $this->fb->config->getAppSecretProof($params['access_token']);
 		}
 
@@ -198,6 +200,9 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 
 			} elseif ($value instanceof \CURLFile) {
 				return $value;
+
+			} elseif (is_bool($value)) {
+				return $value ? '1' : '0';
 			}
 
 			return !is_string($value) ? Json::encode($value) : $value;
@@ -226,18 +231,42 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 			return $this->cache[$cacheKey];
 		}
 
+		$url = new UrlScript($url);
+		$method = strtoupper(isset($params['method']) ? $params['method'] : 'GET');
+
 		$this->onRequest((string)$url, $params);
 
 		$ch = $ch ?: curl_init();
 
 		$opts = $this->curlOptions;
-		$opts[CURLOPT_POSTFIELDS] = $this->fb->config->fileUploadSupport
-			? $params : http_build_query($params, NULL, '&');
-		$opts[CURLOPT_URL] = (string)$url;
 
-		// disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
-		// for 2 seconds if the server does not support this header.
-		$opts[CURLOPT_HTTPHEADER][] = 'Expect:';
+		if ($this->fb->config->graphVersion !== '' && $this->fb->config->graphVersion !== 'v1.0') { // v2.0 or later
+			unset($params['method']);
+
+			if ($method === 'GET') {
+				$url->appendQuery($params);
+				$params = array();
+			}
+
+			if ($method === 'DELETE' || $method === 'PUT') {
+				$opts[CURLOPT_CUSTOMREQUEST] = $method;
+			}
+
+			if ($method !== 'GET') {
+				$opts[CURLOPT_POSTFIELDS] = $params;
+			}
+
+			$opts[CURLOPT_HTTPHEADER][] = 'Accept-Encoding: *';
+
+		} else { // BC
+			$opts[CURLOPT_POSTFIELDS] = $this->fb->config->fileUploadSupport ? $params : http_build_query($params, NULL, '&');
+
+			// disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
+			// for 2 seconds if the server does not support this header.
+			$opts[CURLOPT_HTTPHEADER][] = 'Expect:';
+		}
+
+		$opts[CURLOPT_URL] = (string) $url;
 
 		// execute request
 		curl_setopt_array($ch, $opts);
@@ -270,9 +299,9 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 
 		$info = curl_getinfo($ch);
 		if (isset($info['request_header'])) {
-			$info['request_header'] = Strings::split(trim($info['request_header']), '~[\r\n]+~');
+			list($info['request_header']) = self::parseHeaders($info['request_header']);
 		}
-		$info['method'] = isset($params['method']) ? $params['method']: 'GET';
+		$info['method'] = $method;
 
 		if ($result === FALSE) {
 			$e = new Facebook\FacebookApiException(array(
@@ -287,6 +316,9 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 		if (!$result && isset($info['redirect_url'])) {
 			$result = Json::encode(array('url' => $info['redirect_url']));
 		}
+
+		$info['headers'] = self::parseHeaders(substr($result, 0, $info['header_size']));
+		$result = trim(substr($result, $info['header_size']));
 
 		$this->onSuccess($result, $info);
 		curl_close($ch);
@@ -330,6 +362,31 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 		return strpos($message, 'Error validating access token') !== FALSE
 			|| strpos($message, 'Invalid OAuth access token') !== FALSE
 			|| strpos($message, 'An active access token must be used') !== FALSE;
+	}
+
+
+
+	private static function parseHeaders($raw)
+	{
+		$headers = array();
+
+		// Split the string on every "double" new line.
+		foreach (explode("\r\n\r\n", $raw) as $index => $block) {
+
+			// Loop of response headers. The "count() -1" is to
+			//avoid an empty row for the extra line break before the body of the response.
+			foreach (Strings::split(trim($block), '~[\r\n]+~') as $i => $line) {
+				if (preg_match('~^([a-z-]+\\:)(.*)$~is', $line)) {
+					list($key, $val) = explode(': ', $line, 2);
+					$headers[$index][$key] = $val;
+
+				} elseif (!empty($line)) {
+					$headers[$index][] = $line;
+				}
+			}
+		}
+
+		return $headers;
 	}
 
 }

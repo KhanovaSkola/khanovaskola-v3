@@ -15,16 +15,17 @@ use Kdyby;
 use Kdyby\Events\Event;
 use Kdyby\Events\EventManager;
 use Nette;
-use Nette\Diagnostics\Bar;
-use Nette\Diagnostics\Debugger;
+use Tracy\Bar;
+use Tracy\Debugger;
 use Nette\Utils\Arrays;
-
+use Tracy\Dumper;
+use Tracy;
 
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
+class Panel extends Nette\Object implements Tracy\IBarPanel
 {
 
 	/**
@@ -386,9 +387,9 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 		$h = 'htmlspecialchars';
 		$s = '';
 		foreach ($ids as $id) {
-			if ($id instanceof Nette\Callback) {
+			if (is_callable($id)) {
 				$s .= '<tr><td width=18>' . $addIcon . '</td><td><pre class="nette-dump"><span class="nette-dump-object">' .
-					(string) $id .
+					Nette\Utils\Callback::toString($id) .
 					'</span></span></th></tr>';
 
 				continue;
@@ -416,11 +417,7 @@ class Panel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 
 	private static function dumpToHtml($structure)
 	{
-		if (class_exists('Nette\Diagnostics\Dumper')) {
-			return Nette\Diagnostics\Dumper::toHtml($structure, array(Nette\Diagnostics\Dumper::COLLAPSE => TRUE));
-		}
-
-		return Nette\Diagnostics\Helpers::clickableDump($structure, TRUE);
+		return Tracy\Dumper::toHtml($structure, array(Tracy\Dumper::COLLAPSE => TRUE));
 	}
 
 
@@ -541,7 +538,7 @@ CSS;
 	 */
 	private static function getDebuggerBar()
 	{
-		return method_exists('Nette\Diagnostics\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
+		return method_exists('Tracy\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
 	}
 
 }

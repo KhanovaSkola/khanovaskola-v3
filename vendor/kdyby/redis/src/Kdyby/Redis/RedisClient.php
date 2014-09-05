@@ -12,7 +12,7 @@ namespace Kdyby\Redis;
 
 use Kdyby;
 use Nette;
-use Nette\Diagnostics\Debugger;
+use Nette\Utils\Callback;
 
 
 
@@ -204,7 +204,18 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 	 */
 	private $auth;
 
-	private static $exceptionCmd = array('evalsha' => 0);
+	/**
+	 * @var bool
+	 */
+	private $persistent;
+
+	/**
+	 * @var array
+	 */
+	private static $exceptionCmd = array(
+		'evalsha' => 0
+	);
+
 
 
 	/**
@@ -214,7 +225,7 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 	 * @param int $timeout
 	 * @throws MissingExtensionException
 	 */
-	public function __construct($host = '127.0.0.1', $port = NULL, $database = 0, $timeout = 10, $auth = NULL)
+	public function __construct($host = '127.0.0.1', $port = NULL, $database = 0, $timeout = 10, $auth = NULL, $persistent = FALSE)
 	{
 		if (!extension_loaded('redis')) {
 			throw new MissingExtensionException("Please install and enable the redis extension. \nhttps://github.com/nicolasff/phpredis/");
@@ -225,8 +236,7 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 		$this->database = $database;
 		$this->timeout = $timeout;
 		$this->auth = $auth;
-
-		$this->driver = new Driver\PhpRedisDriver();
+		$this->persistent = $persistent;
 	}
 
 
@@ -254,12 +264,21 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 
 	public function connect()
 	{
+		if (!$this->driver) {
+			$this->driver = new Driver\PhpRedisDriver();
+		}
+
 		if ($this->driver->isConnected()) {
 			return;
 		}
 
 		try {
-			$this->driver->connect($this->host, $this->port, $this->timeout);
+			if ($this->persistent) {
+				$this->driver->pconnect($this->host, $this->port, $this->timeout);
+
+			} else {
+				$this->driver->connect($this->host, $this->port, $this->timeout);
+			}
 
 			if (isset($this->auth)) {
 				$this->driver->auth($this->auth);
@@ -280,7 +299,7 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 	 */
 	public function close()
 	{
-		if ($this->driver->isConnected()) {
+		if ($this->driver && $this->driver->isConnected()) {
 			$this->getLock()->releaseAll();
 			$this->driver->close();
 			$this->isConnected = FALSE;
@@ -403,7 +422,7 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 		}
 
 		try {
-			callback($callback)->invoke($this);
+			Callback::invoke($callback, $this);
 			return $this->exec();
 
 		} catch (RedisClientException $e) {
@@ -567,9 +586,9 @@ class RedisClient extends Nette\Object implements \ArrayAccess
 	public function assertVersion()
 	{
 		$version = $this->info('redis_version');
-		if (version_compare($version, '2.2.0', '<')) {
+		if (version_compare($version, '2.6.0', '<')) {
 			throw new Nette\Utils\AssertionException(
-				"Minimum required version for this Redis client is 2.2.0, your version is $version. Please upgrade your software."
+				"Minimum required version for this Redis client is 2.6.0, your version is $version. Please upgrade your software."
 			);
 		}
 	}

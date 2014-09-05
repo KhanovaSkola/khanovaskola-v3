@@ -390,7 +390,7 @@ class PHP_CodeSniffer_File
     /**
      * Returns the token stack for this file.
      *
-     * @return array()
+     * @return array
      */
     public function getTokens()
     {
@@ -733,12 +733,6 @@ class PHP_CodeSniffer_File
      */
     public function addError($error, $stackPtr, $code='', $data=array(), $severity=0)
     {
-        // Don't bother doing any processing if errors are just going to
-        // be hidden in the reports anyway.
-        if ($this->phpcs->cli->errorSeverity === 0) {
-            return;
-        }
-
         // Work out which sniff generated the error.
         if (substr($code, 0, 9) === 'Internal.') {
             // Any internal message.
@@ -776,6 +770,10 @@ class PHP_CodeSniffer_File
         ) {
             // Pass this off to the warning handler.
             $this->addWarning($error, $stackPtr, $code, $data, $severity);
+            return;
+        } else if ($this->phpcs->cli->errorSeverity === 0) {
+            // Don't bother doing any processing as errors are just going to
+            // be hidden in the reports anyway.
             return;
         }
 
@@ -865,12 +863,6 @@ class PHP_CodeSniffer_File
      */
     public function addWarning($warning, $stackPtr, $code='', $data=array(), $severity=0)
     {
-        // Don't bother doing any processing if warnings are just going to
-        // be hidden in the reports anyway.
-        if ($this->phpcs->cli->warningSeverity === 0) {
-            return;
-        }
-
         // Work out which sniff generated the warning.
         if (substr($code, 0, 9) === 'Internal.') {
             // Any internal message.
@@ -908,6 +900,10 @@ class PHP_CodeSniffer_File
         ) {
             // Pass this off to the error handler.
             $this->addError($warning, $stackPtr, $code, $data, $severity);
+            return;
+        } else if ($this->phpcs->cli->warningSeverity === 0) {
+            // Don't bother doing any processing as warnings are just going to
+            // be hidden in the reports anyway.
             return;
         }
 
@@ -2150,7 +2146,7 @@ class PHP_CodeSniffer_File
      * @param int $stackPtr The position in the stack of the T_FUNCTION token
      *                      to acquire the parameters for.
      *
-     * @return array()
+     * @return array
      * @throws PHP_CodeSniffer_Exception If the specified $stackPtr is not of
      *                                   type T_FUNCTION.
      */
@@ -2375,7 +2371,8 @@ class PHP_CodeSniffer_File
         $conditions = array_keys($this->_tokens[$stackPtr]['conditions']);
         $ptr        = array_pop($conditions);
         if (isset($this->_tokens[$ptr]) === false
-            || $this->_tokens[$ptr]['code'] !== T_CLASS
+            || ($this->_tokens[$ptr]['code'] !== T_CLASS
+            && $this->_tokens[$ptr]['code'] !== T_TRAIT)
         ) {
             if (isset($this->_tokens[$ptr]) === true
                 && $this->_tokens[$ptr]['code'] === T_INTERFACE

@@ -58,6 +58,10 @@ class FacebookApiException extends \Exception implements Exception
 			$msg = $result['error']['message']; // OAuth 2.0 Draft 00 style
 			$code = isset($result['error']['code']) ? $result['error']['code'] : $code;
 
+			if (is_array($this->result)) {
+				$this->result['error_code'] = $code;
+			}
+
 		} elseif (isset($result['error_msg'])) {
 			$msg = $result['error_msg']; // Rest server style
 

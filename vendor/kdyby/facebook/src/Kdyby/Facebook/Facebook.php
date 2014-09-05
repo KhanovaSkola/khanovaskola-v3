@@ -16,10 +16,6 @@ use Nette\Utils\ArrayHash;
 
 
 
-if (!class_exists('Nette\Utils\ArrayHash')) {
-	class_alias('Nette\ArrayHash', 'Nette\Utils\ArrayHash');
-}
-
 /**
  * Provides access to the Facebook Platform.  This class provides
  * a majority of the functionality needed, but the class is abstract

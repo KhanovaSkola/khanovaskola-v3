@@ -3,7 +3,7 @@ About
 
 PHP\_CodeSniffer is a PHP5 script that tokenises PHP, JavaScript and CSS files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent. It can also help prevent some common semantic errors made by developers.
 
-[![Build Status](https://secure.travis-ci.org/squizlabs/PHP_CodeSniffer.png?branch=master)](https://travis-ci.org/squizlabs/PHP_CodeSniffer)
+[![Build Status](https://travis-ci.org/squizlabs/PHP_CodeSniffer.svg?branch=master)](https://travis-ci.org/squizlabs/PHP_CodeSniffer) [![Code consistency](http://squizlabs.github.io/PHP_CodeSniffer/analysis/squizlabs/PHP_CodeSniffer/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/squizlabs/PHP_CodeSniffer)
 
 Requirements
 ------------
@@ -21,7 +21,7 @@ The easiest way to install PHP\_CodeSniffer is to use the PEAR installer. This w
 
 If you prefer using [Composer](http://getcomposer.org/) you can easily install PHP_CodeSniffer system-wide with the following command:
 
-    composer global require 'squizlabs/php_codesniffer=*'
+    composer global require "squizlabs/php_codesniffer=*"
 
 Make sure you have `~/.composer/vendor/bin/` in your PATH.
 

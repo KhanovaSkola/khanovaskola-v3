@@ -239,7 +239,8 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
                             'key_name' => $row['relname'],
                             'column_name' => trim($colRow['attname']),
                             'non_unique' => !$row['indisunique'],
-                            'primary' => $row['indisprimary']
+                            'primary' => $row['indisprimary'],
+                            'where' => $row['where'],
                         );
                     }
                 }
@@ -255,6 +256,40 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
     protected function _getPortableDatabaseDefinition($database)
     {
         return $database['datname'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _getPortableSequencesList($sequences)
+    {
+        $sequenceDefinitions = array();
+
+        foreach ($sequences as $sequence) {
+            if ($sequence['schemaname'] != 'public') {
+                $sequenceName = $sequence['schemaname'] . "." . $sequence['relname'];
+            } else {
+                $sequenceName = $sequence['relname'];
+            }
+
+            $sequenceDefinitions[$sequenceName] = $sequence;
+        }
+
+        $list = array();
+
+        foreach ($this->filterAssetNames(array_keys($sequenceDefinitions)) as $sequenceName) {
+            $list[] = $this->_getPortableSequenceDefinition($sequenceDefinitions[$sequenceName]);
+        }
+
+        return $list;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPortableNamespaceDefinition(array $namespace)
+    {
+        return $namespace['nspname'];
     }
 
     /**

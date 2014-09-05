@@ -17,14 +17,6 @@ use Nette\Utils\Json;
 
 
 
-if (!class_exists('Tracy\Debugger')) {
-	class_alias('Nette\Diagnostics\Debugger', 'Tracy\Debugger');
-}
-
-if (!class_exists('Tracy\Dumper')) {
-	class_alias('Nette\Diagnostics\Dumper', 'Tracy\Dumper');
-}
-
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
@@ -41,13 +33,18 @@ class SignedRequest extends Nette\Object
 	 */
 	public static function decode($signedRequest, $appSecret)
 	{
+		if (!$signedRequest || strpos($signedRequest, '.') === false) {
+			Debugger::log('Signed request is invalid! ' . json_encode($signedRequest), 'facebook');
+			return NULL;
+		}
+
 		list($encoded_sig, $payload) = explode('.', $signedRequest, 2);
 
 		// decode the data
 		$sig = Helpers::base64UrlDecode($encoded_sig);
 		$data = Json::decode(Helpers::base64UrlDecode($payload), Json::FORCE_ARRAY);
 
-		if (strtoupper($data['algorithm']) !== Configuration::SIGNED_REQUEST_ALGORITHM) {
+		if (!isset($data['algorithm']) || strtoupper($data['algorithm']) !== Configuration::SIGNED_REQUEST_ALGORITHM) {
 			Debugger::log("Unknown algorithm '{$data['algorithm']}', expected " . Configuration::SIGNED_REQUEST_ALGORITHM, 'facebook');
 			return NULL;
 		}

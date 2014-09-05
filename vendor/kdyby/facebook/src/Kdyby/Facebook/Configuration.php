@@ -137,6 +137,14 @@ class Configuration extends Nette\Object
 	public $canvasBaseUrl;
 
 	/**
+	 * Empty means v1.0 if app was created before  April 30th 2014, otherwise it defaults to v2.0.
+	 * @see https://developers.facebook.com/docs/apps/changelog
+	 *
+	 * @var string
+	 */
+	public $graphVersion = '';
+
+	/**
 	 * Maps aliases to Facebook domains.
 	 * @var array
 	 */
@@ -303,7 +311,12 @@ class Configuration extends Nette\Object
 
 		} else {
 			$url = new UrlScript($this->domains[$name]);
-			$url->setPath('/' . ltrim($path, '/'));
+
+			if ($this->graphVersion) {
+				$url->path .= $this->graphVersion . '/';
+			}
+
+			$url->path .= ltrim($path, '/');
 		}
 
 		$url->appendQuery(array_map(function ($param) {
@@ -333,6 +346,8 @@ class Configuration extends Nette\Object
 
 		return $this->createUrl($name, 'restserver.php');
 	}
+
+
 
 	/**
 	 * Generate a proof of App Secret
