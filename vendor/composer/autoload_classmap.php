@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Clevis\\Version\\DI\\ConfigVersionExtension' => $vendorDir . '/clevis/config-version-extension/src/Clevis/Version/DI/VersionExtension.php',
+    'Clevis\\Version\\DI\\VersionExtension' => $vendorDir . '/clevis/config-version-extension/src/Clevis/Version/DI/VersionExtension.php',
     'DibiColumnInfo' => $vendorDir . '/dg/dibi/dibi/libs/DibiDatabaseInfo.php',
     'DibiConnection' => $vendorDir . '/dg/dibi/dibi/libs/DibiConnection.php',
     'DibiDataSource' => $vendorDir . '/dg/dibi/dibi/libs/DibiDataSource.php',

@@ -3622,5 +3622,46 @@
             }
         ],
         "description": "Universal query panel for Tracy"
+    },
+    {
+        "name": "clevis/config-version-extension",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Clevis/config-version-extension.git",
+            "reference": "5d20fb537a739aad5a62790a3cd5d9834b24f16d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Clevis/config-version-extension/zipball/5d20fb537a739aad5a62790a3cd5d9834b24f16d",
+            "reference": "5d20fb537a739aad5a62790a3cd5d9834b24f16d",
+            "shasum": ""
+        },
+        "require": {
+            "nette/di": "~2.2.0",
+            "nette/neon": "~2.2.0",
+            "php": ">=5.4",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-09-05 09:15:32",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Clevis\\Version\\DI\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Versions for sample/local Nette configuration files"
     }
 ]
