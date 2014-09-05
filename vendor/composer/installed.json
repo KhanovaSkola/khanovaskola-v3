@@ -976,56 +976,6 @@
         ]
     },
     {
-        "name": "vrtak-cz/newrelic-nette",
-        "version": "v3.1.1",
-        "version_normalized": "3.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/NewRelic-Nette.git",
-            "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/NewRelic-Nette/zipball/77717d6596880f2a82738b6be9e0bb92b3e93e05",
-            "reference": "77717d6596880f2a82738b6be9e0bb92b3e93e05",
-            "shasum": ""
-        },
-        "require": {
-            "nette/application": "~2.2.0",
-            "nette/utils": "~2.2.0",
-            "php": ">=5.3.0",
-            "tracy/tracy": "~2.2.0"
-        },
-        "time": "2014-05-24 11:41:19",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "VrtakCZ\\NewRelic": "src"
-            }
-        },
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Patrik Votoček",
-                "email": "patrik@votocek.cz",
-                "homepage": "http://patrik.votocek.cz",
-                "role": "Developer"
-            }
-        ],
-        "description": "NewRelic PHP agent integration for Nette Framework",
-        "keywords": [
-            "nette",
-            "newrelic"
-        ],
-        "support": {
-            "issues": "https://github.com/Vrtak-CZ/NewRelic-Nette/issues",
-            "source": "https://github.com/Vrtak-CZ/NewRelic-Nette"
-        }
-    },
-    {
         "name": "doctrine/lexer",
         "version": "v1.0",
         "version_normalized": "1.0.0.0",
@@ -3882,6 +3832,51 @@
             "dbal",
             "persistence",
             "queryobject"
+        ]
+    },
+    {
+        "name": "vrtak-cz/newrelic-tracy",
+        "version": "v4.0.0",
+        "version_normalized": "4.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Vrtak-CZ/NewRelic-Tracy.git",
+            "reference": "80b0c7d5cccad23c05783596017e3b995447387c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Vrtak-CZ/NewRelic-Tracy/zipball/80b0c7d5cccad23c05783596017e3b995447387c",
+            "reference": "80b0c7d5cccad23c05783596017e3b995447387c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "tracy/tracy": "~2.2.0"
+        },
+        "time": "2014-08-30 19:09:44",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "VrtakCZ\\NewRelic\\Tracy\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Patrik Votoček",
+                "email": "patrik@votocek.cz",
+                "homepage": "http://patrik.votocek.cz",
+                "role": "Developer"
+            }
+        ],
+        "description": "NewRelic PHP agent integration for Tracy",
+        "keywords": [
+            "newrelic",
+            "tracy"
         ]
     }
 ]

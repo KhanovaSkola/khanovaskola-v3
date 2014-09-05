@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'VrtakCZ\\NewRelic' => array($vendorDir . '/vrtak-cz/newrelic-nette/src'),
     'Tracy\\QueryPanel\\' => array($vendorDir . '/mikulas/nette-panel-queries/src'),
     'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),

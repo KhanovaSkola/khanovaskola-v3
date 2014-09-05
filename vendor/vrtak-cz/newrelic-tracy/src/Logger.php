@@ -1,8 +1,6 @@
 <?php
 
-namespace VrtakCZ\NewRelic;
-
-use Nette\Application\Application;
+namespace VrtakCZ\NewRelic\Tracy;
 
 class Logger extends \Tracy\Logger
 {
@@ -24,13 +22,12 @@ class Logger extends \Tracy\Logger
 	}
 
 	/**
-	 * @param string
-	 * @param string
-	 * @return bool
+	 * @param string|array
+	 * @param int
 	 */
-	public function log($message, $priority = self::INFO)
+	public function log($message, $priority = NULL)
 	{
-		$res = parent::log($message, $priority);
+		parent::log($message, $priority);
 
 		if (in_array($priority, $this->logLevel)) {
 			if (is_array($message)) {
@@ -39,15 +36,5 @@ class Logger extends \Tracy\Logger
 
 			newrelic_notice_error($message);
 		}
-
-		return $res;
-	}
-
-	/**
-	 * @param \Nette\Application\Application
-	 */
-	public function register(Application $application)
-	{
-		$application->onError[] = $this;
 	}
 }
