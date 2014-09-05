@@ -4,14 +4,11 @@ namespace App\Models\Orm\Mappers;
 
 use App\Models\Orm\ContentEntity;
 use App\Models\Rme\Tag;
-use Everyman\Neo4j\Cypher\Query;
 use Orm\Events;
 
 
 abstract class ContentMapper extends ElasticSearchMapper
 {
-
-	use Neo4jTrait;
 
 	public function registerEvents(Events $events)
 	{

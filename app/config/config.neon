@@ -14,9 +14,6 @@ parameters:
 		host: 127.0.0.1:11300
 	fb:
 		pageId: "268941846529405"
-	neo4j:
-		host: localhost
-		port: 7474
 	tls: false
 
 php:
@@ -68,7 +65,6 @@ services:
 	- App\Models\Services\Paths(@container)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\FacebookPage(%fb.pageId%)
-	- App\Models\Services\Neo4j(%neo4j.host%, %neo4j.port%)
 	- App\Models\Services\PathFinder
 	- Tracy\QueryPanel\QueryPanel
 

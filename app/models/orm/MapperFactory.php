@@ -62,13 +62,6 @@ class MapperFactory extends \Orm\MapperFactory
 			/** @var Mappers\EventManagerTrait $mapper */
 			$mapper->injectEventManager($eventManager);
 		}
-		if (in_array(Mappers\Neo4jTrait::class, $traits))
-		{
-			/** @var Neo4j $neo4j */
-			$neo4j = $this->container->getByType(Neo4j::class);
-			/** @var Mappers\Neo4jTrait $mapper */
-			$mapper->injectNeo4j($neo4j);
-		}
 		if (in_array(Mappers\QueueTrait::class, $traits))
 		{
 			/** @var Queue $queue */
