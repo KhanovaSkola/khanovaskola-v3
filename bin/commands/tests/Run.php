@@ -57,11 +57,8 @@ class Run extends Command
 		{
 			$tester = [
 				"$root/vendor/bin/tester",
-				'-p', '/usr/bin/php',
-				'-c', '/etc/php5/cli',
-				'-d', 'extension=curl.so',
-				'-d', 'extension=redis.so',
-				'-d', 'extension=pgsql.so',
+				'-p', 'php',
+				'-c', __DIR__ . '/../../../tests/php.ini',
 				// '--coverage', "$root/temp/coverage.html",
 				// '--coverage-src', "$root/app",
 				$this->in->getArgument('case') ?: "$root/tests/cases/unit",
