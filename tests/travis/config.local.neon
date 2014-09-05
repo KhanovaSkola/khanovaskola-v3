@@ -1,5 +1,6 @@
+version: [4]
+
 parameters:
-	configVersion: 4
 	database:
 		username: postgres
 		password: 123

@@ -40,6 +40,7 @@ extensions:
 	newrelic: VrtakCZ\NewRelic\Extension
 	redis: Kdyby\Redis\DI\RedisExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
+	version: Clevis\Version\DI\VersionExtension
 
 newrelic:
 	enabled: false
