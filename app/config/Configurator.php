@@ -6,6 +6,7 @@ use App\Models\Services\ElasticSearch;
 use App\Models\Services\Neo4j;
 use Bin\Support\VariadicArgvInput;
 use Clevis\Version\DI\VersionExtension;
+use DibiConnection;
 use Everyman\Neo4j\Command\GetServerInfo;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
@@ -154,7 +155,7 @@ class Configurator extends Nette\Configurator
 		$panel = $container->getByType(QueryPanel::class);
 		Debugger::getBar()->addPanel($panel);
 
-		/** @var \DibiConnection $dibi */
+		/** @var DibiConnection $dibi */
 		$dibi = $container->getService('dibiConnection');
 		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
 			$panel->addQuery(new DibiQuery($event));
