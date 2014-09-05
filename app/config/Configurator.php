@@ -62,6 +62,7 @@ class Configurator extends Nette\Configurator
 
 		$defaults = array_map('realpath', [
 			'appDir' => "$root/app",
+			'backupDir' => "$root/backups",
 			'binDir' => "$root/bin",
 			'libsDir' => "$root/vendor",
 			'logDir' => "$root/log",
