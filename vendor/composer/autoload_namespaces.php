@@ -29,7 +29,6 @@ return array(
     'Guzzle\\Common' => array($vendorDir . '/guzzle/common'),
     'Faker\\PHPUnit' => array($vendorDir . '/fzaninotto/faker/test'),
     'Faker' => array($vendorDir . '/fzaninotto/faker/src'),
-    'Everyman\\Neo4j' => array($vendorDir . '/everyman/neo4jphp/lib'),
     'Elasticsearch\\Tests' => array($vendorDir . '/elasticsearch/elasticsearch/tests'),
     'Elasticsearch\\Benchmarks' => array($vendorDir . '/elasticsearch/elasticsearch/benchmarks'),
     'Elasticsearch' => array($vendorDir . '/elasticsearch/elasticsearch/src'),

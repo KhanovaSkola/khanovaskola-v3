@@ -15,7 +15,6 @@
 		"php": ">= 5.5.0",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
-		"everyman/neo4jphp": "@dev",
 		"ezyang/htmlpurifier": "~4.6.0",
 		"google/apiclient": "dev-master#c2d8dc7",
 		"kdyby/console": "~2.3",

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b6910aea31e762016e37ca76a8e66b1a",
+    "hash": "5fa79b68ab9a05e5b44379f24fe91f3d",
     "packages": [
         {
             "name": "clevis/config-version-extension",
@@ -164,55 +164,6 @@
                 "search"
             ],
             "time": "2014-08-06 16:04:48"
-        },
-        {
-            "name": "everyman/neo4jphp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jadell/neo4jphp.git",
-                "reference": "0b8c6b622c4885816aca06dee9ab45bcc096d827"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jadell/neo4jphp/zipball/0b8c6b622c4885816aca06dee9ab45bcc096d827",
-                "reference": "0b8c6b622c4885816aca06dee9ab45bcc096d827",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phing/phing": "2.6.*",
-                "phpunit/phpunit": "3.7.*",
-                "squizlabs/php_codesniffer": "1.5.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Everyman\\Neo4j": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Josh Adell",
-                    "email": "josh.adell@gmail.com",
-                    "homepage": "http://joshadell.com"
-                }
-            ],
-            "description": "Wrapper for the Neo4j graph database REST interface",
-            "homepage": "http://github.com/jadell/neo4jphp/wiki",
-            "keywords": [
-                "database",
-                "graph",
-                "neo4j"
-            ],
-            "time": "2014-05-10 01:59:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -3758,7 +3709,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "everyman/neo4jphp": 20,
         "google/apiclient": 20,
         "kdyby/forms-replicator": 20,
         "kdyby/monolog": 20,
