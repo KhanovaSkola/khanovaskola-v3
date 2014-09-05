@@ -30,9 +30,6 @@ parameters:
 console:
 	url: http://vagrant.khanovaskola.cz/
 
-newrelic:
-	enabled: false
-
 facebook:
 	appId: "273608052753035"
 	appSecret: "7be86a7s3bc83aa6e260d032ce393a15" # dummy

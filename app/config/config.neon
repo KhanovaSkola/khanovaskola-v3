@@ -37,13 +37,9 @@ extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
 	google: Kdyby\Google\DI\GoogleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
-	newrelic: VrtakCZ\NewRelic\Extension
 	redis: Kdyby\Redis\DI\RedisExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 	version: Clevis\Version\DI\VersionExtension
-
-newrelic:
-	enabled: false
 
 redis:
 	journal: on
