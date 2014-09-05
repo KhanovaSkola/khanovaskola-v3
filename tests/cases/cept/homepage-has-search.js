@@ -1,5 +1,5 @@
 casper.test.begin('Homepage has search and search term is present on results page', 2, function suite(test) {
-	casper.start("http://travis.khanovaskola.cz", function() {
+	casper.start("http://travis.khanovaskola.cz:8093", function() {
 		var form = 'form[id="frm-search-form"]';
 		test.assertExists(form, "Search form is found");
 		this.fill(form, {
