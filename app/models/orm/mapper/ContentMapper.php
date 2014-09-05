@@ -10,12 +10,12 @@ use Orm\Events;
 abstract class ContentMapper extends ElasticSearchMapper
 {
 
-	public function registerEvents(Events $events)
-	{
-		parent::registerEvents($events);
-
-		$this->registerOnPersistCreateNodeEvent($events);
-	}
+	//public function registerEvents(Events $events)
+	//{
+	//	parent::registerEvents($events);
+	//
+	//	$this->registerOnPersistCreateNodeEvent($events);
+	//}
 
 	public function addTagToContent(ContentEntity $entity, Tag $tag)
 	{
