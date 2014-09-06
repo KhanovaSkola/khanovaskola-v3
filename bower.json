@@ -11,6 +11,7 @@
 	"medium-editor": "latest",
 	"typeahead.js": "latest",
 	"d3": "latest",
-	"jquery-timeago": "latest"
+	"jquery-timeago": "latest",
+	"zxcvbn": "latest"
   }
 }
