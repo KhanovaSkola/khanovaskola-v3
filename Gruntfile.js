@@ -6,7 +6,9 @@ var STYLE_FILES = [
 var JS_FILES = [
 	'www/js/app.js',
 	'www/js/snippets/*.js',
-	'www/js/controls/*.js'
+	'www/js/services/*.js',
+	'www/js/components/controls/*.js',
+	'www/js/components/forms/*.js'
 ];
 
 var DIST_FOLDER = 'www/build';
