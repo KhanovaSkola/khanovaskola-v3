@@ -7,13 +7,14 @@ use Tester\Assert;
 use Tests\TestCase;
 
 
-$container = require __DIR__ . '/../../bootstrap.php';
+$container = require __DIR__ . '/../bootstrap.php';
 
 class DummyTest extends TestCase
 {
 
 	/**
-	 * @var RepositoryContainer @inject
+	 * @var RepositoryContainer
+	 * @inject
 	 */
 	public $repos;
 

@@ -1,5 +1,7 @@
 casper.test.begin('Warn when registering with weak password', 5, function suite(test) {
-	casper.start("http://travis.khanovaskola.cz/auth/registration", function() {
+	casper.echo('casper.start');
+	casper.start("//Auth:registration", function() {
+		casper.echo('casper.start callback');
 		var form = 'form[id="frm-registrationForm-form"]';
 		test.assertExists(form, "Registration form is found");
 

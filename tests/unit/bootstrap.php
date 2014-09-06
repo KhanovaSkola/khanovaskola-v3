@@ -5,7 +5,7 @@ use Tests\TestCase;
 
 
 /** @var Container $container */
-$container = require __DIR__ . '/../app/bootstrap.php';
+$container = require __DIR__ . '/../../app/bootstrap.php';
 return $container;
 
 

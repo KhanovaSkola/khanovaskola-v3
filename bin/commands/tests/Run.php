@@ -58,10 +58,10 @@ class Run extends Command
 			$tester = [
 				"$root/vendor/bin/tester",
 				'-p', 'php',
-				'-c', __DIR__ . '/../../../tests/php.ini',
+				'-c', __DIR__ . '/../../../tests/unit/php.ini',
 				// '--coverage', "$root/temp/coverage.html",
 				// '--coverage-src', "$root/app",
-				$this->in->getArgument('case') ?: "$root/tests/cases/unit",
+				$this->in->getArgument('case') ?: "$root/tests/unit/cases",
 			];
 			if ($r = $this->callSystem($tester))
 			{
@@ -71,7 +71,7 @@ class Run extends Command
 
 		if ($runAll || $this->in->getOption('cept'))
 		{
-			$tester = ['casperjs', 'test', "$root/tests/cases/cept"];
+			$tester = ['casperjs', 'test', "--includes=$root/tests/cept/bootstrap.js", "$root/tests/cept/cases"];
 			if ($this->out->isVerbose())
 			{
 				$tester[] = '--verbose';
