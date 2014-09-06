@@ -10,12 +10,14 @@ use Tester\Assert;
 use Tests\TestCase;
 
 
-$container = require __DIR__ . '/../../../../bootstrap.php';
+$container = require __DIR__ . '/../../../bootstrap.php';
 
 class TranslatorTest extends TestCase
 {
 
-	/** @var MockTranslator */
+	/**
+	 * @var MockTranslator
+	 */
 	private $t;
 
 	public function setUp()

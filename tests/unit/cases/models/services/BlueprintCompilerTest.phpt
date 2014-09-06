@@ -10,13 +10,14 @@ use Tester\Assert;
 use Tests\TestCase;
 
 
-$container = require __DIR__ . '/../../../../bootstrap.php';
+$container = require __DIR__ . '/../../../bootstrap.php';
 
 class BlueprintCompilerTest extends TestCase
 {
 
 	/**
-	 * @var BlueprintCompiler @inject
+	 * @var BlueprintCompiler
+	 * @inject
 	 */
 	public $compiler;
 
