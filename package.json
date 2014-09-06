@@ -12,7 +12,8 @@
 	"devDependencies": {
 		"grunt-browser-sync": "latest",
 		"grunt-contrib-watch": "latest",
-		"grunt-notify": "latest"
+		"grunt-notify": "latest",
+		"underscore": "latest"
 	},
 	"scripts": {
 		"start": "grunt dev",
