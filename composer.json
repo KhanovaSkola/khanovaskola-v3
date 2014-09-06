@@ -13,6 +13,7 @@
 	},
 	"require": {
 		"php": ">= 5.5.0",
+		"clevis/config-version-extension": "~1.1",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
@@ -26,16 +27,16 @@
 		"kdyby/redis": "~3.1",
 		"nette/nette": "~2.2.0",
 		"nextras/migrations": "~2.3",
-		"petrp/orm": "0.4.*",
 		"pda/pheanstalk": "~3.0",
-		"symfony/console": "~2.4",
-		"clevis/config-version-extension": "~1.1"
-},
+		"petrp/orm": "0.4.*",
+		"symfony/console": "~2.4"
+	},
 	"require-dev": {
 		"doctrine/dbal": "dev-master#06b68c0",
 		"fzaninotto/faker": "~1.4",
 		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
+		"mikulas/adminer-package": "~4.0",
 		"mikulas/code-sniffs": "~1.1",
 		"mikulas/lattecs": "~0.3",
 		"mikulas/nette-panel-queries": "~1.0",
@@ -43,7 +44,6 @@
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2",
 		"symfony/process": "~2.5",
-		"mikulas/adminer-package": "~4.0",
 		"vrtak-cz/newrelic-tracy": "~4.0"
 	},
 	"repositories": [
