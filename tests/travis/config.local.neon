@@ -12,7 +12,7 @@ parameters:
 			- localhost
 
 console:
-	url: http://travis.khanovaskola.cz/
+	url: http://travis.khanovaskola.cz:8000/
 
 facebook:
 	appId: "273608052753035"

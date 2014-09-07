@@ -15,7 +15,7 @@ env:
 addons:
   postgresql: "9.3"
   hosts:
-    - travis
+    - travis.khanovaskola.cz
 
 services:
   - elasticsearch
