@@ -1,6 +1,7 @@
-version: [4]
+version: [5]
 
 parameters:
+	aesKey: "insecurePassphrase123123"
 	database:
 		username: postgres
 		password: 123
