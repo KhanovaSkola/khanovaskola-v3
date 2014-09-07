@@ -2,7 +2,7 @@
 if [ "$TEST_SUITE" = "unit" ]
 then
 	php -r 'echo "\n\n\e[1;30;44m Running UNIT tests \e[21m\n\n";'
-	php vendor/bin/tester -c ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini tests/cases/unit/
+	php www/index.php tests:run --unit
 elif [ "$TEST_SUITE" = "acceptance" ]
 then
 	php -r 'echo "\n\n\e[1;30;44m Running ACCEPTANCE tests \e[21m\n\n";'
