@@ -82,6 +82,12 @@ final class Auth extends Presenter
 		{
 			$this->redirectToAuth();
 		}
+
+		$session = $this->session->getSection('auth');
+		if (!$session->twoStepVerification)
+		{
+			$this->redirect('resetPassword', ['email' => $this->userEntity->email]);
+		}
 	}
 
 	/**
