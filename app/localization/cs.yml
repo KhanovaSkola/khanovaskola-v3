@@ -98,6 +98,14 @@ auth:
   loginLink:
     facebook: "Přihlásit se přes Facebook"
     google: "Přihlásit se přes Google"
+  resetPassword:
+    success:
+      title: "Email odeslán"
+      message: "Pro další instrukce se koukněte do svého mailu" #TODO link to user email by domain
+  changePassword:
+    success:
+      title: "Heslo změněno"
+      message: "Supr"
   flash:
     fb:
       denied:
