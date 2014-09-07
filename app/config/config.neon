@@ -55,6 +55,7 @@ google:
 
 services:
 	- App\Models\Rme\UsersRepository
+	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
 	- App\Models\Services\BlueprintCompiler
 	- App\Models\Services\BlueprintPurifier

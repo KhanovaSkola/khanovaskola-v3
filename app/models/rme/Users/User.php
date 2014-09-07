@@ -22,7 +22,7 @@ use Orm\OneToMany as OtM;
  * @property NULL|string           $gender                 {enum self::getGenders()}
  *
  * MIGHT BE NULL even if user is registered:
- * @property NULL|string           $password
+ * @property NULL|string           $password               aes encrypted bcrypt
  * @property NULL|string           $facebookId
  * @property NULL|string           $facebookAccessToken
  * @property NULL|string           $googleId

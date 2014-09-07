@@ -19,9 +19,15 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	 */
 	protected $users;
 
-	public function __construct(UsersRepository $users)
+	/**
+	 * @var Aes
+	 */
+	private $aes;
+
+	public function __construct(UsersRepository $users, Aes $aes)
 	{
 		$this->users = $users;
+		$this->aes = $aes;
 	}
 
 	/**
@@ -38,17 +44,20 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		{
 			throw new AuthenticationException('auth.flash.password.wrongUsername', self::IDENTITY_NOT_FOUND);
 		}
-		else if (!$user->password)
+		if (!$user->password)
 		{
 			throw new AuthenticationException('auth.flash.password.notSet', self::PASSWORD_NOT_SET);
 		}
-		else if (!Passwords::verify($password, $user->password))
+
+		$plainHash = $this->aes->decrypt($user->password);
+		if (!Passwords::verify($password, $plainHash))
 		{
 			throw new AuthenticationException('auth.flash.password.wrongPassword', self::INVALID_CREDENTIAL);
 		}
-		else if (Passwords::needsRehash($user->password))
+		if (Passwords::needsRehash($plainHash))
 		{
-			$user->password = Passwords::hash($password);
+			$plainHash = Passwords::hash($password);
+			$user->password = $this->aes->encrypt($plainHash);
 			$this->users->flush();
 		}
 
