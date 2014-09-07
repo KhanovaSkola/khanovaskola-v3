@@ -13,8 +13,6 @@ block "Installing ElasticSearch ICU plugin"
 sudo /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
-echo '127.0.0.1 travis.khanovaskola.cz' | sudo tee -a /etc/hosts
-
 block "Installing bc"
 sudo apt-get install bc -y
 bc --version
@@ -39,7 +37,7 @@ then
 	npm install -g casperjs
 
 	block "Starting local server"
-	sudo php -S 127.0.0.1:80 -t www/ &
+	sudo php -S localhost:8000 -t www/ &
 	sleep 1
 fi
 
