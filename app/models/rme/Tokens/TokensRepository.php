@@ -6,6 +6,7 @@ use App\Models\Orm\Repository;
 use App\Models\Rme\Tokens\LinkExistingStudent;
 use App\Models\Rme\Tokens\LinkNewStudent;
 use App\Models\Rme\Tokens\Login;
+use App\Models\Rme\Tokens\ResetPassword;
 use App\Models\Rme\Tokens\Unsubscribe;
 use App\NotImplementedException;
 
@@ -37,6 +38,7 @@ class TokensRepository extends Repository
 			LinkExistingStudent::class,
 			LinkNewStudent::class,
 			Login::class,
+			ResetPassword::class,
 			Unsubscribe::class,
 		];
 	}
