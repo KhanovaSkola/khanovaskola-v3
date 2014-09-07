@@ -39,7 +39,8 @@ then
 	npm install -g casperjs
 
 	block "Starting local server"
-	sudo php -S travis.khanovaskola.cz:8093 -t www/ &
+	sudo php -S 127.0.0.1:80 -t www/ &
+	sleep 1
 fi
 
 block "Provisioning"
