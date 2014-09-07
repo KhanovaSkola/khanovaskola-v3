@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\User;
+use App\Models\Services\Aes;
 use App\Presenters\Auth;
 use Nette\Security\Identity;
 use Nette\Security\Passwords;
@@ -18,6 +19,12 @@ class Registration extends Form
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var Aes
+	 * @inject
+	 */
+	public $aes;
 
 	public function setup()
 	{
@@ -67,7 +74,8 @@ class Registration extends Form
 		$user->gender = $v->gender;
 		$user->setNames($v->name);
 		$user->registered = TRUE;
-		$user->password = Passwords::hash($v->password);
+		$plainHash = Passwords::hash($v->password);
+		$user->password = $this->aes->encrypt($plainHash);
 
 		$this->orm->flush();
 

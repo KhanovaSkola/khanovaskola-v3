@@ -5,9 +5,10 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 
-version: [4]
+version: [5]
 
 parameters:
+	aesKey: "generate-24-random-chars"
 	database:
 		username: postgres
 		password: root
