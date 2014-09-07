@@ -65,6 +65,23 @@ final class Auth extends Presenter
 		/** @var TextInput $input */
 		$input = $this['loginForm-form-email'];
 		$input->setDefaultValue($email);
+
+		$this->template->email = $email;
+	}
+
+	public function renderResetPassword($email = NULL)
+	{
+		/** @var TextInput $input */
+		$input = $this['resetPasswordForm-form-email'];
+		$input->setDefaultValue($email);
+	}
+
+	public function actionChangePassword()
+	{
+		if (!$this->user->loggedIn)
+		{
+			$this->redirectToAuth();
+		}
 	}
 
 	/**

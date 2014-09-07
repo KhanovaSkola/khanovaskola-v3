@@ -5,6 +5,8 @@
 
 	<h1 n:block=title>Sign in</h1>
 
-	<a n:href="facebookLogin-open!" id="login-facebook">{_'auth.loginLink.facebook'}</a>
-	<a n:href="googleLogin-open!" id="login-google">{_'auth.loginLink.google'}</a>
+	<a n:href="facebookLogin-open!">{_'auth.loginLink.facebook'}</a>
+	<a n:href="googleLogin-open!">{_'auth.loginLink.google'}</a>
+
+	<a n:href="resetPassword, email => $email" data-password-reset="{plink resetPassword}">{_'auth.reset.link'}</a>
 	{control loginForm}
