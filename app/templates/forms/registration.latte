@@ -1,13 +1,4 @@
-{define error}
-	{**
-	 * @param Control $control
-	 *}
-	<span n:if="$control->errors" class="help-block">
-		{foreach $control->errors as $error}
-			{$error}
-		{/foreach}
-	</span>
-{/define}
+{includeblock _error.latte}
 
 <form n:name="form" class="form-horizontal">
 	<ul class=error n:if="$form->ownErrors">
