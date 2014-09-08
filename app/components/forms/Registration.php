@@ -65,6 +65,11 @@ class Registration extends Form
 		$v = $this->values;
 
 		$user = $this->orm->users->getByEmail($v->email);
+		if ($user && $user->registered)
+		{
+			$this->addError('duplicate');
+			return;
+		}
 		if (!$user)
 		{
 			$user = new User;
