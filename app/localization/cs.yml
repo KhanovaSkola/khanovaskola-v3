@@ -185,3 +185,23 @@ registrationForm:
     missing: "Vyberte"
   password:
     missing: "Zadejte heslo"
+
+linkStudentsForm:
+  email:
+    wrong: "Zadejte spravny email"
+
+resetPasswordForm:
+  email:
+    missing: ""
+    wrong: ""
+
+changePasswordForm:
+  password:
+    missing: ""
+
+loginForm:
+  email:
+    missing: ""
+    wrong: ""
+  password:
+    missing: ""

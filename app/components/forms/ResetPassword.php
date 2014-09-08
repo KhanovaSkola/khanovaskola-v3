@@ -29,8 +29,8 @@ class ResetPassword extends Form
 	public function setup()
 	{
 		$this->addText('email')
-			->addRule($this::FILLED)
-			->addRule($this::EMAIL);
+			->addRule($this::FILLED, 'email.missing')
+			->addRule($this::EMAIL, 'email.wrong');
 
 		$this->addSubmit();
 	}

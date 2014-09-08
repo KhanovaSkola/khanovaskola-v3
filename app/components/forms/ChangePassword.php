@@ -29,7 +29,7 @@ class ChangePassword extends Form
 	public function setup()
 	{
 		$this->addText('password')
-			->addRule($this::FILLED);
+			->addRule($this::FILLED, 'password.missing');
 
 		$this->addSubmit();
 	}

@@ -34,7 +34,7 @@ class LinkStudents extends Form
 		$emails = $this->addDynamic('emails', function(Container $container) {
 			$container->addText('email')
 				->addCondition($this::FILLED)
-				->addRule($this::EMAIL); // TODO translate error message
+				->addRule($this::EMAIL, 'email.wrong');
 		});
 		for ($i = 0; $i < 5; ++$i)
 		{
