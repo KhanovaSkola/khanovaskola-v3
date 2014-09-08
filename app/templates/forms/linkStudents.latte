@@ -1,7 +1,10 @@
+{includeblock _error.latte}
+
 <form n:name="form" class="form-horizontal">
-	<div class="form-group">
+	<div class="form-group{if $form['emails']->errors} has-error{/if}">
 		{foreach $form['emails']->containers as $id => $_tmp}
 			<input type="email" n:name="emails-$id-email" class="form-control">
+            {include error, control => $form["emails-$id-email"]}
         {/foreach}
     </div>
 	<input n:name="save" value="Odeslat pozvánky" class="btn btn-default">

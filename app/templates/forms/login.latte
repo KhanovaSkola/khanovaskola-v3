@@ -1,11 +1,15 @@
+{includeblock _error.latte}
+
 <form n:name="form" class="form-horizontal">
-	<div class="form-group">
+	<div class="form-group{if $form['email']->errors} has-error{/if}">
 		<label n:name="email">Email address</label>
 		<input n:name="email" type="email" class="form-control" placeholder="Enter email">
+		{include error, control => $form['email']}
 	</div>
-	<div class="form-group">
+	<div class="form-group{if $form['password']->errors} has-error{/if}">
         <label n:name="password">Heslo</label>
         <input n:name="password" type="password" class="form-control" placeholder="Enter password">
+        {include error, control => $form['password']}
     </div>
 	<input n:name="save" value="Přihlásit se" class="btn btn-default">
 </form>
