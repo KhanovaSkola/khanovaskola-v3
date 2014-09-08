@@ -29,23 +29,21 @@ class Registration extends Form
 	public function setup()
 	{
 		$this->addText('email')
-			->addRule($this::FILLED)
-			->addRule($this::EMAIL);
+			->addRule($this::FILLED, 'email.missing')
+			->addRule($this::EMAIL, 'email.wrong');
 
 		$this->addText('name')
-			->addRule($this::FILLED);
+			->addRule($this::FILLED, 'name.missing');
 
 		$this->addRadioList('gender', NULL, [
 			User::GENDER_MALE => User::GENDER_MALE,
 			User::GENDER_FEMALE => User::GENDER_FEMALE,
 		])
-			->addRule($this::FILLED)
+			->addRule($this::FILLED, 'gender.missing')
 			->setDefaultValue(User::GENDER_MALE);
 
 		$this->addText('password')
-			->addRule($this::FILLED);
-		// TODO min length / other rules
-		// TODO forbid top 10 000 passwords
+			->addRule($this::FILLED, 'password.missing');
 
 		$this->addSubmit();
 	}

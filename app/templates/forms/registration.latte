@@ -1,13 +1,29 @@
+{define error}
+	{**
+	 * @param Control $control
+	 *}
+	<span n:if="$control->errors" class="help-block">
+		{foreach $control->errors as $error}
+			{$error}
+		{/foreach}
+	</span>
+{/define}
+
 <form n:name="form" class="form-horizontal">
-	<div class="form-group">
+	<ul class=error n:if="$form->ownErrors">
+        <li n:foreach="$form->ownErrors as $error">{$error}</li>
+    </ul>
+	<div class="form-group{if $form['email']->errors} has-error{/if}">
 		<label n:name="email">Email address</label>
 		<input n:name="email" type="email" class="form-control" placeholder="Enter email">
+		{include error, control => $form['email']}
 	</div>
-	<div class="form-group">
+	<div class="form-group{if $form['name']->errors} has-error{/if}">
         <label n:name="name">Name</label>
         <input n:name="name" type="text" class="form-control" placeholder="Enter name">
+        {include error, control => $form['name']}
     </div>
-    <div class="form-group">
+    <div class="form-group{if $form['gender']->errors} has-error{/if}">
         <div class="radio">
 	        <label>
 	            <input type="radio" n:name="gender:male">
@@ -20,10 +36,12 @@
 				Děvče
 			</label>
 		</div>
+		{include error, control => $form['gender']}
     </div>
-	<div class="form-group">
+	<div class="form-group{if $form['password']->errors} has-error{/if}">
         <label n:name="password">Heslo</label>
         <input n:name="password" type="text" class="form-control" placeholder="Enter password">
+        {include error, control => $form['password']}
     </div>
 	<input n:name="save" value="Registrovat se" class="btn btn-default">
 </form>

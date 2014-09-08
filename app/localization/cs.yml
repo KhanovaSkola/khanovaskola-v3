@@ -173,3 +173,15 @@ errors: #TODO
   410:
     title: "Stránka odstraněna"
     text: ""
+
+registrationForm:
+  duplicate: "Uživatel s tímto emailem už je zaregistrovaný." #TODO link to login
+  email:
+    missing: "Zadejte email"
+    wrong: "Zadejte spravny email"
+  name:
+    missing: "Zadejte vaše jméno"
+  gender:
+    missing: "Vyberte"
+  password:
+    missing: "Zadejte heslo"
