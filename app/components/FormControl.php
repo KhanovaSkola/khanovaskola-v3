@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use App\Components\Forms\Form;
 use App\InvalidArgumentException;
 use Nette\DI\Container;
 use Nette\Reflection\ClassType;
@@ -55,7 +56,10 @@ class FormControl extends Control
 
 	public function createComponentForm()
 	{
-		return $this->buildComponent($this->formClass, $this->args);
+		/** @var Form $form */
+		$form = $this->buildComponent($this->formClass, $this->args);
+		$form->setTranslator($this->getTranslator());
+		return $form;
 	}
 
 	protected function renderDefault()
