@@ -60,6 +60,10 @@ install git hooks:
 sh bin/install-hooks
 ```
 
+Content
+-------
+<img src="doc/khanova-skola-content.png" alt="Content Structure Schema" height="657">
+
 Schema
 ------
 As of `20140709125311-video-view`:
