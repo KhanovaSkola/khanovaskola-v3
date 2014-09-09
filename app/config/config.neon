@@ -18,7 +18,6 @@ parameters:
 
 php:
 	date.timezone: Europe/Prague
-	# zlib.output_compression: yes
 
 nette:
 	application:
@@ -37,6 +36,9 @@ extensions:
 	redis: Kdyby\Redis\DI\RedisExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 	version: Clevis\Version\DI\VersionExtension
+
+monolog:
+	name: main-site
 
 redis:
 	journal: on

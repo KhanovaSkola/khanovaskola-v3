@@ -28,6 +28,11 @@ parameters:
 		# connectionParams:
 		# 	auth: [username, password", "Basic"]
 
+monolog:
+	# registerFallback: yes # development
+	handlers:
+		- Monolog\Handler\SyslogHandler('main-site', 'local4') # production
+
 console:
 	url: http://vagrant.khanovaskola.cz/
 
