@@ -16,4 +16,17 @@ use Orm\OneToMany as OtM;
 class Content extends TitledEntity implements IIndexable
 {
 
+	/**
+	 * Values to be saved to es index
+	 *
+	 * @return array [field => data]
+	 */
+	public function getIndexData()
+	{
+		return [
+			'title' => $this->title,
+			'description' => $this->description,
+		];
+	}
+
 }

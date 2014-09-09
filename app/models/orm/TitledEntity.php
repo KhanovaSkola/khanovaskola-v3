@@ -14,7 +14,6 @@ abstract class TitledEntity extends Entity
 {
 
 	/**
-	 * Automatically updates slug and creates RedirectEntity
 	 * @param $title
 	 */
 	public function setTitle($title)
