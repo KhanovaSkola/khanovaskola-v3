@@ -5,10 +5,10 @@ namespace Tests\Cases\Unit;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Block;
 use App\Models\Rme\BlockSchemaBridge;
-use App\Models\Rme\Content;
 use App\Models\Rme\ContentBlockBridge;
 use App\Models\Rme\Schema;
 use App\Models\Rme\User;
+use App\Models\Rme\Video;
 use App\Models\Structs\Gender;
 use Tester\Assert;
 use Tests\TestCase;
@@ -17,7 +17,7 @@ use Tests\TestCase;
 $container = require __DIR__ . '/../../../bootstrap.php';
 
 /**
- * Integration test.
+ * Integration test
  * There are no wild errors while linking those entities
  * and when persisting.
  */
@@ -75,9 +75,10 @@ class ContentModelTest extends TestCase
 
 		for ($i = 0; $i < 5; $i++)
 		{
-			$content = new Content();
+			$content = new Video();
 			$content->title = "Dummy Content $i";
 			$content->description = 'lorem ipsum';
+			$content->youtubeId = 'fakeid';
 			$this->repos->contents->persist($content);
 
 			$bridge = new ContentBlockBridge();
