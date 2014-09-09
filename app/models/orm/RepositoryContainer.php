@@ -13,6 +13,7 @@ use Nette\DI\Container;
  * @property-read Rme\AnswersRepository $answers
  * @property-read Rme\BadgesRepository $badges
  * @property-read Rme\BadgeUserBridgesRepository $badgeUserBridges
+ * @property-read Rme\BlockLinksRepository $blockLinks
  * @property-read Rme\BlocksRepository $blocks
  * @property-read Rme\BlueprintsRepository $blueprints
  * @property-read Rme\CommentsRepository $comments
