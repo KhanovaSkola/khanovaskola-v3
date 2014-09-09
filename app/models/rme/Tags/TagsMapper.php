@@ -9,8 +9,6 @@ use Orm\Events;
 class TagsMapper extends Mappers\ElasticSearchMapper
 {
 
-	use Mappers\Neo4jTrait;
-
 	public function registerEvents(Events $events)
 	{
 		parent::registerEvents($events);
