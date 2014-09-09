@@ -3,13 +3,13 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
-use Orm\ManyToMany as MtM;
+use Orm\OneToMany as OtM;
 
 
 /**
- * @property string      $name
- * @property MtM|Block[] $blocks {m:m blocks $schemas mapped}
- * @property User        $author {m:1 users $schemasAuthored}
+ * @property string          $name
+ * @property OtM|BlockLink[] $blockLinks {1:m blockLinks $schema}
+ * @property User            $author     {m:1 users $schemasAuthored}
  */
 class Schema extends Entity
 {

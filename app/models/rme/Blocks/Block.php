@@ -4,14 +4,14 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Entity;
-use Orm\ManyToMany as MtM;
+use Orm\OneToMany as OtM;
 
 
 /**
  * @property string          $name
- * @property ContentEntity[] $list
- * @property MtM|Schema[]    $schemas {m:m schemas $blocks}
- * @property User            $author  {m:1 users $blocksAuthored}
+ * @x-property ContentEntity[] $list
+ * @property OtM|BlockLink[] $blockLinks {1:m blockLinks $block}
+ * @property User            $author     {m:1 users $blocksAuthored}
  */
 class Block extends Entity
 {
