@@ -180,6 +180,10 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 				$parts = [Orm\ManyToMany::class];
 				break;
 			}
+			else if (substr($part, -2) === '[]')
+			{
+				$part = 'array';
+			}
 		}
 		$type = implode('|', $parts);
 
