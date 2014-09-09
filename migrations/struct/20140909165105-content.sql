@@ -1,0 +1,8 @@
+CREATE TABLE contents (
+  id SERIAL NOT NULL,
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  PRIMARY KEY(id)
+);
