@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use App\Models\Services\Translator;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -10,7 +11,11 @@ use Orm\Events;
 class BadgeUserBridgesMapper extends Mappers\Mapper
 {
 
-	use Mappers\TranslatorTrait;
+	/**
+	 * @var Translator
+	 * @inject
+	 */
+	public $translator;
 
 	public function registerEvents(Events $events)
 	{

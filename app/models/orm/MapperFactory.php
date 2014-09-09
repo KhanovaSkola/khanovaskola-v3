@@ -4,7 +4,6 @@ namespace App\Models\Orm;
 
 use App\Models\Orm\Mappers;
 use App\Models\Services\ElasticSearch;
-use App\Models\Services\Neo4j;
 use App\Models\Services\Queue;
 use App\Models\Services\Translator;
 use Kdyby\Events\EventManager;
@@ -39,37 +38,7 @@ class MapperFactory extends \Orm\MapperFactory
 		$class = $this->getMapperClass($repository);
 		/** @var Mappers\Mapper $mapper */
 		$mapper = new $class($repository);
-		$traits = $this->getTraits($class);
-
-		if (in_array(Mappers\ElasticSearchTrait::class, $traits))
-		{
-			/** @var ElasticSearch $elastic */
-			$elastic = $this->container->getByType(ElasticSearch::class);
-			/** @var Mappers\ElasticSearchTrait $mapper */
-			$mapper->injectElasticSearch($elastic);
-		}
-		if (in_array(Mappers\TranslatorTrait::class, $traits))
-		{
-			/** @var Translator $translator */
-			$translator = $this->container->getByType(Translator::class);
-			/** @var Mappers\TranslatorTrait $mapper */
-			$mapper->injectTranslator($translator);
-		}
-		if (in_array(Mappers\EventManagerTrait::class, $traits))
-		{
-			/** @var EventManager $eventManager */
-			$eventManager = $this->container->getByType(EventManager::class);
-			/** @var Mappers\EventManagerTrait $mapper */
-			$mapper->injectEventManager($eventManager);
-		}
-		if (in_array(Mappers\QueueTrait::class, $traits))
-		{
-			/** @var Queue $queue */
-			$queue = $this->container->getByType(Queue::class);
-			/** @var Mappers\QueueTrait $mapper */
-			$mapper->injectQueue($queue);
-		}
-
+		$this->container->callInjects($mapper);
 		$mapper->registerEvents($repository->getEvents());
 
 		return $mapper;
