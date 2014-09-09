@@ -19,7 +19,7 @@ use Orm\OneToMany as OtM;
  * @property NULL|string           $familyName
  * @property NULL|string           $nominative
  * @property NULL|string           $vocative
- * @property NULL|string           $gender                 {enum self::getGenders()}
+ * @property NULL|string           $gender                 {enum App\Models\Structs\Gender::getGenders()}
  *
  * MIGHT BE NULL even if user is registered:
  * @property NULL|string           $password               aes encrypted bcrypt
@@ -42,20 +42,6 @@ use Orm\OneToMany as OtM;
  */
 class User extends Entity
 {
-
-	const GENDER_MALE = 'male';
-	const GENDER_FEMALE = 'female';
-
-	/**
-	 * @return array
-	 */
-	public static function getGenders()
-	{
-		return [
-			self::GENDER_MALE => self::GENDER_MALE,
-			self::GENDER_FEMALE => self::GENDER_FEMALE,
-		];
-	}
 
 	public function setNominativeAndVocative($name)
 	{
