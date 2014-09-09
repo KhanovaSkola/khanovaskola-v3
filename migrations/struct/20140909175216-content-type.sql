@@ -1,0 +1,3 @@
+ALTER TABLE
+  contents
+ADD COLUMN type VARCHAR(255) NOT NULL;

@@ -10,10 +10,11 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property string                   $description
+ * @property string                   $type                {enum App\Models\Rme\ContentsRepository::getTypes()}
  *
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $content}
  */
-class Content extends TitledEntity implements IIndexable
+abstract class Content extends TitledEntity implements IIndexable
 {
 
 	/**
