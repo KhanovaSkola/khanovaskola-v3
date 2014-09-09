@@ -2,7 +2,6 @@
 
 namespace App\Models\Rme;
 
-use App\Models\Orm\ContentEntity;
 use App\Models\Rme\BadgeUserBridges\VideoWatched;
 use App\Models\Services\RemoteSubtitles;
 use Orm;
@@ -13,12 +12,11 @@ use Orm\OneToMany as OtM;
  * @property string             $youtubeId
  * @property string             $youtubeIdOriginal  filled if dubbed {default ''}
  *
- * @property Block[]            $blocks             {ignore} {m:m blocks $videos} mapped in neo4j
  * @property OtM|Comment[]      $comments           {1:m comments $video}
  * @property OtM|VideoView[]    $views              {1:m videoViews $video}
  * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
  */
-class Video extends ContentEntity
+class Video extends Content
 {
 
 	/**
