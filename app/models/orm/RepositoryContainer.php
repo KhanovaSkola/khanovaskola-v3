@@ -17,6 +17,8 @@ use Nette\DI\Container;
  * @property-read Rme\BlocksRepository $blocks
  * @property-read Rme\BlueprintsRepository $blueprints
  * @property-read Rme\CommentsRepository $comments
+ * @property-read Rme\ContentBlockBridgesRepository $contentBlockBridges
+ * @property-read Rme\ContentsRepository $contents
  * @property-read Rme\GistsRepository $gists
  * @property-read Rme\PathsRepository $paths
  * @property-read Rme\StudentInvitesRepository $studentInvites

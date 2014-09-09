@@ -1,0 +1,22 @@
+CREATE TABLE content_block_bridges (
+  id SERIAL NOT NULL,
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+  content_id INT NOT NULL,
+  block_id INT NOT NULL,
+  position INT NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE INDEX IDX_AA5B128EA76ED395 ON content_block_bridges (content_id);
+
+ALTER TABLE
+  content_block_bridges
+ADD
+  CONSTRAINT FK_AA5B128EA76ED395 FOREIGN KEY (content_id) REFERENCES contents (id) NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX IDX_AA6A128EA76ED395 ON content_block_bridges (block_id);
+
+ALTER TABLE
+  content_block_bridges
+ADD
+  CONSTRAINT FK_AA6A128EA76ED395 FOREIGN KEY (block_id) REFERENCES blocks (id) NOT DEFERRABLE INITIALLY IMMEDIATE;
