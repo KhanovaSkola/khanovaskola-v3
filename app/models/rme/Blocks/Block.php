@@ -8,10 +8,9 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property string          $name
- * @x-property ContentEntity[] $list
- * @property OtM|BlockLink[] $blockLinks {1:m blockLinks $block}
- * @property User            $author     {m:1 users $blocksAuthored}
+ * @property string                  $name
+ * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $block}
+ * @property User                    $author             {m:1 users $blocksAuthored}
  */
 class Block extends Entity
 {
