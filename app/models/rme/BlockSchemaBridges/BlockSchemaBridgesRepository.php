@@ -9,7 +9,7 @@ use Orm\DibiCollection;
 /**
  * @method DibiCollection|BlockLink[] findAll()
  */
-class BlockLinksRepository extends Repository
+class BlockSchemaBridgesRepository extends Repository
 {
 
 }

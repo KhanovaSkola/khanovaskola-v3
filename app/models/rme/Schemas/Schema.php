@@ -7,9 +7,9 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property string          $name
- * @property OtM|BlockLink[] $blockLinks {1:m blockLinks $schema}
- * @property User            $author     {m:1 users $schemasAuthored}
+ * @property string                  $name
+ * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $schema}
+ * @property User                    $author             {m:1 users $schemasAuthored}
  */
 class Schema extends Entity
 {

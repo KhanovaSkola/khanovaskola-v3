@@ -5,6 +5,7 @@ namespace Tests\Cases\Unit;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Block;
 use App\Models\Rme\BlockLink;
+use App\Models\Rme\BlockSchemaBridge;
 use App\Models\Rme\Schema;
 use App\Models\Rme\User;
 use App\Models\Structs\Gender;
@@ -47,15 +48,15 @@ class ContentModelTest extends TestCase
 			$block->name = "Dummy Block $i";
 			$this->repos->blocks->persist($block);
 
-			$link = new BlockLink();
-			$link->block = $block;
-			$link->schema = $schema;
-			$link->position = 1;
+			$bridge = new BlockSchemaBridge();
+			$bridge->block = $block;
+			$bridge->schema = $schema;
+			$bridge->position = 1;
 
-			$this->repos->blockLinks->persist($link);
+			$this->repos->blockSchemaBridges->persist($bridge);
 		}
 
-		Assert::same(5, $schema->blockLinks->count());
+		Assert::same(5, $schema->blockSchemaBridges->count());
 	}
 
 }
