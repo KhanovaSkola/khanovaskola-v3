@@ -174,6 +174,12 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 				$parts = [Orm\OneToMany::class];
 				break;
 			}
+			else if ($part === Orm\ManyToMany::class)
+			{
+				// Support for '@property MtM|Foo[]' instead of '@property Orm\ManyToMany'
+				$parts = [Orm\ManyToMany::class];
+				break;
+			}
 		}
 		$type = implode('|', $parts);
 
