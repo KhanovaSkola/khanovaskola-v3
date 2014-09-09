@@ -60,14 +60,11 @@ install git hooks:
 sh bin/install-hooks
 ```
 
-Content
--------
+Data Model
+----------
 <img src="doc/khanova-skola-content.png" alt="Content Structure Schema" height="657">
 
-Schema
-------
-As of `20140709125311-video-view`:
-![screenshot 2014-07-11 11 29 11](https://cloud.githubusercontent.com/assets/192200/3550789/db88f4bc-08dd-11e4-9922-77e9b9526ced.png)
+<img src="doc/schema.png" alt="Database Schema">
 
 Info
 ----
