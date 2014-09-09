@@ -6,6 +6,7 @@ use App\Models\Orm\Mappers;
 use App\Models\Orm\TitledEntity;
 use App\Models\Services\Queue;
 use App\Models\Tasks\UpdateSearchIndexTask;
+use Everyman\Neo4j\Cypher\Query;
 use Orm\EventArguments;
 use Orm\Events;
 

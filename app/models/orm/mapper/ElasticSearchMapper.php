@@ -5,7 +5,6 @@ namespace App\Models\Orm\Mappers;
 use App\Models\Orm\Entity;
 use App\Models\Orm\HighlightCollection;
 use App\Models\Orm\IIndexable;
-use App\Models\Services\ElasticSearch;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -16,11 +15,7 @@ use Orm\Events;
 class ElasticSearchMapper extends Mapper
 {
 
-	/**
-	 * @var ElasticSearch
-	 * @inject
-	 */
-	public $elastic;
+	use ElasticSearchTrait;
 
 	public function registerEvents(Events $events)
 	{
