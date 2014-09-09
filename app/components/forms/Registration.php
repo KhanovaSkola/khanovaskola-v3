@@ -6,6 +6,7 @@ use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
+use App\Models\Structs\Gender;
 use App\Presenters\Auth;
 use Nette\Security\Identity;
 use Nette\Security\Passwords;
@@ -35,12 +36,9 @@ class Registration extends Form
 		$this->addText('name')
 			->addRule($this::FILLED, 'name.missing');
 
-		$this->addRadioList('gender', NULL, [
-			User::GENDER_MALE => User::GENDER_MALE,
-			User::GENDER_FEMALE => User::GENDER_FEMALE,
-		])
+		$this->addRadioList('gender', NULL, Gender::getGenders())
 			->addRule($this::FILLED, 'gender.missing')
-			->setDefaultValue(User::GENDER_MALE);
+			->setDefaultValue(Gender::MALE);
 
 		$this->addText('password')
 			->addRule($this::FILLED, 'password.missing');

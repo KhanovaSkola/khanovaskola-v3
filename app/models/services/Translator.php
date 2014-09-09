@@ -5,7 +5,7 @@ namespace App\Models\Services;
 use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
-use App\Models\Rme\User;
+use App\Models\Structs\Gender;
 use Monolog\Logger;
 use Nette;
 use Nette\Neon\Neon;
@@ -160,7 +160,7 @@ class Translator implements Nette\Localization\ITranslator
 		if (isset($values[self::GENDER]))
 		{
 			// inflect by gender from '[he|she]' syntax
-			$isMale = $values[self::GENDER] === User::GENDER_MALE;
+			$isMale = $values[self::GENDER] === Gender::MALE;
 			$translated = preg_replace_callback('~\[([^|]*)\|([^|]*)\]~', function($m) use ($isMale) {
 				return $isMale ? $m[1] : $m[2];
 			}, $translated);
