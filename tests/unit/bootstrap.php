@@ -1,11 +1,13 @@
 <?php
 
 use Nette\DI\Container;
+use Tester\Environment;
 use Tests\TestCase;
 
 
 /** @var Container $container */
 $container = require __DIR__ . '/../../app/bootstrap.php';
+Environment::setup();
 return $container;
 
 
