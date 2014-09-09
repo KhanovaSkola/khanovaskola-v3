@@ -1,0 +1,21 @@
+ALTER TABLE
+  videos
+DROP CONSTRAINT videos_pkey;
+
+ALTER TABLE
+  videos
+DROP COLUMN id,
+DROP COLUMN created_at,
+DROP COLUMN title,
+DROP COLUMN slug;
+
+ALTER TABLE
+  videos
+ADD COLUMN
+  content_id int4 NOT NULL;
+
+ALTER TABLE
+  videos
+ADD CONSTRAINT fk_3123932e22c1004e
+FOREIGN KEY (content_id) REFERENCES contents (id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
