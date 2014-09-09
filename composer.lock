@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5fa79b68ab9a05e5b44379f24fe91f3d",
+    "hash": "68a56263ff87631c72b4b0cc219efd1e",
     "packages": [
         {
             "name": "clevis/config-version-extension",
@@ -899,16 +899,16 @@
         },
         {
             "name": "kdyby/monolog",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Monolog.git",
-                "reference": "e45b7c3"
+                "reference": "73ef3766801a55b3f9f5743387ad0ab24b203fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/451c83c56c94fac6041f44eb6e9d2d6540615098",
-                "reference": "e45b7c3",
+                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/73ef3766801a55b3f9f5743387ad0ab24b203fb6",
+                "reference": "73ef3766801a55b3f9f5743387ad0ab24b203fb6",
                 "shasum": ""
             },
             "require": {
@@ -917,7 +917,7 @@
                 "tracy/tracy": "~2.2@dev"
             },
             "require-dev": {
-                "jakub-onderka/php-parallel-lint": "~0.6",
+                "jakub-onderka/php-parallel-lint": "~0.7",
                 "latte/latte": "~2.2@dev",
                 "nette/application": "~2.2@dev",
                 "nette/bootstrap": "~2.2@dev",
@@ -944,7 +944,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.1-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -978,7 +978,7 @@
                 "monolog",
                 "nette"
             ],
-            "time": "2014-06-24 11:59:09"
+            "time": "2014-09-08 19:09:34"
         },
         {
             "name": "kdyby/redis",
@@ -3711,7 +3711,6 @@
     "stability-flags": {
         "google/apiclient": 20,
         "kdyby/forms-replicator": 20,
-        "kdyby/monolog": 20,
         "doctrine/dbal": 20
     },
     "prefer-stable": false,

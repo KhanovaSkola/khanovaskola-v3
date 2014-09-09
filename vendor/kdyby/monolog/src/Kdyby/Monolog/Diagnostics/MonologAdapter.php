@@ -13,11 +13,15 @@ namespace Kdyby\Monolog\Diagnostics;
 use Kdyby\Monolog\Handler\FallbackNetteHandler;
 use Monolog;
 use Tracy\Debugger;
+use Tracy\Dumper;
 use Tracy\Logger;
 
 
 
 /**
+ * Replaces the default Tracy logger,
+ * which allows to preprocess all messages and pass then to Monolog for processing.
+ *
  * @author Martin Bažík <martin@bazo.sk>
  * @author Filip Procházka <filip@prochazka.su>
  */
@@ -34,16 +38,53 @@ class MonologAdapter extends Logger
 	public function __construct(Monolog\Logger $monolog)
 	{
 		$this->monolog = $monolog;
+
+		// BC with Nette
+		if (interface_exists('Tracy\ILogger') && method_exists($this, 'logException')) {
+			parent::__construct(Debugger::$logDirectory, Debugger::$email, Debugger::getBlueScreen());
+		}
+
+		$this->directory = &Debugger::$logDirectory;
+		$this->email = &Debugger::$email;
 	}
 
 
 
 	public function log($message, $priority = self::INFO)
 	{
+		if (!is_array($message) && method_exists($this, 'logException')) { // forward BC with Nette in 2.3-dev
+			$exceptionFile = $message instanceof \Exception ? $this->logException($message) : NULL;
+
+			$message = array(
+				@date('[Y-m-d H-i-s]'),
+				$this->formatMessage($message),
+				' @ ' . self::getSource(),
+				$exceptionFile ? ' @@ ' . basename($exceptionFile) : NULL
+			);
+
+			if (in_array($priority, array(self::ERROR, self::EXCEPTION, self::CRITICAL), TRUE)) {
+				$this->sendEmail(implode('', $message));
+			}
+		}
+
 		$normalised = $message;
-		if (is_array($message)) {
-			if (count($message) >= 2) {
+		$context = array(
+			'at' => self::getSource(),
+		);
+
+		if (is_array($message)) { // bc with Nette until 2.3
+			if (count($message) >= 2 && preg_match('~\\[[\\d+ -]+\\]~i', $message[0])) {
 				array_shift($message); // first entry is probably time
+			}
+
+			if (isset($message[1]) && (preg_match('~\\@\\s+https?:\\/\\/.+~', $message[1])) || preg_match('~CLI:.+~i', $message[1])) {
+				$context['at'] = ltrim($message[1], '@ ');
+				unset($message[1]);
+			}
+
+			if (isset($message[2]) && preg_match('~\\@\\@\\s+exception\\-[^\\s]+\\.html~', $message[2])) {
+				$context['tracy'] = ltrim($message[2], '@ ');
+				unset($message[2]);
 			}
 
 			$normalised = implode($message);
@@ -54,30 +95,33 @@ class MonologAdapter extends Logger
 
 		switch ($priority) {
 			case 'access':
-				return $this->monolog->addInfo($normalised, array('priority' => $priority));
+				$this->monolog->addInfo($normalised, array('priority' => $priority) + $context);
+				break;
 
 			default:
-				return $this->monolog->addRecord($level, $normalised, array('priority' => $priority));
+				$this->monolog->addRecord($level, $normalised, array('priority' => $priority) + $context);
 		}
+
+		return isset($context['tracy']) ? $context['tracy'] : '';
 	}
 
 
 
-	public static function register(Monolog\Logger $monolog)
+	/**
+	 * @internal
+	 * @author David Grudl
+	 * @see https://github.com/nette/tracy/blob/922630e689578f6daae185dba251cded831d9162/src/Tracy/Helpers.php#L146
+	 */
+	protected static function getSource()
 	{
-		$adapter = new static($monolog);
-
-		if (method_exists('Tracy\Debugger', 'setLogger')) {
-			$monolog->pushHandler(new FallbackNetteHandler(Debugger::getLogger()));
-			Debugger::setLogger($adapter);
+		if (isset($_SERVER['REQUEST_URI'])) {
+			return (!empty($_SERVER['HTTPS']) && strcasecmp($_SERVER['HTTPS'], 'off') ? 'https://' : 'http://')
+			. (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '')
+			. $_SERVER['REQUEST_URI'];
 
 		} else {
-			$monolog->pushHandler(new FallbackNetteHandler(Debugger::$logger));
-			Debugger::$logger = $adapter;
+			return empty($_SERVER['argv']) ? 'CLI' : 'CLI: ' . implode(' ', $_SERVER['argv']);
 		}
-
-		return $adapter;
 	}
 
 }
-

@@ -23,7 +23,7 @@
 		"kdyby/facebook": "~1.1",
 		"kdyby/forms-replicator": "dev-master#7ead4e3",
 		"kdyby/google": "~0.1",
-		"kdyby/monolog": "dev-master#e45b7c3",
+		"kdyby/monolog": "~1.0",
 		"kdyby/redis": "~3.1",
 		"nette/nette": "~2.2.0",
 		"nextras/migrations": "~2.3",
