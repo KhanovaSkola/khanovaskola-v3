@@ -1,27 +1,16 @@
 {block content}
 	{**
 	 * @param string $query
-	 * @param HighlightCollection[] $results
+	 * @param Collection[] $results
 	 *}
 
 	<h1>Výsledky pro <code>{$query}</code></h1>
-	<h2>Videos:</h2>
-	{foreach $results->videos as $video}
+	{foreach $results as $content}
 		<h3>
-			<a n:href="$video">
-				{$video->title|noescape}
+			<a n:href="$content">
+				{$content->title|noescape}
 			</a>
 		</h3>
-		<p>{$video->description|noescape}</p>
-		<p>{$video->subtitles|noescape}</p>
+		<p>{$content->description|noescape}</p>
+		<p>{$content->subtitles|noescape}</p>
 	{/foreach}
-
-	<h2>Exercises:</h2>
-	{foreach $results->blueprints as $blueprint}
-        <h3>
-            <a n:href="$blueprint">
-                {$blueprint->title|noescape}
-            </a>
-        </h3>
-        <p>{$blueprint->description|noescape}</p>
-    {/foreach}
