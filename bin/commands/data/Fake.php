@@ -10,6 +10,7 @@ use App\Models\Rme\Path;
 use App\Models\Rme\PathsRepository;
 use App\Models\Rme\User;
 use App\Models\Rme\Video;
+use App\Models\Structs\Gender;
 use Bin\Commands\Command;
 use Bin\Services\FakeSubtitles;
 use Bin\Support\DomainProvider;
@@ -24,7 +25,9 @@ use Symfony\Component\Console\Helper\ProgressHelper;
 class Fake extends Command
 {
 
-	/** @var Generator|Person|Internet|DomainProvider|Company $faker */
+	/**
+	 * @var Generator|Person|Internet|DomainProvider|Company $faker
+	 */
 	protected $faker;
 
 	protected function configure()
@@ -39,9 +42,9 @@ class Fake extends Command
 		$container->addService('subtitles', $container->createInstance(FakeSubtitles::class));
 
 		$users = $this->create(50, User::class, $orm->users, [$this, 'fillUser']);
-		$videos = $this->create(20, Video::class, $orm->videos, [$this, 'fillVideo']);
-		$this->createComments(10, $videos, $users, $orm->videos);
-		$this->createPaths(10, $videos, $users, $orm->paths);
+		$videos = $this->create(20, Video::class, $orm->contents, [$this, 'fillVideo']);
+		$this->createComments(10, $videos, $users, $orm->contents);
+		// $this->createPaths(10, $videos, $users, $orm->paths);
 
 		$this->out->writeln('flushing');
 		$orm->flush();
@@ -113,6 +116,7 @@ class Fake extends Command
 	 * @param string $class
 	 * @param Repository $repo
 	 * @param callable $fill
+	 * @throws \Exception
 	 * @return Entity[]
 	 */
 	protected function create($count, $class, Repository $repo, $fill)
@@ -141,7 +145,7 @@ class Fake extends Command
 
 	protected function fillUser(User $u)
 	{
-		$u->gender = $this->faker->randomElement([$u::GENDER_MALE, $u::GENDER_FEMALE]);
+		$u->gender = $this->faker->randomElement(Gender::getGenders());
 		$u->setNominativeAndVocative($this->faker->firstName($u->gender));
 		$u->familyName = $this->faker->lastName($u->gender);
 		$u->name = "$u->nominative $u->familyName";
