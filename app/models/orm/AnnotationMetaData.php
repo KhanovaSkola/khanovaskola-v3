@@ -325,9 +325,8 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 	{
 		if (preg_match('#^([a-z0-9_\\\\]+::[a-z0-9_]+)\(\)$#si', trim($string), $tmp))
 		{
-			/** @var Callback $tmp */
-			$tmp = Callback::create($this->parseSelf($tmp[1]));
-			$enum = $tmp->invoke();
+			$cb = $this->parseSelf($tmp[1]);
+			$enum = call_user_func($cb);
 			if (!is_array($enum)) throw new AnnotationMetaDataException("'{$this->class}' '{enum {$string}}': callback must return array, " . (is_object($enum) ? get_class($enum) : gettype($enum)) . ' given');
 			$original = $enum = array_keys($enum);
 		}
