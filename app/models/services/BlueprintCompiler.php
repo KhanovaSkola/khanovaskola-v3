@@ -4,7 +4,7 @@ namespace App\Models\Services;
 
 use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
-use App\Models\Rme\Exercise;
+use App\Models\Structs\Exercise;
 use App\NotImplementedException;
 use Nette\Object;
 use Symfony\Component\Process\Process;

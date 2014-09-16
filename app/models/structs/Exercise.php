@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models\Rme;
+namespace App\Models\Structs;
 
+use App\Models\Rme\Answer;
+use App\Models\Rme\Blueprint;
 use Nette\Object;
 
 
