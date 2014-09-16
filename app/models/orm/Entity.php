@@ -3,6 +3,7 @@
 namespace App\Models\Orm;
 
 use App\Models\Orm\Mappers\Mapper;
+use App\Models\Structs\Highlights\Highlight;
 use DateTime;
 use Nette\Caching\Cache;
 use Nette\DI\Container;

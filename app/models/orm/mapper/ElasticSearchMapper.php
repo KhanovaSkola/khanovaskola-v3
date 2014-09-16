@@ -3,9 +3,9 @@
 namespace App\Models\Orm\Mappers;
 
 use App\Models\Orm\Entity;
-use App\Models\Orm\HighlightCollection;
 use App\Models\Orm\IIndexable;
 use App\Models\Services\ElasticSearch;
+use App\Models\Structs\Highlights\Collection;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -36,7 +36,7 @@ class ElasticSearchMapper extends Mapper
 		$res = $this->elastic->fulltextSearch($this->getShortEntityName(), $query, $fields);
 		if ($res['hits']['total'] === 0)
 		{
-			return new HighlightCollection();
+			return new Collection();
 		}
 
 		$ids = [];
@@ -52,7 +52,7 @@ class ElasticSearchMapper extends Mapper
 		$entities = $this->findById($ids)->fetchAll();
 		$entities = $this->sortIdByList($entities, $ids);
 
-		$result = new HighlightCollection();
+		$result = new Collection();
 		foreach ($entities as $entity)
 		{
 			$result->add($entity, $highlights[$entity->id]);

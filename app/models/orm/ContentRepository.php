@@ -4,11 +4,12 @@ namespace App\Models\Orm;
 
 use App\Models\Rme\Content;
 use App\Models\Rme\Tag;
+use App\Models\Structs\Highlights;
 use Orm\DibiCollection;
 
 
 /**
- * @method HighlightCollection getWithFulltext($query, array $fields = ['_all'])
+ * @method Highlights\Collection getWithFulltext($query, array $fields = ['_all'])
  *
  * @method DibiCollection findById($id)
  * @method DibiCollection findByTag(Tag $tag)

@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Models\Rme;
-
-use App\Models\Orm\Highlight;
+namespace App\Models\Structs\Highlights;
 
 
-class BlueprintHighlight extends Highlight
+class Blueprint extends Highlight
 {
 
 	public function getTitle()

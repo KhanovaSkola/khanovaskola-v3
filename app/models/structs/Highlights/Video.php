@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models\Rme;
+namespace App\Models\Structs\Highlights;
 
-use App\Models\Orm\Highlight;
 use Nette\Utils\Strings;
 
 
-class VideoHighlight extends Highlight
+class Video extends Highlight
 {
 
 	public function getTitle()
