@@ -4,10 +4,8 @@ namespace App\Components\Forms;
 
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
-use App\Models\Rme\User;
 use App\Models\Services\Aes;
 use App\Presenters\Auth;
-use Nette\Security\Identity;
 use Nette\Security\Passwords;
 
 

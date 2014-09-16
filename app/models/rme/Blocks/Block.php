@@ -2,7 +2,6 @@
 
 namespace App\Models\Rme;
 
-use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Entity;
 use Orm\OneToMany as OtM;
 

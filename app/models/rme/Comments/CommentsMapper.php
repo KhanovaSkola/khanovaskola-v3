@@ -2,7 +2,7 @@
 
 namespace App\Models\Rme;
 
-use App\Models\Orm\Mapper;
+use App\Models\Orm\Mappers\Mapper;
 
 
 class CommentsMapper extends Mapper

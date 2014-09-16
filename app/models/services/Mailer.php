@@ -74,7 +74,7 @@ class Mailer extends Object
 		}
 
 		$msg = new Message();
-		$msg->setFrom('Khanova škola <napiste-nam@khanovaskola.cz>');
+		$msg->setFrom('Khanova škola <reply@khanovaskola.cz>');
 		$msg->addReplyTo('Markéta Matějíčková <marketa@khanovaskola.cz>');
 		$msg->addTo($user->email, $user->name);
 

@@ -2,9 +2,9 @@
 
 namespace App\Models\Services;
 
-use App\Models\Orm\ContentEntity;
 use App\Models\Orm\ContentRepository;
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\Content;
 use Nette\Http\Session;
 use Nette\Object;
 
@@ -29,10 +29,10 @@ class PathFinder extends Object
 	}
 
 	/**
-	 * @param ContentEntity $entity
-	 * @return ContentEntity[] ordered by best path match
+	 * @param Content $entity
+	 * @return Content[] ordered by best path match
 	 */
-	public function suggestNext(ContentEntity $entity)
+	public function suggestNext(Content $entity)
 	{
 		/** @var ContentRepository $repo */
 		$repo = $entity->getRepository();
