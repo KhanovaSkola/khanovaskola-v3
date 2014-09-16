@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
+use App\Models\Structs\Exercise;
 use Orm;
 
 

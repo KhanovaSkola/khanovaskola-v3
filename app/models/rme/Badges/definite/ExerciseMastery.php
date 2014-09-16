@@ -5,8 +5,8 @@ namespace App\Models\Rme\Badges;
 use App\Models\Rme;
 use App\Models\Rme\Badge;
 use App\Models\Rme\BadgeUserBridges as Bridges;
-use App\Models\Rme\Exercise;
 use App\Models\Rme\User;
+use App\Models\Structs\Exercise;
 use Orm;
 
 
