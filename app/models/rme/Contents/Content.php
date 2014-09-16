@@ -2,7 +2,6 @@
 
 namespace App\Models\Rme;
 
-use App\Models\Orm\Entity;
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
 use Orm\OneToMany as OtM;

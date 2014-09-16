@@ -2,6 +2,7 @@
 
 namespace App\Models\Orm;
 
+use App\Models\Rme\Content;
 use App\Models\Rme\Tag;
 use Orm\DibiCollection;
 
@@ -12,9 +13,9 @@ use Orm\DibiCollection;
  * @method DibiCollection findById($id)
  * @method DibiCollection findByTag(Tag $tag)
  *
- * @method array getNextContent(ContentEntity $entity)
+ * @method array getNextContent(Content $entity)
  *
- * @method void addTagToContent(ContentEntity $entity, Tag $tag)
+ * @method void addTagToContent(Content $entity, Tag $tag)
  */
 abstract class ContentRepository extends Repository
 {

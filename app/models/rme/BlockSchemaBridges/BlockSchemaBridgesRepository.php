@@ -7,7 +7,7 @@ use Orm\DibiCollection;
 
 
 /**
- * @method DibiCollection|BlockLink[] findAll()
+ * @method DibiCollection|BlockSchemaBridge[] findAll()
  */
 class BlockSchemaBridgesRepository extends Repository
 {

@@ -3,7 +3,6 @@
 namespace App\Models\Rme;
 
 use App\InvalidArgumentException;
-use App\Models\Orm\ContentEntity;
 use App\NotImplementedException;
 use Orm;
 use Orm\OneToMany as OtM;
@@ -17,7 +16,7 @@ use Orm\OneToMany as OtM;
  *
  * @property OtM|Answer[] $answers {1:m answers $blueprint}
  */
-class Blueprint extends ContentEntity
+class Blueprint extends Content
 {
 
 	const TYPE_INT = 'integer';

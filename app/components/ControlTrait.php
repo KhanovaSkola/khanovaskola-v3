@@ -2,8 +2,8 @@
 
 namespace App\Components;
 
-use App\Models\Orm\ContentEntity;
 use App\Models\Orm\Highlight;
+use App\Models\Rme\Content;
 use App\Presenters\Presenter;
 use DateTime;
 use Kdyby\Events\EventArgsList;
@@ -55,7 +55,7 @@ trait ControlTrait
 		{
 			$destination = $destination->getEntity();
 		}
-		if ($destination instanceof ContentEntity)
+		if ($destination instanceof Content)
 		{
 			$type = $destination->getShortEntityName();
 			$param = lcFirst($type) . 'Id';
