@@ -2,8 +2,8 @@
 
 namespace App\Components;
 
-use App\Models\Orm\Highlight;
 use App\Models\Rme\Content;
+use App\Models\Structs\Highlights\Highlight;
 use App\Presenters\Presenter;
 use DateTime;
 use Kdyby\Events\EventArgsList;

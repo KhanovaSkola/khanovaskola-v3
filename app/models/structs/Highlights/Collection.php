@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models\Orm;
+namespace App\Models\Structs\Highlights;
 
+use App\Models\Orm\Entity;
 use Iterator;
 use Nette\Object;
 
 
-class HighlightCollection extends Object implements Iterator
+class Collection extends Object implements Iterator
 {
 
 	private $key = 0;

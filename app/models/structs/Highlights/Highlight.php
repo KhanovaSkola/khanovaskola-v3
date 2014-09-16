@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Orm;
+namespace App\Models\Structs\Highlights;
 
+use App\Models\Orm\Entity;
 use App\Models\Services\ElasticSearch;
 use Nette\Object;
 
