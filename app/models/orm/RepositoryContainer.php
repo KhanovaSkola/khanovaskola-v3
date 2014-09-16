@@ -15,7 +15,6 @@ use Nette\DI\Container;
  * @property-read Rme\BadgeUserBridgesRepository $badgeUserBridges
  * @property-read Rme\BlockSchemaBridgesRepository $blockSchemaBridges
  * @property-read Rme\BlocksRepository $blocks
- * @property-read Rme\BlueprintsRepository $blueprints
  * @property-read Rme\CommentsRepository $comments
  * @property-read Rme\ContentBlockBridgesRepository $contentBlockBridges
  * @property-read Rme\ContentsRepository $contents
@@ -26,7 +25,6 @@ use Nette\DI\Container;
  * @property-read Rme\TokensRepository $tokens
  * @property-read Rme\UnsubscribesRepository $unsubscribes
  * @property-read Rme\UsersRepository $users
- * @property-read Rme\VideosRepository $videos
  * @property-read Rme\VideoViewsRepository $videoViews
  * @property-read Rme\SchemasRepository $schemas
  */

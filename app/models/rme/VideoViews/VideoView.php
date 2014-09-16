@@ -8,7 +8,7 @@ use App\Models\Structs\VideoEvents\Event;
 
 
 /**
- * @property Video   $video    {m:1 videos $views}
+ * @property Video   $video    {m:1 contents $views}
  * @property User    $user     {m:1 users $videosViewed}
  * @property float   $percent  {default 0} [0..100] of actually watched
  * @property float   $time     {default 0} seconds actually watched (eg if user watched 0-1 and jumps to 5-7 it will be 3)

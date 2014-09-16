@@ -11,7 +11,7 @@ use Orm;
 
 
 /**
- * @property Video $video {m:1 videos $videoWatchedBadges}
+ * @property Video $video {m:1 contents $videoWatchedBadges}
  */
 class VideoWatched extends Rme\BadgeUserBridge
 {
