@@ -57,12 +57,16 @@ class Mapper extends DibiMapper
 	}
 
 	/**
+	 * Ns\FooBar => foo-bar
 	 * @return string
 	 */
 	public function getShortEntityName()
 	{
-		$class = $this->repository->getEntityClassName();
-		return ucFirst(substr($class, strrpos($class, '\\') + 1));
+		$fqn = $this->repository->getEntityClassName();
+		$class = substr($fqn, strrpos($fqn, '\\') + 1);
+		return preg_replace_callback('~[A-Z]~', lcFirst($class), function($c) {
+			return '-' . strToLower($c);
+		});
 	}
 
 }

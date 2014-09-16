@@ -54,7 +54,7 @@ abstract class Entity extends Orm\Entity
 	 */
 	public function getHighlightEntityName()
 	{
-		return get_class($this) . 'Highlight';
+		return str_replace('\\Rme\\', '\\Structs\\Highlights\\', get_class($this));
 	}
 
 	public function getShortEntityName()

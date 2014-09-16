@@ -26,6 +26,7 @@ class Blueprint extends Content
 	public function __construct()
 	{
 		parent::__construct();
+		$this->type = 'blueprint';
 		$this->hints = [];
 		$this->vars = [];
 	}

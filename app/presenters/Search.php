@@ -15,10 +15,7 @@ final class Search extends Presenter
 		$input->setDefaultValue($query);
 
 		$this->template->query = $query;
-		$this->template->results = (object) [
-			'videos' => $this->orm->videos->getWithFulltext($query),
-			'blueprints' => $this->orm->blueprints->getWithFulltext($query),
-		];
+		$this->template->results = $this->orm->contents->getWithFulltext($query);
 	}
 
 }

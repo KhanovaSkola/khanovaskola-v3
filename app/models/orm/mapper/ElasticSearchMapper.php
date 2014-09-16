@@ -31,6 +31,11 @@ class ElasticSearchMapper extends Mapper
 		});
 	}
 
+	/**
+	 * @param $query
+	 * @param string[] $fields
+	 * @return Collection
+	 */
 	public function getWithFulltext($query, array $fields = ['_all'])
 	{
 		$res = $this->elastic->fulltextSearch($this->getShortEntityName(), $query, $fields);

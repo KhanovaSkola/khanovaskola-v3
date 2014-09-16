@@ -3,11 +3,13 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Repository;
+use App\Models\Structs\Highlights\Collection;
 use Orm\DibiCollection;
 
 
 /**
  * @method DibiCollection|Content[] findAll()
+ * @method Collection getWithFulltext()
  */
 class ContentsRepository extends Repository
 {
@@ -18,11 +20,6 @@ class ContentsRepository extends Repository
 			'blueprint' => Blueprint::class,
 			'video' => Video::class,
 		];
-	}
-
-	public static function getTypes()
-	{
-		return array_keys(static::getClasses());
 	}
 
 	/**

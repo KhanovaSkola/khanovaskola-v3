@@ -16,7 +16,7 @@ settings:
 				type: icu_collation
 				language: cs
 mappings:
-	Video:
+	content:
 		index_analyzer: cs_icu_analyzer
 		search_analyzer: cs_icu_analyzer
 		properties:
@@ -32,19 +32,5 @@ mappings:
 				type: string
 				store: 'true'
 				index_options: offsets
-			pathStarts:
-				type: integer
-	Blueprint:
-		index_analyzer: cs_icu_analyzer
-		search_analyzer: cs_icu_analyzer
-		properties:
-			title:
-				type: string
-				store: 'true'
-				boost: 5
-			description:
-				type: string
-				store: 'true'
-				boost: 4
 			pathStarts:
 				type: integer

@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Rme\BadgeUserBridges\VideoWatched;
 use App\Models\Services\RemoteSubtitles;
 use Orm;
+use Orm\IRepository;
 use Orm\OneToMany as OtM;
 
 
@@ -17,6 +18,12 @@ use Orm\OneToMany as OtM;
  */
 class Video extends Content
 {
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->type = 'video';
+	}
 
 	/**
 	 * @return RemoteSubtitles
