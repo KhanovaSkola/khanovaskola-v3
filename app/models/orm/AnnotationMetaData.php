@@ -6,7 +6,6 @@ use Nette\Reflection\AnnotationsParser as NetteAnnotationsParser;
 use Orm;
 use Orm\AnnotationMetaDataException;
 use Orm\AnnotationsParser;
-use Orm\Callback;
 use Orm\MetaData;
 use Orm\MetaDataProperty;
 use ReflectionClass;
