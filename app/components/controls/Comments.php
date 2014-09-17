@@ -3,65 +3,34 @@
 namespace App\Components\Controls;
 
 use App\Components\Control;
-use App\Models\Orm\RepositoryContainer;
-use App\Models\Rme\User;
-use App\Models\Rme\Video;
+use App\Models\Rme\Content;
 
 
 class Comments extends Control
 {
 
 	/**
-	 * @var Video
+	 * @var Content
 	 */
-	private $video;
+	protected $content;
 
-	/**
-	 * @var User
-	 */
-	private $user;
-
-	/**
-	 * @var RepositoryContainer
-	 */
-	private $orm;
-
-	public function __construct(Video $video, User $user, RepositoryContainer $orm)
+	public function __construct(Content $content)
 	{
 		parent::__construct();
-		$this->video = $video;
-		$this->user = $user;
-		$this->orm = $orm;
+		$this->content = $content;
 	}
 
-	//	public function createComponentComment($name)
-	//	{
-	//		$form = new Form($this, $name);
-	//
-	//		$form->addTextArea('text');
-	//
-	//		$form->addSubmit();
-	//		$form->onSuccess[] = $this->onSuccessComment;
-	//
-	//		return $form;
-	//	}
-	//
-	//	public function onSuccessComment(Form $form)
-	//	{
-	//		$comment = new Comment();
-	//		$comment->video = $this->video;
-	//		$comment->author = $this->user;
-	//		$comment->text = $form['text']->value;
-	//
-	//		$this->orm->comments->attach($comment);
-	//		$this->orm->flush();
-	//		$this->flashSuccess('added');
-	//		$this->redirect('this');
-	//	}
-
-	protected function renderDefault(Video $video)
+	/**
+	 * @return Content
+	 */
+	public function getContent()
 	{
-		$this->template->comments = $video->comments;
+		return $this->content;
+	}
+
+	protected function renderDefault()
+	{
+		$this->template->comments = $this->content->comments;
 	}
 
 }

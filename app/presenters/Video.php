@@ -42,7 +42,7 @@ final class Video extends Content
 
 	public function createComponentComments()
 	{
-		return $this->buildComponent(Comments::class, [$this->video, $this->userEntity, $this->orm]);
+		return $this->buildComponent(Comments::class, [$this->video]);
 	}
 
 }
