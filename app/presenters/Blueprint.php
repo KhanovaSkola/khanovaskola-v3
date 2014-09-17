@@ -37,6 +37,10 @@ final class Blueprint extends Content
 		{
 			$this->error();
 		}
+		if (! ($this->blueprint instanceof Rme\Blueprint))
+		{
+			$this->error();
+		}
 	}
 
 	private function getExercise($seed = NULL)
