@@ -18,4 +18,9 @@ class ContentsMapper extends ElasticSearchMapper
 		return 'content';
 	}
 
+	public function getNextContent()
+	{
+		return [];
+	}
+
 }

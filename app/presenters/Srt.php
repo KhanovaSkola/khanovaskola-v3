@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\Models\Rme\Video;
+use App\Models\Rme;
 use Nette\Application\Responses\TextResponse;
 
 
@@ -16,7 +16,7 @@ final class Srt extends Presenter
 	public $videoId;
 
 	/**
-	 * @var Video
+	 * @var Rme\Video
 	 */
 	public $video;
 

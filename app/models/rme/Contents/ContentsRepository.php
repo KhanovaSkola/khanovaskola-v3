@@ -10,6 +10,7 @@ use Orm\DibiCollection;
 /**
  * @method DibiCollection|Content[] findAll()
  * @method Collection getWithFulltext()
+ * @method array getNextContent()
  */
 class ContentsRepository extends Repository
 {
