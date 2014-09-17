@@ -12,7 +12,7 @@
 	var queue = [];
 	var sendEvent = function(name, args, cb) {
 		var request = function() {
-			var url = $video.data('url-' + name).replace('%7BviewId%7D', viewId);
+			var url = $video.data('url-' + name).replace(encodeURIComponent('{viewId}'), viewId);
 			console.log(url);
 			$.ajax(url, {
 				data: args,

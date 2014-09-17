@@ -24,8 +24,8 @@ final class Srt extends Presenter
 	{
 		parent::startup();
 
-		$this->video = $this->orm->videos->getById($this->videoId);
-		if (!$this->video)
+		$this->video = $this->orm->contents->getById($this->videoId);
+		if (!$this->video || ! $this->video instanceof Rme\Video)
 		{
 			$this->error();
 		}

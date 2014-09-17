@@ -18,6 +18,12 @@ use App\Models\Structs\VideoEvents\Event;
 class VideoView extends Entity
 {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->events = [];
+	}
+
 	/**
 	 * @param float $percent
 	 */
