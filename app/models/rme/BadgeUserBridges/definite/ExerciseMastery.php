@@ -11,7 +11,7 @@ use Orm;
 
 
 /**
- * @property Blueprint $blueprint {m:1 blueprints}
+ * @property Blueprint $blueprint {m:1 contents}
  */
 class ExerciseMastery extends Rme\BadgeUserBridge
 {
