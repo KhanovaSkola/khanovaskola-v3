@@ -20,7 +20,7 @@ class Comment extends Form
 	public $orm;
 
 	/**
-	 * @var Content
+	 * @var Rme\Content
 	 */
 	public $content;
 
@@ -29,6 +29,8 @@ class Comment extends Form
 		$this->addTextArea('text')
 			->addRule($this::FILLED, 'text.missing')
 			->addRule($this::MIN_LENGTH, 'text.short', 15);
+
+		$this->addHidden('replyTo');
 
 		$this->addSubmit();
 	}
@@ -63,6 +65,16 @@ class Comment extends Form
 		$comment->author = $presenter->getUserEntity();
 		$comment->text = $v->text;
 		$comment->content = $this->content;
+
+		if ($v->replyTo)
+		{
+			$replyTo = $this->orm->comments->getById($v->replyTo);
+			if (!$replyTo || !$this->content->comments->has($replyTo))
+			{
+				$this->addError('invalid reply');
+			}
+			$comment->inReplyTo = $replyTo;
+		}
 
 		$this->orm->comments->attach($comment);
 		$this->orm->flush();
