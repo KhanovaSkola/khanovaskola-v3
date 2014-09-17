@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Models\Rme;
 use App\Models\Rme\VideoView;
 use App\Models\Structs\VideoEvents;
 use Nette\Application\BadRequestException;
@@ -16,7 +17,11 @@ final class Js extends Presenter
 	 */
 	public function actionVideoViewBegin($videoId)
 	{
-		if (!$video = $this->orm->videos->getById($videoId))
+		if (!$video = $this->orm->contents->getById($videoId))
+		{
+			$this->error();
+		}
+		if (!$video instanceof Rme\Video)
 		{
 			$this->error();
 		}
