@@ -1,0 +1,24 @@
+{block gmailAction}
+	{**
+	 * @param string $label
+	 * @param string $url
+	 * @param string $description
+	 *}
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "EmailMessage",
+			"description": {$description},
+			"action": {
+				"@type": "ViewAction",
+				"url": {$url},
+				"name": {$label}
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Khanova škola",
+				"url": "https://khanovaskola.cz",
+				"url/googlePlus": "https://plus.google.com/+KhanovaskolaCz"
+				}
+		}
+	</script>
