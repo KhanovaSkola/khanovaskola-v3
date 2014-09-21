@@ -75,14 +75,31 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	}
 
 	/**
+	 * @throws \Exception from persist
 	 * @return User
 	 */
 	public function getUserEntity()
 	{
+		/** @var Presenter $this */
 		$userEntity = $this->orm->users->getById($this->user->id);
+
 		if ($this->user->loggedIn && !$userEntity)
 		{
+			// user was deleted from database
 			$this->user->logout(TRUE);
+		}
+
+		if (!$userEntity)
+		{
+			$userEntity = new User();
+			$userEntity->registered = FALSE;
+			$this->orm->users->persist($userEntity);
+
+			$storage = $this->user->storage;
+			$storage->setAuthenticated(FALSE);
+			$storage->setIdentity(new Nette\Security\Identity($userEntity->id));
+
+			$this->orm->flush();
 		}
 
 		return $userEntity;

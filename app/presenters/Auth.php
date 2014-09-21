@@ -258,7 +258,7 @@ final class Auth extends Presenter
 
 	public function actionOut()
 	{
-		$this->getUser()->logout();
+		$this->getUser()->logout(TRUE);
 		$this->flashSuccess('auth.flash.logout');
 		$this->redirect('in');
 	}
