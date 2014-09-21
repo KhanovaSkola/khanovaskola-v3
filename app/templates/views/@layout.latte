@@ -35,8 +35,14 @@
 			<div class="col-md-6">
 				{control search}
 			</div>
-			<div n:if="$user->loggedIn" class="col-md-6">
-				<a n:href="Profile:">{$userEntity->nominative}</a>
+			<div class="col-md-6">
+				<a n:href="Profile:">
+					{if $userEntity->registered}
+						{$userEntity->nominative}
+					{else}
+						Guest User #{$userEntity->id}
+					{/if}
+				</a>
 				<a n:href="Auth:out">{_'layout.log.out'}</a>
 			</div>
 		</div>
