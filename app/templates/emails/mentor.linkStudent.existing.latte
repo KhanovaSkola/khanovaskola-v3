@@ -7,11 +7,16 @@
      * @param Token $token
      * @param string $unsafe
      *}
+	{capture $url}{$token|token:$unsafe}{/capture}
+
 	<p>
 		{$invitee->vocative}, {$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
 	</p>
 	<p>
 		<center><b>
-			<a href="{$token|token:$unsafe}">Potvrdit pozvánku</a>
+			<a href="$url">Potvrdit pozvánku</a>
 		</b></center>
 	</p>
+
+	{include _gmail.goToAction.latte, label => "Potvrdit pozvánku", url => $url,
+		description => "Potvrdit {$teacher->name} jako svého učitele"}
