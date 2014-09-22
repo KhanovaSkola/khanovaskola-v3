@@ -3,7 +3,6 @@
 namespace App\Components;
 
 use App\Models\Rme\Blueprint;
-use App\Models\Rme\Content;
 use App\Models\Rme\Video;
 use App\Models\Structs\Highlights\Highlight;
 use App\Presenters\Presenter;

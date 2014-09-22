@@ -5,7 +5,6 @@ namespace App\Models\Rme;
 use App\Models\Rme\BadgeUserBridges\VideoWatched;
 use App\Models\Services\RemoteSubtitles;
 use Orm;
-use Orm\IRepository;
 use Orm\OneToMany as OtM;
 
 
