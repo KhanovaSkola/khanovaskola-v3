@@ -8,7 +8,7 @@ Reset
 -----
 
 Logged out users may request password reset via email. Upon entering their email address, they
- recive token that logs them in, marks session as TwoStepVerification and opens password change page.
+ receive token that logs them in, marks session as TwoStepVerification and opens password change page.
 
 Change
 ------

@@ -24,6 +24,6 @@ $p->list = [
 ];
 //
 $this->orm->paths->attach($p);
-$p->getRepository()->getMapper(); // HACK, move events to repository
+$p->getRepository()->getMapper(); // HACK, events will be moved to repository
 $this->orm->flush();
 ```
