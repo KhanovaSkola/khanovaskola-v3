@@ -33,7 +33,7 @@ final class Blueprint extends Content
 	{
 		parent::startup();
 
-		if (! $this->blueprint = $this->orm->blueprints->getById($this->blueprintId))
+		if (! $this->blueprint = $this->orm->contents->getById($this->blueprintId))
 		{
 			$this->error();
 		}

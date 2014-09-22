@@ -25,7 +25,7 @@ final class BlueprintEditor extends Presenter
 	{
 		parent::startup();
 
-		if ($this->blueprintId && ! $this->blueprint = $this->orm->blueprints->getById($this->blueprintId))
+		if ($this->blueprintId && ! $this->blueprint = $this->orm->contents->getById($this->blueprintId))
 		{
 			$this->error();
 		}

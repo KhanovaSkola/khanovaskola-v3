@@ -15,7 +15,7 @@ use Orm;
  * @property int       $seed
  * @property int       $time       ms elapsed until answer
  *
- * @property Blueprint $blueprint  {m:1 contents $answers}
+ * @property Blueprint $content    {m:1 contents $answers}
  * @property User      $user       {m:1 users $answers}
  */
 class Answer extends Entity
@@ -25,7 +25,7 @@ class Answer extends Entity
 	{
 		parent::__construct();
 
-		$this->blueprint = $exercise->getBlueprint();
+		$this->content = $exercise->getBlueprint();
 		$this->seed = $exercise->getSeed();
 		$this->answer = $answer;
 	}
