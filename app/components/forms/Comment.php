@@ -62,9 +62,11 @@ class Comment extends Form
 		$presenter = $this->presenter;
 
 		$comment = new Rme\Comment();
-		$comment->author = $presenter->getUserEntity();
 		$comment->text = $v->text;
 		$comment->content = $this->content;
+
+		$this->orm->comments->attach($comment);
+		$comment->author = $presenter->getUserEntity();
 
 		if ($v->replyTo)
 		{

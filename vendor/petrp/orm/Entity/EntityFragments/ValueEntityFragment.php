@@ -9,6 +9,8 @@ namespace Orm;
 
 use Exception;
 use ReflectionMethod;
+use Tracy\Debugger;
+
 
 /**
  * Performs all reading, checking, filling, setting and validation of data.
@@ -21,19 +23,19 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 {
 
 	/** @var array of mixed Hodnoty parametru */
-	private $values = array();
+	private $values = [];
 
 	/** @var array of bool Jsou parametry validni? */
-	private $valid = array();
+	private $valid = [];
 
 	/** @var array internal format MetaData */
 	private $rules;
 
 	/** @var array Byla zmenena nejaka hodnota na teto entite od posledniho ulozeni? */
-	private $changed = array();
+	private $changed = [];
 
 	/** @var array Za behu informace ktere metody se volaji, aby bylo mozne magicke pretezovani */
-	private $overwriteMethodTemp = array();
+	private $overwriteMethodTemp = [];
 
 	/**
 	 * Existuje tento parametr?
@@ -51,7 +53,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 		if ($mode === MetaData::READWRITE) return isset($rule['get']) AND isset($rule['set']);
 		else if ($mode === MetaData::READ) return isset($rule['get']);
 		else if ($mode === MetaData::WRITE) return isset($rule['set']);
-		throw new InvalidArgumentException(array('Orm\Entity', 'hasParam() $mode', 'Orm\MetaData::READWRITE, READ or WRITE', $mode));
+		throw new InvalidArgumentException(['Orm\Entity', 'hasParam() $mode', 'Orm\MetaData::READWRITE, READ or WRITE', $mode]);
 	}
 
 	/**
@@ -197,7 +199,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 	{
 		if (func_num_args() > 0 AND func_get_arg(0) === true)
 		{
-			throw new DeprecatedException(array('Orm\Entity', 'isChanged(TRUE)', 'Orm\Entity', 'markAsChanged()'));
+			throw new DeprecatedException(['Orm\Entity', 'isChanged(TRUE)', 'Orm\Entity', 'markAsChanged()']);
 		}
 		if ($name === NULL)
 		{
@@ -265,7 +267,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 		parent::onLoad($repository, $data);
 		$this->rules = MetaData::getEntityRules(get_class($this), $repository->getModel());
 		$this->values = $data;
-		$this->valid = array();
+		$this->valid = [];
 		$this->getValue('id'); // throw error if any
 	}
 
@@ -280,7 +282,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 		$this->values['id'] = $id;
 		$this->valid['id'] = false;
 		$this->getValue('id'); // throw error if any
-		$this->changed = array();
+		$this->changed = [];
 	}
 
 	/**
@@ -372,7 +374,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 	public function __clone()
 	{
 		$this->values['id'] = NULL;
-		$this->valid = array();
+		$this->valid = [];
 		$this->changed[NULL] = true;
 		foreach ($this->values as $property => $value)
 		{
@@ -521,7 +523,7 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 			if ($var{0} != '_') $var{0} = $var{0} | "\x20"; // lcfirst
 			if (isset($this->rules[$var]))
 			{
-				if ($m !== 'is' OR ($m === 'is' AND $this->rules[$var]['types'] === array('bool' => 'bool')))
+				if ($m !== 'is' OR ($m === 'is' AND $this->rules[$var]['types'] === ['bool' => 'bool']))
 				{
 					if ($m === 'is') $m = 'get';
 					$this->overwriteMethodTemp[$m][$var] = true;
@@ -655,12 +657,12 @@ abstract class ValueEntityFragment extends AttachableEntityFragment
 			}
 			else
 			{
-				throw new NotValidException(array($this, $name, $rule['enum']['original'], $value));
+				throw new NotValidException([$this, $name, $rule['enum']['original'], $value]);
 			}
 		}
 		if (!ValidationHelper::isValid($rule['types'], $value))
 		{
-			throw new NotValidException(array($this, $name, "'" . implode('|', $rule['types']) . "'", $value));
+			throw new NotValidException([$this, $name, "'" . implode('|', $rule['types']) . "'", $value]);
 		}
 
 		$oldValue = isset($this->values[$name]) ? $this->values[$name] : NULL;

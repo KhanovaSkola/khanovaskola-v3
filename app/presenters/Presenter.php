@@ -8,6 +8,7 @@ use App\Models\Rme\BadgeUserBridge;
 use App\Models\Rme\User;
 use App\Models\Services\Translator;
 use App\Models\Structs\EventList;
+use App\Models\Structs\LazyEntity;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Monolog\Logger;
@@ -91,15 +92,19 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 		if (!$userEntity)
 		{
-			$userEntity = new User();
-			$userEntity->registered = FALSE;
-
-			$this->orm->users->persist($userEntity);
-			$this->orm->flush();
-
 			$storage = $this->user->storage;
+
+			$userEntity = new LazyEntity(function() use ($storage) {
+				$user = new User();
+				$user->registered = FALSE;
+
+				$this->orm->users->persist($user);
+
+				$storage->setIdentity(new Nette\Security\Identity($user->id));
+				return $user;
+			});
+
 			$storage->setAuthenticated(FALSE);
-			$storage->setIdentity(new Nette\Security\Identity($userEntity->id));
 		}
 
 		return $userEntity;
