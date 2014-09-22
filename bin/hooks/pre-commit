@@ -47,6 +47,6 @@ function getConfigVersion($file)
 {
 	$confExample = file_get_contents($file);
 	$match = [];
-	preg_match('~configVersion:\s+(\d+)~', $confExample, $match);
+	preg_match('~version:\s+[(\d+)]~', $confExample, $match);
 	return $match[1];
 }
