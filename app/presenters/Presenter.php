@@ -93,13 +93,13 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		{
 			$userEntity = new User();
 			$userEntity->registered = FALSE;
+
 			$this->orm->users->persist($userEntity);
+			$this->orm->flush();
 
 			$storage = $this->user->storage;
 			$storage->setAuthenticated(FALSE);
 			$storage->setIdentity(new Nette\Security\Identity($userEntity->id));
-
-			$this->orm->flush();
 		}
 
 		return $userEntity;
