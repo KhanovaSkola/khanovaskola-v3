@@ -14,7 +14,7 @@ use Orm\OneToMany as OtM;
  * @property string       $answer
  * @property array        $hints
  *
- * @property OtM|Answer[] $answers {1:m answers $blueprint}
+ * @property OtM|Answer[] $answers {1:m answers $content}
  */
 class Blueprint extends Content
 {

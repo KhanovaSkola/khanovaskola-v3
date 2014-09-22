@@ -65,11 +65,11 @@ class Blueprint extends EntityForm
 	{
 		$blueprint = $this->updateBlueprint($this->values, new Rme\Blueprint);
 
-		$this->repos->blueprints->attach($blueprint);
-		$this->repos->blueprints->flush();
+		$this->repos->contents->persist($blueprint);
+		$this->repos->contents->flush();
 
 		$this->presenter->flashSuccess('blueprintEditor.submit.new');
-		$this->presenter->redirect('this');
+		$this->presenter->redirect('this', ['blueprintId' => $blueprint->id]);
 	}
 
 	/**
@@ -79,10 +79,10 @@ class Blueprint extends EntityForm
 	public function onEdit(Rme\Blueprint $blueprint = NULL)
 	{
 		$this->updateBlueprint($this->values, $blueprint);
-		$this->repos->blueprints->flush();
+		$this->repos->flush();
 
 		$this->presenter->flashSuccess('blueprintEditor.submit.edit');
-		$this->presenter->redirect('this');
+		$this->presenter->redirect('this', ['blueprintId' => $blueprint->id]);
 	}
 
 	private function updateBlueprint($v, Rme\Blueprint $blueprint)
