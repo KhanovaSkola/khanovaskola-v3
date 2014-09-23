@@ -5,6 +5,9 @@ namespace App\Presenters;
 use Nette\Http\IResponse;
 
 
+/**
+ * @deprecated
+ */
 final class Test extends Presenter
 {
 

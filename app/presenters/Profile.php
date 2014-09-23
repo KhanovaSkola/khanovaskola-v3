@@ -50,6 +50,10 @@ final class Profile extends Presenter
 		$this->template->profile = $this->profile;
 	}
 
+	/**
+	 * test method
+	 * @deprecated
+	 */
 	public function handleGetBadge()
 	{
 		$video = $this->orm->contents->getById(3);
