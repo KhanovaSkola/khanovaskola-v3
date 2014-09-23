@@ -26,9 +26,13 @@ final class Profile extends Presenter
 
 		if (!$this->userId)
 		{
-			if ($this->user->loggedIn)
+			if ($this->user->isRegisteredUser())
 			{
 				$this->profile = $this->userEntity;
+			}
+			else if ($this->user->isPersistedGuest())
+			{
+				$this->redirectToRegistration();
 			}
 			else
 			{

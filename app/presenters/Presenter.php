@@ -7,6 +7,7 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\BadgeUserBridge;
 use App\Models\Rme\User;
 use App\Models\Services\Translator;
+use App\Models\Services\UserState;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
 use Kdyby\Events\EventManager;
@@ -19,6 +20,7 @@ use Nette\Http\Session;
 
 /**
  * @property-read Template $template
+ * @property-read UserState $user
  * @property-read User $userEntity
  */
 abstract class Presenter extends Nette\Application\UI\Presenter implements Subscriber
@@ -84,7 +86,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		/** @var Presenter $this */
 		$userEntity = $this->orm->users->getById($this->user->id);
 
-		if ($this->user->loggedIn && !$userEntity)
+		if (!$this->user->isEphemeralGuest() && !$userEntity)
 		{
 			// user was deleted from database
 			$this->user->logout(TRUE);
@@ -118,6 +120,19 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->add('userEntity', $this->getUserEntity());
 	}
 
+	/**
+	 * Denies access for persisted guest users and redirects
+	 * to registration. Ephemeral guest users are send to auth.
+	 */
+	public function redirectToAuthOrRegister()
+	{
+		if ($this->user->isPersistedGuest())
+		{
+			$this->redirectToRegistration();
+		}
+		$this->redirectToAuth();
+	}
+
 	public function redirectToAuth()
 	{
 		$this->session->getSection('auth')->loginBacklink = $this->storeRequest();
@@ -131,6 +146,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 			$this->flashInfo('auth.reason.generic');
 		}
 		$this->redirect('Auth:in');
+	}
+
+	public function redirectToRegistration()
+	{
+		$this->session->getSection('auth')->loginBacklink = $this->storeRequest();
+		$this->redirect('Auth:registration');
 	}
 
 	public function formatTemplateFiles()
