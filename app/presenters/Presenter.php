@@ -12,7 +12,6 @@ use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
-use Monolog\Logger;
 use Nette;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
@@ -45,12 +44,6 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 * @inject
 	 */
 	public $eventManager;
-
-	/**
-	 * @var Logger
-	 * @inject
-	 */
-	public $log;
 
 	/**
 	 * @var Session
