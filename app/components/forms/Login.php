@@ -61,7 +61,7 @@ class Login extends Form
 			}
 
 			$guest = NULL;
-			if ($presenter->user->getId() && !$presenter->getUserEntity()->registered)
+			if ($presenter->user->isPersistedGuest())
 			{
 				// If guest user is persisted, link to it
 				// locally so we dont override it with login.

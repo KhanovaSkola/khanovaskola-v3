@@ -85,9 +85,9 @@ final class Auth extends Presenter
 
 	public function actionChangePassword()
 	{
-		if (!$this->user->loggedIn)
+		if (!$this->user->isRegisteredUser())
 		{
-			$this->redirectToAuth();
+			$this->redirectToAuthOrRegister();
 		}
 
 		$session = $this->session->getSection('auth');
@@ -102,7 +102,7 @@ final class Auth extends Presenter
 	 */
 	public function renderRegistration($email = NULL)
 	{
-		if ($this->user->loggedIn)
+		if ($this->user->isRegisteredUser())
 		{
 			if ($email && $this->userEntity->email !== $email)
 			{

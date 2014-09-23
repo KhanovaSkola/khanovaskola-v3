@@ -72,6 +72,8 @@ services:
 	- App\Models\Services\UserMerger
 	- Tracy\QueryPanel\QueryPanel
 
+	user: App\Models\Services\UserState
+
 	subtitles: App\Models\Services\RemoteSubtitles
 	purifier: App\Models\Services\HtmlPurifier
 	router: App\Config\Router
