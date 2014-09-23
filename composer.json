@@ -17,7 +17,7 @@
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
-		"google/apiclient": "dev-master#c2d8dc7",
+		"google/apiclient": "~1.0.5-beta",
 		"kdyby/console": "~2.3",
 		"kdyby/events": "~2.1",
 		"kdyby/facebook": "~1.1",
@@ -32,7 +32,7 @@
 		"symfony/console": "~2.4"
 	},
 	"require-dev": {
-		"doctrine/dbal": "dev-master#06b68c0",
+		"doctrine/dbal": "dev-master#d47a941",
 		"fzaninotto/faker": "~1.4",
 		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
