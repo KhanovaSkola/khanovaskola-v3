@@ -69,6 +69,7 @@ services:
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\PathFinder
+	- App\Models\Services\UserMerger
 	- Tracy\QueryPanel\QueryPanel
 
 	subtitles: App\Models\Services\RemoteSubtitles
