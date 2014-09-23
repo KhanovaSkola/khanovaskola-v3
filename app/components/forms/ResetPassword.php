@@ -55,6 +55,7 @@ class ResetPassword extends Form
 		$userEntity = $this->orm->users->getByEmail($v->email);
 		if (!$userEntity || !$userEntity->registered)
 		{
+			$this->iLog('form.resetPassword.fail', ['email' => $v->email]);
 			$this->addError('Email not found');
 			return;
 		}
@@ -68,6 +69,7 @@ class ResetPassword extends Form
 			'unsafe' => $token->getUnsafe(),
 		]));
 
+		$this->iLog('form.resetPassword.ok', ['email' => $v->email]);
 		$presenter->flashSuccess('auth.reset.success');
 		$presenter->redirect('this');
 	}

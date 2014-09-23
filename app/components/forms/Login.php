@@ -76,7 +76,7 @@ class Login extends Form
 				$this->orm->flush();
 			}
 
-			$presenter->onLogin($userEntity);
+			$presenter->onLogin($userEntity, NULL, 'password');
 		}
 		catch (AuthenticationException $e)
 		{

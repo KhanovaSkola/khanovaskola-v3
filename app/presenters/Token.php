@@ -41,6 +41,7 @@ final class Token extends Presenter
 	public function login(User $user)
 	{
 		$this->user->login(new Identity($user->id));
+		$this->ilog('auth.login.token');
 
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();

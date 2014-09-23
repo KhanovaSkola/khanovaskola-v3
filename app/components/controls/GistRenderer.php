@@ -44,6 +44,7 @@ class GistRenderer extends Control
 		$text = $this->presenter->getRequest()->getPost()['text'];
 		$this->gist->text = $text;
 		$this->gist->model->flush();
+		$this->iLog('control.gist.updated', ['gist' => $this->gist->id]);
 		$this->presenter->sendJson(['saved' => TRUE]);
 	}
 
