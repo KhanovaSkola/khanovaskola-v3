@@ -23,6 +23,7 @@ trait ControlTrait
 {
 
 	use FlashTrait;
+	use LogTrait;
 
 
 	/**

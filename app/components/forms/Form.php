@@ -2,6 +2,7 @@
 
 namespace App\Components\Forms;
 
+use App\Components\LogTrait;
 use App\Presenters\Presenter;
 use Kdyby\Replicator\Container;
 use Nette;
@@ -17,6 +18,8 @@ use Nette\Application\UI\Form as NForm;
  */
 abstract class Form extends NForm
 {
+
+	use LogTrait;
 
 	public function __construct()
 	{
