@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Services\UserMerger;
 use App\Presenters\Auth;
 use Nette\Security\AuthenticationException;
 
@@ -16,6 +17,12 @@ class Login extends Form
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var UserMerger
+	 * @inject
+	 */
+	public $userMerger;
 
 	public function setup()
 	{
@@ -53,7 +60,22 @@ class Login extends Form
 				$presenter->redirect('Auth:registration', ['email' => $v->email]);
 			}
 
+			$guest = NULL;
+			if ($presenter->user->getId() && !$presenter->getUserEntity()->registered)
+			{
+				// If guest user is persisted, link to it
+				// locally so we dont override it with login.
+				$guest = $presenter->getUserEntity();
+			}
+
 			$presenter->user->login($v->email, $v->password);
+
+			if ($guest)
+			{
+				$this->userMerger->mergeUserInto($guest, $presenter->getUserEntity());
+				$this->orm->flush();
+			}
+
 			$presenter->onLogin($userEntity);
 		}
 		catch (AuthenticationException $e)
