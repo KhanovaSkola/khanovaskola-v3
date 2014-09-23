@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68a56263ff87631c72b4b0cc219efd1e",
+    "hash": "a4956954e89ef80444282352953a5c7d",
     "packages": [
         {
             "name": "clevis/config-version-extension",
@@ -212,16 +212,16 @@
         },
         {
             "name": "google/apiclient",
-            "version": "dev-master",
+            "version": "1.0.5-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "c2d8dc7"
+                "reference": "c05d454790460f0c851c42298ea239ec5e631d76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c2d8dc70fceeb727c1752ffb0f895ca461b151e7",
-                "reference": "c2d8dc7",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c05d454790460f0c851c42298ea239ec5e631d76",
+                "reference": "c05d454790460f0c851c42298ea239ec5e631d76",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-09-05 08:40:31"
+            "time": "2014-09-08 20:57:18"
         },
         {
             "name": "guzzle/common",
@@ -2666,16 +2666,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449"
+                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/e16d7adf45664a50fa86f515b6d5e7f670130449",
-                "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/cf483685798a72c93bf4206e3dd6358ea07d64e7",
+                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7",
                 "shasum": ""
             },
             "require": {
@@ -2691,7 +2691,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -2705,17 +2705,6 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
-                },
-                {
                     "name": "Roman Borschel",
                     "email": "roman@code-factory.org"
                 },
@@ -2724,10 +2713,16 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Caching library offering an object-oriented API for many cache backends",
@@ -2736,7 +2731,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2013-10-25 19:04:14"
+            "time": "2014-09-17 14:24:04"
         },
         {
             "name": "doctrine/collections",
@@ -2890,12 +2885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "06b68c0"
+                "reference": "d47a941"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/dbal/zipball/8cbfefe03ff2d1a2246dfb6e98b84e4b36622e6f",
-                "reference": "06b68c0",
+                "reference": "d47a941",
                 "shasum": ""
             },
             "require": {
@@ -3124,16 +3119,16 @@
         },
         {
             "name": "herzult/php-ssh",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Herzult/php-ssh.git",
-                "reference": "864de1e0f815087155acfb8ffee8f3e3f29ca256"
+                "reference": "d590e812e138c5f32f414aa8a36a71ee8453785b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Herzult/php-ssh/zipball/864de1e0f815087155acfb8ffee8f3e3f29ca256",
-                "reference": "864de1e0f815087155acfb8ffee8f3e3f29ca256",
+                "url": "https://api.github.com/repos/Herzult/php-ssh/zipball/d590e812e138c5f32f414aa8a36a71ee8453785b",
+                "reference": "d590e812e138c5f32f414aa8a36a71ee8453785b",
                 "shasum": ""
             },
             "require": {
@@ -3161,13 +3156,12 @@
             ],
             "authors": [
                 {
-                    "name": "Antoine Hérault",
-                    "email": "antoine.herault@gmail.com",
-                    "homepage": "https://github.com/Herzult"
-                },
-                {
                     "name": "The contributors",
                     "homepage": "http://github.com/Herzult/php-ssh/contributors"
+                },
+                {
+                    "name": "Antoine Hérault",
+                    "homepage": "https://github.com/Herzult"
                 }
             ],
             "description": "Provides an object-oriented wrapper for the php ssh2 extension.",
@@ -3175,7 +3169,7 @@
                 "ssh",
                 "ssh2"
             ],
-            "time": "2014-06-15 09:18:18"
+            "time": "2014-08-20 09:38:23"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3709,7 +3703,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "google/apiclient": 20,
+        "google/apiclient": 10,
         "kdyby/forms-replicator": 20,
         "doctrine/dbal": 20
     },
