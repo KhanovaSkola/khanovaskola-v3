@@ -56,19 +56,20 @@ google:
 	returnUri: 'Auth:googleResponse'
 
 services:
+	- App\Models\Factories\TranslatorFactory
 	- App\Models\Rme\UsersRepository
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
 	- App\Models\Services\BlueprintCompiler
 	- App\Models\Services\BlueprintPurifier
-	- App\Models\Services\Translator(%appDir%/localization)
-	- App\Models\Factories\TranslatorFactory
+	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
+	- App\Models\Services\Entropy
+	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
-	- App\Models\Services\Paths(@container)
-	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
-	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\PathFinder
+	- App\Models\Services\Paths(@container)
+	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
 	- Tracy\QueryPanel\QueryPanel
 
