@@ -25,6 +25,11 @@ final class BlueprintEditor extends Presenter
 	{
 		parent::startup();
 
+		if (!$this->user->isRegisteredUser())
+		{
+			$this->redirectToAuthOrRegister();
+		}
+
 		if ($this->blueprintId && ! $this->blueprint = $this->orm->contents->getById($this->blueprintId))
 		{
 			$this->error();
