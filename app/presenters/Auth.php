@@ -243,59 +243,6 @@ final class Auth extends Presenter
 		$this->onLogin($userEntity, $newUser);
 	}
 
-	/**
-	 * @return Nette\Application\UI\Form
-	 */
-	protected function createComponentSignInForm()
-	{
-		$form = new Nette\Application\UI\Form;
-		$form->addText('email', 'Email:');
-		$form->addPassword('password', 'Password:');
-
-		$form->addSubmit('send', 'Sign in');
-
-		// call method signInFormSucceeded() on success
-		$form->onSuccess[] = $this->signInFormSucceeded;
-		return $form;
-	}
-
-
-	public function signInFormSucceeded(Nette\Application\UI\Form $form)
-	{
-		$values = $form->getValues();
-		$this->getUser()->setExpiration('14 days', FALSE);
-
-		try {
-			$guest = NULL;
-			if ($this->user->getId() && !$this->userEntity->registered)
-			{
-				// If guest user is persisted, link to it
-				// locally so we dont override it with login.
-				$guest = $this->userEntity;
-			}
-
-			$this->getUser()->login($values->email, $values->password);
-
-			if ($guest)
-			{
-				$this->userMerger->mergeUserInto($guest, $this->userEntity);
-				$this->orm->flush();
-			}
-
-			$this->redirect('Homepage:');
-
-		}
-		catch (Nette\Security\AuthenticationException $e)
-		{
-			// TODO what happens with merge when login fails?
-			// Is the old guest entity lost forever because
-			// the user is logged out? Test this. If you don't
-			// know what this comment means do not delete it!
-			$this->flashError($e->getMessage());
-		}
-	}
-
-
 	public function actionOut()
 	{
 		$this->getUser()->logout(TRUE);
