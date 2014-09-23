@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Rme\User;
+use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
@@ -19,6 +20,12 @@ use stdClass;
 
 final class Auth extends Presenter
 {
+
+	/**
+	 * @var UserMerger
+	 * @inject
+	 */
+	public $userMerger;
 
 	/**
 	 * @var Facebook
@@ -217,10 +224,22 @@ final class Auth extends Presenter
 		}
 
 		$update($userEntity, $me);
-		$this->orm->flush();
 
+		$guest = NULL;
+		if ($this->user->getId() && !$this->userEntity->registered)
+		{
+			$guest = $this->userEntity;
+		}
+
+		$this->orm->flush();
 		$this->user->login(new Identity($userEntity->id));
 
+		if ($guest)
+		{
+			$this->userMerger->mergeUserInto($guest, $userEntity);
+		}
+
+		$this->orm->flush();
 		$this->onLogin($userEntity, $newUser);
 	}
 
@@ -247,10 +266,31 @@ final class Auth extends Presenter
 		$this->getUser()->setExpiration('14 days', FALSE);
 
 		try {
+			$guest = NULL;
+			if ($this->user->getId() && !$this->userEntity->registered)
+			{
+				// If guest user is persisted, link to it
+				// locally so we dont override it with login.
+				$guest = $this->userEntity;
+			}
+
 			$this->getUser()->login($values->email, $values->password);
+
+			if ($guest)
+			{
+				$this->userMerger->mergeUserInto($guest, $this->userEntity);
+				$this->orm->flush();
+			}
+
 			$this->redirect('Homepage:');
 
-		} catch (Nette\Security\AuthenticationException $e) {
+		}
+		catch (Nette\Security\AuthenticationException $e)
+		{
+			// TODO what happens with merge when login fails?
+			// Is the old guest entity lost forever because
+			// the user is logged out? Test this. If you don't
+			// know what this comment means do not delete it!
 			$this->flashError($e->getMessage());
 		}
 	}
