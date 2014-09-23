@@ -78,6 +78,11 @@ final class Auth extends Presenter
 
 	public function renderResetPassword($email = NULL)
 	{
+		if ($this->user->isRegisteredUser())
+		{
+			$this->redirect('changePassword');
+		}
+
 		/** @var TextInput $input */
 		$input = $this['resetPasswordForm-form-email'];
 		$input->setDefaultValue($email);
