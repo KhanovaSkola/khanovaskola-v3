@@ -68,6 +68,7 @@ class Blueprint extends EntityForm
 		$this->repos->contents->persist($blueprint);
 		$this->repos->contents->flush();
 
+		$this->iLog('form.blueprint.add', ['blueprint' => $blueprint->id]);
 		$this->presenter->flashSuccess('blueprintEditor.submit.new');
 		$this->presenter->redirect('this', ['blueprintId' => $blueprint->id]);
 	}
@@ -81,6 +82,7 @@ class Blueprint extends EntityForm
 		$this->updateBlueprint($this->values, $blueprint);
 		$this->repos->flush();
 
+		$this->iLog('form.blueprint.edit', ['blueprint' => $blueprint->id]);
 		$this->presenter->flashSuccess('blueprintEditor.submit.edit');
 		$this->presenter->redirect('this', ['blueprintId' => $blueprint->id]);
 	}

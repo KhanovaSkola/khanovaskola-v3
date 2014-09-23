@@ -6,6 +6,7 @@ use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
+use App\Models\Services\Entropy;
 use App\Models\Structs\Gender;
 use App\Presenters\Auth;
 use Nette\Security\Identity;
@@ -26,6 +27,12 @@ class Registration extends Form
 	 * @inject
 	 */
 	public $aes;
+
+	/**
+	 * @var Entropy
+	 * @inject
+	 */
+	public $entropy;
 
 	public function setup()
 	{
@@ -83,6 +90,10 @@ class Registration extends Form
 		/** @var Auth $presenter */
 		$presenter = $this->presenter;
 		$presenter->user->login(new Identity($user->id));
+
+		$this->iLog('auth.registration.password', [
+			'entropy' => $this->entropy->compute($v->password, $user),
+		]);
 		$presenter->onLogin($user, TRUE);
 	}
 }

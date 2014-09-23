@@ -75,6 +75,7 @@ class LinkStudents extends Form
 			'unsubscribed' => [],
 			'awaiting' => [],
 		];
+		$ok = [];
 		foreach ($emails as $email)
 		{
 			if ($this->orm->unsubscribes->getByEmail($email))
@@ -93,11 +94,16 @@ class LinkStudents extends Form
 			else
 			{
 				$this->inviteUser($teacher, $email);
+				$ok[] = $email;
 			}
 		}
 
 		$this->orm->flush();
 
+		$this->iLog('form.linkStudents', [
+			'fails' => $fails,
+			'ok' => $ok,
+		]);
 		$this->flashStatus($fails, $emails);
 		$this->presenter->redirect('Profile:default');
 	}

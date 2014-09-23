@@ -44,7 +44,7 @@ final class Auth extends Presenter
 		$this->google = $google;
 	}
 
-	public function onLogin(User $user, $newUser = FALSE)
+	public function onLogin(User $user, $newUser = FALSE, $service = NULL)
 	{
 		$this->user->setExpiration('5 years', FALSE);
 
@@ -54,6 +54,8 @@ final class Auth extends Presenter
 
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();
+
+		$this->iLog("auth.login.$service");
 
 		$section = $this->session->getSection('auth');
 		if ($key = $section->loginBacklink)
@@ -156,7 +158,7 @@ final class Auth extends Presenter
 				}, function(User $user, $me) use ($fb) {
 					$user->facebookId = $me->id;
 					$user->facebookAccessToken = $fb->getAccessToken();
-				});
+				}, 'facebook');
 			}
 			catch (FacebookApiException $e)
 			{
@@ -187,7 +189,7 @@ final class Auth extends Presenter
 			}, function(User $user, $me) {
 				$user->googleId = $me->id;
 				$user->googleAccessToken = $this->google->getAccessToken()['access_token'];
-			});
+			}, 'google');
 		}
 		catch (Google_Exception $e)
 		{
@@ -204,9 +206,10 @@ final class Auth extends Presenter
 	 * @param StdClass|ProfileInfo $me
 	 * @param callable $findById
 	 * @param callable $update
+	 * @param NULL|string $service for logging
 	 * @return User
 	 */
-	private function registerOrLogin($me, $findById, $update)
+	private function registerOrLogin($me, $findById, $update, $service = NULL)
 	{
 		$userEntity = $findById($me->id);
 
@@ -239,17 +242,23 @@ final class Auth extends Presenter
 		$this->orm->flush();
 		$this->user->login(new Identity($userEntity->id));
 
+		if ($newUser)
+		{
+			$this->iLog("auth.registration.$service");
+		}
+
 		if ($guest)
 		{
 			$this->userMerger->mergeUserInto($guest, $userEntity);
 		}
 
 		$this->orm->flush();
-		$this->onLogin($userEntity, $newUser);
+		$this->onLogin($userEntity, $newUser, $service);
 	}
 
 	public function actionOut()
 	{
+		$this->iLog('auth.logout');
 		$this->getUser()->logout(TRUE);
 		$this->flashSuccess('auth.flash.logout');
 		$this->redirect('in');

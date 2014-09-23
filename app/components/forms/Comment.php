@@ -81,6 +81,7 @@ class Comment extends Form
 		$this->orm->comments->attach($comment);
 		$this->orm->flush();
 
+		$this->iLog('form.comment');
 		$presenter->flashSuccess('added');
 		$presenter->redirect('this');
 	}
