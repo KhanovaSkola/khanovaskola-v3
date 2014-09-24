@@ -10,7 +10,7 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property string             $youtubeId
- * @property string             $youtubeIdOriginal  filled if dubbed {default ''}
+ * @property NULL|string        $youtubeIdOriginal  filled if dubbed
  *
  * @property OtM|VideoView[]    $views              {1:m videoViews $video}
  * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
