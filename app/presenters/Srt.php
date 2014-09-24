@@ -33,6 +33,11 @@ final class Srt extends Presenter
 
 	public function renderDefault()
 	{
+		// Allows for easier lazy user creation on video page
+		// as it removes set-cookie race condition.
+		// This response will also be cached in varnish.
+		header_remove('set-cookie');
+
 		$this->sendResponse(new TextResponse($this->video->getSubtitles()));
 	}
 
