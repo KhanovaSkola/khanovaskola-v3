@@ -23,12 +23,12 @@
     "**/.*",
     "*.json"
   ],
-  "version": "2.2.1",
-  "_release": "2.2.1",
+  "version": "2.2.2",
+  "_release": "2.2.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.2.1",
-    "commit": "588938646e2b30d1428ec34199731e11c1ac324c"
+    "tag": "v2.2.2",
+    "commit": "62c9a81aefbbd7dc5dcda348d29f926e3242bd7e"
   },
   "_source": "git://github.com/nette/bower-nette-forms.git",
   "_target": "*",
