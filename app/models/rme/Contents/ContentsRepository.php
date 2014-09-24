@@ -10,6 +10,8 @@ use Orm\DibiCollection;
 /**
  * @method DibiCollection|Content[] findAll()
  * @method Collection getWithFulltext()
+ * @method NULL|Video getVideoById(int $id)
+ * @method NULL|Blueprint getBlueprintById(int $id)
  * @method array getNextContent()
  */
 class ContentsRepository extends Repository

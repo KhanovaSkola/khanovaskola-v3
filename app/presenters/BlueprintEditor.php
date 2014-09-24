@@ -30,7 +30,8 @@ final class BlueprintEditor extends Presenter
 			$this->redirectToAuthOrRegister();
 		}
 
-		if ($this->blueprintId && ! $this->blueprint = $this->orm->contents->getById($this->blueprintId))
+		$this->blueprint = $this->orm->contents->getBlueprintById($this->blueprintId);
+		if ($this->blueprintId && !$this->blueprint)
 		{
 			$this->error();
 		}
