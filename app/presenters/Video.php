@@ -24,11 +24,8 @@ final class Video extends Content
 	{
 		parent::startup();
 
-		if (!$this->video = $this->orm->contents->getById($this->videoId))
-		{
-			$this->error();
-		}
-		if (! ($this->video instanceof Rme\Video))
+		$this->video = $this->orm->contents->getVideoById($this->videoId);
+		if (!$this->video)
 		{
 			$this->error();
 		}
