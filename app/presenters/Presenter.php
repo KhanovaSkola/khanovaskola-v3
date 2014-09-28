@@ -27,6 +27,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 	use ControlTrait;
 
+
 	/**
 	 * @var RepositoryContainer
 	 * @inject
