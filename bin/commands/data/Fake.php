@@ -5,9 +5,14 @@ namespace Bin\Commands\Data;
 use App\Models\Orm\Entity;
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\Block;
+use App\Models\Rme\BlockSchemaBridge;
 use App\Models\Rme\Comment;
+use App\Models\Rme\ContentBlockBridge;
 use App\Models\Rme\Path;
 use App\Models\Rme\PathsRepository;
+use App\Models\Rme\Schema;
+use App\Models\Rme\Subject;
 use App\Models\Rme\User;
 use App\Models\Rme\Video;
 use App\Models\Structs\Gender;
@@ -44,7 +49,8 @@ class Fake extends Command
 		$users = $this->create(50, User::class, $orm->users, [$this, 'fillUser']);
 		$videos = $this->create(20, Video::class, $orm->contents, [$this, 'fillVideo']);
 		$this->createComments(10, $videos, $users, $orm->contents);
-		// $this->createPaths(10, $videos, $users, $orm->paths);
+		$subjects = $this->create(7, Subject::class, $orm->subjects, [$this, 'fillSubject']);
+		$this->createSchemasAndBlocks($orm, $subjects, $videos);
 
 		$this->out->writeln('flushing');
 		$orm->flush();
@@ -157,6 +163,57 @@ class Fake extends Command
 		$v->title = $this->faker->catchPhrase();
 		$v->description = $this->faker->sentence(20);
 		$v->youtubeId = 'AuX7nPBqDts';
+	}
+
+	protected function fillSubject(Subject $s)
+	{
+		$s->name = $this->faker->name;
+	}
+
+	/**
+	 * @param RepositoryContainer $orm
+	 * @param Subject[] $subjects
+	 * @param Video[] $videos
+	 */
+	protected function createSchemasAndBlocks($orm, $subjects, $videos)
+	{
+		$author = $orm->users->getById(1);
+
+		foreach ($subjects as $subject)
+		{
+			for ($i = 0; $i < 8; ++$i)
+			{
+				$schema = new Schema();
+				$schema->name = $this->faker->name;
+				$schema->subject = $subject;
+				$schema->author = $author;
+
+				$orm->schemas->attach($schema);
+
+				for ($k = 0; $k < 10; ++$k)
+				{
+					$block = new Block();
+					$block->name = $this->faker->name;
+					$block->author = $author;
+					$orm->blocks->attach($block);
+
+					$bridge = new BlockSchemaBridge();
+					$bridge->position = $k;
+					$bridge->block = $block;
+					$bridge->schema = $schema;
+					$orm->blockSchemaBridges->attach($bridge);
+
+					for ($l = 0; $l < 7; ++$l)
+					{
+						$bridge = new ContentBlockBridge();
+						$bridge->block = $block;
+						$bridge->content = $this->faker->randomElement($videos);
+						$bridge->position = $l;
+						$orm->contentBlockBridges->attach($bridge);
+					}
+				}
+			}
+		}
 	}
 
 }
