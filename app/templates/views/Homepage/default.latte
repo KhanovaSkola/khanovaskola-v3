@@ -6,28 +6,22 @@
 
 	<h1>{_'homepage.title', 4}</h1>
 
-	<style n:syntax="off">
-		ul { margin-left: 2em; }
-	</style>
-	<ul>
+	<ul class="nav nav-tabs">
 		<li n:foreach="$subjects as $subject">
-			Subject {$subject->name}
-			<ul>
-				<li n:foreach="$subject->schemas as $schema">
-					Schema {$schema->name}
-					<ul>
-						<li n:foreach="$schema->blockSchemaBridges as $bsBridge">
-							{var $block = $bsBridge->block}
-							Block {$block->name}
-							<ul>
-								<li n:foreach="$block->contentBlockBridges as $cbBridge">
-									{var $content = $cbBridge->content}
-									Content {$content->title}
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-			</ul>
+			<a href="#subject-{$subject->id}" data-toggle="tab">Sbj {$subject->name}</a>
 		</li>
 	</ul>
+
+	<div class="tab-content">
+		<div n:foreach="$subjects as $subject" class="tab-pane active" id="subject-{$subject->id}">
+			{foreach $subject->schemas as $schema}
+				<strong>Schema {$schema->name}</strong>
+				<ul>
+					<li n:foreach="$schema->blockSchemaBridges as $bsBridge">
+						{var $block = $bsBridge->block}
+						Block {$block->name}
+					</li>
+				</ul>
+			{/foreach}
+		</div>
+	</div>
