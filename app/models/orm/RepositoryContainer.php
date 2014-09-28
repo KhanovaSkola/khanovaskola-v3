@@ -21,6 +21,7 @@ use Nette\DI\Container;
  * @property-read Rme\GistsRepository $gists
  * @property-read Rme\PathsRepository $paths
  * @property-read Rme\StudentInvitesRepository $studentInvites
+ * @property-read Rme\SubjectsRepository $subjects
  * @property-read Rme\TagsRepository $tags
  * @property-read Rme\TokensRepository $tokens
  * @property-read Rme\UnsubscribesRepository $unsubscribes
