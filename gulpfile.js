@@ -2,10 +2,10 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var path = require('path');
 
-var lessDir = './less';
+var lessDir = './www/less';
 var lessFiles = path.join(lessDir, '*', '**');
 var lessMainFile = path.join(lessDir, 'main.less');
-var cssDir = './css';
+var cssDir = './www/build';
 
 gulp.task('less', function () {
 	gulp.src(lessMainFile)
@@ -35,7 +35,7 @@ gulp.task('default', function() {
 
 gulp.task('watch', ['less'], function() {
 	//Watch changes (less, )
-	$.watch('less/**.less', ['less']);
-	$.watch('less/**/**.less', ['less']);
+	$.watch('www/less/**.less', ['less']);
+	$.watch('www/less/**/**.less', ['less']);
 	$.watch('*.html', ['less']);
 });
