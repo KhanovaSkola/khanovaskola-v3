@@ -6579,6 +6579,10 @@ mark {
   background: none;
   color: #d04613;
 }
+#tracy-debug-bar ul li:before {
+  content: '';
+  margin-right: 0;
+}
 .header {
   min-height: 85px;
   width: 100%;
