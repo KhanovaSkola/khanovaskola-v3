@@ -1,0 +1,159 @@
+// reset
+body {
+	// -webkit-font-smoothing: antialiased;
+	font-weight: @font-weight-light;
+}
+
+p {
+	font-weight: @font-weight-light;
+	font-size: @font-size-base;
+	color: @khan-black;
+	line-height: 19px;
+	margin-bottom: 25px;
+
+}
+
+.lead {
+	font-size: @font-size-lead;
+	color: #353D41;
+	line-height: 25px;
+}
+
+.small {
+	font-size: @font-size-small;
+	line-height: 21px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	text-transform: uppercase;
+}
+
+
+
+a {
+	font-weight: @font-weight-light;
+	font-size: @font-size-base;
+	color: @khan-blue;
+	line-height: 19px;
+}
+
+
+.text-colors() {
+	.text-black {
+		color: @khan-black;
+		.darken-hover(@khan-black);
+	}
+	.text-primary, 
+	.text-blue {
+		color: @khan-blue;
+		.darken-hover(@khan-blue);
+	}
+
+	.text-success, 
+	.text-green {
+		color: @khan-green;
+		.darken-hover(@khan-green);
+	}
+
+	.text-cyan {
+		.darken-hover(@khan-cyan);
+		color: @khan-cyan;
+	}
+	.text-cyan-dark {
+		color: @khan-cyan-dark;
+		.darken-hover(@khan-cyan-dark);
+	}
+
+	.text-warning,
+	.text-yellow {
+		.darken-hover(@khan-yellow);
+		color: @khan-yellow;
+	}
+	.text-gold {
+		.darken-hover(@khan-gold);
+		color: @khan-gold;
+	}
+
+	
+	.text-purple {
+		.darken-hover(@khan-purple);
+		color: @khan-purple;
+	}
+
+	.text-brown {
+		.darken-hover(@khan-brown);
+		color: @khan-brown;
+	}
+
+	.text-red,
+	.text-danger {
+		.darken-hover(@khan-red);
+		color: @khan-red;
+	}
+}
+.text-colors();
+
+ul {
+	list-style: none;
+	padding-left: 10px;
+	margin-top: 10px;
+	li {
+		font-weight: @font-weight-light;
+		font-size: @font-size-base;
+		line-height: 24px;
+		&:before {
+			content: '•';
+			margin-right: 10px;
+		}
+	}
+}
+ul.list-unstyled {
+	li {
+		&:before {
+			display: none;
+		}
+	}
+}
+
+
+blockquote {
+	font-family: @headings-font-family;
+	font-weight: @headings-font-weight;
+	font-size: 21px;
+	color: @khan-black;
+	line-height: 23px;
+	border: 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+.thumbnail {
+	border-radius: 0;
+	padding: 6px;
+	border-color: @header-border;
+	.caption {
+		position: absolute;
+		top: 0;
+		left: -65px;
+		width: 80px;
+		font-weight: @font-weight-light;
+		font-style: italic;
+		font-size: @font-size-small - 2px;
+		color: @checkbox-text-color;
+		line-height: 16px;
+		@media (max-width: @screen-sm) {
+			position: relative;
+			top: 0;
+			left: auto;
+		}
+	}
+}
+
+
+.mark,
+mark {
+	padding: 0;
+	background: none;
+	color: @khan-red;
+}

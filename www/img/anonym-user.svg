@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
+    <title>Oval 3 + anonym</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feMorphology radius="2" in="SourceAlpha" operator="dilate" result="shadowSpreadInner1"></feMorphology>
+            <feOffset dx="1" dy="2" in="shadowSpreadInner1" result="shadowOffsetInner1"></feOffset>
+            <feGaussianBlur stdDeviation="0" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feComposite in="shadowBlurInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.797867078   0 0 0 0 0.848931084   0 0 0 0 0.880846088  0 0 0 0.7 0" in="shadowInnerInner1" type="matrix" result="shadowMatrixInner1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+            </feMerge>
+        </filter>
+        <circle id="path-2" cx="24" cy="24" r="24"></circle>
+    </defs>
+    <g id="UI-Kit-/-Article" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Article---Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-988.000000, -19.000000)">
+            <g id="header" sketch:type="MSLayerGroup">
+                <g id="user" transform="translate(937.000000, 0.000000)">
+                    <g id="user-picture-+-badges-+-dropdown-button-2-+-dropdown-button" transform="translate(0.000000, 19.000000)">
+                        <g id="user-picture" transform="translate(51.000000, 0.000000)">
+                            <g id="Oval-3-+-anonym">
+                                <mask id="mask-3" sketch:name="Oval 3" fill="white">
+                                    <use xlink:href="#path-2"></use>
+                                </mask>
+                                <use id="Oval-3" fill="#DFE8EC" filter="url(#filter-1)" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+                                <path d="M24,14.2857143 C27.3541875,14.2857143 30.1875,18.2108571 30.1875,22.8571429 C30.1875,27.5034286 27.3541875,31.4285714 24,31.4285714 C20.6458125,31.4285714 17.8125,27.5034286 17.8125,22.8571429 C17.8125,18.2108571 20.6458125,14.2857143 24,14.2857143 M24,33.7142857 C28.6524375,33.7142857 32.4375,28.844 32.4375,22.8571429 C32.4375,16.8702857 28.6524375,12 24,12 C19.3475625,12 15.5625,16.8702857 15.5625,22.8571429 C15.5625,28.844 19.3475625,33.7142857 24,33.7142857 M17.1385125,34.9352571 L23.4970125,38.1649714 C23.8131375,38.3261143 24.1866375,38.3261143 24.503325,38.1649714 L30.8612625,34.9352571 L37.7457,36.9329714 L39.3145125,41.7141143 C39.3145125,41.7141143 29.3014268,51.7141143 24.2948839,51.7141143 C19.0918643,51.7141143 8.685825,41.7141143 8.685825,41.7141143 L10.2546375,36.9329714 L17.1385125,34.9352571 Z M6.057825,42.4952571 C5.9436375,42.8444 6.0010125,43.2272571 6.2125125,43.5249714 C6.42345,43.8238286 6.7637625,43.9998286 7.1248875,43.9998286 C7.1248875,43.9998286 18.7819604,53.9998286 24.6104969,53.9998286 C30.0319604,53.9998286 40.8748875,43.9998286 40.8748875,43.9998286 C41.236575,43.9998286 41.576325,43.8238286 41.7872625,43.5249714 C41.9987625,43.2272571 42.0567,42.8444 41.9425125,42.4952571 L39.6925125,35.6381143 C39.57495,35.2804 39.29145,35.0049714 38.9342625,34.9009714 L31.0592625,32.6152571 C30.7881375,32.5364 30.4990125,32.5644 30.2470125,32.6918286 L23.9998875,35.8649714 L17.753325,32.6918286 C17.501325,32.5644 17.2122,32.5364 16.9405125,32.6152571 L9.0655125,34.9009714 C8.7088875,35.0049714 8.4253875,35.2804 8.307825,35.6381143 L6.057825,42.4952571 Z" id="anonym" fill="#ADBCC4" sketch:type="MSShapeGroup" mask="url(#mask-3)"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

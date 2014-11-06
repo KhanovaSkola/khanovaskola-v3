@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="9px" height="7px" viewBox="0 0 9 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
+    <title>right</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit-/-Article" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Article---Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-826.000000, -1045.000000)" fill="#4781A5">
+            <g id="content" sketch:type="MSLayerGroup" transform="translate(79.000000, 127.000000)">
+                <g id="form" transform="translate(84.000000, 907.000000)" sketch:type="MSShapeGroup">
+                    <g id="checkbox" transform="translate(661.000000, 2.000000)">
+                        <g id="checked">
+                            <g id="normal">
+                                <path d="M4.9107125,16 L4.9248875,16 C5.0470625,16 5.1642875,15.9484333 5.2493375,15.8567333 L10.8743375,9.79006667 C11.0466875,9.60433333 11.0410625,9.30893333 10.8619625,9.1302 C10.6826375,8.95146667 10.3980125,8.95753333 10.2256625,9.14326667 L4.9462625,14.8370667 L2.7934625,12.1985333 C2.6328125,12.0016 2.3490875,11.9771 2.1591875,12.1437 C1.9695125,12.3103 1.9458875,12.6047667 2.1065375,12.8014667 L4.5815375,15.8348 C4.6636625,15.9358333 4.7833625,16 4.9107125,16" id="right"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

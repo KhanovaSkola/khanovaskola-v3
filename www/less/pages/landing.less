@@ -1,0 +1,113 @@
+.landing-page {
+	
+	.container {
+		margin-left: 0;
+		margin-right: auto;
+		padding-left: 30px;
+
+		@media (min-width: @screen-sm-min) {
+			width: @container-sm;
+		}
+		@media (min-width: @screen-md-min) {
+			width: @container-md + 40px;
+		}
+		@media (min-width: @screen-lg-min) {
+			width: @container-lg;
+		}
+	}
+	
+	.content {
+		margin-top: 90px;
+		.content-inner {
+			.clearfix;
+			margin-left: 20px;
+			width: 100%;
+			min-height: 380px;
+			background: url(../img/owl.svg) no-repeat;
+			color: #383331;
+			text-align: right;
+
+			h2 {
+				padding-top: 15px;
+				font-size: 72px;
+				line-height: 56px;
+				.icon {
+					font-size: 30px;
+					vertical-align: 45%;
+				}
+			}
+			h3 {
+				font-size: 54px;
+				line-height: 56px;
+				.icon {
+					font-size: 27px;
+					vertical-align: 37%;
+				}
+			}
+			h4 {
+				font-size: 21px;
+				line-height: 23px;
+				.icon {
+					font-size: 15px;
+					vertical-align: 12%;
+					&.icon-arrow-right {
+						vertical-align: 47%;
+						font-size: 8px;
+					}
+				}
+			}
+
+			.join {
+				margin-top: 45px;
+				margin-right: 135px;
+				width: 215px;
+				float: right;
+				text-align: center;
+				.btn {
+					// width: 215px;
+				}
+				span {
+					margin-top: 25px;
+					display: block;
+					font-size: 16px;
+					color: @khan-black2;
+					line-height: 19px;
+				}
+			}
+		}
+	}
+	
+	.landing-footer {
+		font-family: @headings-font-family;
+		text-transform: uppercase;
+		margin-bottom: 40px;
+		margin-left: 5px;
+		margin-top: 110px;
+		strong {
+			font-weight: normal;
+			font-size: 26px;
+			color: @khan-black;
+			line-height: 29px;
+			display: block;
+			margin-left: 12px;
+		}
+		a {
+			font-size: 22px;
+			line-height: 37px;
+			margin-right: 10px;
+			&:hover {
+				text-decoration: none;
+				&.text-green {
+					color: darken(@khan-green, 15%);
+				}
+				&.text-blue {
+					color: darken(@khan-blue, 15%);
+				}
+			}
+			.icon {
+				font-size: 7px;
+				vertical-align: 50%;
+			}
+		}
+	}
+}

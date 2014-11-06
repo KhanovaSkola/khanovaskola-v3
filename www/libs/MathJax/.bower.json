@@ -22,5 +22,6 @@
     "commit": "bd9f6e06a1aa8bfee54da9c3127609d09d15fa8b"
   },
   "_source": "git://github.com/mathjax/MathJax.git",
-  "_target": "*"
+  "_target": "*",
+  "_originalSource": "MathJax"
 }

@@ -1,0 +1,246 @@
+.about-page {
+	.header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		z-index: 12;
+		.header-userarea {
+			padding-top: 29px;
+			text-align: right;
+			margin-right: 65px;
+			border: 0;
+		}
+	}
+	.header:not(:hover) {
+		background: transparent;
+		border: 0;
+		.header-logo {
+			border: 0;
+			.logo {
+				background: url(../img/logo-white.svg);
+				width: 40px;
+				height: 37px;
+				display: block;
+				img {
+					display: none;
+				}
+			}
+		}
+		.header-content {
+			.dropdown {
+				.dropdown-toggle {
+					color: @white;
+				}
+				.caret {
+					background-image: url(../img/dropdown-caret-white.svg); 
+				}
+			}
+			.search-wrapper {
+				display: none;
+			}
+		}
+		.header-userarea {
+			border: 0;
+			a {
+				color: @white;
+			}
+		}
+	}
+	.content {
+		// margin-top: -@header-height;
+		.hero {
+			position: relative;
+			.hero-content {
+				position: absolute;
+				width: 100%;
+				.hero-content-inner {
+					text-align: center;
+					width: 475px;
+					margin: 0 auto;
+					margin-top: 218px;
+					@media (max-width: @screen-sm) {
+						width: 300px;
+					}
+					h1 {
+						position: relative;
+						margin: 0;
+						padding: 0;
+						font-size: 72px;
+						color: @white;
+						line-height: 81px;
+						&:before {
+							content: '';
+							position: absolute;
+							top: 33px;
+							left: 4px;
+							width: 73px;
+							height: 8px;
+							display: block;
+							background: url(../img/about-page-hr-before.svg) no-repeat;
+							@media (max-width: @screen-sm) {
+								display: none;
+							}
+						}
+						&:after {
+							content: '';
+							position: absolute;
+							top: 33px;
+							right: 0;
+							width: 79px;
+							height: 6px;
+							display: block;
+							background: url(../img/about-page-hr-after.svg) no-repeat;
+							@media (max-width: @screen-sm) {
+								display: none;
+							}
+						}
+					}
+					small {
+						font-weight: @font-weight-light;
+						font-size: 16px;
+						color: @white;
+						line-height: 19px;
+						margin-top: 13px;
+						display: block;
+					}
+				}
+			}
+			.hero-bg {
+				width: 100%;
+				overflow: hidden;
+				img {
+					// height: 400px;
+				}
+			}
+		}
+
+		.content-inner {
+			width: 630px;
+			margin: 0 auto;
+			margin-top: 40px;
+			@media (max-width: @screen-sm) {
+				width: 90%;
+				max-width: 630px;
+			}
+			p {
+				color: @khan-black2;
+				line-height: 24px;
+				text-align: justify;
+				margin-bottom: 8px;
+				&.lead {
+					font-weight: @font-weight-normal;
+					font-size: 20px;
+					color: @khan-black;
+					line-height: 28px;
+				}
+			}
+			.images {
+				.clearfix;
+				margin-left: -90px;
+				margin-right: -90px;
+				margin-top: 40px;
+				margin-bottom: 40px;
+				@media (max-width: @screen-sm) {
+					margin-left: 0;
+					margin-right: 0;
+				}
+				.image-vertical-large {
+					float: left;
+					@media (max-width: @screen-sm) {
+						float: none;
+					}
+				}
+				img {
+					margin-left: 10px;
+					margin-right: 10px;
+					margin-bottom: 20px;
+					@media (max-width: @screen-sm - 200px) {
+						float: left;
+						width: 250px;
+					}
+					@media (max-width: @screen-sm) {
+						width: 100%;
+						float: none;
+					}
+				}
+				em {
+					.clearfix;
+					display: block;
+					width: 100%;
+					text-align: center;
+					font-size: @font-size-base;
+					color: @khan-blue-light;
+					line-height: 19px;
+				}
+			}
+			h2 {
+				font-size: 48px;
+				color: @khan-black;
+				line-height: 72px;
+				margin-top: 30px;
+			}
+			footer {
+				margin-top: 50px;
+				strong {
+					font-weight: @font-weight-normal;
+					display: block;
+				}
+				.subjects {
+					ul {
+						li {
+							margin-bottom: 5px;
+							a {
+								.icon {
+									margin-left: 8px;
+								}
+							}
+						}
+					}
+				}
+				.info {
+					p {
+						margin-top: 11px; 
+						text-align: left;
+					}
+					.globe {
+						padding-right: 0;
+						strong {
+							color: @khan-blue-light;
+							font-weight: @font-weight-light;
+						}
+						p {
+							color: @khan-blue-light;
+						}
+					}
+				}
+				.sponzors {
+					margin-top: 75px;
+					.col-md-12 {
+						padding-right: 0;
+					}
+					strong {
+						margin-bottom: 10px;
+					}
+					a {
+						margin-right: 30px;
+						font-family: @font-weight-light;
+						font-size: 14px;
+						color: #0982CC;
+						line-height: 16px;
+					}
+				}
+				.socials {
+					margin-top: 20px;
+					margin-bottom: 40px;
+					a {
+						&:hover {
+							opacity: .6;
+						}
+					}
+				}
+			}
+		}
+	}
+}

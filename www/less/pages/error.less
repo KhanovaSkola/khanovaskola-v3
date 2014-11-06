@@ -1,0 +1,39 @@
+.error-page {
+	.content {
+		.content-inner {
+			background: url(../img/error-page-bg.svg) no-repeat;
+			height: 500px;
+			text-align: center;
+			@media (max-width: @screen-md) {
+				background-size: 100% auto;
+			}
+			@media (max-width: @screen-md) {
+				background: none;
+			}
+			h1 {
+				padding-top: 70px;
+				line-height: 72px;
+				@media (max-width: @screen-sm) {
+					font-size: 40px;
+					line-height: 60px;
+					padding-top: 50px;
+				}
+				small {
+					display: block;
+					font-size: 21px;
+					line-height: 23px;
+					margin-top: 20px;
+				}
+			}
+			form {
+				width: 255px;
+				margin: 0 auto;
+				margin-top: 10px;
+				.form-control {
+					width: 200px;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,75 @@
+.subjects-page {
+	.content {
+		h2 {
+			margin-top: 30px;
+		}
+		.subjects {
+			.clearfix;
+			width: 500px;
+			@media (max-width: @screen-sm) {
+				width: 100%;
+			}
+			margin: 0 auto;
+			margin-top: 60px;
+			margin-bottom: 80px;
+			.subject {
+				display: block;
+				float: left;
+				width: 90px;
+				text-align: center;
+				margin-left: 5px;
+				margin-right: 5px;
+				&:hover {
+					text-decoration: none;
+				}
+				@media (min-width: @screen-sm) {
+					&:nth-child(6) {
+						margin-left: 30px;
+					}
+					&:nth-child(6),
+					&:nth-child(7),
+					&:nth-child(8) {
+						width: 140px;
+					}
+				}
+				.icon {
+					display: block;
+					font-size: 43px;
+				}
+				span {
+					display: block;
+					font-size: @font-size-base;
+					line-height: 19px;
+					margin-top: 20px;
+					margin-bottom: 50px;
+				}
+			}
+		}
+	}
+
+	.subjects-footer {
+		width: 100%;
+		background: rgba(212, 225, 232, 0.13);
+		min-height: 220px;
+		.footer-inner {
+			width: 260px;
+			margin: 0 auto;
+			margin-top: 60px;
+			h2 {
+				font-size: 21px;
+				text-align: center;
+				margin-bottom: 30px;
+			}
+			.form-control {
+				background: rgba(212, 225, 232, 0);
+				width: 215px;
+			}
+			.btn {
+				margin-left: 10px;
+				margin-right: 0;
+				margin-top: -3px;
+				display: block;
+			}
+		}
+	}
+}
