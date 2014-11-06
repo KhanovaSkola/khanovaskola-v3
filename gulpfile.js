@@ -7,7 +7,12 @@ var lessFiles = path.join(lessDir, '*', '**');
 var lessMainFile = path.join(lessDir, 'main.less');
 var buildDir = './www/build';
 var jsDir = './www/js';
-var jsFiles = path.join(jsDir, '**', '*.js');
+var jsFiles = [
+	path.join(jsDir, 'app.js'),
+	path.join(jsDir, 'services/*.js'),
+	path.join(jsDir, 'snippets/*.js'),
+	path.join(jsDir, 'components/forms/*.js'),
+];
 
 gulp.task('dev', function () {
 	gulp.src(lessMainFile)
