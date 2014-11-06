@@ -14,51 +14,11 @@
 				<div class="dropdown-menu">
 					<div class="subjects-list">
 						<ul class="ul-tab" role="tablist">
-							<li class="active">
-								<a href="#math" role="tab" data-toggle="tab" class="text-blue">
-									<span>Matematika</span>
-									<i class="icon icon-math"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#physics" role="tab" data-toggle="tab" class="text-cyan">
-									<span>Fyzika</span>
-									<i class="icon icon-physics"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="text-yellow">
-									<span>Chemie</span>
-									<i class="icon icon-chemistry"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="text-purple">
-									<span>Informatika</span>
-									<i class="icon icon-it"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="text-green">
-									<span>Přírodní vědy</span>
-									<i class="icon icon-natural-studies"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="text-brown">
-									<span>Umění a humanitní vědy</span>
-									<i class="icon icon-history"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>“pop: přijímačky na VŠ”</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>“Celoživotní vzdělávání”</span>
-								</a>
+							<li n:foreach="$subjects as $i => $subject"{first} class="active"{/first}>
+								<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}">
+                                    <span>{$subject->name}</span>
+                                    <i class="icon icon-{$subject->icon}"></i>
+                                </a>
 							</li>
 							<li class="divider"></li>
 							<li>
@@ -76,46 +36,16 @@
 						</ul>
 					</div>
 					<div class="subject-detail tab-content">
-						<div class="tab-pane active" id="math">
+						<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
 							<div class="row">
-								<div class="col-md-4">
-									<div class="title">Základy <br>matematiky</div>
+								<div n:foreach="$subject->schemas as $schema" class="col-md-4">
+									<div class="title">{$schema->name}</div>
 									<ul class="list-unstyled">
-										<li>Základní matematika</li>
-										<li>Aritmetika</li>
-										<li>Lineární Algebra</li>
-										<li>Základy geometrie</li>
-									</ul>
-								</div>
-								<div class="col-md-8">
-									<div class="title">Základy <br>matematiky</div>
-									<ul class="list-unstyled">
-										<li>Základní matematika</li>
-										<li>Aritmetika</li>
-										<li>Lineární Algebra</li>
-										<li>Základy geometrie</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="physics">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="title">Základy <br>fyziky</div>
-									<ul class="list-unstyled">
-										<li>Základní fyzika</li>
-										<li>Aritmetika</li>
-										<li>Lineární Algebra</li>
-										<li>Základy geometrie</li>
-									</ul>
-								</div>
-								<div class="col-md-8">
-									<div class="title">Fyzika</div>
-									<ul class="list-unstyled">
-										<li>Základní matematika</li>
-										<li>Aritmetika</li>
-										<li>Lineární Algebra</li>
-										<li>Základy geometrie</li>
+										<li n:foreach="$schema->blockSchemaBridges as $bridge">
+											<a href="#">
+												{$bridge->block->name}
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>
