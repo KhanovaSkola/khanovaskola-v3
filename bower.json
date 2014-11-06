@@ -4,7 +4,7 @@
     "jquery": "latest",
     "respond": "latest",
     "html5shiv": "latest",
-	"bootstrap-stylus": "https://github.com/hworld/bootstrap-stylus.git#master",
+	"bootstrap": "latest",
 	"MathJax": "latest",
 	"nette-forms": "latest",
 	"elasticsearch": "latest",
