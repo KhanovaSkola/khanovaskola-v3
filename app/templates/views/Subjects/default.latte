@@ -1,0 +1,41 @@
+{block content}
+	{**
+	 * @param Subject[] $subjects
+	 *}
+
+	<div class="subjects-page">
+		<div class="container">
+            <main class="content">
+                <div class="content-inner">
+                    <h2 class="text-center">Vyber si obor: </h2>
+                    <div class="subjects">
+                        {foreach $subjects as $subject}
+	                        <a n:href="$subject" class="subject text-{$subject->color}">
+	                            <i class="icon icon-{$subject->icon}"></i>
+	                            <span>{$subject->name}</span>
+	                        </a>
+	                    {/foreach}
+                    </div>
+                </div>
+
+            </main>
+            <div class="clearfix"></div>
+        </div>
+        <footer class="subjects-footer">
+            <div class="container">
+                <div class="footer-inner">
+                    <h2>Hledáš konkrétní látku?</h2>
+                    <form class="clearfix">
+                        <div class="pull-left">
+                            <input type="text" class="form-control" placeholder="Hledat">
+                        </div>
+                        <div class="pull-left">
+                            <button type="submit" class="btn btn-search">
+                                <i class="icon icon-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </footer>
+	</div>
