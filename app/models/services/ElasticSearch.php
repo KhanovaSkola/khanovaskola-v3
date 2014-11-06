@@ -109,17 +109,9 @@ class ElasticSearch extends Client
 				'from' => 0,
 				'size' => 10,
 				'query' => [
-					'function_score' => [
-						'query' => [
-							'multi_match' => [
-								'query' => $query,
-								'fields' => $in,
-							]
-						],
-						'functions' => [
-							['field_value_factor' => ['field' => 'pathStarts', 'factor' => 2]],
-						],
-						'score_mode' => 'max',
+					'multi_match' => [
+						'query' => $query,
+						'fields' => $in,
 					],
 				],
 				'highlight' => [

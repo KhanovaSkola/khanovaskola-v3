@@ -25,6 +25,8 @@ abstract class Highlight extends Object
 	 */
 	private static $regex;
 
+	protected $score;
+
 	public function __construct(Entity $entity, array $highlights)
 	{
 		$this->entity = $entity;
@@ -100,6 +102,22 @@ abstract class Highlight extends Object
 	public function getEntity()
 	{
 		return $this->entity;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getScore()
+	{
+		return $this->score;
+	}
+
+	/**
+	 * @param mixed $score
+	 */
+	public function setScore($score)
+	{
+		$this->score = $score;
 	}
 
 }
