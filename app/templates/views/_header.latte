@@ -1,0 +1,190 @@
+<header class="header header-white-border">
+	<div class="header-logo">
+		<a href="#" class="logo">
+			<img src="img/logo.png" width="40" height="36" alt="Khanova škola">
+		</a>
+	</div>
+	<div class="header-content clearfix">
+		<div class="pull-left">
+			<div class="dropdown dropdown-big">
+				<a href="#" class="dropdown-toggle">
+					Předmět
+					<b class="caret"></b>
+				</a>
+				<div class="dropdown-menu">
+					<div class="subjects-list">
+						<ul class="ul-tab" role="tablist">
+							<li class="active">
+								<a href="#math" role="tab" data-toggle="tab" class="text-blue">
+									<span>Matematika</span>
+									<i class="icon icon-math"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#physics" role="tab" data-toggle="tab" class="text-cyan">
+									<span>Fyzika</span>
+									<i class="icon icon-physics"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="text-yellow">
+									<span>Chemie</span>
+									<i class="icon icon-chemistry"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="text-purple">
+									<span>Informatika</span>
+									<i class="icon icon-it"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="text-green">
+									<span>Přírodní vědy</span>
+									<i class="icon icon-natural-studies"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="text-brown">
+									<span>Umění a humanitní vědy</span>
+									<i class="icon icon-history"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>“pop: přijímačky na VŠ”</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>“Celoživotní vzdělávání”</span>
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="#">
+									<span>Zkusím štěstí</span>
+									<i class="icon icon-globe"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Zobrazit úplně vše</span>
+									<i class="icon icon-list"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="subject-detail tab-content">
+						<div class="tab-pane active" id="math">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="title">Základy <br>matematiky</div>
+									<ul class="list-unstyled">
+										<li>Základní matematika</li>
+										<li>Aritmetika</li>
+										<li>Lineární Algebra</li>
+										<li>Základy geometrie</li>
+									</ul>
+								</div>
+								<div class="col-md-8">
+									<div class="title">Základy <br>matematiky</div>
+									<ul class="list-unstyled">
+										<li>Základní matematika</li>
+										<li>Aritmetika</li>
+										<li>Lineární Algebra</li>
+										<li>Základy geometrie</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="physics">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="title">Základy <br>fyziky</div>
+									<ul class="list-unstyled">
+										<li>Základní fyzika</li>
+										<li>Aritmetika</li>
+										<li>Lineární Algebra</li>
+										<li>Základy geometrie</li>
+									</ul>
+								</div>
+								<div class="col-md-8">
+									<div class="title">Fyzika</div>
+									<ul class="list-unstyled">
+										<li>Základní matematika</li>
+										<li>Aritmetika</li>
+										<li>Lineární Algebra</li>
+										<li>Základy geometrie</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pull-left">
+			<div class="search-wrapper">
+				<div class="search-input hidden pull-left">
+					<form class="clearfix">
+						<div class="pull-left">
+							<input type="text" class="form-control" placeholder="Napiš co hledáš">
+							<div class="search-box hidden">
+								<ul class="list-unstyled">
+									<li>
+										<a href="#">
+											<span><strong>výr<mark>o</mark>ková log</strong>ika</span>
+											<i class="icon icon-arrow-right"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span><strong>výr<mark>o</mark>k</strong>y a jejich vztahy</span>
+											<i class="icon icon-history"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span>matematika pro střední školu</span>
+											<i class="icon icon-math"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span><strong>výr</strong>očí 2. světové války...</span>
+											<i class="icon icon-history"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="pull-left">
+							<button type="submit" class="btn btn-search">
+								<i class="icon icon-search"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+				<div class="search-button pull-left">
+					<a href="#" class="btn btn-search">
+						<i class="icon icon-search"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-userarea clearfix">
+		{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
+		<a n:href="Profile:">{block|trim}
+	        {if $isGuest}
+	            Přihlásit se
+	        {elseif !$userEntity->registered}
+	            Guest User #{$userEntity->id}
+	        {else}
+	            {$userEntity->nominative}
+	        {/if}
+	    {/block}</a>
+	    <a n:if="!$isGuest" n:href="Auth:out">{_'layout.log.out'}</a>
+	</div>
+</header>
