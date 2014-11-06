@@ -15,4 +15,14 @@ use Orm\OneToMany as OtM;
 class Block extends Entity
 {
 
+	/**
+	 * @return Schema
+	 */
+	public function getRandomParent()
+	{
+		/** @var BlockSchemaBridge $bridge */
+		$bridge = $this->blockSchemaBridges->get()->fetch();
+		return $bridge->schema;
+	}
+
 }

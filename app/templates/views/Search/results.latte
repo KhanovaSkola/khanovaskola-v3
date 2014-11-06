@@ -4,13 +4,30 @@
 	 * @param Collection[] $results
 	 *}
 
-	<h1>Výsledky pro <code>{$query}</code></h1>
-	{foreach $results as $content}
-		<h3>
-			<a n:href="$content">
-				{$content->title|noescape}
-			</a>
-		</h3>
-		<p>{$content->description|noescape}</p>
-		<p>{$content->subtitles|noescape}</p>
-	{/foreach}
+	<div class="search-page">
+		<div class="container">
+            <main class="content">
+                <div class="content-inner">
+                    <section class="search-form">
+                        {control search, label => 'Hledáte'}
+	                </section>
+	                <section class="search-result">
+	                    {foreach $results as $i => $content}
+	                        {var $subject = $content->getEntity()->getRandomParent()->getRandomParent()->subject}
+		                    <article>
+		                        <div class="left text-{$subject->color}">
+		                            <i class="icon icon-{$subject->icon}"></i>
+		                        </div>
+		                        <div class="right">
+		                            <span class="title">
+		                                <a tabindex="{$i+1}" n:href="$content">{$content->title|noescape}</a>
+		                            </span>
+		                            <p>{$content->description|noescape}</p>
+		                        </div>
+		                    </article>
+						{/foreach}
+	                </section>
+                </div>
+            </main>
+        </div>
+	</div>

@@ -3,11 +3,12 @@
 namespace App\Models\Structs\Highlights;
 
 use App\Models\Orm\Entity;
+use Countable;
 use Iterator;
 use Nette\Object;
 
 
-class Collection extends Object implements Iterator
+class Collection extends Object implements Iterator, Countable
 {
 
 	private $key = 0;
@@ -49,6 +50,14 @@ class Collection extends Object implements Iterator
 	public function rewind()
 	{
 		$this->key = 0;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function count()
+	{
+		return count($this->data);
 	}
 
 }

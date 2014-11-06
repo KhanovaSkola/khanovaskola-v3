@@ -63,8 +63,8 @@ abstract class Highlight extends Object
 			{
 				$safe = htmlspecialchars($unsafe);
 				$safe = preg_replace(self::$regex, '$1', $safe);
-				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<em>', $safe);
-				$safe = str_replace(ElasticSearch::HIGHLIGHT_END, '</em>', $safe);
+				$safe = str_replace(ElasticSearch::HIGHLIGHT_START, '<strong>', $safe);
+				$safe = str_replace(ElasticSearch::HIGHLIGHT_END, '</strong>', $safe);
 
 				$result[] = $safe;
 			}

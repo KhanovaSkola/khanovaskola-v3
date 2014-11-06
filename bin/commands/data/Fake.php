@@ -168,6 +168,13 @@ class Fake extends Command
 	protected function fillSubject(Subject $s)
 	{
 		$s->name = $this->faker->name;
+		$s->icon = $this->faker->randomElement([
+			'math', 'it', 'zsv', 'chemistry', 'history',
+			'natural-studies', 'physics'
+		]);
+		$s->color = $this->faker->randomElement([
+			'blue', 'cyan-dark', 'gold', 'green', 'purple', 'red'
+		]);
 	}
 
 	/**
@@ -181,7 +188,7 @@ class Fake extends Command
 
 		foreach ($subjects as $subject)
 		{
-			for ($i = 0; $i < 8; ++$i)
+			for ($i = 0; $i < 3; ++$i)
 			{
 				$schema = new Schema();
 				$schema->name = $this->faker->name;
