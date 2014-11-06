@@ -1,24 +1,10 @@
 {
 	"dependencies": {
-		"bower": "latest",
-		"grunt": "latest",
-		"grunt-cli": "latest",
-		"grunt-contrib-clean": "latest",
-		"grunt-contrib-cssmin": "latest",
-		"grunt-contrib-stylus": "latest",
-		"grunt-contrib-uglify": "latest",
-		"grunt-replace": "~0.7.7"
+		"bower": "latest"
 	},
 	"devDependencies": {
-		"grunt-browser-sync": "latest",
-		"grunt-contrib-watch": "latest",
-		"grunt-notify": "latest",
-		"underscore": "latest"
 	},
 	"scripts": {
-		"start": "grunt dev",
-		"prepublish": "bower install --config.interactive=false && grunt",
-		"build": "grunt",
-		"test": "grunt"
+		"prepublish": "bower install --config.interactive=false && grunt"
 	}
 }
