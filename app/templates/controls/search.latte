@@ -1,1 +1,11 @@
-{control form}
+<form class="clearfix" n:name="form">
+    <div class="pull-left">
+        <label n:if="$label">{$label}</label>
+        <input n:name="query" type="text" class="form-control" placeholder="Hledat">
+    </div>
+    <div class="pull-left">
+        <button n:name="search" class="btn btn-search">
+            <i class="icon icon-search"></i>
+        </button>
+    </div>
+</form>

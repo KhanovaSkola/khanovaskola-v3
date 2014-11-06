@@ -9,6 +9,17 @@ use Nette\Application\UI\Form;
 class Search extends Control
 {
 
+	protected function renderDefault($args)
+	{
+		$args = $args + [
+			'label' => NULL,
+		];
+		foreach ($args as $k => $v)
+		{
+			$this->template->add($k, $v);
+		}
+	}
+
 	protected function createComponentForm()
 	{
 		$form = new Form();

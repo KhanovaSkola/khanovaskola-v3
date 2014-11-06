@@ -30,4 +30,14 @@ abstract class Content extends TitledEntity implements IIndexable
 		];
 	}
 
+	/**
+	 * @return Block
+	 */
+	public function getRandomParent()
+	{
+		/** @var ContentBlockBridge $bridge */
+		$bridge = $this->contentBlockBridges->get()->fetch();
+		return $bridge->block;
+	}
+
 }
