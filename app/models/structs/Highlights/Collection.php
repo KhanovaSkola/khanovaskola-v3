@@ -18,10 +18,14 @@ class Collection extends Object implements Iterator, Countable
 	 */
 	protected $data;
 
-	public function add(Entity $entity, array $highlights)
+	public function add(Entity $entity, array $highlights, $score)
 	{
 		$class = $entity->getHighlightEntityName();
-		$this->data[] = new $class($entity, $highlights);
+
+		/** @var Highlight $hl */
+		$hl = new $class($entity, $highlights);
+		$hl->setScore($score);
+		$this->data[] = $hl;
 	}
 
 	/**

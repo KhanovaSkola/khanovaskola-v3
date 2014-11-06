@@ -51,7 +51,7 @@ class ElasticSearchMapper extends Mapper
 			$id = (int) $hit['_id'];
 
 			$ids[] = $id;
-			$highlights[$id] = isset($hit['highlight']) ? $hit['highlight'] : [];
+			$highlights[$id] = [isset($hit['highlight']) ? $hit['highlight'] : [], $hit['_score']];
 		}
 
 		$entities = $this->findById($ids)->fetchAll();
@@ -60,7 +60,8 @@ class ElasticSearchMapper extends Mapper
 		$result = new Collection();
 		foreach ($entities as $entity)
 		{
-			$result->add($entity, $highlights[$entity->id]);
+			list($hls, $score) = $highlights[$entity->id];
+			$result->add($entity, $hls, $score);
 		}
 
 		return $result;
