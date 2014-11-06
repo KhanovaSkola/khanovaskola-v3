@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var path = require('path');
+var replace = require('gulp-replace-task');
 
 var lessDir = './www/less';
 var lessFiles = path.join(lessDir, '*', '**');
@@ -11,7 +12,8 @@ var jsFiles = [
 	path.join(jsDir, 'app.js'),
 	path.join(jsDir, 'services/*.js'),
 	path.join(jsDir, 'snippets/*.js'),
-	path.join(jsDir, 'components/forms/*.js'),
+	path.join(jsDir, 'components/controls/*.js'),
+	path.join(jsDir, 'components/forms/*.js')
 ];
 
 gulp.task('dev', function () {
@@ -29,6 +31,15 @@ gulp.task('dev', function () {
 		.pipe($.sourcemaps.init())
 		.pipe($.uglify())
 		.pipe($.concat('app.min.js'))
+		.pipe(replace({
+			patterns: [{
+				json: {
+					domain: {
+						elastic: 'http://localhost:9200'
+					}
+				}
+			}]
+		}))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../js'
 		}))
