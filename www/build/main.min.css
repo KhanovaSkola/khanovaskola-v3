@@ -7066,10 +7066,13 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
   border-color: #ffffff;
 }
 .header.header-white-border:hover,
-.header.header-white-border:hover .header-logo {
+.header.header-white-border.hover,
+.header.header-white-border:hover .header-logo,
+.header.header-white-border.hover .header-logo {
   border-color: #d4e1e8;
 }
-.header.header-white-border:hover .header-content .search-wrapper {
+.header.header-white-border:hover .header-content .search-wrapper,
+.header.header-white-border.hover .header-content .search-wrapper {
   opacity: 1;
 }
 .header.header-white-border .header-logo {
