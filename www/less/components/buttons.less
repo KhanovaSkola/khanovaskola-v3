@@ -1,0 +1,79 @@
+.btn {
+	@outline-size: 3px;
+	@padding-horizontal: 40px;
+
+	border-radius: @padding-horizontal;
+	background: @khan-blue;
+	box-shadow: 0 0 0 @outline-size @khan-blue;
+	outline: 0;
+	border: 2px solid @white;
+	margin-right: 5px;
+	height: 45px;
+	line-height: 40px;
+	padding-top: 0;
+
+	font-size: @font-size-base;
+	font-weight: @font-weight-light;
+	color: @white;
+
+	padding-left: @padding-horizontal;
+	padding-right: @padding-horizontal;
+
+	&:hover, 
+	&:focus {
+		// background: blue;
+		background: @khan-blue;
+		color: @white;
+		border-color: @white;
+		border-width: 1px;
+		padding-left: @padding-horizontal+1px;
+		padding-right: @padding-horizontal+1px;
+		padding-top: 1px;
+		outline: 0;
+	}
+
+	&:active,
+	&.active {
+		background: @btn-default-active;
+		box-shadow: 0 0 0 @outline-size @btn-default-active;
+		border-color: @white;
+		border-width: 1px;
+		outline: 0;
+		&:focus {
+			outline: 0;
+		}
+	}
+
+	&.btn-primary {
+		border-radius: 40px;
+		background: #67A3C8;
+		box-shadow: 0 0 0 @outline-size #67A3C8;
+		&:hover,
+		&:focus {
+			background: #62B5E9;
+			box-shadow: 0 0 0 @outline-size #62B5E9;
+			border-width: 2px;
+			padding-left: @padding-horizontal;
+			padding-right: @padding-horizontal;
+			padding-top: 0;
+		}
+
+		&:active,
+		&.active {
+			background: #4781A5;
+			box-shadow: 0 0 0 @outline-size #4781A5;
+		}
+	}
+
+	&.btn-search {
+		width: 33px;
+		height: 33px;
+		display: inline-block;
+		padding: 0;
+		line-height: 33px;
+		font-size: 12px;
+		&:hover {
+			padding-top: 1px;
+		}
+	}
+}

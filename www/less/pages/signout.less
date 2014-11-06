@@ -1,0 +1,45 @@
+.signout-page {
+	.content-inner {
+		margin-top: 30px;
+		.box {
+			background: url(../img/signout-page-bg.svg) no-repeat;
+			width: 435px;
+			height: 420px;
+			display: block; 
+			margin: 0 auto;
+			margin-top: 20px;
+			@media (max-width: @screen-sm) {
+				background: none;
+				width: 100%;
+				max-width: 435px;
+			}
+			h1 {
+				text-align: center;
+				padding-top: 25px;
+				font-size: 48px;
+				line-height: 72px;
+				small {
+					display: block;
+					font-size: 21px;
+					line-height: 23px;
+				}
+			}
+		}
+		.back-to {
+			display: block;
+			margin-bottom: 30px;
+			&:hover {
+				text-decoration: none;
+				opacity: .7;
+			}
+			.icon {
+				display: block;
+				font-size: 16px;
+			}
+			span {
+				display: block;
+				margin-top: 10px;
+			}
+		}
+	}
+}

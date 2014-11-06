@@ -1,0 +1,17 @@
+.anim() {
+	transition: all .2s ease-in-out;
+}
+.anim{
+	.anim;
+}
+
+.white-border() {
+	.anim;
+	border-color: @white;
+}
+
+.darken-hover(@base-color) {
+	a&:hover {
+		color: darken(@base-color, 20%);
+	}
+}
