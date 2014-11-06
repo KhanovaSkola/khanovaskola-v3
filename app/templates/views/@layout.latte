@@ -26,32 +26,14 @@
 
 </head>
 <body>
+	{include _header.latte}
+
 	<div n:foreach="$flashes as $flash" class="alert alert-dismissable alert-{$flash->type}">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong>{$flash->title}</strong> {$flash->message}
 	</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				{control search}
-			</div>
-			<div class="col-md-6">
-				<a n:href="Profile:">
-					{if $userEntity instanceof App\Models\Structs\LazyEntity}
-						Guest User
-					{elseif !$userEntity->registered}
-						Guest User #{$userEntity->id}
-                    {else}
-						{$userEntity->nominative}
-					{/if}
-				</a>
-				<a n:href="Auth:out">{_'layout.log.out'}</a>
-			</div>
-		</div>
-
-		{include content}
-	</div>
+	{include content}
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="'+{$basePath}+'/libs/jquery/dist/jquery.min.js"><\/script>')</script>
