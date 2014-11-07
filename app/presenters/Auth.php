@@ -6,6 +6,7 @@ use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;
+use App\Models\Structs\LazyEntity;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
@@ -258,10 +259,16 @@ final class Auth extends Presenter
 
 	public function actionOut()
 	{
+		$user = $this->getUserEntity();
+		$vocative = NULL;
+		if (!$user instanceof LazyEntity && $user->registered)
+		{
+			$vocative = $user->vocative;
+		}
+
 		$this->iLog('auth.logout');
 		$this->getUser()->logout(TRUE);
-		$this->flashSuccess('auth.flash.logout');
-		$this->redirect('in');
+		$this->template->add('vocative', $vocative);
 	}
 
 }
