@@ -7819,7 +7819,7 @@ label {
   font-weight: 400;
 }
 .error-page .content .content-inner {
-  background: url(../img/error-page-bg.svg) no-repeat;
+  background: url(../img/error-page-bg.svg) no-repeat top center;
   height: 500px;
   text-align: center;
 }

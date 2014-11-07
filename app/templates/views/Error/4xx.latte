@@ -1,22 +1,22 @@
 {var $robots = noindex}
-
+{var $pageName = 'error-page'}
 {block content}
 	{**
 	 * @param int $code
 	 *}
-	<h1 n:block=title>{_"errors.$code.title"}</h1>
 
-	<p>{_"errors.$code.text"}</p>
-
-	<style>
-		{var $bgImage = "$basePath/images/error/unicorn.gif"}
-		html, body {
-           min-height: 100%;
-        }
-		body {
-			background-image: url('{$bgImage|noescape}');
-			background-size: 100%;
-			background-repeat: no-repeat;
-			background-position: center bottom;
-		}
-	</style>
+	<div class="container">
+	    <main class="content">
+	        <div class="content-inner">
+	            <h1>
+	                {block title}{_"errors.$code.title"}{/block}
+	                <small>
+	                    {_"errors.$code.text"}
+	                </small>
+	            </h1>
+	            <img src="{$basePath}/img/error-page-arrow.svg" alt="arrow down">
+	            {control search}
+	        </div>
+	    </main>
+	</div>
+	<div class="clearfix"></div>
