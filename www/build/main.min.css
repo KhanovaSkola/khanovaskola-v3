@@ -7965,35 +7965,35 @@ label {
   margin-right: 65px;
   border: 0;
 }
-.about-page .header:not(:hover) {
+.about-page .header:not(:hover):not(.hover) {
   background: transparent;
   border: 0;
 }
-.about-page .header:not(:hover) .header-logo {
+.about-page .header:not(:hover):not(.hover) .header-logo {
   border: 0;
 }
-.about-page .header:not(:hover) .header-logo .logo {
+.about-page .header:not(:hover):not(.hover) .header-logo .logo {
   background: url(../img/logo-white.svg);
   width: 40px;
   height: 37px;
   display: block;
 }
-.about-page .header:not(:hover) .header-logo .logo img {
+.about-page .header:not(:hover):not(.hover) .header-logo .logo img {
   display: none;
 }
-.about-page .header:not(:hover) .header-content .dropdown .dropdown-toggle {
+.about-page .header:not(:hover):not(.hover) .header-content .dropdown .dropdown-toggle {
   color: #ffffff;
 }
-.about-page .header:not(:hover) .header-content .dropdown .caret {
+.about-page .header:not(:hover):not(.hover) .header-content .dropdown .caret {
   background-image: url(../img/dropdown-caret-white.svg);
 }
-.about-page .header:not(:hover) .header-content .search-wrapper {
+.about-page .header:not(:hover):not(.hover) .header-content .search-wrapper {
   display: none;
 }
-.about-page .header:not(:hover) .header-userarea {
+.about-page .header:not(:hover):not(.hover) .header-userarea {
   border: 0;
 }
-.about-page .header:not(:hover) .header-userarea a {
+.about-page .header:not(:hover):not(.hover) .header-userarea a {
   color: #ffffff;
 }
 .about-page .content .hero {
