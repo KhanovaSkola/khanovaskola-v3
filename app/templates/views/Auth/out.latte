@@ -1,0 +1,34 @@
+{block content}
+	{**
+	 * @param User $userEntity
+	 *}
+
+	<div class="signout-page">
+		<div class="container">
+		    <main class="content">
+		        <div class="content-inner">
+		            <div class="text-center">
+		                <img src="{$basePath}/img/logo.svg" width="80" height="72" alt="Khanova škola">
+		            </div>
+		            <div class="box">
+		                <h1>
+		                    {if $vocative}
+		                        Měj se moc hezky,<br>
+		                        {$vocative}!
+		                    {else}
+		                        Mějte se moc hezky.
+		                    {/if}
+		                    <small>A zase někdy na viděnou.</small>
+		                </h1>
+		            </div>
+		            <div class="text-center">
+		                <a n:href="Homepage:" class="back-to">
+		                    <i class="icon icon-return"></i>
+		                    <span>vrátit se na úvodní stránku</span>
+		                </a>
+		            </div>
+		        </div>
+
+		    </main>
+		</div>
+	</div>
