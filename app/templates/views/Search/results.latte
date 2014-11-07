@@ -1,34 +1,33 @@
+{var $pageName = 'search-page'}
 {block content}
 	{**
 	 * @param string $query
 	 * @param Collection[] $results
 	 *}
 
-	<div class="search-page">
-		<div class="container">
-            <main class="content">
-                <div class="content-inner">
-                    <section class="search-form">
-                        {control search, label => 'Hledáte'}
-	                </section>
-	                <section class="search-result">
-	                    {foreach $results as $i => $content}
-	                        {var $subject = $content->getEntity()->getRandomParent()->getRandomParent()->subject}
-		                    <article>
-		                        <div class="left text-{$subject->color}">
-		                            <i class="icon icon-{$subject->icon}"></i>
-		                        </div>
-		                        <div class="right">
-		                            <span class="title">
-		                                <code>{$content->score|number:2}</code>
-		                                <a tabindex="{$i+1}" n:href="$content">{$content->title|noescape}</a>
-		                            </span>
-		                            <p>{$content->description|noescape}</p>
-		                        </div>
-		                    </article>
-						{/foreach}
-	                </section>
-                </div>
-            </main>
-        </div>
-	</div>
+	<div class="container">
+        <main class="content">
+            <div class="content-inner">
+                <section class="search-form">
+                    {control search, label => 'Hledáte'}
+                </section>
+                <section class="search-result">
+                    {foreach $results as $i => $content}
+                        {var $subject = $content->getEntity()->getRandomParent()->getRandomParent()->subject}
+	                    <article>
+	                        <div class="left text-{$subject->color}">
+	                            <i class="icon icon-{$subject->icon}"></i>
+	                        </div>
+	                        <div class="right">
+	                            <span class="title">
+	                                <code>{$content->score|number:2}</code>
+	                                <a tabindex="{$i+1}" n:href="$content">{$content->title|noescape}</a>
+	                            </span>
+	                            <p>{$content->description|noescape}</p>
+	                        </div>
+	                    </article>
+					{/foreach}
+                </section>
+            </div>
+        </main>
+    </div>
