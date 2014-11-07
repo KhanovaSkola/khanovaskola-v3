@@ -123,6 +123,11 @@ class ElasticSearch extends Client
 						'subtitles' => ['number_of_fragments' => 3],
 					]
 				],
+				'aggs' => [
+					'buckets' => [
+						'terms' => ['field' => 'bucket']
+					]
+				],
 			]
 		];
 

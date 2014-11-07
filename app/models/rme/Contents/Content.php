@@ -26,6 +26,7 @@ abstract class Content extends TitledEntity implements IIndexable
 	{
 		return [
 			'title' => $this->title,
+			'bucket' => $this->type,
 			'suggest' => [
 				'input' => $this->title,
 				'payload' => [
