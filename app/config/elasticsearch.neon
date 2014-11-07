@@ -26,6 +26,8 @@ mappings:
 				type: string
 				store: true
 				boost: 5
+			bucket:
+				type: string
 			suggest: # same content as title
 				type: completion
 				payloads: true
