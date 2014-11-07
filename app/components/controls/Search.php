@@ -9,7 +9,7 @@ use Nette\Application\UI\Form;
 class Search extends Control
 {
 
-	protected function renderDefault($args)
+	protected function renderDefault(array $args = [])
 	{
 		$args = $args + [
 			'label' => NULL,
