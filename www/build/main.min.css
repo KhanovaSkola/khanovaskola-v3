@@ -7751,11 +7751,14 @@ label {
     margin-left: 0;
   }
 }
-.search-page .content .content-inner .search-form .form-control {
+.search-page .content .content-inner .search-form .form-control,
+.search-page .content .content-inner .search-form .twitter-typeahead {
+  display: block !important;
   width: 430px;
 }
 @media (max-width: 768px) {
-  .search-page .content .content-inner .search-form .form-control {
+  .search-page .content .content-inner .search-form .form-control,
+  .search-page .content .content-inner .search-form .twitter-typeahead {
     width: 100%;
   }
 }
