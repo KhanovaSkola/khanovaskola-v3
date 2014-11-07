@@ -5,7 +5,7 @@ App.elasticSearch = new $.es.Client({
 App.autocomplete = function(query, cb) {
 	App.elasticSearch.search({
 		index: 'khanovaskola',
-		type: 'Video,Blueprint',
+		type: 'content',
 		body: {
 			query: {
 				match: {
@@ -44,16 +44,23 @@ $(function() {
         },
         {
             name: 'states',
-            templates: {
-                suggestion: function(row) {
-                    return '<p>' + row.highlit + '</p>'
-                }
-            },
+            //templates: {
+            //    suggestion: function(row) {
+	         //       return '\
+				//		<li>\
+				//			<a href="#">\
+				//				<span>' + row.highlit + '</span>\
+				//				<i class="icon icon-arrow-right"></i>\
+				//			</a>\
+				//		</li>\
+	         //       ';
+            //    }
+            //},
             source: function(query, process) {
                 App.autocomplete(query, function(results) {
                     process(results);
                 });
             }
         }
-    );
+    )
 });
