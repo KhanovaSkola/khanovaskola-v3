@@ -55,11 +55,8 @@ class Video extends Content
 	 */
 	public function getIndexData()
 	{
-		return [
-			'title' => $this->title,
-			'description' => $this->description,
+		return parent::getIndexData() + [
 			'subtitles' => $this->getTextFromSubtitles(),
-			'pathStarts' => 0 // computed in background worker
 		];
 	}
 

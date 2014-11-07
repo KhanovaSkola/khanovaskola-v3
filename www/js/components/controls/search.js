@@ -3,32 +3,22 @@ App.elasticSearch = new $.es.Client({
 });
 
 App.autocomplete = function(query, cb) {
-	App.elasticSearch.search({
+	App.elasticSearch.suggest({
 		index: 'khanovaskola',
-		type: 'content',
 		body: {
-			query: {
-				match: {
-					title: query
+			content: {
+				text: query,
+				completion: {
+					field: 'suggest'
 				}
-			},
-            highlight: {
-                pre_tags: ['<strong>'],
-                post_tags: ['</strong>'],
-                fields: {
-                    title: {
-                        number_of_fragments: 0
-                    }
-                }
-            }
+			}
 		}
 	}).then(function(results) {
 		var titles = [];
-		$.each(results.hits.hits, function(i, v) {
+		$.each(results.content[0].options, function(i, v) {
 			titles.push({
-				id: v._id,
-                value: v._source.title,
-				highlit: 'title' in v.highlight ? v.highlight.title[0] : v._source.title
+				id: v.payload.id,
+                value: v.text
 			});
 		});
 		cb(titles);
@@ -39,7 +29,7 @@ $(function() {
     $('#frm-search-form-query').typeahead(
         {
             hint: true,
-            highlight: false,
+            highlight: true,
             minLength: 1
         },
         {

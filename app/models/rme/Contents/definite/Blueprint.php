@@ -115,18 +115,4 @@ class Blueprint extends Content
 		return $this->model->answers->findRecentByUserAndBlueprint($user, $this);
 	}
 
-	/**
-	 * Values to be saved to es index
-	 *
-	 * @return array [field => data]
-	 */
-	public function getIndexData()
-	{
-		return [
-			'title' => $this->title,
-			'description' => $this->description,
-			'pathStarts' => 0, // set in background worker
-		];
-	}
-
 }
