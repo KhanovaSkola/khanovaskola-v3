@@ -24,15 +24,20 @@ mappings:
 		properties:
 			title:
 				type: string
-				store: 'true'
+				store: true
 				boost: 5
+			suggest: # same content as title
+				type: completion
+				payloads: true
+#				index_analyzer: simple #TODO
+#				search_analyzer: simple #TODO
 			description:
 				type: string
-				store: 'true'
+				store: true
 				boost: 4
 			subtitles:
 				type: string
-				store: 'true'
+				store: true
 				index_options: offsets
 			pathStarts:
 				type: integer
