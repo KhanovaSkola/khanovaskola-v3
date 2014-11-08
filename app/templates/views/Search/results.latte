@@ -10,6 +10,11 @@
             <div class="content-inner">
                 <section class="search-form">
                     {control search, label => 'Hledáte'}
+                    <ul class="list-unstyled">
+                        <li n:foreach="$aggs as $ag">
+                            {$ag['key']} ({$ag['doc_count']})
+                        </li>
+                    </ul>
                 </section>
                 <section class="search-result">
                     {foreach $results as $i => $content}

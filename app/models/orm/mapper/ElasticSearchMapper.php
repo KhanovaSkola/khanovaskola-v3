@@ -34,7 +34,7 @@ class ElasticSearchMapper extends Mapper
 	/**
 	 * @param $query
 	 * @param string[] $fields
-	 * @return Collection
+	 * @return array [Collection, aggs]
 	 */
 	public function getWithFulltext($query, array $fields = ['_all'])
 	{
@@ -64,7 +64,7 @@ class ElasticSearchMapper extends Mapper
 			$result->add($entity, $hls, $score);
 		}
 
-		return $result;
+		return [$result, $res['aggregations']['buckets']['buckets']];
 	}
 
 	/**

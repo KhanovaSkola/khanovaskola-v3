@@ -28,11 +28,11 @@ mappings:
 				boost: 5
 			bucket:
 				type: string
+				index_analyzer: simple
+				search_analyzer: simple
 			suggest: # same content as title
 				type: completion
 				payloads: true
-#				index_analyzer: simple #TODO
-#				search_analyzer: simple #TODO
 			description:
 				type: string
 				store: true
