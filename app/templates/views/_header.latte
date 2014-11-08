@@ -108,15 +108,25 @@
 	</div>
 	<div class="header-userarea clearfix">
 		{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
-		<a n:href="Profile:">{block|trim}
-	        {if $isGuest}
-	            Přihlásit se
-	        {elseif !$userEntity->registered}
-	            Guest User #{$userEntity->id}
-	        {else}
-	            {$userEntity->nominative}
-	        {/if}
-	    {/block}</a>
+        {if $isGuest}
+            <a href="#" data-toggle="modal" data-target="#loginModal">
+                Přihlásit se
+            </a>
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<h2 class="text-center">Přihlásit se</h2>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
+        {elseif !$userEntity->registered}
+            Guest User #{$userEntity->id}
+        {else}
+            <a n:href="Profile:">{$userEntity->nominative}</a>
+        {/if}
 	    <a n:if="!$isGuest" n:href="Auth:out">{_'layout.log.out'}</a>
 	</div>
 </header>

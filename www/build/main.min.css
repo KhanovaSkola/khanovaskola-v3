@@ -7416,6 +7416,23 @@ label {
 .dropdown .dropdown-menu li a.text-success {
   color: #71bd1a;
 }
+.modal .modal-content {
+  box-shadow: 0 0 0;
+  border-radius: 3px;
+  border: 0;
+}
+.modal .modal-content .modal-footer {
+  background: #353d41;
+  border: 0;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.fade .modal-dialog {
+  -webkit-transition: -webkit-transform 0.1s ease-out;
+  transition: transform 0.1s ease-out;
+}
 .landing-page .container {
   margin-left: 0;
   margin-right: auto;
