@@ -1,6 +1,5 @@
-#
-# Requires Varnish 4
-#
+vcl 4.0;
+
 # Disable esi xml check on varnish Startup
 # Example:
 #   DAEMON_OPTS="-a :6081 \
@@ -13,25 +12,23 @@ backend default {
     .port = "8085";
 }
 
-sub vcl_hash {
-	hash_data(req.url);
-	if (req.url ~ "/esi/headeruser($|\?)")
-	{
-		set req.http.X-SID = regsub(req.http.cookie, ".*PHPSESSID=([^;]+);.*", "\1");
-		hash_data(req.http.X-SID);
-		remove req.http.X-SID;
+sub vcl_recv {
+	if (req.method != "GET") {
+		return (pass);
 	}
 	return (hash);
 }
 
-sub vcl_recv {
-	if (req.request != "GET") {
-		return (pass);
+sub vcl_hash {
+	hash_data(req.url);
+	if (req.url ~ "/esi/headeruser($|\?)")
+	{
+		hash_data(regsub(req.http.cookie, ".*PHPSESSID=([^;]+);.*", "\1"));
 	}
 	return (lookup);
 }
 
-sub vcl_fetch {
+sub vcl_backend_response {
 	set beresp.do_esi = true;
-    set beresp.ttl = 15m;
+	set beresp.ttl = 15m;
 }
