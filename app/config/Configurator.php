@@ -90,21 +90,6 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	/**
-	 * @param bool|array $value
-	 * @throws \InvalidArgumentException
-	 * @return self
-	 */
-	public function setDebugMode($value = FALSE)
-	{
-		if ($value === TRUE)
-		{
-			throw new \InvalidArgumentException('Use array of allowed ips instead');
-		}
-		return parent::setDebugMode($value);
-	}
-
-
 	public static function detectDebugMode($list = NULL)
 	{
 		if (strpos(php_uname('n'), 'testing-worker-') !== FALSE)
