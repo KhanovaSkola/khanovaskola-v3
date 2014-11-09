@@ -9,6 +9,7 @@ parameters:
 		driver: postgre
 		host: localhost
 		charset: utf8
+		port: 5432
 		sqlmode: TRADITIONAL
 	beanstalk:
 		host: 127.0.0.1:11300
