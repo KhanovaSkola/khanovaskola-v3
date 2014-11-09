@@ -3,16 +3,57 @@
 	 * @param Comment[] $comments
 	 *}
 
-	{control commentForm}
-	<div js-comments>
-		<div n:foreach="$comments as $comment">
-			<p>
-				{$comment->createdAt|date}
-				<strong>{$comment->author->nominative}:</strong>
-			</p>
-			<p>
-				{$comment->text}
-				<a href="#" js-comments-reply data-reply-to="{$comment->id}" data-author="{$comment->author->vocative}">Odpovědět</a>
-			</p>
-		</div>
-	</div>
+	<div class="discuss">
+        <div class="container">
+            <div class="discuss-inner">
+                {control commentForm}
+                {*<form>*}
+                    {*<div class="form-group">*}
+                        {*<textarea class="form-control" placeholder="Sem napiš svůj dotaz…"></textarea>*}
+                    {*</div>*}
+                    {*<div class="form-group clearfix">*}
+                        {*<div class="pull-left">*}
+                            {*<p class="help">*}
+                                {*Aby jsme ti mohli poslat odpověď je potřeba se také zaregistrovat.*}
+                            {*</p>*}
+                        {*</div>*}
+                        {*<div class="pull-right">*}
+                            {*<input type="submit" class="btn" value="Přidat dotaz a vytvořit účet">*}
+                        {*</div>*}
+                    {*</div>*}
+                {*</form>*}
+                <div class="comments" js-comments>
+                    <ul class="list-unstyled">
+                        <li>
+                            {foreach $comments as $comment}
+	                            <div class="comment clearfix">
+	                                <div class="avatar pull-left">
+	                                    <img src="{$basePath}/img/avatar.png" alt="avatar">
+	                                </div>
+	                                <div class="right pull-left">
+	                                    <div class="comment-header">
+	                                        <span class="author">{$comment->author->nominative}</span>
+	                                        <span class="date">{$comment->createdAt|date}</span>
+	                                    </div>
+	                                    <div class="comment-content">
+	                                        {$comment->text}
+	                                    </div>
+	                                    <div class="footer">
+	                                        {*<a href="#">*}
+	                                            {*<i class="icon icon-arrow-up"></i>*}
+	                                            {*<span>[Přidat hlas]</span>*}
+	                                        {*</a>*}
+	                                        <a href="#" js-comments-reply data-reply-to="{$comment->id}" data-author="{$comment->author->vocative}">
+	                                            <i class="icon icon-replay"></i>
+	                                            Odpovědět
+	                                        </a>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        {/foreach}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
