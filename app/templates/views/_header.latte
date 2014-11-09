@@ -1,7 +1,6 @@
 {define header}
 	<header class="header{if $pageName !== 'about-page'} header-white-border{/if}">
 		{block headerBack}
-			original
 			<div class="header-logo">
 				<a n:href="Homepage:" class="logo">
 					<img src="{$basePath}/img/logo.svg" width="40" height="36" alt="Khanova škola">
@@ -44,7 +43,9 @@
 							<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
 								<div class="row">
 									<div n:foreach="$subject->schemas as $schema" class="col-md-4">
-										<div class="title">{$schema->name}</div>
+										<div class="title">
+											<a n:href="$schema">{$schema->name}</a>
+										</div>
 										<ul class="list-unstyled">
 											<li n:foreach="$schema->blockSchemaBridges as $bridge">
 												<a href="#">
