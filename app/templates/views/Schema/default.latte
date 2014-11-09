@@ -1,0 +1,80 @@
+{var $pageName = 'scheme-page'}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 * @param Schema $schema
+	 *}
+
+	<main class="content">
+		<div class="content-inner">
+	        <div class="container">
+	            <div class="text-center">
+	                <span class="text-{$schema->subject->color}">
+	                    <i class="icon icon-{$schema->subject->icon}"></i>
+	                </span>
+	                <h1>
+	                    {$schema->name}
+	                    <small>
+	                        <!-- <i class="icon icon-time"></i> -->
+	                        <img src="{$basePath}/img/time.svg" alt="time">
+	                        <span>3</span>
+	                    </small>
+	                </h1>
+	                <p>
+	                    Trochu popsání o čem bude předmět, co bude potřeba k absolvování kromě trpělivosti třeba tak jako na Khan Academy.
+	                </p>
+	                <a href="#" class="btn">
+	                    Zahájit
+	                </a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="scheme-wrapper">
+	        <div class="container">
+	            <div class="scheme-section">
+	                <div class="scheme-item"></div>
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Aritmetika</span>
+	                </div>
+	                <div class="scheme-item"></div>
+	            </div>
+	            <div class="scheme-arrow">
+	                <img src="{$basePath}/img/arrows/scheme-arrow-1.svg" alt="arrow">
+	            </div>
+
+	            <div class="scheme-section">
+	                <div class="scheme-item scheme-item-line"></div>
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Elementární algebra</span>
+	                </div>
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Měření a data</span>
+	                </div>
+	            </div>
+	            <div class="scheme-arrow">
+	                <img src="{$basePath}/img/arrows/scheme-arrow-2.svg" alt="arrow">
+	            </div>
+
+	            <div class="scheme-section">
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Elementární algebra</span>
+	                </div>
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Elementární algebra</span>
+	                </div>
+	                <div class="scheme-item">
+	                    <i class="icon icon-math"></i>
+	                    <span>Měření a data</span>
+	                </div>
+	            </div>
+	            <div class="scheme-arrow">
+	                <img src="{$basePath}/img/arrows/scheme-arrow-1.svg" alt="arrow">
+	            </div>
+	        </div>
+	    </div>
+	</main>

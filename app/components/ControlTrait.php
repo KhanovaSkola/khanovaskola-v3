@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\Models\Rme\Blueprint;
+use App\Models\Rme\Schema;
 use App\Models\Rme\Video;
 use App\Models\Structs\Highlights\Highlight;
 use App\Presenters\Presenter;
@@ -57,15 +58,21 @@ trait ControlTrait
 		{
 			$destination = $destination->getEntity();
 		}
+
 		if ($destination instanceof Video)
 		{
 			$args = ['videoId' => $destination->id];
 			$destination = 'Video:';
 		}
-		if ($destination instanceof Blueprint)
+		else if ($destination instanceof Blueprint)
 		{
 			$args = ['blueprintId' => $destination->id];
 			$destination = 'Blueprint:';
+		}
+		else if ($destination instanceof Schema)
+		{
+			$args = ['schemaId' => $destination->id];
+			$destination = 'Schema:';
 		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
