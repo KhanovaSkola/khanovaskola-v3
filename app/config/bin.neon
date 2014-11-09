@@ -30,7 +30,7 @@ console:
 		- Bin\Commands\Worker
 
 database:
-	dsn: 'pgsql:host=127.0.0.1;dbname=%database.database%'
+	dsn: 'pgsql:host=127.0.0.1;port=%database.port%;dbname=%database.database%'
 	user: %database.username%
 	password: %database.password%
 	options:
