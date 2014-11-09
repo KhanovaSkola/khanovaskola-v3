@@ -13,22 +13,29 @@ backend default {
 }
 
 sub vcl_recv {
-	if (req.method != "GET") {
-		return (pass);
-	}
-	return (hash);
+        if (req.method != "GET") {
+                return (pass);
+        }
+
+        unset req.http.cookie;
+        return (hash);
 }
 
 sub vcl_hash {
-	hash_data(req.url);
-	if (req.url ~ "/esi/headeruser($|\?)")
-	{
-		hash_data(regsub(req.http.cookie, ".*PHPSESSID=([^;]+);.*", "\1"));
-	}
-	return (lookup);
+        hash_data(req.url);
+        if (req.url ~ "/esi/header/user($|\?)")
+        {
+                hash_data(regsub(req.http.cookie, ".*PHPSESSID=([^;]+);.*", "\1"));
+        }
+        return(lookup);
 }
 
 sub vcl_backend_response {
-	set beresp.do_esi = true;
-	set beresp.ttl = 15m;
+        set beresp.do_esi = true;
+        set beresp.ttl = 15m;
+
+        unset beresp.http.Set-Cookie;
+        unset beresp.http.Cache-Control;
+
+        set beresp.http.Cache-Control = "public";
 }
