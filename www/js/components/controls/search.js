@@ -1,27 +1,30 @@
-App.elasticSearch = new $.es.Client({
-	hosts: '@@domain.elastic'
-});
+App.elasticSearch = {
+	host: '@@domain.elastic'
+};
 
 App.autocomplete = function(query, cb) {
-	App.elasticSearch.suggest({
-		index: 'khanovaskola',
-		body: {
+	$.ajax({
+		type: 'POST',
+		url: App.elasticSearch.host + '/khanovaskola/_suggest',
+		dataType: 'json',
+		data: JSON.stringify({
 			content: {
 				text: query,
 				completion: {
 					field: 'suggest'
 				}
 			}
-		}
-	}).then(function(results) {
-		var titles = [];
-		$.each(results.content[0].options, function(i, v) {
-			titles.push({
-				id: v.payload.id,
-                value: v.text
+		}),
+		success: function (results) {
+			var titles = [];
+			$.each(results.content[0].options, function(i, v) {
+				titles.push({
+					id: v.payload.id,
+					value: v.text
+				});
 			});
-		});
-		cb(titles);
+			cb(titles);
+		}
 	});
 };
 
