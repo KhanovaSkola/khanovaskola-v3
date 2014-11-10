@@ -1,4 +1,7 @@
-{block scripts}{include '_script.latte'}{/block}
+{block scripts}
+	<script src="{$basePath}/libs/d3/d3.min.js"></script>
+	{include '_script.latte'}
+{/block}
 {block innerContent}
 	{**
 	 * @param Exercise $exercise
