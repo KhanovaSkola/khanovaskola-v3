@@ -44,7 +44,6 @@ gulp.task('dev', function () {
 			sourceRoot: '../js'
 		}))
 		.pipe(gulp.dest(buildDir));
-	//.pipe($.livereload());
 });
 
 gulp.task('production', function () {
@@ -53,6 +52,20 @@ gulp.task('production', function () {
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
+		.pipe(gulp.dest(buildDir));
+
+	gulp.src(jsFiles)
+		.pipe($.uglify())
+		.pipe($.concat('app.min.js'))
+		.pipe(replace({
+			patterns: [{
+				json: {
+					domain: {
+						elastic: 'https://elastic.khanovaskola.cz'
+					}
+				}
+			}]
+		}))
 		.pipe(gulp.dest(buildDir));
 });
 
