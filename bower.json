@@ -7,7 +7,6 @@
 	"bootstrap": "latest",
 	"MathJax": "latest",
 	"nette-forms": "latest",
-	"elasticsearch": "latest",
 	"medium-editor": "latest",
 	"typeahead.js": "latest",
 	"d3": "latest",
