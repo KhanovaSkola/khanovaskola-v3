@@ -113,6 +113,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->setTranslator($this->translator);
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAll());
+
+		$deploy = $this->context->parameters['wwwDir'] . '/deploy.txt';
+		$hash = NULL;
+		if (file_exists($deploy))
+		{
+			$hash = '-' . substr(md5(file_get_contents($deploy)), 0, 10);
+		}
+		$this->template->add('staticHash', $hash);
 	}
 
 	/**
