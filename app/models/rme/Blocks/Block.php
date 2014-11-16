@@ -11,6 +11,8 @@ use Orm\OneToMany as OtM;
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $block}
  * @property OtM|BlockSchemaBridge[]  $blockSchemaBridges  {1:m blockSchemaBridges $block}
  * @property User                     $author              {m:1 users $blocksAuthored}
+ *
+ * @property-read Content[] $contents
  */
 class Block extends Entity
 {
@@ -23,6 +25,17 @@ class Block extends Entity
 		/** @var BlockSchemaBridge $bridge */
 		$bridge = $this->blockSchemaBridges->get()->fetch();
 		return $bridge->schema;
+	}
+
+	/**
+	 * @return Content[]
+	 */
+	public function getContents()
+	{
+		foreach ($this->contentBlockBridges as $bridge)
+		{
+			yield $bridge->content;
+		}
 	}
 
 }
