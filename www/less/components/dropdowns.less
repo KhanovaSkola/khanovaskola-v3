@@ -5,7 +5,7 @@
 			@caret-size-width: 16px;
 			@caret-size-height: 8px;
 			@bottom: -15px;
-			&:before, 
+			&:before,
 			&:after {
 				.anim;
 				content: '';
@@ -28,7 +28,7 @@
 		}
 		&.dropdown-big {
 			.caret {
-				&:before, 
+				&:before,
 				&:after {
 					display: none;
 				}
@@ -50,7 +50,7 @@
 		width: 12px;
 		height: 8px;
 		display: inline-block;
-		
+
 		position: relative;
 	}
 	.dropdown-toggle {
@@ -67,17 +67,20 @@
 		margin-top: -5px;
 
 		li {
+		  	text-overflow: ellipsis;
+		    overflow: hidden;
+
 			&:before {
 				display: none;
 			}
 			a {
-				white-space: normal;
 				font-weight: @font-weight-light;
 				font-size: 16px;
 				color: @khan-black;
 				line-height: 24px;
 				padding-top: 4px;
 				padding-bottom: 4px;
+			    white-space: nowrap;
 				&.text-success {
 					color: @khan-green;
 				}
