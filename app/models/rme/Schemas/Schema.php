@@ -28,4 +28,17 @@ class Schema extends Entity
 		}
 	}
 
+	/**
+	 * @return int seconds
+	 */
+	public function getDuration()
+	{
+		$duration = 0;
+		foreach ($this->blocks as $block)
+		{
+			$duration += $block->getDuration();
+		}
+		return $duration;
+	}
+
 }

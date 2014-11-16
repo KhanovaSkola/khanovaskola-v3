@@ -60,4 +60,12 @@ class Video extends Content
 		];
 	}
 
+	/**
+	 * @return int seconds
+	 */
+	public function getDuration()
+	{
+		return 20 * 60; // TODO
+	}
+
 }
