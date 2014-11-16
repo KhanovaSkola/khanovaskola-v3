@@ -1,8 +1,9 @@
 {var $pageName = 'scheme-page'}
+{var $headerBorder = FALSE}
 {block content}
 	{**
 	 * @param UserEntity $userEntity
-	 * @param Schema $schema
+	 * @param App\Models\Rme\Schema $schema
 	 *}
 
 	<main class="content">
@@ -34,8 +35,12 @@
 	            <div class="scheme-section">
 	                <div class="scheme-item"></div>
 	                <div class="scheme-item">
-	                    <i class="icon icon-math"></i>
-	                    <span>Aritmetika</span>
+	                    <a n:href="Block:default, blockId => 1">
+		                    <i class="icon icon-math"></i>
+		                    <span>
+		                        Aritmetika
+		                    </span>
+	                    </a>
 	                </div>
 	                <div class="scheme-item"></div>
 	            </div>
