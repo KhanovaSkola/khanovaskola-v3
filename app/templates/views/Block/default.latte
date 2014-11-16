@@ -1,5 +1,14 @@
 {var $pageName = 'block-page'}
 {var $headerBorder = TRUE}
+{block headerBack}
+	<div class="header-goback">
+		{var $schema = $block->getRandomParent()}
+		<a n:href="$schema">
+			<i class="icon icon-arrow-left2"></i>
+			<span>{$schema->name}</span>
+		</a>
+	</div>
+{/block}
 {block content}
 	{**
 	 * @param UserEntity $userEntity
