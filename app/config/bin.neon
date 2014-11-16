@@ -1,5 +1,6 @@
 services:
 	- Bin\Services\DoctrineFactory(%database%)
+	- Bin\Services\ElasticPopulator
 	- Bin\Services\Scaffolding(%appDir%)
 	- Bin\Services\SchemaBuilder
 	-
@@ -15,6 +16,7 @@ console:
 		- Bin\Commands\Data\Drop
 		- Bin\Commands\Data\Fake
 		- Bin\Commands\Deploy\Development
+		- Bin\Commands\ElasticSearch\Populate
 		- Bin\Commands\ElasticSearch\Recreate
 		- Bin\Commands\Link
 		- Bin\Commands\Migrations\Migrate

@@ -14,6 +14,7 @@ class Recreate extends Command implements IMightLoseData
 	{
 		$this
 			->setName('elasticsearch:recreate')
+			->setAliases(['es:recreate'])
 			->setDescription('Recreate all elasticsearch indices and mappings (does not repopulate with data)');
 	}
 
