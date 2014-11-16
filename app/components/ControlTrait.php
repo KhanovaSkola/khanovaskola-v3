@@ -48,6 +48,12 @@ trait ControlTrait
 					'datetime' => $d->format('c')
 				]);
 		});
+		$template->addFilter('hours', function($seconds) {
+			return round($seconds / 3600);
+		});
+		$template->addFilter('minutes', function($seconds) {
+			return round($seconds / 60);
+		});
 	}
 
 	public function link($destination, $args = [])
