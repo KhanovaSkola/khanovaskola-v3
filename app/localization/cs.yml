@@ -205,3 +205,9 @@ loginForm:
     wrong: ""
   password:
     missing: ""
+
+block:
+  duration:
+    one: "1 hodina"
+    few: "%1 hodiny"
+    many: "%1 hodin"

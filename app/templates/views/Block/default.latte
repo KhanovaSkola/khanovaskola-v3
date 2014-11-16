@@ -29,7 +29,7 @@
                         </p>
                         <div class="time">
                             <i class="icon icon-time"></i>
-                            <span>1 hodina</span>
+                            <span>{_'block.duration', $template->hours($block->duration)}</span>
                         </div>
                         <div class="idea">
                             <i class="icon icon-idea"></i>
@@ -54,7 +54,7 @@
 		                                        <span>{$content->title}</span>
 		                                        <small>
 		                                            <i class="icon icon-time"></i>
-		                                            <span>5 minut</span>
+		                                            <span>{$content->duration|minutes}&thinsp;m</span>
 		                                        </small>
 		                                    </a>
 	                                    </h3>
