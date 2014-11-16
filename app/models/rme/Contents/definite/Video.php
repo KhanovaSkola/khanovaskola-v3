@@ -11,6 +11,7 @@ use Orm\OneToMany as OtM;
 /**
  * @property string             $youtubeId
  * @property NULL|string        $youtubeIdOriginal  filled if dubbed
+ * @property NULL|int           $duration           seconds
  *
  * @property OtM|VideoView[]    $views              {1:m videoViews $video}
  * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
@@ -65,7 +66,7 @@ class Video extends Content
 	 */
 	public function getDuration()
 	{
-		return 20 * 60; // TODO
+		return $this->getValue('duration') ?: 20 * 60;
 	}
 
 }
