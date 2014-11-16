@@ -18,12 +18,16 @@ class Block extends Entity
 {
 
 	/**
-	 * @return Schema
+	 * @return NULL|Schema
 	 */
 	public function getRandomParent()
 	{
 		/** @var BlockSchemaBridge $bridge */
 		$bridge = $this->blockSchemaBridges->get()->fetch();
+		if (!$bridge)
+		{
+			return NULL;
+		}
 		return $bridge->schema;
 	}
 
