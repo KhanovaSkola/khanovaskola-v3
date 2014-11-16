@@ -1,5 +1,5 @@
 <form class="clearfix" n:name="form">
-    <div class="pull-left">
+    <div class="pull-left search-input{ifset $class} {$class}{/ifset}">
         <label n:if="$label">{$label}</label>
         <input n:name="query" type="text" class="form-control" placeholder="Hledat">
     </div>

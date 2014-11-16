@@ -19,7 +19,8 @@
                 </section>
                 <section class="search-result">
                     {foreach $results as $i => $content}
-                        {var $subject = $content->getEntity()->getRandomParent()->getRandomParent()->subject}
+                        {var $block = $content->getEntity()->getRandomParent()}
+                        {var $subject = $block ? $block->getRandomParent()->subject : $presenter->orm->subjects->getById(1)}
 	                    <article>
 	                        <div class="left text-{$subject->color}">
 	                            <i class="icon icon-{$subject->icon}"></i>
