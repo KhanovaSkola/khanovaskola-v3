@@ -1,11 +1,92 @@
+{var $pageName = 'course-page'}
+{var $headerBorder = TRUE}
 {block scripts}
 	<script src="{$basePath}/libs/d3/d3.min.js"></script>
 	{include '_script.latte'}
 {/block}
 {block innerContent}
 	{**
-	 * @param Exercise $exercise
+	 * @param App\Models\Rme\Exercise $exercise
 	 *}
+	<main class="content">
+    	<div class="course-header">
+    		<div class="course-header-content">
+    			<div class="left">
+    				<div class="icon-wrapper">
+    					<i class="icon icon-math"></i>
+    				</div>
+    				<div class="content-wrapper">
+    					<small>Sčítání a odčítání (2/6)</small>
+    					<h1>
+    						<span>Sčítání I.</span>
+    						<small>Přišel čas si vše pořádně sečíst.</small>
+    					</h1>
+    					<div class="idea">
+    						<i class="icon icon-idea"></i>
+    						<span>Je potřeba rozumět Základní matematice.</span>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="right">
+    				<div class="right-inner">
+    					<small>6.</small>
+    					<span class="question">Jak se nazývá zeleně vyznačený útvar?</span>
+    					<div class="question-image">
+    						<img src="img/exercises/exercise1.png" alt="exe">
+    					</div>
+    					<div class="choices">
+    						<div class="radio">
+    							<label>
+    								<input type="radio" name="result">
+    								<span></span>
+    								Přímka
+    							</label>
+    						</div>
+    						<div class="radio">
+    							<label>
+    								<input type="radio" name="result">
+    								<span></span>
+    								Úsečka
+    							</label>
+    						</div>
+    						<div class="radio">
+    							<label>
+    								<input type="radio" name="result">
+    								<span></span>
+    								Bod
+    							</label>
+    						</div>
+    						<div class="radio">
+    							<label>
+    								<input type="radio" name="result">
+    								<span></span>
+    								Polo přímka
+    							</label>
+    						</div>
+    					</div>
+    					<div class="send-wrapper">
+    						<input type="submit" class="btn" value="Zkontrolovat odpověd">
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="course-header-footer">
+    			<div class="left"></div>
+    			<div class="center">
+    				<i class="icon icon-comments"></i>
+    				<span>Máš nějaký dotaz k probírané látce?</span>
+    			</div>
+    			<div class="right">
+    				<a href="#">
+    					<span>Sčítání II.</span>
+    					<small>(3/6)</small>
+    					<i class="icon icon-arrow-right-double"></i>
+    				</a>
+    			</div>
+    		</div>
+    	</div>
+    </main>
+
 	<h1>{$exercise->blueprint->title}</h1>
 	<h2>{$exercise->blueprint->description}</h2>
 
