@@ -13,10 +13,11 @@ class Search extends Control
 	{
 		$args = $args + [
 			'label' => NULL,
+			'class' => NULL,
 		];
 		foreach ($args as $k => $v)
 		{
-			$this->template->add($k, $v);
+			$this->template->$k = $v;
 		}
 	}
 
