@@ -48,4 +48,9 @@ abstract class Content extends TitledEntity implements IIndexable
 		return $bridge->block;
 	}
 
+	/**
+	 * @return int seconds
+	 */
+	abstract function getDuration();
+
 }

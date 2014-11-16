@@ -38,4 +38,17 @@ class Block extends Entity
 		}
 	}
 
+	/**
+	 * @return int seconds
+	 */
+	public function getDuration()
+	{
+		$duration = 0;
+		foreach ($this->contents as $content)
+		{
+			$duration += $content->getDuration();
+		}
+		return $duration;
+	}
+
 }

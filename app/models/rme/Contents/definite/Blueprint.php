@@ -115,4 +115,14 @@ class Blueprint extends Content
 		return $this->model->answers->findRecentByUserAndBlueprint($user, $this);
 	}
 
+	/**
+	 * @return int seconds
+	 */
+	public function getDuration()
+	{
+		// Time expected user will practise with on this exercise.
+		// TODO we might take average time to mastery in the future
+		return 20 * 60;
+	}
+
 }
