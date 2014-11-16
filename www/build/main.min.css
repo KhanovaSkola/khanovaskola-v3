@@ -7530,13 +7530,24 @@ label {
 .timeline .timeline-item .timeline-content h3:after {
   clear: both;
 }
-.timeline .timeline-item .timeline-content h3 span {
+.timeline .timeline-item .timeline-content h3 a {
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
   float: left;
+  color: #0a82cc;
+  font-size: 24px;
+  line-height: 32px;
+  padding-top: 3px;
+}
+.timeline .timeline-item .timeline-content h3 a:hover {
+  color: #05446b;
 }
 .timeline .timeline-item .timeline-content h3 small {
   float: left;
   margin-top: 2px;
   margin-left: 10px;
+  display: block;
+  width: 100px;
 }
 .timeline .timeline-item .timeline-content h3 small:before,
 .timeline .timeline-item .timeline-content h3 small:after {
@@ -7621,6 +7632,13 @@ label {
 .landing-page .content .content-inner:after {
   clear: both;
 }
+.landing-page .content .content-inner hgroup a {
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+.landing-page .content .content-inner hgroup a:hover {
+  text-decoration: none;
+}
 .landing-page .content .content-inner h2 {
   padding-top: 15px;
   font-size: 72px;
@@ -7630,6 +7648,9 @@ label {
   font-size: 30px;
   vertical-align: 45%;
 }
+.landing-page .content .content-inner h2 a {
+  font-size: 72px;
+}
 .landing-page .content .content-inner h3 {
   font-size: 54px;
   line-height: 56px;
@@ -7637,6 +7658,9 @@ label {
 .landing-page .content .content-inner h3 .icon {
   font-size: 27px;
   vertical-align: 37%;
+}
+.landing-page .content .content-inner h3 a {
+  font-size: 54px;
 }
 .landing-page .content .content-inner h4 {
   font-size: 21px;
@@ -7649,6 +7673,9 @@ label {
 .landing-page .content .content-inner h4 .icon.icon-arrow-right {
   vertical-align: 47%;
   font-size: 8px;
+}
+.landing-page .content .content-inner h4 a {
+  font-size: 21px;
 }
 .landing-page .content .content-inner .join {
   margin-top: 45px;

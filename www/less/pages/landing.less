@@ -1,5 +1,5 @@
 .landing-page {
-	
+
 	.container {
 		margin-left: 0;
 		margin-right: auto;
@@ -15,7 +15,7 @@
 			width: @container-lg;
 		}
 	}
-	
+
 	.content {
 		margin-top: 90px;
 		.content-inner {
@@ -27,6 +27,15 @@
 			color: #383331;
 			text-align: right;
 
+		  	hgroup {
+			  a {
+				.anim;
+				&:hover {
+				  text-decoration: none;
+				}
+			  }
+			}
+
 			h2 {
 				padding-top: 15px;
 				font-size: 72px;
@@ -35,6 +44,9 @@
 					font-size: 30px;
 					vertical-align: 45%;
 				}
+			  	a {
+				  font-size: 72px;
+				}
 			}
 			h3 {
 				font-size: 54px;
@@ -42,6 +54,9 @@
 				.icon {
 					font-size: 27px;
 					vertical-align: 37%;
+				}
+			  	a {
+				  font-size: 54px;
 				}
 			}
 			h4 {
@@ -54,6 +69,9 @@
 						vertical-align: 47%;
 						font-size: 8px;
 					}
+				}
+				a {
+				  font-size: 21px;
 				}
 			}
 
@@ -76,7 +94,7 @@
 			}
 		}
 	}
-	
+
 	.landing-footer {
 		font-family: @headings-font-family;
 		text-transform: uppercase;
