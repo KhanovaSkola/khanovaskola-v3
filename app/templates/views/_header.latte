@@ -1,6 +1,6 @@
 {includeblock _headerUser.latte}
 {define header}
-	<header class="header{if $pageName !== 'about-page'} header-white-border{/if}">
+	<header class="header{if !$headerBorder} header-white-border{/if}">
 		{block headerBack}
 			<div class="header-logo">
 				<a n:href="Homepage:" class="logo">
@@ -48,9 +48,9 @@
 											<a n:href="$schema">{$schema->name}</a>
 										</div>
 										<ul class="list-unstyled">
-											<li n:foreach="$schema->blockSchemaBridges as $bridge">
+											<li n:foreach="$schema->blocks as $block">
 												<a href="#">
-													{$bridge->block->name}
+													{$block->name}
 												</a>
 											</li>
 										</ul>
