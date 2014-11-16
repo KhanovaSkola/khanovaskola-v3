@@ -6911,6 +6911,9 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
     height: auto;
   }
 }
+.header .header-content .dropdown .dropdown-menu .subject-detail li {
+  width: 110%;
+}
 .header .header-content .dropdown .dropdown-menu .subject-detail .title {
   font-weight: 300;
   font-size: 14px;
@@ -7415,17 +7418,21 @@ label {
   padding-bottom: 10px;
   margin-top: -5px;
 }
+.dropdown .dropdown-menu li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .dropdown .dropdown-menu li:before {
   display: none;
 }
 .dropdown .dropdown-menu li a {
-  white-space: normal;
   font-weight: 300;
   font-size: 16px;
   color: #4a4a4a;
   line-height: 24px;
   padding-top: 4px;
   padding-bottom: 4px;
+  white-space: nowrap;
 }
 .dropdown .dropdown-menu li a.text-success {
   color: #71bd1a;
