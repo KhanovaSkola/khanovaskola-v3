@@ -1,0 +1,87 @@
+.block-page {
+  .content {
+	.left {
+	  .clearfix;
+	  position: fixed;
+	  top: @header-height;
+	  left: 0;
+	  bottom: 0;
+
+	  background: fade(@header-border, 13);
+	  width: 368px;
+	  height: 100%;
+	  .icon-wrapper {
+		float: left;
+		margin-left: 40px;
+		margin-top: 62px;
+		width: 35px;
+		i {
+		  font-size: 25px;
+		}
+	  }
+	  .content-wrapper {
+		float: left;
+		width: 235px;
+		margin-top: 60px;
+		h2 {
+		  margin: 0;
+		}
+		p {
+		  font-weight: @font-weight-light;
+		  font-size: 16px;
+		  color: @khan-black2;
+		  line-height: 19px;
+		  margin-top: 15px;
+		}
+		.time {
+		  .clearfix;
+		  color: @checkbox-border-active;
+		  margin-top: 20px;
+		  margin-bottom: 20px;
+		  display: block;
+		  i {
+			float: left;
+			font-size: 17px;
+			margin-top: 2px;
+		  }
+		  span {
+			float: left;
+			font-size: 14px;
+			line-height: 21px;
+			margin-left: 9px;
+		  }
+		}
+		.idea {
+		  .clearfix;
+		  color: @header-border;
+		  margin-bottom: 30px;
+		  i {
+			float: left;
+			width: 25px;
+			margin-left: -25px;
+			font-size: 19px;
+		  }
+		  span {
+			float: left;
+			width: 100%;
+			color: @khan-blue-light;
+			line-height: 19px;
+		  }
+		}
+		.btn {
+		  width: 90px;
+		  padding-left: 0;
+		  padding-right: 0;
+		  text-align: center;
+		}
+	  }
+	}
+	.right {
+	  float: left;
+	  margin-left: 368px;
+	  .right-inner {
+		padding: 60px;
+	  }
+	}
+  }
+}
