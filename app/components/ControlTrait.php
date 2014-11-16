@@ -2,9 +2,7 @@
 
 namespace App\Components;
 
-use App\Models\Rme\Blueprint;
-use App\Models\Rme\Schema;
-use App\Models\Rme\Video;
+use App\Models\Rme;
 use App\Models\Structs\Highlights\Highlight;
 use App\Presenters\Presenter;
 use DateTime;
@@ -59,20 +57,25 @@ trait ControlTrait
 			$destination = $destination->getEntity();
 		}
 
-		if ($destination instanceof Video)
+		if ($destination instanceof Rme\Video)
 		{
 			$args = ['videoId' => $destination->id];
 			$destination = 'Video:';
 		}
-		else if ($destination instanceof Blueprint)
+		else if ($destination instanceof Rme\Blueprint)
 		{
 			$args = ['blueprintId' => $destination->id];
 			$destination = 'Blueprint:';
 		}
-		else if ($destination instanceof Schema)
+		else if ($destination instanceof Rme\Schema)
 		{
 			$args = ['schemaId' => $destination->id];
 			$destination = 'Schema:';
+		}
+		else if ($destination instanceof Rme\Block)
+		{
+			$args = ['blockId' => $destination->id];
+			$destination = 'Block:';
 		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
