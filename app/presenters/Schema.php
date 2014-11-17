@@ -3,36 +3,43 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Presenters\Parameters;
 
 
 class Schema extends Presenter
 {
 
-	/**
-	 * @var int
-	 * @persistent
-	 */
-	public $schemaId;
-
-	/**
-	 * @var Rme\Schema
-	 */
-	protected $schema;
+	use Parameters\Schema;
 
 	public function startup()
 	{
 		parent::startup();
-
-		$this->schema = $this->orm->schemas->getById($this->schemaId);
-		if (!$this->schema)
-		{
-			$this->error();
-		}
+		$this->loadSchema();
 	}
 
 	public function renderDefault()
 	{
 		$this->template->add('schema', $this->schema);
+	}
+
+	/**
+	 * Redirects user to the first content he has not completed yet
+	 */
+	public function actionContinue()
+	{
+		foreach ($this->schema->blocks as $block)
+		{
+			foreach ($block->contents as $content)
+			{
+				if (!$this->userEntity->hasCompleted($content))
+				{
+					$this->redirectUrl($this->link($content));
+				}
+			}
+		}
+
+		$firstContent = $this->schema->getFirstBlock()->getFirstContent();
+		$this->redirectUrl($this->link($firstContent));
 	}
 
 }

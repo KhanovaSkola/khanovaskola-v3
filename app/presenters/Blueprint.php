@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Models\Rme;
 use App\Models\Services\BlueprintCompiler;
 use App\Models\Structs\EventList;
+use App\Presenters\Parameters;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
@@ -12,16 +13,7 @@ use Nette\Forms\Controls\TextInput;
 final class Blueprint extends Content
 {
 
-	/**
-	 * @var int
-	 * @persistent
-	 */
-	public $blueprintId;
-
-	/**
-	 * @var Rme\Blueprint
-	 */
-	protected $blueprint;
+	use Parameters\Blueprint;
 
 	/**
 	 * @var BlueprintCompiler
@@ -32,12 +24,7 @@ final class Blueprint extends Content
 	public function startup()
 	{
 		parent::startup();
-
-		$this->blueprint = $this->orm->contents->getBlueprintById($this->blueprintId);
-		if (!$this->blueprint)
-		{
-			$this->error();
-		}
+		$this->loadBlueprint();
 	}
 
 	private function getExercise($seed = NULL)

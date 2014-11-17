@@ -3,32 +3,19 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Presenters\Parameters;
 use Nette\Application\Responses\TextResponse;
 
 
 final class Srt extends Presenter
 {
 
-	/**
-	 * @persistent
-	 * @var int
-	 */
-	public $videoId;
-
-	/**
-	 * @var Rme\Video
-	 */
-	public $video;
+	use Parameters\Video;
 
 	public function startup()
 	{
 		parent::startup();
-
-		$this->video = $this->orm->contents->getById($this->videoId);
-		if (!$this->video || ! $this->video instanceof Rme\Video)
-		{
-			$this->error();
-		}
+		$this->loadVideo();
 	}
 
 	public function renderDefault()

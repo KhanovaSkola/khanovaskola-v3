@@ -5,21 +5,13 @@ namespace App\Presenters;
 use App\Components\FormControl;
 use App\Components\Forms;
 use App\Models\Rme;
+use App\Presenters\Parameters;
 
 
 final class BlueprintEditor extends Presenter
 {
 
-	/**
-	 * @var NULL|int
-	 * @persistent
-	 */
-	public $blueprintId;
-
-	/**
-	 * @var NULL|Rme\Blueprint
-	 */
-	protected $blueprint;
+	use Parameters\Blueprint;
 
 	public function startup()
 	{
@@ -30,11 +22,7 @@ final class BlueprintEditor extends Presenter
 			$this->redirectToAuthOrRegister();
 		}
 
-		$this->blueprint = $this->orm->contents->getBlueprintById($this->blueprintId);
-		if ($this->blueprintId && !$this->blueprint)
-		{
-			$this->error();
-		}
+		$this->loadBlueprint();
 	}
 
 	public function createComponentBlueprintEditor()
