@@ -12,7 +12,7 @@ use Orm\OneToMany as OtM;
  * @property Subject                 $subject            {m:1 subjects $schemas}
  * @property User                    $author             {m:1 users $schemasAuthored}
  *
- * @property-read Block[] $blocks
+ * @property Block[]                 $blocks             {ignore}
  */
 class Schema extends Entity
 {
