@@ -22,11 +22,12 @@ class ListAll extends Command
 		foreach (glob($this->paths->getBackup() . '/*.tar.gz') as $archive)
 		{
 			$match = [];
-			preg_match('~/(\d+)\.tar\.gz$~', $archive, $match);
+			preg_match('~/(\d+)-([^.]+)\.tar\.gz$~', $archive, $match);
 
 			$stamp = $match[1];
+			$ref = $match[2];
 			$date = date('Y-m-d H:i', $stamp);
-			$this->out->writeln("<comment>$stamp</comment> $date");
+			$this->out->writeln("<comment>$stamp</comment> $date $ref");
 			$count++;
 		}
 
