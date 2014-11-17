@@ -58,4 +58,3 @@ abstract class Command extends Commands\Command
 	}
 
 }
-

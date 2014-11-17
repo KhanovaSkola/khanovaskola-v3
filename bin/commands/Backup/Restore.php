@@ -19,6 +19,12 @@ class Restore extends Command implements IMightLoseData
 				'Timestamp of archive to restore');
 	}
 
+	protected function getBackupByTimestamp($stamp)
+	{
+		$files = glob($this->paths->getBackup() . "/$stamp*.tar.gz");
+		return end($files);
+	}
+
 	public function invoke(Container $container)
 	{
 		$stamp = $this->in->getArgument('file');
@@ -28,7 +34,7 @@ class Restore extends Command implements IMightLoseData
 			$this->out->writeln("<error>Expected timestamp, using '$stamp'</error>");
 		}
 
-		$file = $this->paths->getBackup() . "/$stamp.tar.gz";
+		$file = $this->getBackupByTimestamp($stamp);
 		if (!file_exists($file))
 		{
 			$this->out->writeln("<error>Archive not found at '$file'</error>");
@@ -55,7 +61,7 @@ class Restore extends Command implements IMightLoseData
 		$this->cleanUp();
 
 		$this->out->writeln('<info>Successfully restored from archive</info>');
-		$this->out->writeln('<comment>Don\'t forget to run es:rebuild && es:repopulate</comment>');
+		$this->out->writeln('<comment>Don\'t forget to run es:recreate and es:populate</comment>');
 	}
 
 }
