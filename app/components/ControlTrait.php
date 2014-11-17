@@ -58,11 +58,6 @@ trait ControlTrait
 
 	public function link($destination, $args = [])
 	{
-		if ($destination instanceof Highlight)
-		{
-			$destination = $destination->getEntity();
-		}
-
 		if ($destination instanceof Rme\Video)
 		{
 			$args = ['videoId' => $destination->id];
