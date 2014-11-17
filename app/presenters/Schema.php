@@ -38,8 +38,8 @@ class Schema extends Presenter
 			}
 		}
 
-		$firstContent = $this->schema->getFirstBlock()->getFirstContent();
-		$this->redirectUrl($this->link($firstContent));
+		$block = $this->schema->getFirstBlock();
+		$this->redirectUrl($this->link($block->getFirstContent(), [$block, $this->schema]));
 	}
 
 }

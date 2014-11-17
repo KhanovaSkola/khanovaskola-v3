@@ -18,11 +18,17 @@ class Block extends Presenter
 
 		$this->loadBlock();
 		$this->loadSchema();
+
+		if (!$this->schema->contains($this->block))
+		{
+			$this->error();
+		}
 	}
 
 	public function renderDefault()
 	{
 		$this->template->add('block', $this->block);
+		$this->template->add('schema', $this->schema);
 	}
 
 }

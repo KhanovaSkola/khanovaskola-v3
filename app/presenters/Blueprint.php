@@ -13,7 +13,9 @@ use Nette\Forms\Controls\TextInput;
 final class Blueprint extends Content
 {
 
+	use Parameters\Block;
 	use Parameters\Blueprint;
+	use Parameters\Schema;
 
 	/**
 	 * @var BlueprintCompiler
@@ -24,7 +26,14 @@ final class Blueprint extends Content
 	public function startup()
 	{
 		parent::startup();
+		$this->loadSchema();
+		$this->loadBlock();
 		$this->loadBlueprint();
+
+		if (!$this->schema->contains($this->block) || !$this->block->contains($this->blueprint))
+		{
+			$this->error();
+		}
 	}
 
 	private function getExercise($seed = NULL)
@@ -46,6 +55,8 @@ final class Blueprint extends Content
 		$seedInput->setDefaultValue($exercise->getSeed());
 
 		$this->template->exercise = $exercise;
+		$this->template->block = $this->block;
+		$this->template->schema = $this->schema;
 		$this->template->suggestions = $this->getSuggestions($this->blueprint);
 	}
 

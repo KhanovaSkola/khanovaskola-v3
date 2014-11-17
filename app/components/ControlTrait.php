@@ -2,8 +2,10 @@
 
 namespace App\Components;
 
+use App\ImplementationException;
 use App\Models\Rme;
 use App\Models\Structs\Highlights\Highlight;
+use App\NotImplementedException;
 use App\Presenters\Presenter;
 use DateTime;
 use Kdyby\Events\EventArgsList;
@@ -58,25 +60,53 @@ trait ControlTrait
 
 	public function link($destination, $args = [])
 	{
-		if ($destination instanceof Rme\Video)
-		{
-			$args = ['videoId' => $destination->id];
-			$destination = 'Video:';
-		}
-		else if ($destination instanceof Rme\Blueprint)
-		{
-			$args = ['blueprintId' => $destination->id];
-			$destination = 'Blueprint:';
-		}
-		else if ($destination instanceof Rme\Schema)
+		if ($destination instanceof Rme\Schema)
 		{
 			$args = ['schemaId' => $destination->id];
 			$destination = 'Schema:';
 		}
 		else if ($destination instanceof Rme\Block)
 		{
-			$args = ['blockId' => $destination->id];
+			if (!isset($args[0]) || ! $args[0] instanceof Rme\Schema)
+			{
+				throw new ImplementationException('Missing schema, cannot create link to block without it');
+			}
+
+			$args = ['blockId' => $destination->id, 'schemaId' => $args[0]->id];
 			$destination = 'Block:';
+		}
+		else if ($destination instanceof Rme\Content)
+		{
+			if (!isset($args[0]) || ! $args[0] instanceof Rme\Block)
+			{
+				throw new ImplementationException('Missing block, cannot create link to content without it');
+			}
+			else if (!isset($args[1]) || ! $args[1] instanceof Rme\Schema)
+			{
+				throw new ImplementationException('Missing schema, cannot create link to content without it');
+			}
+
+			$id = $destination->id;
+			if ($destination instanceof Rme\Video)
+			{
+				$idKey = 'videoId';
+				$destination = 'Video:';
+			}
+			else if ($destination instanceof Rme\Blueprint)
+			{
+				$idKey = 'blueprintId';
+				$destination = 'Blueprint:';
+			}
+			else
+			{
+				throw new NotImplementedException;
+			}
+
+			$args = [
+				$idKey => $id,
+				'blockId' => $args[0]->id,
+				'schemaId' => $args[1]->id,
+			];
 		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
