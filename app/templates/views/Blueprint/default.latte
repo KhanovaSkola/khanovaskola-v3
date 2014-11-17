@@ -21,24 +21,26 @@
     		<div class="course-header-content">
     			<div class="left">
     				<div class="icon-wrapper">
-    					<i class="icon icon-math"></i>
+    					<i class="icon icon-{if $schema}{$schema->subject->icon}{else}math{/if}"></i>
     				</div>
     				<div class="content-wrapper">
-    					<small>Sčítání a odčítání (2/6)</small>
+    					<small n:if="$block">{$block->name} (n/N)</small>
     					<h1>
-    						<span>Sčítání I.</span>
-    						<small>Přišel čas si vše pořádně sečíst.</small>
+    						<span>{$exercise->blueprint->title}</span>
+    						<small>{$exercise->blueprint->description}</small>
     					</h1>
     					<div class="idea">
     						<i class="icon icon-idea"></i>
-    						<span>Je potřeba rozumět Základní matematice.</span>
+    						<span>Je potřeba rozumět TODO.</span>
     					</div>
     				</div>
     			</div>
     			<div class="right">
-    				<div class="right-inner">
+    				<div class="right-inner" data-exercise>
     					<small>6.</small>
-    					<span class="question">Jak se nazývá zeleně vyznačený útvar?</span>
+    					<span class="question">
+    					    {$exercise->question|noescape}
+    					</span>
     					<div class="question-image">
     						<img src="img/exercises/exercise1.png" alt="exe">
     					</div>
@@ -75,6 +77,15 @@
     					<div class="send-wrapper">
     						<input type="submit" class="btn" value="Zkontrolovat odpověd">
     					</div>
+
+    					{control answer}
+
+						<code>answer: ${$exercise->answer}$</code>
+
+    					<ol data-hints>
+                            <li n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
+                        </ol>
+                        <a class="btn btn-link" data-show-hint>{_'exercise.showHint'}</a>
     				</div>
     			</div>
     		</div>
@@ -94,20 +105,5 @@
     		</div>
     	</div>
     </main>
-
-	<h1>{$exercise->blueprint->title}</h1>
-	<h2>{$exercise->blueprint->description}</h2>
-
-	<div data-exercise>
-		<h3>{$exercise->question|noescape}</h3>
-		<p>answer: ${$exercise->answer}$</p>
-
-		{control answer}
-
-		<ol data-hints>
-			<li n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
-		</ol>
-		<a class="btn btn-link" data-show-hint>{_'exercise.showHint'}</a>
-	</div>
 
 	{control columnChart, 'answerChartData', 'blueprint.yAxis'}
