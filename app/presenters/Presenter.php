@@ -4,8 +4,7 @@ namespace App\Presenters;
 
 use App\Components\ControlTrait;
 use App\Models\Orm\RepositoryContainer;
-use App\Models\Rme\BadgeUserBridge;
-use App\Models\Rme\User;
+use App\Models\Rme;
 use App\Models\Services\Translator;
 use App\Models\Services\UserState;
 use App\Models\Structs\EventList;
@@ -20,7 +19,7 @@ use Nette\Http\Session;
 /**
  * @property-read Template $template
  * @property-read UserState $user
- * @property-read User $userEntity
+ * @property-read Rme\User $userEntity
  */
 abstract class Presenter extends Nette\Application\UI\Presenter implements Subscriber
 {
@@ -64,7 +63,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		return [EventList::BADGE_AWARDED];
 	}
 
-	public function onBadgeAwarded(BadgeUserBridge $bridge)
+	public function onBadgeAwarded(Rme\BadgeUserBridge $bridge)
 	{
 		$this->flashSuccess('badges.awarded', [
 			'badge' => $bridge->title
@@ -73,7 +72,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 	/**
 	 * @throws \Exception from persist
-	 * @return User
+	 * @return Rme\User
 	 */
 	public function getUserEntity()
 	{
@@ -91,7 +90,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 			$storage = $this->user->storage;
 
 			$userEntity = new LazyEntity(function() use ($storage) {
-				$user = new User();
+				$user = new Rme\User();
 				$user->registered = FALSE;
 
 				$this->orm->users->persist($user);
@@ -185,6 +184,18 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 			$dir = dirname($dir);
 		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
 		return $list;
+	}
+
+	public function actionRandomContent()
+	{
+		// TODO redirect to one of most watched videos
+		// or if user is logged in, redirect to next video of last watched
+
+		/** @var Rme\Content $content */
+		$content = $this->orm->contents->findAll()->applyLimit(1, mt_rand(1, 20))->fetch(); // TODO make it random
+		$block = $content->getRandomParent();
+		$schema = $block ? $block->getRandomParent() : NULL;
+		$this->redirectToEntity($content, $block, $schema);
 	}
 
 }

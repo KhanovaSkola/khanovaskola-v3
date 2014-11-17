@@ -14,7 +14,7 @@ $(function() {
 		$dropdown.parents('header').removeClass('hover');
 	});
 
-	$('.ul-tab a').click(function (e) {
+	$('.ul-tab a[data-toggle]').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
 		return false;
