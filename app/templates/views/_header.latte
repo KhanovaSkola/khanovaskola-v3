@@ -1,12 +1,15 @@
 {includeblock _headerUser.latte}
+{define headerLogo}
+	<div class="header-logo">
+        <a n:href="Homepage:" class="logo">
+            <img src="{$basePath}/img/logo.svg" width="40" height="36" alt="Khanova škola">
+        </a>
+    </div>
+{/define}
 {define header}
 	<header class="header{if !$headerBorder} header-white-border{/if}">
 		{block headerBack}
-			<div class="header-logo">
-				<a n:href="Homepage:" class="logo">
-					<img src="{$basePath}/img/logo.svg" width="40" height="36" alt="Khanova škola">
-				</a>
-			</div>
+			{include headerLogo}
 		{/block}
 		<div class="header-content clearfix">
 			{cache expire => '20 minutes'}

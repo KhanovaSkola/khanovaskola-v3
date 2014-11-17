@@ -26,9 +26,14 @@ final class Blueprint extends Content
 	public function startup()
 	{
 		parent::startup();
-		$this->loadSchema();
-		$this->loadBlock();
 		$this->loadBlueprint();
+		$this->loadBlock(function() {
+			$block = $this->blueprint->getRandomParent();
+			$this->redirectToEntity($this->blueprint, $block, $block->getRandomParent());
+		});
+		$this->loadSchema(function() {
+			$this->redirectToEntity($this->blueprint, $this->block, $this->block->getRandomParent());
+		});
 
 		if (!$this->schema->contains($this->block) || !$this->block->contains($this->blueprint))
 		{

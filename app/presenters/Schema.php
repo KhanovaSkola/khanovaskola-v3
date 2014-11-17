@@ -39,7 +39,7 @@ class Schema extends Presenter
 		}
 
 		$block = $this->schema->getFirstBlock();
-		$this->redirectUrl($this->link($block->getFirstContent(), [$block, $this->schema]));
+		$this->redirectToEntity($block->getFirstContent(), $block, $this->schema);
 	}
 
 }

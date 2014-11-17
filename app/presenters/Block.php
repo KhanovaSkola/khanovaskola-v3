@@ -17,9 +17,15 @@ class Block extends Presenter
 		parent::startup();
 
 		$this->loadBlock();
-		$this->loadSchema();
+		$this->loadSchema(function() {
+			$schema = $this->block->getRandomParent();
+			if ($schema)
+			{
+				$this->redirectToEntity($this->block, $schema);
+			}
+		});
 
-		if (!$this->schema->contains($this->block))
+		if ($this->schema && !$this->schema->contains($this->block))
 		{
 			$this->error();
 		}
