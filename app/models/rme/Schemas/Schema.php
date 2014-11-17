@@ -41,4 +41,15 @@ class Schema extends Entity
 		return $duration;
 	}
 
+	/**
+	 * @return Block
+	 */
+	public function getFirstBlock()
+	{
+		foreach ($this->blocks as $block)
+		{
+			return $block;
+		}
+	}
+
 }
