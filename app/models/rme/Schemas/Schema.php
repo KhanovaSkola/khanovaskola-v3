@@ -52,4 +52,9 @@ class Schema extends Entity
 		}
 	}
 
+	public function contains(Block $block)
+	{
+		return $this->blockSchemaBridges->get()->findBy(['blockId' => $block->id])->count();
+	}
+
 }
