@@ -4,6 +4,7 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
+use App\Models\Services\Highlight;
 use Orm\OneToMany as OtM;
 
 
@@ -16,6 +17,18 @@ use Orm\OneToMany as OtM;
  */
 abstract class Content extends TitledEntity implements IIndexable
 {
+
+	/**
+	 * Only set for SearchResponse
+	 * @var int
+	 */
+	public $score;
+
+	/**
+	 * Only set for SearchResponse
+	 * @var mixed
+	 */
+	public $highlights;
 
 	/**
 	 * Values to be saved to es index
@@ -56,5 +69,19 @@ abstract class Content extends TitledEntity implements IIndexable
 	 * @return int seconds
 	 */
 	abstract public function getDuration();
+
+	/**
+	 * @param $field
+	 * @return string safe html
+	 */
+	public function highlight($field)
+	{
+		if (isset($this->highlights[$field]))
+		{
+			$highlights = $this->highlights[$field];
+			return Highlight::process(implode(' ', $highlights));
+		}
+		return $this->getValue($field);
+	}
 
 }

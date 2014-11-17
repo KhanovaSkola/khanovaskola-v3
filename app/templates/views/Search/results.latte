@@ -3,7 +3,7 @@
 {block content}
 	{**
 	 * @param string $query
-	 * @param Collection[] $results
+	 * @param App\Models\Structs\SearchResponse $search
 	 *}
 
 	<div class="container">
@@ -12,14 +12,14 @@
                 <section class="search-form">
                     {control search, label => 'Hledáte'}
                     <ul class="list-unstyled">
-                        <li n:foreach="$aggs as $ag">
+                        <li n:foreach="$search->aggregations as $ag">
                             {$ag['key']} ({$ag['doc_count']})
                         </li>
                     </ul>
                 </section>
                 <section class="search-result">
-                    {foreach $results as $i => $content}
-                        {var $block = $content->getEntity()->getRandomParent()}
+                    {foreach $search->results as $i => $content}
+                        {var $block = $content->getRandomParent()}
                         {var $subject = $block ? $block->getRandomParent()->subject : $presenter->orm->subjects->getById(1)}
 	                    <article>
 	                        <div class="left text-{$subject->color}">
@@ -28,9 +28,9 @@
 	                        <div class="right">
 	                            <span class="title">
 	                                <code>{$content->score|number:2}</code>
-	                                <a tabindex="{$i+1}" n:href="$content">{$content->title|noescape}</a>
+	                                <a tabindex="{$i+1}" n:href="$content">{$content->highlight('title')|noescape}</a>
 	                            </span>
-	                            <p>{$content->description|noescape}</p>
+	                            <p>{$content->highlight('description')|noescape}</p>
 	                        </div>
 	                    </article>
 					{/foreach}
