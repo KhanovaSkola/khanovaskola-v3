@@ -20,13 +20,17 @@ trait Block
 	 */
 	protected $block;
 
-	protected function loadBlock()
+	protected function loadBlock(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
 		$this->block = $this->orm->blocks->getById($this->blockId);
 		if (!$this->block)
 		{
-			$this->error();
+			if (!$fallback)
+			{
+				$this->error();
+			}
+			$this->block = $fallback();
 		}
 	}
 

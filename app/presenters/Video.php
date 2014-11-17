@@ -17,11 +17,27 @@ final class Video extends Content
 	public function startup()
 	{
 		parent::startup();
-		$this->loadSchema();
-		$this->loadBlock();
 		$this->loadVideo();
+		$this->loadBlock(function() {
+			$block = $this->video->getRandomParent();
+			if ($block)
+			{
+				$this->redirectToEntity($this->video, $block);
+			}
+		});
+		$this->loadSchema(function() {
+			$schema = $this->block->getRandomParent();
+			if ($schema)
+			{
+				$this->redirectToEntity($this->video, $this->block, $schema);
+			}
+		});
 
-		if (!$this->schema->contains($this->block) || !$this->block->contains($this->video))
+		if ($this->block && !$this->block->contains($this->video))
+		{
+			$this->error();
+		}
+		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
 			$this->error();
 		}

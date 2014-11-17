@@ -1,12 +1,16 @@
 {var $pageName = 'block-page'}
 {var $headerBorder = TRUE}
 {block headerBack}
-	<div class="header-goback">
-		<a n:href="$schema">
-			<i class="icon icon-arrow-left2"></i>
-			<span>{$schema->name}</span>
-		</a>
-	</div>
+	{if $schema}
+		<div class="header-goback">
+			<a n:href="$schema">
+				<i class="icon icon-arrow-left2"></i>
+				<span>{$schema->name}</span>
+			</a>
+		</div>
+	{else}
+		{include headerLogo}
+	{/if}
 {/block}
 {block content}
 	{**

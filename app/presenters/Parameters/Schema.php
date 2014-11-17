@@ -20,13 +20,17 @@ trait Schema
 	 */
 	protected $schema;
 
-	protected function loadSchema()
+	protected function loadSchema(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
 		$this->schema = $this->orm->schemas->getById($this->schemaId);
 		if (!$this->schema)
 		{
-			$this->error();
+			if (!$fallback)
+			{
+				$this->error();
+			}
+			$this->schema = $fallback();
 		}
 	}
 

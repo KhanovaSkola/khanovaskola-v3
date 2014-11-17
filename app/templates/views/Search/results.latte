@@ -21,7 +21,7 @@
                     {foreach $search->results as $i => $content}
                         {var $block = $content->getRandomParent()}
                         {var $schema = $block ? $block->getRandomParent() : NULL}
-                        {var $subject = $block ? $schema->subject : $presenter->orm->subjects->getById(1)}
+                        {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
 	                    <article>
 	                        <div class="left text-{$subject->color}">
 	                            <i class="icon icon-{$subject->icon}"></i>

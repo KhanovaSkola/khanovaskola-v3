@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\ImplementationException;
+use App\Models\Orm\Entity;
 use App\Models\Rme;
 use App\Models\Structs\Highlights\Highlight;
 use App\NotImplementedException;
@@ -67,23 +68,33 @@ trait ControlTrait
 		}
 		else if ($destination instanceof Rme\Block)
 		{
-			if (!isset($args[0]) || ! $args[0] instanceof Rme\Schema)
+			/** @var Rme\Schema $schema */
+			$schema = NULL;
+			if (isset($args[0]) && $args[0] instanceof Rme\Schema)
 			{
-				throw new ImplementationException('Missing schema, cannot create link to block without it');
+				$schema = $args[0];
 			}
 
-			$args = ['blockId' => $destination->id, 'schemaId' => $args[0]->id];
+			$args = [
+				'blockId' => $destination->id,
+				'schemaId' => $schema ? $schema->id : NULL,
+			];
 			$destination = 'Block:';
 		}
 		else if ($destination instanceof Rme\Content)
 		{
-			if (!isset($args[0]) || ! $args[0] instanceof Rme\Block)
+			/** @var Rme\Block $block */
+			$block = NULL;
+			if (isset($args[0]) && $args[0] instanceof Rme\Block)
 			{
-				throw new ImplementationException('Missing block, cannot create link to content without it');
+				$block = $args[0];
 			}
-			else if (!isset($args[1]) || ! $args[1] instanceof Rme\Schema)
+
+			/** @var Rme\Schema $schema */
+			$schema = NULL;
+			if (isset($args[1]) && $args[1] instanceof Rme\Schema)
 			{
-				throw new ImplementationException('Missing schema, cannot create link to content without it');
+				$schema = $args[1];
 			}
 
 			$id = $destination->id;
@@ -104,13 +115,21 @@ trait ControlTrait
 
 			$args = [
 				$idKey => $id,
-				'blockId' => $args[0]->id,
-				'schemaId' => $args[1]->id,
+				'blockId' => $block ? $block->id : NULL,
+				'schemaId' => $schema ? $schema->id : NULL,
 			];
 		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
 		return NControl::link($destination, $args);
+	}
+
+	protected function redirectToEntity(Entity $entity)
+	{
+		$args = func_get_args();
+		$entity = array_shift($args);
+		/** @var Presenter $this */
+		$this->redirectUrl($this->link($entity, $args));
 	}
 
 	protected function createComponent($name, $args = [])
