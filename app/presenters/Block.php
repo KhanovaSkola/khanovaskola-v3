@@ -3,31 +3,21 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Presenters\Parameters;
 
 
 class Block extends Presenter
 {
 
-	/**
-	 * @var int
-	 * @persistent
-	 */
-	public $blockId;
-
-	/**
-	 * @var Rme\Block
-	 */
-	protected $block;
+	use Parameters\Block;
+	use Parameters\Schema;
 
 	public function startup()
 	{
 		parent::startup();
 
-		$this->block = $this->orm->blocks->getById($this->blockId);
-		if (!$this->block)
-		{
-			$this->error();
-		}
+		$this->loadBlock();
+		$this->loadSchema();
 	}
 
 	public function renderDefault()

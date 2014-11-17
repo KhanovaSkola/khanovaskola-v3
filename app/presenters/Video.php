@@ -4,31 +4,18 @@ namespace App\Presenters;
 
 use App\Components\Controls\Comments;
 use App\Models\Rme;
+use App\Presenters\Parameters;
 
 
 final class Video extends Content
 {
 
-	/**
-	 * @var int
-	 * @persistent
-	 */
-	public $videoId;
-
-	/**
-	 * @var Rme\Video
-	 */
-	protected $video;
+	use Parameters\Video;
 
 	public function startup()
 	{
 		parent::startup();
-
-		$this->video = $this->orm->contents->getVideoById($this->videoId);
-		if (!$this->video)
-		{
-			$this->error();
-		}
+		$this->loadVideo();
 	}
 
 	public function renderDefault()
