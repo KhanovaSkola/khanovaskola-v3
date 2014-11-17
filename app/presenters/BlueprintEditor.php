@@ -22,7 +22,9 @@ final class BlueprintEditor extends Presenter
 			$this->redirectToAuthOrRegister();
 		}
 
-		$this->loadBlueprint();
+		$this->loadBlueprint(function() {
+			return NULL;
+		});
 	}
 
 	public function createComponentBlueprintEditor()
