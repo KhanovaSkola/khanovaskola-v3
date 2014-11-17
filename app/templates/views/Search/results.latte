@@ -20,7 +20,8 @@
                 <section class="search-result">
                     {foreach $search->results as $i => $content}
                         {var $block = $content->getRandomParent()}
-                        {var $subject = $block ? $block->getRandomParent()->subject : $presenter->orm->subjects->getById(1)}
+                        {var $schema = $block ? $block->getRandomParent() : NULL}
+                        {var $subject = $block ? $schema->subject : $presenter->orm->subjects->getById(1)}
 	                    <article>
 	                        <div class="left text-{$subject->color}">
 	                            <i class="icon icon-{$subject->icon}"></i>
@@ -28,7 +29,7 @@
 	                        <div class="right">
 	                            <span class="title">
 	                                <code>{$content->score|number:2}</code>
-	                                <a tabindex="{$i+1}" n:href="$content">{$content->highlight('title')|noescape}</a>
+	                                <a tabindex="{$i+1}" n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
 	                            </span>
 	                            <p>{$content->highlight('description')|noescape}</p>
 	                        </div>

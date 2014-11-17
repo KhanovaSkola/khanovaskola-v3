@@ -2,9 +2,9 @@
 {var $headerBorder = FALSE}
 {block headerBack}
 	<div class="header-goback">
-		<a href="#">
+		<a n:href="$block, $schema">
 			<i class="icon icon-arrow-left2"></i>
-			<span>Matematika pro ZŠ a SŠ</span>
+			<span>{$block->name}</span>
 		</a>
 	</div>
 {/block}

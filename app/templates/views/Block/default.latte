@@ -2,7 +2,6 @@
 {var $headerBorder = TRUE}
 {block headerBack}
 	<div class="header-goback">
-		{var $schema = $block->getRandomParent()}
 		<a n:href="$schema">
 			<i class="icon icon-arrow-left2"></i>
 			<span>{$schema->name}</span>
@@ -50,13 +49,11 @@
 	                                </div>
 	                                <div class="timeline-content">
 	                                    <h3>
-	                                        <a n:href="$content">
-		                                        <a href="#">{$content->title}</a>
-		                                        <small>
-		                                            <i class="icon icon-time"></i>
-		                                            <span>{$content->duration|minutes}&thinsp;m</span>
-		                                        </small>
-		                                    </a>
+	                                        <a n:href="$content, $block, $schema">{$content->title}</a>
+	                                        <small>
+	                                            <i class="icon icon-time"></i>
+	                                            <span>{$content->duration|minutes}&thinsp;m</span>
+	                                        </small>
 	                                    </h3>
 	                                    <p>
 	                                        {$content->description}
