@@ -66,4 +66,9 @@ class Block extends Entity
 		}
 	}
 
+	public function contains(Content $content)
+	{
+		return $this->contentBlockBridges->get()->findBy(['contentId' => $content->id])->count();
+	}
+
 }
