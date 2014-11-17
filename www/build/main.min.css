@@ -6275,8 +6275,8 @@ button.close {
   }
 }
 .anim {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
 }
 @font-face {
   font-family: 'frente_h1regular';
@@ -7078,8 +7078,8 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
   margin-left: 30px;
 }
 .header.header-white-border {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   border-color: #ffffff;
 }
 .header.header-white-border:hover,
@@ -7093,8 +7093,8 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
   opacity: 1;
 }
 .header.header-white-border .header-logo {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   border-color: #ffffff;
 }
 .header.header-white-border .header-content .search-wrapper {
@@ -7103,8 +7103,8 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
   opacity: 0;
 }
 .header.header-white-border .header-userarea {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   border-color: #ffffff;
   padding-top: 29px;
   text-align: right;
@@ -7225,8 +7225,8 @@ label {
   visibility: hidden;
 }
 .checkbox label input[type='checkbox'] + span {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   border: 2px solid #d4e1e8;
   border-radius: 3px;
   margin: 0;
@@ -7248,8 +7248,8 @@ label {
   }
 }
 .checkbox label input[type='checkbox'] + span:after {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   display: block;
   width: 10px;
   height: 10px;
@@ -7370,8 +7370,8 @@ label {
 }
 .dropdown.open .caret:before,
 .dropdown.open .caret:after {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   content: '';
   position: absolute;
   bottom: -15px;
@@ -7538,8 +7538,8 @@ label {
   clear: both;
 }
 .timeline .timeline-item .timeline-content h3 a {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   float: left;
   color: #0a82cc;
   font-size: 24px;
@@ -7640,8 +7640,8 @@ label {
   clear: both;
 }
 .landing-page .content .content-inner hgroup a {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
 }
 .landing-page .content .content-inner hgroup a:hover {
   text-decoration: none;
@@ -8229,8 +8229,8 @@ label {
 }
 .course-page .course-header .course-header-footer:before,
 .course-page .course-header .course-header-footer:after {
-  -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+          transition: color 0.2s ease-in-out;
   content: '';
   position: absolute;
   bottom: -11px;
