@@ -55,4 +55,15 @@ class Block extends Entity
 		return $duration;
 	}
 
+	/**
+	 * @return Content
+	 */
+	public function getFirstContent()
+	{
+		foreach ($this->contents as $content)
+		{
+			return $content;
+		}
+	}
+
 }
