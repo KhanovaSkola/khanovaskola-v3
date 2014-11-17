@@ -95,45 +95,6 @@ class ElasticSearch extends Client
 		$this->indices()->putMapping($args);
 	}
 
-	public function fulltextSearch($type, $query, array $in = NULL)
-	{
-		if (!$in)
-		{
-			$in = '_all';
-		}
-		$args = [
-			'index' => self::INDEX,
-			'type' => $type,
-			'body' => [
-				'fields' => ['id'],
-				'from' => 0,
-				'size' => 10,
-				'query' => [
-					'multi_match' => [
-						'query' => $query,
-						'fields' => $in,
-					],
-				],
-				'highlight' => [
-					'pre_tags' => [self::HIGHLIGHT_START],
-					'post_tags' => [self::HIGHLIGHT_END],
-					'fields' => [
-						'title' => ['number_of_fragments' => 0],
-						'description' => ['number_of_fragments' => 0],
-						'subtitles' => ['number_of_fragments' => 3],
-					]
-				],
-				'aggs' => [
-					'buckets' => [
-						'terms' => ['field' => 'bucket']
-					]
-				],
-			]
-		];
-
-		return $this->search($args);
-	}
-
 	/**
 	 * Drops index if exists, DROPS ALL DATA
 	 */
