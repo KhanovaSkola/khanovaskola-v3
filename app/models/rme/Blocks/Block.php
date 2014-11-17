@@ -12,7 +12,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|BlockSchemaBridge[]  $blockSchemaBridges  {1:m blockSchemaBridges $block}
  * @property User                     $author              {m:1 users $blocksAuthored}
  *
- * @property-read Content[] $contents
+ * @property Content[]                $contents            {ignore}
  */
 class Block extends Entity
 {
