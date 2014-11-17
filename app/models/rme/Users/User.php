@@ -99,4 +99,13 @@ class User extends Entity
 		}
 	}
 
+	/**
+	 * @param Content $content
+	 * @return bool
+	 */
+	public function hasCompleted(Content $content)
+	{
+		return TRUE;
+	}
+
 }
