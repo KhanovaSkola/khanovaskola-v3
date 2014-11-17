@@ -14,7 +14,7 @@ class Restore extends Command implements IMightLoseData
 	{
 		$this
 			->setName('backup:restore')
-			->setDescription('Restore from backup (postgres, neo4j)')
+			->setDescription('Restore from backup (import postgres)')
 			->addArgument('file', InputArgument::REQUIRED,
 				'Timestamp of archive to restore');
 	}
@@ -38,38 +38,24 @@ class Restore extends Command implements IMightLoseData
 
 		$this->out->writeln('Unarchiving backup file');
 		$tempDir = $this->getTempDir();
-		exec('tar -C ' . escapeshellarg($tempDir) . ' -zmxvf ' . escapeshellarg($file));
+		$this->cmd('tar -C ' . escapeshellarg($tempDir) . ' -zmxvf ' . escapeshellarg($file));
 
 		$this->out->writeln('Importing postgres backup');
 		$p = $container->parameters['database'];
-		$query = sprintf('PGPASSWORD=%s pg_restore --host=%s --user=%s %s',
+		$query = sprintf('PGPASSWORD=%s pg_restore --host=%s --port=%s --user=%s --clean --dbname=%s %s',
 			escapeshellarg($p['password']),
 			escapeshellarg($p['host']),
+			escapeshellarg(isset($p['port']) ? $p['port'] : 5432),
 			escapeshellarg($p['username']),
+			escapeshellarg($p['database']),
 			escapeshellarg($this->getTempNameDb())
 		);
-		exec($query);
-
-		$this->out->writeln('Importing neo4j backup');
-		$this->out->writeln('  - stopping neo4j-service');
-		exec('sudo service neo4j-service stop');
-
-		$this->out->writeln('  - unarchiving neo4j backup');
-		$target = '/var/lib/neo4j/data';
-		$query = sprintf('sudo rm -rf %s && sudo mkdir %s && sudo tar -C %s -zmxvf %s',
-			escapeshellarg($target),
-			escapeshellarg($target),
-			escapeshellarg($target),
-			escapeshellarg($this->getTempNameNeo())
-		);
-		exec($query);
-
-		$this->out->writeln('  - starting neo4j-service');
-		exec('sudo service neo4j-service start');
+		$this->cmd($query);
 
 		$this->cleanUp();
 
 		$this->out->writeln('<info>Successfully restored from archive</info>');
+		$this->out->writeln('<comment>Don\'t forget to run es:rebuild && es:repopulate</comment>');
 	}
 
 }

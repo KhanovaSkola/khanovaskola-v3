@@ -4,20 +4,21 @@ namespace Bin\Commands\Backup;
 
 use App\Models\Services\Paths;
 use Bin\Commands;
+use Symfony\Component\Process\Process;
 
 
 abstract class Command extends Commands\Command
 {
 
 	/**
-	 * @var Paths @inject
+	 * @var Paths
+	 * @inject
 	 */
 	public $paths;
 
 	protected function cleanUp()
 	{
 		unlink($this->getTempNameDb());
-		unlink($this->getTempNameNeo());
 		rmdir($this->getTempDir());
 	}
 
@@ -48,19 +49,13 @@ abstract class Command extends Commands\Command
 		return $this->getTempDir() . '/' . $this->getNameDb();
 	}
 
-	protected function getNameNeo()
+	protected function cmd($query)
 	{
-		return 'neo4j.tar.gz';
+		$process = new Process($query);
+		$process->setTimeout(360);
+		$process->run();
+		return $process->getOutput();
 	}
-
-	/**
-	 * @return string file path
-	 */
-	protected function getTempNameNeo()
-	{
-		return $this->getTempDir() . '/' . $this->getNameNeo();
-	}
-
 
 }
 
