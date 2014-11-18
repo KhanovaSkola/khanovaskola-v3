@@ -4,13 +4,14 @@
     "jquery": "latest",
     "respond": "latest",
     "html5shiv": "latest",
-	"bootstrap": "latest",
-	"MathJax": "latest",
-	"nette-forms": "latest",
-	"medium-editor": "latest",
-	"typeahead.js": "latest",
-	"d3": "latest",
-	"jquery-timeago": "latest",
-	"zxcvbn": "latest"
+    "bootstrap": "latest",
+    "MathJax": "latest",
+    "nette-forms": "latest",
+    "medium-editor": "latest",
+    "typeahead.js": "latest",
+    "d3": "latest",
+    "jquery-timeago": "latest",
+    "zxcvbn": "latest",
+    "react": "~0.12.1"
   }
 }
