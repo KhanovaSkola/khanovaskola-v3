@@ -8,7 +8,7 @@
 		</a>
 	</div>
 {/block}
-{block innerContent}
+{block content}
 	{**
 	 * @param Video $video
 	 *}
@@ -36,3 +36,6 @@
     </video>
 
 	{control comments}
+
+	{includeblock ../_silimar.latte}
+	{include similarContent}

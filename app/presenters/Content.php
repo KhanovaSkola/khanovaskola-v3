@@ -15,12 +15,6 @@ abstract class Content extends Presenter
 	 */
 	public $pathFinder;
 
-	public function beforeRender()
-	{
-		parent::beforeRender();
-		$this->setLayout('content');
-	}
-
 	public function getSuggestions(Rme\Content $entity)
 	{
 		$section = $this->session->getSection('paths');
