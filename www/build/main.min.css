@@ -6287,8 +6287,8 @@ button.close {
 }
 @font-face {
   font-family: 'khan';
-  src: url('../fonts/khan-icons/khan.eot?-l03w04');
-  src: url('../fonts/khan-icons/khan.eot?#iefix-l03w04') format('embedded-opentype'), url('../fonts/khan-icons/khan.woff?-l03w04') format('woff'), url('../fonts/khan-icons/khan.ttf?-l03w04') format('truetype'), url('../fonts/khan-icons/khan.svg?-l03w04#khan') format('svg');
+  src: url('../fonts/khan-icons/khan.eot');
+  src: url('../fonts/khan-icons/khan.eot#iefix-l03w04') format('embedded-opentype'), url('../fonts/khan-icons/khan.woff') format('woff'), url('../fonts/khan-icons/khan.ttf') format('truetype'), url('../fonts/khan-icons/khan.svg#khan') format('svg');
   font-weight: normal;
   font-style: normal;
 }
