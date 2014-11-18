@@ -13,7 +13,6 @@
 
 	<title>{block title|striptags}Khanova škola{/block}</title>
 
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/libs/medium-editor/dist/css/medium-editor.min.css">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="author" type="text/plain" href="humans.txt">
@@ -41,13 +40,6 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="'+{$basePath}+'/libs/jquery/dist/jquery.min.js"><\/script>')</script>
-	<script src="{$basePath}/libs/bootstrap/js/tab.js"></script>
-	<script src="{$basePath}/libs/bootstrap/js/modal.js"></script>
-	<script src="{$basePath}/libs/jquery-timeago/jquery.timeago.js"></script>
-	<script src="{$basePath}/libs/jquery-timeago/locales/jquery.timeago.cs.js"></script>
-	<script src="{$basePath}/libs/medium-editor/dist/js/medium-editor.min.js"></script>
-	<script src="{$basePath}/libs/nette-forms/src/assets/netteForms.js"></script>
-	<script src="{$basePath}/libs/typeahead.js/dist/typeahead.jquery.min.js"></script>
 	{block scripts}{/block}
 	<script src="{$basePath}/build/app.min{$staticHash}.js"></script>
 </body>

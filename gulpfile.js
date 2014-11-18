@@ -7,8 +7,15 @@ var lessDir = './www/less';
 var lessFiles = path.join(lessDir, '*', '**');
 var lessMainFile = path.join(lessDir, 'main.less');
 var buildDir = './www/build';
+var libDir = './www/libs';
 var jsDir = './www/js';
 var jsFiles = [
+	path.join(libDir, 'bootstrap/js/tab.js'),
+	path.join(libDir, 'bootstrap/js/modal.js'),
+	path.join(libDir, 'jquery-timeago/jquery.timeago.js'),
+	path.join(libDir, 'jquery-timeago/locales/jquery.timeago.cs.js'),
+	path.join(libDir, 'nette-forms/src/assets/netteForms.js'),
+	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
 	path.join(jsDir, 'app.js'),
 	path.join(jsDir, 'services/*.js'),
 	path.join(jsDir, 'snippets/*.js'),
