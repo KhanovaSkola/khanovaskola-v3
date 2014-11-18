@@ -6686,10 +6686,9 @@ mark {
   font-size: 16px;
   color: #353d41;
   line-height: 16px;
-  margin-top: 33px;
+  padding: 34px;
+  margin: 0;
   display: block;
-  padding-left: 30px;
-  margin-right: 30px;
 }
 .header .header-content .dropdown .dropdown-menu {
   width: 850px;
@@ -7394,7 +7393,7 @@ label {
   display: none;
 }
 .dropdown.dropdown-big .dropdown-menu {
-  margin-top: 35px;
+  margin-top: 0;
   margin-left: -2px;
   border-radius: 0;
   border-top: 0;
