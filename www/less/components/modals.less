@@ -3,6 +3,25 @@
 	box-shadow: 0 0 0;
 	border-radius: 3px;
 	border: 0;
+	.modal-body {
+	  text-align: left;
+	  .close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		opacity: 1;
+		&:hover {
+		  .icon {
+			color: darken(@header-border, 15%);
+		  }
+		}
+		.icon {
+		  .anim;
+		  font-size: 20px;
+		  color: @header-border;
+		}
+	  }
+	}
 	.modal-footer {
 	  background: @khan-black2;
 	  border: 0;
@@ -15,4 +34,98 @@
 }
 &.fade .modal-dialog {
   .transition-transform(~"0.1s ease-out");
+}
+
+
+#loginModal {
+  .modal-dialog {
+	width: 455px;
+	@media (max-width: @screen-sm) {
+	  width: 95%;
+	}
+  }
+  .modal-body {
+	form {
+	  width: 333px;
+	  margin: 0 auto;
+	  margin-top: 40px;
+	  @media (max-width: @screen-sm) {
+		width: 95%;
+		max-width: 333px;
+	  }
+	  .avatar {
+		margin-top: 10px;
+		margin-right: 5px;
+		border-radius: 50%;
+		@media (max-width: @screen-sm) {
+		  display: none;
+		}
+	  }
+	  .input-mail {
+		width: 280px;
+	  }
+	  .input-password {
+		width: 200px;
+	  }
+	  .checkbox {
+		margin-top: 30px;
+		margin-left: 15px;
+	  }
+	  a {
+		font-size: 16px;
+		color: @khan-blue;
+		line-height: 19px;
+	  }
+	  .btn-submit {
+		width: 115px;
+		margin: 0;
+		margin-bottom: 30px;
+		margin-top: 20px;
+	  }
+	  .form-group-password {
+		margin-bottom: 10px;
+	  }
+	}
+  }
+  .modal-footer {
+	@media (max-width: @screen-sm) {
+	  padding-left: 0;
+	  padding-right: 40px;
+	}
+	.btn {
+	  width: 200px;
+	  margin: 0;
+	  font-weight: @font-weight-light;
+	  font-size: 14px;
+	  @media (max-width: @screen-sm) {
+		width: 90%;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	  }
+	  &:last-of-type {
+		@media (max-width: @screen-sm) {
+		  margin-bottom: 0;
+		}
+		margin-left: 10px;
+	  }
+	  &.btn-facebook {
+		background: @facebook;
+		border-color: @khan-black2;
+		box-shadow: 0 0 0 2px @facebook;
+	  }
+	  &.btn-google {
+		background: @google;
+		border-color: @khan-black2;
+		box-shadow: 0 0 0 2px @google;
+	  }
+	  span {
+
+	  }
+	  i {
+		margin-right: 8px;
+	  }
+	  // padding-left: 15px;
+	  // padding-right: 15px;
+	}
+  }
 }

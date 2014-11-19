@@ -11,7 +11,8 @@
 
 	font-size: @font-size-base;
 
-	input[type=password]& {
+	input[type=password]&,
+	&.input-password {
 		background: url(../img/inputs/input-lock-normal.svg) no-repeat;
 		background-position: 99.5% center;
 		&:focus {
@@ -36,6 +37,18 @@
 	}
 }
 
+.has-addend {
+  position: relative;
+}
+.addend-icon {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  font-size: 15px;
+  min-width: 20px;
+  text-align: center;
+}
+
 label {
 	font-weight: @font-weight-light;
 	font-size: @font-size-base;
@@ -53,7 +66,11 @@ label {
 			border-color: darken(@khan-red, 5%);
 		}
 	}
-	input[type=password] {
+	.addend-icon {
+	  color: @khan-red;
+	}
+	input[type=password],
+	.input-password {
 		&,
 		&:focus {
 			background-image: url(../img/inputs/input-lock-error.svg);
@@ -71,7 +88,11 @@ label {
 			border-color: darken(@khan-green, 5%);
 		}
 	}
-	input[type=password] {
+	.addend-icon {
+	  color: @khan-green;
+	}
+	input[type=password],
+	.input-password {
 		&,
 		&:focus {
 			background-image: url(../img/inputs/input-lock-success.svg);
@@ -87,6 +108,7 @@ label {
 		padding-left: 0;
 		user-select: none;
 		font-size: @font-size-small;
+	  	font-weight: @font-weight-light;
 		color: @checkbox-text-color;
 		line-height: 18px;
 		&:active {
