@@ -10,7 +10,7 @@
 	.placeholder(#959B9F);
 
 	font-size: @font-size-base;
-	
+
 	input[type=password]& {
 		background: url(../img/inputs/input-lock-normal.svg) no-repeat;
 		background-position: 99.5% center;
@@ -76,12 +76,9 @@ label {
 		&:focus {
 			background-image: url(../img/inputs/input-lock-success.svg);
 		}
-	}	
+	}
 }
 
-
-
-//Custom checkbox
 .checkbox {
 	.clearfix;
 	margin-top: 4px;
@@ -152,4 +149,64 @@ label {
 			 }
 		}
 	}
+}
+
+.radio {
+  .clearfix;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  label {
+	padding-left: 0;
+	user-select: none;
+	font-size: 16px;
+	color: @radio-text-color;
+	line-height: 14px;
+	cursor: pointer;
+	input[type='radio'] {
+	  display: none;
+	  visibility: hidden;
+	  & + span {
+		.anim;
+		border: 2px solid @radio-border;
+		border-radius: 50%;
+		margin: 0;
+		padding: 0;
+		user-select: none;
+		display: inline-block;
+		width: @radio-size;
+		height: @radio-size;
+		background-color: transparent;
+		float: left;
+		margin-right: 10px;
+		margin-top: -1px;
+		&:after {
+		  .anim;
+		  display: inline-block;
+		  width: @radio-size - 10px;
+		  height: @radio-size - 10px;
+		  margin-top: 3px;
+		  margin-left: 3px;
+		  text-align: center;
+		  line-height: @radio-size;
+		  content: 'x';
+		  color: transparent;
+		  // background: url(@checkbox-ok-ikon-path) 35% 35% no-repeat;
+		  background: @radio-checked-color;
+		  border-radius: 50%;
+		  opacity: 0;
+		}
+	  }
+	  &:checked + span:after {
+		content: '\f00c';
+		opacity: 1;
+	  }
+	}
+	&:hover {
+	  input[type='radio'] {
+		& + span {
+		  border-color: @radio-border-hover;
+		}
+	  }
+	}
+  }
 }
