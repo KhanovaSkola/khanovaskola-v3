@@ -2,10 +2,9 @@
 
 namespace App\Components\Forms;
 
-use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\UserMerger;
-use App\Presenters\Auth;
+use App\Presenters\Presenter;
 use Nette\Security\AuthenticationException;
 
 
@@ -36,21 +35,11 @@ class Login extends Form
 		$this->addSubmit();
 	}
 
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-
-		if (! $this->presenter instanceof Auth)
-		{
-			throw new InvalidStateException;
-		}
-	}
-
 	public function onSuccess()
 	{
 		$v = $this->getValues();
 
-		/** @var Auth $presenter */
+		/** @var Presenter $presenter */
 		$presenter = $this->presenter;
 		try
 		{

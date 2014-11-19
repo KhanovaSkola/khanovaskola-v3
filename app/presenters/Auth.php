@@ -19,6 +19,9 @@ use Nette\Security\Identity;
 use stdClass;
 
 
+/**
+ * Login form links are hardcoded because login uses handles
+ */
 final class Auth extends Presenter
 {
 
