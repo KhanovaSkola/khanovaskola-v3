@@ -64,7 +64,7 @@ class FormControl extends Control
 
 	protected function renderDefault()
 	{
-		$this->template->add('form', $this['form']);
+		$this->template->form = $this['form'];
 	}
 
 	protected function getTemplateFile($view = NULL)
