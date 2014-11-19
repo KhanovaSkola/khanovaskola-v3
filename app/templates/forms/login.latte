@@ -1,15 +1,43 @@
 {includeblock _error.latte}
 
-<form n:name="form" class="form-horizontal">
-	<div class="form-group{if $form['email']->errors} has-error{/if}">
-		<label n:name="email">Email address</label>
-		<input n:name="email" type="email" class="form-control" placeholder="Enter email">
-		{include error, control => $form['email']}
-	</div>
-	<div class="form-group{if $form['password']->errors} has-error{/if}">
-        <label n:name="password">Heslo</label>
-        <input n:name="password" type="password" class="form-control" placeholder="Enter password">
-        {include error, control => $form['password']}
+<form n:name="form">
+    <div class="form-group has-success">
+        <div class="clearfix">
+            <div class="pull-left">
+                <img src="img/avatar.png" alt="avatar" class="avatar">
+            </div>
+            <div class="pull-left has-addend">
+                <label n:name="email">E-mail</label>
+                <input n:name="email" type="text" class="form-control input-mail" value="jsem@davidvesely.cz" autofocus>
+                <div class="addend-icon">
+                    <i class="icon icon-mail"></i>
+                </div>
+            </div>
+        </div>
     </div>
-	<input n:name="save" value="Přihlásit se" class="btn btn-default">
+    <div class="form-group form-group-password has-error">
+        <div class="clearfix">
+            <div class="pull-left">
+                <label n:name="password">Heslo</label>
+                <input n:name="password" type="password" class="form-control input-password">
+            </div>
+            <div class="pull-left">
+                {*<div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="toggle-password">
+                        <span></span>
+                        neskrývat heslo
+                    </label>
+                </div>*}
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <input n:name="save" type="submit" class="btn btn-submit" value="Přihlásit">
+    </div>
+    <div class="form-group text-center">
+        <a href="#">
+            Zapomněl jsi heslo?
+        </a>
+    </div>
 </form>
