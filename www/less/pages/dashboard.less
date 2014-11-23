@@ -1,0 +1,189 @@
+.dashboard-page {
+  .content {
+	.content-inner {
+	  width: 100%;
+	  max-width: 766px;
+	  margin: 0 auto;
+	  text-align: center;
+	  small {
+		font-family: @headings-font-family;
+		font-size: 21px;
+		color: @khan-black;
+		line-height: 23px;
+		margin-top: 65px;
+		display: block;
+	  }
+	  .head {
+		margin-top: 45px;
+		.icon {
+		  font-size: 60px;
+		}
+		h1 {
+
+		}
+	  }
+	  .btn {
+		display: block;
+		width: 120px;
+		text-align: center;
+		padding-left: 0;
+		padding-right: 0;
+		margin: 0 auto;
+		margin-bottom: 16px;
+	  }
+	  .inprogress-box {
+		.clearfix;
+		border: 1px dashed @label-color;
+		border-top: 0;
+		padding-left: 35px;
+		padding-right: 35px;
+		margin-top: 80px;
+		margin-bottom: 50px;
+		position: relative;
+		.title {
+		  position: absolute;
+		  top: -25px;
+		  left: 50%;
+		  margin-left: -175px;
+		  width: 100%;
+		  max-width: 350px;
+		  border-top: 1px dashed @label-color;
+		  .title-inner {
+			position: relative;
+			top: -12px;
+			left: 50%;
+			margin-left: -110px;
+			background: @white;
+			width: 210px;
+			padding-left: 20px;
+			padding-right: 20px;
+		  }
+		  .icon {
+			color: @khan-blue-light;
+			font-size: 19px;
+		  }
+		  span {
+			background: @white;
+			padding-left: 5px;
+			font-style: italic;
+			font-weight: @font-weight-light;
+			font-size: 16px;
+			color: @khan-blue-light;
+			line-height: 19px;
+		  }
+		}
+		.subject {
+		  .clearfix;
+		  height: 55px;
+		  h2 {
+			width: 290px;
+			float: left;
+			margin: 0;
+			padding: 0;
+			font-size: 24px;
+			line-height: 27px;
+			text-align: left;
+			.icon {
+			  font-size: 20px;
+			  margin-right: 3px;
+			}
+		  }
+		  .progress-wrapper {
+			position: relative;
+			width: 340px;
+			float: left;
+			color: @khan-black;
+			margin-top: 9px;
+		  }
+		  .action {
+			float: left;
+			margin-left: 30px;
+			.btn {
+			  width: 29px;
+			  height: 29px;
+			  line-height: 28px;
+			  font-size: 11px;
+			  box-shadow: 0 0 0 2px @khan-blue;
+			  margin-top: -4px;
+			}
+		  }
+		}
+		.inprogress-footer {
+		  position: absolute;
+		  bottom: -11px;
+		  left: 50%;
+		  width: 190px;
+		  margin-left: -80px;
+		  background: @white;
+		  font-size: 16px;
+		  &:hover {
+			text-decoration: none;
+		  }
+		  .icon {
+			font-size: 10px;
+			margin-right: 5px;
+			vertical-align: 10%;
+		  }
+		}
+	  }
+	}
+  }
+  .other-subjects {
+	background: @course-video-bg;
+	color: @white;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	.inner {
+	  width: 95%;
+	  max-width: 1080px;
+	  margin: 0 auto;
+	  text-align: center;
+	  h1 {
+		marign: 0;
+		padding: 0;
+		font-size: 36px;
+		color: @white;
+		line-height: 40px;
+	  }
+	  .subjects {
+		.clearfix;
+		margin-top: 60px;
+		.subject {
+		  width: 33%;
+		  float: left;
+		  .icon {
+			font-size: 30px;
+			margin-bottom: 20px;
+			display: block;
+		  }
+		  h2 {
+			font-size: 24px;
+			color: @white;
+			line-height: 32px;
+			margin: 0;
+			padding: 0;
+		  }
+		  p {
+			font-style: italic;
+			font-size: 16px;
+			color: @white;
+			line-height: 19px;
+			margin: 0;
+			padding: 0;
+			height: 75px;
+		  }
+		  .btn {
+			border-color: @course-video-bg;
+			width: 110px;
+			text-align: center;
+			line-height: 40px;
+			padding: 0;
+			&:hover {
+			  line-height: 42px;
+			}
+		  }
+		}
+	  }
+	}
+  }
+}
