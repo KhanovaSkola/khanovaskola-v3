@@ -1,10 +1,181 @@
 .course-page {
   .course-header {
 	margin-bottom: 90px;
+	&.course-video {
+	  .course-header-content {
+		position: relative;
+		height: 490px;
+		.left {
+		  background: none;
+		  position: absolute;
+		  z-index: 12;
+		  top: 0;
+		  left: 0;
+		  height: 100%;
+		  width: 400px;
+		  .icon-wrapper {
+			.icon {
+			  color: @black;
+			}
+		  }
+		  .content-wrapper {
+			width: 300px;
+			small {
+			  color: @khan-blue-light;
+			}
+			h1 {
+			  color: @white;
+			  small {
+				color: @white;
+			  }
+			}
+			.idea {
+			  color: @khan-blue-light;
+			}
+		  }
+		}
+		.right {
+		  background: @course-video-bg;
+		  position: absolute;
+		  z-index: 1;
+		  top: 0;
+		  left: 0;
+		  height: 100%;
+		  width: 100%;
+		  margin: 0;
+		  padding-left: 244px;
+		  .right-inner {
+			padding-top: 20px;
+			padding-left: 0;
+			position: relative;
+			&:before {
+			  transition: opacity 0.1s linear;
+			  content: '';
+			  position: absolute;
+			  z-index: 12;
+			  top: 0px;
+			  left: -220px;
+			  width: 640px;
+			  height: 490px;
+			  transform: rotate(180deg);
+			  background-image: linear-gradient(-102deg, #141617 50%, #141617 51%, rgba(20,22,23,0.00) 100%, rgba(20,22,23,0.00) 100%);
+			}
+			&.video-playmode {
+			  &:before {
+				opacity: 0;
+			  }
+			}
+			.video-wrapper {
+			  // position: relative;
+			  z-index: 12;
+			  width: 800px;
+			  .video-preview {
+				position: relative;
+				z-index: 1;
+				height: 450px;
+				width: 795px;
+				overflow: hidden;
+				img {
+				  height: 450px;
+				  min-width: 100%;
+				}
+			  }
+			  .video-real {
+				position: relative;
+				z-index: 1;
+				height: 450px;
+				width: 795px;
+				overflow: hidden;
+				img {
+				  height: 450px;
+				  min-width: 100%;
+				}
+			  }
+			  .video-play {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 84px;
+				height: 84px;
+				z-index: 1234;
+				margin-left: -(42px + 105px);
+				margin-top: -72px;
+				display: block;
+				background: url(../img/play.svg) no-repeat;
+				background-size: 85px auto;
+			  }
+			}
+		  }
+		}
+	  }
+	  .course-header-footer {
+		height: 71px;
+		border-top: 0;
+	  }
+	}
+	&.course-text {
+	  .course-header-content {
+		.left {
+		  padding-right: 0;
+		  .content-wrapper {
+			width: 250px;
+			h1 {
+			  small {
+				font-size: 16px;
+				line-height: 19px;
+			  }
+			}
+		  }
+		}
+		.right {
+		  .right-inner {
+			padding-bottom: 40px;
+		  }
+		  .slider-wrapper {
+			position: relative;
+			overflow: auto;
+			width: 770px;
+			.slider-container {
+			  height: 500px;
+			  width: 1500px;
+			  overflow-y: hidden;
+			  overflow-x: auto;
+			  // .slide {
+			  // width: 500px;
+			  // float: left;
+			  // }
+			}
+		  }
+		  .text-content {
+			// column-count: 2;
+			column-width: 340px;
+			column-gap: 46px;
+			height: 500px;
+			max-height: 500px;
+			padding-bottom: 20px;
+			h2 {
+			  margin-top: 30px;
+			  margin-bottom: 20px;
+			  &:first-of-type {
+				margin-top: 0;
+				padding-top: 0;
+			  }
+			}
+			p {
+			  margin-bottom: 15px;
+			  font-size: 16px;
+			  line-height: 19px;
+			  color: @khan-black2;
+			}
+		  }
+		}
+	  }
+	}
 	.course-header-content {
 	  .clearfix;
 	  background: @white;
 	  position: relative;
+	  min-height: 500px;
 	  .left {
 		.clearfix;
 		float: left;
@@ -33,7 +204,7 @@
 		}
 		.content-wrapper {
 		  float: left;
-		  width: 280px;
+		  width: 230px;
 		  small {
 			font-size: 11px;
 			color: @khan-blue-light;
@@ -124,7 +295,7 @@
 	.course-header-footer {
 	  .clearfix;
 	  position: relative;
-	  height: 70px;
+	  height: 72px;
 	  border-top: 1px solid @header-border;
 	  border-bottom: 1px solid @header-border;
 	  @caret-size-width: 23px;
@@ -153,7 +324,32 @@
 	  }
 	  .left {
 		float: left;
-		width: 170px;
+		width: 330px;
+		margin-left: 70px;
+		border-left: 1px solid @header-border;
+		a {
+		  .anim;
+		  border-right: 1px solid @header-border;
+		  color: @khan-black;
+		  height: 70px;
+		  width: 80px;
+		  text-align: center;
+		  display: block;
+		  // padding-left: 25px;
+		  // padding-right: 25px;
+		  &:hover {
+			text-decoration: none;
+			background: @khan-blue;
+			.icon {
+			  color: @white;
+			}
+		  }
+		  .icon {
+			line-height: 70px;
+			font-size: 28px;
+			color: @khan-black;
+		  }
+		}
 	  }
 	  .center {
 		.clearfix;
@@ -183,12 +379,14 @@
 	  }
 	  .right {
 		float: right;
-		width: 170px;
+		width: 250px;
+		text-align: right;
 		a {
 		  .clearfix;
 		  background: @khan-blue;
-		  display: block;
-		  width: 170px;
+		  display: inline-block;
+		  min-width: 170px;
+		  width: auto;
 		  height: 70px;
 		  color: @white;
 		  padding-left: 25px;
