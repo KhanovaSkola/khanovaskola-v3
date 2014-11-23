@@ -11,14 +11,14 @@ class cs_Sniffs_PHP_UpperCaseBooleanConstantSniff implements PHP_CodeSniffer_Sni
 	 *
 	 * @var string[]
 	 */
-	public $supportedTokenizers = ['PHP', 'JS'];
+	public $supportedTokenizers = array('PHP', 'JS');
 
 	public function register()
 	{
-		return [
+		return array(
 			T_TRUE,
 			T_FALSE,
-		];
+		);
 	}
 
 	/**
@@ -57,7 +57,7 @@ class cs_Sniffs_PHP_UpperCaseBooleanConstantSniff implements PHP_CodeSniffer_Sni
 		if (strtoupper($keyword) !== $keyword)
 		{
 			$error = 'TRUE, FALSE must be uppercase; expected "%s" but found "%s"';
-			$data  = [strtoupper($keyword), $keyword];
+			$data  = array(strtoupper($keyword), $keyword);
 			$phpcsFile->addError($error, $stackPtr, 'Found', $data);
 		}
 	}

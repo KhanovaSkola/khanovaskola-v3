@@ -422,12 +422,13 @@ class Container extends Nette\Forms\Container
 		$rows = array();
 		$subComponents = array_flip($subComponents);
 		foreach ($httpData as $item) {
-			$rows[] = array_filter(array_diff_key($item, $subComponents), function($value) {
+			$filter = function ($value) use (&$filter) {
 				if (is_array($value)) {
-					return count(array_filter($value, 'strlen')) > 0;
+					return count(array_filter($value, $filter)) > 0;
 				}
 				return strlen($value);
-			}) ?: FALSE;
+			};
+			$rows[] = array_filter(array_diff_key($item, $subComponents), $filter) ?: FALSE;
 		}
 
 		return count(array_filter($rows));
@@ -516,9 +517,9 @@ class Container extends Nette\Forms\Container
 		}
 
 		SubmitButton::extensionMethod('addRemoveOnClick', function (SubmitButton $_this, $callback = NULL) {
-			$replicator = $_this->lookup(__NAMESPACE__ . '\Container');
 			$_this->setValidationScope(FALSE);
-			$_this->onClick[] = function (SubmitButton $button) use ($replicator, $callback) {
+			$_this->onClick[] = function (SubmitButton $button) use ($callback) {
+				$replicator = $button->lookup(__NAMESPACE__ . '\Container');
 				/** @var Container $replicator */
 				if (is_callable($callback)) {
 					Callback::invoke($callback, $replicator, $button->parent);
@@ -532,8 +533,8 @@ class Container extends Nette\Forms\Container
 		});
 
 		SubmitButton::extensionMethod('addCreateOnClick', function (SubmitButton $_this, $allowEmpty = FALSE, $callback = NULL) {
-			$replicator = $_this->lookup(__NAMESPACE__ . '\Container');
-			$_this->onClick[] = function (SubmitButton $button) use ($replicator, $allowEmpty, $callback) {
+			$_this->onClick[] = function (SubmitButton $button) use ($allowEmpty, $callback) {
+				$replicator = $button->lookup(__NAMESPACE__ . '\Container');
 				/** @var Container $replicator */
 				if (!is_bool($allowEmpty)) {
 					$callback = Callback::closure($allowEmpty);

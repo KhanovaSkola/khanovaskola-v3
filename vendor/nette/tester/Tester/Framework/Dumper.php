@@ -49,13 +49,13 @@ class Dumper
 			if (!is_finite($var)) {
 				return var_export($var, TRUE);
 			}
-			$var = json_encode($var);
+			$var = str_replace(',', '.', "$var");
 			return strpos($var, '.') === FALSE ? $var . '.0' : $var;
 
 		} elseif (is_string($var)) {
-			if ($cut = @iconv_strlen($var, 'UTF-8') > self::$maxLength) {
-				$var = iconv_substr($var, 0, self::$maxLength, 'UTF-8') . '...';
-			} elseif ($cut = strlen($var) > self::$maxLength) {
+			if (preg_match('#^(.{' . self::$maxLength . '}).#su', $var, $m)) {
+				$var = "$m[1]...";
+			} elseif (strlen($var) > self::$maxLength) {
 				$var = substr($var, 0, self::$maxLength) . '...';
 			}
 			return (preg_match('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{10FFFF}]#u', $var) || preg_last_error() ? '"' . strtr($var, $table) . '"' : "'$var'");
@@ -123,7 +123,7 @@ class Dumper
 	private static function _toPhp(&$var, $level = 0)
 	{
 		if (is_float($var)) {
-			$var = json_encode($var);
+			$var = str_replace(',', '.', "$var");
 			return strpos($var, '.') === FALSE ? $var . '.0' : $var;
 
 		} elseif (is_bool($var)) {

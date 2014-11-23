@@ -9,7 +9,7 @@ class cs_Sniffs_Strings_ConcatenationSpacingSniff implements PHP_CodeSniffer_Sni
 
 	public function register()
 	{
-		return [T_STRING_CONCAT];
+		return array(T_STRING_CONCAT);
 	}
 
 	/**
@@ -32,7 +32,7 @@ class cs_Sniffs_Strings_ConcatenationSpacingSniff implements PHP_CodeSniffer_Sni
 			if ($spaces > 1)
 			{
 				$message = 'Expected 1 space before . string concatenation, but %d found';
-				$data = [$spaces];
+				$data = array($spaces);
 				$phpcsFile->addError($message, $stackPtr, 'TooManyBefore', $data);
 			}
 		}
@@ -49,7 +49,7 @@ class cs_Sniffs_Strings_ConcatenationSpacingSniff implements PHP_CodeSniffer_Sni
 			if ($spaces > 1)
 			{
 				$message = 'Expected 1 space after . string concatenation, but %d found';
-				$data = [$spaces];
+				$data = array($spaces);
 				$phpcsFile->addError($message, $stackPtr, 'TooManyAfter', $data);
 			}
 		}

@@ -23,7 +23,7 @@ class cs_Sniffs_Annotations_ForceMultipleLinesSniff implements PHP_CodeSniffer_S
 
 	public function register()
 	{
-		return [T_DOC_COMMENT];
+		return array(T_DOC_COMMENT);
 	}
 
 
@@ -44,8 +44,8 @@ class cs_Sniffs_Annotations_ForceMultipleLinesSniff implements PHP_CodeSniffer_S
 			return;
 		}
 
-		$next = $phpcsFile->findNext([T_WHITESPACE, T_DOC_COMMENT], ($stackPtr + 1), NULL, TRUE);
-		if (in_array($tokens[$next]['code'], [T_CLASS, T_PRIVATE, T_PROTECTED, T_PUBLIC, T_ABSTRACT, T_CONST, T_STATIC]))
+		$next = $phpcsFile->findNext(array(T_WHITESPACE, T_DOC_COMMENT), ($stackPtr + 1), NULL, TRUE);
+		if (in_array($tokens[$next]['code'], array(T_CLASS, T_PRIVATE, T_PROTECTED, T_PUBLIC, T_ABSTRACT, T_CONST, T_STATIC)))
 		{
 			$phpcsFile->addError('Single line annotation is only alloved on variables', $next, 'SingleLine');
 		}

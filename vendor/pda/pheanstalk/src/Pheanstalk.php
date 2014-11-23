@@ -3,7 +3,7 @@
 namespace Pheanstalk;
 
 /**
- * Pheanstalk is a pure PHP 5.2+ client for the beanstalkd workqueue.
+ * Pheanstalk is a PHP client for the beanstalkd workqueue.
  * The Pheanstalk class is a simple facade for the various underlying components.
  *
  * @see http://github.com/kr/beanstalkd
@@ -15,7 +15,7 @@ namespace Pheanstalk;
  */
 class Pheanstalk implements PheanstalkInterface
 {
-    const VERSION = '2.1.0';
+    const VERSION = '3.0.2';
 
     private $_connection;
     private $_using = PheanstalkInterface::DEFAULT_TUBE;

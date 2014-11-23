@@ -8,7 +8,7 @@ class cs_Sniffs_MVC_AbstractOrFinalPresenterSniff implements PHP_CodeSniffer_Sni
 
 	public function register()
 	{
-		return [T_CLASS];
+		return array(T_CLASS);
 	}
 
 	/**
@@ -22,19 +22,19 @@ class cs_Sniffs_MVC_AbstractOrFinalPresenterSniff implements PHP_CodeSniffer_Sni
 
 		$namePtr = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), NULL, TRUE);
 		$class = $tokens[$namePtr]['content'];
-		$match = [];
+		$match = array();
 		if (!preg_match('~^(?P<name>(?P<base>Base)?.*?)Presenter$~', $class, $match))
 		{
 			// not a presenter class
 			return;
 		}
 
-		$modifiers = [];
+		$modifiers = array();
 		$offset = 1;
 		while (TRUE)
 		{
 			$token = $tokens[$stackPtr - $offset];
-			if (!in_array($token['code'], [T_WHITESPACE, T_FINAL, T_ABSTRACT]))
+			if (!in_array($token['code'], array(T_WHITESPACE, T_FINAL, T_ABSTRACT)))
 			{
 				break;
 			}
@@ -49,13 +49,13 @@ class cs_Sniffs_MVC_AbstractOrFinalPresenterSniff implements PHP_CodeSniffer_Sni
 		if (isset($match['base']) && !in_array(T_ABSTRACT, $modifiers))
 		{
 			$error = 'Base presenter %s must be defined abstract';
-			$phpcsFile->addError($error, $stackPtr, 'AbstractBasePresenter', [$class]);
+			$phpcsFile->addError($error, $stackPtr, 'AbstractBasePresenter', array($class));
 
 		}
 		else if (!count($modifiers))
 		{
 			$error = 'Presenter %s must be either final or abstract';
-			$phpcsFile->addError($error, $stackPtr, 'NoPresenterModifier', [$class]);
+			$phpcsFile->addError($error, $stackPtr, 'NoPresenterModifier', array($class));
 		}
 	}
 

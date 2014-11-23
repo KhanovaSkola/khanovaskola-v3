@@ -69,7 +69,7 @@ class PHP_CodeSniffer
      *
      * @var string
      */
-    const VERSION = '1.5.4';
+    const VERSION = '1.5.5';
 
     /**
      * Package stability; either stable or beta.
@@ -684,6 +684,8 @@ class PHP_CodeSniffer
 
         $di = new RecursiveIteratorIterator($rdi, 0, RecursiveIteratorIterator::CATCH_GET_CHILD);
 
+        $dirLen = strlen($directory);
+
         foreach ($di as $file) {
             $filename = $file->getFilename();
 
@@ -705,8 +707,11 @@ class PHP_CodeSniffer
 
             $path = $file->getPathname();
 
-            // Skip files in hidden directories.
-            if (strpos($path, DIRECTORY_SEPARATOR.'.') !== false) {
+            // Skip files in hidden directories within the Sniffs directory of this
+            // standard. We use the offset with strpos() to allow hidden directories
+            // before, valid example:
+            // /home/foo/.composer/vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/...
+            if (strpos($path, DIRECTORY_SEPARATOR.'.', $dirLen) !== false) {
                 continue;
             }
 
@@ -1250,7 +1255,7 @@ class PHP_CodeSniffer
         }
 
         foreach ($this->ignorePatterns as $pattern => $type) {
-            if (is_array($pattern) === true) {
+            if (is_array($type) === true) {
                 // A sniff specific ignore pattern.
                 continue;
             }

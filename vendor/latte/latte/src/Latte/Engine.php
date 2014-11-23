@@ -127,7 +127,7 @@ class Engine extends Object
 			$code = $this->getCompiler()->setContentType($this->contentType)
 				->compile($tokens);
 
-			if (preg_match('#^\S{5,100}\z#', $name)) {
+			if (!preg_match('#\n|\?#', $name)) {
 				$code = "<?php\n// source: $name\n?>" . $code;
 			}
 
@@ -194,7 +194,10 @@ class Engine extends Object
 		if (!$this->tempDirectory) {
 			throw new \RuntimeException('Set path to temporary directory using setTempDirectory().');
 		} elseif (!is_dir($this->tempDirectory)) {
-			mkdir($this->tempDirectory);
+			@mkdir($this->tempDirectory); // High concurrency
+			if (!is_dir($this->tempDirectory)) {
+				throw new \RuntimeException("Temporary directory cannot be created. Check access rights");
+			}
 		}
 		$file = md5($name);
 		if (preg_match('#\b\w.{10,50}$#', $name, $m)) {

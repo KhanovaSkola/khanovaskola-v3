@@ -17,12 +17,11 @@
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
-		"google/apiclient": "~1.0.5-beta",
 		"kdyby/console": "~2.3",
 		"kdyby/events": "~2.1",
 		"kdyby/facebook": "~1.1",
-		"kdyby/forms-replicator": "dev-master#7ead4e3",
-		"kdyby/google": "~0.1",
+		"kdyby/forms-replicator": "dev-master#5330eba0",
+		"kdyby/google": "dev-master#16cb87a2 as 1.0",
 		"kdyby/monolog": "~1.0",
 		"kdyby/redis": "~3.1",
 		"nette/nette": "~2.2.0",
@@ -33,7 +32,7 @@
 		"bjeavons/zxcvbn-php": "~0.1"
 	},
 	"require-dev": {
-		"doctrine/dbal": "dev-master#d47a941",
+		"doctrine/dbal": "2.5.0-RC2 as 2.5.0",
 		"fzaninotto/faker": "~1.4",
 		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
