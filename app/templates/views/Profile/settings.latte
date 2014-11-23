@@ -1,0 +1,112 @@
+{var $pageName = 'setting-page'}
+{var $headerBorder = FALSE}
+{block content}
+	{**
+	 * @param App\Models\Rme\User $profile
+	 *}
+
+	<main class="content">
+        <div class="content-inner">
+            <h1>Nastavení</h1>
+            <form>
+                <div class="form-group has-addend">
+                    <label>Jméno</label>
+                    <input type="text" class="form-control" value="Martin Halík">
+                    <div class="addend-icon">
+                        <i class="icon icon-user"></i>
+                    </div>
+                </div>
+                <div class="form-group has-addend">
+                    <label>Email</label>
+                    <input type="text" class="form-control" value="martin@greenwoodents.com">
+                    <div class="addend-icon">
+                        <i class="icon icon-mail"></i>
+                    </div>
+                </div>
+                <div class="form-group change-password">
+                    <a href="#">
+                        <i class="icon icon-unlock"></i>
+                        <span>Změnit heslo</span>
+                    </a>
+                </div>
+                <div class="form-group change-avatar clearfix">
+                    <div class="pull-left avatar"><img src="{$basePath}/img/avatar.png" alt="avatar"></div>
+                    <div class="pull-left">
+                        <label>Profilová fotka</label>
+                        <br>
+                        <a href="#">
+                            <i class="icon icon-cloud-up"></i>
+                            <span>Nahrát novou profilovku</span>
+                        </a>
+                    </div>
+                </div>
+                <h2>
+                    Rodiče a učitelé (hidden if there is nobody)
+                    <small>…uvidí co se učíš, jak ti to jde a mohou ti pomoci</small>
+                </h2>
+                <div class="persons">
+                    <div class="person clearfix">
+                        <div class="pull-left">
+                            <div class="avatar">
+                                <img src="{$basePath}/img/avatar.png" alt="avatar">
+                            </div>
+                        </div>
+                        <div class="pull-left">
+                            <span class="name">Alžběta Cabanová</span>
+                            <small>učitelka</small>
+                        </div>
+                        <div class="pull-right">
+                            <div class="close">
+                                <a href="#">
+                                    <i class="icon icon-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="person clearfix">
+                        <div class="pull-left">
+                            <div class="avatar">
+                                <img src="{$basePath}/img/avatar.png" alt="avatar">
+                            </div>
+                        </div>
+                        <div class="pull-left">
+                            <span class="name">Alžběta Cabanová</span>
+                            <small>Je to tvá maminka?</small>
+                            <div class="choices">
+                                <a href="#" class="text-green">
+                                    <i class="icon icon-ok"></i>
+                                    <span>Ano</span>
+                                </a>
+                                <a href="#" class="text-red">
+                                    <i class="icon icon-times"></i>
+                                    <span>Ne</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <h2>E-maily</h2>
+                <div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked>
+                            <span></span>
+                            Rád dostávám maily od Khanovy školy
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span></span>
+                            Jsem rád, když mě povzbudíte a upozorníte, že jsem se dlouho neučil
+                        </label>
+                    </div>
+                </div>
+                <div class="setting-footer">
+                    <i class="icon icon-ok-double"></i>
+                    <span>Změny v nastavení jsou uloženy</span>
+                </div>
+            </form>
+        </div>
+    </main>
