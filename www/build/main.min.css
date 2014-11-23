@@ -10739,7 +10739,10 @@ label {
   float: right;
   text-align: center;
 }
-.landing-page .content .content-inner .join span {
+.landing-page .content .content-inner .join .btn {
+  width: 215px;
+}
+.landing-page .content .content-inner .join a.text {
   margin-top: 25px;
   display: block;
   font-size: 16px;
