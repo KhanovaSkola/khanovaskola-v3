@@ -1,9 +1,145 @@
-{var $pageName = NULL}
+{var $pageName = 'dashboard-page'}
 {var $headerBorder = FALSE}
 {block content}
 	{**
-	 * @param User $profile
+	 * @param App\Models\Rme\User $profile
 	 *}
+
+	<main class="content">
+        <div class="content-inner">
+            <small>Vítej zpět, Martine!</small>
+            <div class="head text-blue">
+                <i class="icon icon-math"></i>
+                <h1>Matematika pro Zš a Sš</h1>
+            </div>
+            <div class="progress-wrapper">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    </div>
+                </div>
+                <span>60%</span>
+            </div>
+            <a href="#" class="btn">
+                Pokračovat
+            </a>
+            <a href="#">Přehled předmětu</a>
+            <div class="inprogress-box">
+                <div class="title">
+                    <div class="title-inner">
+                        <i class="icon icon-idea"></i>
+                        <span>Rozpracované předměty</span>
+                    </div>
+                </div>
+                <div class="subject">
+                    <h2>
+                        <i class="icon icon-history text-red"></i>
+                        <span>19. století</span>
+                    </h2>
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            </div>
+                        </div>
+                        <span>60%</span>
+                    </div>
+                    <div class="action">
+                        <a href="#" class="btn btn-red">
+                            <i class="icon icon-play"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="subject">
+                    <h2>
+                        <i class="icon icon-physics text-cyan-dark"></i>
+                        <span>jaderná fyzika základy</span>
+                    </h2>
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            </div>
+                        </div>
+                        <span>60%</span>
+                    </div>
+                    <div class="action">
+                        <a href="#" class="btn btn-cyan">
+                            <i class="icon icon-play"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="subject">
+                    <h2>
+                        <i class="icon icon-physics text-purple"></i>
+                        <span>jaderná fyzika základy</span>
+                    </h2>
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            </div>
+                        </div>
+                        <span>60%</span>
+                    </div>
+                    <div class="action">
+                        <a href="#" class="btn btn-purple">
+                            <i class="icon icon-play"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="subject">
+                    <h2>
+                        <i class="icon icon-physics text-green"></i>
+                        <span>jaderná fyzika základy</span>
+                    </h2>
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            </div>
+                        </div>
+                        <span>60%</span>
+                    </div>
+                    <div class="action">
+                        <a href="#" class="btn btn-green">
+                            <i class="icon icon-play"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="inprogress-footer">
+                    <a href="#">
+                        <i class="icon icon-list"></i>
+                        <span>Zobrazit více</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="other-subjects">
+        <div class="inner">
+            <h1>
+                Tohle tě bude taky zajímat!
+            </h1>
+            <div class="subjects">
+                <div class="subject">
+                    <i class="icon icon-math text-blue"></i>
+                    <h2>Kardinální číslo</h2>
+                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
+                    <a href="#" class="btn">Zjistit</a>
+                </div>
+                <div class="subject">
+                    <i class="icon icon-it text-purple"></i>
+                    <h2>Kardinální číslo</h2>
+                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
+                    <a href="#" class="btn">Zjistit</a>
+                </div>
+                <div class="subject">
+                    <i class="icon icon-history text-red"></i>
+                    <h2>Kardinální číslo</h2>
+                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
+                    <a href="#" class="btn">Zjistit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
 
 	<h1>{$profile->name}</h1>
 
