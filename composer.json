@@ -19,7 +19,7 @@
 		"ezyang/htmlpurifier": "~4.6.0",
 		"kdyby/console": "~2.3",
 		"kdyby/events": "~2.1",
-		"kdyby/facebook": "~1.1",
+		"kdyby/facebook": "dev-master# as 1.1",
 		"kdyby/forms-replicator": "dev-master#5330eba0",
 		"kdyby/google": "dev-master#16cb87a2 as 1.0",
 		"kdyby/monolog": "~1.0",
@@ -54,6 +54,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
+		},
+		{
+			"type": "vcs",
+			"url": "git@github.com:Mikulas/Facebook.git"
 		}
 	],
 	"scripts": {

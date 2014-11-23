@@ -52,7 +52,7 @@ events:
 
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
-	trustForwarded: true
+	tls: %tls%
 
 google:
 	returnUri: 'Auth:googleResponse'
