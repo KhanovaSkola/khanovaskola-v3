@@ -82,13 +82,17 @@
 			  }
 			  .video-real {
 				position: relative;
-				z-index: 1;
+				z-index: 123;
 				height: 450px;
 				width: 795px;
 				overflow: hidden;
 				img {
 				  height: 450px;
 				  min-width: 100%;
+				}
+				iframe {
+				  width: 100%;
+				  height: 450px;
 				}
 			  }
 			  .video-play {
@@ -115,6 +119,27 @@
 	}
 	&.course-text {
 	  .course-header-content {
+		position: relative;
+		.slider-arrow-right {
+		  color: @checkbox-border-active;
+		  position: absolute;
+		  top: 50%;
+		  right: 2px;
+		  margin-top: -18px;
+		  font-size: 15px;
+		  height: 42px;
+		  width: 42px;
+		  border-radius: 50%;
+		  text-align: center;
+		  padding-top: 11px;
+		  &:hover {
+			text-decoration: none;
+			color: @white;
+			background: @khan-blue;
+			box-shadow: 0 0 0 2px @khan-blue;
+			border: 2px solid @white;
+		  }
+		}
 		.left {
 		  padding-right: 0;
 		  .content-wrapper {

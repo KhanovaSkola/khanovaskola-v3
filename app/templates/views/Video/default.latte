@@ -10,32 +10,75 @@
 {/block}
 {block content}
 	{**
-	 * @param Video $video
+	 * @param App\Models\Rme\Video $video
 	 *}
 
-	<h1>{$video->title}</h1>
+	<main class="content">
+		<div class="course-header course-video">
+            <div class="course-header-content">
+                <div class="left">
+                    <div class="icon-wrapper">
+                        <i class="icon icon-math"></i>
+                    </div>
+                    <div class="content-wrapper">
+                        <small>Sčítání a odčítání (1/6) · 15:26</small>
+                        <h1>
+                            <span>Základy sčítání</span>
+                            <small>Nejpraktičtější věc v celé matematice.</small>
+                        </h1>
+                        <div class="idea">
+                            <i class="icon icon-idea"></i>
+                            <span>Je potřeba rozumět Desítkové soustavě.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-inner">
+                        <div class="video-wrapper">
+                            <div class="video-real hidden">
+                                {*<iframe src="http://www.youtube.com/embed/UErfaKlJiqI?enablejsapi=1" frameborder="0" allowfullscreen id="video"></iframe>*}
+                                <span id="play-button">Play</span>
+                                <span id="pause-button">Pause</span>
+                            </div>
+                            <div class="video-preview">
+                                <img src="{$basePath}/img/video.png" alt="video">
+                            </div>
+                            <a href="#" class="video-play"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-header-footer">
+                <div class="left">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <a href="#" class="play">
+                                <i class="icon icon-pause"></i>
+                            </a>
+                        </div>
+                        <div class="pull-left">
+                            <a href="#" class="play">
+                                <i class="icon icon-fullscreen"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="center">
+                    <i class="icon icon-comments"></i>
+                    <span>Máš nějaký dotaz k probírané látce?</span>
+                </div>
+                <div class="right">
+                    <a href="#">
+                        <span>Sčítání II.</span>
+                        <small>(3/6)</small>
+                        <i class="icon icon-arrow-right-double"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-	<script type="text/javascript" src="//cdn.sublimevideo.net/js/f065w0nj.js"></script>
-    <video id="video"
-	    class="sublime"
-	    poster="//img.youtube.com/vi/{$video->youtubeId}/hqdefault.jpg"
-	    width="640"
-	    height="360"
-	    title="{$video->title}"
-	    data-uid="{$video->youtubeId}"
-	    data-youtube-id="{$video->youtubeId}"
-	    data-x-autoresize="fit"
-	    preload="none"
-	    data-url-begin="{plink Js:videoViewBegin, videoId => $video->id}"
-	    data-url-seek="{plink Js:videoViewSeek, viewId => '{viewId}'}"
-	    data-url-pause="{plink Js:videoViewPause, viewId => '{viewId}'}"
-	    data-url-changeView="{plink Js:videoViewChangeView, viewId => '{viewId}'}"
-	    data-url-tick="{plink Js:videoViewTick, viewId => '{viewId}'}"
-	>
-            <track src="{plink :Srt:, videoId => $video->id}" srclang="cs" default />
-    </video>
+		{control comments}
+	</main>
 
-	{control comments}
-
-	{includeblock ../_silimar.latte}
+	{includeblock ../_similar.latte}
 	{include similarContent}

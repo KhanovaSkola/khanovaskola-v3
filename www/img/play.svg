@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="98px" height="98px" viewBox="0 0 98 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
+    <title>play</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="42" cy="42" r="42"></circle>
+    </defs>
+    <g id="Kurz" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Video" sketch:type="MSArtboardGroup" transform="translate(-593.000000, -282.000000)">
+            <g id="video" sketch:type="MSLayerGroup" transform="translate(0.000000, 84.000000)">
+                <g id="play-button" transform="translate(600.000000, 205.000000)">
+                    <g id="play">
+                        <g id="Oval-10">
+                            <use stroke="#FFFFFF" stroke-width="7" fill="#FFFFFF" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                            <use stroke="#131516" stroke-width="5" fill="none" xlink:href="#path-1"></use>
+                        </g>
+                        <path d="M55.0837838,41.6386706 L35.5513514,56.1751728 C35.5235521,56.1931635 35.4992278,56.2111542 35.4749035,56.2255468 L35.4749035,56.1391914 L35.4749035,25.8644068 L35.4749035,25.7744532 C35.4992278,25.7924439 35.5235521,25.8068365 35.5478764,25.8248272 L55.0872587,40.3649276 C55.3617761,40.5700218 55.5250965,40.8074993 55.5250965,41.0017991 C55.5250965,41.1960989 55.3617761,41.4335764 55.0837838,41.6386706 M57.1131274,37.4396364 L37.5737452,22.9031342 C36.7675676,22.3058422 35.9509653,22 35.1482625,22 C33.6332046,22 32,23.2089764 32,25.8644068 L32,56.1391914 C32,58.7910236 33.6297297,60 35.1482625,60 C35.9509653,60 36.7675676,59.6977559 37.5772201,59.100464 L57.1096525,44.5603636 C58.3119691,43.6680239 59,42.372692 59,41.0017991 C59,39.6309062 58.3119691,38.3319761 57.1131274,37.4396364" fill="#141516" sketch:type="MSShapeGroup"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
