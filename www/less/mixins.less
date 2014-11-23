@@ -15,3 +15,47 @@
 		color: darken(@base-color, 20%);
 	}
 }
+
+.button-variant(@color; @background; @border; @border-size:2px) {
+  color: @color;
+  background-color: @background;
+  border: 2px solid @white;
+  box-shadow: 0 0 0 @border-size @border !important;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+	color: @color;
+	background-color: darken(@background, 10%);
+	border-color: @white;
+	box-shadow: 0 0 0 3px darken(@border, 12%);
+
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+	background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+	&,
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active {
+	  background-color: @background;
+	  border-color: @white;
+	  box-shadow: 0 0 0 3px @border;
+	}
+  }
+
+  .badge {
+	color: @background;
+	background-color: @color;
+  }
+}
