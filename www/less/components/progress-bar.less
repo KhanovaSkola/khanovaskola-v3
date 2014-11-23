@@ -1,0 +1,68 @@
+.progress-wrapper {
+  width: 100%;
+  padding-right: 40px;
+  position: relative;
+  span {
+	position: absolute;
+	right: 0;
+	top: -7px;
+	font-weight: @font-weight-light;
+	font-size: 14px;
+	color: @khan-blue-light2;
+	line-height: 16px;
+  }
+}
+
+// outer container
+.progress {
+  width: 100%;
+  height: @progress-bar-height;
+  border-radius: @progress-bar-radius;
+  background: @header-border;
+}
+
+.progress-bar {
+  box-shadow: none;
+}
+
+
+.progress-bar-black {
+  .progress-bar-variant(@khan-black);
+}
+.progress-bar-primary,
+.progress-bar-blue {
+  .progress-bar-variant(@khan-blue);
+}
+
+.progress-bar-success,
+.progress-bar-green {
+  .progress-bar-variant(@khan-green);
+}
+
+.progress-bar-cyan {
+  .progress-bar-variant(@khan-cyan);
+}
+.progress-bar-cyan-dark {
+  .progress-bar-variant(@khan-cyan-dark);
+}
+
+.progress-bar-warning,
+.progress-bar-yellow {
+  .progress-bar-variant(@khan-yellow);
+}
+.progress-bar-gold {
+  .progress-bar-variant(@khan-gold);
+}
+
+.progress-bar-purple {
+  .progress-bar-variant(@khan-purple);
+}
+
+.progress-bar-brown {
+  .progress-bar-variant(@khan-brown);
+}
+
+.progress-bar-red,
+.progress-bar-danger {
+  .progress-bar-variant(@khan-red);
+}
