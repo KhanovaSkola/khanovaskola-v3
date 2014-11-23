@@ -6943,7 +6943,7 @@ mark {
 .header .header-goback {
   width: auto;
   min-width: 150px;
-  padding-top: 28px;
+  padding-top: 31px;
   padding-right: 35px;
 }
 .header .header-goback a {
@@ -10738,9 +10738,6 @@ label {
   width: 215px;
   float: right;
   text-align: center;
-}
-.landing-page .content .content-inner .join .btn {
-  width: 215px;
 }
 .landing-page .content .content-inner .join a.text {
   margin-top: 25px;
