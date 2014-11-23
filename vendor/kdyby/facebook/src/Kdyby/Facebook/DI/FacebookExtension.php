@@ -28,6 +28,7 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 	public $defaults = array(
 		'appId' => NULL,
 		'appSecret' => NULL,
+		'verifyApiCalls' => TRUE,
 		'fileUploadSupport' => FALSE,
 		'trustForwarded' => FALSE,
 		'clearAllWithLogout' => TRUE,
@@ -37,6 +38,7 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 		'graphVersion' => '',
 		'curlOptions' => array(),
 		'debugger' => '%debugMode%',
+		'tls' => FALSE,
 	);
 
 
@@ -61,15 +63,18 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 		Validators::assert($config['domains'], 'array', 'api domains');
 		Validators::assert($config['permissions'], 'list', 'permissions scope');
 		Validators::assert($config['canvasBaseUrl'], 'null|url', 'base url for canvas application');
+		Validators::assert($config['tls'], 'bool', 'force tls');
 
 		$configurator = $builder->addDefinition($this->prefix('config'))
 			->setClass('Kdyby\Facebook\Configuration')
 			->setArguments(array($config['appId'], $config['appSecret']))
+			->addSetup('$verifyApiCalls', array($config['verifyApiCalls']))
 			->addSetup('$fileUploadSupport', array($config['fileUploadSupport']))
 			->addSetup('$trustForwarded', array($config['trustForwarded']))
 			->addSetup('$permissions', array($config['permissions']))
 			->addSetup('$canvasBaseUrl', array($config['canvasBaseUrl']))
 			->addSetup('$graphVersion', array($config['graphVersion']))
+			->addSetup('$tls', array($config['tls']))
 			->setInject(FALSE);
 
 		if ($config['domains']) {

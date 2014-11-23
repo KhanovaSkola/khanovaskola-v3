@@ -159,17 +159,7 @@ class Panel extends Nette\Object implements IBarPanel
 		$client->onError[] = $this->failure;
 		$client->onSuccess[] = $this->success;
 
-		self::getDebuggerBar()->addPanel($this);
-	}
-
-
-
-	/**
-	 * @return \Tracy\Bar
-	 */
-	private static function getDebuggerBar()
-	{
-		return method_exists('Tracy\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
+		Debugger::getBar()->addPanel($this);
 	}
 
 }

@@ -57,6 +57,7 @@ class LoginDialog extends Facebook\Dialog\AbstractDialog
 
 
 	/**
+	 * @see https://developers.facebook.com/docs/facebook-login/permissions/v2.1
 	 * @param string|array $scope
 	 */
 	public function setScope($scope)

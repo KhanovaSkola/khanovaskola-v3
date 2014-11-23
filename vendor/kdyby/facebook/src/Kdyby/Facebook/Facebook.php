@@ -166,7 +166,7 @@ class Facebook extends Nette\Object
 	 */
 	public function api($pathOrParams, $method = NULL, array $params = array())
 	{
-		if (is_array($pathOrParams)) {
+		if (is_array($pathOrParams) && empty($this->config->graphVersion)) {
 			$response = $this->apiClient->restServer($pathOrParams); // params
 
 		} else {
@@ -573,6 +573,11 @@ class Facebook extends Nette\Object
 
 		if ($this->config->trustForwarded && isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
 			$url->setScheme($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ? 'https' : 'http');
+		}
+
+		if ($this->config->tls)
+		{
+			$url->setScheme('https');
 		}
 
 		parse_str($url->getQuery(), $query);

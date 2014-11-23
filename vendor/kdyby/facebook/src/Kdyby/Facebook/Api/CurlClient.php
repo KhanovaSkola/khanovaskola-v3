@@ -13,7 +13,7 @@ namespace Kdyby\Facebook\Api;
 use Kdyby\CurlCaBundle\CertificateHelper;
 use Kdyby\Facebook;
 use Nette;
-use Nette\Diagnostics\Debugger;
+use Tracy\Debugger;
 use Nette\Http\UrlScript;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
@@ -189,8 +189,12 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 			$params['access_token'] = $this->fb->getAccessToken();
 		}
 
-		if (isset($params['access_token']) && !isset($params['appsecret_proof'])) {
+		if ($this->fb->getConfig()->verifyApiCalls && isset($params['access_token']) && !isset($params['appsecret_proof'])) {
 			$params['appsecret_proof'] = $this->fb->config->getAppSecretProof($params['access_token']);
+		}
+
+		if ($params['appsecret_proof'] === false) {
+			unset($params['appsecret_proof']);
 		}
 
 		// json_encode all params values that are not strings
