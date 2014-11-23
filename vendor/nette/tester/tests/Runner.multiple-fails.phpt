@@ -11,7 +11,6 @@ use Tester\Assert,
 require __DIR__ . '/bootstrap.php';
 require __DIR__ . '/../Tester/Runner/OutputHandler.php';
 require __DIR__ . '/../Tester/Runner/TestHandler.php';
-require __DIR__ . '/../Tester/Runner/PhpExecutable.php';
 require __DIR__ . '/../Tester/Runner/Runner.php';
 
 
@@ -28,10 +27,10 @@ class Logger implements Tester\Runner\OutputHandler
 	function end() {}
 }
 
-$php = new Tester\Runner\PhpExecutable(PHP_BINARY, '-c ' . Tester\Helpers::escapeArg(php_ini_loaded_file()));
-$php->arguments .= ' -d display_errors=On -d html_errors=Off';
+$interpreter = createInterpreter();
+$interpreter->arguments .= ' -d display_errors=On -d html_errors=Off';
 
-$runner = new Runner($php);
+$runner = new Runner($interpreter);
 $runner->paths[] = __DIR__ . '/multiple-fails/*.phptx';
 $runner->outputHandlers[] = $logger = new Logger;
 $runner->run();
@@ -44,8 +43,9 @@ Assert::same( Runner::SKIPPED, $logger->results['testcase-no-methods.phptx'][0] 
 
 
 $bug62725 = PHP_SAPI === 'cli' && PHP_VERSION_ID >= 50400 && PHP_VERSION_ID <= 50406;
+$issue162 = defined('HHVM_VERSION');
 Assert::match(
-	$bug62725
+	$bug62725 || $issue162
 		? "Cannot list TestCase methods in file '%a%testcase-not-call-run.phptx'. Do you call TestCase::run() in it?"
 		: 'Error: This test forgets to execute an assertion.',
 	trim($logger->results['testcase-not-call-run.phptx'][1])
@@ -68,7 +68,9 @@ Assert::same( Runner::FAILED, $logger->results['testcase-pre-fail.phptx'][0] );
 
 
 Assert::match(
-	'Parse error: syntax error, unexpected end of file in %a%testcase-syntax-error.phptx on line %d%',
+	defined('HHVM_VERSION')
+		? 'Fatal error: syntax error, unexpected $end in %a%testcase-syntax-error.phptx on line %d%'
+		: 'Parse error: syntax error, unexpected end of file in %a%testcase-syntax-error.phptx on line %d%',
 	trim($logger->results['testcase-syntax-error.phptx'][1])
 );
 Assert::same( Runner::FAILED, $logger->results['testcase-syntax-error.phptx'][0] );

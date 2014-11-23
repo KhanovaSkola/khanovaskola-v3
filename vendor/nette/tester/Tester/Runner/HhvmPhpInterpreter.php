@@ -7,33 +7,34 @@
 
 namespace Tester\Runner;
 
+use Tester\Helpers;
+
 
 /**
- * PHP executable command-line.
+ * HHVM command-line executable.
+ *
+ * @author  Michael Moravec
  */
-class PhpExecutable
+class HhvmPhpInterpreter implements PhpInterpreter
 {
-	/** @var string  PHP arguments */
+	/** @var string  HHVM arguments */
 	public $arguments;
 
-	/** @var string  PHP executable */
+	/** @var string  HHVM executable */
 	private $path;
 
-	/** @var string  PHP version */
+	/** @var string  HHVM version */
 	private $version;
 
-	/** @var bool is CGI? */
-	private $cgi;
-
-	/** @var bool */
-	private $xdebug;
+	/** @var string  PHP version */
+	private $phpVersion;
 
 
 	public function __construct($path, $args = NULL)
 	{
-		$this->path = \Tester\Helpers::escapeArg($path);
+		$this->path = Helpers::escapeArg($path);
 		$proc = @proc_open(
-			"$this->path -n $args -v", // -v must be the last
+			"$this->path --php $args -r " . Helpers::escapeArg('echo HHVM_VERSION . "|" . PHP_VERSION;'),
 			array(array('pipe', 'r'), array('pipe', 'w'), array('pipe', 'w')),
 			$pipes,
 			NULL,
@@ -42,16 +43,18 @@ class PhpExecutable
 		);
 		$output = stream_get_contents($pipes[1]);
 		$error = stream_get_contents($pipes[2]);
+
 		if (proc_close($proc)) {
 			throw new \Exception("Unable to run '$path': " . preg_replace('#[\r\n ]+#', ' ', $error));
-		} elseif (!preg_match('#^PHP (\S+).*c(g|l)i#i', $output, $matches)) {
-			throw new \Exception("Unable to detect PHP version (output: $output).");
+		} elseif (count($tmp = explode('|', $output)) !== 2) {
+			throw new \Exception("Unable to detect HHVM version (output: $output).");
 		}
 
-		$this->version = $matches[1];
-		$this->cgi = strcasecmp($matches[2], 'g') === 0;
-		$this->xdebug = strpos($output, 'Xdebug') > 0;
-		$this->arguments = $args;
+		list($this->version, $this->phpVersion) = $tmp;
+		if (version_compare($this->version, '3.3.0', '<')) {
+			throw new \Exception('HHVM below version 3.3.0 is not supported.');
+		}
+		$this->arguments = '--php -d hhvm.log.always_log_unhandled_exceptions=false ' . ($args ? " $args" : ''); // HHVM issue #3019
 	}
 
 
@@ -69,7 +72,7 @@ class PhpExecutable
 	 */
 	public function getVersion()
 	{
-		return $this->version;
+		return $this->phpVersion;
 	}
 
 
@@ -78,7 +81,7 @@ class PhpExecutable
 	 */
 	public function hasXdebug()
 	{
-		return $this->xdebug;
+		return FALSE;
 	}
 
 
@@ -87,7 +90,7 @@ class PhpExecutable
 	 */
 	public function isCgi()
 	{
-		return $this->cgi;
+		return FALSE;
 	}
 
 }

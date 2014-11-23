@@ -2,32 +2,38 @@
 
 namespace VrtakCZ\NewRelic\Tracy;
 
-class Logger extends \Tracy\Logger
+if (!interface_exists('Tracy\ILogger')) {
+	require_once __DIR__ . '/ILogger.php';
+}
+
+class Logger implements \Tracy\ILogger
 {
+	/** @var \Tracy\ILogger */
+	private $oldLogger;
+
 	/** @var array */
 	private $logLevel;
+
+	/** @var bool */
+	public $directory = TRUE; // workaround https://github.com/nette/tracy/pull/74
 
 	/**
 	 * @param array
 	 */
 	public function __construct(array $logLevel)
 	{
-		$oldLogger = \Tracy\Debugger::getLogger();
-		$this->emailSnooze =& $oldLogger->emailSnooze;
-		$this->mailer =& $oldLogger->mailer;
-		$this->directory =& $oldLogger->directory;
-		$this->email =& $oldLogger->email;
-
+		$this->oldLogger = \Tracy\Debugger::getLogger();
 		$this->logLevel = $logLevel;
 	}
 
 	/**
 	 * @param string|array
-	 * @param int
+	 * @param string
+	 * @return string logged error filename
 	 */
 	public function log($message, $priority = NULL)
 	{
-		parent::log($message, $priority);
+		$exceptionFile = $this->oldLogger->log($message, $priority);
 
 		if (in_array($priority, $this->logLevel)) {
 			if (is_array($message)) {
@@ -36,5 +42,7 @@ class Logger extends \Tracy\Logger
 
 			newrelic_notice_error($message);
 		}
+
+		return $exceptionFile;
 	}
 }

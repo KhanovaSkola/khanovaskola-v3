@@ -102,7 +102,7 @@ class Google extends Object
 			$this->client->setAccessToken(json_encode($token));
 		}
 
-		$this->client->setRedirectUri((string) $this->getCurrentUrl()->setQuery(''));
+		$this->client->setRedirectUri((string) $this->getCurrentUrl());
 
 		return $this->client;
 	}
@@ -284,13 +284,13 @@ class Google extends Object
 
 		if (empty($this->session->access_token) && !empty($this->session->refresh_token)) {
 			/** @var \Google_Auth_OAuth2 $auth  */
-			$auth = $this->getClient()->getAuth();
+			$auth = $this->client->getAuth();
 
 			try {
 				$auth->refreshToken($this->session->refresh_token);
 				$accessToken = Json::decode($auth->getAccessToken(), Json::FORCE_ARRAY);
 
-				if (empty($response) || !is_array($response)) {
+				if (empty($accessToken) || !is_array($accessToken)) {
 					throw new UnexpectedValueException('Access token is expected to be a valid json array.');
 				}
 
@@ -335,7 +335,7 @@ class Google extends Object
 		}
 
 		try {
-			$this->client->setRedirectUri((string) $this->getCurrentUrl()->setQuery(''));
+			$this->client->setRedirectUri((string) $this->getCurrentUrl());
 			$response = Json::decode($this->client->authenticate($code), Json::FORCE_ARRAY);
 
 			if (empty($response) || !is_array($response)) {
@@ -445,7 +445,7 @@ class Google extends Object
 			return $this->session->verified_id_token['payload'];
 		}
 
-		$this->client->setRedirectUri((string) $this->getCurrentUrl()->setQuery(''));
+		$this->client->setRedirectUri((string) $this->getCurrentUrl());
 
 		/** @var \Google_Auth_OAuth2 $auth */
 		$auth = $this->client->getAuth();

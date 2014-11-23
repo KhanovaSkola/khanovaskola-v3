@@ -1825,7 +1825,7 @@ abstract class AbstractPlatform
     public function quoteIdentifier($str)
     {
         if (strpos($str, ".") !== false) {
-            $parts = array_map(array($this, "quoteSingleIdentifier"), explode(".", $str));
+            $parts = array_map(array($this, "quoteIdentifier"), explode(".", $str));
 
             return implode(".", $parts);
         }

@@ -19,9 +19,7 @@
  */
 
 require_once 'BaseTest.php';
-require_once 'Google/Http/Request.php';
-require_once 'Google/IO/Curl.php';
-require_once 'Google/IO/Stream.php';
+require_once realpath(dirname(__FILE__) . '/../../autoload.php');
 
 class IoTest extends BaseTest
 {
@@ -215,8 +213,11 @@ class IoTest extends BaseTest
 
   public function responseChecker($io)
   {
-    $curlVer = curl_version();
-    $hasQuirk = $curlVer['version_number'] < Google_IO_Curl::NO_QUIRK_VERSION;
+    $hasQuirk = false;
+    if (function_exists('curl_version')) {
+      $curlVer = curl_version();
+      $hasQuirk = $curlVer['version_number'] < Google_IO_Curl::NO_QUIRK_VERSION;
+    }
 
     $rawHeaders = "HTTP/1.1 200 OK\r\n"
         . "Expires: Sun, 22 Jan 2012 09:00:56 GMT\r\n"
@@ -236,25 +237,32 @@ class IoTest extends BaseTest
     $this->assertEquals(3, sizeof($headers));
     $this->assertEquals(null, json_decode($body, true));
 
+    // Test no content.
+    $rawerHeaders = "HTTP/1.1 204 No Content\r\n"
+      . "Date: Fri, 19 Sep 2014 15:52:14 GMT";
+    list($headers, $body) = $io->parseHttpResponse($rawerHeaders, 0);
+    $this->assertEquals(1, sizeof($headers));
+    $this->assertEquals(null, json_decode($body, true));
+
     // Test transforms from proxies.
     $connection_established_headers = array(
       "HTTP/1.0 200 Connection established\r\n\r\n",
       "HTTP/1.1 200 Connection established\r\n\r\n",
     );
     foreach ($connection_established_headers as $established_header) {
-        $rawHeaders = "{$established_header}HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n";
-        $headersSize = strlen($rawHeaders);
-        // If we have a broken cURL version we have to simulate it to get the
-        // correct test result.
-        if ($hasQuirk && get_class($io) === 'Google_IO_Curl') {
-            $headersSize -= strlen($established_header);
-        }
-        $rawBody = "{}";
+      $rawHeaders = "{$established_header}HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n";
+      $headersSize = strlen($rawHeaders);
+      // If we have a broken cURL version we have to simulate it to get the
+      // correct test result.
+      if ($hasQuirk && get_class($io) === 'Google_IO_Curl') {
+          $headersSize -= strlen($established_header);
+      }
+      $rawBody = "{}";
 
-        $rawResponse = "$rawHeaders\r\n$rawBody";
-        list($headers, $body) = $io->parseHttpResponse($rawResponse, $headersSize);
-        $this->assertEquals(1, sizeof($headers));
-        $this->assertEquals(array(), json_decode($body, true));
+      $rawResponse = "$rawHeaders\r\n$rawBody";
+      list($headers, $body) = $io->parseHttpResponse($rawResponse, $headersSize);
+      $this->assertEquals(1, sizeof($headers));
+      $this->assertEquals(array(), json_decode($body, true));
     }
   }
 

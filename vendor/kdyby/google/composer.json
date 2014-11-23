@@ -25,11 +25,11 @@
 
 		"ext-curl": "*",
 		"ext-json": "*",
-		"google/apiclient": "~1.0.4@beta"
+		"google/apiclient": "~1.1"
 	},
 	"require-dev": {
 		"nette/tester": "@dev",
-		"jakub-onderka/php-parallel-lint": "~0.6"
+		"jakub-onderka/php-parallel-lint": "~0.7"
 	},
 	"support": {
 		"email": "filip@prochazka.su",
@@ -45,7 +45,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.0-dev"
+			"dev-master": "0.1-dev"
 		}
 	}
 }

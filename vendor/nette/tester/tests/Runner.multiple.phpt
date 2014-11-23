@@ -9,18 +9,36 @@ use Tester\Assert,
 
 require __DIR__ . '/bootstrap.php';
 require __DIR__ . '/../Tester/Runner/TestHandler.php';
-require __DIR__ . '/../Tester/Runner/PhpExecutable.php';
 require __DIR__ . '/../Tester/Runner/Runner.php';
 
 
-$php = new Tester\Runner\PhpExecutable(PHP_BINARY, '-c ' . Tester\Helpers::escapeArg(php_ini_loaded_file()));
-$runner = new Tester\Runner\Runner($php);
+$runner = new Tester\Runner\Runner(createInterpreter());
 
-$tests = Assert::with($runner, function() {
-	$this->results = [self::PASSED => 0, self::SKIPPED => 0, self::FAILED => 0];
-	$this->findTests(__DIR__ . '/multiple/*.phptx');
-	return $this->jobs;
-});
+if (defined('HHVM_VERSION') && version_compare(HHVM_VERSION, '3.4.0-dev', '<')) {
+	$tests = call_user_func(function () use ($runner) {
+		// Workaround for missing Closure::bindTo()
+		$results = new ReflectionProperty($runner, 'results');
+		$results->setAccessible(TRUE);
+
+		$findTests = new ReflectionMethod($runner, 'findTests');
+		$findTests->setAccessible(TRUE);
+
+		$jobs = new ReflectionProperty($runner, 'jobs');
+		$jobs->setAccessible(TRUE);
+
+		$results->setValue($runner, [$runner::PASSED => 0, $runner::SKIPPED => 0, $runner::FAILED => 0]);
+		$findTests->invokeArgs($runner, [__DIR__ . '/multiple/*.phptx']);
+		return $jobs->getValue($runner);
+	});
+
+} else {
+	$tests = Assert::with($runner, function() {
+		$this->results = [self::PASSED => 0, self::SKIPPED => 0, self::FAILED => 0];
+		$this->findTests(__DIR__ . '/multiple/*.phptx');
+		return $this->jobs;
+	});
+}
+
 
 foreach ($tests as $i => $job) {
 	$tests[$i] = [basename($job->getFile()), $job->getArguments()];
