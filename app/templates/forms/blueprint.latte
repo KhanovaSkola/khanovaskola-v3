@@ -2,52 +2,53 @@
  * @param BlueprintForm $control
  *}
 
-<form n:name="form" class="form-horizontal">
-	<div class="form-group">
-		<label n:name="title">{_'title'}</label>
-		<input n:name="title" class="form-control">
-	</div>
-	<div class="form-group">
-        <label n:name="description">{_'description'}</label>
-        <textarea n:name="description" class="form-control">...</textarea>
-    </div>
+<div id="blueprint-editor"></div>
+{*<form n:name="form" class="form-horizontal">*}
+	{*<div class="form-group">*}
+		{*<label n:name="title">{_'title'}</label>*}
+		{*<input n:name="title" class="form-control">*}
+	{*</div>*}
+	{*<div class="form-group">*}
+        {*<label n:name="description">{_'description'}</label>*}
+        {*<input n:name="description" class="form-control">*}
+    {*</div>*}
 
-	<div class="form-group">
-		<label n:name="question">{_'vars'}</label>
-		<div data-definitions>
-	        {foreach $form['vars']->containers as $id => $_tmp}
-	            <div data-var-id="{$id}">
-		            <input n:name="vars-$id-name" class="form-control">
-		            <input n:name="vars-$id-definition" data-definition class="form-control">
-		            <a data-var-remove="{$id}" data-label-undo="{_'removeUndo'}" class="btn btn-link">
-                        {_'removeVar'}
-                    </a>
-		        </div>
-	        {/foreach}
-	    </div>
-        <div class="btn-group">
-            <a class="btn btn-default" disabled>{_'addButton'}</a>
-            {foreach ['integer', 'list', 'plural'] as $type}
-				<a class="btn btn-default" data-add-type="{$type}">{_"type.$type"}</a>
-			{/foreach}
-        </div>
-      </div>
+	{*<div class="form-group">*}
+		{*<label n:name="question">{_'vars'}</label>*}
+		{*<div data-definitions>*}
+	        {*{foreach $form['vars']->containers as $id => $_tmp}*}
+	            {*<div data-var-id="{$id}">*}
+		            {*<input n:name="vars-$id-name" class="form-control">*}
+		            {*<input n:name="vars-$id-definition" data-definition class="form-control">*}
+		            {*<a data-var-remove="{$id}" data-label-undo="{_'removeUndo'}" class="btn btn-link">*}
+                        {*{_'removeVar'}*}
+                    {*</a>*}
+		        {*</div>*}
+	        {*{/foreach}*}
+	    {*</div>*}
+        {*<div class="btn-group">*}
+            {*<a class="btn btn-default" disabled>{_'addButton'}</a>*}
+            {*{foreach ['integer', 'list', 'plural'] as $type}*}
+				{*<a class="btn btn-default" data-add-type="{$type}">{_"type.$type"}</a>*}
+			{*{/foreach}*}
+        {*</div>*}
+      {*</div>*}
 
-	<div class="form-group">
-        <label n:name="question">{_'question'}</label>
-        <input n:name="question" class="form-control">
-    </div>
-    <div class="form-group">
-        <label n:name="answer">{_'answer'}</label>
-        <input n:name="answer" class="form-control">
-    </div>
+	{*<div class="form-group">*}
+        {*<label n:name="question">{_'question'}</label>*}
+        {*<input n:name="question" class="form-control">*}
+    {*</div>*}
+    {*<div class="form-group">*}
+        {*<label n:name="answer">{_'answer'}</label>*}
+        {*<input n:name="answer" class="form-control">*}
+    {*</div>*}
 
-	<div class="form-group">
-		<label n:name="question">{_'hints'}</label>
-		{foreach $form['hints']->containers as $id => $_tmp}
-			<input n:name="hints-$id-hint" class="form-control">
-		{/foreach}
-	</div>
+	{*<div class="form-group">*}
+		{*<label n:name="question">{_'hints'}</label>*}
+		{*{foreach $form['hints']->containers as $id => $_tmp}*}
+			{*<input n:name="hints-$id-hint" class="form-control">*}
+		{*{/foreach}*}
+	{*</div>*}
 
-	<input n:name="save" value="{if $form->editing}Uložit{else}Vytvořit{/if}" class="btn btn-default">
-</form>
+	{*<input n:name="save" value="{if $form->editing}Uložit{else}Vytvořit{/if}" class="btn btn-default">*}
+{*</form>*}

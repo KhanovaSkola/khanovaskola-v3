@@ -13,7 +13,7 @@ class Blueprint extends EntityForm
 	public function setupBoth()
 	{
 		$this->addText('title');
-		$this->addTextArea('description');
+		$this->addText('description');
 
 		$this->addText('question');
 		$this->addText('answer');

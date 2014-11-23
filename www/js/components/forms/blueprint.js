@@ -17,11 +17,21 @@
         }
         serialize();
     };
+	Renderer.label = function(type) {
+		switch (type) {
+			case 'integer':
+				return 'celé číslo';
+			case 'list':
+				return 'náhodné slovo';
+			case 'plural':
+				return 'plurál';
+		}
+	};
     Renderer.render = function(def, $input) {
         var $group = $('<div></div>')
-            .text('type: ' + def.type);
+            .text(this.label(def.type));
         $input.hide();
-        $input.after($group);
+        $input.before($group);
 
         var method = 'render' + def.type.charAt(0).toUpperCase() + def.type.slice(1);
         Renderer[method](def, $group, $input);
