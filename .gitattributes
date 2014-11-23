@@ -1,6 +1,10 @@
 compiled.js binary
 compiled.css binary
 composer.lock binary
+www/build/app.min.js binary
+www/build/app.min.js.map binary
+www/build/main.min.css.map binary
+www/build/main.min.css.map binary
 vendor/composer/autoload_real.php binary
 vendor/autoload.php binary
 vendor/composer/autoload_classmap.php binary
