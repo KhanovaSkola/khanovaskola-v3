@@ -17,6 +17,7 @@ use Nette;
 use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
 use stdClass;
+use Tracy\Debugger;
 
 
 /**
@@ -154,7 +155,7 @@ final class Auth extends Presenter
 				if (!$fb->getUser())
 				{
 					$this->flashError('auth.flash.fb.denied');
-					return;
+					$this->redirect('Auth:in');
 				}
 				$me = $fb->api('/me');
 				$this->registerOrLogin($me, function($id) {
@@ -172,7 +173,7 @@ final class Auth extends Presenter
 				$this->flashError('auth.flash.fb.error');
 			}
 
-			$this->redirect('this');
+			$this->redirect('Auth:in');
 		};
 
 		return $dialog;
@@ -203,7 +204,7 @@ final class Auth extends Presenter
 			$this->flashError('auth.flash.google.error');
 		}
 
-		$this->redirect('this');
+		$this->redirect('Auth:in');
 	}
 
 	/**
