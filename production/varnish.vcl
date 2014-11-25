@@ -5,6 +5,7 @@ vcl 4.0;
 #   DAEMON_OPTS="-a :6081 \
 #     -T localhost:6082 \
 #     -p feature=+esi_disable_xml_check
+#     -p feature=+esi_ignore_https
 #
 
 backend default {
