@@ -52,6 +52,7 @@ events:
 
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
+	graphVersion: v2.1
 	tls: %tls%
 
 google:
