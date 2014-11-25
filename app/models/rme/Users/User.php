@@ -20,6 +20,7 @@ use Orm\OneToMany as OtM;
  * @property NULL|string           $nominative
  * @property NULL|string           $vocative
  * @property NULL|string           $gender                 {enum App\Models\Structs\Gender::getGenders()}
+ * @property NULL|string           $avatar                 absolute url
  *
  * MIGHT BE NULL even if user is registered:
  * @property NULL|string           $password               aes encrypted bcrypt
