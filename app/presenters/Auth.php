@@ -221,6 +221,7 @@ final class Auth extends Presenter
 	 */
 	private function registerOrLogin($me, $findById, $update, $service = NULL)
 	{
+		/** @var User $userEntity */
 		$userEntity = $findById($me->id);
 
 		$newUser = FALSE;
@@ -240,6 +241,8 @@ final class Auth extends Presenter
 			$userEntity->familyName = $me instanceof ProfileInfo ? $me->familyName : $me->{'last_name'};
 			$userEntity->setNominativeAndVocative($me instanceof ProfileInfo ? $me->givenName : $me->{'first_name'});
 		}
+
+		$userEntity->avatar = $me instanceof ProfileInfo ? $me->picture : "http://graph.facebook.com/{$me->id}/picture";
 
 		$update($userEntity, $me);
 
