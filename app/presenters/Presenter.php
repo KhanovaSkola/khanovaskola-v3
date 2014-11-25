@@ -117,6 +117,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		{
 			$section = $this->session->getSection('auth');
 			$this['loginForm-form-email']->setDefaultValue($section->lastUser['email']);
+			$this['loginForm']->setArgument('avatarUrl', $section->lastUser['avatar']);
 		}
 
 		$deploy = $this->context->parameters['wwwDir'] . '/deploy.txt';
