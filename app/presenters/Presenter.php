@@ -198,4 +198,17 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->redirectToEntity($content, $block, $schema);
 	}
 
+	/**
+	 * Marks page cacheable in Varnish.
+	 * Due to Nette limitations this must be called in render method.
+	 */
+	protected function setCacheControlPublic()
+	{
+		$resp = $this->getHttpResponse();
+		$resp->setHeader('Cache-Control', 'public');
+		$resp->setHeader('Expires', NULL);
+		$resp->setHeader('Pragma', NULL);
+		$resp->setHeader('Set-Cookie', NULL);
+	}
+
 }
