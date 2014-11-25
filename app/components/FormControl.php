@@ -54,6 +54,11 @@ class FormControl extends Control
 		$this->formClass = $formClass;
 	}
 
+	public function setArgument($arg, $value)
+	{
+		$this->args[$arg] = $value;
+	}
+
 	public function createComponentForm()
 	{
 		/** @var Form $form */
@@ -64,6 +69,7 @@ class FormControl extends Control
 
 	protected function renderDefault()
 	{
+		$this->template->setParameters($this->args);
 		$this->template->form = $this['form'];
 	}
 

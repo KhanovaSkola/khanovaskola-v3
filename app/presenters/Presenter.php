@@ -113,6 +113,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAll());
 
+		if (!$this->user->isRegisteredUser())
+		{
+			$section = $this->session->getSection('auth');
+			$this['loginForm-form-email']->setDefaultValue($section->lastUser['email']);
+		}
+
 		$deploy = $this->context->parameters['wwwDir'] . '/deploy.txt';
 		$hash = NULL;
 		if (file_exists($deploy))
