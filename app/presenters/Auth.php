@@ -236,13 +236,15 @@ final class Auth extends Presenter
 			$this->orm->users->attach($userEntity);
 
 			$userEntity->email = $me->email;
-			$userEntity->gender = $me->gender;
-			$userEntity->name = $me->name;
-			$userEntity->familyName = $me instanceof ProfileInfo ? $me->familyName : $me->{'last_name'};
-			$userEntity->setNominativeAndVocative($me instanceof ProfileInfo ? $me->givenName : $me->{'first_name'});
 		}
 
-		$userEntity->avatar = $me instanceof ProfileInfo ? $me->picture : "http://graph.facebook.com/{$me->id}/picture";
+		$isGoogle = $me instanceof ProfileInfo;
+
+		$userEntity->gender = $me->gender;
+		$userEntity->name = $me->name;
+		$userEntity->familyName = $isGoogle ? $me->familyName : $me->{'last_name'};
+		$userEntity->setNominativeAndVocative($isGoogle ? $me->givenName : $me->{'first_name'});
+		$userEntity->avatar = $isGoogle ? $me->picture : "http://graph.facebook.com/{$me->id}/picture";
 
 		$update($userEntity, $me);
 
