@@ -17,7 +17,6 @@ use Nette;
 use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
 use stdClass;
-use Tracy\Debugger;
 
 
 /**
@@ -63,6 +62,10 @@ final class Auth extends Presenter
 		$this->iLog("auth.login.$service");
 
 		$section = $this->session->getSection('auth');
+		$section->lastUser = [
+			'email' => $user->email,
+			'avatar' => $user->avatar,
+		];
 		if ($key = $section->loginBacklink)
 		{
 			unset($section->loginBacklink);
