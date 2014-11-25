@@ -19,6 +19,8 @@ class Schema extends Presenter
 
 	public function renderDefault()
 	{
+		$this->setCacheControlPublic();
+
 		$this->template->add('schema', $this->schema);
 	}
 

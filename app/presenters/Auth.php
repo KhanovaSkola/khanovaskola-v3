@@ -76,6 +76,8 @@ final class Auth extends Presenter
 	 */
 	public function renderIn($email = NULL)
 	{
+		$this->setCacheControlPublic();
+
 		/** @var TextInput $input */
 		$input = $this['loginForm-form-email'];
 		$input->setDefaultValue($email);

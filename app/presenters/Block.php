@@ -33,6 +33,8 @@ class Block extends Presenter
 
 	public function renderDefault()
 	{
+		$this->setCacheControlPublic();
+
 		$this->template->add('block', $this->block);
 		$this->template->add('schema', $this->schema);
 	}

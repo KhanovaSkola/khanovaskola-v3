@@ -18,25 +18,23 @@ sub vcl_recv {
                 return (pass);
         }
 
-        unset req.http.cookie;
         return (hash);
 }
 
 sub vcl_hash {
         hash_data(req.url);
-        if (req.url ~ "/esi/header/user($|\?)")
-        {
-                hash_data(regsub(req.http.cookie, ".*PHPSESSID=([^;]+);.*", "\1"));
-        }
         return(lookup);
 }
 
 sub vcl_backend_response {
+        if (beresp.http.Cache-Control != "public") {
+                set beresp.uncacheable = true;
+                set beresp.ttl = 3m;
+                return (deliver);
+        }
+
         set beresp.do_esi = true;
         set beresp.ttl = 15m;
 
         unset beresp.http.Set-Cookie;
-        unset beresp.http.Cache-Control;
-
-        set beresp.http.Cache-Control = "public";
 }
