@@ -20,6 +20,16 @@ class Schema extends Entity
 {
 
 	/**
+	 * @return BlockSchemaBridge[]
+	 */
+	public function getBlockSchemaBridges()
+	{
+		/** @var OtM $o */
+		$o = $this->getValue('blockSchemaBridges');
+		return $o->get()->orderBy('position', 'ASC');
+	}
+
+	/**
 	 * @return Block[]
 	 */
 	public function getBlocks()
