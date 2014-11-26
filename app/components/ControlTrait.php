@@ -49,6 +49,11 @@ trait ControlTrait
 					'datetime' => $d->format('c')
 				]);
 		});
+		$template->addFilter('duration', function($seconds) {
+			$m = ceil($seconds / 60);
+			$s = $seconds - 60 * $m;
+			return $m . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
+		});
 		$template->addFilter('hours', function($seconds) {
 			return round($seconds / 3600);
 		});
