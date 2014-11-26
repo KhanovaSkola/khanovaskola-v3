@@ -29,16 +29,11 @@ class Schema extends Presenter
 	 */
 	public function actionContinue()
 	{
-		// TODO optimize
-		foreach ($this->schema->blocks as $block)
+		$next = $this->orm->schemas->getNextContent($this->userEntity, $this->schema);
+		if ($next)
 		{
-			foreach ($block->contents as $content)
-			{
-				if (!$this->userEntity->hasCompleted($content))
-				{
-					$this->redirectToEntity($content, $block, $this->schema);
-				}
-			}
+			list($content, $block) = $next;
+			$this->redirectToEntity($content, $block, $this->schema);
 		}
 
 		$block = $this->schema->getFirstBlock();

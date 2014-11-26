@@ -41,13 +41,10 @@ class Block extends Presenter
 
 	public function actionContinue()
 	{
-		// TODO optimize
-		foreach ($this->block->contents as $content)
+		$next = $this->orm->blocks->getNextContent($this->userEntity, $this->block);
+		if ($next)
 		{
-			if (!$this->userEntity->hasCompleted($content))
-			{
-				$this->redirectToEntity($content, $this->block, $this->schema);
-			}
+			$this->redirectToEntity($next, $this->block, $this->schema);
 		}
 
 		$this->redirectToEntity($this->block->getFirstContent(), $this->block, $this->schema);
