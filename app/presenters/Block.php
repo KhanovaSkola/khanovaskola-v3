@@ -39,4 +39,18 @@ class Block extends Presenter
 		$this->template->add('schema', $this->schema);
 	}
 
+	public function actionContinue()
+	{
+		// TODO optimize
+		foreach ($this->block->contents as $content)
+		{
+			if (!$this->userEntity->hasCompleted($content))
+			{
+				$this->redirectUrl($this->link($content));
+			}
+		}
+
+		$this->redirectToEntity($this->block->getFirstContent(), $this->block, $this->schema);
+	}
+
 }
