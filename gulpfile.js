@@ -9,6 +9,7 @@ var buildDir = './www/build';
 var libDir = './www/libs';
 var jsDir = './www/js';
 var jsFiles = [
+	path.join(libDir, 'bootstrap/js/alert.js'),
 	path.join(libDir, 'bootstrap/js/tab.js'),
 	path.join(libDir, 'bootstrap/js/modal.js'),
 	path.join(libDir, 'jquery-timeago/jquery.timeago.js'),

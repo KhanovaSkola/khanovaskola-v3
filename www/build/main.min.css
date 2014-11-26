@@ -7425,6 +7425,17 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header.header-white-border .header-userarea a {
   font-size: 16px;
 }
+.flashes {
+  margin-top: 1ex;
+}
+.alert {
+  font-weight: 400;
+}
+.alert-success,
+.alert-info,
+.alert-danger {
+  background: none;
+}
 .btn {
   border-radius: 40px;
   background: #0a82cc;
