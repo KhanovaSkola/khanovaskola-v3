@@ -115,12 +115,7 @@ recreate elasticsearch indices from config file:
 php bin/console db:es recreate
 ```
 
-start/stop maintenance mode:
+build frontend:
 ```sh
-php bin/console maintenance:[stop|start]
-```
-
-build both styles (`grunt less`) and scripts (`grunt uglify`):
-```sh
-grunt
+gulp
 ```
