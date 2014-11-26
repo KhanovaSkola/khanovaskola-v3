@@ -25,9 +25,9 @@ use Orm\OneToMany as OtM;
  * MIGHT BE NULL even if user is registered:
  * @property NULL|string            $password               aes encrypted bcrypt
  * @property NULL|string            $facebookId
- * @property NULL|string            $facebookAccessToken
+ * @property NULL|string            $facebookAccessToken    aes encrypted
  * @property NULL|string            $googleId
- * @property NULL|string            $googleAccessToken
+ * @property NULL|string            $googleAccessToken      aes encrypted
  *
  * Relations:
  * @property OtM|Answer[]           $answers                {1:m answers $user}

@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Rme\User;
+use App\Models\Services\Aes;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
@@ -30,6 +31,12 @@ final class Auth extends Presenter
 	 * @inject
 	 */
 	public $userMerger;
+
+	/**
+	 * @var Aes
+	 * @inject
+	 */
+	public $aes;
 
 	/**
 	 * @var Facebook
@@ -167,7 +174,7 @@ final class Auth extends Presenter
 					return $this->orm->users->getByFacebookId($id);
 				}, function(User $user, $me) use ($fb) {
 					$user->facebookId = $me->id;
-					$user->facebookAccessToken = $fb->getAccessToken();
+					$user->facebookAccessToken = $this->aes->encrypt($fb->getAccessToken());
 				}, 'facebook');
 			}
 			catch (FacebookApiException $e)
@@ -198,7 +205,8 @@ final class Auth extends Presenter
 				return $this->orm->users->getByFacebookId($id);
 			}, function(User $user, $me) {
 				$user->googleId = $me->id;
-				$user->googleAccessToken = $this->google->getAccessToken()['access_token'];
+				$token = $this->google->getAccessToken()['access_token'];
+				$user->googleAccessToken = $this->aes->encrypt($token);
 			}, 'google');
 		}
 		catch (Google_Exception $e)
