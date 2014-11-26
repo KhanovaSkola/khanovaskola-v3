@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Structs\LazyEntity;
 use App\Presenters\Parameters;
 
 
@@ -29,11 +30,15 @@ class Schema extends Presenter
 	 */
 	public function actionContinue()
 	{
-		$next = $this->orm->schemas->getNextContent($this->userEntity, $this->schema);
-		if ($next)
+		$user = $this->userEntity;
+		if (! $user instanceof LazyEntity)
 		{
-			list($content, $block) = $next;
-			$this->redirectToEntity($content, $block, $this->schema);
+			$next = $this->orm->schemas->getNextContent($user, $this->schema);
+			if ($next)
+			{
+				list($content, $block) = $next;
+				$this->redirectToEntity($content, $block, $this->schema);
+			}
 		}
 
 		$block = $this->schema->getFirstBlock();

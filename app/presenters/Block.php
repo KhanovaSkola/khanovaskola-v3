@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Structs\LazyEntity;
 use App\Presenters\Parameters;
 
 
@@ -41,10 +42,14 @@ class Block extends Presenter
 
 	public function actionContinue()
 	{
-		$next = $this->orm->blocks->getNextContent($this->userEntity, $this->block);
-		if ($next)
+		$user = $this->userEntity;
+		if (! $user instanceof LazyEntity)
 		{
-			$this->redirectToEntity($next, $this->block, $this->schema);
+			$next = $this->orm->blocks->getNextContent($user, $this->block);
+			if ($next)
+			{
+				$this->redirectToEntity($next, $this->block, $this->schema);
+			}
 		}
 
 		$this->redirectToEntity($this->block->getFirstContent(), $this->block, $this->schema);
