@@ -30,7 +30,7 @@
 		{includeblock _header.latte}
 		{include header}
 
-		<div class="container flashes">
+		<div n:if="$flashes" class="container flashes">
 			<div n:foreach="$flashes as $flash" class="alert alert-dismissable alert-{$flash->type}">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong>{$flash->title}</strong> {$flash->message}
