@@ -46,7 +46,7 @@ class Block extends Presenter
 		{
 			if (!$this->userEntity->hasCompleted($content))
 			{
-				$this->redirectUrl($this->link($content));
+				$this->redirectToEntity($content, $this->block, $this->schema);
 			}
 		}
 
