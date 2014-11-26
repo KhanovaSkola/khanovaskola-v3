@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
+use Nette\InvalidStateException;
 use Orm\OneToMany as OtM;
 
 
@@ -76,11 +77,12 @@ class Block extends Entity
 		{
 			return $content;
 		}
+		throw new InvalidStateException;
 	}
 
 	public function contains(Content $content)
 	{
-		return $this->contentBlockBridges->get()->findBy(['contentId' => $content->id])->count();
+		return $this->getValue('contentBlockBridges')->get()->findBy(['contentId' => $content->id])->count();
 	}
 
 }

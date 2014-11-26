@@ -2,6 +2,7 @@
 
 namespace App\Models\Rme;
 
+use App\InvalidStateException;
 use App\Models\Orm\Entity;
 use Orm\OneToMany as OtM;
 
@@ -62,11 +63,12 @@ class Schema extends Entity
 		{
 			return $block;
 		}
+		throw new InvalidStateException;
 	}
 
 	public function contains(Block $block)
 	{
-		return $this->blockSchemaBridges->get()->findBy(['blockId' => $block->id])->count();
+		return $this->getValue('blockSchemaBridges')->get()->findBy(['blockId' => $block->id])->count();
 	}
 
 }
