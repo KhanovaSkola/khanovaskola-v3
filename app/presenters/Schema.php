@@ -29,6 +29,7 @@ class Schema extends Presenter
 	 */
 	public function actionContinue()
 	{
+		// TODO optimize
 		foreach ($this->schema->blocks as $block)
 		{
 			foreach ($block->contents as $content)
