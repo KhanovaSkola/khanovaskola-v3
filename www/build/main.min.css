@@ -7458,8 +7458,6 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
   color: #ffffff;
   border-color: #ffffff;
   border-width: 1px;
-  padding-left: 0;
-  padding-right: 0;
   padding-top: 1px;
   outline: 0;
 }
@@ -9743,7 +9741,7 @@ label {
   line-height: 19px;
 }
 .block-page .content .left .content-wrapper .btn {
-  width: 90px;
+  width: 120px;
   padding-left: 0;
   padding-right: 0;
   text-align: center;
