@@ -108,7 +108,15 @@ class User extends Entity
 	 */
 	public function hasCompleted(Content $content)
 	{
-		return TRUE;
+		return $this->completedContents->get()->findBy(['contentId' => $content->id])->count();
+	}
+
+	/**
+	 * @return NULL|CompletedContent
+	 */
+	public function getLastCompletedContent()
+	{
+		return $this->completedContents->get()->orderBy('createdAt', 'DESC')->fetch();
 	}
 
 }

@@ -48,6 +48,7 @@ final class Profile extends Presenter
 	public function renderDefault()
 	{
 		$this->template->profile = $this->profile;
+		$this->template->lastContent = $this->userEntity->getLastCompletedContent();
 	}
 
 	/**

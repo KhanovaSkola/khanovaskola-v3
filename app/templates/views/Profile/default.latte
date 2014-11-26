@@ -2,26 +2,30 @@
 {var $headerBorder = FALSE}
 {block content}
 	{**
-	 * @param App\Models\Rme\User $profile
+	 * @param App\Models\Rme\User             $profile
+	 * @param App\Models\Rme\CompletedContent $lastContent
 	 *}
 
 	<main class="content">
         <div class="content-inner">
-            <div class="head text-blue">
-                <i class="icon icon-math"></i>
-                <h1>Matematika pro Zš a Sš</h1>
-            </div>
-            <div class="progress-wrapper">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    </div>
-                </div>
-                <span>60%</span>
-            </div>
-            <a href="#" class="btn">
-                Pokračovat
-            </a>
-            <a href="#">Přehled předmětu</a>
+            {if $lastContent && $lastContent->schema}
+	            <div class="head text-{$lastContent->schema->subject->color}">
+	                <i class="icon icon-{$lastContent->schema->subject->icon}"></i>
+	                <h1>{$lastContent->schema->name}</h1>
+	            </div>
+	            <div class="progress-wrapper">
+	                <div class="progress">
+	                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+	                    </div>
+	                </div>
+	                <span>60%</span>
+	            </div>
+	            <a n:href="Schema:continue, schemaId => $lastContent->schema->id" class="btn">
+	                Pokračovat
+	            </a>
+                <a n:href="$lastContent->schema">Přehled schématu</a>
+            {/if}
+
             <div class="inprogress-box">
                 <div class="title">
                     <div class="title-inner">
