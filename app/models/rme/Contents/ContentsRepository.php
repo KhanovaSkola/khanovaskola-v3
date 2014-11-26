@@ -3,13 +3,11 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Repository;
-use App\Models\Structs\Highlights\Collection;
 use Orm\DibiCollection;
 
 
 /**
  * @method DibiCollection|Content[] findAll()
- * @method Collection getWithFulltext()
  * @method NULL|Video getVideoById(int $id)
  * @method NULL|Blueprint getBlueprintById(int $id)
  * @method array getNextContent()
