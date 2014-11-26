@@ -36,7 +36,7 @@ class Schema extends Presenter
 			{
 				if (!$this->userEntity->hasCompleted($content))
 				{
-					$this->redirectUrl($this->link($content));
+					$this->redirectToEntity($content, $block, $this->schema);
 				}
 			}
 		}
