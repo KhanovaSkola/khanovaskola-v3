@@ -10,6 +10,8 @@ use Orm\OneToMany as OtM;
  * @property string                   $name
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $block}
  * @property OtM|BlockSchemaBridge[]  $blockSchemaBridges  {1:m blockSchemaBridges $block}
+ * @property OtM|CompletedBlock[]     $completions         {1:m completedBlocks $block}
+ * @property OtM|CompletedContent[]   $completedContents   {1:m completedContents $block}
  * @property User                     $author              {m:1 users $blocksAuthored}
  *
  * @property Content[]                $contents            {ignore}
