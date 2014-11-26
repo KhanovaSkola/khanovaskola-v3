@@ -12,6 +12,7 @@ use Orm\OneToMany as OtM;
  * @property string             $youtubeId
  * @property NULL|string        $youtubeIdOriginal  filled if dubbed
  * @property NULL|int           $duration           seconds
+ * @property NULL|string        $preview            absolute url
  *
  * @property OtM|VideoView[]    $views              {1:m videoViews $video}
  * @property OtM|VideoWatched[] $videoWatchedBadges {1:m badgeUserBridges $video}
