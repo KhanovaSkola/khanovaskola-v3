@@ -34,6 +34,16 @@ class Block extends Entity
 	}
 
 	/**
+	 * @return ContentBlockBridge[]
+	 */
+	public function getContentBlockBridges()
+	{
+		/** @var OtM $o */
+		$o = $this->getValue('contentBlockBridges');
+		return $o->get()->orderBy('position', 'ASC');
+	}
+
+	/**
 	 * @return Content[]
 	 */
 	public function getContents()
