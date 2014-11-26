@@ -72,7 +72,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 	/**
 	 * @throws \Exception from persist
-	 * @return Rme\User
+	 * @return Rme\User|LazyEntity
 	 */
 	public function getUserEntity()
 	{
