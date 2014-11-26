@@ -11,35 +11,37 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property bool                  $registered             {default true}
+ * @property bool                   $registered             {default true}
  *
  * NOT NULL if user is registered:
- * @property NULL|string           $email                  also not NULL if created for student invite
- * @property NULL|string           $name
- * @property NULL|string           $familyName
- * @property NULL|string           $nominative
- * @property NULL|string           $vocative
- * @property NULL|string           $gender                 {enum App\Models\Structs\Gender::getGenders()}
- * @property NULL|string           $avatar                 absolute url
+ * @property NULL|string            $email                  also not NULL if created for student invite
+ * @property NULL|string            $name
+ * @property NULL|string            $familyName
+ * @property NULL|string            $nominative
+ * @property NULL|string            $vocative
+ * @property NULL|string            $gender                 {enum App\Models\Structs\Gender::getGenders()}
+ * @property NULL|string            $avatar                 absolute url
  *
  * MIGHT BE NULL even if user is registered:
- * @property NULL|string           $password               aes encrypted bcrypt
- * @property NULL|string           $facebookId
- * @property NULL|string           $facebookAccessToken
- * @property NULL|string           $googleId
- * @property NULL|string           $googleAccessToken
+ * @property NULL|string            $password               aes encrypted bcrypt
+ * @property NULL|string            $facebookId
+ * @property NULL|string            $facebookAccessToken
+ * @property NULL|string            $googleId
+ * @property NULL|string            $googleAccessToken
  *
  * Relations:
- * @property OtM|Answer[]          $answers                {1:m answers $user}
- * @property OtM|BadgeUserBridge[] $badges                 {1:m badgeUserBridges $user}
- * @property OtM|Block[]           $blocksAuthored         {1:m blocks $author}
- * @property OtM|Comment[]         $comments               {1:m comments $author}
- * @property OtM|Path[]            $paths                  {1:m paths $author}
- * @property OtM|Schema[]          $schemasAuthored        {1:m schemas $author}
- * @property OtM|StudentInvite[]   $studentInvitesSent     {1:m studentInvites $sender}
- * @property OtM|StudentInvite[]   $studentInvitesReceived {1:m studentInvites $student}
- * @property OtM|Token[]           $tokens                 {1:m tokens $user}
- * @property OtM|VideoView[]       $videosViewed           {1:m videoViews $user}
+ * @property OtM|Answer[]           $answers                {1:m answers $user}
+ * @property OtM|BadgeUserBridge[]  $badges                 {1:m badgeUserBridges $user}
+ * @property OtM|Block[]            $blocksAuthored         {1:m blocks $author}
+ * @property OtM|Comment[]          $comments               {1:m comments $author}
+ * @property OtM|Path[]             $paths                  {1:m paths $author}
+ * @property OtM|CompletedBlock[]   $completedBlocks        {1:m completedBlocks $user}
+ * @property OtM|CompletedContent[] $completedContents      {1:m completedContents $user}
+ * @property OtM|Schema[]           $schemasAuthored        {1:m schemas $author}
+ * @property OtM|StudentInvite[]    $studentInvitesSent     {1:m studentInvites $sender}
+ * @property OtM|StudentInvite[]    $studentInvitesReceived {1:m studentInvites $student}
+ * @property OtM|Token[]            $tokens                 {1:m tokens $user}
+ * @property OtM|VideoView[]        $videosViewed           {1:m videoViews $user}
  */
 class User extends Entity
 {
