@@ -29,6 +29,7 @@ console:
 		- Bin\Commands\Schema\Diff
 		- Bin\Commands\Schema\Reset
 		- Bin\Commands\Tests\Run
+		- Bin\Commands\Video\Preview
 		- Bin\Commands\Worker
 
 database:
