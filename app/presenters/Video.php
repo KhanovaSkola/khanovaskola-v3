@@ -56,6 +56,7 @@ final class Video extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 		$this->template->suggestions = $this->getSuggestions($this->video);
+		$this->template->position = $this->block->getPositionOf($this->video);
 	}
 
 	public function createComponentComments()

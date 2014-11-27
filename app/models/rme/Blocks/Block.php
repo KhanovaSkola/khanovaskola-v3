@@ -56,6 +56,33 @@ class Block extends Entity
 	}
 
 	/**
+	 * @return int
+	 */
+	public function countContents()
+	{
+		return $this->getValue('contentBlockBridges')->get()->count();
+	}
+
+	/**
+	 * @param Content $content
+	 * @return int
+	 */
+	public function getPositionOf(Content $content)
+	{
+		// TODO optimize (but you want to use position make sure positions are continuus)
+		$position = 1;
+		foreach ($this->getContentBlockBridges() as $bridge)
+		{
+			if ($bridge->content === $content)
+			{
+				break;
+			}
+			$position++;
+		}
+		return $position;
+	}
+
+	/**
 	 * @return int seconds
 	 */
 	public function getDuration()
