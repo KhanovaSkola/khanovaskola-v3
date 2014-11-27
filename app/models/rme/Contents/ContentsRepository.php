@@ -8,6 +8,8 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection|Content[] findAll()
+ * @method DibiCollection|Video[] findAllVideos()
+ * @method DibiCollection|Blueprint[] findAllBlueprints()
  * @method NULL|Video getVideoById(int $id)
  * @method NULL|Blueprint getBlueprintById(int $id)
  * @method array getNextContent()
