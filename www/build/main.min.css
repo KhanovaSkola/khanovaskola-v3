@@ -9817,13 +9817,13 @@ label {
   z-index: 12;
   top: 0px;
   left: -220px;
-  width: 640px;
+  width: 100vw;
   height: 490px;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
-  background-image: -webkit-linear-gradient(192deg, #141617 50%, #141617 51%, rgba(20, 22, 23, 0) 100%, rgba(20, 22, 23, 0) 100%);
-  background-image: linear-gradient(-102deg, #141617 50%, #141617 51%, rgba(20, 22, 23, 0) 100%, rgba(20, 22, 23, 0) 100%);
+  background-image: -webkit-linear-gradient(192deg, #141617 15%, #141617 25%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
+  background-image: linear-gradient(-102deg, #141617 15%, #141617 25%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner.video-playmode:before {
   opacity: 0;
