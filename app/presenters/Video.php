@@ -47,9 +47,14 @@ final class Video extends Content
 	{
 		$this->setCacheControlPublic();
 
+		list($nextContent, $nextBlock, $nextSchema) = $this->orm->contents->getNext($this->video, $this->block, $this->schema);
+
 		$this->template->video = $this->video;
 		$this->template->block = $this->block;
 		$this->template->schema = $this->schema;
+		$this->template->nextContent = $nextContent;
+		$this->template->nextBlock = $nextBlock;
+		$this->template->nextSchema = $nextSchema;
 		$this->template->suggestions = $this->getSuggestions($this->video);
 	}
 
