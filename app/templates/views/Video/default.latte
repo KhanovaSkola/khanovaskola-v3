@@ -11,6 +11,7 @@
 {block content}
 	{**
 	 * @param App\Models\Rme\Video $video
+	 * @param App\Models\Rme\Content $next
 	 *}
 
 	<main class="content">
@@ -68,9 +69,9 @@
                     <span>Máš nějaký dotaz k probírané látce?</span>
                 </div>
                 <div class="right">
-                    <a href="#">
-                        <span>Sčítání II.</span>
-                        <small>(3/6)</small>
+                    <a n:href="$nextContent, $nextBlock, $nextSchema">
+                        <span>{$nextContent->title}</span>
+                        <small>(???/6)</small>
                         <i class="icon icon-arrow-right-double"></i>
                     </a>
                 </div>
