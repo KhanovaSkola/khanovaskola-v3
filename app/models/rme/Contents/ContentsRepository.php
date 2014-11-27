@@ -12,7 +12,8 @@ use Orm\DibiCollection;
  * @method DibiCollection|Blueprint[] findAllBlueprints()
  * @method NULL|Video getVideoById(int $id)
  * @method NULL|Blueprint getBlueprintById(int $id)
- * @method array getNextContent()
+ * @method NULL|array getNext(Content $content, Block $block = NULL, Schema $schema = NULL)
+ *         returns (NULL|Content $content, NULL|Block $block, NULL|Schema $schema)
  */
 class ContentsRepository extends Repository
 {
