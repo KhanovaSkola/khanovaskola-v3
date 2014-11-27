@@ -22,7 +22,7 @@
                         <i class="icon icon-math"></i>
                     </div>
                     <div class="content-wrapper">
-                        <small>{$block->name} (1/6) · {$video->duration|duration}</small>
+                        <small>{$block->name} ({$position}/{$block->countContents()}) · {$video->duration|duration}</small>
                         <h1>
                             <span>{$video->title}</span>
                             <small>{$video->description}</small>
@@ -71,7 +71,7 @@
                 <div class="right">
                     <a n:href="$nextContent, $nextBlock, $nextSchema">
                         <span>{$nextContent->title}</span>
-                        <small>(???/6)</small>
+                        <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
                         <i class="icon icon-arrow-right-double"></i>
                     </a>
                 </div>
