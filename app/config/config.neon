@@ -70,7 +70,6 @@ services:
 	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
-	- App\Models\Services\PathFinder
 	- App\Models\Services\Paths(@container)
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
