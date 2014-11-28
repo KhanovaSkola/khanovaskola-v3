@@ -9794,7 +9794,7 @@ label {
   color: #9baeb8;
 }
 .course-page .course-header.course-video .course-header-content .right {
-  background: #141617;
+  background: #000000;
   position: absolute;
   z-index: 1;
   top: 0;
@@ -10536,7 +10536,7 @@ label {
   vertical-align: 10%;
 }
 .dashboard-page .other-subjects {
-  background: #141617;
+  background: #000000;
   color: #ffffff;
   padding-top: 60px;
   padding-bottom: 60px;
@@ -10599,7 +10599,7 @@ label {
   height: 75px;
 }
 .dashboard-page .other-subjects .inner .subjects .subject .btn {
-  border-color: #141617;
+  border-color: #000000;
   width: 110px;
   text-align: center;
   line-height: 40px;
