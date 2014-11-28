@@ -23,6 +23,11 @@ class Router extends RouteList
 
 		$this[] = new Route('esi/header/user', 'Esi:headerUser');
 
+		$this[] = new Route('schema/<action>/<schemaId>', 'Schema:default');
+		$this[] = new Route('block/<action>/[<schemaId>/]<blockId>', 'Block:default');
+		$this[] = new Route('video/<action>/[[<schemaId>/]<blockId>/]<videoId>', 'Video:default');
+		$this[] = new Route('blueprint/<action>/[[<schemaId>/]<blockId>/]<blueprintId>', 'Blueprint:default');
+
 		$this[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 	}
 
