@@ -9939,12 +9939,12 @@ label {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding-left: 244px;
+  padding: 0;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner {
-  padding-top: 20px;
-  padding-left: 0;
+  padding: 0;
   position: relative;
+  height: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner:before {
   -webkit-transition: opacity 0.1s linear;
@@ -9954,37 +9954,39 @@ label {
   z-index: 12;
   top: 0px;
   left: -220px;
-  width: 100vw;
-  height: 490px;
+  width: 100%;
+  height: 100%;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
-  background-image: -webkit-linear-gradient(192deg, #141617 15%, #141617 25%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
-  background-image: linear-gradient(-102deg, #141617 15%, #141617 25%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
+  background-image: -webkit-linear-gradient(192deg, #141617 35%, #141617 40%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
+  background-image: linear-gradient(-102deg, #141617 35%, #141617 40%, rgba(20, 22, 23, 0) 70%, rgba(20, 22, 23, 0) 100%);
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner.video-playmode:before {
   opacity: 0;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper {
   z-index: 12;
-  width: 800px;
+  width: 100%;
+  height: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-preview {
   position: relative;
   z-index: 1;
-  height: 450px;
-  width: 795px;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-preview img {
-  height: 450px;
-  min-width: 100%;
+  display: block;
+  height: 100%;
+  margin: 0 auto;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real {
   position: relative;
-  z-index: 123;
-  height: 450px;
-  width: 795px;
+  z-index: 11;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real img {
@@ -9993,20 +9995,63 @@ label {
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real iframe {
   width: 100%;
-  height: 450px;
+  height: 100%;
+}
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen {
+  height: 100%;
+  width: 100%;
+}
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen .video-real {
+  height: 100%;
+  width: 100%;
+}
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen .video-real iframe {
+  height: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-play {
   position: absolute;
   top: 50%;
+  top: calc(50% - 42px);
   left: 50%;
+  left: calc(50% - 42px);
   width: 84px;
   height: 84px;
   z-index: 1234;
-  margin-left: -147px;
-  margin-top: -72px;
   display: block;
   background: url(../img/play.svg) no-repeat;
   background-size: 85px auto;
+}
+.course-page .course-header.course-video .course-header-progress {
+  display: block;
+  width: 100%;
+  height: 5px;
+  background-color: #4a4a4a;
+  color: #ffffff;
+}
+.course-page .course-header.course-video .course-header-progress .progress-inner {
+  display: inline-block;
+  height: inherit;
+  position: absolute;
+  background-color: #0a82cc;
+  width: 30%;
+}
+.course-page .course-header.course-video .course-header-progress .progress-label {
+  display: none;
+  padding: 0 1.5em;
+  position: relative;
+  z-index: 2;
+}
+.course-page .course-header.course-video .course-header-progress .progress-label.label-left {
+  float: left;
+}
+.course-page .course-header.course-video .course-header-progress .progress-label.label-right {
+  float: right;
+}
+.course-page .course-header.course-video .course-header-progress.active {
+  height: 22px;
+}
+.course-page .course-header.course-video .course-header-progress.active .progress-label {
+  display: inline;
 }
 .course-page .course-header.course-video .course-header-footer {
   height: 71px;

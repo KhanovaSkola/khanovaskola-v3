@@ -39,9 +39,7 @@
                     <div class="right-inner">
                         <div class="video-wrapper">
                             <div class="video-real hidden">
-                                {*<iframe src="http://www.youtube.com/embed/UErfaKlJiqI?enablejsapi=1" frameborder="0" allowfullscreen id="video"></iframe>*}
-                                <span id="play-button">Play</span>
-                                <span id="pause-button">Pause</span>
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0" frameborder="0" id="youtube-video"></iframe>
                             </div>
                             <div class="video-preview">
                                 <img src="{$video->preview}" alt="video">
@@ -50,6 +48,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="course-header-progress active">
+                <div class="progress-inner" data-value="30"></div>
+                <div class="progress-label label-left">12:01</div>
+                <div class="progress-label label-right">20:00</div>
             </div>
             <div class="course-header-footer">
                 <div class="left">
@@ -60,7 +63,7 @@
                             </a>
                         </div>
                         <div class="pull-left">
-                            <a href="#" class="play">
+                            <a href="#" class="video-fullscreen">
                                 <i class="icon icon-fullscreen"></i>
                             </a>
                         </div>
