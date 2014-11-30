@@ -19,6 +19,9 @@
 	  height: 41px;
 	  position: relative;
 	  display: table;
+	  @media (max-width: @screen-sm) {
+		margin-left: -40px;
+	  }
 	  i {
 		text-align: center;
 		// position: absolute;
@@ -36,6 +39,9 @@
 	  width: 90%;
 	  max-width: 540px;
 	  position: relative;
+	  @media (max-width: @screen-sm) {
+		max-width: 550px;
+	  }
 	  &:after {
 		content: '';
 		z-index: 12;

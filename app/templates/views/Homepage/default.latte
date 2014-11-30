@@ -1,5 +1,6 @@
 {var $pageName = 'landing-page'}
 {var $headerBorder = FALSE}
+{var $title = NULL}
 {block content}
 	{**
 	 * @param User $userEntity
@@ -25,11 +26,22 @@
 	                </h4>
 	            </hgroup>
 
+				<div class="hgroup-mobile">
+                	<h1>
+                		<span>Nauč se cokoliv.</span>
+                		<small>Do školy i na jindy.</small>
+                	</h1>
+                </div>
+
 	            <div class="join">
 	                <a n:href="Subjects:" class="btn">Začít hned teď</a>
 	                <br>
 	                <a n:href="Text:about" class="text">Zadarmo a pro všechny.</a>
 	            </div>
+
+				<div class="login">
+				    <a href="#" class="btn btn-primary">Přihlásit se</a>
+				</div>
 	        </div>
 
 	    </main>

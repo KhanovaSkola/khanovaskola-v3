@@ -16,12 +16,17 @@
 		width: 100%;
 		height: auto;
 		top: 0;
+		background: @white;
+		border-bottom: 1px dashed @label-color;
 	  }
 	  .icon-wrapper {
 		float: left;
 		margin-left: 40px;
 		margin-top: 62px;
 		width: 35px;
+		@media (max-width: @screen-sm) {
+		  display: none;
+		}
 		i {
 		  font-size: 25px;
 		}
@@ -30,6 +35,11 @@
 		float: left;
 		width: 235px;
 		margin-top: 60px;
+		@media (max-width: @screen-sm) {
+		  width: 90%;
+		  max-width: 290px;
+		  margin-left: 65px;
+		}
 		h2 {
 		  margin: 0;
 		}
@@ -67,12 +77,19 @@
 			width: 25px;
 			margin-left: -25px;
 			font-size: 19px;
+			@media (max-width: @screen-sm) {
+			  margin-left: 0;
+			}
 		  }
 		  span {
 			float: left;
 			width: 100%;
 			color: @khan-blue-light;
 			line-height: 19px;
+			@media (max-width: @screen-sm) {
+			  margin-top: 2px;
+			  width: auto;
+			}
 		  }
 		}
 		.btn {
@@ -80,6 +97,10 @@
 		  padding-left: 0;
 		  padding-right: 0;
 		  text-align: center;
+		  @media (max-width: @screen-sm) {
+			width: 100%;
+			// max-width: 240px;
+		  }
 		}
 	  }
 	}
@@ -92,6 +113,9 @@
 	  }
 	  .right-inner {
 		padding: 60px;
+		@media (max-width: @screen-sm) {
+		  padding-top: 40px;
+		}
 	  }
 	}
   }
