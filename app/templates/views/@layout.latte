@@ -40,6 +40,11 @@
 		{include content}
 	</div>
 
+	{cache expire => '1 hour'}
+		{includeblock _footerMobile.latte}
+		{include footerMobile}
+	{/cache}
+
 	<script src="{$basePath}/libs/jquery/dist/jquery.min.js"></script>
 	{block scripts}{/block}
 	<script src="{$basePath}/build/app.min{$staticHash}.js"></script>
