@@ -19,6 +19,7 @@ var jsFiles = [
 	path.join(jsDir, 'app.js'),
 	path.join(jsDir, 'services/*.js'),
 	path.join(jsDir, 'snippets/*.js'),
+	path.join(jsDir, 'components/*.js'),
 	path.join(jsDir, 'components/controls/*.js'),
 	path.join(jsDir, 'components/forms/*.js'),
 ];
