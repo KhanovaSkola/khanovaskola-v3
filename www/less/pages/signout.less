@@ -1,17 +1,25 @@
 .signout-page {
+	.header {
+	  .header-logo {
+		@media (max-width: @screen-md) {
+		  display: none;
+		}
+	  }
+	}
 	.content-inner {
 		margin-top: 30px;
 		.box {
 			background: url(../img/signout-page-bg.svg) no-repeat;
 			width: 435px;
 			height: 420px;
-			display: block; 
+			display: block;
 			margin: 0 auto;
 			margin-top: 20px;
 			@media (max-width: @screen-sm) {
 				background: none;
 				width: 100%;
 				max-width: 435px;
+			  	height: 320px;
 			}
 			h1 {
 				text-align: center;

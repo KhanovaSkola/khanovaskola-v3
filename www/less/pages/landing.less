@@ -14,6 +14,9 @@
 		@media (min-width: @screen-lg-min) {
 			width: @container-lg;
 		}
+		@media (min-width: @screen-lg-min) {
+		  padding-left: 0;
+		}
 	}
 
 	.content {
@@ -26,12 +29,45 @@
 			background: url(../img/owl.svg) no-repeat;
 			color: #383331;
 			text-align: right;
+			@media (max-width: @screen-md) {
+			  background-size: 50% auto;
+			  background-position: 0 50px;
+			}
+			@media (max-width: @screen-sm) {
+			  background: none;
+			  margin-left: 0;
+			}
 
 		  	hgroup {
+			  @media (max-width: @screen-sm) {
+				display: none;
+			  }
 			  a {
 				.anim;
 				&:hover {
 				  text-decoration: none;
+				}
+			  }
+			}
+			.hgroup-mobile {
+			  display: none;
+			  text-align: center;
+			  @media (max-width: @screen-sm) {
+				display: block;
+			  }
+			  h1 {
+				// margin-top: 50px;
+				span {
+				  font-size: 54px;
+				  line-height: 56px;
+				}
+				small {
+				  display: block;
+				  font-family: @font-family-base;
+				  font-weight: @font-weight-light;
+				  font-size: 14px;
+				  line-height: 16px;
+				  text-transform: none;
 				}
 			  }
 			}
@@ -40,23 +76,36 @@
 				padding-top: 15px;
 				font-size: 72px;
 				line-height: 56px;
+				@media (max-width: @screen-md) {
+				  font-size: 62px;
+				  padding-top: 0;
+				}
 				.icon {
 					font-size: 30px;
 					vertical-align: 45%;
 				}
 			  	a {
 				  font-size: 72px;
+				  @media (max-width: @screen-md) {
+					font-size: 62px;
+				  }
 				}
 			}
 			h3 {
 				font-size: 54px;
 				line-height: 56px;
+				@media (max-width: @screen-md) {
+				  font-size: 44px;
+				}
 				.icon {
 					font-size: 27px;
 					vertical-align: 37%;
 				}
 			  	a {
 				  font-size: 54px;
+				  @media (max-width: @screen-md) {
+					font-size: 44px;
+				  }
 				}
 			}
 			h4 {
@@ -81,8 +130,27 @@
 				width: 215px;
 				float: right;
 				text-align: center;
+				@media (max-width: @screen-sm) {
+				  float: none;
+				  margin-right: 0;
+				  margin: 0 auto;
+				  width: 100%;
+				  margin-top: 80px;
+				}
 				.btn {
-					// width: 215px;
+				  width: 215px;
+				  @media (max-width: @screen-md) {
+					margin-bottom: 10px;
+				  }
+				  @media (max-width: @screen-xs) {
+					width: 90%;
+					padding: 0;
+				  }
+				  &:hover {
+					@media (max-width: @screen-xs) {
+					  padding-top: 1px;
+					}
+				  }
 				}
 				a.text {
 					margin-top: 25px;
@@ -90,7 +158,24 @@
 					font-size: 16px;
 					color: @khan-black2;
 					line-height: 19px;
+					@media (max-width: @screen-sm) {
+					  display: none;
+					}
 				}
+			}
+
+			.login {
+			  display: none;
+			  text-align: center;
+			  @media (max-width: @screen-sm) {
+				display: block;
+			  }
+			  .btn {
+				width: 215px;
+				@media (max-width: @screen-xs) {
+				  width: 90%;
+				}
+			  }
 			}
 		}
 	}
@@ -99,8 +184,23 @@
 		font-family: @headings-font-family;
 		text-transform: uppercase;
 		margin-bottom: 40px;
-		margin-left: 5px;
+	  	margin-left: 50px;
 		margin-top: 110px;
+		@media (max-width: @screen-sm) {
+		  text-align: center;
+		  margin-top: 40px;
+		  margin-left: -10px;
+		}
+		@media (max-width: @screen-xs) {
+		  margin-top: 0;
+		  text-align: center;
+		  border-top: 1px dotted @label-color;
+		  border-bottom: 1px dotted @label-color;
+		  padding-top: 45px;
+		  padding-bottom: 45px;
+		  margin-left: -30px;
+		  margin-right: -30px;
+		}
 		strong {
 			font-weight: normal;
 			font-size: 26px;
