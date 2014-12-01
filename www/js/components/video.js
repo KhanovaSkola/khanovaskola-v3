@@ -99,6 +99,19 @@
 	});
 
 	/**
+	 * Play/pause on spacebar
+	 */
+	$('body').on('keydown', function(e) {
+		if (e.target.tagName.toLowerCase() === 'input') {
+			return true;
+		}
+		if (e.keyCode == 32) {
+			togglePlay();
+			return false;
+		}
+	});
+
+	/**
 	 * Custom double click handler
 	 * clickDelta timeout after first click
 	 * - if clicked again, just invoke double click
