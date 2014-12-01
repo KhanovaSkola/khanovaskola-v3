@@ -4,15 +4,15 @@
 		return;
 	}
 
-	var $content = $course.find('.course-header-content');
 	var $overlay = $course.find('.left:first');
 	var $shadow = $course.find('.right .right-inner');
 	var $overlayPlayButton = $course.find('.video-play');
 	var $videoPreview = $course.find('.video-preview');
 	var $videoReal = $course.find('.video-real');
 	var $videoControls = $course.find('.course-header-footer .left');
-	var $progressContainer = $course.find('.course-header-progress');
-	var $progress = $progressContainer.find('.progress-inner');
+	var $progressContainer = $course.find('.course-progress-container');
+	var $progressBar = $progressContainer.find('.course-progress');
+	var $progressInner = $progressContainer.find('.progress-inner');
 	var $clickCatcher = $course.find('.video-click-catcher');
 
 	function startVideoWithFadeout() {
@@ -37,7 +37,7 @@
 			current = App.video.player.getCurrentTime();
 		}
 		var percent = current / App.video.duration;
-		$progress.css('width', percent * 100 + '%');
+		$progressInner.css('width', percent * 100 + '%');
 		$progressContainer.find('.label-left').text(App.filters.duration(current));
 	};
 
@@ -86,6 +86,17 @@
 
 		return false;
 	};
+
+	var progressBarDelta = 1300;
+	var hideControls;
+	$course.on('mousemove', function() {
+		clearTimeout(hideControls);
+		$progressBar.addClass('active');
+
+		hideControls = setTimeout(function() {
+			$progressBar.removeClass('active');
+		}, progressBarDelta);
+	});
 
 	/**
 	 * Custom double click handler

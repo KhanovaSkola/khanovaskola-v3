@@ -50,11 +50,13 @@
                     </div>
                 </div>
             </div>
-            <div class="course-header-progress active">
-                <div class="progress-inner"></div>
-                <div class="progress-label label-left">{0|duration}</div>
-                <div class="progress-label label-right">{$video->duration|duration}</div>
-            </div>
+            <div class="course-progress-container">
+	            <div class="course-progress">
+	                <div class="progress-inner"></div>
+	                <div class="progress-label label-left">{0|duration}</div>
+	                <div class="progress-label label-right">{$video->duration|duration}</div>
+	            </div>
+	        </div>
             <div class="course-header-footer">
                 <div class="left">
                     <div class="clearfix">
