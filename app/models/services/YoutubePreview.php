@@ -14,9 +14,9 @@ class YoutubePreview
 	public function getImageUrlFor($youtubeId)
 	{
 		foreach ([
-				'http://img.youtube.com/vi/%s/maxresdefault.jpg', // 1920x1080
-				'http://img.youtube.com/vi/%s/sddefault.jpg', // 640x480
-				'http://img.youtube.com/vi/%s/hqdefault.jpg', // 480x360
+				'https://img.youtube.com/vi/%s/maxresdefault.jpg', // 1920x1080
+				'https://img.youtube.com/vi/%s/sddefault.jpg', // 640x480
+				'https://img.youtube.com/vi/%s/hqdefault.jpg', // 480x360
 			] as $template)
 		{
 			$url = sprintf($template, $youtubeId);
