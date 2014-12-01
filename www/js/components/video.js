@@ -1,125 +1,165 @@
 (function() {
-	var $headerFooterActions = $('.course-header-footer .left');
-	if (!$headerFooterActions.length) {
+	var $course = $('.course-video');
+	if (!$course.length) {
 		return;
 	}
 
-	var $wrapper = $('.video-wrapper');
-	$('.video-fullscreen').click(function() {
-		var el = $('.course-header-content')[0];
-		var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
-		rfs.call(el);
-	});
-
-	$(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(e) {
-		var isFS = document.fullscreen || document.mozFullScreen || document.webkitIsFullScreen || document.msFullscreenElement || false;
-		$wrapper.toggleClass('fullscreen', isFS);
-	});
-
-	$headerFooterActions.hide();
-
-	var tag = document.createElement('script');
-	tag.src = "https://www.youtube.com/iframe_api";
-	var firstScriptTag = document.getElementsByTagName('script')[0];
-	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-	var player;
-
-	window.onYouTubeIframeAPIReady = function() {
-		player = new YT.Player('youtube-video', {
-			events: {
-				'onReady': onPlayerReady,
-				'onStateChange': onPlayerStateChange
-			}
-		});
-	};
-
-	var $playBtn = $('.video-wrapper .video-play');
-	var $rightInner = $playBtn.parents('.right-inner').first();
-	var $courseHeaderContentLeft = $('.course-header-content').find('.left');
-
-	function showOverlay() {
-		$courseHeaderContentLeft.show();
-		$playBtn.show();
-		$rightInner.removeClass('video-playmode');
-	}
-
-	function hideOverlay() {
-		$courseHeaderContentLeft.hide();
-		$playBtn.hide();
-		$rightInner.addClass('video-playmode');
-	}
+	var $content = $course.find('.course-header-content');
+	var $overlay = $course.find('.left:first');
+	var $shadow = $course.find('.right .right-inner');
+	var $overlayPlayButton = $course.find('.video-play');
+	var $videoPreview = $course.find('.video-preview');
+	var $videoReal = $course.find('.video-real');
+	var $videoControls = $course.find('.course-header-footer .left');
+	var $progressContainer = $course.find('.course-header-progress');
+	var $progress = $progressContainer.find('.progress-inner');
+	var $clickCatcher = $course.find('.video-click-catcher');
 
 	function startVideoWithFadeout() {
-		var $videoPreview = $rightInner.find('.video-preview');
-		var $videoReal = $rightInner.find('.video-real');
-
-		$playBtn.fadeOut(100);
+		$overlayPlayButton.fadeOut(100);
 		$videoPreview.fadeOut(500);
-		$courseHeaderContentLeft.fadeOut(500);
+		$overlay.fadeOut(500);
 		$videoReal.hide().removeClass('hidden');
 
-		player.playVideo();
+		App.video.player.playVideo();
 
-		var timeout2 = setTimeout(function () {
-			$rightInner.addClass('video-playmode');
-			$headerFooterActions.fadeIn(700);
+		setTimeout(function () {
+			$shadow.addClass('video-playmode');
+			$videoControls.fadeIn(700);
 			$videoReal.fadeIn(700);
-		}, 700);
 
-		return false;
+			$overlayPlayButton.removeClass('dont-center');
+		}, 700);
 	}
 
-	var started = false;
-	function onPlayerReady() {
-		$('.video-play').on('click', function() {
+	var updateProgress = function(current) {
+		if (!current) {
+			current = App.video.player.getCurrentTime();
+		}
+		var percent = current / App.video.duration;
+		$progress.css('width', percent * 100 + '%');
+		$progressContainer.find('.label-left').text(App.filters.duration(current));
+	};
+
+	var seek = function(e) {
+		var current = e.clientX || e.pageX;
+		var total = $(window).width();
+		var seconds = App.video.duration * current / total;
+
+		App.video.player.seekTo(seconds, true);
+		App.callAll(App.video.onSeek);
+
+		updateProgress(seconds);
+
+		// prevent selecting text when seeking
+		return false;
+	};
+
+	var togglePlay = function() {
+		if (App.video.player.getPlayerState() != 1) {
 			if (!started) {
 				startVideoWithFadeout();
 			} else {
-				player.playVideo();
+				App.video.player.playVideo();
 			}
 			started = true;
-		});
-		$('.course-header-footer .toggle').on('click', function () {
-			if (player.getPlayerState() != 1) {
-				player.playVideo();
-			} else {
-				player.pauseVideo();
+		} else {
+			App.video.player.pauseVideo();
+		}
+	};
+
+	var toggleFullscreen = function() {
+		if (document.fullscreenElement
+			|| document.mozFullScreenElement
+			|| document.webkitFullscreenElement
+			|| document.msFullscreenElement) {
+			var exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+			exit.call(document);
+			$course.removeClass('fullscreen');
+
+		} else {
+			var el = $course[0];
+			var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
+			rfs.call(el);
+			$course.addClass('fullscreen');
+		}
+
+		return false;
+	};
+
+	/**
+	 * Custom double click handler
+	 * clickDelta timeout after first click
+	 * - if clicked again, just invoke double click
+	 * - if clicked again after clickDelta, rollback
+	 *   from whatever click did and invoke double click
+	 */
+	var lastClickAt = 0;
+	var clickDelta = 200;
+	var doubleClickDelta = 600;
+	var seekBackOnDoubleClick = false;
+	var doClick;
+	$clickCatcher.on('click', function() {
+		clearTimeout(doClick);
+
+		var now = window.performance ? window.performance.now() : Date.getTime();
+		doClick = setTimeout(function() {
+			togglePlay();
+			seekBackOnDoubleClick = App.video.player.getCurrentTime();
+		}, clickDelta);
+		setTimeout(function() {
+			seekBackOnDoubleClick = false;
+		}, doubleClickDelta);
+
+		if (now - lastClickAt < doubleClickDelta) {
+			clearTimeout(doClick);
+			if (seekBackOnDoubleClick) {
+				togglePlay();
+				App.video.player.seekTo(seekBackOnDoubleClick);
+				seekBackOnDoubleClick = false;
 			}
-
-			return false;
-		});
-
-		var $icon = $('.course-header-footer .toggle .icon');
-		$wrapper.on('video-play', function() {
-			hideOverlay();
-			$icon.removeClass('icon-play').addClass('icon-pause');
-		});
-		$wrapper.on('video-pause', function() {
-			showOverlay();
-			$icon.removeClass('icon-pause').addClass('icon-play');
-		});
-
-	}
-
-	var lastState = -1;
-	function onPlayerStateChange(state) {
-		if (lastState == state.data) {
-			return;
+			toggleFullscreen();
 		}
-		lastState = state.data;
-		switch (state.data)
-		{
-			case 1:
-				$wrapper.trigger('video-play');
-				break;
-			case 2:
-				$wrapper.trigger('video-pause');
-				break;
-			case 0:
-				$wrapper.trigger('video-stop');
-				break;
-		}
-	}
+		lastClickAt = now;
 
+		return false;
+	});
+
+	$overlay.on('click', function() {
+		return false;
+	});
+
+	App.video.onTick.push(updateProgress);
+
+	App.video.onPlay.push(function() {
+		$videoControls.find('.toggle .icon').addClass('icon-pause').removeClass('icon-play');
+		$overlayPlayButton.fadeOut(180);
+	});
+
+	App.video.onPause.push(function() {
+		$videoControls.find('.toggle .icon').addClass('icon-play').removeClass('icon-pause');
+		$overlayPlayButton.fadeIn(180);
+	});
+
+	var started = false;
+	App.video.onInit.push(function() {
+		$videoControls.find('.toggle')
+			.add($overlayPlayButton)
+			.on('click', function() {
+				togglePlay();
+				return false;
+			});
+
+		$videoControls.find('.video-fullscreen').on('click', toggleFullscreen);
+
+		$progressContainer.on('mousedown', function(e) {
+			seek(e);
+			$(document).on('mousemove', seek);
+		});
+		$(document).on('mouseup', function() {
+			$(document).off('mousemove');
+		});
+	});
+
+	App.video.init();
 })();

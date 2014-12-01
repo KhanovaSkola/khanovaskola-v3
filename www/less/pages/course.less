@@ -1,10 +1,32 @@
 .course-page {
   .course-header {
 	margin-bottom: 90px;
+	width: 100%;
 	&.course-video {
+	  &.fullscreen {
+		.discuss {
+		  display: none;
+		}
+		.course-header-progress {
+		  position: absolute;
+		  bottom: 70px;
+		}
+		.course-header-footer {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		  border: none;
+		  height: 70px;
+		  .center {
+			display: none;
+		  }
+		}
+	  }
 	  .course-header-content {
 		position: relative;
 		height: 490px;
+		width: 100%;
+		cursor: pointer;
 		.left {
 		  background: none;
 		  position: absolute;
@@ -13,6 +35,7 @@
 		  left: 0;
 		  height: 100%;
 		  width: 400px;
+		  cursor: default;
 		  .icon-wrapper {
 			.icon {
 			  color: @black;
@@ -83,7 +106,7 @@
 				}
 			  }
 			  .video-real {
-				position: relative;
+				position: absolute;
 				z-index: 11;
 				height: 100%;
 				width: 100%;
@@ -97,16 +120,11 @@
 				  height: 100%;
 				}
 			  }
-			  &.fullscreen {
+			  .video-click-catcher {
+				position: absolute;
+				z-index: 12;
 				height: 100%;
 				width: 100%;
-				.video-real {
-				  height: 100%;
-				  width: 100%;
-				  iframe {
-					height: 100%;
-				  }
-				}
 			  }
 			  .video-play {
 				position: absolute;
@@ -120,6 +138,11 @@
 				display: block;
 				background: url(../img/play.svg) no-repeat;
 				background-size: 85px auto;
+				&.dont-center {
+				  @media all and (max-width: 900px) {
+					left: 450px;
+				  }
+				}
 			  }
 			}
 		  }
@@ -131,12 +154,14 @@
 		height: 5px;
 		background-color: @khan-black;
 		color: @white;
+		cursor: pointer;
 		.progress-inner {
 		  display: inline-block;
 		  height: inherit;
 		  position: absolute;
 		  background-color: @khan-blue;
-		  width: 30%;
+		  width: 0;
+		  transition: width 400ms;
 		}
 		.progress-label {
 		  display: none;
@@ -158,6 +183,7 @@
 		}
 	  }
 	  .course-header-footer {
+		background-color: @white;
 		height: 71px;
 		border-top: 0;
 	  }
@@ -463,6 +489,7 @@
 		  padding-left: 25px;
 		  padding-right: 20px;
 		  line-height: 69px;
+		  -webkit-transform: scale3d(1,1,1); // fix sticky hover bug
 		  &:hover {
 			background: @btn-default-active;
 		  }
