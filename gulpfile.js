@@ -16,12 +16,12 @@ var jsFiles = [
 	path.join(libDir, 'jquery-timeago/locales/jquery.timeago.cs.js'),
 	path.join(libDir, 'nette-forms/src/assets/netteForms.js'),
 	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
-	path.join(jsDir, 'app.js'),
+	path.join(jsDir, 'app/*.js'),
 	path.join(jsDir, 'services/*.js'),
 	path.join(jsDir, 'snippets/*.js'),
 	path.join(jsDir, 'components/*.js'),
 	path.join(jsDir, 'components/controls/*.js'),
-	path.join(jsDir, 'components/forms/*.js'),
+	path.join(jsDir, 'components/forms/*.js')
 ];
 var jsxFiles = [
 	'./app/**/*.jsx'

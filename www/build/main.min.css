@@ -9898,10 +9898,30 @@ label {
 }
 .course-page .course-header {
   margin-bottom: 90px;
+  width: 100%;
+}
+.course-page .course-header.course-video.fullscreen .discuss {
+  display: none;
+}
+.course-page .course-header.course-video.fullscreen .course-header-progress {
+  position: absolute;
+  bottom: 70px;
+}
+.course-page .course-header.course-video.fullscreen .course-header-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border: none;
+  height: 70px;
+}
+.course-page .course-header.course-video.fullscreen .course-header-footer .center {
+  display: none;
 }
 .course-page .course-header.course-video .course-header-content {
   position: relative;
   height: 490px;
+  width: 100%;
+  cursor: pointer;
 }
 .course-page .course-header.course-video .course-header-content .left {
   background: none;
@@ -9911,6 +9931,7 @@ label {
   left: 0;
   height: 100%;
   width: 400px;
+  cursor: default;
 }
 .course-page .course-header.course-video .course-header-content .left .icon-wrapper .icon {
   color: #000000;
@@ -9983,7 +10004,7 @@ label {
   margin: 0 auto;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real {
-  position: relative;
+  position: absolute;
   z-index: 11;
   height: 100%;
   width: 100%;
@@ -9997,16 +10018,11 @@ label {
   width: 100%;
   height: 100%;
 }
-.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen {
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-click-catcher {
+  position: absolute;
+  z-index: 12;
   height: 100%;
   width: 100%;
-}
-.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen .video-real {
-  height: 100%;
-  width: 100%;
-}
-.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper.fullscreen .video-real iframe {
-  height: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-play {
   position: absolute;
@@ -10021,19 +10037,27 @@ label {
   background: url(../img/play.svg) no-repeat;
   background-size: 85px auto;
 }
+@media all and (max-width: 900px) {
+  .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-play.dont-center {
+    left: 450px;
+  }
+}
 .course-page .course-header.course-video .course-header-progress {
   display: block;
   width: 100%;
   height: 5px;
   background-color: #4a4a4a;
   color: #ffffff;
+  cursor: pointer;
 }
 .course-page .course-header.course-video .course-header-progress .progress-inner {
   display: inline-block;
   height: inherit;
   position: absolute;
   background-color: #0a82cc;
-  width: 30%;
+  width: 0;
+  -webkit-transition: width 400ms;
+          transition: width 400ms;
 }
 .course-page .course-header.course-video .course-header-progress .progress-label {
   display: none;
@@ -10054,6 +10078,7 @@ label {
   display: inline;
 }
 .course-page .course-header.course-video .course-header-footer {
+  background-color: #ffffff;
   height: 71px;
   border-top: 0;
 }
@@ -10437,6 +10462,7 @@ label {
   padding-left: 25px;
   padding-right: 20px;
   line-height: 69px;
+  -webkit-transform: scale3d(1, 1, 1);
 }
 .course-page .course-header .course-header-footer .right a:before,
 .course-page .course-header .course-header-footer .right a:after {
