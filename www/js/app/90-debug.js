@@ -2,21 +2,21 @@ App.debug = window.localStorage ? window.localStorage.getItem("debug") : false;
 
 if (App.debug) {
 	App.video.onInit.push(function() {
-		console.log('init')
+		console.debug('init');
 	});
 	App.video.onPlay.push(function() {
-		console.log('play')
+		console.debug('play');
 	});
 	App.video.onPause.push(function() {
-		console.log('pause')
+		console.debug('pause');
 	});
 	App.video.onTick.push(function() {
-		console.log('tick')
+		console.debug('tick');
 	});
 	App.video.onSeek.push(function() {
-		console.log('seek');
+		console.debug('seek');
 	});
 	App.video.onStop.push(function() {
-		console.log('stop')
+		console.debug('stop');
 	});
 }
