@@ -25,6 +25,7 @@ class Login extends Form
 
 	public function setup()
 	{
+		$this->setAction('/auth/in');
 		$this->addText('email')
 			->addRule($this::FILLED, 'email.missing')
 			->addRule($this::EMAIL, 'email.wrong');
