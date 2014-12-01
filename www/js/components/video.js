@@ -141,6 +141,12 @@
 		$overlayPlayButton.fadeIn(180);
 	});
 
+	App.video.onSeek.push(function() {
+		if ($overlay.is(':visible')) {
+			startVideoWithFadeout();
+		}
+	});
+
 	var started = false;
 	App.video.onInit.push(function() {
 		$videoControls.find('.toggle')
@@ -153,11 +159,16 @@
 		$videoControls.find('.video-fullscreen').on('click', toggleFullscreen);
 
 		$progressContainer.on('mousedown', function(e) {
+			if (e.which != 1) {
+				// not left mouse button
+				return false;
+			}
+
 			seek(e);
 			$(document).on('mousemove', seek);
-		});
-		$(document).on('mouseup', function() {
-			$(document).off('mousemove');
+			$(document).on('mouseup', function() {
+				$(document).off('mousemove').off('mouseup');
+			});
 		});
 	});
 
