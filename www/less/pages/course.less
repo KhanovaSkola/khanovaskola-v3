@@ -4,11 +4,17 @@
 	width: 100%;
 	&.course-video {
 	  &.fullscreen {
+		margin-bottom: 0;
+		height: 100%;
+		.course-header-content {
+		  height: 100%;
+		}
 		.discuss {
 		  display: none;
 		}
-		.course-header-progress {
+		.course-progress-container {
 		  position: absolute;
+		  top: initial;
 		  bottom: 70px;
 		}
 		.course-header-footer {
@@ -17,6 +23,7 @@
 		  width: 100%;
 		  border: none;
 		  height: 70px;
+		  z-index: 100;
 		  .center {
 			display: none;
 		  }
@@ -148,37 +155,46 @@
 		  }
 		}
 	  }
-	  .course-header-progress {
-		display: block;
+	  .course-progress-container {
 		width: 100%;
-		height: 5px;
-		background-color: @khan-black;
-		color: @white;
-		cursor: pointer;
-		.progress-inner {
-		  display: inline-block;
-		  height: inherit;
+		height: 22px;
+		position: relative;
+		top: (-22px + 5px);
+		z-index: 200;
+		.course-progress {
 		  position: absolute;
-		  background-color: @khan-blue;
-		  width: 0;
-		  transition: width 400ms;
-		}
-		.progress-label {
-		  display: none;
-		  padding: 0 1.5em;
-		  position: relative;
-		  z-index: 2;
-		  &.label-left {
-			float: left;
+		  bottom: 0;
+		  display: block;
+		  width: 100%;
+		  height: 5px;
+		  background-color: @khan-black;
+		  color: @white;
+		  cursor: pointer;
+		  .progress-inner {
+			display: inline-block;
+			height: inherit;
+			position: absolute;
+			background-color: @khan-blue;
+			width: 0;
+			transition: width 400ms;
 		  }
-		  &.label-right {
-			float: right;
-		  }
-		}
-		&.active {
-		  height: 22px;
 		  .progress-label {
-			display: inline;
+			display: none;
+			padding: 0 1.5em;
+			position: relative;
+			z-index: 2;
+			&.label-left {
+			  float: left;
+			}
+			&.label-right {
+			  float: right;
+			}
+		  }
+		  &.active {
+			height: 22px;
+			.progress-label {
+			  display: inline;
+			}
 		  }
 		}
 	  }
@@ -186,6 +202,7 @@
 		background-color: @white;
 		height: 71px;
 		border-top: 0;
+		margin-top: -17px;
 	  }
 	}
 	&.course-text {
