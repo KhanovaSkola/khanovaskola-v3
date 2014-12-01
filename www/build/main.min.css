@@ -10001,7 +10001,7 @@ label {
   height: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-preview {
-  position: relative;
+  position: absolute;
   z-index: 1;
   height: 100%;
   width: 100%;
@@ -10029,7 +10029,7 @@ label {
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-click-catcher {
   position: absolute;
-  z-index: 12;
+  z-index: 101;
   height: 100%;
   width: 100%;
 }
@@ -10041,7 +10041,7 @@ label {
   left: calc(50% - 42px);
   width: 84px;
   height: 84px;
-  z-index: 1234;
+  z-index: 100;
   display: block;
   background: url(../img/play.svg) no-repeat;
   background-size: 85px auto;
