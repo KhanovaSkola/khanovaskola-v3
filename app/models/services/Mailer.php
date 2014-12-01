@@ -12,6 +12,7 @@ use Exception;
 use Latte\Engine;
 use Monolog\Logger;
 use Nette\Application\IPresenterFactory;
+use Nette\Application\UI\Presenter;
 use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
@@ -94,6 +95,11 @@ class Mailer extends Object
 		/** @var Presenters\Token $presenter */
 		$presenter = $this->factory->createPresenter('Token');
 		$presenter->autoCanonicalize = FALSE;
+
+		$ref = new \ReflectionProperty(Presenter::class, 'globalParams');
+		$ref->setAccessible(TRUE);
+		$ref->setValue($presenter, []);
+
 		$latte->addFilter('token', function(Token $token, $unsafe) use ($presenter) {
 			return $presenter->link('//Token:', ['token' => $token->toString($unsafe)]);
 		});
