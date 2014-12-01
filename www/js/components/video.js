@@ -174,7 +174,6 @@
 	var started = false;
 	App.video.onInit.push(function() {
 		$videoControls.find('.toggle')
-			.add($overlayPlayButton)
 			.on('click', function() {
 				togglePlay();
 				return false;
