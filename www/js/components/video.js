@@ -14,6 +14,15 @@
 	var $progressBar = $progressContainer.find('.course-progress');
 	var $progressInner = $progressContainer.find('.progress-inner');
 	var $clickCatcher = $course.find('.video-click-catcher');
+	var $subtitlesContent = $course.find('.video-subtitles .subtitles-content');
+	var subtitlesUrl = $course.find('[data-subtitles-url]').data('subtitles-url');
+	var subs = false;
+
+	if (subtitlesUrl) {
+		SrtParser.fetch(subtitlesUrl, function(srt) {
+			subs = SrtParser.parse(srt);
+		});
+	}
 
 	function startVideoWithFadeout() {
 		$overlayPlayButton.fadeOut(100);
@@ -87,6 +96,10 @@
 		return false;
 	};
 
+	var renderSubtitle = function(text) {
+		$subtitlesContent.text(text);
+	};
+
 	var progressBarDelta = 1300;
 	var hideControls;
 	$course.on('mousemove', function() {
@@ -154,6 +167,37 @@
 	});
 
 	App.video.onTick.push(updateProgress);
+
+	var lastIndex = false;
+	App.video.onTick.push(function() {
+		var now = App.video.player.getCurrentTime();
+
+		if (lastIndex) {
+			if (subs[lastIndex][0] <= now && subs[lastIndex][1] >= now) {
+				console.debug('optimization (do not rerender)');
+				return;
+			}
+			if (subs[lastIndex + 1][0] <= now && subs[lastIndex + 1][1] >= now) {
+				lastIndex = lastIndex + 1;
+				console.debug('optimization (rerender)');
+				renderSubtitle(subs[lastIndex][2]);
+				return;
+			}
+		}
+
+		console.debug('searching', now);
+		subs.every(function(node, index) {
+			if (node[0] <= now) {
+				if (node[1] >= now) {
+					console.debug('costly sub search');
+					renderSubtitle(node[2]);
+					lastIndex = index;
+					return false;
+				}
+			}
+			return true;
+		});
+	});
 
 	App.video.onPlay.push(function() {
 		$videoControls.find('.toggle .icon').addClass('icon-pause').removeClass('icon-play');
