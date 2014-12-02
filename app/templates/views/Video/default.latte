@@ -77,7 +77,7 @@
                     <span>Máš nějaký dotaz k probírané látce?</span>
                 </div>
                 <div class="right">
-                    <a n:href="$nextContent, $nextBlock, $nextSchema">
+                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
                         <span>{$nextContent->title}</span>
                         <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
                         <i class="icon icon-arrow-right-double"></i>
