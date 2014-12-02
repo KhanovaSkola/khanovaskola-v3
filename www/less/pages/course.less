@@ -17,6 +17,9 @@
 		  top: initial;
 		  bottom: 70px;
 		}
+		.video-subtitles {
+		  bottom: 80px;
+		}
 		.course-header-footer {
 		  position: absolute;
 		  bottom: 0;
@@ -120,21 +123,21 @@
 				font-size: 18pt;
 				font-weight: 400;
 				color: @white;
-				text-shadow: 0 0 5 black;
+				text-shadow: 0 0 5px black, 0 0 5px black;
 				.subtitles-inner {
 				  position: absolute;
-				  bottom: 10%;
+				  bottom: 3%;
 				  width: 100%;
 				  height: 100px;
 				  line-height: 100px;
 				  text-align: center;
 				  span {
-					width: 400px;
+					max-width: 400px;
 					display: inline-block;
 					vertical-align: middle;
 					line-height: normal;
 				  	background-color: rgba(0, 0, 0, .25);
-					padding: 0.2ex 0.35ex;
+					padding: 0.2ex 0.35em ;
 				  }
 				}
 			  }
@@ -149,6 +152,7 @@
 				  min-width: 100%;
 				}
 				iframe {
+				  border: 0;
 				  width: 100%;
 				  height: 100%;
 				}
