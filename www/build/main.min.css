@@ -9913,7 +9913,7 @@ label {
 .course-page .course-header.course-video.fullscreen .course-progress-container {
   position: absolute;
   top: initial;
-  bottom: 70px;
+  bottom: 35px;
 }
 .course-page .course-header.course-video.fullscreen .video-subtitles {
   bottom: 80px;
@@ -9923,11 +9923,19 @@ label {
   bottom: 0;
   width: 100%;
   border: none;
-  height: 70px;
+  height: 35px;
   z-index: 100;
 }
 .course-page .course-header.course-video.fullscreen .course-header-footer .center {
   display: none;
+}
+.course-page .course-header.course-video.fullscreen .course-header-footer a .icon,
+.course-page .course-header.course-video.fullscreen .course-header-footer .right a {
+  font-size: 17pt;
+  line-height: 35px;
+}
+.course-page .course-header.course-video.fullscreen .course-header-footer .right a .icon {
+  font-size: 12pt;
 }
 .course-page .course-header.course-video .course-header-content {
   position: relative;
@@ -10436,7 +10444,6 @@ label {
           transition: color 0.2s ease-in-out;
   border-right: 1px solid #d4e1e8;
   color: #4a4a4a;
-  height: 70px;
   width: 80px;
   text-align: center;
   display: block;
@@ -10506,7 +10513,6 @@ label {
   display: inline-block;
   min-width: 170px;
   width: auto;
-  height: 70px;
   color: #ffffff;
   padding-left: 25px;
   padding-right: 20px;
