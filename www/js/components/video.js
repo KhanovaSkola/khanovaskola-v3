@@ -77,11 +77,15 @@
 		}
 	};
 
+	var isFullscreen = function() {
+		return document.fullscreenElement
+		|| document.mozFullScreenElement
+		|| document.webkitFullscreenElement
+		|| document.msFullscreenElement;
+	}
+
 	var toggleFullscreen = function() {
-		if (document.fullscreenElement
-			|| document.mozFullScreenElement
-			|| document.webkitFullscreenElement
-			|| document.msFullscreenElement) {
+		if (isFullscreen()) {
 			var exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
 			exit.call(document);
 			$course.removeClass('fullscreen');
@@ -95,6 +99,12 @@
 
 		return false;
 	};
+
+	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange msfullscreenchange', function(e) {
+		if (!isFullscreen()) {
+			$course.removeClass('fullscreen');
+		}
+	});
 
 	var renderSubtitle = function(text) {
 		$subtitlesContent.text(text);
