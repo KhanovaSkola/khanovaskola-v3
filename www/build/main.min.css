@@ -10039,7 +10039,7 @@ label {
   vertical-align: middle;
   line-height: normal;
   background-color: rgba(0, 0, 0, 0.25);
-  padding: 0.2ex 0.35em;
+  padding: 0.2ex 0.35em ;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real {
   position: absolute;
@@ -10463,7 +10463,7 @@ label {
   left: 50%;
   margin-left: -140px;
   text-align: center;
-  width: 280px;
+  width: 320px;
   height: 70px;
   line-height: 70px;
   float: left;
