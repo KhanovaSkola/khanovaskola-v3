@@ -78,7 +78,12 @@ services:
 
 	user: App\Models\Services\UserState
 
-	subtitles: App\Models\Services\RemoteSubtitles
+	subtitleStorage:
+		class: App\Models\Services\SubtitleStorage(%tempDir%/subs)
+		autowired: false
+	- App\Models\Services\SubtitleCache(@subtitleStorage)
+	- App\Models\Services\RemoteSubtitles
+
 	purifier: App\Models\Services\HtmlPurifier
 	router: App\Config\Router
 
