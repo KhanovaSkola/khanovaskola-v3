@@ -2,7 +2,6 @@
 
 namespace App\Models\Services;
 
-use Nette\Caching\Cache;
 use Nette\Object;
 use Nette\Utils\Strings;
 
@@ -11,11 +10,11 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 {
 
 	/**
-	 * @var Cache
+	 * @var SubtitleCache
 	 */
-	private $cache;
+	public $cache;
 
-	public function __construct(Cache $cache)
+	public function __construct(SubtitleCache $cache)
 	{
 		$this->cache = $cache;
 	}
@@ -42,9 +41,7 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 
 	public function getSubtitles($youtubeId)
 	{
-		$cacheKey = "subtitles/{$youtubeId}";
-
-		$cached = $this->cache->load($cacheKey);
+		$cached = $this->cache->load($youtubeId);
 		$subs = NULL;
 		if ($cached)
 		{
@@ -55,7 +52,7 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 			}
 		}
 		$subs = $this->fetchSubtitles($youtubeId, $subs);
-		$this->cache->save($cacheKey, [time(), $subs]);
+		$this->cache->save($youtubeId, [time(), $subs]);
 
 		return $subs;
 	}
