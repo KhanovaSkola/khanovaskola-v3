@@ -37,9 +37,14 @@
                 </div>
                 <div class="right">
                     <div class="right-inner">
-                        <div class="video-wrapper">
+                        <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+                            <meta itemprop="name" content="{$video->title}" />
+                            <meta itemprop="thumbnail" content="{$video->preview}" />
+                            <meta itemprop="transcript" content="{$video->getTextFromSubtitles()}" />
                             <div class="video-real hidden">
-                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0" frameborder="0" id="youtube-video"></iframe>
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0" id="youtube-video"></iframe>
+                            </div>
+                            <div class="video-subtitles">
                             </div>
                             <div class="video-preview">
                                 <img src="{$video->preview}" alt="video">
