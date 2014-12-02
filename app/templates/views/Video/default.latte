@@ -37,7 +37,8 @@
                 </div>
                 <div class="right">
                     <div class="right-inner">
-                        <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+                        <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"
+                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id}">
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
                             <meta itemprop="transcript" content="{$video->getTextFromSubtitles()}" />
@@ -45,6 +46,9 @@
                                 <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0" id="youtube-video"></iframe>
                             </div>
                             <div class="video-subtitles">
+                                <div class="subtitles-inner">
+                                    <span class="subtitles-content"></span>
+                                </div>
                             </div>
                             <div class="video-preview">
                                 <img src="{$video->preview}" alt="video">

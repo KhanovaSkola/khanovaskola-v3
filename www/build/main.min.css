@@ -10012,6 +10012,32 @@ label {
   height: 100%;
   margin: 0 auto;
 }
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-subtitles {
+  position: absolute;
+  z-index: 50;
+  height: 100%;
+  width: 100%;
+  font-size: 18pt;
+  font-weight: 400;
+  color: #ffffff;
+  text-shadow: 0 0 5 black;
+}
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-subtitles .subtitles-inner {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+.course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-subtitles .subtitles-inner span {
+  width: 400px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 0.2ex 0.35ex;
+}
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real {
   position: absolute;
   z-index: 11;
