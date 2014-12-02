@@ -106,10 +106,6 @@
 		}
 	});
 
-	var renderSubtitle = function(text) {
-		$subtitlesContent.text(text);
-	};
-
 	var progressBarDelta = 1300;
 	var hideControls;
 	$course.on('mousemove', function() {
@@ -120,6 +116,36 @@
 			$progressBar.removeClass('active');
 		}, progressBarDelta);
 	});
+
+	var renderSubtitle = function() {
+		var now = App.video.player.getCurrentTime();
+
+		if (lastIndex) {
+			if (subs[lastIndex][0] <= now && subs[lastIndex][1] >= now) {
+				console.debug('optimization (do not rerender)');
+				return;
+			}
+			if (subs[lastIndex + 1][0] <= now && subs[lastIndex + 1][1] >= now) {
+				lastIndex = lastIndex + 1;
+				console.debug('optimization (rerender)');
+				$subtitlesContent.text(subs[lastIndex][2]);
+				return;
+			}
+		}
+
+		console.debug('searching', now);
+		subs.every(function(node, index) {
+			if (node[0] <= now) {
+				if (node[1] >= now) {
+					console.debug('costly sub search');
+					$subtitlesContent.text(node[2]);
+					lastIndex = index;
+					return false;
+				}
+			}
+			return true;
+		});
+	};
 
 	/**
 	 * Play/pause on spacebar
@@ -179,34 +205,11 @@
 	App.video.onTick.push(updateProgress);
 
 	var lastIndex = false;
-	App.video.onTick.push(function() {
-		var now = App.video.player.getCurrentTime();
+	App.video.onTick.push(renderSubtitle);
 
-		if (lastIndex) {
-			if (subs[lastIndex][0] <= now && subs[lastIndex][1] >= now) {
-				console.debug('optimization (do not rerender)');
-				return;
-			}
-			if (subs[lastIndex + 1][0] <= now && subs[lastIndex + 1][1] >= now) {
-				lastIndex = lastIndex + 1;
-				console.debug('optimization (rerender)');
-				renderSubtitle(subs[lastIndex][2]);
-				return;
-			}
-		}
-
-		console.debug('searching', now);
-		subs.every(function(node, index) {
-			if (node[0] <= now) {
-				if (node[1] >= now) {
-					console.debug('costly sub search');
-					renderSubtitle(node[2]);
-					lastIndex = index;
-					return false;
-				}
-			}
-			return true;
-		});
+	App.video.onPlay.push(function() {
+		App.video.player.unloadModule("captions");
+		App.video.player.unloadModule("cc");
 	});
 
 	App.video.onPlay.push(function() {
@@ -224,6 +227,8 @@
 			startVideoWithFadeout();
 		}
 	});
+
+	App.video.onSeek.push(renderSubtitle);
 
 	var started = false;
 	App.video.onInit.push(function() {
