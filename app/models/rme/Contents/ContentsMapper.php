@@ -81,7 +81,7 @@ class ContentsMapper extends ElasticSearchMapper
 				FROM [content_block_bridges] [cbb]
 				WHERE
 					[cbb.block_id] = ?', $block->id, '
-					[cbb.position] > ?', $contentPosition, '
+					AND [cbb.position] > ?', $contentPosition, '
 				ORDER BY
 					[cbb.position] ASC
 			')->fetch();
