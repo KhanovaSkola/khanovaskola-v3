@@ -9915,6 +9915,9 @@ label {
   top: initial;
   bottom: 70px;
 }
+.course-page .course-header.course-video.fullscreen .video-subtitles {
+  bottom: 80px;
+}
 .course-page .course-header.course-video.fullscreen .course-header-footer {
   position: absolute;
   bottom: 0;
@@ -10020,23 +10023,23 @@ label {
   font-size: 18pt;
   font-weight: 400;
   color: #ffffff;
-  text-shadow: 0 0 5 black;
+  text-shadow: 0 0 5px black, 0 0 5px black;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-subtitles .subtitles-inner {
   position: absolute;
-  bottom: 10%;
+  bottom: 3%;
   width: 100%;
   height: 100px;
   line-height: 100px;
   text-align: center;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-subtitles .subtitles-inner span {
-  width: 400px;
+  max-width: 400px;
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
   background-color: rgba(0, 0, 0, 0.25);
-  padding: 0.2ex 0.35ex;
+  padding: 0.2ex 0.35em;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real {
   position: absolute;
@@ -10050,6 +10053,7 @@ label {
   min-width: 100%;
 }
 .course-page .course-header.course-video .course-header-content .right .right-inner .video-wrapper .video-real iframe {
+  border: 0;
   width: 100%;
   height: 100%;
 }
