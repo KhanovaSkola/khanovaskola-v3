@@ -10,11 +10,6 @@ App.video.onSeek = [];
 App.video.onStop = [];
 
 App.video.init = function() {
-	var tag = document.createElement('script');
-	tag.src = "https://www.youtube.com/iframe_api";
-	var firstScriptTag = document.getElementsByTagName('script')[0];
-	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 	window.onYouTubeIframeAPIReady = function() {
 		App.video.player = new YT.Player('youtube-video', {
 			events: {
@@ -23,6 +18,11 @@ App.video.init = function() {
 			}
 		});
 	};
+
+	var tag = document.createElement('script');
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 };
 
 App.video.onPlayerReady = function() {
