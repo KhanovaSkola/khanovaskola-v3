@@ -9943,6 +9943,9 @@ label {
   font-size: 17pt;
   line-height: 35px;
 }
+.course-page .course-header.course-video.fullscreen .course-header-footer .right a span {
+  line-height: 35px;
+}
 .course-page .course-header.course-video.fullscreen .course-header-footer .right a .icon {
   font-size: 12pt;
 }
@@ -10531,7 +10534,6 @@ label {
   padding-left: 15px;
   padding-right: 10px;
   line-height: 69px;
-  -webkit-transform: scale3d(1, 1, 1);
 }
 .course-page .course-header .course-header-footer .right a:before,
 .course-page .course-header .course-header-footer .right a:after {
@@ -10555,9 +10557,8 @@ label {
 .course-page .course-header .course-header-footer .right a span {
   float: left;
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 70px;
   max-width: 220px;
-  margin-top: 25px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
