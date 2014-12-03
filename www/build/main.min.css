@@ -10519,7 +10519,7 @@ label {
 }
 .course-page .course-header .course-header-footer .right {
   float: right;
-  width: 250px;
+  width: 340px;
   text-align: right;
 }
 .course-page .course-header .course-header-footer .right a {
@@ -10528,8 +10528,8 @@ label {
   min-width: 170px;
   width: auto;
   color: #ffffff;
-  padding-left: 25px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 10px;
   line-height: 69px;
   -webkit-transform: scale3d(1, 1, 1);
 }
@@ -10555,12 +10555,18 @@ label {
 .course-page .course-header .course-header-footer .right a span {
   float: left;
   font-size: 16px;
+  line-height: 1.2;
+  max-width: 220px;
+  margin-top: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .course-page .course-header .course-header-footer .right a small {
   float: left;
   font-size: 11px;
   color: #d4e1e8;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 .course-page .course-header .course-header-footer .right a i {
   float: left;
@@ -11334,7 +11340,7 @@ label {
   margin: 0 auto;
   display: block;
   position: relative;
-  height: 100px;
+  height: 111px;
 }
 .scheme-page .scheme-wrapper .scheme-section:before,
 .scheme-page .scheme-wrapper .scheme-section:after {
@@ -11351,12 +11357,16 @@ label {
 }
 .scheme-page .scheme-wrapper .scheme-section:after {
   clear: both;
+}
+.scheme-page .scheme-wrapper .scheme-section:nth-child(1) {
+  margin-bottom: 15px;
 }
 .scheme-page .scheme-wrapper .scheme-section .scheme-item {
   width: 150px;
   display: block;
   text-align: center;
   color: #ffffff;
+  padding-top: 15px;
 }
 .scheme-page .scheme-wrapper .scheme-section .scheme-item:nth-child(1) {
   float: left;
@@ -11373,13 +11383,20 @@ label {
 .scheme-page .scheme-wrapper .scheme-section .scheme-item.scheme-item-line {
   background: url(../img/arrows/simple-line.svg) no-repeat;
   background-position: center 0;
-  height: 100px;
+  height: 111px;
   display: block;
 }
 .scheme-page .scheme-wrapper .scheme-section .scheme-item .icon {
   display: block;
   font-size: 30px;
   margin-bottom: 20px;
+}
+.scheme-page .scheme-wrapper .scheme-section .scheme-item span {
+  font-family: 'frente_h1regular', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: #ffffff;
+  line-height: 32px;
 }
 .scheme-page .scheme-wrapper .scheme-arrow {
   width: 870px;

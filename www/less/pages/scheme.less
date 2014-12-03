@@ -57,12 +57,16 @@
 			margin: 0 auto;
 			display: block;
 			position: relative;
-			height: 100px;
+			height: 111px;
+		  	&:nth-child(1) {
+			  margin-bottom: 15px;
+			}
 			.scheme-item {
 				width: 150px;
 				display: block;
 				text-align: center;
 				color: @white;
+			  	padding-top: 15px;
 
 				&:nth-child(1) {
 					float: left;
@@ -80,7 +84,7 @@
 				&.scheme-item-line {
 					background: url(../img/arrows/simple-line.svg) no-repeat;
 					background-position: center 0;
-					height: 100px;
+				  	height: 111px;
 					display: block;
 				}
 
@@ -88,6 +92,13 @@
 					display: block;
 					font-size: 30px;
 					margin-bottom: 20px;
+				}
+			  	span {
+				  font-family: @headings-font-family;
+				  font-weight: @font-weight-normal;
+				  font-size: 24px;
+				  color: @white ;
+				  line-height: 32px;
 				}
 			}
 		}
