@@ -20,6 +20,14 @@
 		.video-subtitles {
 		  bottom: 80px;
 		}
+		.video-controls {
+		  position: relative;
+		  transition: top 500ms;
+		  top: 57px;
+		  &.active {
+			top: 0;
+		  }
+		}
 		.course-header-footer {
 		  position: absolute;
 		  bottom: 0;
@@ -208,6 +216,8 @@
 		  background-color: @khan-black;
 		  color: @white;
 		  cursor: pointer;
+		  transition: height 500ms;
+		  overflow: hidden;
 		  .progress-inner {
 			display: inline-block;
 			height: inherit;
@@ -228,7 +238,8 @@
 			  float: right;
 			}
 		  }
-		  &.active {
+		  &.active,
+		  &.active-fs {
 			height: 22px;
 			.progress-label {
 			  display: inline;

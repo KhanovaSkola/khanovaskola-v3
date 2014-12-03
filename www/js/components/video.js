@@ -10,6 +10,7 @@
 	var $videoPreview = $course.find('.video-preview');
 	var $videoReal = $course.find('.video-real');
 	var $videoControls = $course.find('.course-header-footer .left');
+	var $controls = $course.find('.video-controls');
 	var $progressContainer = $course.find('.course-progress-container');
 	var $progressBar = $progressContainer.find('.course-progress');
 	var $progressInner = $progressContainer.find('.progress-inner');
@@ -82,7 +83,7 @@
 		|| document.mozFullScreenElement
 		|| document.webkitFullscreenElement
 		|| document.msFullscreenElement;
-	}
+	};
 
 	var toggleFullscreen = function() {
 		if (isFullscreen()) {
@@ -103,18 +104,27 @@
 	$(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange msfullscreenchange', function(e) {
 		if (!isFullscreen()) {
 			$course.removeClass('fullscreen');
+			$progressBar.removeClass('active-fs');
+		} else {
+			$progressBar.addClass('active-fs');
 		}
 	});
 
-	var progressBarDelta = 1300;
 	var hideControls;
 	$course.on('mousemove', function() {
 		clearTimeout(hideControls);
-		$progressBar.addClass('active');
+
+		var fs = isFullscreen();
+		if (fs) {
+			$controls.addClass('active');
+		} else {
+			$progressBar.addClass('active');
+		}
 
 		hideControls = setTimeout(function() {
 			$progressBar.removeClass('active');
-		}, progressBarDelta);
+			$controls.removeClass('active');
+		}, fs ? 3000 : 1800);
 	});
 
 	var renderSubtitle = function() {
