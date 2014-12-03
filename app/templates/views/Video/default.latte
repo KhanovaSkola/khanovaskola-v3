@@ -59,39 +59,41 @@
                     </div>
                 </div>
             </div>
-            <div class="course-progress-container">
-	            <div class="course-progress">
-	                <div class="progress-inner"></div>
-	                <div class="progress-label label-left">{0|duration}</div>
-	                <div class="progress-label label-right">{$video->duration|duration}</div>
+            <div class="video-controls">
+	            <div class="course-progress-container">
+		            <div class="course-progress">
+		                <div class="progress-inner"></div>
+		                <div class="progress-label label-left">{0|duration}</div>
+		                <div class="progress-label label-right">{$video->duration|duration}</div>
+		            </div>
+		        </div>
+	            <div class="course-header-footer">
+	                <div class="left">
+	                    <div class="clearfix">
+	                        <div class="pull-left">
+	                            <a href="#" class="toggle">
+	                                <i class="icon icon-play"></i>
+	                            </a>
+	                        </div>
+	                        <div class="pull-left">
+	                            <a href="#" class="video-fullscreen">
+	                                <i class="icon icon-fullscreen"></i>
+	                            </a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="center">
+	                    <i class="icon icon-comments"></i>
+	                    <span>Máš nějaký dotaz k probírané látce?</span>
+	                </div>
+	                <div class="right">
+	                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
+	                        <span>{$nextContent->title}</span>
+	                        <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
+	                        <i class="icon icon-arrow-right-double"></i>
+	                    </a>
+	                </div>
 	            </div>
-	        </div>
-            <div class="course-header-footer">
-                <div class="left">
-                    <div class="clearfix">
-                        <div class="pull-left">
-                            <a href="#" class="toggle">
-                                <i class="icon icon-play"></i>
-                            </a>
-                        </div>
-                        <div class="pull-left">
-                            <a href="#" class="video-fullscreen">
-                                <i class="icon icon-fullscreen"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="center">
-                    <i class="icon icon-comments"></i>
-                    <span>Máš nějaký dotaz k probírané látce?</span>
-                </div>
-                <div class="right">
-                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
-                        <span>{$nextContent->title}</span>
-                        <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
-                        <i class="icon icon-arrow-right-double"></i>
-                    </a>
-                </div>
             </div>
         </div>
 

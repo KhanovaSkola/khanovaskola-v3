@@ -9918,6 +9918,15 @@ label {
 .course-page .course-header.course-video.fullscreen .video-subtitles {
   bottom: 80px;
 }
+.course-page .course-header.course-video.fullscreen .video-controls {
+  position: relative;
+  -webkit-transition: top 500ms;
+          transition: top 500ms;
+  top: 57px;
+}
+.course-page .course-header.course-video.fullscreen .video-controls.active {
+  top: 0;
+}
 .course-page .course-header.course-video.fullscreen .course-header-footer {
   position: absolute;
   bottom: 0;
@@ -10105,6 +10114,9 @@ label {
   background-color: #4a4a4a;
   color: #ffffff;
   cursor: pointer;
+  -webkit-transition: height 500ms;
+          transition: height 500ms;
+  overflow: hidden;
 }
 .course-page .course-header.course-video .course-progress-container .course-progress .progress-inner {
   display: inline-block;
@@ -10127,10 +10139,12 @@ label {
 .course-page .course-header.course-video .course-progress-container .course-progress .progress-label.label-right {
   float: right;
 }
-.course-page .course-header.course-video .course-progress-container .course-progress.active {
+.course-page .course-header.course-video .course-progress-container .course-progress.active,
+.course-page .course-header.course-video .course-progress-container .course-progress.active-fs {
   height: 22px;
 }
-.course-page .course-header.course-video .course-progress-container .course-progress.active .progress-label {
+.course-page .course-header.course-video .course-progress-container .course-progress.active .progress-label,
+.course-page .course-header.course-video .course-progress-container .course-progress.active-fs .progress-label {
   display: inline;
 }
 .course-page .course-header.course-video .course-header-footer {
