@@ -175,6 +175,9 @@
 				  width: 100%;
 				  height: 100%;
 				}
+				&.hidden-video {
+				  visibility: hidden;
+				}
 			  }
 			  .video-click-catcher {
 				position: absolute;
@@ -227,6 +230,7 @@
 			position: absolute;
 			background-color: @khan-blue;
 			width: 0;
+			left: 0;
 			transition: width 400ms;
 		  }
 		  .progress-label {

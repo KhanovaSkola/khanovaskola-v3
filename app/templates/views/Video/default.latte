@@ -42,8 +42,8 @@
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
                             <meta itemprop="transcript" content="{$video->getTextFromSubtitles()}" />
-                            <div class="video-real hidden">
-                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0" id="youtube-video"></iframe>
+                            <div class="video-real hidden-video">
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0&html5=1" id="youtube-video"></iframe>
                             </div>
                             <div class="video-subtitles">
                                 <div class="subtitles-inner">

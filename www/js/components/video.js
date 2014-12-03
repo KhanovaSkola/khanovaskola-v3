@@ -29,7 +29,7 @@
 		$overlayPlayButton.fadeOut(100);
 		$videoPreview.fadeOut(500);
 		$overlay.fadeOut(500);
-		$videoReal.hide().removeClass('hidden');
+		$videoReal.hide().removeClass('hidden-video');
 
 		App.video.player.playVideo();
 
