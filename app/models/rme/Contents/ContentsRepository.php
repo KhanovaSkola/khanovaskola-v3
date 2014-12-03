@@ -3,16 +3,18 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Repository;
+use App\Models\Structs\SearchResponse;
 use Orm\DibiCollection;
 
 
 /**
- * @method DibiCollection|Content[] findAll()
- * @method DibiCollection|Video[] findAllVideos()
+ * @method DibiCollection|Content[]   findAll()
+ * @method DibiCollection|Video[]     findAllVideos()
  * @method DibiCollection|Blueprint[] findAllBlueprints()
- * @method NULL|Video getVideoById(int $id)
- * @method NULL|Blueprint getBlueprintById(int $id)
- * @method NULL|array getNext(Content $content, Block $block = NULL, Schema $schema = NULL)
+ * @method NULL|Video                 getVideoById(int $id)
+ * @method NULL|Blueprint             getBlueprintById(int $id)
+ * @method SearchResponse             getWithFulltext(string $query)
+ * @method NULL|array                 getNext(Content $content, Block $block = NULL, Schema $schema = NULL)
  *         returns (NULL|Content $content, NULL|Block $block, NULL|Schema $schema)
  */
 class ContentsRepository extends Repository
