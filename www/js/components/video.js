@@ -93,7 +93,7 @@
 
 		} else {
 			var el = $course[0];
-			var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
+			var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
 			rfs.call(el);
 			$course.addClass('fullscreen');
 		}
