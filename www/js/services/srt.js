@@ -17,7 +17,7 @@
 
 	srt.parse = function(text) {
 		var partials = text.split(/(^|\n\n)\d+\n/);
-		var parser = /^(\d+):(\d+):(\d+[,.]\d+).*?(\d+):(\d+):(\d+[,.]\d+)\n(.*)/;
+		var parser = /^(\d+):(\d+):(\d+[,.]\d+).*?(\d+):(\d+):(\d+[,.]\d+)\n(.*\n?.*)/;
 
 		var subs = [];
 		partials.forEach(function(partial) {
