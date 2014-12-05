@@ -10696,6 +10696,9 @@ label {
 .dashboard-page .content .content-inner .head .icon {
   font-size: 60px;
 }
+.dashboard-page .content .content-inner .head h1 a {
+  font-size: 48px;
+}
 @media (max-width: 768px) {
   .dashboard-page .content .content-inner .progress-wrapper.ph {
     width: 80%;
@@ -10719,13 +10722,9 @@ label {
   }
 }
 .dashboard-page .content .content-inner .inprogress-box {
-  border: 1px dashed #959b9f;
-  border-top: 0;
-  padding-left: 35px;
-  padding-right: 35px;
-  margin-top: 80px;
-  margin-bottom: 50px;
   position: relative;
+  margin-top: 80px;
+  margin-bottom: 100px;
 }
 .dashboard-page .content .content-inner .inprogress-box:before,
 .dashboard-page .content .content-inner .inprogress-box:after {
@@ -10748,22 +10747,25 @@ label {
     border: 0;
   }
 }
+.dashboard-page .content .content-inner .inprogress-box .inprogress-border {
+  border: 1px dashed #959b9f;
+  padding: 35px;
+  padding-bottom: 0;
+}
 .dashboard-page .content .content-inner .inprogress-box .title {
   position: absolute;
-  top: -25px;
+  top: -12px;
   left: 50%;
   margin-left: -175px;
   width: 100%;
   max-width: 350px;
-  border-top: 1px dashed #959b9f;
 }
 .dashboard-page .content .content-inner .inprogress-box .title .title-inner {
   position: relative;
-  top: -12px;
   left: 50%;
   margin-left: -110px;
   background: #ffffff;
-  width: 210px;
+  width: 250px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -10816,6 +10818,9 @@ label {
 .dashboard-page .content .content-inner .inprogress-box .subject h2 .icon {
   font-size: 20px;
   margin-right: 3px;
+}
+.dashboard-page .content .content-inner .inprogress-box .subject h2 a {
+  font-size: 24px;
 }
 .dashboard-page .content .content-inner .inprogress-box .subject .progress-wrapper {
   position: relative;

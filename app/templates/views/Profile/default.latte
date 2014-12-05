@@ -9,108 +9,63 @@
 
 	<main class="content">
         <div class="content-inner">
-            {if $lastContent && $lastContent->schema}
-	            <div class="head text-{$lastContent->schema->subject->color}">
-	                <i class="icon icon-{$lastContent->schema->subject->icon}"></i>
-	                <h1>{$lastContent->schema->name}</h1>
+            {if $lastSchema}
+	            <div class="head text-{$lastSchema->subject->color}">
+	                <i class="icon icon-{$lastSchema->subject->icon}"></i>
+	                <h1>
+	                    <a n:href="$lastSchema">
+	                        {$lastSchema->name}
+	                    </a>
+	                </h1>
 	            </div>
 	            <div class="progress-wrapper ph">
 	                <div class="progress">
-	                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-	                    </div>
+	                    <div class="progress-bar progress-bar-{$lastSchema->subject->color}" style="width: 60%;"></div>
 	                </div>
 	                <span>60%</span>
 	            </div>
-	            <a n:href="Schema:continue, schemaId => $lastContent->schema->id" class="btn">
+	            <a n:href="Schema:continue, schemaId => $lastSchema->id" class="btn">
 	                Pokračovat
 	            </a>
-                <a n:href="$lastContent->schema">Přehled schématu</a>
             {/if}
 
-            <div class="inprogress-box">
+            <div n:if="$lastSchemas" class="inprogress-box">
                 <div class="title">
                     <div class="title-inner">
                         <i class="icon icon-idea"></i>
-                        <span>Rozpracované předměty</span>
+                        <span>Starší rozpracované</span>
                     </div>
                 </div>
-                <div class="subject">
-                    <h2>
-                        <i class="icon icon-history text-red"></i>
-                        <span>19. století</span>
-                    </h2>
-                    <div class="progress-wrapper">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            </div>
-                        </div>
-                        <span>60%</span>
-                    </div>
-                    <div class="action">
-                        <a href="#" class="btn btn-red">
-                            <i class="icon icon-play"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="subject">
-                    <h2>
-                        <i class="icon icon-physics text-cyan-dark"></i>
-                        <span>jaderná fyzika základy</span>
-                    </h2>
-                    <div class="progress-wrapper">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            </div>
-                        </div>
-                        <span>60%</span>
-                    </div>
-                    <div class="action">
-                        <a href="#" class="btn btn-cyan">
-                            <i class="icon icon-play"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="subject">
-                    <h2>
-                        <i class="icon icon-physics text-purple"></i>
-                        <span>jaderná fyzika základy</span>
-                    </h2>
-                    <div class="progress-wrapper">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            </div>
-                        </div>
-                        <span>60%</span>
-                    </div>
-                    <div class="action">
-                        <a href="#" class="btn btn-purple">
-                            <i class="icon icon-play"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="subject">
-                    <h2>
-                        <i class="icon icon-physics text-green"></i>
-                        <span>jaderná fyzika základy</span>
-                    </h2>
-                    <div class="progress-wrapper">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            </div>
-                        </div>
-                        <span>60%</span>
-                    </div>
-                    <div class="action">
-                        <a href="#" class="btn btn-green">
-                            <i class="icon icon-play"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="inprogress-footer">
-                    <a href="#">
-                        <i class="icon icon-list"></i>
-                        <span>Zobrazit více</span>
-                    </a>
+                <div class="inprogress-border">
+	                {foreach $lastSchemas as $schema}
+		                <div class="subject">
+		                    <h2>
+		                        <a n:href="Schema:continue, schemaId => $schema->id">
+			                        <i class="icon icon-{$schema->subject->icon} text-{$schema->subject->color}"></i>
+			                        <span>{$schema->name}</span>
+			                    </a>
+		                    </h2>
+		                    <div class="progress-wrapper">
+		                        <div class="progress">
+		                            <div class="progress-bar progress-bar-{$schema->subject->color}" style="width: 60%;"></div>
+		                        </div>
+		                        <span>60%</span>
+		                    </div>
+		                    <div class="action">
+		                        <a n:href="Schema:continue, schemaId => $schema->id" class="btn btn-{$schema->subject->color}">
+		                            <i class="icon icon-play"></i>
+		                        </a>
+		                    </div>
+		                </div>
+		            {/foreach}
+			        {*
+			        <div class="inprogress-footer">
+	                    <a href="#">
+	                        <i class="icon icon-list"></i>
+	                        <span>Zobrazit více</span>
+	                    </a>
+	                </div>
+	                *}
                 </div>
             </div>
         </div>

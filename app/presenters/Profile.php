@@ -48,7 +48,11 @@ final class Profile extends Presenter
 	public function renderDefault()
 	{
 		$this->template->profile = $this->profile;
-		$this->template->lastContent = $this->userEntity->getLastCompletedContent();
+
+		$lastSchemas = $this->orm->completedContents->getLatestSchemas($this->userEntity);
+		$lastSchema = array_shift($lastSchemas);
+		$this->template->lastSchema = $lastSchema;
+		$this->template->lastSchemas = $lastSchemas;
 	}
 
 	/**
