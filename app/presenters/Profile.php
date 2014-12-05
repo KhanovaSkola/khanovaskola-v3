@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\Models\Rme\User;
+use App\Models\Rme;
 use App\Models\Structs\EventList;
 
 
@@ -16,7 +16,7 @@ final class Profile extends Presenter
 	public $userId;
 
 	/**
-	 * @var User
+	 * @var Rme\User
 	 */
 	protected $profile;
 
