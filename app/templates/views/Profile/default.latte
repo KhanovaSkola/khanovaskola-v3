@@ -19,10 +19,11 @@
 	                </h1>
 	            </div>
 	            <div class="progress-wrapper ph">
+	                {var $percent = $lastSchema->getCompletedPercent($userEntity)}
 	                <div class="progress">
-	                    <div class="progress-bar progress-bar-{$lastSchema->subject->color}" style="width: 60%;"></div>
+	                    <div class="progress-bar progress-bar-{$lastSchema->subject->color}" style="width: {$percent|number:3|noescape}%;"></div>
 	                </div>
-	                <span>60%</span>
+	                <span>{$percent|number}&thinsp;%</span>
 	            </div>
 	            <a n:href="Schema:continue, schemaId => $lastSchema->id" class="btn">
 	                Pokračovat
@@ -46,10 +47,11 @@
 			                    </a>
 		                    </h2>
 		                    <div class="progress-wrapper">
+		                        {var $percent = $schema->getCompletedPercent($userEntity)}
 		                        <div class="progress">
-		                            <div class="progress-bar progress-bar-{$schema->subject->color}" style="width: 60%;"></div>
+		                            <div class="progress-bar progress-bar-{$schema->subject->color}" style="width: {$percent|number:3|noescape}%;"></div>
 		                        </div>
-		                        <span>60%</span>
+		                        <span>{$percent|number}&thinsp;%</span>
 		                    </div>
 		                    <div class="action">
 		                        <a n:href="Schema:continue, schemaId => $schema->id" class="btn btn-{$schema->subject->color}">
