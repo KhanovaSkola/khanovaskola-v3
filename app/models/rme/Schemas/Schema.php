@@ -71,4 +71,13 @@ class Schema extends Entity
 		return $this->getValue('blockSchemaBridges')->get()->findBy(['blockId' => $block->id])->count();
 	}
 
+	/**
+	 * @param User $user
+	 * @return float 0..100
+	 */
+	public function getCompletedPercent(User $user)
+	{
+		return $this->model->completedContents->getCompletedPercent($user, $this);
+	}
+
 }
