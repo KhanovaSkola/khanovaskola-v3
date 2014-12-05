@@ -8,6 +8,7 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection|CompletedContent[] findAll()
+ * @method Schema[] getLatestSchemas(User $user)
  */
 class CompletedContentsRepository extends Repository
 {
