@@ -60,9 +60,17 @@ final class Blueprint extends Content
 		$seedInput->setDefaultValue($exercise->getSeed());
 
 		$this->template->exercise = $exercise;
+		$this->template->blueprint = $exercise->getBlueprint();
 		$this->template->block = $this->block;
 		$this->template->schema = $this->schema;
 		$this->template->suggestions = $this->getSuggestions($this->blueprint);
+
+		list($nextContent, $nextBlock, $nextSchema) = $this->orm->contents->getNext($this->blueprint, $this->block, $this->schema);
+		$this->template->nextContent = $nextContent;
+		$this->template->nextBlock = $nextBlock;
+		$this->template->nextSchema = $nextSchema;
+
+		$this->template->position = $this->block->getPositionOf($this->blueprint);
 	}
 
 	public function createComponentAnswer()
