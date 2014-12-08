@@ -12,6 +12,7 @@
     "d3": "latest",
     "jquery-timeago": "latest",
     "zxcvbn": "latest",
-    "react": "~0.12.1"
+    "react": "~0.12.1",
+    "jquery-ui": "~1.11.2"
   }
 }

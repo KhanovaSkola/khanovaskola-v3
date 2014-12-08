@@ -1,0 +1,76 @@
+{var $pageName = 'scheme-page'}
+{var $headerBorder = FALSE}
+{var $title = 'Editor'}
+{block scripts}
+	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+            $(".arrow-picker .arrow").draggable({
+                revert: true
+            });
+            $(".schema .arrows td").droppable({
+				drop: function(event, ui) {
+					var arrow = ui.draggable.clone();
+					arrow.css({
+						position: 'initial',
+						left: 'initial',
+						top: 'initial'
+					});
+					$(this).append(arrow);
+	            }
+	        });
+        });
+	</script>
+{/block}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 * @param App\Models\Rme\Schema $schema
+	 *}
+
+	<div class="container">
+		<div class="col-md-8">
+			<table class="table table-striped schema">
+				<tr class="arrows">
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		        </tr>
+			    <tr class="arrows">
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		        </tr>
+		        <tr>
+		            <td></td>
+		            <td></td>
+		            <td></td>
+		        </tr>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<h3>arrows:</h3>
+
+			<div class="arrow-picker">
+				<div class="arrow arrow-horizontal"></div>
+                <div class="arrow arrow-vertical"></div>
+                <div class="arrow arrow-down"></div>
+                <div class="arrow arrow-branch-right"></div>
+                <div class="arrow arrow-branch-left"></div>
+                <div class="arrow arrow-to-left"></div>
+                <div class="arrow arrow-to-right"></div>
+			</div>
+
+			<h3>blocks:</h3>
+			<ul class="list-unstyled">
+				{foreach $blocks as $block}
+					<li>{$block->name}</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
