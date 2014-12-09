@@ -12,6 +12,8 @@ class Schema extends Presenter
 
 	use Parameters\Schema;
 
+	private $_preloadedBlocks = [];
+
 	public function startup()
 	{
 		parent::startup();
@@ -22,7 +24,21 @@ class Schema extends Presenter
 	{
 		$this->setCacheControlPublic();
 
-		$this->template->add('schema', $this->schema);
+		$this->template->schema = $this->schema;
+
+		$this->template->getBlock = function($id) {
+			if (!$this->_preloadedBlocks)
+			{
+				$b = iterator_to_array($this->schema->blocks);
+				foreach ($b as $block)
+				{
+					$this->_preloadedBlocks[$block->id] = $block;
+				}
+			}
+			return isset($this->_preloadedBlocks[$id])
+				? $this->_preloadedBlocks[$id]
+				: $this->orm->blocks->getById($id);
+		};
 	}
 
 	/**
