@@ -8,6 +8,11 @@ use App\Models\Orm\Mappers\Mapper;
 class SchemasMapper extends Mapper
 {
 
+	public function getJsonFields()
+	{
+		return ['layout'];
+	}
+
 	/**
 	 * @param User $user
 	 * @param Schema $schema

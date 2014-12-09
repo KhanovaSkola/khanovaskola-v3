@@ -78,8 +78,20 @@
 	        }
 
 	        $('#save').click(function() {
-	            var ser = serializeSchema();
-	            console.log(ser, JSON.stringify(ser));
+	            var ser = JSON.stringify(serializeSchema());
+	            $.ajax({
+	                url: $('.editor').data('url-update'),
+					data: {
+						layout: ser
+					},
+					success: function() {
+						console.log('saved');
+					},
+					error: function() {
+						console.error('failed');
+					}
+	            });
+
 	            return false;
 	        });
         });
@@ -92,9 +104,8 @@
 	 *}
 
 	<div class="container">
-		<a href="#" id="save" class="btn btn-primary">Uložit</a>
 		<div class="col-md-8">
-			<div class="scheme-wrapper editor">
+			<div class="scheme-wrapper editor" data-url-update="{plink updateSchema!, schemaId => $schema ? $schema->id}">
                 <div class="container">
                     <div class="col">
                         <div class="cell cell-odd" data-id="1">
@@ -230,6 +241,7 @@
             </div>
 		</div>
 		<div class="col-md-4">
+			<a href="#" id="save" class="btn">Uložit</a>
 			<h3>arrows:</h3>
 			<div class="scheme-wrapper arrow-picker">
 				<div class="col">

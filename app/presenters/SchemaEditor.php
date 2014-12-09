@@ -2,7 +2,9 @@
 
 namespace App\Presenters;
 
+use App\Models\Rme;
 use App\Presenters\Parameters;
+use Nette\Utils\Json;
 
 
 class SchemaEditor extends Presenter
@@ -25,6 +27,24 @@ class SchemaEditor extends Presenter
 	{
 		$this->template->schema = $this->schema;
 		$this->template->blocks = $this->orm->blocks->findAll()->orderBy('name', 'ASC');
+	}
+
+	public function handleUpdateSchema($layout)
+	{
+		$parsed = Json::decode($layout);
+
+		if (!$this->schema)
+		{
+			$this->schema = new Rme\Schema();
+		}
+
+		$this->schema->layout = $parsed;
+		$this->orm->flush();
+
+		// TODO enqueue update positions
+		// TODO enqueue update relations
+
+		$this->sendJson(['status' => 'ok']);
 	}
 
 }
