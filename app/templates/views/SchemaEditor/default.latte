@@ -5,19 +5,82 @@
 	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
 	<script>
 		$(function() {
-            $(".arrow-picker .arrow").draggable({
-                revert: true
+			var $arrowTargets = $(".scheme-wrapper.editor .cell-even");
+            $(".arrow-picker .cell").draggable({
+                revert: true,
+                start: function() {
+                    $arrowTargets.addClass('highlight');
+                },
+                stop: function() {
+                    $arrowTargets.removeClass('highlight');
+                }
             });
-            $(".schema .arrows td").droppable({
+            $arrowTargets.droppable({
+                tolerance: 'pointer',
+                addClasses: false,
 				drop: function(event, ui) {
-					var arrow = ui.draggable.clone();
-					arrow.css({
-						position: 'initial',
-						left: 'initial',
-						top: 'initial'
-					});
-					$(this).append(arrow);
+					var arrow = getArrow(ui.draggable[0]);
+					console.log(arrow);
+					$(this).append($('<span/>').addClass(arrow));
 	            }
+	        });
+
+			var lastTarget;
+			var $blockTargets = $(".scheme-wrapper.editor .cell-odd");
+            $blockTargets.on('mouseenter', function() {
+                lastTarget = $(this);
+            });
+            $(".block-picker li").draggable({
+                tolerance: 'pointer',
+                revert: true,
+                revertDuration: 0,
+                cursorAt: { left: -20, top: -20 },
+                start: function() {
+                    $blockTargets.addClass('highlight');
+                },
+                stop: function() {
+                    $blockTargets.removeClass('highlight');
+                    console.log($(this).data('id'));
+                    var id = $(this).data('id');
+                    var title = $(this).text();
+                    lastTarget.data('id', id)
+                        .html('<i class="icon icon-math text-blue"></i>'
+                            + $('<span/>').text(title)[0].outerHTML
+                        );
+                    lastTarget[0].className = 'cell cell-odd';
+                }
+            });
+
+	        function getArrow(el) {
+	            return el.className.match(/(^|\s+)(arrow-.*?)(\s+|$)/)[2]
+	        }
+
+	        function serializeSchema() {
+	            var ser = [];
+	            $('.scheme-wrapper.editor').find('.col').each(function() {
+	                var col = [];
+	                $(this).find('.cell').each(function() {
+	                    $cell = $(this);
+	                    var id = $cell.data('id');
+	                    if (id) {
+	                        col.push(id);
+	                    } else {
+	                        var arrows = [getArrow($cell[0])];
+	                        $cell.children('span').each(function() {
+	                            arrows.push(getArrow($(this)[0]));
+	                        });
+	                        col.push(arrows);
+	                    }
+	                });
+	                ser.push(col);
+	            });
+	            return ser;
+	        }
+
+	        $('#save').click(function() {
+	            var ser = serializeSchema();
+	            console.log(ser, JSON.stringify(ser));
+	            return false;
 	        });
         });
 	</script>
@@ -29,47 +92,161 @@
 	 *}
 
 	<div class="container">
+		<a href="#" id="save" class="btn btn-primary">Uložit</a>
 		<div class="col-md-8">
-			<table class="table table-striped schema">
-				<tr class="arrows">
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-		            <td></td>
-		            <td></td>
-		            <td></td>
-		        </tr>
-			    <tr class="arrows">
-		            <td></td>
-		            <td></td>
-		            <td></td>
-		        </tr>
-		        <tr>
-		            <td></td>
-		            <td></td>
-		            <td></td>
-		        </tr>
-			</table>
+			<div class="scheme-wrapper editor">
+                <div class="container">
+                    <div class="col">
+                        <div class="cell cell-odd" data-id="1">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-down">
+                            <span class="arrow-branch-right"></span>
+                        </div>
+
+                        <div class="cell cell-odd" data-id="7">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-horizontal">
+                        </div>
+
+
+                        <div class="cell cell-odd arrow-vertical">
+
+                        </div>
+
+                        <div class="cell cell-even arrow-vertical">
+                        </div>
+
+
+                        <div class="cell cell-odd" data-id="5">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-to-left">
+                        </div>
+
+                        <div class="cell cell-odd" data-id="9">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-branch-left">
+                        </div>
+
+
+                        <div class="cell cell-odd" data-id="55">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-left">
+                        </div>
+
+
+                        <div class="cell cell-odd" data-id="90">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-right">
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+
+                        <div class="cell cell-odd text-long" data-id="102">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Dlouhatanansky text pres 2 radky je treba odlisit (jina velikost textu i ikony)</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-down">
+                            <span class="arrow-to-right"></span>
+                        </div>
+
+                        <div class="cell cell-odd" data-id="10">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-down">
+                        </div>
+
+                        <div class="cell cell-odd" data-id="15">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-horizontal">
+                        </div>
+
+
+                        <div class="cell cell-odd arrow-vertical">
+                        </div>
+
+                        <div class="cell cell-even arrow-vertical">
+                        </div>
+
+
+                        <div class="cell cell-odd arrow-vertical">
+                        </div>
+
+                        <div class="cell cell-even arrow-to-left">
+                        </div>
+
+
+                        <div class="cell cell-odd arrow-vertical">
+                        </div>
+
+                        <div class="cell cell-even arrow-branch-left">
+                        </div>
+
+
+                        <div class="cell cell-odd" data-id="11">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Aritmetika</span>
+                        </div>
+
+                        <div class="cell cell-even arrow-left">
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+
+						<div class="cell cell-odd text-long" data-id="47">
+                            <i class="icon icon-math text-blue"></i>
+                            <span>Dlouhatanansky text pres 2 radky je treba odlisit (jina velikost textu i ikony)</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 		</div>
 		<div class="col-md-4">
 			<h3>arrows:</h3>
-
-			<div class="arrow-picker">
-				<div class="arrow arrow-horizontal"></div>
-                <div class="arrow arrow-vertical"></div>
-                <div class="arrow arrow-down"></div>
-                <div class="arrow arrow-branch-right"></div>
-                <div class="arrow arrow-branch-left"></div>
-                <div class="arrow arrow-to-left"></div>
-                <div class="arrow arrow-to-right"></div>
-			</div>
+			<div class="scheme-wrapper arrow-picker">
+				<div class="col">
+                    <div class="cell cell-even arrow-vertical"></div>
+				    <div class="cell cell-even arrow-horizontal"></div>
+                    <div class="cell cell-even arrow-down"></div>
+                    <div class="cell cell-even arrow-to-right"></div>
+                    <div class="cell cell-even arrow-to-left"></div>
+                    <div class="cell cell-even arrow-branch-left"></div>
+                    <div class="cell cell-even arrow-branch-right"></div>
+		        </div>
+	        </div>
 
 			<h3>blocks:</h3>
-			<ul class="list-unstyled">
+			<ul class="list-unstyled block-picker">
 				{foreach $blocks as $block}
-					<li>{$block->name}</li>
+					<li data-id="{$block->id}">{$block->name}</li>
 				{/foreach}
 			</ul>
 		</div>
