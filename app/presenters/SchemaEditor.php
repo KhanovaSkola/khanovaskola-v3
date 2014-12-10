@@ -30,6 +30,15 @@ class SchemaEditor extends Presenter
 		$this->template->getBlock = function($id) {
 			return $this->orm->blocks->getById($id);
 		};
+
+		if ($this->schema)
+		{
+			$this['schemaForm-form-title']->setDefaultValue($this->schema->name);
+			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
+			$this['schemaForm-form-subject']->setDefaultValue($this->schema->subject->id);
+		}
+
+		$this->template->defaultLayout = $this->getDefaultLayout();
 	}
 
 	public function handleUpdateSchema($layout)
@@ -39,6 +48,8 @@ class SchemaEditor extends Presenter
 		if (!$this->schema)
 		{
 			$this->schema = new Rme\Schema();
+			$this->schema->name = 'Random new schema';
+			$this->orm->schemas->attach($this->schema);
 		}
 
 		$this->schema->layout = $parsed;
@@ -48,6 +59,30 @@ class SchemaEditor extends Presenter
 		// TODO enqueue update relations
 
 		$this->sendJson(['status' => 'ok']);
+	}
+
+	/**
+	 * @return NULL|Rme\Schema
+	 */
+	public function getSchema()
+	{
+		return $this->schema;
+	}
+
+	protected function getDefaultLayout()
+	{
+		$layout = [];
+		for ($col = 0; $col < 3; $col++)
+		{
+			$partial = [];
+			for ($row = 0; $row < 20; $row++)
+			{
+				$partial[] = NULL;
+				$partial[] = [];
+			}
+			$layout[] = $partial;
+		}
+		return $layout;
 	}
 
 }

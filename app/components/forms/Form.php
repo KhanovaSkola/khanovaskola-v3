@@ -26,8 +26,6 @@ abstract class Form extends NForm
 		parent::__construct();
 
 		$this->onSuccess[] = [$this, 'onSuccess'];
-
-		$this->setup();
 	}
 
 	abstract public function setup();

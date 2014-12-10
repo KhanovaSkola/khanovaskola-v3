@@ -20,7 +20,6 @@
                 addClasses: false,
 				drop: function(event, ui) {
 					var arrow = getArrow(ui.draggable[0]);
-					console.log(arrow);
 					$(this).append($('<span/>').addClass(arrow));
 	            }
 	        });
@@ -51,8 +50,24 @@
                 }
             });
 
+			$arrowTargets.on('mousedown', function(e) {
+                if (e.which !== 3) {
+                    return;
+                }
+                $(this).html('');
+                return false;
+			});
+            $blockTargets.on('mousedown', function(e) {
+                if (e.which !== 3) {
+                    return;
+                }
+                $(this).data('id', null).html('');
+                return false;
+            });
+
 	        function getArrow(el) {
-	            return el.className.match(/(^|\s+)(arrow-.*?)(\s+|$)/)[2]
+	            var match = el.className.match(/(^|\s+)(arrow-.*?)(\s+|$)/);
+	            return match ? match[2] : null;
 	        }
 
 	        function serializeSchema() {
@@ -77,22 +92,9 @@
 	            return ser;
 	        }
 
-	        $('#save').click(function() {
+	        $('#frm-schemaForm-form-save').click(function() {
 	            var ser = JSON.stringify(serializeSchema());
-	            $.ajax({
-	                url: $('.editor').data('url-update'),
-					data: {
-						layout: ser
-					},
-					success: function() {
-						console.log('saved');
-					},
-					error: function() {
-						console.error('failed');
-					}
-	            });
-
-	            return false;
+	            $('#frm-schemaForm-form-layout').val(ser);
 	        });
         });
 	</script>
@@ -107,7 +109,7 @@
 		<div class="col-md-8">
 			<div class="scheme-wrapper editor" data-url-update="{plink updateSchema!, schemaId => $schema ? $schema->id}">
                 <div class="container">
-                    {foreach $schema->layout as $col}
+                    {foreach $schema ? $schema->layout : $defaultLayout as $col}
 	                    <div class="col">
 	                        {foreach $col as $cell}
 	                            {if is_array($cell)}
@@ -119,14 +121,16 @@
 	                                </div>
 	                            {else}
 	                                {var $block = $getBlock($cell)}
-	                                <div class="cell cell-odd" data-id="{$block->id}">
-	                                    <i class="icon icon-math text-blue"></i>
-	                                    <span>{$block->name}</span>
-	                                </div>
+	                                {if $block}
+		                                <div class="cell cell-odd" data-id="{$block->id}">
+		                                    <i class="icon icon-math text-blue"></i>
+		                                    <span>{$block->name}</span>
+		                                </div>
+		                            {else}
+			                            <div class="cell cell-odd">
+										</div>
+		                            {/if}
 	                            {/if}
-	                            {*
-	                             * TODO render spacers
-	                             *}
 	                        {/foreach}
 	                    </div>
 	                {/foreach}
@@ -134,7 +138,7 @@
             </div>
 		</div>
 		<div class="col-md-4">
-			<a href="#" id="save" class="btn">Uložit</a>
+			{control schemaForm}
 			<h3>arrows:</h3>
 			<div class="scheme-wrapper arrow-picker">
 				<div class="col">

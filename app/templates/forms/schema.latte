@@ -1,0 +1,22 @@
+{includeblock _error.latte}
+
+<form n:name="form" class="form-horizontal">
+	<div class="form-group{if $form['title']->errors} has-error{/if}">
+		<label n:name="title">Název</label>
+		<input n:name="title" type="text" class="form-control">
+		{include error, control => $form['title']}
+	</div>
+	<div class="form-group{if $form['description']->errors} has-error{/if}">
+        <label n:name="description">Detailní popis (15-20 slov)</label>
+        <input n:name="description" type="text" class="form-control">
+        {include error, control => $form['description']}
+    </div>
+
+	<select class="form-control" name="subject">
+		{var $value = $form['subject']->getValue()}
+		<option n:foreach="$form['subject']->getItems() as $id => $subject"
+			value="{$id}"{if $id == $value} selected{/if}>{$subject}</option>
+	</select>
+
+	<input n:name="save" value="Uložit" class="btn">
+</form>
