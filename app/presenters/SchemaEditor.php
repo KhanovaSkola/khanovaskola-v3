@@ -26,7 +26,10 @@ class SchemaEditor extends Presenter
 	public function actionDefault()
 	{
 		$this->template->schema = $this->schema;
-		$this->template->blocks = $this->orm->blocks->findAll()->orderBy('name', 'ASC');
+		$this->template->blocks = $this->orm->blocks->findAll()->orderBy('id', 'ASC');
+		$this->template->getBlock = function($id) {
+			return $this->orm->blocks->getById($id);
+		};
 	}
 
 	public function handleUpdateSchema($layout)

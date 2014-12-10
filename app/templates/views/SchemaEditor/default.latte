@@ -107,136 +107,29 @@
 		<div class="col-md-8">
 			<div class="scheme-wrapper editor" data-url-update="{plink updateSchema!, schemaId => $schema ? $schema->id}">
                 <div class="container">
-                    <div class="col">
-                        <div class="cell cell-odd" data-id="1">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-down">
-                            <span class="arrow-branch-right"></span>
-                        </div>
-
-                        <div class="cell cell-odd" data-id="7">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-horizontal">
-                        </div>
-
-
-                        <div class="cell cell-odd arrow-vertical">
-
-                        </div>
-
-                        <div class="cell cell-even arrow-vertical">
-                        </div>
-
-
-                        <div class="cell cell-odd" data-id="5">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-to-left">
-                        </div>
-
-                        <div class="cell cell-odd" data-id="9">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-branch-left">
-                        </div>
-
-
-                        <div class="cell cell-odd" data-id="55">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-left">
-                        </div>
-
-
-                        <div class="cell cell-odd" data-id="90">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-right">
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-
-                        <div class="cell cell-odd text-long" data-id="102">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Dlouhatanansky text pres 2 radky je treba odlisit (jina velikost textu i ikony)</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-down">
-                            <span class="arrow-to-right"></span>
-                        </div>
-
-                        <div class="cell cell-odd" data-id="10">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-down">
-                        </div>
-
-                        <div class="cell cell-odd" data-id="15">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-horizontal">
-                        </div>
-
-
-                        <div class="cell cell-odd arrow-vertical">
-                        </div>
-
-                        <div class="cell cell-even arrow-vertical">
-                        </div>
-
-
-                        <div class="cell cell-odd arrow-vertical">
-                        </div>
-
-                        <div class="cell cell-even arrow-to-left">
-                        </div>
-
-
-                        <div class="cell cell-odd arrow-vertical">
-                        </div>
-
-                        <div class="cell cell-even arrow-branch-left">
-                        </div>
-
-
-                        <div class="cell cell-odd" data-id="11">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Aritmetika</span>
-                        </div>
-
-                        <div class="cell cell-even arrow-left">
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-
-						<div class="cell cell-odd text-long" data-id="47">
-                            <i class="icon icon-math text-blue"></i>
-                            <span>Dlouhatanansky text pres 2 radky je treba odlisit (jina velikost textu i ikony)</span>
-                        </div>
-
-                    </div>
+                    {foreach $schema->layout as $col}
+	                    <div class="col">
+	                        {foreach $col as $cell}
+	                            {if is_array($cell)}
+	                                {var $first = array_shift($cell)}
+	                                <div class="cell cell-even {$first}">
+	                                    {foreach $cell as $class}
+	                                        <span class="{$class}"></span>
+	                                    {/foreach}
+	                                </div>
+	                            {else}
+	                                {var $block = $getBlock($cell)}
+	                                <div class="cell cell-odd" data-id="{$block->id}">
+	                                    <i class="icon icon-math text-blue"></i>
+	                                    <span>{$block->name}</span>
+	                                </div>
+	                            {/if}
+	                            {*
+	                             * TODO render spacers
+	                             *}
+	                        {/foreach}
+	                    </div>
+	                {/foreach}
                 </div>
             </div>
 		</div>
