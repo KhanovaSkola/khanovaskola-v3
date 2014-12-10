@@ -7,9 +7,9 @@ use Orm;
 
 
 /**
- * @property string     $title
- * @property string     $slug
- * @property string     $description
+ * @property string      $title
+ * @property string      $slug
+ * @property NULL|string $description
  */
 abstract class TitledEntity extends Entity
 {
