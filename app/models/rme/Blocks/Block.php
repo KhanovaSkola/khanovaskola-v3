@@ -4,6 +4,7 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\TitledEntity;
 use Nette\InvalidStateException;
+use Orm\ManyToMany as MtM;
 use Orm\OneToMany as OtM;
 
 
@@ -13,6 +14,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|CompletedBlock[]     $completions         {1:m completedBlocks $block}
  * @property OtM|CompletedContent[]   $completedContents   {1:m completedContents $block}
  * @property User                     $author              {m:1 users $blocksAuthored}
+ * @property MtM|User[]               $editors             {m:m users $blocksEdited}
  *
  * @property Content[]                $contents            {ignore}
  */

@@ -8,6 +8,7 @@ use Nette\Security\Passwords;
 use Nette\Utils\Strings;
 use Orm;
 use Orm\OneToMany as OtM;
+use Orm\ManyToMany as MtM;
 
 
 /**
@@ -43,6 +44,10 @@ use Orm\OneToMany as OtM;
  * @property OtM|StudentInvite[]    $studentInvitesReceived {1:m studentInvites $student}
  * @property OtM|Token[]            $tokens                 {1:m tokens $user}
  * @property OtM|VideoView[]        $videosViewed           {1:m videoViews $user}
+ *
+ * @property MtM|Subject[]          $subjectsEdited         {m:m subjects $editors mapped}
+ * @property MtM|Schema[]           $schemasEdited          {m:m schemas $editors mapped}
+ * @property MtM|Block[]            $blocksEdited           {m:m blocks $editors mapped}
  */
 class User extends Entity
 {

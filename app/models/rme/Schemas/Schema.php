@@ -4,6 +4,7 @@ namespace App\Models\Rme;
 
 use App\InvalidStateException;
 use App\Models\Orm\TitledEntity;
+use Orm\ManyToMany as MtM;
 use Orm\OneToMany as OtM;
 
 
@@ -14,6 +15,7 @@ use Orm\OneToMany as OtM;
  * @property User                    $author             {m:1 users $schemasAuthored}
  * @property OtM|CompletedBlock[]    $completedBlocks    {1:m completedBlocks $schema}
  * @property OtM|CompletedContent[]  $completedContents  {1:m completedContents $schema}
+ * @property MtM|User[]              $editors            {m:m users $schemasEdited}
  *
  * @property Block[]                 $blocks             {ignore}
  */
