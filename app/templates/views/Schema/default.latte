@@ -33,28 +33,32 @@
 	    </div>
 	    <div class="scheme-wrapper">
 	        <div class="container">
-	            {foreach $schema->layout as $col}
-                    <div class="col">
-                        {foreach $col as $cell}
-                            {if is_array($cell)}
-                                {var $first = array_shift($cell)}
-                                <div class="cell cell-even {$first}">
-                                    {foreach $cell as $class}
-                                        <span class="{$class}"></span>
-                                    {/foreach}
-                                </div>
-                            {else}
-                                <div class="cell cell-odd">
-                                    {if $cell}
-                                        {var $block = $getBlock($cell)}
-				                        <i class="icon icon-math text-blue"></i>
-				                        <span>{$block->name}</span>
-				                    {/if}
-			                    </div>
-			                {/if}
-		                {/foreach}
-		            </div>
-		        {/foreach}
+	            <div style="width: 910px; margin: auto;">
+		            {foreach $schema->layout as $col}
+	                    <div class="col">
+	                        {foreach $col as $cell}
+	                            {if is_array($cell)}
+	                                {var $first = array_shift($cell)}
+	                                <div class="cell cell-even {$first}">
+	                                    {foreach $cell as $class}
+	                                        <span class="{$class}"></span>
+	                                    {/foreach}
+	                                </div>
+	                            {else}
+	                                <div class="cell cell-odd">
+	                                    {if $cell}
+	                                        {var $block = $getBlock($cell)}
+	                                        <a n:href="$block, $schema">
+						                        <i class="icon icon-math text-blue"></i>
+						                        <span>{$block->name}</span>
+					                        </a>
+					                    {/if}
+				                    </div>
+				                {/if}
+			                {/foreach}
+			            </div>
+			        {/foreach}
+			    </div>
 		    </div>
 		</div>
 

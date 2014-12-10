@@ -107,10 +107,18 @@
 
 	  .cell-odd {
 		height: 117px;
-		color: @white;
 		text-align: center;
-		font-size: 20px;
 		font-family: @headings-font-family;
+		a {
+		  color: @white;
+		  font-size: 20px;
+		  &:hover {
+			text-decoration: none;
+		  }
+		  &:hover span {
+			text-decoration: underline;
+		  }
+		}
 	  }
 
 	  .text-long {
@@ -153,7 +161,6 @@
 		}
 		&-to-right {
 		  background: 0 bottom url(/img/arrows/to-right.svg) no-repeat;
-		  left: -8px;
 		}
 		&-to-left {
 		  background: 90px bottom url(/img/arrows/to-left.svg) no-repeat;
