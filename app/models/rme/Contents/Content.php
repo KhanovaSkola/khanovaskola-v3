@@ -9,7 +9,6 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property string                   $description
  * @property string                   $type                {enum \App\Models\Rme\ContentsRepository::getClasses()}
  *
  * @property OtM|Comment[]            $comments            {1:m comments $content}

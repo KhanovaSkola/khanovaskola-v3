@@ -24,7 +24,7 @@
 								<ul class="ul-tab" role="tablist">
 									<li n:foreach="$subjects as $i => $subject"{first} class="active"{/first}>
 										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}">
-		                                    <span>{$subject->name}</span>
+		                                    <span>{$subject->title}</span>
 		                                    <i class="icon icon-{$subject->icon}"></i>
 		                                </a>
 									</li>
@@ -48,12 +48,12 @@
 									<div class="row">
 										<div n:foreach="$subject->schemas as $schema" class="col-md-4">
 											<div class="title">
-												<a n:href="$schema">{$schema->name}</a>
+												<a n:href="$schema">{$schema->title}</a>
 											</div>
 											<ul class="list-unstyled">
 												<li n:foreach="$schema->blocks as $block">
 													<a n:href="$block, $schema">
-														{$block->name}
+														{$block->title}
 													</a>
 												</li>
 											</ul>

@@ -14,7 +14,7 @@
 	                <i class="icon icon-{$lastSchema->subject->icon}"></i>
 	                <h1>
 	                    <a n:href="$lastSchema">
-	                        {$lastSchema->name}
+	                        {$lastSchema->title}
 	                    </a>
 	                </h1>
 	            </div>
@@ -43,7 +43,7 @@
 		                    <h2>
 		                        <a n:href="Schema:continue, schemaId => $schema->id">
 			                        <i class="icon icon-{$schema->subject->icon} text-{$schema->subject->color}"></i>
-			                        <span>{$schema->name}</span>
+			                        <span>{$schema->title}</span>
 			                    </a>
 		                    </h2>
 		                    <div class="progress-wrapper">

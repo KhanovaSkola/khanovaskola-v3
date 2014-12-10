@@ -1,12 +1,12 @@
 {var $pageName = 'block-page'}
 {var $headerBorder = TRUE}
-{var $title = $block->name}
+{var $title = $block->title}
 {block headerBack}
 	{if $schema}
 		<div class="header-goback">
 			<a n:href="$schema">
 				<i class="icon icon-arrow-left2"></i>
-				<span>{$schema->name}</span>
+				<span>{$schema->title}</span>
 			</a>
 		</div>
 	{else}
@@ -27,7 +27,7 @@
                         <i class="icon icon-math"></i>
                     </div>
                     <div class="content-wrapper">
-                        <h2>{$block->name}</h2>
+                        <h2>{$block->title}</h2>
                         <p>
                             Proměnná je v logice, matematice a programování způsob symbolické reprezentace objektů, který umožňuje zcela abstraktní manipulaci s nimi. Proměnná zastupuje libovolný myslitelný objekt z dané třídy.
                         </p>

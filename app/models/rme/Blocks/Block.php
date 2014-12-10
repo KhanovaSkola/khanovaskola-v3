@@ -2,13 +2,12 @@
 
 namespace App\Models\Rme;
 
-use App\Models\Orm\Entity;
+use App\Models\Orm\TitledEntity;
 use Nette\InvalidStateException;
 use Orm\OneToMany as OtM;
 
 
 /**
- * @property string                   $name
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $block}
  * @property OtM|BlockSchemaBridge[]  $blockSchemaBridges  {1:m blockSchemaBridges $block}
  * @property OtM|CompletedBlock[]     $completions         {1:m completedBlocks $block}
@@ -17,7 +16,7 @@ use Orm\OneToMany as OtM;
  *
  * @property Content[]                $contents            {ignore}
  */
-class Block extends Entity
+class Block extends TitledEntity
 {
 
 	/**

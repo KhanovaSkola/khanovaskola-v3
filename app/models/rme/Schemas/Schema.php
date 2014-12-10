@@ -3,13 +3,11 @@
 namespace App\Models\Rme;
 
 use App\InvalidStateException;
-use App\Models\Orm\Entity;
+use App\Models\Orm\TitledEntity;
 use Orm\OneToMany as OtM;
 
 
 /**
- * @property string                  $name
- * @property string                  $description
  * @property array                   $layout             json
  * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $schema}
  * @property Subject                 $subject            {m:1 subjects $schemas}
@@ -19,7 +17,7 @@ use Orm\OneToMany as OtM;
  *
  * @property Block[]                 $blocks             {ignore}
  */
-class Schema extends Entity
+class Schema extends TitledEntity
 {
 
 	/**

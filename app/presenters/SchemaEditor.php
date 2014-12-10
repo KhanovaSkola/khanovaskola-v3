@@ -39,7 +39,7 @@ class SchemaEditor extends Presenter
 
 		if ($this->schema)
 		{
-			$this['schemaForm-form-title']->setDefaultValue($this->schema->name);
+			$this['schemaForm-form-title']->setDefaultValue($this->schema->title);
 			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
 			$this['schemaForm-form-subject']->setDefaultValue($this->schema->subject->id);
 

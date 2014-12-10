@@ -6,7 +6,7 @@
 	<div class="header-goback">
 		<a n:href="$block, $schema">
 			<i class="icon icon-arrow-left2"></i>
-			<span>{$block->name}</span>
+			<span>{$block->title}</span>
 		</a>
 	</div>
 {/block}
@@ -26,7 +26,7 @@
     					<i class="icon icon-{if $schema}{$schema->subject->icon}{else}math{/if}"></i>
     				</div>
     				<div class="content-wrapper">
-    					<small>{$block->name} ({$position}/{$block->countContents()})</small>
+    					<small>{$block->title} ({$position}/{$block->countContents()})</small>
     					<h1>
     						<span>{$exercise->blueprint->title}</span>
     						<small>{$exercise->blueprint->description}</small>
