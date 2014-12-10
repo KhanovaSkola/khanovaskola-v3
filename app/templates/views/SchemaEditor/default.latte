@@ -99,6 +99,20 @@
 	            var ser = JSON.stringify(serializeSchema());
 	            $('#frm-schemaForm-form-layout').val(ser);
 	        });
+
+	        $('#filter').on('keyup change', function() {
+	            var filter = $(this).val();
+	            if (!filter) {
+	                $('.block-picker li').show();
+	            } else {
+	                $('.block-picker li').hide();
+	                $('.block-picker li').each(function() {
+	                    if ($(this).text().indexOf(filter) === 0) {
+	                        $(this).show();
+	                    }
+	                });
+	            }
+	        });
         });
 	</script>
 {/block}
@@ -156,6 +170,7 @@
 	        </div>
 
 			<h3>blocks:</h3>
+			<input type="text" id="filter" placeholder="Filter">
 			<ul class="list-unstyled block-picker">
 				{foreach $blocks as $block}
 					<li data-id="{$block->id}">{$block->name}</li>
