@@ -8,6 +8,11 @@ use App\Models\Orm\Mappers;
 class UsersMapper extends Mappers\Mapper
 {
 
+	public function getJsonFields()
+	{
+		return ['privileges'];
+	}
+
 	/**
 	 * @param string $name nominative
 	 * @param string $gender male|female

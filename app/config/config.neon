@@ -61,6 +61,7 @@ google:
 services:
 	- App\Models\Factories\TranslatorFactory
 	- App\Models\Rme\UsersRepository
+	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
 	- App\Models\Services\BlueprintCompiler
