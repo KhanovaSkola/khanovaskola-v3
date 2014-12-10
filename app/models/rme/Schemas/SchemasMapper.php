@@ -3,10 +3,21 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers\Mapper;
+use Orm\EventArguments;
+use Orm\Events;
 
 
 class SchemasMapper extends Mapper
 {
+
+	public function registerEvents(Events $events)
+	{
+		parent::registerEvents($events);
+		$events->addCallbackListener($events::SERIALIZE_BEFORE, function(EventArguments $args) {
+			/** @var Schema $args->entity */
+			$args->values['blockSchemaBridges'] = $args->entity->getBlockSchemaBridges(TRUE);
+		});
+	}
 
 	public function getJsonFields()
 	{

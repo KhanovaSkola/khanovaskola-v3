@@ -9,6 +9,7 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property string                  $name
+ * @property string                  $description
  * @property array                   $layout             json
  * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $schema}
  * @property Subject                 $subject            {m:1 subjects $schemas}
@@ -22,12 +23,17 @@ class Schema extends Entity
 {
 
 	/**
+	 * @param bool $raw
 	 * @return BlockSchemaBridge[]
 	 */
-	public function getBlockSchemaBridges()
+	public function getBlockSchemaBridges($raw = FALSE)
 	{
 		/** @var OtM $o */
 		$o = $this->getValue('blockSchemaBridges');
+		if ($raw)
+		{
+			return $o;
+		}
 		return $o->get()->orderBy('position', 'ASC');
 	}
 
