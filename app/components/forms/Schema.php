@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
+use App\Models\Services\SchemaLayoutNormalizer;
 use Nette\Utils\Json;
 
 
@@ -15,6 +16,12 @@ class Schema extends Form
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var SchemaLayoutNormalizer
+	 * @inject
+	 */
+	public $normalizer;
 
 	public function setup()
 	{
@@ -31,6 +38,8 @@ class Schema extends Form
 		$v = $this->getValues();
 
 		$parsed = Json::decode($v->layout);
+		$parsed = $this->normalizer->normalize($parsed);
+
 $this->orm->schemas->getMapper();
 		$schema = $this->presenter->schema;
 		if (!$schema)

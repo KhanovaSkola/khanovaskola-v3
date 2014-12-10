@@ -44,15 +44,14 @@
                                     {/foreach}
                                 </div>
                             {else}
-                                {var $block = $getBlock($cell)}
-			                    <div class="cell cell-odd">
-			                        <i class="icon icon-math text-blue"></i>
-			                        <span>{$block->name}</span>
+                                <div class="cell cell-odd">
+                                    {if $cell}
+                                        {var $block = $getBlock($cell)}
+				                        <i class="icon icon-math text-blue"></i>
+				                        <span>{$block->name}</span>
+				                    {/if}
 			                    </div>
 			                {/if}
-			                {*
-			                 * TODO render spacers
-			                 *}
 		                {/foreach}
 		            </div>
 		        {/foreach}

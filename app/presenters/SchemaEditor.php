@@ -36,9 +36,16 @@ class SchemaEditor extends Presenter
 			$this['schemaForm-form-title']->setDefaultValue($this->schema->name);
 			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
 			$this['schemaForm-form-subject']->setDefaultValue($this->schema->subject->id);
-		}
 
-		$this->template->defaultLayout = $this->getDefaultLayout();
+			$layout = $this->schema->layout;
+			unset($layout[1]); // remove spacer columns
+			unset($layout[3]);
+			$this->template->layout = $layout;
+		}
+		else
+		{
+			$this->template->layout = $this->getDefaultLayout();
+		}
 	}
 
 	public function handleUpdateSchema($layout)
