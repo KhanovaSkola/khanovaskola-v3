@@ -23,4 +23,10 @@ abstract class TitledEntity extends Entity
 		$this->setValue('slug', Strings::webalize($title));
 	}
 
+	public function getDescription()
+	{
+		$o = $this->getValue('description');
+		return $o ?: NULL;
+	}
+
 }
