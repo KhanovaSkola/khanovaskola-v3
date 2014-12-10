@@ -15,6 +15,7 @@ use Orm\OneToMany as OtM;
  *
  * NOT NULL if user is registered:
  * @property NULL|string            $email                  also not NULL if created for student invite
+ * @property NULL|array             $privileges
  * @property NULL|string            $name
  * @property NULL|string            $familyName
  * @property NULL|string            $nominative
