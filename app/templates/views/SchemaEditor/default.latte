@@ -141,7 +141,7 @@
 	                                {if $block}
 		                                <div class="cell cell-odd" data-id="{$block->id}">
 		                                    <i class="icon icon-math text-blue"></i>
-		                                    <span>{$block->name}</span>
+		                                    <span>{$block->title}</span>
 		                                </div>
 		                            {else}
 			                            <div class="cell cell-odd">
@@ -173,7 +173,7 @@
 			<input type="text" id="filter" placeholder="Filter">
 			<ul class="list-unstyled block-picker">
 				{foreach $blocks as $block}
-					<li data-id="{$block->id}">{$block->name}</li>
+					<li data-id="{$block->id}">{$block->title}</li>
 				{/foreach}
 			</ul>
 		</div>

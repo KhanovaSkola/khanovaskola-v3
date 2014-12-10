@@ -1,6 +1,6 @@
 {var $pageName = 'scheme-page'}
 {var $headerBorder = FALSE}
-{var $title = $schema->name}
+{var $title = $schema->title}
 {block content}
 	{**
 	 * @param UserEntity $userEntity
@@ -15,7 +15,7 @@
 	                    <i class="icon icon-{$schema->subject->icon}"></i>
 	                </span>
 	                <h1>
-	                    {$schema->name}
+	                    {$schema->title}
 	                    <small>
 	                        <!-- <i class="icon icon-time"></i> -->
 	                        <img src="{$basePath}/img/time.svg" alt="time">
@@ -50,7 +50,7 @@
 	                                        {var $block = $getBlock($cell)}
 	                                        <a n:href="$block, $schema">
 						                        <i class="icon icon-math text-blue"></i>
-						                        <span>{$block->name}</span>
+						                        <span>{$block->title}</span>
 					                        </a>
 					                    {/if}
 				                    </div>

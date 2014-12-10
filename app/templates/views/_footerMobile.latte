@@ -4,7 +4,7 @@
         <div class="subjects">
             {foreach $subjects as $subject}
 	            <a n:href="$subject" class="subject text-{$subject->color}">
-	                <span>{$subject->name}</span>
+	                <span>{$subject->title}</span>
 	                <i class="icon icon-{$subject->icon}"></i>
 	            </a>
 			{/foreach}

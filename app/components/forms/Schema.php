@@ -33,7 +33,7 @@ class Schema extends Form
 
 	public function setup()
 	{
-		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'name'));
+		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'title'));
 		$this->addText('title');
 		$this->addText('description');
 		$this->addHidden('layout');
@@ -52,14 +52,13 @@ class Schema extends Form
 		if (!$schema)
 		{
 			$schema = new Rme\Schema();
-			$schema->name = 'Random new schema';
 			$this->orm->schemas->attach($schema);
 
 			$schema->author = $this->presenter->userEntity;
 			$schema->blockSchemaBridges = [];
 		}
 
-		$schema->name = $v->title;
+		$schema->title = $v->title;
 		$schema->description = $v->description;
 		$schema->subject = $v->subject;
 		$schema->layout = $parsed;
