@@ -17,6 +17,7 @@ use Orm\OneToMany as OtM;
  * @property MtM|User[]               $editors             {m:m users $blocksEdited}
  *
  * @property Content[]                $contents            {ignore}
+ * @property Schema[]                 $schemas             {ignore}
  */
 class Block extends TitledEntity
 {
@@ -53,6 +54,17 @@ class Block extends TitledEntity
 		foreach ($this->contentBlockBridges as $bridge)
 		{
 			yield $bridge->content;
+		}
+	}
+
+	/**
+	 * @return Schema[]
+	 */
+	public function getSchemas()
+	{
+		foreach ($this->blockSchemaBridges as $bridge)
+		{
+			yield $bridge->schema;
 		}
 	}
 
