@@ -3,8 +3,45 @@
 namespace App\Models\Services;
 
 
-class SchemaLayoutNormalizer
+class SchemaLayout
 {
+
+	public function getDefaultLayout()
+	{
+		$layout = [];
+		for ($col = 0; $col < 3; $col++)
+		{
+			$partial = [];
+			for ($row = 0; $row < 20; $row++)
+			{
+				$partial[] = NULL;
+				$partial[] = [];
+			}
+			$layout[] = $partial;
+		}
+		return $layout;
+	}
+
+	public function trim(array $layout)
+	{
+		for ($row = count($layout[0]) - 1; $row >= 0; $row--)
+		{
+			foreach ($layout as $col => $v)
+			{
+				if ($layout[$col][$row])
+				{
+					break 2;
+				}
+			}
+
+			foreach ($layout as $col => $v)
+			{
+				unset($layout[$col][$row]);
+			}
+		}
+
+		return $layout;
+	}
 
 	public function normalize(array $layout)
 	{

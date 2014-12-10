@@ -3,12 +3,18 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\SchemaLayout;
 use App\Presenters\Parameters;
-use Nette\Utils\Json;
 
 
 class SchemaEditor extends Presenter
 {
+
+	/**
+	 * @var SchemaLayout
+	 * @inject
+	 */
+	public $schemaLayout;
 
 	use Parameters\Schema;
 
@@ -44,28 +50,8 @@ class SchemaEditor extends Presenter
 		}
 		else
 		{
-			$this->template->layout = $this->getDefaultLayout();
+			$this->template->layout = $this->schemaLayout->getDefaultLayout();
 		}
-	}
-
-	public function handleUpdateSchema($layout)
-	{
-		$parsed = Json::decode($layout);
-
-		if (!$this->schema)
-		{
-			$this->schema = new Rme\Schema();
-			$this->schema->name = 'Random new schema';
-			$this->orm->schemas->attach($this->schema);
-		}
-
-		$this->schema->layout = $parsed;
-		$this->orm->flush();
-
-		// TODO enqueue update positions
-		// TODO enqueue update relations
-
-		$this->sendJson(['status' => 'ok']);
 	}
 
 	/**
@@ -74,22 +60,6 @@ class SchemaEditor extends Presenter
 	public function getSchema()
 	{
 		return $this->schema;
-	}
-
-	protected function getDefaultLayout()
-	{
-		$layout = [];
-		for ($col = 0; $col < 3; $col++)
-		{
-			$partial = [];
-			for ($row = 0; $row < 20; $row++)
-			{
-				$partial[] = NULL;
-				$partial[] = [];
-			}
-			$layout[] = $partial;
-		}
-		return $layout;
 	}
 
 }
