@@ -23,26 +23,15 @@ class Schema extends Entity
 {
 
 	/**
-	 * @param bool $raw
-	 * @return BlockSchemaBridge[]
-	 */
-	public function getBlockSchemaBridges($raw = FALSE)
-	{
-		/** @var OtM $o */
-		$o = $this->getValue('blockSchemaBridges');
-		if ($raw)
-		{
-			return $o;
-		}
-		return $o->get()->orderBy('position', 'ASC');
-	}
-
-	/**
 	 * @return Block[]
 	 */
 	public function getBlocks()
 	{
-		foreach ($this->blockSchemaBridges as $bridge)
+		/** @var OtM $o */
+		$o = $this->getValue('blockSchemaBridges');
+		$bridges = $o->get()->orderBy('position', 'ASC');
+
+		foreach ($bridges as $bridge)
 		{
 			yield $bridge->block;
 		}

@@ -4,7 +4,9 @@ namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
+use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayoutNormalizer;
+use App\Models\Tasks\UpdateSchema;
 use Nette\Utils\Json;
 
 
@@ -23,6 +25,12 @@ class Schema extends Form
 	 */
 	public $normalizer;
 
+	/**
+	 * @var Queue
+	 * @inject
+	 */
+	public $queue;
+
 	public function setup()
 	{
 		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'name'));
@@ -40,7 +48,6 @@ class Schema extends Form
 		$parsed = Json::decode($v->layout);
 		$parsed = $this->normalizer->normalize($parsed);
 
-$this->orm->schemas->getMapper();
 		$schema = $this->presenter->schema;
 		if (!$schema)
 		{
@@ -59,8 +66,7 @@ $this->orm->schemas->getMapper();
 
 		$this->orm->flush();
 
-		// TODO enqueue update positions
-		// TODO enqueue update relations
+		$this->queue->enqueue(new UpdateSchema($schema));
 
 		$this->presenter->redirect('this', ['schemaId' => $schema->id]);
 	}

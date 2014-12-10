@@ -11370,9 +11370,6 @@ label {
 
 	******************/
 }
-.scheme-page .scheme-wrapper.editor .cell {
-  display: inline-block;
-}
 .scheme-page .scheme-wrapper:before,
 .scheme-page .scheme-wrapper:after {
   content: " ";
@@ -11416,10 +11413,18 @@ label {
 }
 .scheme-page .scheme-wrapper .cell-odd {
   height: 117px;
-  color: #ffffff;
   text-align: center;
-  font-size: 20px;
   font-family: 'frente_h1regular', Arial, sans-serif;
+}
+.scheme-page .scheme-wrapper .cell-odd a {
+  color: #ffffff;
+  font-size: 20px;
+}
+.scheme-page .scheme-wrapper .cell-odd a:hover {
+  text-decoration: none;
+}
+.scheme-page .scheme-wrapper .cell-odd a:hover span {
+  text-decoration: underline;
 }
 .scheme-page .scheme-wrapper .text-long {
   font-size: 16px;
@@ -11461,7 +11466,6 @@ label {
 .scheme-page .scheme-wrapper .col div.arrow-to-right,
 .scheme-page .scheme-wrapper .col span.arrow-to-right {
   background: 0 bottom url(/img/arrows/to-right.svg) no-repeat;
-  left: -8px;
 }
 .scheme-page .scheme-wrapper .col div.arrow-to-left,
 .scheme-page .scheme-wrapper .col span.arrow-to-left {
