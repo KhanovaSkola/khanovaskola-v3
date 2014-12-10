@@ -71,6 +71,7 @@ services:
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
 	- App\Models\Services\Paths(@container)
+	- App\Models\Services\SchemaLayoutNormalizer
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
 	- App\Models\Services\YoutubePreview
