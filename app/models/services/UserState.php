@@ -2,12 +2,75 @@
 
 namespace App\Models\Services;
 
-use App\DeprecatedException;
+use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\User;
+use App\Models\Structs\LazyEntity;
+use Nette;
 use Nette\Security;
+use Nette\Security\IAuthenticator;
+use Nette\Security\IAuthorizator;
+use Nette\Security\IUserStorage;
 
 
 class UserState extends Security\User
 {
+
+	/**
+	 * @var Acl
+	 */
+	protected $acl;
+
+	/**
+	 * @var RepositoryContainer
+	 */
+	protected $orm;
+
+	public function __construct(IUserStorage $storage, IAuthenticator $authenticator = NULL, IAuthorizator $authorizator = NULL,
+	                            Acl $acl, RepositoryContainer $orm)
+	{
+		parent::__construct($storage, $authenticator, $authorizator);
+		$this->acl = $acl;
+		$this->orm = $orm;
+	}
+
+	/**
+	 * @throws \Exception from persist
+	 * @return User|LazyEntity
+	 */
+	public function getUserEntity()
+	{
+		$userEntity = $this->orm->users->getById($this->id);
+
+		if (!$this->isEphemeralGuest() && !$userEntity)
+		{
+			// user was deleted from database
+			$this->logout(TRUE);
+		}
+
+		if (!$userEntity)
+		{
+			$storage = $this->storage;
+
+			$userEntity = new LazyEntity(function() use ($storage) {
+				$user = new User();
+				$user->registered = FALSE;
+
+				$this->orm->users->persist($user);
+
+				$storage->setIdentity(new Nette\Security\Identity($user->id));
+				return $user;
+			});
+
+			$storage->setAuthenticated(FALSE);
+		}
+
+		return $userEntity;
+	}
+
+	public function isAllowed($resource = IAuthorizator::ALL, $privilege = IAuthorizator::ALL)
+	{
+		return $this->acl->isAllowed($this->getUserEntity(), $resource, $privilege);
+	}
 
 	/**
 	 * @return bool
@@ -39,7 +102,6 @@ class UserState extends Security\User
 	public function isLoggedIn()
 	{
 		return !$this->isEphemeralGuest();
-		// throw new DeprecatedException;
 	}
 
 }
