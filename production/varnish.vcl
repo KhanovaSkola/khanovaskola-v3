@@ -9,12 +9,15 @@ vcl 4.0;
 #
 
 backend default {
-    .host = "127.0.0.1";
-    .port = "8085";
+        .host = "127.0.0.1";
+        .port = "8085";
 }
 
 sub vcl_recv {
         if (req.method != "GET") {
+                return (pass);
+        }
+        if (req.http.Cookie ~ "\bvarnish-cookie=pass") {
                 return (pass);
         }
 
@@ -29,7 +32,6 @@ sub vcl_hash {
 sub vcl_backend_response {
         if (beresp.http.Cache-Control != "public") {
                 set beresp.uncacheable = true;
-                set beresp.ttl = 3m;
                 return (deliver);
         }
 

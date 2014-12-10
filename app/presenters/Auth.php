@@ -66,6 +66,9 @@ final class Auth extends Presenter
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();
 
+		// TODO only if admin
+		$this->getHttpResponse()->setCookie('varnish-force', 'pass', strToTime('5 years'));
+
 		$this->iLog("auth.login.$service");
 
 		$section = $this->session->getSection('auth');
