@@ -11415,6 +11415,7 @@ label {
   height: 117px;
   text-align: center;
   font-family: 'frente_h1regular', Arial, sans-serif;
+  color: #ffffff;
 }
 .scheme-page .scheme-wrapper .cell-odd a {
   color: #ffffff;
@@ -11470,6 +11471,9 @@ label {
 .scheme-page .scheme-wrapper .col div.arrow-to-left,
 .scheme-page .scheme-wrapper .col span.arrow-to-left {
   background: 90px bottom url(/img/arrows/to-left.svg) no-repeat;
+}
+.scheme-page .arrow-picker {
+  height: 320px;
 }
 @media (max-width: 768px) {
   .search-page .header .header-content {
