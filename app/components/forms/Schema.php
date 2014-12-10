@@ -5,7 +5,7 @@ namespace App\Components\Forms;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Queue;
-use App\Models\Services\SchemaLayoutNormalizer;
+use App\Models\Services\SchemaLayout;
 use App\Models\Tasks\UpdateSchema;
 use Nette\Utils\Json;
 
@@ -20,10 +20,10 @@ class Schema extends Form
 	public $orm;
 
 	/**
-	 * @var SchemaLayoutNormalizer
+	 * @var SchemaLayout
 	 * @inject
 	 */
-	public $normalizer;
+	public $schemaLayout;
 
 	/**
 	 * @var Queue
@@ -46,7 +46,7 @@ class Schema extends Form
 		$v = $this->getValues();
 
 		$parsed = Json::decode($v->layout);
-		$parsed = $this->normalizer->normalize($parsed);
+		$parsed = $this->schemaLayout->normalize($parsed);
 
 		$schema = $this->presenter->schema;
 		if (!$schema)

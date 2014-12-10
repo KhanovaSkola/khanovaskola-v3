@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\SchemaLayout;
 use App\Models\Structs\LazyEntity;
 use App\Presenters\Parameters;
 
@@ -13,6 +14,12 @@ class Schema extends Presenter
 	use Parameters\Schema;
 
 	private $_preloadedBlocks = [];
+
+	/**
+	 * @var SchemaLayout
+	 * @inject
+	 */
+	public $schemaLayout;
 
 	public function startup()
 	{
@@ -25,6 +32,7 @@ class Schema extends Presenter
 		$this->setCacheControlPublic();
 
 		$this->template->schema = $this->schema;
+		$this->template->layout = $this->schemaLayout->trim($this->schema->layout);
 
 		$this->template->getBlock = function($id) {
 			if (!$this->_preloadedBlocks)
