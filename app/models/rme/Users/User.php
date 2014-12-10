@@ -7,8 +7,8 @@ use App\Models\Orm\Entity;
 use Nette\Security\Passwords;
 use Nette\Utils\Strings;
 use Orm;
-use Orm\OneToMany as OtM;
 use Orm\ManyToMany as MtM;
+use Orm\OneToMany as OtM;
 
 
 /**
@@ -123,6 +123,15 @@ class User extends Entity
 	public function getLastCompletedContent()
 	{
 		return $this->completedContents->get()->orderBy('createdAt', 'DESC')->fetch();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPrivileges()
+	{
+		$o = $this->getValue('privileges');
+		return $o ?: [];
 	}
 
 }
