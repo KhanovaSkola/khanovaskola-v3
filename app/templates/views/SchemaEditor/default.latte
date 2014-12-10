@@ -77,12 +77,15 @@
 	                $(this).find('.cell').each(function() {
 	                    $cell = $(this);
 	                    var id = $cell.data('id');
-	                    if (id) {
+	                    if (col.length % 2) {
 	                        col.push(id);
 	                    } else {
-	                        var arrows = [getArrow($cell[0])];
+	                        var base = getArrow($cell[0]);
+	                        var arrows = base ? [base] : [];
 	                        $cell.children('span').each(function() {
-	                            arrows.push(getArrow($(this)[0]));
+	                            if (arrow = getArrow($(this)[0])) {
+	                                arrows.push(arrow);
+	                            }
 	                        });
 	                        col.push(arrows);
 	                    }
