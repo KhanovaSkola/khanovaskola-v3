@@ -141,8 +141,8 @@ class User extends Entity
 	{
 		return count($this->getPrivileges())
 			|| $this->subjectsEdited->count()
-			|| $this->schemasEdited->count()
-			|| $this->blocksEdited->count();
+			|| $this->schemasEdited->count() || $this->schemasAuthored->count()
+			|| $this->blocksEdited->count() || $this->blocksAuthored->count();
 	}
 
 }
