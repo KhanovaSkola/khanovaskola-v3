@@ -7,6 +7,7 @@ use App\Models\Rme\Block;
 use App\Models\Rme\Schema;
 use App\Models\Rme\Subject;
 use App\Models\Rme\User;
+use App\Models\Structs\AclApproval;
 
 
 class Acl
@@ -18,13 +19,13 @@ class Acl
 	 * @param User $user
 	 * @param mixed|Entity $resource
 	 * @param NULL|string $privilege
-	 * @return bool
+	 * @return FALSE|AclApproval
 	 */
 	public function isAllowed(User $user, $resource, $privilege = self::ALL)
 	{
 		if (in_array(self::ALL, $user->privileges))
 		{
-			return TRUE;
+			return new AclApproval(AclApproval::PRIVILEGE);
 		}
 
 		if ($resource instanceof Subject)
@@ -33,23 +34,31 @@ class Acl
 		}
 		else if ($resource instanceof Schema)
 		{
-			return $this->isAllowedBySchema($user, $resource)
-				|| $this->isAllowedBySubject($user, $resource->subject);
+			if ($r = $this->isAllowedBySchema($user, $resource))
+			{
+				return $r;
+			}
+			else if ($r = $this->isAllowedBySubject($user, $resource->subject))
+			{
+				return $r;
+			}
 		}
 		else if ($resource instanceof Block)
 		{
-			$allowed = $this->isAllowedByBlock($user, $resource);
-			if ($allowed)
+			if ($r = $this->isAllowedByBlock($user, $resource))
 			{
-				return TRUE;
+				return $r;
 			}
 
 			foreach ($resource->schemas as $schema)
 			{
-				if ($this->isAllowedBySchema($user, $schema)
-					|| $this->isAllowedBySubject($user, $schema->subject))
+				if ($r = $this->isAllowedBySchema($user, $schema))
 				{
-					return TRUE;
+					return $r;
+				}
+				else if ($this->isAllowedBySubject($user, $schema->subject))
+				{
+					return $r;
 				}
 			}
 		}
@@ -60,31 +69,51 @@ class Acl
 	/**
 	 * @param User $user
 	 * @param Subject $subject
-	 * @return bool
+	 * @return bool|int reason
 	 */
 	protected function isAllowedBySubject(User $user, Subject $subject)
 	{
-		return $this->isAllowedEditors($user, $subject);
+		if ($this->isAllowedEditors($user, $subject))
+		{
+			return new AclApproval(AclApproval::EDITOR, $subject);
+		}
+		return FALSE;
 	}
 
 	/**
 	 * @param User $user
 	 * @param Schema $schema
-	 * @return bool
+	 * @return bool|int reason
 	 */
 	protected function isAllowedBySchema(User $user, Schema $schema)
 	{
-		return $this->isAllowedEditors($user, $schema);
+		if ($schema->author === $user)
+		{
+			return new AclApproval(AclApproval::AUTHOR, $schema);
+		}
+		else if ($this->isAllowedEditors($user, $schema))
+		{
+			return new AclApproval(AclApproval::EDITOR, $schema);
+		}
+		return FALSE;
 	}
 
 	/**
 	 * @param User $user
 	 * @param Block $block
-	 * @return bool
+	 * @return bool|int reason
 	 */
 	protected function isAllowedByBlock(User $user, Block $block)
 	{
-		return $this->isAllowedEditors($user, $block);
+		if ($block->author === $user)
+		{
+			return new AclApproval(AclApproval::AUTHOR, $block);
+		}
+		else if ($this->isAllowedEditors($user, $block))
+		{
+			return new AclApproval(AclApproval::EDITOR, $block);
+		}
+		return FALSE;
 	}
 
 	private function isAllowedEditors(User $user, $entity)
