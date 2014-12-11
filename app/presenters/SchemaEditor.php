@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Models\Rme;
 use App\Models\Services\SchemaLayout;
 use App\Presenters\Parameters;
+use Nette\Forms\Controls\TextInput;
 
 
 class SchemaEditor extends Presenter
@@ -22,11 +23,15 @@ class SchemaEditor extends Presenter
 	{
 		parent::startup();
 
-		// TODO limit access to editor users
-
 		$this->loadSchema(function() {
 			return NULL;
 		});
+
+		if ($this->schema && !$this->user->isAllowed($this->schema))
+		{
+			$this->flashError('acl.denied.schema');
+			$this->redirect('Homepage:default');
+		}
 	}
 
 	public function actionDefault()
@@ -39,6 +44,7 @@ class SchemaEditor extends Presenter
 
 		if ($this->schema)
 		{
+			/** @var self|TextInput[] $this */
 			$this['schemaForm-form-title']->setDefaultValue($this->schema->title);
 			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
 			$this['schemaForm-form-subject']->setDefaultValue($this->schema->subject->id);
