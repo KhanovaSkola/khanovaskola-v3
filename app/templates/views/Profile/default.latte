@@ -100,6 +100,39 @@
         </div>
     </div>
 
+    <div class="container" n:if="$profile->hasCacheBurstingPrivileges()">
+        <div class="col-md-4">
+            <h2>Spravované předměty</h2>
+            <ul class="list list-unstyled">
+                <li n:foreach="$profile->subjectsEdited as $subject">
+                    <a n:href="$subject">{$subject->title}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h2>Spravovaná schémata</h2>
+            <ul class="list list-unstyled">
+                <li n:foreach="$profile->schemasAuthored as $schema">
+                    <a n:href="$schema">{$schema->title}</a>
+                </li>
+                <li n:foreach="$profile->schemasEdited as $schema">
+                    <a n:href="$schema">{$schema->title}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h2>Spravované bloky</h2>
+            <ul class="list list-unstyled">
+                <li n:foreach="$profile->blocksAuthored as $block">
+                    <a n:href="$block">{$block->title}</a>
+                </li>
+                <li n:foreach="$profile->blocksEdited as $block">
+                    <a n:href="$block">{$block->title}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <hr>
 
 	<h1>{$profile->name}</h1>
