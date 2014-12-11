@@ -8694,6 +8694,12 @@ fieldset[disabled] .btn-danger.active {
 .dropdown .dropdown-menu li a.text-success {
   color: #71bd1a;
 }
+.schema-page .editor-bar {
+  margin-top: 2ex;
+}
+.block-page .editor-bar {
+  margin-top: -4.5ex;
+}
 .footer-mobile {
   width: 260px;
   margin: 0 auto;
