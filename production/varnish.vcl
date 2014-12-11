@@ -17,7 +17,7 @@ sub vcl_recv {
         if (req.method != "GET") {
                 return (pass);
         }
-        if (req.http.Cookie ~ "\bvarnish-cookie=pass") {
+        if (req.http.Cookie ~ "\bvarnish-force=pass") {
                 return (pass);
         }
 
