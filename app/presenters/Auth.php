@@ -257,7 +257,7 @@ final class Auth extends Presenter
 		$userEntity->name = $me->name;
 		$userEntity->familyName = $isGoogle ? $me->familyName : $me->{'last_name'};
 		$userEntity->setNominativeAndVocative($isGoogle ? $me->givenName : $me->{'first_name'});
-		$userEntity->avatar = $isGoogle ? $me->picture : "http://graph.facebook.com/{$me->id}/picture";
+		$userEntity->avatar = $isGoogle ? $me->picture : "https://graph.facebook.com/{$me->id}/picture";
 
 		$update($userEntity, $me);
 
