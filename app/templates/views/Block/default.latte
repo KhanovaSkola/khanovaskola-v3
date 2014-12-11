@@ -45,7 +45,18 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="right-inner">
+					<div class="right-inner">
+						{if $reason = $user->isAllowed($block)}
+                            <div class="editor-bar">
+                                <div class="alert alert-info">
+                                    <a href="#">Editovat blok</a>
+                                    <small class="pull-right">
+                                        Možnost úpravy máš, protože jsi {$reason->toString($block)}.
+                                    </small>
+                                </div>
+                            </div>
+                        {/if}
+
                         <div class="timeline">
                             {foreach $block->contents as $content}
 	                            <div class="timeline-item">
