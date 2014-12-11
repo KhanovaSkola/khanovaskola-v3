@@ -134,4 +134,15 @@ class User extends Entity
 		return $o ?: [];
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function hasCacheBurstingPrivileges()
+	{
+		return count($this->getPrivileges())
+			|| $this->subjectsEdited->count()
+			|| $this->schemasEdited->count()
+			|| $this->blocksEdited->count();
+	}
+
 }
