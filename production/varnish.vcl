@@ -32,6 +32,7 @@ sub vcl_hash {
 sub vcl_backend_response {
         if (beresp.http.Cache-Control != "public") {
                 set beresp.uncacheable = true;
+                set beresp.ttl = 3m;
                 return (deliver);
         }
 
