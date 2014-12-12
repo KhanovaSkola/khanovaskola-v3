@@ -37,21 +37,14 @@ class Block extends TitledEntity
 	}
 
 	/**
-	 * @return ContentBlockBridge[]
-	 */
-	public function getContentBlockBridges()
-	{
-		/** @var OtM $o */
-		$o = $this->getValue('contentBlockBridges');
-		return $o->get()->orderBy('position', 'ASC');
-	}
-
-	/**
 	 * @return Content[]
 	 */
 	public function getContents()
 	{
-		foreach ($this->contentBlockBridges as $bridge)
+		/** @var OtM $o */
+		$o = $this->getValue('contentBlockBridges');
+		$bridges = $o->get()->orderBy('position', 'ASC');
+		foreach ($bridges as $bridge)
 		{
 			yield $bridge->content;
 		}

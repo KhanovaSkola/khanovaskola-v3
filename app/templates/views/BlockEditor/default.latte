@@ -1,0 +1,80 @@
+{var $pageName = 'block-page block-editor'}
+{var $headerBorder = TRUE}
+{var $title = 'Editor'}
+{block headerBack}
+	<div class="header-goback">
+		<a n:href="$block, $schema">
+			<i class="icon icon-arrow-left2"></i>
+			<span>Zpět na blok</span>
+		</a>
+	</div>
+{/block}
+{block scripts}
+	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+			$('#content-editor, #content-editor-remove, #content-editor-add').sortable({
+				connectWith: ".drag",
+				start: function() {
+					$('.drag').addClass('highlight');
+				},
+				stop: function() {
+                    $('.drag').removeClass('highlight');
+                }
+			}).disableSelection();
+
+			var $add = $('#content-editor-add')
+			$('#filter').on('keyup change', function() {
+				App.autocomplete($(this).val(), function(titles) {
+					$add.find('li').remove();
+					$.each(titles, function(i, title) {
+						$add.append($('<li/>').data('content-id', title.id).text(title.value));
+					});
+				});
+			});
+
+			function serializeBlocks() {
+				var ser = [];
+				$('#content-editor li').each(function() {
+					ser.push($(this).data('content-id'));
+				});
+				return ser;
+			}
+
+			$('#frm-blockForm-form-save').on('click', function() {
+				var ser = JSON.stringify(serializeBlocks());
+				$('#frm-blockForm-form-contents').val(ser);
+			});
+		});
+	</script>
+{/block}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 * @param App\Models\Rme\Schema $schema
+	 * @param App\Models\Rme\Block $block
+	 *}
+
+	<div class="container">
+		<div class="col-md-8">
+			Obsah bloku
+			<ul id="content-editor" class="drag">
+				{foreach $block->contents as $content}
+					<li data-content-id="{$content->id}">
+						{$content->title}
+					</li>
+				{/foreach}
+			</ul>
+			Odstranit obsah z bloku
+			<ul id="content-editor-remove" class="drag">
+			</ul>
+
+			Přidat obsah
+			<input type="text" id="filter" placeholder="Vyhledat…">
+			<ul id="content-editor-add" class="drag">
+			</ul>
+		</div>
+		<div class="col-md-4">
+			{control blockForm}
+		</div>
+	</div>

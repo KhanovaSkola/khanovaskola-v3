@@ -9725,6 +9725,16 @@ label {
 .about-page .content .content-inner footer .socials a:hover {
   opacity: .6;
 }
+.block-page.block-editor .highlight {
+  background-color: rgba(255, 255, 140, 0.5);
+}
+.block-page.block-editor ul.drag {
+  min-height: 4ex;
+}
+.block-page.block-editor ul.drag li:before {
+  content: '☰';
+  cursor: ns-resize;
+}
 .block-page .content .left {
   position: fixed;
   top: 85px;
