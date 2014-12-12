@@ -1,6 +1,14 @@
 {var $pageName = 'scheme-page'}
-{var $headerBorder = FALSE}
+{var $headerBorder = TRUE}
 {var $title = 'Editor'}
+{block headerBack}
+	<div class="header-goback">
+		<a n:href="$schema">
+			<i class="icon icon-arrow-left2"></i>
+			<span>Zpět na schéma</span>
+		</a>
+	</div>
+{/block}
 {block scripts}
 	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
 	<script>
