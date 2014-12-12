@@ -20,6 +20,14 @@ trait Blueprint
 	 */
 	protected $blueprint;
 
+	/**
+	 * @return Rme\Blueprint
+	 */
+	public function getBlueprint()
+	{
+		return $this->blueprint;
+	}
+
 	protected function loadBlueprint(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
