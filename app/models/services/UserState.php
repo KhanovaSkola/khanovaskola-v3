@@ -69,7 +69,12 @@ class UserState extends Security\User
 
 	public function isAllowed($resource = IAuthorizator::ALL, $privilege = IAuthorizator::ALL)
 	{
-		return $this->acl->isAllowed($this->getUserEntity(), $resource, $privilege);
+		$user = $this->getUserEntity();
+		if ($user instanceof LazyEntity)
+		{
+			return FALSE;
+		}
+		return $this->acl->isAllowed($user, $resource, $privilege);
 	}
 
 	/**
