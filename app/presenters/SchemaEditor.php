@@ -60,12 +60,4 @@ class SchemaEditor extends Presenter
 		}
 	}
 
-	/**
-	 * @return NULL|Rme\Schema
-	 */
-	public function getSchema()
-	{
-		return $this->schema;
-	}
-
 }

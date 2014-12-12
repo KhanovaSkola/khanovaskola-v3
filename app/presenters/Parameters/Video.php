@@ -20,6 +20,14 @@ trait Video
 	 */
 	protected $video;
 
+	/**
+	 * @return Rme\Video
+	 */
+	public function getVideo()
+	{
+		return $this->video;
+	}
+
 	protected function loadVideo()
 	{
 		/** @var Presenter $this */

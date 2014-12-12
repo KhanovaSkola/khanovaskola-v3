@@ -20,6 +20,14 @@ trait Block
 	 */
 	protected $block;
 
+	/**
+	 * @return Rme\Block
+	 */
+	public function getBlock()
+	{
+		return $this->block;
+	}
+
 	protected function loadBlock(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */

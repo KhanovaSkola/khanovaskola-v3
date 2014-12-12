@@ -20,6 +20,14 @@ trait Schema
 	 */
 	protected $schema;
 
+	/**
+	 * @return Rme\Schema
+	 */
+	public function getSchema()
+	{
+		return $this->schema;
+	}
+
 	protected function loadSchema(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
