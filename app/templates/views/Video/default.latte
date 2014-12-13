@@ -97,6 +97,17 @@
             </div>
         </div>
 
+        {if $reason = $user->isAllowed($video)}
+            <div class="container editor-bar">
+                <div class="alert alert-info">
+                    <a n:href="VideoEditor:default, videoId => $video->id, blockId => $block->id, schemaId => $schema->id">Editovat video</a>
+                    <small class="pull-right">
+                        Možnost úpravy máš, protože jsi {$reason->toString($block)}.
+                    </small>
+                </div>
+            </div>
+        {/if}
+
 		{control comments}
 	</main>
 
