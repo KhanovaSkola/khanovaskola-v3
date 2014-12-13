@@ -8700,6 +8700,14 @@ fieldset[disabled] .btn-danger.active {
 .block-page .editor-bar {
   margin-top: -4.5ex;
 }
+.course-page .editor-bar {
+  margin-top: -50px;
+  margin-bottom: 2ex;
+}
+.course-page .editor-bar div {
+  width: 800px;
+  margin: 0 auto;
+}
 .footer-mobile {
   width: 260px;
   margin: 0 auto;
