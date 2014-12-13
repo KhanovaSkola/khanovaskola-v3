@@ -4,6 +4,7 @@ namespace App\Models\Services;
 
 use App\Models\Orm\Entity;
 use App\Models\Rme\Block;
+use App\Models\Rme\Content;
 use App\Models\Rme\Schema;
 use App\Models\Rme\Subject;
 use App\Models\Rme\User;
@@ -30,39 +31,63 @@ class Acl
 
 		if ($resource instanceof Subject)
 		{
-			return $this->isAllowedBySubject($user, $resource);
+			return $this->isAllowed_SubjectOnly($user, $resource);
 		}
 		else if ($resource instanceof Schema)
 		{
-			if ($r = $this->isAllowedBySchema($user, $resource))
-			{
-				return $r;
-			}
-			else if ($r = $this->isAllowedBySubject($user, $resource->subject))
-			{
-				return $r;
-			}
+			return $this->isAllowed_SchemaOrAbove($user, $resource);
 		}
 		else if ($resource instanceof Block)
 		{
-			if ($r = $this->isAllowedByBlock($user, $resource))
+			return $this->isAllowed_BlockOrAbove($user, $resource);
+		}
+		else if ($resource instanceof Content)
+		{
+			return $this->isAllowed_ContentOrAbove($user, $resource);
+		}
+
+		return FALSE;
+	}
+
+	protected function isAllowed_ContentOrAbove(User $user, Content $content)
+	{
+		foreach ($content->blocks as $block)
+		{
+			if ($r = $this->isAllowed_BlockOrAbove($user, $block))
 			{
 				return $r;
 			}
+		}
+		return FALSE;
+	}
 
-			foreach ($resource->schemas as $schema)
-			{
-				if ($r = $this->isAllowedBySchema($user, $schema))
-				{
-					return $r;
-				}
-				else if ($this->isAllowedBySubject($user, $schema->subject))
-				{
-					return $r;
-				}
-			}
+	protected function isAllowed_BlockOrAbove(User $user, Block $block)
+	{
+		if ($r = $this->isAllowed_BlockOnly($user, $block))
+		{
+			return $r;
 		}
 
+		foreach ($block->schemas as $schema)
+		{
+			if ($r = $this->isAllowed_SchemaOrAbove($user, $schema))
+			{
+				return $r;
+			}
+		}
+		return FALSE;
+	}
+
+	protected function isAllowed_SchemaOrAbove(User $user, Schema $schema)
+	{
+		if ($r = $this->isAllowed_SchemaOnly($user, $schema))
+		{
+			return $r;
+		}
+		else if ($r = $this->isAllowed_SubjectOnly($user, $schema->subject))
+		{
+			return $r;
+		}
 		return FALSE;
 	}
 
@@ -71,7 +96,7 @@ class Acl
 	 * @param Subject $subject
 	 * @return bool|int reason
 	 */
-	protected function isAllowedBySubject(User $user, Subject $subject)
+	protected function isAllowed_SubjectOnly(User $user, Subject $subject)
 	{
 		if ($this->isAllowedEditors($user, $subject))
 		{
@@ -85,7 +110,7 @@ class Acl
 	 * @param Schema $schema
 	 * @return bool|int reason
 	 */
-	protected function isAllowedBySchema(User $user, Schema $schema)
+	protected function isAllowed_SchemaOnly(User $user, Schema $schema)
 	{
 		if ($schema->author === $user)
 		{
@@ -103,7 +128,7 @@ class Acl
 	 * @param Block $block
 	 * @return bool|int reason
 	 */
-	protected function isAllowedByBlock(User $user, Block $block)
+	protected function isAllowed_BlockOnly(User $user, Block $block)
 	{
 		if ($block->author === $user)
 		{
