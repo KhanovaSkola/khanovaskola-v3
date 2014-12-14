@@ -6,7 +6,7 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayout;
-use App\Models\Tasks\UpdateSchema;
+use App\Models\Tasks;
 use Nette\Utils\Json;
 
 
@@ -71,7 +71,7 @@ class Schema extends Form
 
 		$this->orm->flush();
 
-		$this->queue->enqueue(new UpdateSchema($schema));
+		$this->queue->enqueue(new Tasks\UpdateSchema($schema));
 
 		$this->presenter->redirect('this', ['schemaId' => $schema->id]);
 	}

@@ -4,8 +4,8 @@ namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
-use Nette\Forms\Container;
-use Nette\Utils\Json;
+use App\Models\Services\Queue;
+use App\Models\Tasks;
 
 
 class Video extends Form
@@ -16,6 +16,12 @@ class Video extends Form
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var Queue
+	 * @inject
+	 */
+	public $queue;
 
 	public function setup()
 	{
@@ -43,7 +49,7 @@ class Video extends Form
 
 		$this->orm->flush();
 
-		// TODO if youtube id changed, enqueue update duration, preview etc
+		$this->queue->enqueue(new Tasks\UpdateVideo($video));
 
 		$this->presenter->redirect('this', [
 			'videoId' => $video->id,

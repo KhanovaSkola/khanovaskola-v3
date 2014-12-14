@@ -21,7 +21,6 @@ class UpdateSchema extends Task
 		$this->pSchema = new EntityPointer($schema);
 	}
 
-
 	public function run(RepositoryContainer $orm)
 	{
 		/** @var Schema $schema */
@@ -33,7 +32,7 @@ class UpdateSchema extends Task
 		{
 			foreach ([0, 2, 4] as $col)
 			{
-				if (!array_key_exists($row, $schema->layout[$col]))
+				if (!isset($schema->layout[$col]) || !array_key_exists($row, $schema->layout[$col]))
 				{
 					break 2;
 				}
