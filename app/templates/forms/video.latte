@@ -1,0 +1,21 @@
+{includeblock _error.latte}
+
+<form n:name="form" class="form-horizontal">
+	<div class="form-group{if $form['title']->errors} has-error{/if}">
+		<label n:name="title">Název</label>
+		<input n:name="title" type="text" class="form-control">
+		{include error, control => $form['title']}
+	</div>
+	<div class="form-group{if $form['description']->errors} has-error{/if}">
+        <label n:name="description">Detailní popis (15-20 slov)</label>
+        <input n:name="description" type="text" class="form-control">
+        {include error, control => $form['description']}
+    </div>
+    <div class="form-group{if $form['youtubeId']->errors} has-error{/if}">
+        <label n:name="youtubeId">Youtube ID</label>
+        <input n:name="youtubeId" type="text" class="form-control">
+        {include error, control => $form['youtubeId']}
+    </div>
+
+	<input n:name="save" value="Uložit" class="btn">
+</form>

@@ -60,7 +60,7 @@ class Block extends Form
 
 		$this->presenter->redirect('this', [
 			'blockId' => $block->id,
-			'schemaId' => $this->presenter->schema->id]
-		);
+			'schemaId' => $this->presenter->schema->id
+		]);
 	}
 }

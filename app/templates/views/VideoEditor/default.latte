@@ -1,0 +1,31 @@
+{var $pageName = 'course-page video-editor'}
+{var $headerBorder = TRUE}
+{var $title = 'Editor'}
+{block headerBack}
+	<div class="header-goback">
+		<a n:href="$video, $block, $schema">
+			<i class="icon icon-arrow-left2"></i>
+			<span>Zpět na video</span>
+		</a>
+	</div>
+{/block}
+{block scripts}
+	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+		});
+	</script>
+{/block}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 * @param App\Models\Rme\Schema $schema
+	 * @param App\Models\Rme\Block $block
+	 * @param App\Models\Rme\Video $video
+	 *}
+
+	<div class="container">
+		<div class="col-md-12">
+			{control videoForm}
+		</div>
+	</div>
