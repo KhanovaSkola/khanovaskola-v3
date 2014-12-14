@@ -3,10 +3,27 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use Orm\DibiManyToManyMapper;
+use Orm\IRepository;
 
 
 class BlocksMapper extends Mappers\Mapper
 {
+
+	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)
+	{
+		/** @var DibiManyToManyMapper $mapper */
+		$mapper = parent::createManyToManyMapper($param, $targetRepository, $targetParam);
+
+		if ($targetRepository instanceof BlocksRepository)
+		{
+			$mapper->table = 'block_dependencies';
+			$mapper->childParam = 'dependency_id';
+			$mapper->parentParam = 'block_id';
+		}
+
+		return $mapper;
+	}
 
 	/**
 	 * @param User $user

@@ -15,6 +15,8 @@ use Orm\OneToMany as OtM;
  * @property OtM|CompletedContent[]   $completedContents   {1:m completedContents $block}
  * @property User                     $author              {m:1 users $blocksAuthored}
  * @property MtM|User[]               $editors             {m:m users $blocksEdited}
+ * @property MtM|Block[]              $dependencies        {m:m blocks $dependencyFor map}
+ * @property MtM|Block[]              $dependencyFor       {m:m blocks $dependencies}
  *
  * @property Content[]                $contents            {ignore}
  * @property Schema[]                 $schemas             {ignore}
