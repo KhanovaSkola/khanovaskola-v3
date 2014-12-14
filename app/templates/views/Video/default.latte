@@ -29,10 +29,12 @@
                             <span>{$video->title}</span>
                             <small>{$video->description}</small>
                         </h1>
-                        <div class="idea">
-                            <i class="icon icon-idea"></i>
-                            <span>Je potřeba rozumět Desítkové soustavě.</span>
-                        </div>
+                        {if $block->dependencies->count()}
+	                        <div class="idea">
+	                            <i class="icon icon-idea"></i>
+	                            <span>Je potřeba rozumět: {foreach $block->dependencies as $dep}{$dep->title}{sep}, {/sep}{/foreach}.</span>
+	                        </div>
+	                    {/if}
                     </div>
                 </div>
                 <div class="right">
