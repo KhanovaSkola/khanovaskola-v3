@@ -79,7 +79,12 @@ class Block extends TitledEntity
 	{
 		// TODO optimize (but you want to use position make sure positions are continuus)
 		$position = 1;
-		foreach ($this->getContentBlockBridges() as $bridge)
+
+		/** @var OtM $o */
+		$o = $this->getValue('contentBlockBridges');
+		$bridges = $o->get()->orderBy('position', 'ASC');
+
+		foreach ($bridges as $bridge)
 		{
 			if ($bridge->content === $content)
 			{
