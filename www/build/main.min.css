@@ -9973,6 +9973,9 @@ label {
 .course-page .course-header.course-video.fullscreen .course-header-footer .right a .icon {
   font-size: 12pt;
 }
+.course-page .course-header.course-video a.comment-prompt {
+  color: #4a4a4a;
+}
 .course-page .course-header.course-video .course-header-content {
   position: relative;
   height: 490px;
