@@ -90,4 +90,82 @@ class SchemaLayout
 		return $layout;
 	}
 
+	public function buildBlockDependencies(array $layout)
+	{
+		$dependencies = [];
+		for ($row = 1; $row < 100; $row++) // intentionally row > 0
+		{
+			foreach([0, 2, 4] as $col)
+			{
+				if (!array_key_exists($row, $layout[$col]))
+				{
+					break 2;
+				}
+
+				if ($layout[$col][$row] && !is_array($layout[$col][$row])) // is block
+				{
+					$blockDeps = [];
+
+					// Now check all connected cells above current row until match is found
+					$above = $layout[$col][$row - 1];
+					if (in_array('arrow-vertical', $above))
+					{
+						if ($dep = $this->getBlockAbove($layout, $col, $row))
+						{
+							$blockDeps[] = $dep;
+						}
+					}
+					if (isset($layout[$col - 2]) && in_array('arrow-horizontal', $layout[$col - 2][$row - 1]))
+					{
+						if ($dep = $this->getBlockAbove($layout, $col - 4, $row))
+						{
+							$blockDeps[] = $dep;
+						}
+					}
+					if (isset($layout[$col + 2]) && in_array('arrow-horizontal', $layout[$col + 2][$row - 1]))
+					{
+						if ($dep = $this->getBlockAbove($layout, $col + 4, $row))
+						{
+							$blockDeps[] = $dep;
+						}
+					}
+					if (in_array('arrow-to-right', $above))
+					{
+						if ($dep = $this->getBlockAbove($layout, $col - 2, $row))
+						{
+							$blockDeps[] = $dep;
+						}
+					}
+					if (in_array('arrow-to-left', $above))
+					{
+						if ($dep = $this->getBlockAbove($layout, $col + 2, $row))
+						{
+							$blockDeps[] = $dep;
+						}
+					}
+
+					$dependencies[$layout[$col][$row]] = $blockDeps;
+				}
+			}
+		}
+
+		return $dependencies;
+	}
+
+	private function getBlockAbove(array $layout, $sCol, $sRow)
+	{
+		for ($row = $sRow - 1; $row >= 0; $row--)
+		{
+			if (array_key_exists($row, $layout[$sCol])
+				&& $layout[$sCol][$row]
+				&& !is_array($layout[$sCol][$row])
+			)
+			{
+				return $layout[$sCol][$row];
+			}
+		}
+
+		return NULL;
+	}
+
 }
