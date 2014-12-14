@@ -13,6 +13,7 @@
     "jquery-timeago": "latest",
     "zxcvbn": "latest",
     "react": "~0.12.1",
-    "jquery-ui": "~1.11.2"
+    "jquery-ui": "~1.11.2",
+	"smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git"
   }
 }
