@@ -63,6 +63,12 @@ class Schema extends Form
 		$schema->subject = $v->subject;
 		$schema->layout = $parsed;
 
+		foreach ($this->schemaLayout->buildBlockDependencies($parsed) as $blockId => $deps)
+		{
+			$block = $this->orm->blocks->getById($blockId);
+			$block->dependencies = $deps;
+		}
+
 		$this->orm->flush();
 
 		$this->queue->enqueue(new UpdateSchema($schema));
