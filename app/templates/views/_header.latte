@@ -12,7 +12,7 @@
 			{include headerLogo}
 		{/block}
 		<div class="header-content clearfix">
-			{cache expire => '20 minutes'}
+			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
 					<div class="dropdown dropdown-big">
 						<a href="#" class="dropdown-toggle">
