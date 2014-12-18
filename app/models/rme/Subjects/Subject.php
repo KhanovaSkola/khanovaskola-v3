@@ -11,6 +11,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|Schema[] $schemas {1:m schemas $subject}
  * @property string       $color hex
  * @property string       $icon
+ * @property int          $position
  * @property MtM|User[]   $editors {m:m users $subjectsEdited}
  */
 class Subject extends TitledEntity
