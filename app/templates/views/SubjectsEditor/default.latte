@@ -1,0 +1,69 @@
+{var $title = 'Editor'}
+{var $pageName = 'subjects-editor'}
+{var $headerBorder = TRUE}
+{block scripts}
+	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+			$('[name=color]').on('change', function() {
+				var $container = $(this).parents('li').children('span');
+				$container.removeClass();
+				$container.addClass('subject-name text-' + $(this).val());
+			});
+			$('[name=icon]').on('change', function() {
+                var $icon = $(this).parents('li').find('[data-icon]');
+                $icon.removeClass();
+                $icon.addClass('icon-' + $(this).val());
+            });
+
+            $('.drag').sortable().disableSelection();
+
+			var url = $('[data-save-url]').data('save-url');
+            $('#save').on('click', function() {
+                window.location = url + '&payload=' + JSON.stringify(serializeSubjects());
+            });
+
+			var $list = $('.subject-list');
+            function serializeSubjects() {
+                var ser = {};
+                var pos = 0;
+                $list.find('li').each(function() {
+                    var m = /\btext-([^ ]+)/.exec($(this).find('.subject-name')[0].className);
+                    ser[$(this).data('subject-id')] = {
+                        icon: $(this).find('[data-icon]')[0].className,
+                        color: m[1],
+                        position: pos++,
+                    };
+                });
+                return ser;
+            }
+		});
+	</script>
+{/block}
+{block content}
+	{**
+	 * @param string $basePath web base path
+	 * @param App\Models\Rme\Subject[] $subjects
+	 *}
+
+	<ul class="subject-list drag" data-save-url="{plink save!}">
+		{foreach $subjects as $subject}
+			<li data-subject-id="{$subject->id}">
+				<span class="subject-name text-{$subject->color}">
+					{$subject->title}
+					<span data-icon class="icon-{$subject->icon}"></span>
+				</span>
+				<select name="color">
+					{foreach ['black', 'blue', 'green', 'cyan', 'cyan-dark', 'yellow', 'gold', 'purple', 'brown', 'red'] as $color}
+                        <option{if $color === $subject->color} selected{/if} value="{$color}">{ucFirst($color)}</option>
+                    {/foreach}
+				</select>
+				<select name="icon">
+                    {foreach ['cloud-up', 'ok-double', 'close', 'google-plus', 'play', 'volume', 'arrow-left-double', 'arrow-left', 'arrow-left2', 'arrow-right-double', 'arrow-right', 'arrow-up', 'art-history', 'comments', 'facebook', 'fullscreen', 'globe', 'history', 'check', 'chemistry', 'idea', 'it', 'key', 'list', 'list2', 'lock', 'mail', 'math', 'natural-studies', 'ok', 'pause', 'physics', 'play2', 'quotes', 'replay', 'return', 'rocket', 'search', 'time', 'times', 'twitter', 'unlock', 'user-add', 'user', 'youtube', 'zsv'] as $icon}
+                        <option{if $icon === $subject->icon} selected{/if} value="{$icon}">{ucFirst($icon)}</option>
+                    {/foreach}
+                </select>
+			</li>
+		{/foreach}
+	</ul>
+	<input id="save" type="submit" class="btn" value="Uložit">
