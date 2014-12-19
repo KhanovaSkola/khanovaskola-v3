@@ -108,7 +108,7 @@ class SchemaLayout
 
 					// Now check all connected cells above current row until match is found
 					$above = $layout[$col][$row - 1];
-					if (in_array('arrow-vertical', $above))
+					if (in_array('arrow-vertical', $above) || in_array('arrow-down', $above))
 					{
 						if ($dep = $this->getBlockAbove($layout, $col, $row))
 						{

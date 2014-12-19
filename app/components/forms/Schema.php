@@ -58,10 +58,15 @@ class Schema extends Form
 			$schema->blockSchemaBridges = [];
 		}
 
+		/** @var Rme\Subject $subject */
+		$subject = $this->orm->subjects->getById($v->subject);
+
 		$schema->title = $v->title;
 		$schema->description = $v->description;
-		$schema->subject = $v->subject;
+		$schema->subject = $subject;
 		$schema->layout = $parsed;
+
+		$schema->position = $subject->schemas->count();
 
 		foreach ($this->schemaLayout->buildBlockDependencies($parsed) as $blockId => $deps)
 		{
