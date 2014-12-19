@@ -70,6 +70,7 @@ class Schema extends Form
 		}
 
 		$this->orm->flush();
+		$this->presenter->purgeHeaderTemplateCache();
 
 		$this->queue->enqueue(new Tasks\UpdateSchema($schema));
 

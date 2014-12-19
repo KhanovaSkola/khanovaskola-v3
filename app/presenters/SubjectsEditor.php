@@ -4,18 +4,11 @@ namespace App\Presenters;
 
 use App\Models\Services\Acl;
 use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
 use Nette\Utils\Json;
 
 
 final class SubjectsEditor extends Presenter
 {
-
-	/**
-	 * @var IStorage
-	 * @inject
-	 */
-	public $storage;
 
 	public function renderDefault()
 	{
@@ -40,11 +33,7 @@ final class SubjectsEditor extends Presenter
 
 		$this->orm->flush();
 
-		$cache = new Cache($this->storage);
-		$cache->clean([
-			Cache::TAGS => ['header'],
-		]);
-
+		$this->purgeHeaderTemplateCache();
 		$this->redirect('this');
 	}
 
