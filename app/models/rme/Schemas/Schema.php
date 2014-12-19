@@ -10,6 +10,7 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property array                   $layout             json
+ * @property int                     $position
  * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $schema}
  * @property Subject                 $subject            {m:1 subjects $schemas}
  * @property User                    $author             {m:1 users $schemasAuthored}
