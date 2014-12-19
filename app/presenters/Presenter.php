@@ -13,6 +13,8 @@ use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Nette;
 use Nette\Bridges\ApplicationLatte\Template;
+use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
 use Nette\Http\Session;
 
 
@@ -50,6 +52,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 * @inject
 	 */
 	public $session;
+
+	/**
+	 * @var IStorage
+	 * @inject
+	 */
+	public $cacheStorage;
 
 	public function startup()
 	{
@@ -190,6 +198,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$resp->setHeader('Expires', NULL);
 		$resp->setHeader('Pragma', NULL);
 		$resp->setHeader('Set-Cookie', NULL);
+	}
+
+	public function purgeHeaderTemplateCache()
+	{
+		$cache = new Cache($this->cacheStorage);
+		$cache->clean([
+			Cache::TAGS => ['header'],
+		]);
 	}
 
 }
