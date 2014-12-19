@@ -46,17 +46,28 @@
 							<div class="subject-detail tab-content">
 								<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
 									<div class="row">
-										<div n:foreach="$subject->schemas as $schema" class="col-md-4">
-											<div class="title">
-												<a n:href="$schema">{$schema->title}</a>
-											</div>
-											<ul class="list-unstyled">
-												<li n:foreach="$schema->blocks as $block">
-													<a n:href="$block, $schema">
-														{$block->title}
-													</a>
-												</li>
-											</ul>
+										{foreach $subject->schemas->get()->applyLimit(3) as $schema}
+											<div class="col-md-4">
+                                                <div class="title">
+                                                    <a n:href="$schema">{$schema->title}</a>
+                                                </div>
+                                                <ul class="list-unstyled">
+                                                    <li n:foreach="$schema->blocks as $block">
+                                                        <a n:href="$block, $schema">
+                                                            {$block->title}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+										{/foreach}
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											{foreach $subject->schemas->get()->applyLimit(NULL, 3) as $schema}
+												<span class="title">
+													<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
+												</span>
+											{/foreach}
 										</div>
 									</div>
 								</div>
