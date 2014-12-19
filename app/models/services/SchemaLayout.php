@@ -156,7 +156,7 @@ class SchemaLayout
 	{
 		for ($row = $sRow - 1; $row >= 0; $row--)
 		{
-			if (array_key_exists($row, $layout[$sCol])
+			if (isset($layout[$sCol]) && array_key_exists($row, $layout[$sCol])
 				&& $layout[$sCol][$row]
 				&& !is_array($layout[$sCol][$row])
 			)
