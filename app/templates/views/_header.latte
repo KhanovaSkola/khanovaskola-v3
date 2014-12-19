@@ -62,7 +62,7 @@
 										{/foreach}
 									</div>
 									<div class="row">
-										<div class="col-md-4">
+										<div class="col-md-12 schema-more">
 											{foreach $subject->schemas->get()->applyLimit(NULL, 3) as $schema}
 												<span class="title">
 													<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
