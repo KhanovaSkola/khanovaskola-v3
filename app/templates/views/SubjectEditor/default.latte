@@ -1,0 +1,42 @@
+{var $title = 'Editor'}
+{var $pageName = 'subject-editor'}
+{var $headerBorder = TRUE}
+{block scripts}
+	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+			$('.drag').sortable().disableSelection();
+
+			var url = $('[data-save-url]').data('save-url');
+            $('#save').on('click', function() {
+                window.location = url + '&payload=' + JSON.stringify(serializeSchemas());
+            });
+
+			var $list = $('.schema-list');
+            function serializeSchemas() {
+                var ser = {};
+                var pos = 0;
+                $list.find('li').each(function() {
+                    ser[$(this).data('schema-id')] = {
+                        position: pos++,
+                    };
+                });
+                return ser;
+            }
+		});
+	</script>
+{/block}
+{block content}
+	{**
+	 * @param string $basePath web base path
+	 * @param App\Models\Rme\Subject $subject
+	 *}
+
+	<ul class="schema-list drag" data-save-url="{plink save!}">
+		{foreach $subject->schemas as $schema}
+			<li data-schema-id="{$schema->id}">
+				{$schema->title}
+			</li>
+		{/foreach}
+	</ul>
+	<input id="save" type="submit" class="btn" value="Uložit">
