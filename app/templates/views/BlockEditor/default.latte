@@ -2,12 +2,16 @@
 {var $headerBorder = TRUE}
 {var $title = 'Editor'}
 {block headerBack}
-	<div class="header-goback">
-		<a n:href="$block, $schema">
-			<i class="icon icon-arrow-left2"></i>
-			<span>Zpět na blok</span>
-		</a>
-	</div>
+	{if $block}
+		<div class="header-goback">
+			<a n:href="$block, $schema">
+				<i class="icon icon-arrow-left2"></i>
+				<span>Zpět na blok</span>
+			</a>
+		</div>
+	{else}
+		{include headerLogo}
+	{/if}
 {/block}
 {block scripts}
 	<script src="{$basePath}/libs/jquery-ui/jquery-ui.min.js"></script>
@@ -59,11 +63,13 @@
 		<div class="col-md-8">
 			Obsah bloku
 			<ul id="content-editor" class="drag">
-				{foreach $block->contents as $content}
-					<li data-content-id="{$content->id}">
-						{$content->title}
-					</li>
-				{/foreach}
+				{if $block}
+					{foreach $block->contents as $content}
+						<li data-content-id="{$content->id}">
+							{$content->title}
+						</li>
+					{/foreach}
+				{/if}
 			</ul>
 			Odstranit obsah z bloku
 			<ul id="content-editor-remove" class="drag">
