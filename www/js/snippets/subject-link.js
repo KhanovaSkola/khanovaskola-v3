@@ -4,9 +4,9 @@ $(function() {
 	if (!$page.length) {
 		return;
 	}
-console.log($page.find('a[href^="#tab-"]'));
+
 	var $dropdown = $('.dropdown-big');
-	$page.find('a[href^="#tab-"]').on('click', function() {
+	$page.find('main a[href^="#tab-"]').on('click', function() {
 		$dropdown.toggleClass('open');
 		$dropdown.parents('header').toggleClass('hover');
 		$dropdown.find('a[href=' + $(this).attr('href') + ']').tab('show');
@@ -14,5 +14,6 @@ console.log($page.find('a[href^="#tab-"]'));
 		window.scrollTo(0, 0);
 		return false;
 	});
+	return false;
 
 });

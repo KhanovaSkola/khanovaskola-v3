@@ -3,7 +3,6 @@ $(function() {
 	var $dropdown = $('.dropdown-big');
 
 	$('.dropdown-big .dropdown-toggle').on('click', function() {
-		console.log('open');
 		$dropdown.toggleClass('open');
 		$dropdown.parents('header').toggleClass('hover');
 		return false;
@@ -15,7 +14,6 @@ $(function() {
 	});
 
 	$('.ul-tab a[data-toggle]').click(function (e) {
-		e.preventDefault();
 		$(this).tab('show');
 		return false;
 	});
