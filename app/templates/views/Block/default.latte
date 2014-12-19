@@ -52,7 +52,7 @@
 						{if $reason = $user->isAllowed($block)}
                             <div class="editor-bar">
                                 <div class="alert alert-info">
-                                    <a n:href="BlockEditor:default, blockId => $block->id, schemaId => $schema->id">Editovat blok</a>
+                                    <a n:href="BlockEditor:default, blockId => $block->id, schemaId => $schema ? $schema->id : NULL">Editovat blok</a>
                                     <small class="pull-right">
                                         Možnost úpravy máš, protože jsi {$reason->toString($block)}.
                                     </small>
