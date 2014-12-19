@@ -6878,6 +6878,12 @@ blockquote {
     left: auto;
   }
 }
+@media (max-width: 768px) {
+  .alert .pull-right {
+    float: none !important;
+    padding-left: 1em;
+  }
+}
 .mark,
 mark {
   padding: 0;
