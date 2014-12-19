@@ -58,9 +58,10 @@ class Block extends Form
 
 		$this->orm->flush();
 
+		$schema = $this->presenter->schema;
 		$this->presenter->redirect('this', [
 			'blockId' => $block->id,
-			'schemaId' => $this->presenter->schema->id
+			'schemaId' => $schema ? $schema->id : NULL,
 		]);
 	}
 }
