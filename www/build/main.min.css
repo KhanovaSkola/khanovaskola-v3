@@ -7199,6 +7199,12 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header .header-content .dropdown .dropdown-menu .subject-detail li {
   width: 110%;
 }
+.header .header-content .dropdown .dropdown-menu .subject-detail .schema-more span {
+  margin-left: 0.3em;
+}
+.header .header-content .dropdown .dropdown-menu .subject-detail .schema-more span:first-of-type {
+  margin-left: 0;
+}
 .header .header-content .dropdown .dropdown-menu .subject-detail .title {
   font-weight: 300;
   font-size: 14px;
