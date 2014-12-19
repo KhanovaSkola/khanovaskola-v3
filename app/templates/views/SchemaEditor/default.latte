@@ -85,7 +85,7 @@
 	                $(this).find('.cell').each(function() {
 	                    $cell = $(this);
 	                    var id = $cell.data('id');
-	                    if (col.length % 2) {
+	                    if (col.length % 2 === 0) {
 	                        col.push(id);
 	                    } else {
 	                        var base = getArrow($cell[0]);
@@ -102,6 +102,7 @@
 	            });
 	            return ser;
 	        }
+	        window.debug=serializeSchema;
 
 	        $('#frm-schemaForm-form-save').click(function() {
 	            var ser = JSON.stringify(serializeSchema());
