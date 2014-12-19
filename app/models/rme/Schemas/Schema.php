@@ -9,7 +9,7 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property array                   $layout             json
+ * @property array                   $layout             {default []}
  * @property int                     $position
  * @property OtM|BlockSchemaBridge[] $blockSchemaBridges {1:m blockSchemaBridges $schema}
  * @property Subject                 $subject            {m:1 subjects $schemas}
