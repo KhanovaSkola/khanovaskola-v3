@@ -28,10 +28,11 @@
                 var ser = {};
                 var pos = 0;
                 $list.find('li').each(function() {
-                    var m = /\btext-([^ ]+)/.exec($(this).find('.subject-name')[0].className);
+                    var mColor = /\btext-([^ ]+)/.exec($(this).find('.subject-name')[0].className);
+                    var mIcon = /icon-([^ ]+)/.exec($(this).find('[data-icon]')[0].className);
                     ser[$(this).data('subject-id')] = {
-                        icon: $(this).find('[data-icon]')[0].className,
-                        color: m[1],
+                        icon: mIcon[1],
+                        color: mColor[1],
                         position: pos++,
                     };
                 });
