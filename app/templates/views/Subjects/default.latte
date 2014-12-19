@@ -9,13 +9,19 @@
 	<div class="container">
         <main class="content">
             <div class="content-inner">
-                <h2 class="text-center">Vyber si obor: </h2>
+                <h2 class="text-center">Vyber si obor:</h2>
                 <div class="subjects">
-                    {foreach $subjects as $i => $subject}
-                        <a href="#tab-{$i}" class="subject text-{$subject->color}">
-                            <i class="icon icon-{$subject->icon}"></i>
-                            <span>{$subject->title}</span>
-                        </a>
+                    {var $tab = 0}
+                    {foreach $groupedSubjects as $group}
+                        <div class="row subject-row">
+	                        {foreach $group as $subject}
+		                        <a href="#tab-{$tab}" class="subject text-{$subject->color}">
+		                            <i class="icon icon-{$subject->icon}"></i>
+		                            <span>{$subject->title}</span>
+		                        </a>
+		                        {?$tab++}
+		                    {/foreach}
+		                </div>
                     {/foreach}
                 </div>
             </div>
