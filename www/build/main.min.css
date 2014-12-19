@@ -9331,6 +9331,7 @@ label {
 }
 .timeline .timeline-item {
   margin-bottom: 30px;
+  min-width: 550px;
 }
 .timeline .timeline-item:before,
 .timeline .timeline-item:after {
