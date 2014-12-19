@@ -28,13 +28,17 @@ trait Video
 		return $this->video;
 	}
 
-	protected function loadVideo()
+	protected function loadVideo(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
 		$this->video = $this->orm->contents->getById($this->videoId);
 		if (!$this->video || ! $this->video instanceof Rme\Video)
 		{
-			$this->error();
+			if (!$fallback)
+			{
+				$this->error();
+			}
+			$this->video = $fallback();
 		}
 	}
 
