@@ -40,7 +40,7 @@ class Video extends Form
 		if (!$video)
 		{
 			$video = new Rme\Video();
-			$this->orm->videos->attach($video);
+			$this->orm->contents->attach($video);
 		}
 
 		$video->title = $v->title;
@@ -51,10 +51,12 @@ class Video extends Form
 
 		$this->queue->enqueue(new Tasks\UpdateVideo($video));
 
+		$block = $this->presenter->block;
+		$schema = $this->presenter->schema;
 		$this->presenter->redirect('this', [
 			'videoId' => $video->id,
-			'blockId' => $this->presenter->block->id,
-			'schemaId' => $this->presenter->schema->id
+			'blockId' => $block ? $block->id : NULL,
+			'schemaId' => $schema ? $schema->id : NULL,
 		]);
 	}
 }
