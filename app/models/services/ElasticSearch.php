@@ -12,8 +12,6 @@ use Nette\Neon\Neon;
 class ElasticSearch extends Client
 {
 
-	const INDEX = 'khanovaskola';
-
 	const HIGHLIGHT_START = '{{%highlight%}}';
 	const HIGHLIGHT_END = '{{%/highlight%}}';
 
@@ -23,12 +21,20 @@ class ElasticSearch extends Client
 	private $appDir;
 
 	/**
+	 * @var string
+	 */
+	protected $index;
+
+	/**
 	 * @var callable[]
 	 */
 	public $onEvent;
 
 	public function __construct(array $params, $appDir)
 	{
+		$this->index = $params['index'];
+		unset($params['index']);
+
 		parent::__construct($params);
 
 		$this->appDir = $appDir;
@@ -59,7 +65,7 @@ class ElasticSearch extends Client
 	public function addToIndex($type, $id, array $data)
 	{
 		return parent::index([
-			'index' => self::INDEX,
+			'index' => $this->index,
 			'type' => $type,
 			'id' => $id,
 			'body' => $data,
@@ -74,7 +80,7 @@ class ElasticSearch extends Client
 	public function updateDoc($type, $id, array $data)
 	{
 		return parent::update([
-			'index' => self::INDEX,
+			'index' => $this->index,
 			'type' => $type,
 			'id' => $id,
 			'body' => [
@@ -86,7 +92,7 @@ class ElasticSearch extends Client
 	public function addMapping($type, array $fields)
 	{
 		$args = [
-			'index' => self::INDEX,
+			'index' => $this->index,
 			'type' => $type,
 			'body' => [
 				'properties' => $fields,
@@ -105,7 +111,7 @@ class ElasticSearch extends Client
 		try
 		{
 			$this->indices()->delete([
-				'index' => self::INDEX,
+				'index' => $this->index,
 			]);
 		}
 		catch (Missing404Exception $e)
@@ -114,7 +120,7 @@ class ElasticSearch extends Client
 		}
 
 		$this->indices()->create([
-			'index' => self::INDEX,
+			'index' => $this->index,
 			'body' => $args
 		]);
 	}
@@ -144,6 +150,14 @@ class ElasticSearch extends Client
 			'jakmile', 'přičemž', 'já', 'on', 'ona', 'ono', 'oni', 'ony', 'my', 'vy',
 			'jí', 'ji', 'mě', 'mne', 'jemu', 'tomu', 'těm', 'těmu', 'němu', 'němuž',
 			'jehož', 'jíž', 'jelikož', 'jež', 'jakož', 'načež'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIndex()
+	{
+		return $this->index;
 	}
 
 }
