@@ -8,23 +8,12 @@ vcl 4.0;
 #     -p feature=+esi_ignore_https
 #
 
-backend dev {
+backend default {
         .host = "127.0.0.1";
         .port = "8085";
 }
-backend beta {
-        .host = "127.0.0.1";
-        .port = "8086";
-}
 
 sub vcl_recv {
-		if (req.http.host == "dev.khanovaskola.cz") {
-			set req.backend = dev;
-		}
-		if (req.http.host == "beta.khanovaskola.cz") {
-            set req.backend = beta;
-        }
-
         if (req.method != "GET") {
                 return (pass);
         }
@@ -36,6 +25,7 @@ sub vcl_recv {
 }
 
 sub vcl_hash {
+        hash_data(req.host);
         hash_data(req.url);
         return(lookup);
 }
