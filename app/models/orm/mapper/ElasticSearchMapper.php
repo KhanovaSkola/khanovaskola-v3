@@ -35,7 +35,7 @@ class ElasticSearchMapper extends Mapper
 	protected function findByFulltext($type, $query)
 	{
 		$args = [
-			'index' => ElasticSearch::INDEX,
+			'index' => $this->elastic->getIndex(),
 			'type' => $type,
 			'body' => [
 				'fields' => ['id'],
