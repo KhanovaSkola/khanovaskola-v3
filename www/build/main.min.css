@@ -6726,20 +6726,6 @@ p {
   font-size: 14px;
   line-height: 21px;
 }
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-transform: uppercase;
-}
 .h1 small,
 .h2 small,
 .h3 small,
@@ -6853,7 +6839,6 @@ blockquote {
   line-height: 23px;
   border: 0;
   text-align: center;
-  text-transform: uppercase;
 }
 .thumbnail {
   border-radius: 0;
