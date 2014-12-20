@@ -9980,6 +9980,9 @@ label {
   width: 100%;
   cursor: pointer;
 }
+.course-page .course-header.course-video .course-header-content span[itemprop="transcript"] {
+  display: none;
+}
 .course-page .course-header.course-video .course-header-content .left {
   background: none;
   position: absolute;
