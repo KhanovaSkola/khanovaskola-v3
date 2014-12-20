@@ -43,7 +43,7 @@
                             data-subtitles-url="{plink Subtitles:default, videoId => $video->id}">
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
-                            <meta itemprop="transcript" content="{$video->getTextFromSubtitles()}" />
+                            <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
                             <div class="video-real hidden-video">
                                 <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0&html5=1" id="youtube-video"></iframe>
                             </div>
