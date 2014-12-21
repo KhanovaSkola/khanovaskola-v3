@@ -32,6 +32,7 @@ class Router extends RouteList
 		// Old Links
 		$this[] = $context->createInstance(Routers\OldVideo::class);
 		$this[] = $context->createInstance(Routers\OldCategory::class);
+		$this[] = $context->createInstance(Routers\OldBlog::class);
 
 		$this[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 	}
