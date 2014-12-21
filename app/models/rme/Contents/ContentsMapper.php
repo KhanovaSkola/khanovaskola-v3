@@ -40,6 +40,11 @@ class ContentsMapper extends ElasticSearchMapper
 		return $this->getBy(['type' => 'video', 'id' => $id]);
 	}
 
+	public function getVideoByYoutubeId($youtubeId)
+	{
+		return $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
+	}
+
 	public function getBlueprintById($id)
 	{
 		return $this->getBy(['type' => 'blueprint', 'id' => $id]);

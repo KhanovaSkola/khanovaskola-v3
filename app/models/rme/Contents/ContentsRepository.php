@@ -12,6 +12,7 @@ use Orm\DibiCollection;
  * @method DibiCollection|Video[]     findAllVideos()
  * @method DibiCollection|Blueprint[] findAllBlueprints()
  * @method NULL|Video                 getVideoById(int $id)
+ * @method NULL|Video                 getVideoByYoutubeId(string $youtubeId)
  * @method NULL|Blueprint             getBlueprintById(int $id)
  * @method SearchResponse             getWithFulltext(string $query)
  * @method NULL|array                 getNext(Content $content, Block $block = NULL, Schema $schema = NULL)
