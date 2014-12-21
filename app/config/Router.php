@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use App\Models\Routers;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 use Nette\DI\Container;
@@ -27,6 +28,10 @@ class Router extends RouteList
 		$this[] = new Route('block/<action>/[<schemaId>/]<blockId>', 'Block:default');
 		$this[] = new Route('video/<action>/[[<schemaId>/]<blockId>/]<videoId>', 'Video:default');
 		$this[] = new Route('blueprint/<action>/[[<schemaId>/]<blockId>/]<blueprintId>', 'Blueprint:default');
+
+		// Old Links
+		$this[] = $context->createInstance(Routers\OldVideo::class);
+		$this[] = $context->createInstance(Routers\OldCategory::class);
 
 		$this[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 	}
