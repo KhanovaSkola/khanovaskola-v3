@@ -1,11 +1,11 @@
 App.elasticSearch = {
-	host: '@@domain.elastic'
+	host: '@@elastic.url'
 };
 
 App.autocomplete = function(query, cb) {
 	$.ajax({
 		type: 'POST',
-		url: App.elasticSearch.host + '/khanovaskola/_suggest',
+		url: App.elasticSearch.host + '/@@elastic.index/_suggest',
 		dataType: 'json',
 		data: JSON.stringify({
 			content: {
