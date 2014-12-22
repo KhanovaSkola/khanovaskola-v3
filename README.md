@@ -85,9 +85,9 @@ run unit tests:
 php vendor/bin/tester -c /etc/php5/cgi/php.ini tests/unit/
 ```
 
-run acceptance tests:
+run acceptance tests with debug on:
 ```sh
-php vendor/bin/codecept run acceptance
+casperjs test --config=tests/cept/config.json --log-level=debug --includes=tests/cept/bootstrap.js tests/cept/cases --verbose
 ```
 
 run coding style (cs) tests:
