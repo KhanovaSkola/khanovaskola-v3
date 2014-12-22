@@ -6,8 +6,10 @@ use App\InvalidStateException;
 use App\Models\Orm\Entity;
 use App\Models\Orm\TitledEntity;
 use App\Models\Rme\Block;
+use App\Models\Rme\Content;
 use App\Models\Rme\Schema;
 use App\Models\Rme\Subject;
+use App\Models\Rme\Video;
 use App\NotImplementedException;
 use Nette\Object;
 
@@ -84,6 +86,10 @@ class AclApproval extends Object
 		else if ($this->entity instanceof Block)
 		{
 			$type = 'bloku';
+		}
+		else if ($this->entity instanceof Content)
+		{
+			$type = 'bloku'; // intentional, lowest Acl is on block
 		}
 		else
 		{
