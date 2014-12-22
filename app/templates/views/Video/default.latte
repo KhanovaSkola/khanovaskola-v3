@@ -3,12 +3,16 @@
 {var $title = $video->title}
 {var $description = $video->description}
 {block headerBack}
-	<div class="header-goback">
-		<a n:href="$block, $schema">
-			<i class="icon icon-arrow-left2"></i>
-			<span>{$block->title}</span>
-		</a>
-	</div>
+	{if $block}
+		<div class="header-goback">
+			<a n:href="$block, $schema">
+				<i class="icon icon-arrow-left2"></i>
+				<span>{$block->title}</span>
+			</a>
+		</div>
+	{else}
+		{include headerLogo}
+	{/if}
 {/block}
 {block content}
 	{**
@@ -24,12 +28,12 @@
                         <i class="icon icon-math"></i>
                     </div>
                     <div class="content-wrapper">
-                        <small>{$block->title} ({$position}/{$block->countContents()}) · {$video->duration|duration}</small>
+                        <small n:if="$block">{$block->title} ({$position}/{$block->countContents()}) · {$video->duration|duration}</small>
                         <h1>
                             <span>{$video->title}</span>
                             <small>{$video->description}</small>
                         </h1>
-                        {if $block->dependencies->count()}
+                        {if $block && $block->dependencies->count()}
 	                        <div class="idea">
 	                            <i class="icon icon-idea"></i>
 	                            <span>Je potřeba rozumět: {foreach $block->dependencies as $dep}{$dep->title}{sep}, {/sep}{/foreach}.</span>
