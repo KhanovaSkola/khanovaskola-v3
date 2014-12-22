@@ -4,6 +4,7 @@ namespace Bin\Commands;
 
 use App\Presenters\Homepage;
 use Nette\Application\PresenterFactory;
+use Nette\Application\UI\Presenter;
 use Symfony\Component\Console\Input\InputArgument;
 
 
@@ -21,6 +22,11 @@ class Link extends Command
 	{
 		/** @var Homepage $presenter */
 		$presenter = $fact->createPresenter('Homepage');
+
+		$ref = new \ReflectionProperty(Presenter::class, 'globalParams');
+		$ref->setAccessible(TRUE);
+		$ref->setValue($presenter, []);
+
 		$args = [];
 		foreach ($this->in->getVariadics() as $part)
 		{
