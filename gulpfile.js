@@ -1,7 +1,12 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var path = require('path');
 var replace = require('gulp-replace-task');
+var neon = require('neon-js/src/neon.js');
+
+var configRaw = fs.readFileSync('./app/config/config.local.neon', 'utf8');
+var config = neon.decode(configRaw);
 
 var lessDir = './www/less';
 var lessFile = path.join(lessDir, 'main.less');
@@ -63,8 +68,9 @@ gulp.task('js-dev', function() {
 		.pipe(replace({
 			patterns: [{
 				json: {
-					domain: {
-						elastic: 'http://localhost:9200'
+					elastic: {
+						url: 'http://localhost:9200',
+						index: config.get('parameters').get('elastic').get('index')
 					}
 				}
 			}]
@@ -82,8 +88,9 @@ gulp.task('js-production', function() {
 		.pipe(replace({
 			patterns: [{
 				json: {
-					domain: {
-						elastic: 'https://elastic.khanovaskola.cz'
+					elastic: {
+						url: 'https://elastic.khanovaskola.cz',
+						index: config.get('parameters').get('elastic').get('index')
 					}
 				}
 			}]
