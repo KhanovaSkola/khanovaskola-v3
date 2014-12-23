@@ -24,17 +24,22 @@ class Router extends RouteList
 		$this[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
 
 		$this[] = new Route('esi/header/user', 'Esi:headerUser');
+		$this[] = new Route('profil', 'Profile:default');
+		$this[] = new Route('odhlaseni', 'Auth:out');
+		$this[] = new Route('heslo', 'Auth:resetPassword');
+		$this[] = new Route('o-skole', 'Text:about');
+		$this[] = new Route('predmety', 'Subjects:default');
+		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
 
-		$this[] = new Route('schema/<action>/<schemaId>[-<slug>]', 'Schema:default');
-		$this[] = new Route('block/<action>/[<schemaId>/]<blockId>[-<slug>]', 'Block:default');
-		$this[] = new Route('video/<action>/[[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
-		$this[] = new Route('blueprint/<action>/[[<schemaId>/]<blockId>/]<blueprintId>[-<slug>]', 'Blueprint:default');
+		$this[] = new Route('schema/[<action>/]<schemaId>[-<slug>]', 'Schema:default');
+		$this[] = new Route('blok/[<action>/][<schemaId>/]<blockId>[-<slug>]', 'Block:default');
+		$this[] = new Route('video/[<action>/][[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
+		$this[] = new Route('cviceni/[<action>/][[<schemaId>/]<blockId>/]<blueprintId>[-<slug>]', 'Blueprint:default');
 
 		// old links
 		$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
 		$this[] = new Redirect('dobrovolnici/preklad', 'https://wiki.khanovaskola.cz/doku.php?id=jaknato');
 		$this[] = new Redirect('dobrovolnici/pravidla-prekladu', 'https://wiki.khanovaskola.cz/doku.php?id=pravidla');
-		$this[] = new Redirect('o-skole', 'https://wiki.khanovaskola.cz/doku.php?id=start');
 		$this[] = new Redirect('o-skole/projekty', 'https://wiki.khanovaskola.cz/doku.php?id=start');
 		$this[] = new Redirect('kontakt', 'https://wiki.khanovaskola.cz/doku.php?id=tym');
 		$this[] = $context->createInstance(Routers\OldVideo::class);
