@@ -25,6 +25,9 @@ class Search extends Control
 	{
 		$form = new Form();
 
+		$form->setAction('/');
+		$form->addHidden('do', 'search-form-submit');
+
 		$form->addText('query');
 
 		$form->addSubmit('search');
