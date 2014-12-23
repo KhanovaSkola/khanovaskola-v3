@@ -12,10 +12,8 @@
             <div class="content-inner">
                 <section class="search-form">
                     {control search, label => 'Hledáte'}
-                    <ul class="list-unstyled">
-                        <li n:foreach="$search->aggregations as $ag">
-                            {$ag['key']} ({$ag['doc_count']})
-                        </li>
+                    <ul n:if="$search->results" class="list-unstyled result-count">
+                        Nalezeno {foreach $search->aggregations as $ag}{$ag['doc_count']} {_}search.count.{$ag['key']}{/_}{sep}, {/sep}{/foreach}
                     </ul>
                 </section>
                 <section class="search-result" data-url-more="{plink more, query => $query}">
