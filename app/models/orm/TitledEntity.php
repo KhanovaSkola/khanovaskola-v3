@@ -8,20 +8,10 @@ use Orm;
 
 /**
  * @property string      $title
- * @property string      $slug
  * @property NULL|string $description
  */
 abstract class TitledEntity extends Entity
 {
-
-	/**
-	 * @param $title
-	 */
-	public function setTitle($title)
-	{
-		$this->setValue('title', $title);
-		$this->setValue('slug', Strings::webalize($title));
-	}
 
 	public function getDescription()
 	{
