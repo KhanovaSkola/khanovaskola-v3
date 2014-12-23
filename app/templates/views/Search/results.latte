@@ -23,8 +23,12 @@
 					{/foreach}
                 </section>
 
-				<div class="text-center">
-                    <a href="#" data-show-more>Zobrazit další</a>
+                <div class="text-center">
+                    {if $search->results}
+	                    <a href="#" data-show-more>Zobrazit další</a>
+	                {else}
+	                    Takový obsah tady nemáme&hellip;
+	                {/if}
                 </div>
             </div>
         </main>
