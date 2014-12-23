@@ -1,0 +1,20 @@
+{define searchItem}
+	{**
+	 * @param App\Models\Rme\Content $content
+	 *}
+
+	{var $block = $content->getRandomParent()}
+    {var $schema = $block ? $block->getRandomParent() : NULL}
+    {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
+    <article>
+        <div class="left text-{$subject ? $subject->color : 'blue'}">
+            <i class="icon icon-{$subject ? $subject->icon : 'history'}"></i>
+        </div>
+        <div class="right">
+            <span class="title" data-score="{$content->score|number:2}">
+                <a n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
+            </span>
+            <p>{$content->highlight('description')|noescape}</p>
+        </div>
+    </article>
+{/define}

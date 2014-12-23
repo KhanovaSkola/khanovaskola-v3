@@ -1,0 +1,9 @@
+{layout none}
+{**
+ * @param App\Models\Structs\SearchResponse $search
+ *}
+
+{includeblock _searchItem.latte}
+{foreach $search->results as $i => $content}
+	{include searchItem, content => $content}
+{/foreach}

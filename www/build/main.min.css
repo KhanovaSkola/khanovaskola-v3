@@ -11510,8 +11510,7 @@ label {
 }
 .search-page .content .content-inner {
   width: 530px;
-  margin: 0 auto;
-  margin-top: 50px;
+  margin: 50px auto 200px;
 }
 @media (max-width: 768px) {
   .search-page .content .content-inner {
