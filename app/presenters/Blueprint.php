@@ -16,6 +16,7 @@ final class Blueprint extends Content
 	use Parameters\Block;
 	use Parameters\Blueprint;
 	use Parameters\Schema;
+	use Parameters\Slug;
 
 	/**
 	 * @var BlueprintCompiler
@@ -39,6 +40,8 @@ final class Blueprint extends Content
 		{
 			$this->error();
 		}
+
+		$this->checkSlug($this->blueprint);
 	}
 
 	private function getExercise($seed = NULL)

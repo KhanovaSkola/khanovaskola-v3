@@ -12,6 +12,7 @@ class Schema extends Presenter
 {
 
 	use Parameters\Schema;
+	use Parameters\Slug;
 
 	private $_preloadedBlocks = [];
 
@@ -25,6 +26,7 @@ class Schema extends Presenter
 	{
 		parent::startup();
 		$this->loadSchema();
+		$this->checkSlug($this->schema);
 	}
 
 	public function renderDefault()

@@ -12,6 +12,7 @@ class Block extends Presenter
 
 	use Parameters\Block;
 	use Parameters\Schema;
+	use Parameters\Slug;
 
 	public function startup()
 	{
@@ -30,6 +31,8 @@ class Block extends Presenter
 		{
 			$this->error();
 		}
+
+		$this->checkSlug($this->block);
 	}
 
 	public function renderDefault()

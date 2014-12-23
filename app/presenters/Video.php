@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Components\Controls\Comments;
 use App\Models\Rme;
 use App\Presenters\Parameters;
+use Nette\Utils\Strings;
 
 
 final class Video extends Content
@@ -12,6 +13,7 @@ final class Video extends Content
 
 	use Parameters\Block;
 	use Parameters\Schema;
+	use Parameters\Slug;
 	use Parameters\Video;
 
 	public function startup()
@@ -46,6 +48,8 @@ final class Video extends Content
 		{
 			$this->error();
 		}
+
+		$this->checkSlug($this->video);
 	}
 
 	public function renderDefault()
