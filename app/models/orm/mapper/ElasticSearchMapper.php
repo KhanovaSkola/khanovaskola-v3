@@ -32,15 +32,15 @@ class ElasticSearchMapper extends Mapper
 		});
 	}
 
-	protected function findByFulltext($type, $query)
+	protected function findByFulltext($type, $query, $limit = 10, $offset = 0)
 	{
 		$args = [
 			'index' => $this->elastic->getIndex(),
 			'type' => $type,
 			'body' => [
 				'fields' => ['id'],
-				'from' => 0,
-				'size' => 10,
+				'from' => $offset,
+				'size' => $limit,
 				'query' => [
 					'multi_match' => [
 						'query' => $query,
@@ -69,11 +69,13 @@ class ElasticSearchMapper extends Mapper
 
 	/**
 	 * @param $query
+	 * @param NULL|int $limit
+	 * @param NULL|int $offset
 	 * @return SearchResponse
 	 */
-	public function getWithFulltext($query)
+	public function getWithFulltext($query, $limit = 10, $offset = 0)
 	{
-		$res = $this->findByFulltext($this->getShortEntityName(), $query);
+		$res = $this->findByFulltext($this->getShortEntityName(), $query, $limit, $offset);
 		if ($res['hits']['total'] === 0)
 		{
 			return new SearchResponse();
