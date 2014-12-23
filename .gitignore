@@ -10,6 +10,8 @@ elasticsearch.log
 /app/config/config.local.neon
 /keys
 /notes.txt
+/todo
 /tests/_data
 /www/_index.php
+/temp/btfj.dat
 /temp/cachegrind*
