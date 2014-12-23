@@ -11517,6 +11517,9 @@ label {
     width: 100%;
   }
 }
+.search-page .content .content-inner .result-count {
+  color: #959b9f;
+}
 .search-page .content .content-inner .search-form {
   margin-left: 40px;
 }

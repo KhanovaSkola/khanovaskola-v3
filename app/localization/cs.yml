@@ -211,3 +211,8 @@ block:
     one: "1 hodina"
     few: "%1 hodiny"
     many: "%1 hodin"
+
+search:
+  count:
+    video: "videí"
+    blueprint: "cvičení"
