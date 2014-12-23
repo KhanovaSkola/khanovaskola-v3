@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\Models\Orm\Entity;
+use App\Models\Orm\TitledEntity;
 use App\Models\Rme;
 use App\NotImplementedException;
 use App\Presenters\Presenter;
@@ -12,6 +13,7 @@ use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;
 use Nette\Utils\Html;
+use Nette\Utils\Strings;
 
 
 /**
@@ -67,7 +69,7 @@ trait ControlTrait
 		if ($destination instanceof Rme\Schema)
 		{
 			$args = ['schemaId' => $destination->id];
-			$destination = 'Schema:';
+			$presenter = 'Schema:';
 		}
 		else if ($destination instanceof Rme\Block)
 		{
@@ -82,10 +84,11 @@ trait ControlTrait
 				'blockId' => $destination->id,
 				'schemaId' => $schema ? $schema->id : NULL,
 			];
-			$destination = 'Block:';
+			$presenter = 'Block:';
 		}
 		else if ($destination instanceof Rme\Content)
 		{
+			/** @var Rme\Content $destination */
 			/** @var Rme\Block $block */
 			$block = NULL;
 			if (isset($args[0]) && $args[0] instanceof Rme\Block)
@@ -104,12 +107,12 @@ trait ControlTrait
 			if ($destination instanceof Rme\Video)
 			{
 				$idKey = 'videoId';
-				$destination = 'Video:';
+				$presenter = 'Video:';
 			}
 			else if ($destination instanceof Rme\Blueprint)
 			{
 				$idKey = 'blueprintId';
-				$destination = 'Blueprint:';
+				$presenter = 'Blueprint:';
 			}
 			else
 			{
@@ -122,9 +125,18 @@ trait ControlTrait
 				'schemaId' => $schema ? $schema->id : NULL,
 			];
 		}
+		else
+		{
+			$presenter = $destination;
+		}
+
+		if ($destination instanceof TitledEntity)
+		{
+			$args['slug'] = $destination->slug;
+		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
-		return NControl::link($destination, $args);
+		return NControl::link($presenter, $args);
 	}
 
 	protected function redirectToEntity(Entity $entity)

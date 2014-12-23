@@ -25,10 +25,10 @@ class Router extends RouteList
 
 		$this[] = new Route('esi/header/user', 'Esi:headerUser');
 
-		$this[] = new Route('schema/<action>/<schemaId>', 'Schema:default');
-		$this[] = new Route('block/<action>/[<schemaId>/]<blockId>', 'Block:default');
-		$this[] = new Route('video/<action>/[[<schemaId>/]<blockId>/]<videoId>', 'Video:default');
-		$this[] = new Route('blueprint/<action>/[[<schemaId>/]<blockId>/]<blueprintId>', 'Blueprint:default');
+		$this[] = new Route('schema/<action>/<schemaId>[-<slug>]', 'Schema:default');
+		$this[] = new Route('block/<action>/[<schemaId>/]<blockId>[-<slug>]', 'Block:default');
+		$this[] = new Route('video/<action>/[[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
+		$this[] = new Route('blueprint/<action>/[[<schemaId>/]<blockId>/]<blueprintId>[-<slug>]', 'Blueprint:default');
 
 		// old links
 		$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');

@@ -8,6 +8,7 @@ use Orm;
 
 /**
  * @property string      $title
+ * @property string      $slug        {ignore}
  * @property NULL|string $description
  */
 abstract class TitledEntity extends Entity
@@ -17,6 +18,14 @@ abstract class TitledEntity extends Entity
 	{
 		$o = $this->getValue('description');
 		return $o ?: NULL;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSlug()
+	{
+		return Strings::webalize($this->title);
 	}
 
 }
