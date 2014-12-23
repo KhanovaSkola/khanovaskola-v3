@@ -19,6 +19,8 @@
 	padding-left: @padding-horizontal;
 	padding-right: @padding-horizontal;
 
+  	transition: all 0.1s ease-out;
+
 	&:hover,
 	&:focus {
 		// background: blue;
@@ -45,11 +47,11 @@
 	&.btn-primary {
 		border-radius: 40px;
 		background: #67A3C8;
-		box-shadow: 0 0 0 @outline-size #67A3C8;
+		box-shadow: 0 0 0 @outline-size #67A3C8 !important;
 		&:hover,
 		&:focus {
 			background: #62B5E9;
-			box-shadow: 0 0 0 @outline-size #62B5E9;
+			box-shadow: 0 0 0 @outline-size #62B5E9 !important;
 			border-width: 2px;
 			padding-left: @padding-horizontal;
 			padding-right: @padding-horizontal;

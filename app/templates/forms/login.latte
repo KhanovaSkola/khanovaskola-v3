@@ -1,34 +1,32 @@
 {includeblock _error.latte}
 
 <form n:name="form">
-    <div class="form-group has-success">
+    <div class="form-group form-group-mail">
         <div class="clearfix">
-            <div class="pull-left">
+            <div class="pull-left hidden">
                 <img src="{$avatarUrl}" alt="avatar" class="avatar">
             </div>
-            <div class="pull-left has-addend">
-                <label n:name="email">E-mail</label>
-                <input n:name="email" type="text" class="form-control input-mail">
+            <div class="pull-left has-addend floating-placeholder">
+                <label n:name="email">Email</label>
+                <input n:name="email" type="text" class="form-control input-mail" placeholder="Email">
                 <div class="addend-icon">
                     <i class="icon icon-mail"></i>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-group form-group-password has-error">
-        <div class="clearfix">
-            <div class="pull-left">
-                <label n:name="password">Heslo</label>
-                <input n:name="password" type="password" class="form-control input-password">
-            </div>
-            <div class="pull-left">
-                {*<div class="checkbox">
-                    <label>
-                        <input type="checkbox" class="toggle-password">
-                        <span></span>
-                        neskrývat heslo
-                    </label>
-                </div>*}
+    <div class="form-group form-group-password clearfix">
+        <div class="pull-left floating-placeholder">
+            <label n:name="password">Heslo</label>
+            <input n:name="password" type="password" class="form-control input-password" placeholder="Heslo">
+        </div>
+        <div class="pull-left">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="toggle-password">
+                    <span></span>
+                    neskrývat heslo
+                </label>
             </div>
         </div>
     </div>

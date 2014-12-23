@@ -1,34 +1,158 @@
 {define footerMobile}
-	<div class="footer-mobile">
-        <strong>Obor</strong>
-        <div class="subjects">
-            {foreach $subjects as $subject}
-	            <a n:href="$subject" class="subject text-{$subject->color}">
-	                <span>{$subject->title}</span>
-	                <i class="icon icon-{$subject->icon}"></i>
-	            </a>
-			{/foreach}
-        </div>
+	<div class="container">
+		<div class="footer-mobile">
+	        <strong>Obor</strong>
+	        <div class="subjects">
+	            {foreach $subjects as $subject}
+		            <a n:href="$subject" class="subject text-{$subject->color}">
+		                <span>{$subject->title}</span>
+		                <i class="icon icon-{$subject->icon}"></i>
+		            </a>
+				{/foreach}
+	        </div>
 
-        <strong>Khanova škola</strong>
-        <div class="about">
-            <p>
-                1 - 3 věty o Khanové Škole. Takže tohle bude ta druhá věta. A třetí, že Khanova Škola snad bude mít nový web.
-            </p>
-            <a n:href="Text:about">O nás</a>
-            <a href="#">Kontakt</a>
-            <a href="#">Transparentní účet</a>
-        </div>
+	        <strong>Khanova škola</strong>
+	        <div class="about">
+	            <p>
+	                1 - 3 věty o Khanové Škole. Takže tohle bude ta druhá věta. A třetí, že Khanova Škola snad bude mít nový web.
+	            </p>
+	            <a n:href="Text:about">O nás</a>
+	            <a href="#">Kontakt</a>
+	            <a href="#">Transparentní účet</a>
+	        </div>
 
-        <strong>Kamarádi a Sponzoři</strong>
-        <div class="sponsors">
-            <a href="#">Matýskova matematika</a>
-            <a href="#">Scio.cz</a>
-            <a href="#">Google ČR</a>
-            <a href="#">Microsoft ČR</a>
-        </div>
+	        <strong>Kamarádi a Sponzoři</strong>
+	        <div class="sponsors">
+	            <a href="#">Matýskova matematika</a>
+	            <a href="#">Scio.cz</a>
+	            <a href="#">Google ČR</a>
+	            <a href="#">Microsoft ČR</a>
+	        </div>
+	    </div>
+
+	    <div class="copyright">
+	    </div>
     </div>
 
-    <div class="copyright">
+    <div class="mobile-nav">
+    	<div class="unlogged">
+    		<header>
+    			<a href="#" data-toggle="modal" data-target="#loginModal">Přihlásit se</a>
+    		</header>
+    		<div class="subjects">
+    			<a href="#" class="subject text-blue">
+    				<span>Matematika</span>
+    				<i class="icon icon-math"></i>
+    			</a>
+    			<a href="#" class="subject text-cyan-dark">
+    				<span>Fyzika</span>
+    				<i class="icon icon-physics"></i>
+    			</a>
+    			<a href="#" class="subject text-yellow">
+    				<span>Chemie</span>
+    				<i class="icon icon-chemistry"></i>
+    			</a>
+    			<a href="#" class="subject text-green">
+    				<span>Přírodní vědy</span>
+    				<i class="icon icon-natural-studies"></i>
+    			</a>
+    			<a href="#" class="subject text-brown">
+    				<span>Umění a humanitní vědy</span>
+    				<i class="icon icon-history"></i>
+    			</a>
+    			<a href="#" class="subject text-black">
+    				<span>“pop: přijímačky na VŠ”</span>
+    			</a>
+    			<hr>
+    			<a href="#" class="subject text-black">
+    				<span>Zkusím štěstí</span>
+    				<i class="icon icon-globe"></i>
+    			</a>
+    			<a href="#" class="subject text-black">
+    				<span>Zobrazit vše</span>
+    				<i class="icon icon-list"></i>
+    			</a>
+    		</div>
+    	</div>
+    	<div class="logged hidden">
+    		<header>
+    			<a href="#">
+    				<i class="icon icon-arrow-left2"></i>
+    				<span>Matematika pro ZŠ a SŠ</span>
+    			</a>
+    		</header>
+    		<section class="userarea">
+    			<div class="user-info clearfix">
+    				<div class="pull-left">
+    					<span>Martin Halík</span>
+    				</div>
+    				<div class="avatar pull-right">
+    					<img src="img/avatar.png" alt="avatar">
+    				</div>
+    			</div>
+    			<div class="user-menu">
+    				<ul class="list-unstyled">
+    					<li>
+    						<a href="#" class="text-black">
+    							<i class="icon icon-home"></i>
+    							<span>Přehled</span>
+    						</a>
+    					</li>
+    					<li>
+    						<a href="#" class="text-black">
+    							<i class="icon icon-cog"></i>
+    							<span>Nastavení</span>
+    						</a>
+    					</li>
+    					<li>
+    						<a href="#" class="text-black">
+    							<i class="icon icon-unlock"></i>
+    							<span>Odhlásit se</span>
+    						</a>
+    					</li>
+    					<li>
+    						<a href="#"  class="text-green">
+    							<i class="icon icon-user-add"></i>
+    							<span>Přidat žáky / děti</span>
+    						</a>
+    					</li>
+    				</ul>
+    			</div>
+    		</section>
+    		<section class="subjects">
+    			<a href="#" class="subject text-blue">
+    				<span>Matematika</span>
+    				<i class="icon icon-math"></i>
+    			</a>
+    			<a href="#" class="subject text-cyan-dark">
+    				<span>Fyzika</span>
+    				<i class="icon icon-physics"></i>
+    			</a>
+    			<a href="#" class="subject text-yellow">
+    				<span>Chemie</span>
+    				<i class="icon icon-chemistry"></i>
+    			</a>
+    			<a href="#" class="subject text-green">
+    				<span>Přírodní vědy</span>
+    				<i class="icon icon-natural-studies"></i>
+    			</a>
+    			<a href="#" class="subject text-brown">
+    				<span>Umění a humanitní vědy</span>
+    				<i class="icon icon-history"></i>
+    			</a>
+    			<a href="#" class="subject text-black">
+    				<span>“pop: přijímačky na VŠ”</span>
+    			</a>
+    			<hr>
+    			<a href="#" class="subject text-black">
+    				<span>Zkusím štěstí</span>
+    				<i class="icon icon-globe"></i>
+    			</a>
+    			<a href="#" class="subject text-black">
+    				<span>Zobrazit vše</span>
+    				<i class="icon icon-list"></i>
+    			</a>
+    		</section>
+    	</div>
     </div>
 {/define}
