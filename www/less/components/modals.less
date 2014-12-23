@@ -1,10 +1,22 @@
 .modal {
+  &.fade .modal-dialog {
+	.translate(0, -25%);
+	// .transition-transform(~"0.3s cubic-bezier(0.705, -0.010, 0.635, 1.650)");
+	// transition-timing-function: cubic-bezier(0.705, -0.010, 0.635, 1.650);
+	transition: all .23s cubic-bezier(0.175, 0.885, 0.32, 1.575);
+  }
+  &.in .modal-dialog {
+	.translate(0, 0)
+  }
   .modal-content {
 	box-shadow: 0 0 0;
 	border-radius: 3px;
 	border: 0;
 	.modal-body {
 	  text-align: left;
+	  .form-group {
+	  	margin-bottom: 20px;
+	  }
 	  .close {
 		position: absolute;
 		top: 10px;
@@ -25,10 +37,12 @@
 	.modal-footer {
 	  background: @khan-black2;
 	  border: 0;
-	  padding-top: 35px;
-	  padding-bottom: 35px;
+	  padding-top: 32px;
+	  padding-bottom: 52px;
 	  padding-left: 20px;
 	  padding-right: 20px;
+	  border-bottom-left-radius: 3px;
+	  border-bottom-right-radius: 3px;
 	}
   }
 }
@@ -39,12 +53,18 @@
 
 .modal-sign {
   .modal-dialog {
+	padding-top: 80px;
 	width: 455px;
 	@media (max-width: @screen-sm) {
 	  width: 95%;
+	  max-width: 455px;
+	  margin: 0 auto;
 	}
   }
   .modal-body {
+	h2  {
+		margin-top: 40px;
+	}
 	form {
 	  width: 333px;
 	  margin: 0 auto;
@@ -68,7 +88,7 @@
 		width: 200px;
 	  }
 	  .checkbox {
-		margin-top: 30px;
+		margin-top: 17px;
 		margin-left: 15px;
 	  }
 	  a {
@@ -78,12 +98,16 @@
 	  }
 	  .btn-submit {
 		width: 115px;
-		margin: 0;
-		margin-bottom: 30px;
-		margin-top: 20px;
+		margin: 20px 0 0px;
+		text-align: center;
+		padding-left: 0;
+		padding-right: 0;
 	  }
 	  .form-group-password {
 		margin-bottom: 10px;
+		&.space-top {
+			margin-top: 25px;
+		}
 	  }
 	}
   }
@@ -97,6 +121,8 @@
 	  margin: 0;
 	  font-weight: @font-weight-light;
 	  font-size: 14px;
+	  padding-left: 0;
+	  padding-right: 0;
 	  @media (max-width: @screen-sm) {
 		width: 90%;
 		margin: 0 auto;
@@ -126,25 +152,6 @@
 	  }
 	  // padding-left: 15px;
 	  // padding-right: 15px;
-	}
-  }
-}
-
-#registerModal {
-  .modal-body{
-	.btn {
-	  width: 125px;
-	  margin-bottom: 5px;
-	}
-	.form-group-password {
-	  .clearfix;
-	  margin-top: 25px;
-	  .form-control {
-		float: left;
-	  }
-	  .checkbox {
-		margin-top: 5px;
-	  }
 	}
   }
 }
