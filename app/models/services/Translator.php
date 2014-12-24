@@ -11,6 +11,11 @@ use Nette;
 use Nette\Neon\Neon;
 
 
+/**
+ * Starting key with "/" removes prefix
+ * Syntax [male|female] if key GENDER is set
+ * Args can be named or numbered
+ */
 class Translator implements Nette\Localization\ITranslator
 {
 
@@ -135,7 +140,15 @@ class Translator implements Nette\Localization\ITranslator
 			throw new InvalidStateException('Translator language not set');
 		}
 
-		$steps = $this->prefix . $steps;
+		if (strpos($steps, '/') === 0)
+		{
+			$steps = ltrim($steps, '/');
+		}
+		else
+		{
+			$steps = $this->prefix . $steps;
+		}
+
 		$text = $this->findTextByKey($steps, $count);
 		if ($text === NULL)
 		{
