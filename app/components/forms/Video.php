@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Models\Rme;
 use App\Models\Services\Queue;
 use App\Models\Tasks;
+use Nette\Forms\Controls\BaseControl;
 
 
 class Video extends EditorForm
@@ -33,10 +34,12 @@ class Video extends EditorForm
 		$v = $this->getValues();
 
 		$video = $this->presenter->video;
+		$mode = 'edited';
 		if (!$video)
 		{
 			$video = new Rme\Video();
 			$this->orm->contents->attach($video);
+			$mode = 'added';
 		}
 
 		$video->title = $v->title;
@@ -46,6 +49,8 @@ class Video extends EditorForm
 		$this->orm->flush();
 
 		$this->queue->enqueue(new Tasks\UpdateVideo($video));
+
+		$this->presenter->flashSuccess("editor.$mode.video");
 
 		$block = $this->presenter->block;
 		$schema = $this->presenter->schema;
