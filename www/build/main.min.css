@@ -9247,7 +9247,7 @@ label {
   background: #353d41;
   border: 0;
   padding-top: 32px;
-  padding-bottom: 52px;
+  padding-bottom: 30px;
   padding-left: 20px;
   padding-right: 20px;
   border-bottom-left-radius: 3px;
@@ -9258,7 +9258,7 @@ label {
   transition: transform 0.1s ease-out;
 }
 .modal-sign .modal-dialog {
-  padding-top: 80px;
+  padding-top: 0;
   width: 455px;
 }
 @media (max-width: 768px) {
@@ -9293,10 +9293,7 @@ label {
   }
 }
 .modal-sign .modal-body form .input-mail {
-  width: 280px;
-}
-.modal-sign .modal-body form .input-password {
-  width: 200px;
+  width: 330px;
 }
 .modal-sign .modal-body form .checkbox {
   margin-top: 17px;
