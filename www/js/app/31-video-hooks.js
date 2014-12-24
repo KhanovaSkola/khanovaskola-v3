@@ -2,6 +2,7 @@
 	var viewId = null;
 	var furthest = 0;
 	var realTimeWatched = 0;
+	var watched = false;
 
 	var sendEvent = function (event, args, cb) {
 		var url = $('.video-wrapper').data('url-event-' + event);
@@ -40,8 +41,11 @@
 		sendEvent('tick', {
 			time: realTimeWatched,
 			percent: realTimeWatched / App.video.duration * 100,
-			furthest: furthest
-		})
+			furthest: furthest,
+			watched: watched ? 1 : 0
+		}, function(res) {
+			watched = res.watched;
+		});
 	};
 
 	App.video.onTick.push(sendPosition);
