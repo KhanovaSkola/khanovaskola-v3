@@ -2,13 +2,15 @@
 
 namespace App\Models\Services;
 
+use Nette\Utils\Json;
 
-class YoutubePreview
+
+class Youtube
 {
 
 	/**
 	 * @see http://stackoverflow.com/a/20542029/326257
-	 * @param $youtubeId
+	 * @param string $youtubeId
 	 * @return NULL|string
 	 */
 	public function getImageUrlFor($youtubeId)
@@ -28,6 +30,18 @@ class YoutubePreview
 		}
 
 		return NULL;
+	}
+
+	/**
+	 * @param string $youtubeId
+	 * @return mixed
+	 * @throws \Nette\Utils\JsonException
+	 */
+	public function getMeta($youtubeId)
+	{
+		$url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc';
+		$raw = file_get_contents(sprintf($url, $youtubeId));
+		return Json::decode($raw);
 	}
 
 }
