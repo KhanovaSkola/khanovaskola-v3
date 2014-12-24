@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Rme\VideoView;
+use App\Models\Structs\EventList;
 use App\Models\Structs\VideoEvents;
 use Nette\Application\BadRequestException;
 
@@ -13,9 +14,11 @@ final class Js extends Presenter
 
 	/**
 	 * @param int $videoId
+	 * @param $blockId
+	 * @param $schemaId
 	 * @throws BadRequestException
 	 */
-	public function actionVideoViewBegin($videoId)
+	public function actionVideoViewBegin($videoId, $blockId, $schemaId)
 	{
 		if (!$video = $this->orm->contents->getById($videoId))
 		{
@@ -28,6 +31,8 @@ final class Js extends Presenter
 
 		$view = new VideoView();
 		$view->video = $video;
+		$view->block = $blockId;
+		$view->schema = $schemaId;
 		$view->user = $this->userEntity;
 		$this->orm->videoViews->attach($view);
 
@@ -96,9 +101,10 @@ final class Js extends Presenter
 	 * @param float $percent
 	 * @param float $time total of real time watched
 	 * @param float $furthest
+	 * @param bool $watched
 	 * @throws BadRequestException
 	 */
-	public function actionVideoViewTick($viewId, $percent, $time, $furthest)
+	public function actionVideoViewTick($viewId, $percent, $time, $furthest, $watched = FALSE)
 	{
 		/** @var VideoView $view */
 		if (!$view = $this->orm->videoViews->getById($viewId))
@@ -110,8 +116,15 @@ final class Js extends Presenter
 		$view->time = $time;
 		$view->furthest = $furthest;
 
+		if (!$watched && $view->percent > 70) // real time percents
+		{
+			$this->trigger(EventList::VIDEO_WATCHED, [$view, $this->userEntity]);
+			$this->orm->flush();
+			$this->sendJson(['status' => 'ok', 'watched' => TRUE]);
+		}
+
 		$this->orm->flush();
-		$this->sendJson(['status' => 'ok']);
+		$this->sendJson(['status' => 'ok', 'watched' => $watched]);
 	}
 
 }

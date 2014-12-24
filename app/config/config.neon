@@ -47,9 +47,6 @@ redis:
 	session: on
 	debugger: off
 
-events:
-	debugger: off
-
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
 	graphVersion: v2.1
@@ -57,6 +54,11 @@ facebook:
 
 google:
 	returnUri: 'Auth:googleResponse'
+
+events:
+	debugger: off
+	subscribers:
+		- App\Models\Services\CompletedContentCreator
 
 services:
 	- App\Models\Factories\TranslatorFactory
