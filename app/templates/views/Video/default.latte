@@ -44,7 +44,14 @@
                 <div class="right">
                     <div class="right-inner">
                         <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"
-                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id}">
+                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id}"
+                            data-url-event-begin="{plink Js:videoViewBegin}"
+                            data-url-event-seek="{plink Js:videoViewSeek}"
+                            data-url-event-pause="{plink Js:videoViewPause}"
+                            data-url-event-change-view="{plink Js:videoViewChangeView}"
+                            data-url-event-tick="{plink Js:videoViewTick}"
+                            data-video-id="{$video->id}">
+
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
                             <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
