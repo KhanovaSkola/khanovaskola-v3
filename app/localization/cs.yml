@@ -215,6 +215,26 @@ block:
 editor:
   form:
     error: "Chyba: %1"
+  added:
+    block:
+      title: "Blok přidán."
+      message: ""
+    schema:
+      title: "Schéma přidáno."
+      message: ""
+    video:
+      title: "Video přidáno."
+      message: ""
+  edited:
+    block:
+      title: "Blok upraven."
+      message: ""
+    schema:
+      title: "Schéma upraveno."
+      message: ""
+    video:
+      title: "Video upraveno."
+      message: ""
 
 search:
   count:

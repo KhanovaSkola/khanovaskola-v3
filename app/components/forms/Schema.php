@@ -45,6 +45,7 @@ class Schema extends EditorForm
 		$parsed = $this->schemaLayout->normalize($parsed);
 
 		$schema = $this->presenter->schema;
+		$mode = 'edited';
 		if (!$schema)
 		{
 			$schema = new Rme\Schema();
@@ -52,6 +53,8 @@ class Schema extends EditorForm
 
 			$schema->author = $this->presenter->userEntity;
 			$schema->blockSchemaBridges = [];
+
+			$mode = 'added';
 		}
 
 		/** @var Rme\Subject $subject */
@@ -75,6 +78,7 @@ class Schema extends EditorForm
 
 		$this->queue->enqueue(new Tasks\UpdateSchema($schema));
 
+		$this->presenter->flashSuccess("editor.$mode.schema");
 		$this->presenter->redirect('this', ['schemaId' => $schema->id]);
 	}
 }

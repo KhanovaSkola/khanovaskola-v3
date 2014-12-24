@@ -25,12 +25,14 @@ class Block extends EditorForm
 		$v = $this->getValues();
 
 		$block = $this->presenter->block;
+		$mode = 'edited';
 		if (!$block)
 		{
 			$block = new Rme\Block();
 			$this->orm->blocks->attach($block);
 
 			$block->author = $this->presenter->userEntity;
+			$mode = 'added';
 		}
 
 		$block->title = $v->title;
@@ -52,6 +54,7 @@ class Block extends EditorForm
 
 		$this->orm->flush();
 
+		$this->presenter->flashSuccess("editor.$mode.block");
 		$schema = $this->presenter->schema;
 		$this->presenter->redirect('this', [
 			'blockId' => $block->id,
