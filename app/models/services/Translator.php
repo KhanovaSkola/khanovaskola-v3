@@ -85,7 +85,7 @@ class Translator implements Nette\Localization\ITranslator
 		{
 			return ['zero', 'many'];
 		}
-		else if ($count === 1)
+		else if ($count == 1)
 		{
 			return ['one'];
 		}
