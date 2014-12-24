@@ -22,6 +22,7 @@ class Router extends RouteList
 		}
 
 		$this[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
+		$this[] = new Route('', 'Homepage:default');
 
 		$this[] = new Route('esi/header/user', 'Esi:headerUser');
 		$this[] = new Route('profil', 'Profile:default');
