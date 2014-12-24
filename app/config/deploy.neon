@@ -1,6 +1,0 @@
-parameters:
-	deploy:
-		dev:
-			user: deploy
-			host: dev.khanovaskola.cz
-			path: /srv/sites/dev.khanovaskola.cz

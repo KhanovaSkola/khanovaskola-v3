@@ -126,7 +126,6 @@ class Configurator extends Nette\Configurator
 		foreach ([
 			'badges.neon',
 			'bin.neon',
-			'deploy.neon',
 			'config.neon',
 			'config.local.neon'
 		] as $file)
