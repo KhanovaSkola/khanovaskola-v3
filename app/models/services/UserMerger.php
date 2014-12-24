@@ -30,15 +30,12 @@ class UserMerger extends Object
 	public function mergeUserInto(User $from, User $target)
 	{
 		$db = $this->orm->users->getMapper()->getConnection();
-		$db->query('
-			UPDATE [answers] SET [user_id] = %i', $target->id, '
-			WHERE [user_id] = %i', $from->id);
-		$db->query('
-			UPDATE [badge_user_bridges] SET [user_id] = %i', $target->id, '
-			WHERE [user_id] = %i', $from->id);
-		$db->query('
-			UPDATE [video_views] SET [user_id] = %i', $target->id, '
-			WHERE [user_id] = %i', $from->id);
+		foreach (['answers', 'badge_user_bridges', 'completed_blocks', 'completed_contents', 'video_views'] as $table)
+		{
+			$db->query('
+				UPDATE [' . $table . '] SET [user_id] = %i', $target->id, '
+				WHERE [user_id] = %i', $from->id);
+		}
 
 		$this->orm->users->remove($from);
 	}
