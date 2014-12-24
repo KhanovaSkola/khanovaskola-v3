@@ -72,6 +72,7 @@
             </div>
         </div>
     </main>
+    {*
     <div class="other-subjects">
         <div class="inner">
             <h1>
@@ -99,6 +100,7 @@
             </div>
         </div>
     </div>
+    *}
 
     <div class="container" n:if="$profile->hasCacheBurstingPrivileges()">
         <div class="col-md-4">
@@ -133,8 +135,7 @@
         </div>
     </div>
 
-    <hr>
-
+	{*
 	<h1>{$profile->name}</h1>
 
 	<a n:href="linkStudents">{_'profile.linkStudents'}</a>
@@ -153,7 +154,8 @@
 	<h2>Badges</h2>
 	<a n:href="getBadge!">Get badge</a>
 	{foreach $userEntity->badges as $badge}
-		{*<img src="{$basePath.$badge->imagePath}" class="badge-image">*}
+		<img src="{$basePath.$badge->imagePath}" class="badge-image">
 		<h3>{$badge->title}</h3>
 		<p>{$badge->description} ({$badge->createdAt|date})</p>
 	{/foreach}
+	*}
