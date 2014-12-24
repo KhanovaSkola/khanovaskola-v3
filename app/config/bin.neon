@@ -9,18 +9,15 @@ services:
 
 console:
 	commands:
-		- Bin\Commands\Adminer\Update
 		- Bin\Commands\Backup\Create
 		- Bin\Commands\Backup\ListAll
 		- Bin\Commands\Backup\Restore
 		- Bin\Commands\Data\Drop
 		- Bin\Commands\Data\Fake
-		- Bin\Commands\Deploy\Development
 		- Bin\Commands\ElasticSearch\Populate
 		- Bin\Commands\ElasticSearch\Recreate
 		- Bin\Commands\Link
 		- Bin\Commands\Migrations\Migrate
-		- Bin\Commands\Neo4j\Reset
 		- Bin\Commands\Scaffolding\Migration\Php
 		- Bin\Commands\Scaffolding\Migration\Sql
 		- Bin\Commands\Scaffolding\Presenter
