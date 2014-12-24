@@ -17,6 +17,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|CompletedBlock[]    $completedBlocks    {1:m completedBlocks $schema}
  * @property OtM|CompletedContent[]  $completedContents  {1:m completedContents $schema}
  * @property MtM|User[]              $editors            {m:m users $schemasEdited}
+ * @property OtM|VideoView[]         $views              {1:m videoViews $schema}
  *
  * @property Block[]                 $blocks             {ignore}
  */
