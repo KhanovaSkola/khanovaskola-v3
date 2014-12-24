@@ -19,6 +19,10 @@ $(function() {
 				page: App.searchPage + 1
 			},
 			success: function(snippet) {
+				if (!snippet.trim()) {
+					$showMore.hide();
+				}
+
 				$results.append(snippet);
 				App.searchPage++;
 			},

@@ -24,9 +24,9 @@
                 </section>
 
                 <div class="text-center">
-                    {if $search->results}
+                    {if $search->total > count($search->results)}
 	                    <a href="#" data-show-more>Zobrazit další</a>
-	                {else}
+	                {elseif !$search->results}
 	                    Takový obsah tady nemáme&hellip;
 	                {/if}
                 </div>

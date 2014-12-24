@@ -103,7 +103,7 @@ class ElasticSearchMapper extends Mapper
 			$result[] = $entity;
 		}
 
-		return new SearchResponse($result, $res['aggregations']['buckets']['buckets']);
+		return new SearchResponse($result, $res['aggregations']['buckets']['buckets'], $res['hits']['total']);
 	}
 
 	/**
