@@ -42,6 +42,14 @@ class Video extends EditorForm
 			$mode = 'added';
 		}
 
+		$old = $this->orm->contents->getVideoByYoutubeId($v->youtubeId);
+		if ($old && ($mode === 'added' || $old->id !== $video->id))
+		{
+			/** @var self|BaseControl[] $this */
+			$this['youtubeId']->addError('Toto youtubeId už v databázi existuje.');
+			return FALSE;
+		}
+
 		$video->title = $v->title;
 		$video->description = $v->description;
 		$video->youtubeId = $v->youtubeId;
