@@ -18,10 +18,16 @@ class SearchResponse extends Object
 	 */
 	private $aggregations;
 
-	public function __construct(array $results = [], array $aggregations = [])
+	/**
+	 * @var int
+	 */
+	private $total;
+
+	public function __construct(array $results = [], array $aggregations = [], $total = 0)
 	{
 		$this->results = $results;
 		$this->aggregations = $aggregations;
+		$this->total = $total;
 	}
 
 	/**
@@ -38,6 +44,14 @@ class SearchResponse extends Object
 	public function getResults()
 	{
 		return $this->results;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTotal()
+	{
+		return $this->total;
 	}
 
 }
