@@ -7,6 +7,10 @@ settings:
 				type: custom
 				tokenizer: standard
 				filter: [icu_folding, cs_stop, cs_stem]
+			cs_icu_analyzer_suggest:
+				type: custom
+				tokenizer: standard
+				filter: [icu_folding]
 		filter:
 			cs_stem:
 				type: stemmer
@@ -32,6 +36,8 @@ mappings:
 				search_analyzer: simple
 			suggest: # same content as title
 				type: completion
+				index_analyzer: cs_icu_analyzer_suggest
+				search_analyzer: cs_icu_analyzer_suggest
 				payloads: true
 			description:
 				type: string
