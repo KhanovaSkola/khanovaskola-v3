@@ -15,6 +15,7 @@ class Acl
 {
 
 	const ALL = 'all';
+	const ADD_NEW = 'add-new';
 
 	/**
 	 * @param User $user
@@ -27,6 +28,11 @@ class Acl
 		if (in_array(self::ALL, $user->privileges))
 		{
 			return new AclApproval(AclApproval::PRIVILEGE);
+		}
+
+		if (is_string($resource))
+		{
+			return in_array($resource, $user->privileges);
 		}
 
 		if ($resource instanceof Subject)

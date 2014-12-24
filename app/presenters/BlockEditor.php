@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\Acl;
 use App\Presenters\Parameters;
 use Nette\Forms\Controls\TextInput;
 
@@ -29,7 +30,7 @@ class BlockEditor extends Presenter
 			$this->error();
 		}
 
-		if ($this->block && !$this->user->isAllowed($this->block))
+		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->block && $this->user->isAllowed($this->block))))
 		{
 			$this->flashError('acl.denied.block');
 			$this->redirect('Homepage:default');

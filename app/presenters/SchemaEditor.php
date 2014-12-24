@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\Acl;
 use App\Models\Services\SchemaLayout;
 use App\Presenters\Parameters;
 use Nette\Forms\Controls\TextInput;
@@ -27,7 +28,7 @@ class SchemaEditor extends Presenter
 			return NULL;
 		});
 
-		if ($this->schema && !$this->user->isAllowed($this->schema))
+		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->schema && $this->user->isAllowed($this->schema))))
 		{
 			$this->flashError('acl.denied.schema');
 			$this->redirect('Homepage:default');
