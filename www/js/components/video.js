@@ -56,8 +56,9 @@
 		var total = $(window).width();
 		var seconds = App.video.duration * current / total;
 
+		var before = App.video.player.getCurrentTime();
 		App.video.player.seekTo(seconds, true);
-		App.callAll(App.video.onSeek);
+		App.callAll(App.video.onSeek, [seconds, before]);
 
 		updateProgress(seconds);
 
@@ -90,12 +91,14 @@
 			var exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
 			exit.call(document);
 			$course.removeClass('fullscreen');
+			App.callAll(App.video.onChangeView, [App.video.player.getCurrentTime(), false]);
 
 		} else {
 			var el = $course[0];
 			var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
 			rfs.call(el);
 			$course.addClass('fullscreen');
+			App.callAll(App.video.onChangeView, [App.video.player.getCurrentTime(),true]);
 		}
 
 		return false;
@@ -127,9 +130,7 @@
 		}, fs ? 3000 : 1800);
 	});
 
-	var renderSubtitle = function() {
-		var now = App.video.player.getCurrentTime();
-
+	var renderSubtitle = function(now) {
 		if (lastIndex) {
 			if (subs[lastIndex][0] <= now && subs[lastIndex][1] >= now) {
 				console.debug('optimization (do not rerender)');

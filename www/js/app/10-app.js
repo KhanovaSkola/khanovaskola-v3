@@ -19,6 +19,6 @@ App.getTimer = function(name) {
 
 App.callAll = function(callbacks, args) {
 	callbacks.forEach(function(fn) {
-		fn.apply(args);
+		fn.apply(null, args);
 	});
 };
