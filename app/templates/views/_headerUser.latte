@@ -1,7 +1,7 @@
 {define headerUser}
 	{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
-    {if $isGuest}
-        <a href="#" data-toggle="modal" data-target="#loginModal">
+	{if !$userEntity->registered}
+		<a href="#" data-toggle="modal" data-target="#loginModal">
             Přihlásit se
         </a>
         <div class="modal modal-sign fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -29,10 +29,8 @@
 				</div>
 			</div>
 		</div>
-    {elseif !$userEntity->registered}
-        Guest User #{$userEntity->id}
     {else}
         <a n:href="Profile:">{$userEntity->nominative}</a>
+        <a n:href="Auth:out">{_'layout.log.out'}</a>
     {/if}
-    <a n:if="!$isGuest" n:href="Auth:out">{_'layout.log.out'}</a>
 {/define}
