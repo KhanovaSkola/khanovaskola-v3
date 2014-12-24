@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use Nette\Utils\Json;
 use App\Presenters\Parameters;
+use Nette\Utils\Json;
 
 
 final class SubjectEditor extends Presenter

@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\Acl;
 use App\Presenters\Parameters;
 use Nette\Forms\Controls\TextInput;
 
@@ -34,6 +35,12 @@ final class VideoEditor extends Content
 		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
 			$this->error();
+		}
+
+		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->video && $this->user->isAllowed($this->video))))
+		{
+			$this->flashError('acl.denied.video');
+			$this->redirect('Homepage:default');
 		}
 	}
 
