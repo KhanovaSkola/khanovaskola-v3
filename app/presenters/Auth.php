@@ -252,11 +252,12 @@ final class Auth extends Presenter
 		}
 
 		$isGoogle = $me instanceof ProfileInfo;
+		$firstName = $isGoogle ? $me->givenName : $me->{'first_name'};
 
-		$userEntity->gender = $me->gender;
+		$userEntity->gender = $me->gender ?: $this->orm->users->guessGender($firstName);
 		$userEntity->name = $me->name;
 		$userEntity->familyName = $isGoogle ? $me->familyName : $me->{'last_name'};
-		$userEntity->setNominativeAndVocative($isGoogle ? $me->givenName : $me->{'first_name'});
+		$userEntity->setNominativeAndVocative($firstName);
 		$userEntity->avatar = $isGoogle ? $me->picture : "https://graph.facebook.com/{$me->id}/picture";
 
 		$update($userEntity, $me);

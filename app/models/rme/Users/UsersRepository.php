@@ -14,6 +14,7 @@ use Orm\DibiCollection;
  * @method User getByEmail($email)
  *
  * @method string getVocative($name, $gender)
+ * @method string guessGender($name)
  */
 class UsersRepository extends Repository
 {

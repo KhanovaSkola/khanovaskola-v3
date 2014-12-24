@@ -32,6 +32,26 @@ class UsersMapper extends Mappers\Mapper
 		return explode(':', $dat)[0];
 	}
 
+	/**
+	 * @param string $firstName
+	 * @return string male|female
+	 */
+	public function guessGender($firstName)
+	{
+		$gender = $this->connection->query('
+			SELECT [gender]
+			FROM [vocatives]
+			WHERE [nominative] = %s
+		', $firstName)->fetchSingle();
+		$gender = trim($gender);
+
+		if (!$gender)
+		{
+			return mt_rand(0, 100) > 50 ? 'male' : 'female';
+		}
+		return $gender;
+	}
+
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)
 	{
 		/** @var DibiManyToManyMapper $mtm */
