@@ -7248,7 +7248,7 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header .header-content .tt-dropdown-menu {
   position: absolute;
   left: -9px !important;
-  z-index: 1000;
+  z-index: 1000 !important;
   background: #ffffff;
   box-shadow: -2px 2px 2px 0px rgba(38, 43, 55, 0.09), inset 0px -1px 0px 1px #d4e1e8;
   width: calc(100% + 18px);
