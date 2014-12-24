@@ -208,7 +208,6 @@
 			}
 		}
 		.search-input {
-			// width: 250px;
 			@media (max-width: @screen-sm) {
 				margin-left: 30px;
 				margin-bottom: 10px;
@@ -219,7 +218,7 @@
 			}
 			.form-control {
 				margin-top: 30px;
-				width: 240px;
+				width: 320px;
 			}
 			.btn-search {
 				margin-left: 10px;
@@ -234,48 +233,51 @@
 				display: none;
 			}
 		}
-		.search-box {
+	  	.tt-hint {
+		  color: @label-color;
+		}
+		.tt-dropdown-menu {
 			position: absolute;
+		  	left: -9px !important;
 			z-index: @zindex-dropdown;
 			background: @white;
 			box-shadow: -2px 2px 2px 0px rgba(38,43,55,0.09), inset 0px -1px 0px 1px #D4E1E8;
-			width: 240px;
-			ul {
+			width: ~"calc(100% + 18px)";
+			.tt-suggestions {
 				padding: 0;
 				margin: 0;
-				margin-bottom: 0;
-				li {
+			  	.tt-suggestion {
 					border-bottom: 1px solid @header-border;
 					padding-left: 1px;
 					padding-right: 1px;
+				  	cursor: pointer;
 					&:last-of-type {
 						border: 0;
+					  	padding-bottom: 5px;
 					}
-					a {
+					p {
 					    .clearfix;
-						padding: 12px 10px;
-						width: 100%;
+						padding: 12px 10px 7px;
 						display: block;
+
+						font-weight: @font-weight-light;
+						font-size: 16px;
+						color: @khan-blue-light;
+						line-height: 17px;
+						margin-right: 8px;
+					  	margin-bottom: 0;
+						width: 100%;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						.tt-highlight {
+						  font-weight: @font-weight-light;
+						  color: @khan-black2;
+						}
+
 						&:hover {
 							text-decoration: none;
 							background: #f5f5f5;
-						}
-						span {
-							font-weight: @font-weight-light;
-							font-size: 16px;
-							color: @khan-blue-light;
-							line-height: 19px;
-							margin-right: 8px;
-							display: block;
-							width: 88%;
-							float: left;
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
-						  	strong {
-								font-weight: @font-weight-light;
-								color: @khan-black2;
-							}
 						}
 						.icon {
 							float: right;
