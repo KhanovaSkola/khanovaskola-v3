@@ -32,28 +32,19 @@ $(function() {
     $('#frm-search-form-query').typeahead(
         {
             hint: true,
-            highlight: true,
+            highlight: false,
             minLength: 1
         },
         {
             name: 'states',
-            //templates: {
-            //    suggestion: function(row) {
-	         //       return '\
-				//		<li>\
-				//			<a href="#">\
-				//				<span>' + row.highlit + '</span>\
-				//				<i class="icon icon-arrow-right"></i>\
-				//			</a>\
-				//		</li>\
-	         //       ';
-            //    }
-            //},
             source: function(query, process) {
                 App.autocomplete(query, function(results) {
                     process(results);
                 });
             }
         }
-    )
+    ).on('typeahead:selected', function(e, item) {
+		var url = $(this).parents('form').data('url-direct') + '?contentId=' + item.id;
+		window.location.href = url;
+    });
 });

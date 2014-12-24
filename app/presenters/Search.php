@@ -9,6 +9,11 @@ use Nette\Utils\Strings;
 final class Search extends Presenter
 {
 
+	public function actionRedirectAutocomplete($contentId)
+	{
+		$this->redirectToEntity($this->orm->contents->getById($contentId));
+	}
+
 	public function renderResults($query)
 	{
 		if (!Strings::trim($query))
