@@ -33,7 +33,7 @@ final class Js extends Presenter
 		$view->video = $video;
 		$view->block = $blockId;
 		$view->schema = $schemaId;
-		$view->user = $this->userEntity;
+		$view->user = $this->userEntity->id;
 		$this->orm->videoViews->attach($view);
 
 		$this->orm->flush();
