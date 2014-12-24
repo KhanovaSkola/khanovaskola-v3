@@ -32,6 +32,9 @@ abstract class Form extends NForm
 
 	abstract public function onSuccess();
 
+	/**
+	 * @param string $path translation key
+	 */
 	public function addError($path)
 	{
 		$message = call_user_func_array([$this->translator, 'translate'], func_get_args());

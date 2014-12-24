@@ -2,7 +2,6 @@
 
 namespace App\Components\Forms;
 
-use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayout;
@@ -10,14 +9,8 @@ use App\Models\Tasks;
 use Nette\Utils\Json;
 
 
-class Schema extends Form
+class Schema extends EditorForm
 {
-
-	/**
-	 * @var RepositoryContainer
-	 * @inject
-	 */
-	public $orm;
 
 	/**
 	 * @var SchemaLayout
@@ -33,15 +26,18 @@ class Schema extends Form
 
 	public function setup()
 	{
-		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'title'));
-		$this->addText('title');
-		$this->addText('description');
+		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'title'))
+			->setRequired('subject.missing');
+		$this->addText('title')
+			->setRequired('title.missing');
+		$this->addText('description')
+			->setRequired('description.missing');
 		$this->addHidden('layout');
 
 		$this->addSubmit();
 	}
 
-	public function onSuccess()
+	protected function process()
 	{
 		$v = $this->getValues();
 

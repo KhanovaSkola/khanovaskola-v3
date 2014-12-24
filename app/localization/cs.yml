@@ -212,6 +212,10 @@ block:
     few: "%1 hodiny"
     many: "%1 hodin"
 
+editor:
+  form:
+    error: "Chyba: %1"
+
 search:
   count:
     video:
@@ -222,3 +226,35 @@ search:
         one: "jedno cvičení"
         few: "%1 cvičení"
         many: "%1 cvičení"
+
+schemaForm:
+  title:
+    missing: "Vyplňte název schématu"
+  description:
+    missing: "Vyplňte pospis schématu"
+  subject:
+    missing: "Vyberte předmět, do kterého se má schéma zařadit"
+
+videoForm:
+  title:
+    missing: "Vyplňte název videa"
+  description:
+    missing: "Vyplňte popis videa"
+  youtubeId:
+    missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
+
+blueprintForm:
+  title:
+    missing: "Vyplňte název cvičení"
+  description:
+    missing: "Vyplňte popis cvičení"
+  question:
+    missing: "Vyplňte otázku"
+  answer:
+    missing: "Vyplňte odpověď"
+
+blockForm:
+  title:
+    missing: "Vyplňte název bloku"
+  description:
+    missing: "Vyplňte popis bloku"

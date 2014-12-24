@@ -2,20 +2,13 @@
 
 namespace App\Components\Forms;
 
-use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Queue;
 use App\Models\Tasks;
 
 
-class Video extends Form
+class Video extends EditorForm
 {
-
-	/**
-	 * @var RepositoryContainer
-	 * @inject
-	 */
-	public $orm;
 
 	/**
 	 * @var Queue
@@ -25,14 +18,17 @@ class Video extends Form
 
 	public function setup()
 	{
-		$this->addText('title');
-		$this->addText('description');
-		$this->addText('youtubeId');
+		$this->addText('title')
+			->setRequired('title.missing');
+		$this->addText('description')
+			->setRequired('description.missing');
+		$this->addText('youtubeId')
+			->setRequired('youtubeId.missing');
 
 		$this->addSubmit();
 	}
 
-	public function onSuccess()
+	protected function process()
 	{
 		$v = $this->getValues();
 
