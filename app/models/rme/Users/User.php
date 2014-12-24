@@ -88,7 +88,7 @@ class User extends Entity
 		 * Not according to RFC 5321, but as per SO this is ok
 		 * @see http://stackoverflow.com/a/9808332/326257
 		 */
-		$this->setValue('email', Strings::lower($email));
+		$this->setValue('email', $email ? Strings::lower($email) : NULL);
 	}
 
 	/**
