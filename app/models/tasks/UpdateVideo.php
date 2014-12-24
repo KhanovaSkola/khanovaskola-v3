@@ -4,7 +4,7 @@ namespace App\Models\Tasks;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Video;
-use App\Models\Services\YoutubePreview;
+use App\Models\Services\Youtube;
 use App\Models\Structs\EntityPointer;
 
 
@@ -21,12 +21,13 @@ class UpdateVideo extends Task
 		$this->pVideo = new EntityPointer($video);
 	}
 
-	public function run(RepositoryContainer $orm, YoutubePreview $preview)
+	public function run(RepositoryContainer $orm, Youtube $youtube)
 	{
 		/** @var Video $video */
 		$video = $this->pVideo->resolve($orm);
 
-		$video->preview = $preview->getImageUrlFor($video->youtubeId);
+		$video->preview = $youtube->getImageUrlFor($video->youtubeId);
+		$video->duration = $youtube->getMeta($video->youtubeId)->data->duration;
 
 		$orm->flush();
 	}

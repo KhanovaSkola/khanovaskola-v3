@@ -75,7 +75,7 @@ services:
 	- App\Models\Services\SchemaLayout
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
-	- App\Models\Services\YoutubePreview
+	- App\Models\Services\Youtube
 	- Tracy\QueryPanel\QueryPanel
 
 	user: App\Models\Services\UserState
