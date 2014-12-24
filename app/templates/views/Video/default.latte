@@ -44,7 +44,7 @@
                 <div class="right">
                     <div class="right-inner">
                         <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"
-                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id}"
+                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id, blockId => $block ? $block->id, schemaId => $schema ? $schema->id}"
                             data-url-event-begin="{plink Js:videoViewBegin}"
                             data-url-event-seek="{plink Js:videoViewSeek}"
                             data-url-event-pause="{plink Js:videoViewPause}"
