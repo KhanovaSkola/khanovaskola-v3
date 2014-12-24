@@ -31,7 +31,13 @@
                         <p>{$block->description}</p>
                         <div class="time">
                             <i class="icon icon-time"></i>
-                            <span>{_'block.duration', $template->hours($block->duration)}</span>
+                            <span>
+	                            {if $block->duration >= 3600}
+	                                {_'block.duration.hours', $template->hours($block->duration)}
+	                            {else}
+	                                {_'block.duration.minutes', $template->minutes($block->duration)}
+	                            {/if}
+                            </span>
                         </div>
                         {if $block->dependencies->count()}
 	                        <div class="idea">

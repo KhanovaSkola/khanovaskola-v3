@@ -208,9 +208,14 @@ loginForm:
 
 block:
   duration:
-    one: "1 hodina"
-    few: "%1 hodiny"
-    many: "%1 hodin"
+    hours:
+      one: "1 hodina"
+      few: "%1 hodiny"
+      many: "%1 hodin"
+    minutes:
+      one: "1 minuta"
+      few: "%1 minuty"
+      many: "%1 minut"
 
 editor:
   form:
