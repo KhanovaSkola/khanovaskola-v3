@@ -214,5 +214,11 @@ block:
 
 search:
   count:
-    video: "videí"
-    blueprint: "cvičení"
+    video:
+        one: "jedno video"
+        few: "%1 videa"
+        many: "%1 videí"
+    blueprint:
+        one: "jedno cvičení"
+        few: "%1 cvičení"
+        many: "%1 cvičení"

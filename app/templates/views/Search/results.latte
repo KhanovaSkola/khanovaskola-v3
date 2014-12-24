@@ -13,7 +13,7 @@
                 <section class="search-form">
                     {control search, label => 'Hledáte'}
                     <ul n:if="$search->results" class="list-unstyled result-count">
-                        Nalezeno {foreach $search->aggregations as $ag}{$ag['doc_count']} {_}search.count.{$ag['key']}{/_}{sep}, {/sep}{/foreach}
+                        Nalezeno: {foreach $search->aggregations as $ag}{_"search.count.{$ag['key']}", $ag['doc_count']}{sep}, {/sep}{/foreach}
                     </ul>
                 </section>
                 <section class="search-result" data-url-more="{plink more, query => $query}">
