@@ -2,31 +2,25 @@
 
 namespace App\Components\Forms;
 
-use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
-use Nette\Forms\Container;
 use Nette\Utils\Json;
 
 
-class Block extends Form
+class Block extends EditorForm
 {
-
-	/**
-	 * @var RepositoryContainer
-	 * @inject
-	 */
-	public $orm;
 
 	public function setup()
 	{
-		$this->addText('title');
-		$this->addText('description');
+		$this->addText('title')
+			->setRequired('title.missing');
+		$this->addText('description')
+			->setRequired('description.missing');
 		$this->addHidden('contents');
 
 		$this->addSubmit();
 	}
 
-	public function onSuccess()
+	protected function process()
 	{
 		$v = $this->getValues();
 
@@ -64,4 +58,5 @@ class Block extends Form
 			'schemaId' => $schema ? $schema->id : NULL,
 		]);
 	}
+
 }

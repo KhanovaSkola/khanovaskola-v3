@@ -8,3 +8,10 @@
 		{/foreach}
 	</span>
 {/define}
+{define formError}
+	{foreach $form->ownErrors as $error}
+		<div class="alert alert-danger">
+			{$error}
+		</div>
+	{/foreach}
+{/define}
