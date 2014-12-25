@@ -8934,6 +8934,24 @@ label {
 .has-error .input-password:focus {
   background-image: url(../img/inputs/input-lock-error.svg);
 }
+.has-warning .form-control {
+  border-color: #fabc00;
+  box-shadow: none;
+  color: #fabc00;
+}
+.has-warning .form-control:focus {
+  box-shadow: none;
+  border-color: #e1a900;
+}
+.has-warning .addend-icon {
+  color: #fabc00;
+}
+.has-warning input[type=password],
+.has-warning .input-password,
+.has-warning input[type=password]:focus,
+.has-warning .input-password:focus {
+  background-image: url(../img/inputs/input-lock-warning.svg);
+}
 .has-success .form-control {
   box-shadow: none;
   border-color: #71bd1a;
@@ -9247,6 +9265,10 @@ label {
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
 }
+.modal.modal-static {
+  display: block;
+  position: relative;
+}
 .modal .modal-content {
   box-shadow: 0 0 0;
   border-radius: 3px;
@@ -9388,6 +9410,16 @@ label {
 }
 .modal-sign .modal-footer .btn i {
   margin-right: 8px;
+}
+.modal-registration .radio .offset {
+  vertical-align: -2px;
+}
+.modal-registration .radio + .radio {
+  margin-top: 4px;
+  margin-left: 12px;
+}
+.modal-registration .form-group-password {
+  margin-top: 75px;
 }
 .progress-wrapper {
   width: 100%;
