@@ -1,9 +1,9 @@
 $(function() {
 
-	var $dropdown = $('.dropdown-big');
+	var $dropdown = $('.dropdown');
 
-	$('.dropdown-big .dropdown-toggle').on('click', function() {
-		$dropdown.toggleClass('open');
+	$('.dropdown .dropdown-toggle').on('click', function() {
+		$(this).parents('.dropdown').toggleClass('open');
 		$dropdown.parents('header').toggleClass('hover');
 		return false;
 	});
