@@ -11,18 +11,23 @@
 	    <main class="content">
 	        <div class="content-inner">
 	            <hgroup>
-	                <h2>
-	                    Naučím tě <a href="#tab-0" class="text-blue">Matematiku <i class="icon icon-math"></i></a>,
+	                {var $tab = 0}
+	                <h2 n:if="$firstSubject">
+	                    Naučím tě <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->genitive} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
 	                </h2>
 	                <h3>
-	                    <a href="#tab-5" class="text-red">Dejěpis <i class="icon icon-history"></i></a> i <a href="#tab-1" class="text-cyan-dark">Fyziku <i class="icon icon-physics"></i></a>.
+	                    {foreach $secondThirdSubject as $subject}
+	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->genitive} <i class="icon icon-{$subject->icon}"></i></a>
+	                        {sep} i {/sep}
+	                        {last}.{/last}
+	                    {/foreach}
 	                </h3>
 	                <h4>
-	                    A také
-	                    <a href="#tab-3" class="text-green">Přírodovědu <i class="icon icon-natural-studies"></i></a>,
-	                    <a href="#tab-2" class="text-gold">Chemii <i class="icon icon-chemistry"></i></a>,
-	                    <a href="#tab-4" class="text-purple">Informatiku <i class="icon icon-it"></i></a>
-	                    A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-arrow-right"></i></a>
+	                    {foreach $moreSubjects as $subject}
+	                        {first}A také{/first}
+	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->genitive} <i class="icon icon-natural-{$subject->color}"></i></a>{sep}, {/sep}
+	                        {last}A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-arrow-right"></i></a>{/last}
+	                    {/foreach}
 	                </h4>
 	            </hgroup>
 
