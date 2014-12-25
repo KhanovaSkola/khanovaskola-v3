@@ -7338,6 +7338,9 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header .header-userarea .dropdown {
   margin-top: -14px;
 }
+.header .header-userarea .dropdown.no-image {
+  margin-top: 0;
+}
 .header .header-userarea .dropdown.no-image .dropdown-toggle {
   margin-left: 0;
   margin-top: -1px;
@@ -7409,6 +7412,12 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header .header-userarea .dropdown .dropdown-menu li a .icon.icon-user-add {
   font-size: 14px;
   margin-top: 4px;
+}
+.header .header-userarea .missing-avatar.dropdown {
+  margin-top: 0;
+}
+.header .header-userarea .missing-avatar .dropdown-menu {
+  margin-top: 9px;
 }
 .header .header-userarea .btn {
   width: 158px;
