@@ -6980,6 +6980,7 @@ mark {
   width: 850px;
   height: 380px;
   padding: 0;
+  z-index: 1500;
 }
 .header .header-content .dropdown .dropdown-menu:before,
 .header .header-content .dropdown .dropdown-menu:after {
@@ -9277,6 +9278,9 @@ label {
 .modal.modal-static {
   display: block;
   position: relative;
+}
+.modal .modal-backdrop {
+  position: absolute;
 }
 .modal .modal-content {
   box-shadow: 0 0 0;
