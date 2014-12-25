@@ -7,6 +7,7 @@ use App\Models\Rme\VideoView;
 use App\Models\Structs\EventList;
 use App\Models\Structs\VideoEvents;
 use Nette\Application\BadRequestException;
+use Nette\Utils\Strings;
 
 
 final class Js extends Presenter
@@ -125,6 +126,22 @@ final class Js extends Presenter
 
 		$this->orm->flush();
 		$this->sendJson(['status' => 'ok', 'watched' => $watched]);
+	}
+
+	public function actionGuessGender($name)
+	{
+		$firstName = Strings::match($name, '~^(.+?)\b~')[1];
+		$gender = $this->orm->users->guessGender($firstName);
+
+		if (!$gender)
+		{
+			if (Strings::match($name, '~ová$~'))
+			{
+				$gender = 'female';
+			}
+		}
+
+		$this->sendJson(['gender' => $gender]);
 	}
 
 }

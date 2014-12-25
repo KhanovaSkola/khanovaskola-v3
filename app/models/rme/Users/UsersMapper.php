@@ -33,21 +33,30 @@ class UsersMapper extends Mappers\Mapper
 	}
 
 	/**
+	 * Db has many names in both genders, but only the most common one
+	 * has both inflexions. Ignore same ignores the field without
+	 * proper inflexion.
+	 *
 	 * @param string $firstName
-	 * @return string male|female
+	 * @param bool $ignoreSame
+	 * @return NULL|string male|female
 	 */
-	public function guessGender($firstName)
+	public function guessGender($firstName, $ignoreSame = TRUE)
 	{
 		$gender = $this->connection->query('
 			SELECT [gender]
 			FROM [vocatives]
 			WHERE [nominative] = %s
-		', $firstName)->fetchSingle();
+		', $firstName, '%sql', $ignoreSame ? 'AND [nominative] != [vocative]' : '')->fetchSingle();
 		$gender = trim($gender);
 
 		if (!$gender)
 		{
-			return mt_rand(0, 100) > 50 ? 'male' : 'female';
+			if ($ignoreSame)
+			{
+				return $this->guessGender($firstName, FALSE);
+			}
+			return NULL;
 		}
 		return $gender;
 	}
