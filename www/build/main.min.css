@@ -7338,6 +7338,18 @@ a.header .header-content .dropdown .dropdown-menu .subjects-list ul li .text-dan
 .header .header-userarea .dropdown {
   margin-top: -14px;
 }
+.header .header-userarea .dropdown.no-image .dropdown-toggle {
+  margin-left: 0;
+  margin-top: -1px;
+}
+.header .header-userarea .dropdown.no-image .dropdown-toggle .caret {
+  margin-top: -2px;
+}
+.header .header-userarea .dropdown.no-image .dropdown-menu {
+  margin-top: 8px;
+  margin-right: 0;
+  margin-left: -136px;
+}
 .header .header-userarea .dropdown .dropdown-toggle {
   margin-left: 20px;
   display: inline-block;
