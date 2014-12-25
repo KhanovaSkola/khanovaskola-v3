@@ -8,6 +8,10 @@
   &.in .modal-dialog {
 	.translate(0, 0)
   }
+  &.modal-static {
+	display: block;
+	position: relative;
+  }
   .modal-content {
 	box-shadow: 0 0 0;
 	border-radius: 3px;
@@ -153,5 +157,20 @@
 	  // padding-left: 15px;
 	  // padding-right: 15px;
 	}
+  }
+}
+
+.modal-registration {
+  .radio {
+	.offset {
+	  vertical-align: -2px;
+	}
+  }
+  .radio + .radio {
+	margin-top: 4px;
+	margin-left: 12px;
+  }
+  .form-group-password {
+	margin-top: 75px;
   }
 }

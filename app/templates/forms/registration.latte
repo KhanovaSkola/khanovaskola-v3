@@ -1,38 +1,71 @@
 {includeblock _error.latte}
 
-<form n:name="form" class="form-horizontal">
+<form n:name="form">
 	<ul class=error n:if="$form->ownErrors">
         <li n:foreach="$form->ownErrors as $error">{$error}</li>
     </ul>
-	<div class="form-group{if $form['email']->errors} has-error{/if}">
-		<label n:name="email">Email address</label>
-		<input n:name="email" type="email" class="form-control" placeholder="Enter email">
-		{include error, control => $form['email']}
-	</div>
-	<div class="form-group{if $form['name']->errors} has-error{/if}">
-        <label n:name="name">Name</label>
-        <input n:name="name" type="text" class="form-control" placeholder="Enter name">
-        {include error, control => $form['name']}
+    <div class="form-group form-group-mail{if $form['email']->errors} has-error{/if}">
+        <div class="clearfix">
+            <div class="pull-left has-addend floating-placeholder">
+                <label n:name="email">Email</label>
+                <input n:name="email" type="text" class="form-control input-mail" placeholder="Email">
+                <div class="addend-icon">
+                    <i class="icon icon-mail"></i>
+                </div>
+            </div>
+        </div>
+        {include error, control => $form['email']}
     </div>
-    <div class="form-group{if $form['gender']->errors} has-error{/if}">
-        <div class="radio">
-	        <label>
-	            <input type="radio" n:name="gender:male">
-	            Chlapec
-	        </label>
-	    </div>
-		<div class="radio">
-			<label>
-				<input type="radio" n:name="gender:female">
-				Děvče
-			</label>
-		</div>
-		{include error, control => $form['gender']}
+
+	<div class="form-group form-group-mail{if $form['name']->errors} has-error{/if}">
+        <div class="clearfix">
+            <div class="pull-left has-addend floating-placeholder">
+                <label n:name="name">Jméno</label>
+                <input n:name="name" type="text" class="form-control input-mail" placeholder="Jméno">
+                <div class="addend-icon">
+                    <i class="icon icon-user"></i>
+                </div>
+            </div>
+        </div>
+        {include error, control => $form['email']}
     </div>
-	<div class="form-group{if $form['password']->errors} has-error{/if}">
-        <label n:name="password">Heslo</label>
-        <input n:name="password" type="text" class="form-control" placeholder="Enter password">
+
+	<div class="choices {if $form['gender']->errors} has-error{/if}">
+        <div class="radio pull-left">
+            <label>
+                <input type="radio" n:name="gender:male">
+                <span></span>
+                <span class="offset">Chlapec</span>
+            </label>
+        </div>
+        <div class="radio pull-left">
+            <label>
+                <input type="radio" n:name="gender:female">
+                <span></span>
+                <span class="offset">Děvče</span>
+            </label>
+        </div>
+        {include error, control => $form['gender']}
+    </div>
+
+    <div class="form-group form-group-password clearfix{if $form['password']->errors} has-error{/if}">
+        <div class="pull-left floating-placeholder">
+            <label n:name="password">Nové heslo</label>
+            <input n:name="password" type="password" class="form-control input-password" placeholder="Nové heslo">
+        </div>
+        <div class="pull-left">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="toggle-password">
+                    <span></span>
+                    ukázat
+                </label>
+            </div>
+        </div>
         {include error, control => $form['password']}
     </div>
-	<input n:name="save" value="Registrovat se" class="btn btn-default">
+
+	<div class="form-group text-center">
+		<input n:name="save" value="Dokončit" class="btn btn-submit">
+	</div>
 </form>

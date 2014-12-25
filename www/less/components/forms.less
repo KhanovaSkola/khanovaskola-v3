@@ -111,6 +111,28 @@ label {
 	}
 }
 
+.has-warning {
+  .form-control {
+	border-color: @khan-yellow;
+	box-shadow: none;
+	color: @khan-yellow;
+	&:focus {
+	  box-shadow: none;
+	  border-color: darken(@khan-yellow, 5%);
+	}
+  }
+  .addend-icon {
+	color: @khan-yellow;
+  }
+  input[type=password],
+  .input-password {
+	&,
+	&:focus {
+	  background-image: url(../img/inputs/input-lock-warning.svg);
+	}
+  }
+}
+
 .has-success {
 	.form-control {
 		box-shadow: none;
