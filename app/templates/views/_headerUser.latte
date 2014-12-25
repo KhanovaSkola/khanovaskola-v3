@@ -76,12 +76,14 @@
 
     {else}{*if $userEntity->registered*}
 
-        <div class="dropdown">
+        <div class="dropdown{if !$userEntity->avatar} missing-avatar{/if}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span>
-                    <img src="{$userEntity->avatar}" alt="user">
-                </span>
-                <b class="caret"></b>
+				{if $userEntity->avatar}
+					<img src="{$userEntity->avatar}">
+				{else}
+					<span >{$userEntity->nominative}</span>
+				{/if}
+				<b class="caret"></b>
             </a>
             <ul class="dropdown-menu pull-right">
                 <li>
