@@ -1,6 +1,7 @@
 {define headerUser}
 	{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
-	{if $isGuest || !$userEntity->registered}
+	{if $presenter->isLinkCurrent('Auth:registration')}
+	{elseif $isGuest || !$userEntity->registered}
 		{if $isGuest}
 			<a href="#" data-toggle="modal" data-target="#loginModal">
                 Přihlásit se
