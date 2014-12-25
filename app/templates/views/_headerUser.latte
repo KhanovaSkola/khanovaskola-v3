@@ -1,36 +1,96 @@
 {define headerUser}
 	{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
-	{if !$userEntity->registered}
-		<a href="#" data-toggle="modal" data-target="#loginModal">
-            Přihlásit se
-        </a>
-        <div class="modal modal-sign fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-	                    <h2 class="text-center">Přihlásit se</h2>
-	                    <a href="#" class="close" data-dismiss="modal">
-	                        <i class="icon icon-close"></i>
-	                    </a>
-	                    <div>
-	                        {control loginForm}
-	                    </div>
-	                </div>
-	                <div class="modal-footer">
-	                    <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-	                        <i class="icon icon-facebook"></i>
-	                        <span>přes Facebook</span>
-	                    </a>
-	                    <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-	                        <i class="icon icon-google-plus"></i>
-	                        <span>přes Google</span>
-	                    </a>
-	                </div>
-				</div>
-			</div>
-		</div>
-    {else}
-        <a n:href="Profile:">{$userEntity->nominative}</a>
-        <a n:href="Auth:out">{_'layout.log.out'}</a>
+	{if $isGuest || !$userEntity->registered}
+		{if $isGuest}
+			<a href="#" data-toggle="modal" data-target="#loginModal">
+                Přihlásit se
+            </a>
+        {else}
+	        <div class="pull-left">
+	            <div class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                    <span>
+	                        <img src="{$basePath}/img/anonym-user.svg" alt="user">
+	                    </span>
+	                    <b class="caret"></b>
+	                </a>
+	                <ul class="dropdown-menu">
+	                    <li>
+	                        <a n:href="Auth:registration">
+	                            <i class="icon icon-rocket"></i>
+	                            <span>Vytvořit si účet</span>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a href="#" data-toggle="modal" data-target="#loginModal">
+	                            <i class="icon icon-key"></i>
+	                            <span>Přihlásit se</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+			<a n:href="Auth:registration" class="btn btn-primary">
+				Vytvoř si účet
+			</a>
+		{/if}
+
+		<div class="modal modal-sign fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h2 class="text-center">Přihlásit se</h2>
+                        <a href="#" class="close" data-dismiss="modal">
+                            <i class="icon icon-close"></i>
+                        </a>
+                        <div>
+                            {control loginForm}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
+                            <i class="icon icon-facebook"></i>
+                            <span>přes Facebook</span>
+                        </a>
+                        <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
+                            <i class="icon icon-google-plus"></i>
+                            <span>přes Google</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {else}{*if $userEntity->registered*}
+
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span>
+                    <img src="{$userEntity->avatar}" alt="user">
+                </span>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li>
+                    <a n:href="Profile:default">
+                        <i class="icon icon-rocket"></i>
+                        <span>Předhled</span>
+                    </a>
+                </li>
+                <li>
+                    <a n:href="Profile:settings">
+                        <i class="icon icon-key"></i>
+                        <span>Nastavení</span>
+                    </a>
+                </li>
+                <li>
+                    <a n:href="Auth:out" class="text-success">
+                        <i class="icon icon-user-add"></i>
+                        <span>Odhlásit se</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
     {/if}
 {/define}
