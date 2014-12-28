@@ -61,6 +61,13 @@ comments:
     title: "Komentář přidán." # TODO if contains ? "Otázka přidána"
     message: ""
 
+commentForm:
+  text:
+    missing: ""
+    short: ""
+
+
+
 blueprintEditor:
   title: "Název"
   description: "Popisek"
@@ -241,6 +248,8 @@ editor:
       title: "Video upraveno."
       message: ""
 
+
+
 search:
   count:
     video:
@@ -283,3 +292,18 @@ blockForm:
     missing: "Vyplňte název bloku"
   description:
     missing: "Vyplňte popis bloku"
+
+acl:
+  denied:
+    block:
+      title: "Nepovoleno."
+      message: "Přístup na editor bloků nemáte povolený. Pokud je máte mít, napište na fórum."
+    schema:
+      title: "Nepovoleno."
+      message: "Přístup na editor schémat nemáte povolený. Pokud je máte mít, napište na fórum."
+    subjects:
+      title: "Nepovoleno."
+      message: "Přístup na editor předmětů nemáte povolený. Pokud je máte mít, napište na fórum."
+    video:
+      title: "Nepovoleno."
+      message: "Přístup na editor videí nemáte povolený. Pokud je máte mít, napište na fórum."
