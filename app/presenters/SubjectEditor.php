@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Presenters\Parameters;
-use Nette\Utils\Json;
+use Nette\Forms\Controls\TextBase;
 
 
 final class SubjectEditor extends Presenter
@@ -24,24 +24,14 @@ final class SubjectEditor extends Presenter
 			$this->flashError('acl.denied.subject');
 			$this->redirect('Homepage:default');
 		}
-
-		$this->template->subject = $this->subject;
-	}
-
-	public function handleSave($payload)
-	{
-		$data = Json::decode($payload);
-
-		foreach ($data as $schemaId => $values)
+		if ($this->subject)
 		{
-			$subject = $this->orm->schemas->getById($schemaId);
-			$subject->setValues($values);
+			/** @var self|TextBase[] $this */
+			$this['subjectForm-form-title']->setDefaultValue($this->subject->title);
+			$this['subjectForm-form-description']->setDefaultValue($this->subject->description);
 		}
 
-		$this->orm->flush();
-
-		$this->purgeHeaderTemplateCache();
-		$this->redirect('this');
+		$this->template->subject = $this->subject;
 	}
 
 }
