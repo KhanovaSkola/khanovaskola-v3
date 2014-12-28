@@ -29,6 +29,7 @@ final class SubjectEditor extends Presenter
 			/** @var self|TextBase[] $this */
 			$this['subjectForm-form-title']->setDefaultValue($this->subject->title);
 			$this['subjectForm-form-description']->setDefaultValue($this->subject->description);
+			$this['subjectForm-form-editors']->setDefaultValue($this->subject->editors->get()->fetchPairs('id', 'id'));
 		}
 
 		$this->template->subject = $this->subject;
