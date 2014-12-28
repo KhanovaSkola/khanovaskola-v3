@@ -47,25 +47,29 @@
 	 * @param App\Models\Rme\Subject[] $subjects
 	 *}
 
-	<ul class="subject-list drag" data-save-url="{plink save!}">
-		{foreach $subjects as $subject}
-			<li data-subject-id="{$subject->id}">
-				<span class="subject-name text-{$subject->color}">
-					{$subject->title}
-					<span data-icon class="icon-{$subject->icon}"></span>
-				</span>
-				<select name="color">
-					{foreach ['black', 'blue', 'green', 'cyan', 'cyan-dark', 'yellow', 'gold', 'purple', 'brown', 'red'] as $color}
-                        <option{if $color === $subject->color} selected{/if} value="{$color}">{ucFirst($color)}</option>
-                    {/foreach}
-				</select>
-				<select name="icon">
-                    {foreach ['cloud-up', 'ok-double', 'close', 'google-plus', 'play', 'volume', 'arrow-left-double', 'arrow-left', 'arrow-left2', 'arrow-right-double', 'arrow-right', 'arrow-up', 'art-history', 'comments', 'facebook', 'fullscreen', 'globe', 'history', 'check', 'chemistry', 'idea', 'it', 'key', 'list', 'list2', 'lock', 'mail', 'math', 'natural-studies', 'ok', 'pause', 'physics', 'play2', 'quotes', 'replay', 'return', 'rocket', 'search', 'time', 'times', 'twitter', 'unlock', 'user-add', 'user', 'youtube', 'zsv'] as $icon}
-                        <option{if $icon === $subject->icon} selected{/if} value="{$icon}">{ucFirst($icon)}</option>
-                    {/foreach}
-                </select>
-                <a n:href="SubjectEditor:default, subjectId => $subject->id">edit</a>
-			</li>
-		{/foreach}
-	</ul>
-	<input id="save" type="submit" class="btn" value="Uložit">
+	<div class="container">
+		<div class="col-md-12">
+			<ul class="subject-list drag" data-save-url="{plink save!}">
+				{foreach $subjects as $subject}
+					<li data-subject-id="{$subject->id}">
+						<span class="subject-name text-{$subject->color}">
+							{$subject->title}
+							<span data-icon class="icon-{$subject->icon}"></span>
+						</span>
+						<select name="color">
+							{foreach ['black', 'blue', 'green', 'cyan', 'cyan-dark', 'yellow', 'gold', 'purple', 'brown', 'red'] as $color}
+		                        <option{if $color === $subject->color} selected{/if} value="{$color}">{ucFirst($color)}</option>
+		                    {/foreach}
+						</select>
+						<select name="icon">
+		                    {foreach ['cloud-up', 'ok-double', 'close', 'google-plus', 'play', 'volume', 'arrow-left-double', 'arrow-left', 'arrow-left2', 'arrow-right-double', 'arrow-right', 'arrow-up', 'art-history', 'comments', 'facebook', 'fullscreen', 'globe', 'history', 'check', 'chemistry', 'idea', 'it', 'key', 'list', 'list2', 'lock', 'mail', 'math', 'natural-studies', 'ok', 'pause', 'physics', 'play2', 'quotes', 'replay', 'return', 'rocket', 'search', 'time', 'times', 'twitter', 'unlock', 'user-add', 'user', 'youtube', 'zsv'] as $icon}
+		                        <option{if $icon === $subject->icon} selected{/if} value="{$icon}">{ucFirst($icon)}</option>
+		                    {/foreach}
+		                </select>
+		                <a n:href="SubjectEditor:default, subjectId => $subject->id">edit</a>
+					</li>
+				{/foreach}
+			</ul>
+			<input id="save" type="submit" class="btn" value="Uložit">
+		</div>
+	</div>

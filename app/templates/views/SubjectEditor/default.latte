@@ -31,11 +31,16 @@
 	 * @param App\Models\Rme\Subject $subject
 	 *}
 
-	<ul class="schema-list drag">
-		{foreach $subject->schemas as $schema}
-			<li data-schema-id="{$schema->id}">
-				{$schema->title}
-			</li>
-		{/foreach}
-	</ul>
-	{control subjectForm}
+	<div class="container">
+		<div class="col-md-12">
+			Přerovnejte pořadi:
+			<ul class="schema-list drag">
+				{foreach $subject->schemas as $schema}
+					<li data-schema-id="{$schema->id}">
+						{$schema->title}
+					</li>
+				{/foreach}
+			</ul>
+			{control subjectForm}
+		</div>
+	</div>
