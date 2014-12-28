@@ -15,7 +15,9 @@ class Acl
 {
 
 	const ALL = 'all';
-	const ADD_NEW = 'add-new';
+	const ADD_SCHEMA = 'add_schema';
+	const ADD_BLOCK = 'add_block';
+	const ADD_CONTENT = 'add_content';
 
 	/**
 	 * @param User $user
@@ -30,9 +32,17 @@ class Acl
 			return new AclApproval(AclApproval::PRIVILEGE);
 		}
 
-		if (is_string($resource))
+		if ($resource === self::ADD_SCHEMA)
 		{
-			return in_array($resource, $user->privileges);
+			return $user->subjectsEdited->count();
+		}
+		if ($resource === self::ADD_BLOCK)
+		{
+			return $user->subjectsEdited->count() || $user->schemasEdited->count();
+		}
+		if ($resource === self::ADD_CONTENT)
+		{
+			return $user->subjectsEdited->count() || $user->schemasEdited->count() || $user->blocksEdited->count();
 		}
 
 		if ($resource instanceof Subject)

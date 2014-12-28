@@ -37,7 +37,7 @@ final class VideoEditor extends Content
 			$this->error();
 		}
 
-		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->video && $this->user->isAllowed($this->video))))
+		if (!($this->user->isAllowed(Acl::ADD_CONTENT) || ($this->video && $this->user->isAllowed($this->video))))
 		{
 			$this->flashError('acl.denied.video');
 			$this->redirect('Homepage:default');

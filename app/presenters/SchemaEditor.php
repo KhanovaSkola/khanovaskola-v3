@@ -28,7 +28,7 @@ class SchemaEditor extends Presenter
 			return NULL;
 		});
 
-		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->schema && $this->user->isAllowed($this->schema))))
+		if (!($this->user->isAllowed(Acl::ADD_SCHEMA) || ($this->schema && $this->user->isAllowed($this->schema))))
 		{
 			$this->flashError('acl.denied.schema');
 			$this->redirect('Homepage:default');

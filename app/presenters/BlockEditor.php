@@ -30,7 +30,7 @@ class BlockEditor extends Presenter
 			$this->error();
 		}
 
-		if (!($this->user->isAllowed(Acl::ADD_NEW) || ($this->block && $this->user->isAllowed($this->block))))
+		if (!($this->user->isAllowed(Acl::ADD_BLOCK) || ($this->block && $this->user->isAllowed($this->block))))
 		{
 			$this->flashError('acl.denied.block');
 			$this->redirect('Homepage:default');
