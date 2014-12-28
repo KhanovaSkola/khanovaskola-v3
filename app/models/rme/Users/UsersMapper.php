@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use Orm\DibiCollection;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
 
@@ -86,6 +87,14 @@ class UsersMapper extends Mappers\Mapper
 		}
 
 		return $mtm;
+	}
+
+	/**
+	 * @return DibiCollection
+	 */
+	public function findRegistered()
+	{
+		return $this->findBy(['registered' => TRUE]);
 	}
 
 }
