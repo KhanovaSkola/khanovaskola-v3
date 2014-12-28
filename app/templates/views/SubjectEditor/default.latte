@@ -7,11 +7,6 @@
 		$(function() {
 			$('.drag').sortable().disableSelection();
 
-			var url = $('[data-save-url]').data('save-url');
-            $('#save').on('click', function() {
-                window.location = url + '&payload=' + JSON.stringify(serializeSchemas());
-            });
-
 			var $list = $('.schema-list');
             function serializeSchemas() {
                 var ser = {};
@@ -23,6 +18,10 @@
                 });
                 return ser;
             }
+
+            $('#frm-subjectForm-form').on('submit', function() {
+                $('#frm-subjectForm-form-positions').val(JSON.stringify(serializeSchemas()));
+            });
 		});
 	</script>
 {/block}
@@ -32,11 +31,11 @@
 	 * @param App\Models\Rme\Subject $subject
 	 *}
 
-	<ul class="schema-list drag" data-save-url="{plink save!}">
+	<ul class="schema-list drag">
 		{foreach $subject->schemas as $schema}
 			<li data-schema-id="{$schema->id}">
 				{$schema->title}
 			</li>
 		{/foreach}
 	</ul>
-	<input id="save" type="submit" class="btn" value="Uložit">
+	{control subjectForm}
