@@ -8,6 +8,7 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection findAll()
+ * @method DibiCollection findRegistered()
  *
  * @method User getByFacebookId($facebookId)
  * @method User getByGoogleId($googleId)
