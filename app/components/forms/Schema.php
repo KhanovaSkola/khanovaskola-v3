@@ -3,9 +3,12 @@
 namespace App\Components\Forms;
 
 use App\Models\Rme;
+use App\Models\Services\Acl;
 use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayout;
+use App\Models\Services\UserState;
 use App\Models\Tasks;
+use Nette\Security\User;
 use Nette\Utils\Json;
 
 
@@ -24,9 +27,15 @@ class Schema extends EditorForm
 	 */
 	public $queue;
 
+	/**
+	 * @var UserState
+	 * @inject
+	 */
+	public $user;
+
 	public function setup()
 	{
-		$this->addSelect('subject', NULL, $this->orm->subjects->findAll()->fetchPairs('id', 'title'))
+		$this->addSelect('subject', NULL, $this->getAllowedSubjects())
 			->setRequired('subject.missing');
 		$this->addText('title')
 			->setRequired('title.missing');
@@ -35,6 +44,18 @@ class Schema extends EditorForm
 		$this->addHidden('layout');
 
 		$this->addSubmit();
+	}
+
+	protected function getAllowedSubjects()
+	{
+		if ($this->user->isAllowed(Acl::ALL))
+		{
+			return $this->orm->subjects->findAll()->fetchPairs('id', 'title');
+		}
+		else
+		{
+			return $this->user->getUserEntity()->subjectsEdited->get()->fetchPairs('id', 'title');
+		}
 	}
 
 	protected function process()
