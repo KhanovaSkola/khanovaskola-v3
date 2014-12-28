@@ -1,0 +1,15 @@
+@import "../libs/chosen_v1.3.0/chosen.min.css";
+.subject-editor .chosen-container li:before {
+  content: '';
+  margin-right: 0;
+}
+.subject-editor .chosen-container {
+  display: block;
+  width: 500px !important;
+  margin: 1ex 0 3ex 0;
+}
+.subject-editor .form-horizontal {
+  margin-bottom: 300px;
+}
+
+/*# sourceMappingURL=main-admin.min.css.map */

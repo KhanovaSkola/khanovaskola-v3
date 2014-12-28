@@ -10,6 +10,7 @@ var config = neon.decode(configRaw);
 
 var lessDir = './www/less';
 var lessFile = path.join(lessDir, 'main.less');
+var lessAdminFile = path.join(lessDir, 'main-admin.less');
 var buildDir = './www/build';
 var libDir = './www/libs';
 var jsDir = './www/js';
@@ -29,6 +30,11 @@ var jsFiles = [
 	path.join(jsDir, 'components/*.js'),
 	path.join(jsDir, 'components/controls/*.js'),
 	path.join(jsDir, 'components/forms/*.js')
+];
+var jsAdminFiles = [
+	path.join(libDir, 'jquery-ui/jquery-ui.min.js'),
+	path.join(libDir, 'chosen_v1.3.0/chosen.jquery.min.js'),
+	path.join(jsDir, 'admin/*.js')
 ];
 var jsxFiles = [
 	'./app/**/*.jsx'
@@ -50,10 +56,27 @@ gulp.task('less-dev', function() {
 			sourceRoot: '../less'
 		}))
 		.pipe(gulp.dest(buildDir));
+
+	gulp.src(lessAdminFile)
+		.pipe($.sourcemaps.init())
+		.pipe($.less())
+		.pipe($.autoprefixer())
+		.pipe($.rename({suffix: '.min'}))
+		.pipe($.sourcemaps.write('.', {
+			sourceRoot: '../less'
+		}))
+		.pipe(gulp.dest(buildDir));
 });
 
 gulp.task('less-production', function() {
 	gulp.src(lessFile)
+		.pipe($.less())
+		.pipe($.autoprefixer())
+		.pipe($.cssmin())
+		.pipe($.rename({suffix: '.min'}))
+		.pipe(gulp.dest(buildDir));
+
+	gulp.src(lessAdminFile)
 		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
@@ -80,6 +103,15 @@ gulp.task('js-dev', function() {
 			sourceRoot: '../js'
 		}))
 		.pipe(gulp.dest(buildDir));
+
+	gulp.src(jsAdminFiles)
+		.pipe($.sourcemaps.init())
+		.pipe($.uglify())
+		.pipe($.concat('app-admin.min.js'))
+		.pipe($.sourcemaps.write('.', {
+			sourceRoot: '../js'
+		}))
+		.pipe(gulp.dest(buildDir));
 });
 
 gulp.task('js-production', function() {
@@ -96,6 +128,11 @@ gulp.task('js-production', function() {
 				}
 			}]
 		}))
+		.pipe(gulp.dest(buildDir));
+
+	gulp.src(jsFiles)
+		.pipe($.uglify())
+		.pipe($.concat('app-admin.min.js'))
 		.pipe(gulp.dest(buildDir));
 });
 
