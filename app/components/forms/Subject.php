@@ -2,6 +2,7 @@
 
 namespace App\Components\Forms;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
 use App\Models\Services\Acl;
 use App\Models\Services\UserState;
@@ -24,19 +25,10 @@ class Subject extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
-
-		if ($this->user->isAllowed(Acl::ALL))
-		{
-			$this->addMultiSelect('editors', NULL, $this->getEditors())->setTranslator(NULL);
-		}
+		$this->addEditorSelector('editors', $this->orm, $this->user->isAllowed(Acl::ALL));
 		$this->addHidden('positions');
 
 		$this->addSubmit();
-	}
-
-	protected function getEditors()
-	{
-		return $this->orm->users->findRegistered()->fetchPairs('id', 'email');
 	}
 
 	protected function process()
@@ -49,7 +41,8 @@ class Subject extends EditorForm
 		$subject->title = $v->title;
 		$subject->description = $v->description;
 
-		if ($this->user->isAllowed(Acl::ALL))
+		/** @var self|EditorSelector[] $this */
+		if ($this['editors']->isEditable())
 		{
 			$subject->editors = $v->editors;
 		}
