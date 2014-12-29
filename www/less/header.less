@@ -297,9 +297,13 @@
 		float: right;
 		width: 333px;
 		min-height: @header-height - 1px;
-		padding-top: 19px;
-		padding-left: 15px;
-		// justify-content: flex-end;
+	  	padding-left: 15px;
+		padding-top: 29px;
+		text-align: right;
+		margin-right: 65px;
+		a {
+		  font-size: @font-size-base;
+		}
 		&.border {
 		  border-left: 1px solid @header-border;
 		}
@@ -445,11 +449,5 @@
 	}
 	.header-userarea {
 		.white-border;
-		padding-top: 29px;
-		text-align: right;
-		margin-right: 65px;
-		a {
-			font-size: @font-size-base;
-		}
 	}
 }
