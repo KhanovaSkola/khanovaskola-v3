@@ -2,7 +2,9 @@
 
 namespace App\Components\Forms;
 
+use App\Components\Controls\EditorSelector;
 use App\Components\LogTrait;
+use App\Models\Orm\RepositoryContainer;
 use App\Presenters\Presenter;
 use Kdyby\Replicator\Container;
 use Nette;
@@ -15,6 +17,7 @@ use Nette\Application\UI\Form as NForm;
  *
  * @property-read Presenter $presenter
  * @method Container addDynamic(string $name, callable $cb)
+ * @method EditorSelector addEditorSelector(string $name, RepositoryContainer $orm, bool $editable = FALSE)
  */
 abstract class Form extends NForm
 {

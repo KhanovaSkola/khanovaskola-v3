@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Services\ElasticSearch;
 use Bin\Support\VariadicArgvInput;
 use Clevis\Version\DI\VersionExtension;
@@ -142,6 +143,11 @@ class Configurator extends Nette\Configurator
 		{
 			$c->getService($s)->setInput(new VariadicArgvInput());
 		}
+	}
+
+	public function onAfterFormExtensions()
+	{
+		EditorSelector::register();
 	}
 
 	public function onAfterQueryPanel(Container $container)
