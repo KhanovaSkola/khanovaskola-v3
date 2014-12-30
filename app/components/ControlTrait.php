@@ -64,8 +64,15 @@ trait ControlTrait
 		});
 	}
 
+	public function absoluteLink(Entity $entity)
+	{
+		return $this->link($entity, TRUE);
+	}
+
 	public function link($destination, $args = [])
 	{
+		$absolute = $args === TRUE;
+
 		if ($destination instanceof Rme\Schema)
 		{
 			$args = ['schemaId' => $destination->id];
@@ -133,6 +140,11 @@ trait ControlTrait
 		if ($destination instanceof TitledEntity)
 		{
 			$args['slug'] = $destination->slug;
+		}
+
+		if ($destination instanceof Entity && $absolute)
+		{
+			$presenter = "//$presenter";
 		}
 
 		/** @noinspection PhpDynamicAsStaticMethodCallInspection */
