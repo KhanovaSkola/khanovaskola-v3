@@ -5,7 +5,7 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 
-version: [6]
+version: [7]
 
 parameters:
 	aesKey: "generate-24-random-chars"
@@ -13,6 +13,9 @@ parameters:
 		username: postgres
 		password: root
 		database: khanovaskola
+	discourse:
+		secret: 'same-key-as-in-discourse-settings'
+		redirect: 'https://forum.khanovaskola.cz/session/sso_login'
 	smtp:
 		host: mailtrap.io
 		port: 25
