@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
+use App\Models\Services\Discourse;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
@@ -37,6 +38,12 @@ final class Auth extends Presenter
 	 * @inject
 	 */
 	public $aes;
+
+	/**
+	 * @var Discourse
+	 * @inject
+	 */
+	public $discourse;
 
 	/**
 	 * @var Facebook
@@ -305,6 +312,22 @@ final class Auth extends Presenter
 		$this->iLog('auth.logout');
 		$this->getUser()->logout(TRUE);
 		$this->template->add('vocative', $vocative);
+	}
+
+	public function actionSso($sso, $sig)
+	{
+		if ($this->discourse->getSignature($sso) !== $sig)
+		{
+			$this->error();
+		}
+
+		if (!$this->user->loggedIn)
+		{
+			$this->redirectToAuth();
+		}
+
+		$url = $this->discourse->getLoginUrl($sso, $this->user->entity);
+		$this->redirectUrl($url);
 	}
 
 }

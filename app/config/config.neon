@@ -68,6 +68,7 @@ services:
 	- App\Models\Services\Authenticator
 	- App\Models\Services\BlueprintCompiler
 	- App\Models\Services\BlueprintPurifier
+	- App\Models\Services\Discourse(%discourse.secret%, %discourse.redirect%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
 	- App\Models\Services\FacebookPage(%fb.pageId%)
