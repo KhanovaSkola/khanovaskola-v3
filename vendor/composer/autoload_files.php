@@ -12,4 +12,5 @@ return array(
     $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/petrp/access/Access/Init.php',
     $vendorDir . '/petrp/orm/Orm.php',
+    $vendorDir . '/tackk/cartographer/src/functions.php',
 );

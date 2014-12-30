@@ -29,7 +29,8 @@
 		"pda/pheanstalk": "~3.0",
 		"petrp/orm": "0.4.*",
 		"symfony/console": "~2.4",
-		"bjeavons/zxcvbn-php": "~0.1"
+		"bjeavons/zxcvbn-php": "~0.1",
+		"tackk/cartographer": "~1.0.2"
 	},
 	"require-dev": {
 		"doctrine/dbal": "2.5.0-RC2 as 2.5.0",
