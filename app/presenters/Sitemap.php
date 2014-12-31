@@ -11,7 +11,7 @@ use Tackk\Cartographer\ChangeFrequency as Freq;
 class Sitemap extends Presenter
 {
 
-	public function actionDefault()
+	public function renderDefault()
 	{
 		$cache = new Cache($this->cacheStorage, 'sitemap');
 		$string = $cache->load('full', function(&$dependencies) {

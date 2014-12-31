@@ -32,6 +32,8 @@ class Router extends RouteList
 		$this[] = new Route('predmety', 'Subjects:default');
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
 
+		$this[] = new Route('sitemap[!.xml]', 'Sitemap:default');
+
 		$this[] = new Route('schema/[<action>/]<schemaId>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action>/][<schemaId>/]<blockId>[-<slug>]', 'Block:default');
 		$this[] = new Route('video/[<action>/][[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
