@@ -10,7 +10,7 @@ var config = neon.decode(configRaw);
 
 var lessDir = './www/less';
 var lessFile = path.join(lessDir, 'main.less');
-var lessAdminFile = path.join(lessDir, 'main-admin.less');
+var lessAdminFile = path.join(lessDir, 'main.admin.less');
 var buildDir = './www/build';
 var libDir = './www/libs';
 var jsDir = './www/js';
@@ -107,7 +107,7 @@ gulp.task('js-dev', function() {
 	gulp.src(jsAdminFiles)
 		.pipe($.sourcemaps.init())
 		.pipe($.uglify())
-		.pipe($.concat('app-admin.min.js'))
+		.pipe($.concat('app.admin.min.js'))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../js'
 		}))
@@ -132,7 +132,7 @@ gulp.task('js-production', function() {
 
 	gulp.src(jsAdminFiles)
 		.pipe($.uglify())
-		.pipe($.concat('app-admin.min.js'))
+		.pipe($.concat('app.admin.min.js'))
 		.pipe(gulp.dest(buildDir));
 });
 

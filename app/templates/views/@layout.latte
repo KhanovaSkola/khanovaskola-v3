@@ -16,7 +16,7 @@
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
-		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main-admin.min{$staticHash}.css">
+		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.admin.min{$staticHash}.css">
 	{/if}
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="author" type="text/plain" href="humans.txt">
@@ -53,7 +53,7 @@
 	{block scripts}{/block}
 	<script src="{$basePath}/build/app.min{$staticHash}.js"></script>
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
-    	<script src="{$basePath}/build/app-admin.min{$staticHash}.js"></script>
+    	<script src="{$basePath}/build/app.admin.min{$staticHash}.js"></script>
     {/if}
 </body>
 </html>
