@@ -16,8 +16,11 @@
 	};
 
 	App.video.onInit.push(function () {
+		var $wrapper = $('.video-wrapper');
 		sendEvent('begin', {
-			videoId: $('.video-wrapper').data('video-id')
+			videoId: $wrapper.data('video-id'),
+			blockId: $wrapper.data('block-id'),
+			schemaId: $wrapper.data('schema-id')
 		}, function (res) {
 			viewId = res.viewId;
 		});
