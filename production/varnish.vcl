@@ -25,7 +25,7 @@ sub vcl_recv {
 }
 
 sub vcl_hash {
-        hash_data(req.host);
+        hash_data(req.http.host);
         hash_data(req.url);
         return(lookup);
 }
