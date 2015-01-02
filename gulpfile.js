@@ -138,13 +138,11 @@ gulp.task('js-production', function() {
 
 gulp.task('dev', function () {
 	gulp.start('less-dev');
-	gulp.start('jsx');
 	gulp.start('js-dev');
 });
 
 gulp.task('production', function () {
 	gulp.start('less-production');
-	gulp.start('jsx');
 	gulp.start('js-production');
 });
 
