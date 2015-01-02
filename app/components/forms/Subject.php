@@ -48,6 +48,11 @@ class Subject extends EditorForm
 		}
 
 		$data = Json::decode($v['positions']);
+		foreach ($subject->schemas as $schema)
+		{
+			$schema->position = NULL;
+			$schema->subject = NULL;
+		}
 		foreach ($data as $schemaId => $values)
 		{
 			/** @var Rme\Schema $schema */
