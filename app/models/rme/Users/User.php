@@ -13,6 +13,7 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property bool                   $registered             {default true}
+ * @property-read bool              $unsubscribed           {ignore}
  *
  * NOT NULL if user is registered:
  * @property NULL|string            $email                  also not NULL if created for student invite
@@ -143,6 +144,18 @@ class User extends Entity
 			|| $this->subjectsEdited->count()
 			|| $this->schemasEdited->count() || $this->schemasAuthored->count()
 			|| $this->blocksEdited->count() || $this->blocksAuthored->count();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isUnsubscribed()
+	{
+		if (!$this->email)
+		{
+			return FALSE;
+		}
+		return (bool) $this->model->unsubscribes->getByEmail($this->email);
 	}
 
 }
