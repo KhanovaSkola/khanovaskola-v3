@@ -121,9 +121,9 @@ final class Auth extends Presenter
 		$this->template->email = $email;
 	}
 
-	public function renderResetPassword($email = NULL)
+	public function renderResetPassword($email = NULL, $auth = FALSE)
 	{
-		if ($this->user->isRegisteredUser())
+		if (!$auth && $this->user->isRegisteredUser())
 		{
 			$this->redirect('changePassword');
 		}
@@ -143,7 +143,10 @@ final class Auth extends Presenter
 		$session = $this->session->getSection('auth');
 		if (!$session->twoStepVerification)
 		{
-			$this->redirect('resetPassword', ['email' => $this->userEntity->email]);
+			$this->redirect('resetPassword', [
+				'email' => $this->userEntity->email,
+				'auth' => TRUE,
+			]);
 		}
 	}
 
