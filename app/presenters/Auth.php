@@ -6,9 +6,12 @@ use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
 use App\Models\Services\Discourse;
+use App\Models\Services\Gravatar;
+use App\Models\Services\Queue;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
+use App\Models\Tasks;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
@@ -46,6 +49,12 @@ final class Auth extends Presenter
 	public $discourse;
 
 	/**
+	 * @var Queue
+	 * @inject
+	 */
+	public $queue;
+
+	/**
 	 * @var Facebook
 	 */
 	protected $facebook;
@@ -72,6 +81,11 @@ final class Auth extends Presenter
 
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();
+
+		if (!$this->userEntity->avatar)
+		{
+			$this->queue->enqueue(new Tasks\UpdateAvatar($this->userEntity));
+		}
 
 		if ($this->userEntity->hasCacheBurstingPrivileges())
 		{

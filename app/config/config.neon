@@ -71,6 +71,7 @@ services:
 	- App\Models\Services\Discourse(%discourse.secret%, %discourse.redirect%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
+	- App\Models\Services\Gravatar
 	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Queue(%beanstalk.host%)
 	- App\Models\Services\Mailer(%smtp%)
