@@ -3,15 +3,18 @@
 {var $title = $blueprint->title}
 {var $description = $blueprint->description}
 {block headerBack}
-	<div class="header-goback">
-		<a n:href="$block, $schema">
-			<i class="icon icon-arrow-left2"></i>
-			<span>{$block->title}</span>
-		</a>
-	</div>
+	{if $block}
+        <div class="header-goback">
+            <a n:href="$block, $schema">
+                <i class="icon icon-arrow-left2"></i>
+                <span>{$block->title}</span>
+            </a>
+        </div>
+    {else}
+        {include headerLogo}
+    {/if}
 {/block}
 {block scripts}
-	<script src="{$basePath}/libs/d3/d3.min.js"></script>
 	{include '_script.latte'}
 {/block}
 {block content}
@@ -26,7 +29,7 @@
     					<i class="icon icon-{if $schema}{$schema->subject->icon}{else}math{/if}"></i>
     				</div>
     				<div class="content-wrapper">
-    					<small>{$block->title} ({$position}/{$block->countContents()})</small>
+    					<small n:if="$block">{$block->title} ({$position}/{$block->countContents()})</small>
     					<h1>
     						<span>{$exercise->blueprint->title}</span>
     						<small>{$exercise->blueprint->description}</small>
