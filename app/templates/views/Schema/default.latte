@@ -22,8 +22,8 @@
 		<div class="content-inner">
 	        <div class="container">
 	            <div class="text-center">
-	                <span class="text-{$schema->subject->color}">
-	                    <i class="icon icon-{$schema->subject->icon}"></i>
+	                <span class="text-{$schema->subject ? $schema->subject->color : 'blue'}">
+	                    <i class="icon icon-{$schema->subject ? $schema->subject->icon : 'history'}"></i>
 	                </span>
 	                <h1>
 	                    {$schema->title}
