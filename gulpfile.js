@@ -130,7 +130,7 @@ gulp.task('js-production', function() {
 		}))
 		.pipe(gulp.dest(buildDir));
 
-	gulp.src(jsFiles)
+	gulp.src(jsAdminFiles)
 		.pipe($.uglify())
 		.pipe($.concat('app-admin.min.js'))
 		.pipe(gulp.dest(buildDir));
