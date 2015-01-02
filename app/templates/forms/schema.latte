@@ -13,11 +13,5 @@
         {include error, control => $form['description']}
     </div>
 
-	<select class="form-control" name="subject">
-		{var $value = $form['subject']->getValue()}
-		<option n:foreach="$form['subject']->getItems() as $id => $subject"
-			value="{$id}"{if $id == $value} selected{/if}>{$subject}</option>
-	</select>
-
 	<input n:name="save" value="Uložit" class="btn">
 </form>

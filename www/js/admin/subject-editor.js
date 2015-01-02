@@ -4,7 +4,15 @@ $(function() {
 		return;
 	}
 
-	$('.drag').sortable().disableSelection();
+	$('#content-editor, #content-editor-remove, #content-editor-add').sortable({
+		connectWith: ".drag",
+		start: function() {
+			$('.drag').addClass('highlight');
+		},
+		stop: function() {
+			$('.drag').removeClass('highlight');
+		}
+	}).disableSelection();
 
 	var $list = $('.schema-list');
 	function serializeSchemas() {

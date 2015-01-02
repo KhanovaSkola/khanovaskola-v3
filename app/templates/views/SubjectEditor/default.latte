@@ -1,6 +1,14 @@
 {var $title = 'Editor'}
 {var $pageName = 'subject-editor'}
 {var $headerBorder = TRUE}
+{block headerBack}
+	<div class="header-goback">
+		<a n:href="SubjectsEditor:default">
+			<i class="icon icon-arrow-left2"></i>
+			<span>Editor předmětů</span>
+		</a>
+	</div>
+{/block}
 {block content}
 	{**
 	 * @param string $basePath web base path
@@ -10,13 +18,31 @@
 	<div class="container">
 		<div class="col-md-12">
 			Přerovnejte pořadi:
-			<ul class="schema-list drag">
+			<ul id="content-editor" class="schema-list drag">
+				{var $ignore = []}
 				{foreach $subject->schemas as $schema}
+					{var $ignore[$schema->id] = TRUE}
 					<li data-schema-id="{$schema->id}">
 						{$schema->title}
 					</li>
 				{/foreach}
 			</ul>
+
+			Odstranit schéma z předmětu
+            <ul id="content-editor-remove" class="drag">
+            </ul>
+
+            Přidat schéma
+            <ul id="content-editor-add" class="drag">
+                {foreach $schemas as $schema}
+                    {if !isset($ignore[$schema->id])}
+	                    <li data-schema-id="{$schema->id}">
+	                        {$schema->title}
+	                    </li>
+                    {/if}
+                {/foreach}
+            </ul>
+
 			{control subjectForm}
 		</div>
 	</div>

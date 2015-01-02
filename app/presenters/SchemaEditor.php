@@ -48,7 +48,6 @@ class SchemaEditor extends Presenter
 			/** @var self|TextInput[] $this */
 			$this['schemaForm-form-title']->setDefaultValue($this->schema->title);
 			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
-			$this['schemaForm-form-subject']->setDefaultValue($this->schema->subject->id);
 
 			$layout = $this->schema->layout;
 			unset($layout[1]); // remove spacer columns

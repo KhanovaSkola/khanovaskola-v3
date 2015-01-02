@@ -34,8 +34,6 @@ class Schema extends EditorForm
 
 	public function setup()
 	{
-		$this->addSelect('subject', NULL, $this->getAllowedSubjects())
-			->setRequired('subject.missing');
 		$this->addText('title')
 			->setRequired('title.missing');
 		$this->addText('description')
@@ -43,18 +41,6 @@ class Schema extends EditorForm
 		$this->addHidden('layout');
 
 		$this->addSubmit();
-	}
-
-	protected function getAllowedSubjects()
-	{
-		if ($this->user->isAllowed(Acl::ALL))
-		{
-			return $this->orm->subjects->findAll()->fetchPairs('id', 'title');
-		}
-		else
-		{
-			return $this->user->getUserEntity()->subjectsEdited->get()->fetchPairs('id', 'title');
-		}
 	}
 
 	protected function process()
@@ -77,15 +63,9 @@ class Schema extends EditorForm
 			$mode = 'added';
 		}
 
-		/** @var Rme\Subject $subject */
-		$subject = $this->orm->subjects->getById($v->subject);
-
 		$schema->title = $v->title;
 		$schema->description = $v->description;
-		$schema->subject = $subject;
 		$schema->layout = $parsed;
-
-		$schema->position = $subject->schemas->count();
 
 		foreach ($this->schemaLayout->buildBlockDependencies($parsed) as $blockId => $deps)
 		{

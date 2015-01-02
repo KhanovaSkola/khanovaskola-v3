@@ -53,6 +53,7 @@ class Subject extends EditorForm
 			/** @var Rme\Schema $schema */
 			$schema = $this->orm->schemas->getById($schemaId);
 			$schema->position = $values->position;
+			$schema->subject = $subject;
 		}
 
 		$this->orm->flush();

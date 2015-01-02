@@ -32,6 +32,7 @@ final class SubjectEditor extends Presenter
 			$this['subjectForm-form-editors']->setDefaultValue($this->subject->editors->get()->fetchPairs('id', 'id'));
 		}
 
+		$this->template->schemas = $this->orm->schemas->findAll();
 		$this->template->subject = $this->subject;
 	}
 
