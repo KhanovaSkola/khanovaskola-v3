@@ -30,13 +30,29 @@ final class Blueprint extends Content
 		$this->loadBlueprint();
 		$this->loadBlock(function() {
 			$block = $this->blueprint->getRandomParent();
-			$this->redirectToEntity($this->blueprint, $block, $block->getRandomParent());
+			if ($block)
+			{
+				$this->redirectToEntity($this->blueprint, $block, $block->getRandomParent());
+			}
 		});
 		$this->loadSchema(function() {
-			$this->redirectToEntity($this->blueprint, $this->block, $this->block->getRandomParent());
+			if (!$this->block)
+			{
+				return NULL;
+			}
+
+			$schema = $this->block->getRandomParent();
+			if ($schema)
+			{
+				$this->redirectToEntity($this->blueprint, $this->block, $schema);
+			}
 		});
 
-		if (!$this->schema->contains($this->block) || !$this->block->contains($this->blueprint))
+		if ($this->block && !$this->block->contains($this->blueprint))
+		{
+			$this->error();
+		}
+		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
 			$this->error();
 		}
@@ -73,7 +89,7 @@ final class Blueprint extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 
-		$this->template->position = $this->block->getPositionOf($this->blueprint);
+		$this->template->position = $this->block ? $this->block->getPositionOf($this->blueprint) : NULL;
 	}
 
 	public function createComponentAnswer()
