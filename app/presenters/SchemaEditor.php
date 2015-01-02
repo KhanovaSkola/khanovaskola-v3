@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
 use App\Models\Services\Acl;
 use App\Models\Services\SchemaLayout;
@@ -45,9 +46,11 @@ class SchemaEditor extends Presenter
 
 		if ($this->schema)
 		{
-			/** @var self|TextInput[] $this */
+			/** @var self|TextInput[]|EditorSelector[] $this */
 			$this['schemaForm-form-title']->setDefaultValue($this->schema->title);
 			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
+			$this['schemaForm-form-editors']->setEditable($this->user->isAllowed($this->schema));
+			$this['schemaForm-form-editors']->setDefaultValue($this->schema->editors->get()->fetchPairs('id', 'id'));
 
 			$layout = $this->schema->layout;
 			unset($layout[1]); // remove spacer columns
@@ -57,6 +60,7 @@ class SchemaEditor extends Presenter
 		else
 		{
 			$this->template->layout = $this->schemaLayout->getDefaultLayout();
+			$this['schemaForm-form-editors']->setEditable(TRUE);
 		}
 	}
 

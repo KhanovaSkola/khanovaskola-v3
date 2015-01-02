@@ -4,6 +4,10 @@ $(function() {
 		return;
 	}
 
+	$('#frm-schemaForm-form-editors').chosen({
+		no_results_text: "Email nenalezen"
+	});
+
 	var $arrowTargets = $(".scheme-wrapper.editor .cell-even");
 	$(".arrow-picker .cell").draggable({
 		revert: true,

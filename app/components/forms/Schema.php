@@ -2,6 +2,7 @@
 
 namespace App\Components\Forms;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
 use App\Models\Services\Acl;
 use App\Models\Services\Queue;
@@ -38,6 +39,7 @@ class Schema extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
+		$this->addEditorSelector('editors', $this->orm);
 		$this->addHidden('layout');
 
 		$this->addSubmit();
@@ -61,6 +63,14 @@ class Schema extends EditorForm
 			$schema->blockSchemaBridges = [];
 
 			$mode = 'added';
+		}
+
+		/** @var self|EditorSelector[] $this */
+		if ($this['editors']->isEditable())
+		{
+			$schema->editors = array_filter($v->editors, function($id) use ($schema) {
+				return $id !== $schema->author->id;
+			});
 		}
 
 		$schema->title = $v->title;
