@@ -105,14 +105,14 @@ auth:
   loginLink:
     facebook: "Přihlásit se přes Facebook"
     google: "Přihlásit se přes Google"
-  resetPassword:
+  reset:
     success:
-      title: "Email odeslán"
-      message: "Pro další instrukce se koukněte do svého mailu" #TODO link to user email by domain
+      title: "Email odeslán."
+      message: "Pro další instrukce se koukněte do svého mailu." #TODO link to user email by domain
   changePassword:
     success:
-      title: "Heslo změněno"
-      message: "Supr"
+      title: "Heslo změněno."
+      message: "Na webu Khanovy školy se teď přihlašujete pouze tímto novým heslem."
   flash:
     fb:
       denied:
@@ -292,6 +292,11 @@ blockForm:
     missing: "Vyplňte název bloku"
   description:
     missing: "Vyplňte popis bloku"
+
+profileForm:
+  success:
+    title: ""
+    message: "Uloženo."
 
 acl:
   denied:

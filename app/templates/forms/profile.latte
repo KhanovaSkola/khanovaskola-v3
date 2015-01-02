@@ -1,0 +1,21 @@
+{includeblock _error.latte}
+
+<form n:name="form" class="form-horizontal">
+	{include formError, form => $form}
+	<div class="form-group{if $form['name']->errors} has-error{/if}">
+		<label n:name="name">Jméno</label>
+		<input n:name="name" type="text" class="form-control">
+		{include error, control => $form['name']}
+	</div>
+	<div class="form-group">
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" n:name="subscribe">
+				<span></span>
+				Chci dostávat emaily od Khanovy školy (např. „Nový obsah na Khanově škole“, „Změna hesla“, …)
+			</label>
+		</div>
+	</div>
+
+	<input n:name="save" value="Uložit" class="btn">
+</form>
