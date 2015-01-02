@@ -2,8 +2,9 @@
 
 namespace App\Presenters;
 
+use App\Components\Forms;
 use App\Models\Rme;
-use App\Models\Structs\EventList;
+use Nette\Forms\Controls\BaseControl;
 
 
 final class Profile extends Presenter
@@ -55,16 +56,12 @@ final class Profile extends Presenter
 		$this->template->lastSchemas = $lastSchemas;
 	}
 
-	/**
-	 * test method
-	 * @deprecated
-	 */
-	public function handleGetBadge()
+	public function renderSettings()
 	{
-		$video = $this->orm->contents->getById(3);
-		$this->trigger(EventList::VIDEO_WATCHED, [$this->userEntity, $video]);
-		$this->orm->flush();
-		$this->redirect('this');
+		/** @var Forms\Profile|BaseControl[] $form */
+		$form = $this['profileForm-form'];
+		$form['name']->setDefaultValue($this->userEntity->name);
+		$form['subscribe']->setDefaultValue(!$this->userEntity->unsubscribed);
 	}
 
 }
