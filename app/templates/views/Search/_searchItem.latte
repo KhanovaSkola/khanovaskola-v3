@@ -15,6 +15,7 @@
                 <a n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
             </span>
             <p>{$content->highlight('description')|noescape}</p>
+            <p class="transcript">{$content->highlight('subtitles')|noescape}</p>
         </div>
     </article>
 {/define}

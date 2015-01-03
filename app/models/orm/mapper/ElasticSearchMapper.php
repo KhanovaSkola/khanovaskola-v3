@@ -46,7 +46,7 @@ class ElasticSearchMapper extends Mapper
 						'query' => [
 							'multi_match' => [
 								'query' => $query,
-								'fields' => ['title', 'description'],
+								'fields' => ['title', 'description', 'subtitles'],
 							],
 						],
 						'score_mode' => 'sum',
