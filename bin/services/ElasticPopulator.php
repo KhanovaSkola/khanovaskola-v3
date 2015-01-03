@@ -30,11 +30,15 @@ class ElasticPopulator extends Object
 	}
 
 	/**
+	 * @param callable $begin {int $count}
+	 * @param callable $tick {}
 	 * @return int
 	 */
-	public function populate()
+	public function populate(callable $begin = NULL, callable $tick = NULL)
 	{
 		$counter = 0;
+
+		$repos = [];
 		foreach ($this->orm->getRepositoryClasses() as $class)
 		{
 			$repo = $this->orm->getRepository($class);
@@ -51,9 +55,22 @@ class ElasticPopulator extends Object
 				}
 			}
 
+			$repos[] = $repo;
+		}
+
+		$total = 0;
+		foreach ($repos as $repo)
+		{
+			$total += $repo->findAll()->count();
+		}
+		$begin($total);
+
+		foreach ($repos as $repo)
+		{
 			foreach ($repo->findAll() as $entity)
 			{
 				$this->indexEntity($entity);
+				$tick();
 				$counter++;
 			}
 		}
