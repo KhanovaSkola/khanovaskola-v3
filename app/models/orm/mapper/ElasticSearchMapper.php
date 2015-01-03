@@ -44,10 +44,13 @@ class ElasticSearchMapper extends Mapper
 				'query' => [
 					'function_score' => [
 						'query' => [
-							'multi_match' => [
-								'query' => $query,
-								'fields' => ['title', 'description', 'subtitles'],
-							],
+							'bool' => [
+								'should' => [
+									['match' => ['title' => $query]],
+									['match' => ['description' => $query]],
+									['match_phrase' => ['subtitles' => $query]],
+								]
+							]
 						],
 						'score_mode' => 'sum',
 						'boost_mode' => 'sum',

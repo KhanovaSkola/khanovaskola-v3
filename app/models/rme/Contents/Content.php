@@ -128,6 +128,10 @@ abstract class Content extends TitledEntity implements IIndexable
 			$highlights = $this->highlights[$field];
 			return Highlight::process(implode(' ', $highlights));
 		}
+		if ($field === 'subtitles')
+		{
+			return NULL;
+		}
 		return $this->getValue($field);
 	}
 
