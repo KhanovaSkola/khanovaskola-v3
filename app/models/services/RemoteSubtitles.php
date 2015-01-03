@@ -22,7 +22,12 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 	protected function fetchSubtitles($youtubeId, $cached)
 	{
 		$url = "https://report.khanovaskola.cz/api/1/subtitles/{$youtubeId}/cs" . ($cached ? '?cached=1' : '');
-		$res = file_get_contents($url);
+		$res = @file_get_contents($url); // was failing randomly
+		if (!$res)
+		{
+			return NULL;
+		}
+
 		if ($cached)
 		{
 			$headers = $http_response_header;
