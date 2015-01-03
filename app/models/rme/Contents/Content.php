@@ -39,20 +39,20 @@ abstract class Content extends TitledEntity implements IIndexable
 	 */
 	public function getIndexData()
 	{
-		$block = $this->getRandomParent();
-		$hasBlock = (bool) $block;
-		$hasSchema = $block ? (bool) $block->getRandomParent() : FALSE;
-		$position = $block ? $block->getPositionOf($this) : 0;
+		$blockCount = 0;
+		$schemaCount = 0;
+		$positions = [];
+		foreach ($this->blocks as $block)
+		{
+			$blockCount++;
+			$schemaCount += $block->blockSchemaBridges->count();
+			$positions[] = $block->getPositionOf($this);
+		}
+		$avgPosition = count($positions) ? array_sum($positions) / count($positions) : 0;
 
-		$weight = 100 - $position;
-		if ($hasSchema)
-		{
-			$weight += 100;
-		}
-		if ($hasBlock)
-		{
-			$weight += 100;
-		}
+		$weight = 100 - $avgPosition;
+		$weight += 20 * $blockCount;
+		$weight += 50 * $schemaCount;
 
 		return [
 			'title' => $this->title,
@@ -65,9 +65,9 @@ abstract class Content extends TitledEntity implements IIndexable
 				'weight' => $weight,
 			],
 			'description' => $this->description,
-			'has_block' => $hasBlock,
-			'has_schema' => $hasSchema,
-			'position' => $position,
+			'block_count' => $blockCount,
+			'schema_count' => $schemaCount,
+			'position' => $avgPosition,
 		];
 	}
 

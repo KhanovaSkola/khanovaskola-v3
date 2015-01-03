@@ -47,9 +47,9 @@ mappings:
 				type: string
 				store: true
 				index_options: offsets
-			has_block:
-				type: boolean
-			has_schema:
-				type: boolean
+			block_count:
+				type: integer
+			schema_count:
+				type: integer
 			position:
 				type: integer

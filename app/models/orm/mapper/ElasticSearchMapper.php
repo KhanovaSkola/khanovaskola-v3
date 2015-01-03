@@ -42,9 +42,35 @@ class ElasticSearchMapper extends Mapper
 				'from' => $offset,
 				'size' => $limit,
 				'query' => [
-					'multi_match' => [
-						'query' => $query,
-						'fields' => ['title', 'description'],
+					'function_score' => [
+						'query' => [
+							'multi_match' => [
+								'query' => $query,
+								'fields' => ['title', 'description'],
+							],
+						],
+						'score_mode' => 'sum',
+						'boost_mode' => 'sum',
+						'functions' => [
+							[
+								'field_value_factor' => [
+									'field' => 'schema_count',
+									'factor' => 1.2,
+								]
+							],
+							[
+								'field_value_factor' => [
+									'field' => 'block_count',
+									'factor' => 1.1,
+								]
+							],
+							[
+								'field_value_factor' => [
+									'field' => 'position',
+									'factor' => -0.01,
+								]
+							],
+						],
 					],
 				],
 				'highlight' => [
