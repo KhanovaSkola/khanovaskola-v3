@@ -1,5 +1,5 @@
 .form-control {
-  border: 0;
+	border: 0;
 	outline: 0;
 	border-radius: 0;
 	box-shadow: none;
@@ -10,13 +10,13 @@
 
 	font-size: @font-size-base;
 
-  	padding: 0 0 0 2px;
+	padding: 0 0 0 2px;
 
-    input[type=password]&,
+	input[type=password] &,
 	&.input-password {
 		background: url(../img/inputs/input-lock-normal.svg) no-repeat;
 		background-position: 99.5% center;
-	  	padding-right: 26px;
+		padding-right: 26px;
 		&:focus {
 			background-image: url(../img/inputs/input-lock-focus.svg);
 		}
@@ -40,46 +40,49 @@
 }
 
 .floating-placeholder {
-  .anim;
-  position: relative;
-  display: inline-block;
-  margin-top: 15px;
+	.anim;
+	position: relative;
+	display: inline-block;
+	margin-top: 15px;
 }
+
 .floating-placeholder label {
-  .anim;
-  position: absolute;
-  z-index: 12345;
-  // line-height: 20px;
-  left: 0;
-  bottom: 0;
-  opacity: 0;
-  pointer-events: none;
+	.anim;
+	position: absolute;
+	z-index: 12345;
+	// line-height: 20px;
+	left: 0;
+	bottom: 0;
+	opacity: 0;
+	pointer-events: none;
 }
+
 .floating-placeholder.float {
-  label {
-	bottom: 25px;
-	opacity: 1;
-  }
+	label {
+		bottom: 25px;
+		opacity: 1;
+	}
 }
 
 .has-addend {
-  position: relative;
-  .form-control {
-	padding-right: 26px;
-  }
-  .form-control:focus + .addend-icon {
-	color: @khan-black;
-  }
+	position: relative;
+	.form-control {
+		padding-right: 26px;
+	}
+	.form-control:focus + .addend-icon {
+		color: @khan-black;
+	}
 }
+
 .addend-icon {
-  .anim;
-  position: absolute;
-  right: 0;
-  bottom: 5px;
-  font-size: 15px;
-  min-width: 20px;
-  text-align: center;
-  color: #959B9F;
+	.anim;
+	position: absolute;
+	right: 0;
+	bottom: 5px;
+	font-size: 15px;
+	min-width: 20px;
+	text-align: center;
+	color: #959B9F;
 }
 
 label {
@@ -100,7 +103,7 @@ label {
 		}
 	}
 	.addend-icon {
-	  color: @khan-red;
+		color: @khan-red;
 	}
 	input[type=password],
 	.input-password {
@@ -112,25 +115,25 @@ label {
 }
 
 .has-warning {
-  .form-control {
-	border-color: @khan-yellow;
-	box-shadow: none;
-	color: @khan-yellow;
-	&:focus {
-	  box-shadow: none;
-	  border-color: darken(@khan-yellow, 5%);
+	.form-control {
+		border-color: @khan-yellow;
+		box-shadow: none;
+		color: @khan-yellow;
+		&:focus {
+			box-shadow: none;
+			border-color: darken(@khan-yellow, 5%);
+		}
 	}
-  }
-  .addend-icon {
-	color: @khan-yellow;
-  }
-  input[type=password],
-  .input-password {
-	&,
-	&:focus {
-	  background-image: url(../img/inputs/input-lock-warning.svg);
+	.addend-icon {
+		color: @khan-yellow;
 	}
-  }
+	input[type=password],
+	.input-password {
+		&,
+		&:focus {
+			background-image: url(../img/inputs/input-lock-warning.svg);
+		}
+	}
 }
 
 .has-success {
@@ -144,7 +147,7 @@ label {
 		}
 	}
 	.addend-icon {
-	  color: @khan-green;
+		color: @khan-green;
 	}
 	input[type=password],
 	.input-password {
@@ -163,7 +166,7 @@ label {
 		padding-left: 0;
 		user-select: none;
 		font-size: @font-size-small;
-	  	font-weight: @font-weight-light;
+		font-weight: @font-weight-light;
 		color: @checkbox-text-color;
 		line-height: 18px;
 		&:active {
@@ -178,8 +181,8 @@ label {
 		input[type='checkbox'] {
 			display: none;
 			visibility: hidden;
-      		& + span {
-      			.anim;
+			& + span {
+				.anim;
 				border: 2px solid @checkbox-border;
 				border-radius: 3px;
 				margin: 0;
@@ -223,67 +226,67 @@ label {
 				& + span {
 					border-color: @checkbox-border-hover;
 				}
-			 }
+			}
 		}
 	}
 }
 
 .radio {
-  .clearfix;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  label {
-	padding-left: 0;
-	user-select: none;
-	font-size: 16px;
-	color: @radio-text-color;
-	line-height: 14px;
-	cursor: pointer;
-	input[type='radio'] {
-	  display: none;
-	  visibility: hidden;
-	  & + span {
-		.anim;
-		border: 2px solid @radio-border;
-		border-radius: 50%;
-		margin: 0;
-		padding: 0;
+	.clearfix;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	label {
+		padding-left: 0;
 		user-select: none;
-		display: inline-block;
-		width: @radio-size;
-		height: @radio-size;
-		background-color: transparent;
-		float: left;
-		margin-right: 10px;
-		margin-top: -1px;
-		&:after {
-		  .anim;
-		  display: inline-block;
-		  width: @radio-size - 10px;
-		  height: @radio-size - 10px;
-		  margin-top: 3px;
-		  margin-left: 3px;
-		  text-align: center;
-		  line-height: @radio-size;
-		  content: 'x';
-		  color: transparent;
-		  // background: url(@checkbox-ok-ikon-path) 35% 35% no-repeat;
-		  background: @radio-checked-color;
-		  border-radius: 50%;
-		  opacity: 0;
+		font-size: 16px;
+		color: @radio-text-color;
+		line-height: 14px;
+		cursor: pointer;
+		input[type='radio'] {
+			display: none;
+			visibility: hidden;
+			& + span {
+				.anim;
+				border: 2px solid @radio-border;
+				border-radius: 50%;
+				margin: 0;
+				padding: 0;
+				user-select: none;
+				display: inline-block;
+				width: @radio-size;
+				height: @radio-size;
+				background-color: transparent;
+				float: left;
+				margin-right: 10px;
+				margin-top: -1px;
+				&:after {
+					.anim;
+					display: inline-block;
+					width: @radio-size - 10px;
+					height: @radio-size - 10px;
+					margin-top: 3px;
+					margin-left: 3px;
+					text-align: center;
+					line-height: @radio-size;
+					content: 'x';
+					color: transparent;
+					// background: url(@checkbox-ok-ikon-path) 35% 35% no-repeat;
+					background: @radio-checked-color;
+					border-radius: 50%;
+					opacity: 0;
+				}
+			}
+			&:checked + span:after {
+				content: '\f00c';
+				opacity: 1;
+			}
 		}
-	  }
-	  &:checked + span:after {
-		content: '\f00c';
-		opacity: 1;
-	  }
-	}
-	&:hover {
-	  input[type='radio'] {
-		& + span {
-		  border-color: @radio-border-hover;
+		&:hover {
+			input[type='radio'] {
+				& + span {
+					border-color: @radio-border-hover;
+				}
+			}
 		}
-	  }
 	}
-  }
 }

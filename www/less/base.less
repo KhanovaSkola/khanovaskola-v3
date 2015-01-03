@@ -4,7 +4,7 @@ body {
 	font-weight: @font-weight-light;
 	overflow-x: hidden;
 	position: relative;
-  	width: 100%;
+	width: 100%;
 }
 
 p {
@@ -29,11 +29,9 @@ p {
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 	small {
-	  text-transform: none;
+		text-transform: none;
 	}
 }
-
-
 
 a {
 	font-weight: @font-weight-light;
@@ -41,7 +39,6 @@ a {
 	color: @khan-blue;
 	line-height: 19px;
 }
-
 
 .text-colors() {
 	.text-black {
@@ -79,7 +76,6 @@ a {
 		color: @khan-gold;
 	}
 
-
 	.text-purple {
 		.darken-hover(@khan-purple);
 		color: @khan-purple;
@@ -96,6 +92,7 @@ a {
 		color: @khan-red;
 	}
 }
+
 .text-colors();
 
 ul {
@@ -112,6 +109,7 @@ ul {
 		}
 	}
 }
+
 ul.list-unstyled {
 	li {
 		&:before {
@@ -119,7 +117,6 @@ ul.list-unstyled {
 		}
 	}
 }
-
 
 blockquote {
 	font-family: @headings-font-family;
@@ -130,7 +127,6 @@ blockquote {
 	border: 0;
 	text-align: center;
 }
-
 
 .thumbnail {
 	border-radius: 0;
@@ -155,10 +151,10 @@ blockquote {
 }
 
 @media (max-width: @screen-sm) {
-  .alert .pull-right {
-	float: none !important;
-	padding-left: 1em;
-  }
+	.alert .pull-right {
+		float: none !important;
+		padding-left: 1em;
+	}
 }
 
 .mark,
@@ -168,8 +164,7 @@ mark {
 	color: @khan-red;
 }
 
-
 #tracy-debug-bar ul li:before {
-  content: '';
-  margin-right: 0;
+	content: '';
+	margin-right: 0;
 }

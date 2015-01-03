@@ -55,9 +55,9 @@
 		@media (max-width: @screen-sm) {
 			width: 100%;
 			float: none;
-		    display: none;
-			&>.pull-left,
-			&>.pull-right {
+			display: none;
+			& > .pull-left,
+			& > .pull-right {
 				float: none !important;
 				width: 100%;
 			}
@@ -71,7 +71,7 @@
 				font-size: @font-size-base;
 				color: @khan-black2;
 				line-height: 16px;
-			    padding: 34px;
+				padding: 34px;
 				margin: 0;
 				display: block;
 			}
@@ -80,7 +80,7 @@
 				width: 850px;
 				height: 380px;
 				padding: 0;
-			  	z-index: 1500;
+				z-index: 1500;
 				@media (max-width: @screen-sm) {
 					width: 100%;
 					height: auto;
@@ -161,8 +161,12 @@
 								.icon {
 									font-size: 20px;
 									vertical-align: -10%;
-									&.icon-chemistry { font-size: 19px; }
-									&.icon-history { font-size: 18px; }
+									&.icon-chemistry {
+										font-size: 19px;
+									}
+									&.icon-history {
+										font-size: 18px;
+									}
 									&.icon-it {
 										font-size: 12px;
 										vertical-align: 0;
@@ -187,14 +191,13 @@
 					}
 
 					li {
-					  width: 110%;
+						width: 110%;
 					}
 
-				  	.schema-more span
-					{
+					.schema-more span {
 						margin-left: 0.3em;
 						&:first-of-type {
-						  margin-left: 0;
+							margin-left: 0;
 						}
 					}
 
@@ -234,30 +237,30 @@
 				display: none;
 			}
 		}
-	  	.tt-hint {
-		  color: @label-color;
+		.tt-hint {
+			color: @label-color;
 		}
 		.tt-dropdown-menu {
 			position: absolute;
-		  	left: -9px !important;
+			left: -9px !important;
 			z-index: 1000 !important;
 			background: @white;
-			box-shadow: -2px 2px 2px 0px rgba(38,43,55,0.09), inset 0px -1px 0px 1px #D4E1E8;
+			box-shadow: -2px 2px 2px 0px rgba(38, 43, 55, 0.09), inset 0px -1px 0px 1px #D4E1E8;
 			width: ~"calc(100% + 18px)";
 			.tt-suggestions {
 				padding: 0;
 				margin: 0;
-			  	.tt-suggestion {
+				.tt-suggestion {
 					border-bottom: 1px solid @header-border;
 					padding-left: 1px;
 					padding-right: 1px;
-				  	cursor: pointer;
+					cursor: pointer;
 					&:last-of-type {
 						border: 0;
-					  	padding-bottom: 5px;
+						padding-bottom: 5px;
 					}
 					p {
-					    .clearfix;
+						.clearfix;
 						padding: 12px 10px 7px;
 						display: block;
 
@@ -266,14 +269,14 @@
 						color: @khan-blue-light;
 						line-height: 17px;
 						margin-right: 8px;
-					  	margin-bottom: 0;
+						margin-bottom: 0;
 						width: 100%;
 						white-space: nowrap;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						.tt-highlight {
-						  font-weight: @font-weight-light;
-						  color: @khan-black2;
+							font-weight: @font-weight-light;
+							color: @khan-black2;
 						}
 
 						&:hover {
@@ -297,44 +300,44 @@
 		float: right;
 		width: 333px;
 		min-height: @header-height - 1px;
-	  	padding-left: 15px;
+		padding-left: 15px;
 		padding-top: 29px;
 		text-align: right;
 		margin-right: 65px;
 		a {
-		  font-size: @font-size-base;
+			font-size: @font-size-base;
 		}
 		&.border {
-		  border-left: 1px solid @header-border;
+			border-left: 1px solid @header-border;
 		}
 		@media (max-width: @screen-sm) {
 			width: 100%;
 			float: none;
 			border-top: 1px solid @header-border;
-		    display: none;
+			display: none;
 		}
-	  	img {
-		  border-radius: 100%;
-		  height: 50px;
-		  width: 50px;
-		  box-shadow: inset 0 0 1px @khan-blue-light;
+		img {
+			border-radius: 100%;
+			height: 50px;
+			width: 50px;
+			box-shadow: inset 0 0 1px @khan-blue-light;
 		}
 		.dropdown {
-		  	margin-top: -14px;
-		  	&.no-image {
-			  margin-top: 0;
-			  .dropdown-toggle {
-				margin-left: 0;
-				margin-top: -1px;
-				.caret {
-				  margin-top: -2px;
+			margin-top: -14px;
+			&.no-image {
+				margin-top: 0;
+				.dropdown-toggle {
+					margin-left: 0;
+					margin-top: -1px;
+					.caret {
+						margin-top: -2px;
+					}
 				}
-			  }
-			  .dropdown-menu {
-				margin-top: 8px;
-				margin-right: 0;
-				margin-left: -136px;
-			  }
+				.dropdown-menu {
+					margin-top: 8px;
+					margin-right: 0;
+					margin-left: -136px;
+				}
 			}
 			.dropdown-toggle {
 				margin-left: 20px;
@@ -388,23 +391,23 @@
 			}
 		}
 		.missing-avatar {
-		  &.dropdown {
-			margin-top: 0;
-		  }
-		  .dropdown-menu {
-			margin-top: 9px;
-		  }
+			&.dropdown {
+				margin-top: 0;
+			}
+			.dropdown-menu {
+				margin-top: 9px;
+			}
 		}
 		.btn {
 			width: 158px;
 			padding-left: 0;
 			padding-right: 0;
 			margin-left: 30px;
-		  	margin-top: -12px;
+			margin-top: -12px;
 			&:hover,
 			&:focus {
-			  padding-left: 0;
-			  padding-right: 0;
+				padding-left: 0;
+				padding-right: 0;
 			}
 		}
 	}
