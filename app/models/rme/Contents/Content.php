@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
 use App\Models\Services\Highlight;
+use Nette\Utils\Strings;
 use Orm\OneToMany as OtM;
 
 
@@ -48,7 +49,22 @@ abstract class Content extends TitledEntity implements IIndexable
 			$schemaCount += $block->blockSchemaBridges->count();
 			$positions[] = $block->getPositionOf($this);
 		}
-		$avgPosition = count($positions) ? array_sum($positions) / count($positions) : 0;
+
+		if ($blockCount)
+		{
+			$avgPosition = array_sum($positions) / count($positions);
+		}
+		else
+		{
+			// title heuristics
+			$number = Strings::match($this->title, '~\s(\d\d?)(?!\.)\D*$~');
+			$avgPosition = $number ? $number[1] : 0;
+			if ($avgPosition > 20)
+			{
+				// most probably not number of part
+				$avgPosition = 0;
+			}
+		}
 
 		$weight = 100 - $avgPosition;
 		$weight += 20 * $blockCount;
