@@ -19,11 +19,11 @@ class Sitemap extends Presenter
 
 			$map = new Cartographer\Sitemap();
 
-			$map->add($this->link('Auth:registration'), NULL, Freq::YEARLY);
-			$map->add($this->link('Auth:resetPassword'), NULL, Freq::YEARLY);
-			$map->add($this->link('Homepage:default'),
+			$map->add($this->link('//Auth:registration'), NULL, Freq::YEARLY);
+			$map->add($this->link('//Auth:resetPassword'), NULL, Freq::YEARLY);
+			$map->add($this->link('//Homepage:default'),
 				filemtime(__DIR__ . '/../templates/views/Homepage/default.latte'), Freq::YEARLY);
-			$map->add($this->link('Text:about'),
+			$map->add($this->link('//Text:about'),
 				filemtime(__DIR__ . '/../templates/views/Text/about.latte'), Freq::YEARLY);
 
 			foreach ($this->orm->schemas->findAll() as $schema)
