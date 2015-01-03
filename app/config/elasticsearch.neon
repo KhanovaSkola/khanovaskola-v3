@@ -47,5 +47,9 @@ mappings:
 				type: string
 				store: true
 				index_options: offsets
-			pathStarts:
+			has_block:
+				type: boolean
+			has_schema:
+				type: boolean
+			position:
 				type: integer

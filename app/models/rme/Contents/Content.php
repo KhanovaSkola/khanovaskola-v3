@@ -39,17 +39,35 @@ abstract class Content extends TitledEntity implements IIndexable
 	 */
 	public function getIndexData()
 	{
+		$block = $this->getRandomParent();
+		$hasBlock = (bool) $block;
+		$hasSchema = $block ? (bool) $block->getRandomParent() : FALSE;
+		$position = $block ? $block->getPositionOf($this) : 0;
+
+		$weight = 100 - $position;
+		if ($hasSchema)
+		{
+			$weight += 100;
+		}
+		if ($hasBlock)
+		{
+			$weight += 100;
+		}
+
 		return [
 			'title' => $this->title,
 			'bucket' => $this->type,
 			'suggest' => [
 				'input' => $this->title,
 				'payload' => [
-					'id' => $this->id
+					'id' => $this->id,
 				],
+				'weight' => $weight,
 			],
 			'description' => $this->description,
-			'pathStarts' => 0, // set in background worker
+			'has_block' => $hasBlock,
+			'has_schema' => $hasSchema,
+			'position' => $position,
 		];
 	}
 

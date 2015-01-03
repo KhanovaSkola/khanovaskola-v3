@@ -20,6 +20,7 @@ class Populate extends Command implements IMightLoseData
 
 	public function invoke(ElasticPopulator $populator)
 	{
+
 		$rows = $populator->populate();
 		$this->out->writeln("<info>Reindexed $rows rows</info>");
 	}
