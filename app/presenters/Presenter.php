@@ -190,11 +190,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	/**
 	 * Marks page cacheable in Varnish.
 	 * Due to Nette limitations this must be called in render method.
+	 *
+	 * @param string $ttl
 	 */
-	protected function setCacheControlPublic()
+	protected function setCacheControlPublic($ttl = '15m')
 	{
 		$resp = $this->getHttpResponse();
 		$resp->setHeader('Cache-Control', 'public');
+		$resp->setHeader('Varnish-TTL', $ttl);
 		$resp->setHeader('Expires', NULL);
 		$resp->setHeader('Pragma', NULL);
 		$resp->setHeader('Set-Cookie', NULL);

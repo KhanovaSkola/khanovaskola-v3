@@ -13,6 +13,8 @@ backend default {
         .port = "8085";
 }
 
+import std;
+
 sub vcl_recv {
         if (req.method != "GET") {
                 return (pass);
@@ -38,7 +40,7 @@ sub vcl_backend_response {
         }
 
         set beresp.do_esi = true;
-        set beresp.ttl = 15m;
+        set beresp.ttl = std.duration(beresp.http.Varnish-TTL, 15m);
 
         unset beresp.http.Set-Cookie;
 }
