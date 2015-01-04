@@ -11,6 +11,7 @@ use Orm\DibiCollection;
  * @method DibiCollection|Content[]   findAll()
  * @method DibiCollection|Video[]     findAllVideos()
  * @method DibiCollection|Blueprint[] findAllBlueprints()
+ * @method Content                    getRandom()
  * @method NULL|Video                 getVideoById(int $id)
  * @method NULL|Video                 getVideoByYoutubeId(string $youtubeId)
  * @method NULL|Blueprint             getBlueprintById(int $id)

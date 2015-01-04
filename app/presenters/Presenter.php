@@ -177,11 +177,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 
 	public function actionRandomContent()
 	{
-		// TODO redirect to one of most watched videos
-		// or if user is logged in, redirect to next video of last watched
-
 		/** @var Rme\Content $content */
-		$content = $this->orm->contents->findAll()->applyLimit(1, mt_rand(1, 20))->fetch(); // TODO make it random
+		$content = $this->orm->contents->getRandom();
 		$block = $content->getRandomParent();
 		$schema = $block ? $block->getRandomParent() : NULL;
 		$this->redirectToEntity($content, $block, $schema);

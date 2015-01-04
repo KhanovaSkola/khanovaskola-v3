@@ -51,6 +51,16 @@ class ContentsMapper extends ElasticSearchMapper
 	}
 
 	/**
+	 * @return Content
+	 */
+	public function getRandom()
+	{
+		return $this->dataSource('
+			SELECT * FROM [contents] WHERE Random() < 0.005 LIMIT 1
+		')->fetch();
+	}
+
+	/**
 	 * @param Content $content
 	 * @param NULL|Block $block
 	 * @param NULL|Schema $schema
