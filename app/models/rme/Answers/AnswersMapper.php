@@ -12,7 +12,8 @@ class AnswersMapper extends Mapper
 	{
 		return $this->findBy([
 			'userId' => $user->id,
-			'blueprintId' => $blueprint->id,
+			'contentId' => $blueprint->id,
+			'firstTry' => TRUE,
 		])->orderBy('created_at', 'DESC');
 	}
 

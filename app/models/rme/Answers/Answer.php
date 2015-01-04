@@ -14,6 +14,7 @@ use Orm;
  * @property bool      $inactivity browser tab hidden during exercise {default false}
  * @property int       $seed
  * @property int       $time       ms elapsed until answer
+ * @property bool      $firstTry   {default TRUE}
  *
  * @property Blueprint $content    {m:1 contents $answers}
  * @property User      $user       {m:1 users $answers}
