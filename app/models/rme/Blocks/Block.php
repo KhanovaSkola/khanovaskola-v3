@@ -74,26 +74,13 @@ class Block extends TitledEntity
 
 	/**
 	 * @param Content $content
-	 * @return int
+	 * @return int [1..Inf]
 	 */
 	public function getPositionOf(Content $content)
 	{
-		// TODO optimize (but you want to use position make sure positions are continuus)
-		$position = 1;
-
-		/** @var OtM $o */
-		$o = $this->getValue('contentBlockBridges');
-		$bridges = $o->get()->orderBy('position', 'ASC');
-
-		foreach ($bridges as $bridge)
-		{
-			if ($bridge->content === $content)
-			{
-				break;
-			}
-			$position++;
-		}
-		return $position;
+		/** @var ContentBlockBridge $bridge */
+		$bridge = $this->contentBlockBridges->get()->getBy(['content' => $content]);
+		return $bridge->position + 1; // position is indexed by 0
 	}
 
 	/**
