@@ -25,12 +25,10 @@
 		        </div>
 	        {/foreach}
 	    </div>
-        <div class="btn-group">
-            <a class="btn btn-default" disabled>{_'addButton'}</a>
-            {foreach ['integer', 'list', 'plural'] as $type}
-				<a class="btn btn-default" data-add-type="{$type}">{_"type.$type"}</a>
-			{/foreach}
-        </div>
+	    Přidat proměnnou:
+        {foreach ['integer', 'list', 'plural'] as $type}
+			<a href="#" data-add-type="{$type}">{_"type.$type"}</a>{sep}, {/sep}
+		{/foreach}
       </div>
 
 	<div class="form-group">

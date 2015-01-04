@@ -79,9 +79,9 @@ blueprintEditor:
   removeVar: "smazat proměnnou"
   removeUndo: "vrátit zpět"
   type:
-    integer: "Celé číslo"
-    list: "Náhodné slovo"
-    plural: "Plurál"
+    integer: "celé číslo"
+    list: "náhodné slovo"
+    plural: "plurál"
   submit:
     new:
       title: "Cvičení přidáno."

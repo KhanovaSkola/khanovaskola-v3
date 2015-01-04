@@ -28,13 +28,14 @@
 		}
 	};
     Renderer.render = function(def, $input) {
-        var $group = $('<div></div>')
-            .text(this.label(def.type));
+	    var $varType = $('<span/>').addClass('variable-type').text(this.label(def.type));
+        var $group = $('<div/>').addClass('variable-options');
         $input.hide();
-        $input.before($group);
+	    $input.before($varType);
+        $input.parent().append($group);
 
         var method = 'render' + def.type.charAt(0).toUpperCase() + def.type.slice(1);
-        Renderer[method](def, $group, $input);
+	    Renderer[method](def, $group, $input);
     };
     Renderer.renderInteger = function(def, $group, $input) {
         var $min = $('<input type="number" class="form-control">').val(def.min);
@@ -57,15 +58,20 @@
         Renderer.saveHook(def, $input, inputs);
     };
     Renderer.renderList = function(def, $group, $input) {
-        var inputs = {};
-        for (var i in def.list) {
-            inputs[i] = $('<input class="form-control">').val(def.list[i]);
+	    var list = def.list; // prevent weird race condition
+	    list.push("");
+	    var inputs = {};
+        for (var i in list) {
+            inputs[i] = $('<input class="form-control">').val(list[i]);
             $group.append(inputs[i]);
 
             var serialize = function() {
                 def.list = [];
                 for (var i in inputs) {
-                    def.list.push(inputs[i].val());
+	                var val = inputs[i].val().trim();
+	                if (val) {
+		                def.list.push(val);
+	                }
                 }
                 $input.val(JSON.stringify(def));
             };
@@ -80,13 +86,38 @@
         Renderer.render(def, $(input));
     });
 
+
+
+	var highlight = function($input) {
+		var $underlay = $input.siblings('.underlay');
+		if (!$underlay.length) {
+			$underlay = $('<div/>').addClass('underlay');
+			$input.before($underlay);
+		}
+		var text = $input.val();
+		text = text.replace(/<(\w+)\b/g, '<span class="syntax-$1">&lt;$1');
+		text = text.replace(/(<\/.*?>)/g, '$1</span>');
+		text = text.replace(/<(?!\/?span)/g, '&lt;');
+		$underlay.html(text);
+	};
+
+	$form.find('[name=question], [name=answer]').on('change keyup', function() {
+		highlight($(this));
+	}).each(function() {
+		highlight($(this)); // on load
+	});
+
+
+
     var $container = $form.find('[data-definitions]');
     $form.find('[data-add-type]').on('click', function() {
         var type = $(this).data('add-type');
         var id = $container.find('[data-definition]').length;
         var $name = $('<input name="vars[' + id + '][name]" class="form-control">');
         var $input = $('<input name="vars[' + id + '][definition]" data-definition class="form-control">');
-        $container.append($name).append($input);
+	    var $var = $('<div/>').addClass('variable');
+	    $var.append($name).append($input);
+        $container.append($var);
 
         var defaults = {type: type};
         if (type === 'integer') {
@@ -120,7 +151,7 @@
         var $group = $container.find('[data-var-id="' + $link.data('var-remove') + '"]');
         $pointer = $('<div></div>');
         $group.after($pointer);
-        $undoLink = $('<a class="btn btn-link"></a>').text($link.data('label-undo'))
+        $undoLink = $('<a href="#"></a>').text($link.data('label-undo'))
             .on('click', function() {
                 $pointer.after($undo);
                 $pointer.remove();
