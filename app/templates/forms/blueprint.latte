@@ -40,11 +40,15 @@
         <input n:name="answer" class="form-control">
     </div>
 
-	<div class="form-group">
+	<div class="form-group hints">
 		<label n:name="question">{_'hints'}</label>
 		{foreach $form['hints']->containers as $id => $_tmp}
-			<input n:name="hints-$id-hint" class="form-control">
+			<div class="hint">
+				<input n:name="hints-$id-hint" class="form-control">
+			</div>
 		{/foreach}
+
+		<a href="#" data-add-hint>přidat nápovědu</a>
 	</div>
 
 	<input n:name="save" value="{if $form->editing}Uložit{else}Vytvořit{/if}" class="btn btn-default">

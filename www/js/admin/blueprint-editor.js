@@ -101,13 +101,25 @@
 		$underlay.html(text);
 	};
 
-	$form.find('[name=question], [name=answer]').on('change keyup', function() {
+	$form.find('[name=question], [name=answer], [name^=hints]').on('change keyup', function() {
 		highlight($(this));
 	}).each(function() {
 		highlight($(this)); // on load
 	});
 
 
+	$form.find('[data-add-hint]').on('click', function() {
+		var id = $(this).parent().children('input').length;
+		var $input = $('<input type="text" name="hints[' + id + '][hint]" class="form-control">');
+		$input.on('change keyup', function() {
+			highlight($(this));
+		});
+
+		var $hint = $('<div/>').addClass('hint');
+		$hint.append($input);
+		$(this).before($hint);
+		return false;
+	});
 
     var $container = $form.find('[data-definitions]');
     $form.find('[data-add-type]').on('click', function() {
