@@ -89,6 +89,24 @@ final class Blueprint extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 
+		/** @var Rme\Answer[] $answers */
+		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)->applyLimit(7);
+		$recentAnswers = [];
+		foreach ($answers as $answer)
+		{
+			$recentAnswers[] = $answer->correct && !$answer->hint ? 'ok' : 'error';
+		}
+		$recentAnswers = array_reverse($recentAnswers);
+		for ($i = count($recentAnswers); $i < 5; $i++)
+		{
+			$recentAnswers[] = 'filler';
+		}
+		for ($i = count($recentAnswers); $i < 7; $i++)
+		{
+			array_unshift($recentAnswers, 'filler');
+		}
+		$this->template->recentAnswers = $recentAnswers;
+
 		$this->template->position = $this->block ? $this->block->getPositionOf($this->blueprint) : NULL;
 	}
 
@@ -117,6 +135,17 @@ final class Blueprint extends Content
 		$answer->time = $v->time;
 		$answer->inactivity = $v->inactivity === 'true'; // js
 		$answer->hint = $v->hint === 'true'; // js
+
+		if ($seed = $this->getParameter('seed'))
+		{
+			/** @var NULL|Rme\Answer $last */
+			$last = $this->userEntity->answers->get()->orderBy('createdAt', 'DESC')->fetch();
+			if ($last && $last->seed === (int) $seed)
+			{
+				$answer->firstTry = FALSE;
+			}
+		}
+
 		if ($exercise->verifyAnswer($answer))
 		{
 			$this->trigger(EventList::CORRECT_ANSWER, [
@@ -137,7 +166,10 @@ final class Blueprint extends Content
 
 		$this->getUserEntity()->answers->add($answer);
 		$this->orm->flush();
-		$this->redirect('this', ['seed' => $seed]);
+		$this->redirect('this', [
+			'seed' => $seed,
+			'slug' => $this->blueprint->slug,
+		]);
 	}
 
 	public function renderAnswerChartData()

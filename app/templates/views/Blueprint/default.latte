@@ -39,42 +39,21 @@
     						<span>Je potřeba rozumět TODO.</span>
     					</div>
     					<div class="goal-title">
-    					    Odpověz 5x za sebou správně
+    					    Odpověz 5&times; za sebou správně
 						</div>
 						<div class="box-goal">
-                        	<div class="goal error">
-                        		<i class="icon icon-times"></i>
-                        	</div>
-                        	<div class="goal ok">
-                        		<i class="icon icon-ok"></i>
-                        	</div>
-                        	<div class="goal ok">
-                        		<i class="icon icon-ok"></i>
-                        	</div>
-                        	<div class="goal error">
-                        		<i class="icon icon-times"></i>
-                        	</div>
-                        	<div class="goal error">
-                        		<i class="icon icon-times"></i>
-                        	</div>
-                        	<div class="goal ok">
-                        		<i class="icon icon-ok"></i>
-                        	</div>
-                        	<div class="goal ok">
-                        		<i class="icon icon-ok"></i>
-                        	</div>
+							{foreach $recentAnswers as $answer}
+								<div class="goal {$answer}"><i class="icon icon-{$answer}"></i></div>
+							{/foreach}
                         </div>
     				</div>
     			</div>
     			<div class="right">
     				<div class="right-inner" data-exercise>
-    					<small>6.</small>
     					<span class="question">
     					    {$exercise->question|noescape}
     					</span>
-    					<div class="question-image">
-    						<img src="img/exercises/exercise1.png" alt="exe">
-    					</div>
+    					{*
     					<div class="choices">
     						<div class="radio">
     							<label>
@@ -105,9 +84,10 @@
     							</label>
     						</div>
     					</div>
-    					<div class="send-wrapper">
-    						<input type="submit" class="btn" value="Zkontrolovat odpověd">
-    					</div>
+    					*}
+    					{*<div class="send-wrapper">*}
+    						{*<input type="submit" class="btn" value="Zkontrolovat odpověd">*}
+    					{*</div>*}
 
     					{control answer}
 
@@ -120,24 +100,5 @@
     				</div>
     			</div>
     		</div>
-    		<div class="course-header-footer">
-    			<div class="left"></div>
-    			<div class="center">
-    				<i class="icon icon-comments"></i>
-    				<span>Máš nějaký dotaz k probírané látce?</span>
-    			</div>
-    			<div class="right">
-                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
-                        <span title="{$nextContent->title}">{$nextContent->title}</span>
-                        <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
-                        <i class="icon icon-arrow-right-double"></i>
-                    </a>
-                </div>
-    		</div>
     	</div>
     </main>
-
-	{control columnChart, 'answerChartData', 'blueprint.yAxis'}
-
-	{includeblock ../_similar.latte}
-	{include similarContent}
