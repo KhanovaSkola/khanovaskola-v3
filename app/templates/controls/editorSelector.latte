@@ -1,0 +1,31 @@
+{if $editable}
+	{$input}
+{else}
+	<div>
+		{foreach $picked as $id}
+			{$emails[$id]}{sep}, {/sep}
+		{/foreach}
+	</div>
+{/if}
+
+<ul class="list-unstyled">
+	{var $subjects = []}
+	{if $entity instanceof App\Models\Rme\Block}
+		{foreach $entity->schemas as $schema}
+			{?$subjects[$schema->subject->id] = $schema->subject}
+			{foreach $schema->editors as $editor}
+				<li>{$editor->email} <span class="small">(schéma {$schema->title})</span></li>
+			{/foreach}
+			<li>{$schema->author->email} <span class="small">(autor schématu {$schema->title})</span></li>
+		{/foreach}
+		{block subjects}
+			{foreach $subjects as $subject}
+				{foreach $subject->editors as $editor}
+					<li>{$editor->email} <span class="small">(předmět {$subject->title})</span></li>
+				{/foreach}
+			{/foreach}
+		{/block}
+	{elseif $entity instanceof App\Models\Rme\Schema}
+		{include subjects, subjects => [$entity->subject]}
+	{/if}
+</ul>

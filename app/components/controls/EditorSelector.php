@@ -2,9 +2,11 @@
 
 namespace App\Components\Controls;
 
+use App\Models\Orm\Entity;
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme;
+use Latte\Engine;
 use Nette\Forms;
-use Nette\Utils\Html;
 
 
 class EditorSelector extends Forms\Controls\MultiSelectBox
@@ -19,6 +21,11 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 	 * @var bool
 	 */
 	private $editable;
+
+	/**
+	 * @var Entity
+	 */
+	private $entity;
 
 	/**
 	 * @param RepositoryContainer $orm
@@ -53,22 +60,34 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 
 
 	/**
-	 * @return \Nette\Utils\Html
+	 * @throws \Exception
+	 * @return string|\Nette\Utils\Html
 	 */
 	public function getControl()
 	{
-		if ($this->editable)
-		{
-			return parent::getControl();
-		}
-
-		$labels = [];
-		foreach ($this->getValue() as $id)
-		{
-			$labels[] = $this->getItems()[$id];
-		}
-
-		return Html::el('div')->setText(implode(', ', $labels) ?: 'nikdo');
+		$latte = new Engine();
+		$params = [
+			'editable' => $this->editable,
+			'input' => parent::getControl(),
+			'emails' => $this->getItems(),
+			'picked' => $this->getValue(),
+//			'editors' => $this->getParentEditors($this->entity),
+			'entity' => $this->entity,
+		];
+		return $latte->renderToString(__DIR__ . '/../../templates/controls/editorSelector.latte', $params);
+//
+//		if ($this->editable)
+//		{
+//			return parent::getControl();
+//		}
+//
+//		$labels = [];
+//		foreach ($this->getValue() as $id)
+//		{
+//			$labels[] = $this->getItems()[$id];
+//		}
+//
+//		return Html::el('div')->setText(implode(', ', $labels) ?: 'nikdo');
 	}
 
 	/**
@@ -85,6 +104,39 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 	public function setEditable($editable)
 	{
 		$this->editable = $editable;
+	}
+
+	/**
+	 * @param Entity $entity
+	 */
+	public function setEntity($entity)
+	{
+		$this->entity = $entity;
+	}
+
+	private function getParentEditors(Entity $entity)
+	{
+		$editors = [];
+		if ($entity instanceof Rme\Block)
+		{
+			$schemaEditors = [];
+			$subjectEditors = [];
+			foreach ($entity->schemas as $schema)
+			{
+				$schemaEditors += $schema->editors->get()->fetchPairs('id', 'id');
+
+				$authorId = (string) $schema->author->id;
+				$schemaEditors[$authorId] = $authorId;
+			}
+
+			$editors['schemas'] = $schemaEditors;
+		}
+		else if ($entity instanceof Rme\Schema)
+		{
+			$editors['subjects'] = $entity->subject->editors->get()->fetchPairs('id', 'id');
+		}
+
+		return $editors;
 	}
 
 }

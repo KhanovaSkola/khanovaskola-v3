@@ -58,6 +58,7 @@ class BlockEditor extends Presenter
 			}
 			$form['editors']->setEditable($allowed);
 			$form['editors']->setDefaultValue($this->block->editors->get()->fetchPairs('id', 'id'));
+			$form['editors']->setEntity($this->block);
 		}
 		else
 		{

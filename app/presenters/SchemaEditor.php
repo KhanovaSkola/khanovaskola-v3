@@ -55,6 +55,7 @@ class SchemaEditor extends Presenter
 				$this->user->isAllowed($this->schema->subject)
 			);
 			$form['editors']->setDefaultValue($this->schema->editors->get()->fetchPairs('id', 'id'));
+			$form['editors']->setEntity($this->schema);
 
 			$layout = $this->schema->layout;
 			unset($layout[1]); // remove spacer columns
