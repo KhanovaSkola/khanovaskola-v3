@@ -1,4 +1,4 @@
-{var $pageName = NULL}
+{var $pageName = 'blueprint-editor'}
 {var $headerBorder = FALSE}
 {var $title = "Editor"}
 {block content}
@@ -11,9 +11,9 @@
 
 		Otázka a nápovědy mohou obsahovat:
 		<ul n:syntax="off" class="list-unstyled">
-			<li><code>&lt;eval>a&lt;/eval></code>vyčíslí proměnnou <code>a</code></li>
+			<li><code>&lt;eval>a&lt;/eval></code>vyčíslí proměnnou <em>a</em></li>
 			<li><code>&lt;latex>\frac{1}{2}&lt;/latex></code>vykresí matematický zápis</li>
-			<li><code>&lt;color>text&lt;/color></code>obarví text/latex</li>
+			<li><code>&lt;color id=1>text&lt;/color></code>obarví <em>text</em> barvou <em>1</em></li>
 		</ul>
 		Odpověď by měla obsahovat pouze eval.
 	</div>

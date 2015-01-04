@@ -16,10 +16,10 @@
 		<label n:name="question">{_'vars'}</label>
 		<div data-definitions>
 	        {foreach $form['vars']->containers as $id => $_tmp}
-	            <div data-var-id="{$id}">
+	            <div data-var-id="{$id}" class="variable">
 		            <input n:name="vars-$id-name" class="form-control">
 		            <input n:name="vars-$id-definition" data-definition class="form-control">
-		            <a data-var-remove="{$id}" data-label-undo="{_'removeUndo'}" class="btn btn-link">
+		            <a href="#" data-var-remove="{$id}" data-label-undo="{_'removeUndo'}">
                         {_'removeVar'}
                     </a>
 		        </div>
