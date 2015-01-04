@@ -15,7 +15,8 @@ trait Slug
 		$slug = $entity->slug;
 
 		/** @var Presenter $this */
-		if ($this->getParameter('slug') !== $slug)
+		if ($this->getParameter('slug') !== $slug
+		&& $this->getHttpRequest()->getMethod() === 'GET')
 		{
 			$this->redirect('this', ['slug' => $slug]);
 		}
