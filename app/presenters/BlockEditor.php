@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
 use App\Models\Services\Acl;
 use App\Presenters\Parameters;
@@ -37,17 +38,37 @@ class BlockEditor extends Presenter
 		}
 	}
 
+	public function actionDefault()
+	{
+		/** @var TextInput[]|EditorSelector[] $form */
+		$form = $this['blockForm-form'];
+		if ($this->block)
+		{
+			$form['title']->setDefaultValue($this->block->title);
+			$form['description']->setDefaultValue($this->block->description);
+
+			$allowed = $this->block->author->id === $this->userEntity->id;
+			foreach ($this->block->schemas as $schema)
+			{
+				if ($allowed)
+				{
+					break;
+				}
+				$allowed = $this->user->isAllowed($schema);
+			}
+			$form['editors']->setEditable($allowed);
+			$form['editors']->setDefaultValue($this->block->editors->get()->fetchPairs('id', 'id'));
+		}
+		else
+		{
+			$form['editors']->setEditable(TRUE);
+		}
+	}
+
 	public function renderDefault()
 	{
 		$this->template->add('block', $this->block);
 		$this->template->add('schema', $this->schema);
-
-		if ($this->block)
-		{
-			/** @var self|TextInput[] $this */
-			$this['blockForm-form-title']->setDefaultValue($this->block->title);
-			$this['blockForm-form-description']->setDefaultValue($this->block->description);
-		}
 	}
 
 }

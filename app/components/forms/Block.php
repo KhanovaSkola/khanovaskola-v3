@@ -2,6 +2,7 @@
 
 namespace App\Components\Forms;
 
+use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
 use Nette\Utils\Json;
 
@@ -15,6 +16,7 @@ class Block extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
+		$this->addEditorSelector('editors', $this->orm);
 		$this->addHidden('contents');
 
 		$this->addSubmit();
@@ -33,6 +35,14 @@ class Block extends EditorForm
 
 			$block->author = $this->presenter->userEntity;
 			$mode = 'added';
+		}
+
+		/** @var self|EditorSelector[] $this */
+		if ($this['editors']->isEditable())
+		{
+			$block->editors = array_filter($v->editors, function($id) use ($block) {
+				return $id !== $block->author->id;
+			});
 		}
 
 		$block->title = $v->title;

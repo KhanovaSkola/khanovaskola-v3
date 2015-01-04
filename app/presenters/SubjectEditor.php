@@ -15,21 +15,24 @@ final class SubjectEditor extends Presenter
 	{
 		parent::startup();
 		$this->loadSubject();
-	}
 
-	public function renderDefault()
-	{
 		if (!$this->user->isAllowed($this->subject))
 		{
 			$this->flashError('acl.denied.subject');
 			$this->redirect('Homepage:default');
 		}
+	}
+
+	public function renderDefault()
+	{
 		if ($this->subject)
 		{
-			/** @var self|TextBase[] $this */
-			$this['subjectForm-form-title']->setDefaultValue($this->subject->title);
-			$this['subjectForm-form-description']->setDefaultValue($this->subject->description);
-			$this['subjectForm-form-editors']->setDefaultValue($this->subject->editors->get()->fetchPairs('id', 'id'));
+			/** @var TextBase[] $form */
+			$form = $this['subjectForm-form'];
+
+			$form['title']->setDefaultValue($this->subject->title);
+			$form['description']->setDefaultValue($this->subject->description);
+			$form['editors']->setDefaultValue($this->subject->editors->get()->fetchPairs('id', 'id'));
 		}
 
 		$this->template->schemas = $this->orm->schemas->findAll();

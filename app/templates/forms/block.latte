@@ -12,6 +12,15 @@
         <input n:name="description" type="text" class="form-control">
         {include error, control => $form['description']}
     </div>
+    <div class="form-group{if $form['editors']->errors} has-error{/if}">
+        <label n:name="editors">
+            Editoři
+            {if !$form['editors']->editable}
+                (může změnit editor schématu)
+            {/if}
+        </label>
+        {input editors}
+    </div>
 
 	<input n:name="save" value="Uložit" class="btn">
 </form>

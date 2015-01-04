@@ -44,13 +44,17 @@ class SchemaEditor extends Presenter
 			return $this->orm->blocks->getById($id);
 		};
 
+		/** @var TextInput[]|EditorSelector[] $form */
+		$form = $this['schemaForm-form'];
 		if ($this->schema)
 		{
-			/** @var self|TextInput[]|EditorSelector[] $this */
-			$this['schemaForm-form-title']->setDefaultValue($this->schema->title);
-			$this['schemaForm-form-description']->setDefaultValue($this->schema->description);
-			$this['schemaForm-form-editors']->setEditable($this->user->isAllowed($this->schema));
-			$this['schemaForm-form-editors']->setDefaultValue($this->schema->editors->get()->fetchPairs('id', 'id'));
+			$form['title']->setDefaultValue($this->schema->title);
+			$form['description']->setDefaultValue($this->schema->description);
+			$form['editors']->setEditable(
+				$this->schema->author->id === $this->userEntity->id ||
+				$this->user->isAllowed($this->schema->subject)
+			);
+			$form['editors']->setDefaultValue($this->schema->editors->get()->fetchPairs('id', 'id'));
 
 			$layout = $this->schema->layout;
 			unset($layout[1]); // remove spacer columns
@@ -60,7 +64,7 @@ class SchemaEditor extends Presenter
 		else
 		{
 			$this->template->layout = $this->schemaLayout->getDefaultLayout();
-			$this['schemaForm-form-editors']->setEditable(TRUE);
+			$form['editors']->setEditable(TRUE);
 		}
 	}
 
