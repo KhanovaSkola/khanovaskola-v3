@@ -6,6 +6,7 @@ use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
 use App\Models\Structs\Gender;
+use Inflection;
 use Monolog\Logger;
 use Nette;
 use Nette\Neon\Neon;
@@ -13,8 +14,17 @@ use Nette\Neon\Neon;
 
 /**
  * Starting key with "/" removes prefix
+ *
  * Syntax [male|female] if key GENDER is set
+ * - [Uložils|Uložilas] formulář
+ * - Uložil[|a]s formulář
+ *
  * Args can be named or numbered
+ *  - Vítej %1
+ *  - Vítej %name
+ *
+ * Args can be inflected to proper case
+ *  - Vítek %name(3) # vocative
  */
 class Translator implements Nette\Localization\ITranslator
 {
@@ -157,7 +167,7 @@ class Translator implements Nette\Localization\ITranslator
 
 		$values = $args;
 		$values[1] = $count;
-		$translated = preg_replace_callback('~%([\w\d]+)~', function ($match) use ($values, $steps)
+		$translated = preg_replace_callback('~%([\w\d]+)(?:\((?P<case>[a-z1-7])\))?~i', function ($match) use ($values, $steps)
 		{
 			$key = $match[1];
 			if (!isset($values[$key]))
@@ -167,6 +177,10 @@ class Translator implements Nette\Localization\ITranslator
 				return $match[0];
 			}
 
+			if (isset($match['case']))
+			{
+				return Inflection::inflect($values[$key], [Inflection::CASE_N => $match['case']]);
+			}
 			return $values[$key];
 		}, $text);
 
