@@ -48,14 +48,6 @@ abstract class Entity extends Orm\Entity
 		return $model->getCache();
 	}
 
-	/**
-	 * @return Highlight
-	 */
-	public function getHighlightEntityName()
-	{
-		return str_replace('\\Rme\\', '\\Structs\\Highlights\\', get_class($this));
-	}
-
 	public function getShortEntityName()
 	{
 		/** @var Mapper $mapper */

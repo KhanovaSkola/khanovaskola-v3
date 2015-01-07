@@ -6,7 +6,6 @@ use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
 use App\Models\Services\Discourse;
-use App\Models\Services\Gravatar;
 use App\Models\Services\Queue;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EventList;

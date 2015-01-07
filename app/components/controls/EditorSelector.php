@@ -71,23 +71,9 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 			'input' => parent::getControl(),
 			'emails' => $this->getItems(),
 			'picked' => $this->getValue(),
-//			'editors' => $this->getParentEditors($this->entity),
 			'entity' => $this->entity,
 		];
 		return $latte->renderToString(__DIR__ . '/../../templates/controls/editorSelector.latte', $params);
-//
-//		if ($this->editable)
-//		{
-//			return parent::getControl();
-//		}
-//
-//		$labels = [];
-//		foreach ($this->getValue() as $id)
-//		{
-//			$labels[] = $this->getItems()[$id];
-//		}
-//
-//		return Html::el('div')->setText(implode(', ', $labels) ?: 'nikdo');
 	}
 
 	/**
@@ -112,31 +98,6 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 	public function setEntity($entity)
 	{
 		$this->entity = $entity;
-	}
-
-	private function getParentEditors(Entity $entity)
-	{
-		$editors = [];
-		if ($entity instanceof Rme\Block)
-		{
-			$schemaEditors = [];
-			$subjectEditors = [];
-			foreach ($entity->schemas as $schema)
-			{
-				$schemaEditors += $schema->editors->get()->fetchPairs('id', 'id');
-
-				$authorId = (string) $schema->author->id;
-				$schemaEditors[$authorId] = $authorId;
-			}
-
-			$editors['schemas'] = $schemaEditors;
-		}
-		else if ($entity instanceof Rme\Schema)
-		{
-			$editors['subjects'] = $entity->subject->editors->get()->fetchPairs('id', 'id');
-		}
-
-		return $editors;
 	}
 
 }

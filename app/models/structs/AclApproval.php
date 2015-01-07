@@ -9,7 +9,6 @@ use App\Models\Rme\Block;
 use App\Models\Rme\Content;
 use App\Models\Rme\Schema;
 use App\Models\Rme\Subject;
-use App\Models\Rme\Video;
 use App\NotImplementedException;
 use Nette\Object;
 

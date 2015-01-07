@@ -20,9 +20,9 @@ class CompletedContentsMapper extends Mapper
 		foreach ($this->findBy(['user_id' => $user->id])->orderBy('createdAt', 'DESC') as $completed)
 		{
 			$schema = $completed->schema;
-			if ($schema && !isset($schemas[$schema->id]))
+			if ($schema && !isset($schemas[(string) $schema->id]))
 			{
-				$schemas[$schema->id] = $schema;
+				$schemas[(string) $schema->id] = $schema;
 			}
 		}
 

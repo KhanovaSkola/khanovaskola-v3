@@ -3,8 +3,6 @@
 namespace App\Models\Services;
 
 use App\Models\Rme\User;
-use App\Presenters\Presenter;
-use Nette\Application\PresenterFactory;
 use Nette\Object;
 
 

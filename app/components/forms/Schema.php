@@ -4,7 +4,6 @@ namespace App\Components\Forms;
 
 use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
-use App\Models\Services\Acl;
 use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayout;
 use App\Models\Services\UserState;
@@ -79,6 +78,7 @@ class Schema extends EditorForm
 
 		foreach ($this->schemaLayout->buildBlockDependencies($parsed) as $blockId => $deps)
 		{
+			/** @var Rme\Block $block */
 			$block = $this->orm->blocks->getById($blockId);
 			$block->dependencies = $deps;
 		}

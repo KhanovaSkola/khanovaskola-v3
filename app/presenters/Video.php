@@ -5,7 +5,6 @@ namespace App\Presenters;
 use App\Components\Controls\Comments;
 use App\Models\Rme;
 use App\Presenters\Parameters;
-use Nette\Utils\Strings;
 
 
 final class Video extends Content

@@ -2,7 +2,6 @@
 
 namespace App\Models\Rme;
 
-use App\InvalidStateException;
 use App\Models\Orm\Entity;
 use Nette\Security\Passwords;
 use Nette\Utils\Strings;
