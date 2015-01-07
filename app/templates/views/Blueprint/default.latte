@@ -6,7 +6,7 @@
 	{if $block}
         <div class="header-goback">
             <a n:href="$block, $schema">
-                <i class="icon icon-arrow-left2"></i>
+                <i class="icon icon-circle-back"></i>
                 <span>{$block->title}</span>
             </a>
         </div>
@@ -25,8 +25,8 @@
     	<div class="course-header course-excercise">
     		<div class="course-header-content">
     			<div class="left">
-    				<div class="icon-wrapper">
-    					<i class="icon icon-{if $schema}{$schema->subject->icon}{else}math{/if}"></i>
+    				<div n:if="$schema" class="icon-wrapper">
+    					<i class="icon icon-{$schema->subject->icon}"></i>
     				</div>
     				<div class="content-wrapper">
     					<small n:if="$block">{$block->title} ({$position}/{$block->countContents()})</small>
@@ -36,7 +36,7 @@
     					</h1>
     					{if $block && $block->dependencies->count()}
                             <div class="idea">
-                                <i class="icon icon-idea"></i>
+                                <i class="icon icon-dependency"></i>
                                 <span>Je potřeba rozumět {foreach $block->dependencies as $dep}{$dep->title|dative}{sep}, {/sep}{/foreach}.</span>
                             </div>
                         {/if}
@@ -79,7 +79,7 @@
                     <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema" n:class="$dimNextButton ? dim">
                         <span title="{$nextContent->title}">{$nextContent->title}</span>
                         <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
-                        <i class="icon icon-arrow-right-double"></i>
+                        <i class="icon icon-content-next"></i>
                     </a>
                 </div>
             </div>

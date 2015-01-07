@@ -60,7 +60,7 @@
 	                                    {if $cell}
 	                                        {var $block = $getBlock($cell)}
 	                                        <a n:href="$block, $schema">
-						                        <i class="icon icon-math text-blue"></i>
+						                        <i class="icon icon-{$schema->subject->icon} text-{$schema->subject->color}"></i>
 						                        <span>{$block->title}</span>
 					                        </a>
 					                    {/if}

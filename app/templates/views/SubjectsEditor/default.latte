@@ -22,7 +22,7 @@
 		                    {/foreach}
 						</select>
 						<select name="icon">
-		                    {foreach ['cloud-up', 'ok-double', 'close', 'google-plus', 'play', 'volume', 'arrow-left-double', 'arrow-left', 'arrow-left2', 'arrow-right-double', 'arrow-right', 'arrow-up', 'art-history', 'comments', 'facebook', 'fullscreen', 'globe', 'history', 'check', 'chemistry', 'idea', 'it', 'key', 'list', 'list2', 'lock', 'mail', 'math', 'natural-studies', 'ok', 'pause', 'physics', 'play2', 'quotes', 'replay', 'return', 'rocket', 'search', 'time', 'times', 'twitter', 'unlock', 'user-add', 'user', 'youtube', 'zsv'] as $icon}
+		                    {foreach ['subject-art', 'subject-sociology', 'subject-it', 'subject-physics', 'subject-math', 'subject-chemistry', 'subject-history', 'subject-biology', 'subject-psychology', 'subject-medicine', 'home', 'time', 'search', 'mail', 'circle-back', 'circle-close', 'user-add', 'user', 'video-fullscreen', 'settings', 'video-play', 'video-stop', 'content-previous', 'content-next', 'caret-down', 'comments', 'globe', 'lock', 'answer-correct', 'answer-wrong', 's-youtube', 's-facebook', 's-twitter', 's-google', 'video-play2', 'answer-hint'] as $icon}
 		                        <option{if $icon === $subject->icon} selected{/if} value="{$icon}">{ucFirst($icon)}</option>
 		                    {/foreach}
 		                </select>

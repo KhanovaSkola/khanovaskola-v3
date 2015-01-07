@@ -4,7 +4,7 @@
 {block headerBack}
 	<div class="header-goback">
 		<a n:href="$schema">
-			<i class="icon icon-arrow-left2"></i>
+			<i class="icon icon-circle-back"></i>
 			<span>Zpět na schéma</span>
 		</a>
 	</div>
@@ -33,7 +33,7 @@
 	                                {var $block = $getBlock($cell)}
 	                                {if $block}
 		                                <div class="cell cell-odd" data-id="{$block->id}">
-		                                    <i class="icon icon-math text-blue"></i>
+		                                    <i class="icon icon-subject-history text-blue"></i>
 		                                    <span>{$block->title}</span>
 		                                </div>
 		                            {else}

@@ -26,8 +26,8 @@
 	                <h4>
 	                    {foreach $moreSubjects as $subject}
 	                        {first}A také{/first}
-	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|genitive} <i class="icon icon-natural-{$subject->color}"></i></a>{sep}, {/sep}
-	                        {last}A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-arrow-right"></i></a>{/last}
+	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|genitive} <i class="icon icon-{$subject->icon}"></i></a>{sep}, {/sep}
+	                        {last}A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
 	                    {/foreach}
 	                </h4>
 	            </hgroup>
@@ -55,13 +55,13 @@
 	<footer class="landing-footer">
         <strong>Jste tu kvůli svým dětem nebo žákům?</strong>
         <a href="#" class="text-blue">
-            <i class="icon icon-arrow-right"></i>
+            <i class="icon icon-content-next"></i>
             <span>Rodiče prosím tudy</span>
-            <i class="icon icon-arrow-left"></i>
+            <i class="icon icon-content-previous"></i>
         </a>
         <a href="#" class="text-green">
-            <i class="icon icon-arrow-right-double"></i>
+            <i class="icon icon-content-next"></i>
             <span>A učitelé sem</span>
-            <i class="icon icon-arrow-left-double"></i>
+            <i class="icon icon-content-previous"></i>
         </a>
     </footer>

@@ -8,7 +8,7 @@
     {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
     <article>
         <div class="left text-{$subject ? $subject->color : 'blue'}">
-            <i class="icon icon-{$subject ? $subject->icon : 'history'}"></i>
+            <i class="icon icon-{$subject ? $subject->icon : 'subject-history'}"></i>
         </div>
         <div class="right">
             <span class="title" data-score="{$content->score|number:2}">

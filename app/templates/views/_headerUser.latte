@@ -14,7 +14,7 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a n:href="Auth:registration">
-                            <i class="icon icon-rocket"></i>
+                            <i class="icon icon-user-add"></i>
                             <span>Vytvořit si účet</span>
                         </a>
                     </li>
@@ -32,13 +32,13 @@
 	                <ul class="dropdown-menu">
 	                    <li>
 	                        <a n:href="Auth:registration">
-	                            <i class="icon icon-rocket"></i>
+	                            <i class="icon icon-user-add"></i>
 	                            <span>Vytvořit si účet</span>
 	                        </a>
 	                    </li>
 	                    <li>
 	                        <a href="#" data-toggle="modal" data-target="#loginModal">
-	                            <i class="icon icon-key"></i>
+	                            <i class="icon icon-user"></i>
 	                            <span>Přihlásit se</span>
 	                        </a>
 	                    </li>
@@ -56,7 +56,7 @@
                     <div class="modal-body">
                         <h2 class="text-center">Přihlásit se</h2>
                         <a href="#" class="close" data-dismiss="modal">
-                            <i class="icon icon-close"></i>
+                            <i class="icon icon-circle-close"></i>
                         </a>
                         <div>
                             {control loginForm}
@@ -64,11 +64,11 @@
                     </div>
                     <div class="modal-footer">
                         <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-                            <i class="icon icon-facebook"></i>
+                            <i class="icon icon-s-facebook"></i>
                             <span>přes Facebook</span>
                         </a>
                         <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-                            <i class="icon icon-google-plus"></i>
+                            <i class="icon icon-s-google"></i>
                             <span>přes Google</span>
                         </a>
                     </div>
@@ -90,19 +90,19 @@
             <ul class="dropdown-menu pull-right">
                 <li>
                     <a n:href="Profile:default">
-                        <i class="icon icon-rocket"></i>
+                        <i class="icon icon-home"></i>
                         <span>Přehled</span>
                     </a>
                 </li>
                 <li>
                     <a n:href="Profile:settings">
-                        <i class="icon icon-key"></i>
+                        <i class="icon icon-settings"></i>
                         <span>Nastavení</span>
                     </a>
                 </li>
                 <li>
                     <a n:href="Auth:out" class="text-success">
-                        <i class="icon icon-user-add"></i>
+                        <i class="icon icon-circle-close"></i>
                         <span>Odhlásit se</span>
                     </a>
                 </li>

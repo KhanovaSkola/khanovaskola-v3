@@ -5,7 +5,7 @@
 	{if $schema}
 		<div class="header-goback">
 			<a n:href="$schema">
-				<i class="icon icon-arrow-left2"></i>
+				<i class="icon icon-circle-back"></i>
 				<span>{$schema->title}</span>
 			</a>
 		</div>
@@ -23,8 +23,8 @@
         <div class="content-inner">
             <div class="clearfix">
                 <div class="left">
-                    <div class="icon-wrapper text-blue">
-                        <i class="icon icon-math"></i>
+                    <div n:if="$schema" class="icon-wrapper text-blue">
+                        <i class="icon icon-{$schema->subject->icon}"></i>
                     </div>
                     <div class="content-wrapper">
                         <h2>{$block->title}</h2>
@@ -41,8 +41,8 @@
                         </div>
                         {if $block->dependencies->count()}
 	                        <div class="idea">
-	                            <i class="icon icon-idea"></i>
 	                            <span>
+	                                <i class="icon icon-dependency"></i>
 	                                Je potřeba rozumět
 	                                {foreach $block->dependencies as $dep}{$dep->title|dative}{sep}, {/sep}{/foreach}.
 	                            </span>
