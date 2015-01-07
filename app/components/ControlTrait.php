@@ -8,12 +8,12 @@ use App\Models\Rme;
 use App\NotImplementedException;
 use App\Presenters\Presenter;
 use DateTime;
+use Inflection;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;
 use Nette\Utils\Html;
-use Nette\Utils\Strings;
 
 
 /**
@@ -62,6 +62,22 @@ trait ControlTrait
 		$template->addFilter('minutes', function($seconds) {
 			return round($seconds / 60);
 		});
+
+		$cases = [
+			'nominative' => 1,
+			'genitive' => 2,
+			'dative' => 3,
+			'accusative' => 4,
+			'vocative' => 5,
+			'locative' => 6,
+			'instrumental' => 7,
+		];
+		foreach ($cases as $name => $case)
+		{
+			$template->addFilter($name, function($phrase) use ($case) {
+				return Inflection::inflect($phrase, [Inflection::CASE_N => $case]);
+			});
+		}
 	}
 
 	public function absoluteLink(Entity $entity)
