@@ -75,7 +75,7 @@ final class Auth extends Presenter
 		$this->user->setExpiration('5 years', FALSE);
 
 		$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
-			'vocative' => $user->vocative,
+			'name' => $user->firstName,
 		]);
 
 		$this->trigger(EventList::LOGIN, [$user]);
@@ -277,16 +277,10 @@ final class Auth extends Presenter
 		$isGoogle = $me instanceof ProfileInfo;
 		$firstName = $isGoogle ? $me->givenName : $me->{'first_name'};
 
-		$userEntity->gender = $me->gender
-			?: ($this->orm->users->guessGender($firstName)
-				?: (
-					mt_rand(0, 100) > 50 ? 'male' : 'female'
-				)
-			)
-		;
+		$userEntity->gender = $me->gender ?: $this->orm->users->getGender($firstName);
 		$userEntity->name = $me->name;
 		$userEntity->familyName = $isGoogle ? $me->familyName : $me->{'last_name'};
-		$userEntity->setNominativeAndVocative($firstName);
+		$userEntity->firstName = $firstName;
 		$userEntity->avatar = $isGoogle
 			? "$me->picture?sz=100"
 			: "https://graph.facebook.com/{$me->id}/picture/?type=square&height=50&width=50"; // intentionally 50, fb returns 2x
@@ -319,15 +313,16 @@ final class Auth extends Presenter
 	public function actionOut()
 	{
 		$user = $this->getUserEntity();
-		$vocative = NULL;
+		$name = NULL;
 		if (!$user instanceof LazyEntity && $user->registered)
 		{
-			$vocative = $user->vocative;
+			$name = $user->firstName;
 		}
 
 		$this->iLog('auth.logout');
 		$this->getUser()->logout(TRUE);
-		$this->template->add('vocative', $vocative);
+
+		$this->template->name = $name;
 	}
 
 	public function actionSso($sso, $sig)

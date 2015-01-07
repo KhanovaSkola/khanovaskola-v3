@@ -130,17 +130,11 @@ final class Js extends Presenter
 
 	public function actionGuessGender($name)
 	{
-		$firstName = Strings::match($name, '~^(.+?)\b~')[1];
-		$gender = $this->orm->users->guessGender($firstName);
+		$names = Strings::split($name, '~\s+~');
+		$firstName = array_shift($names);
+		$lastName = array_pop($names);
 
-		if (!$gender)
-		{
-			if (Strings::match($name, '~ová$~'))
-			{
-				$gender = 'female';
-			}
-		}
-
+		$gender = $this->orm->users->getGender($firstName, $lastName);
 		$this->sendJson(['gender' => $gender]);
 	}
 

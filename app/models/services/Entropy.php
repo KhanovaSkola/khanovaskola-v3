@@ -22,7 +22,7 @@ class Entropy
 
 	public function compute($password, User $user)
 	{
-		$fields = ['name', 'email', 'familyName', 'nominative', 'vocative'];
+		$fields = ['name', 'email', 'familyName', 'firstName'];
 		$parts = [];
 		$index = 1;
 		foreach ($fields as $field)

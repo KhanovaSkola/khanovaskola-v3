@@ -10,7 +10,7 @@
 	{capture $url}{$token|token:$unsafe}{/capture}
 
 	<p>
-		{$invitee->vocative}, {$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
+		{$invitee->firstName|vocative}, {$teacher->name} vás pozval{if $teacher->gender === 'female'}a{/if} do své třídy na Khanově škole.
 	</p>
 	<p>
 		<center><b>

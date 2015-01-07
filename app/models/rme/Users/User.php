@@ -17,10 +17,9 @@ use Orm\OneToMany as OtM;
  * NOT NULL if user is registered:
  * @property NULL|string            $email                  also not NULL if created for student invite
  * @property NULL|array             $privileges
- * @property NULL|string            $name
- * @property NULL|string            $familyName
- * @property NULL|string            $nominative
- * @property NULL|string            $vocative
+ * @property NULL|string            $name                   ex: Jan Novák
+ * @property NULL|string            $firstName              ex: Jan
+ * @property NULL|string            $familyName             ex: Novák
  * @property NULL|string            $gender                 {enum App\Models\Structs\Gender::getGenders()}
  * @property NULL|string            $avatar                 absolute url
  *
@@ -51,20 +50,6 @@ use Orm\OneToMany as OtM;
  */
 class User extends Entity
 {
-
-	public function setNominativeAndVocative($name)
-	{
-		if (!$this->gender)
-		{
-			throw new InvalidStateException;
-		}
-
-		/** @var UsersRepository $repo */
-		$repo = $this->getRepository();
-
-		$this->setValue('nominative', $name);
-		$this->setValue('vocative', $repo->getVocative($name, $this->gender) ?: $name);
-	}
 
 	public function setPlainPassword($plaintext)
 	{
@@ -101,9 +86,8 @@ class User extends Entity
 		$parts = preg_split('~\s+~', $fullName);
 		if ($parts)
 		{
-			$this->setNominativeAndVocative($parts[0]);
+			$this->firstName = $parts[0];
 			array_shift($parts);
-
 			$this->familyName = implode(' ', $parts);
 		}
 	}

@@ -1,8 +1,3 @@
-# Guidelines:
-# - personalize everything, user proper gender and vocative
-# - všude vykání
-#
-
 homepage:
   title:
     zero: "Homepage nula"
@@ -134,10 +129,10 @@ auth:
         message: "Pokud jste heslo zapomněli, můžete si nastavit nové."
     login:
       newUser:
-        title: "Vítej na Khanově škole, %vocative."
+        title: "Vítej na Khanově škole, %name(5)."
         message: "" #TODO
       returning:
-        title: "Vítej zpět, %vocative!"
+        title: "Vítej zpět, %name(5)!"
         message: "" #TODO
     logout:
       title: "Mějte se."

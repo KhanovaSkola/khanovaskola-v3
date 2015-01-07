@@ -13,7 +13,7 @@ class Login extends Token
 	{
 		$presenter->login($this->user);
 		$presenter->flashSuccess('auth.flash.login.returning', [
-			'vocative' => $this->user->vocative,
+			'name' => $this->user->firstName,
 		]);
 		$presenter->redirect('Profile:');
 	}

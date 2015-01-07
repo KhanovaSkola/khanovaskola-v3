@@ -3,6 +3,8 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use App\Models\Structs\Gender;
+use Inflection;
 use Orm\DibiCollection;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
@@ -16,50 +18,45 @@ class UsersMapper extends Mappers\Mapper
 		return ['privileges'];
 	}
 
-	/**
-	 * @param string $name nominative
-	 * @param string $gender male|female
-	 * @return string vocative
-	 */
-	public function getVocative($name, $gender)
+	protected function getNameGenderFlags($name)
 	{
-		$dat = $this->connection->query('
-			SELECT [vocative]
-			FROM [vocatives]
-			WHERE
-				[gender] = %s AND
-				[nominative] = %s
-		', $gender, $name)->fetchSingle();
-		return explode(':', $dat)[0];
+		$res = Inflection::parse($name);
+		$genders = [Gender::FEMALE => 0, Gender::MALE => 0];
+		foreach ($res as $flags)
+		{
+			switch ($flags[Inflection::GENDER])
+			{
+				case 'I':
+				case 'M':
+					$g = Gender::MALE;
+					break;
+				case 'F':
+					$g = Gender::FEMALE;
+					break;
+				default:
+					continue 2;
+			}
+			$genders[$g]++;
+		}
+		return $genders;
 	}
 
 	/**
-	 * Db has many names in both genders, but only the most common one
-	 * has both inflexions. Ignore same ignores the field without
-	 * proper inflexion.
-	 *
 	 * @param string $firstName
-	 * @param bool $ignoreSame
-	 * @return NULL|string male|female
+	 * @param NULL|string $lastName
+	 * @return Gender ::MALE|Gender::FEMALE
 	 */
-	public function guessGender($firstName, $ignoreSame = TRUE)
+	public function getGender($firstName, $lastName = NULL)
 	{
-		$gender = $this->connection->query('
-			SELECT [gender]
-			FROM [vocatives]
-			WHERE [nominative] = %s
-		', $firstName, '%sql', $ignoreSame ? 'AND [nominative] != [vocative]' : '')->fetchSingle();
-		$gender = trim($gender);
-
-		if (!$gender)
+		$genders = $this->getNameGenderFlags($firstName);
+		if ($lastName)
 		{
-			if ($ignoreSame)
+			foreach ($this->getNameGenderFlags($firstName) as $k => $v)
 			{
-				return $this->guessGender($firstName, FALSE);
+				$genders[$k] += $v;
 			}
-			return NULL;
 		}
-		return $gender;
+		return array_search(max($genders), $genders);
 	}
 
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)

@@ -14,11 +14,11 @@
 	            <hgroup>
 	                {var $tab = 0}
 	                <h2 n:if="$firstSubject">
-	                    Naučím tě <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->genitive} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
+	                    Naučím tě <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->title|genitive} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
 	                </h2>
 	                <h3>
 	                    {foreach $secondThirdSubject as $subject}
-	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->genitive} <i class="icon icon-{$subject->icon}"></i></a>
+	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|genitive} <i class="icon icon-{$subject->icon}"></i></a>
 	                        {sep} i {/sep}
 	                        {last}.{/last}
 	                    {/foreach}
@@ -26,7 +26,7 @@
 	                <h4>
 	                    {foreach $moreSubjects as $subject}
 	                        {first}A také{/first}
-	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->genitive} <i class="icon icon-natural-{$subject->color}"></i></a>{sep}, {/sep}
+	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|genitive} <i class="icon icon-natural-{$subject->color}"></i></a>{sep}, {/sep}
 	                        {last}A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-arrow-right"></i></a>{/last}
 	                    {/foreach}
 	                </h4>
