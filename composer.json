@@ -13,6 +13,7 @@
 	},
 	"require": {
 		"php": ">= 5.5.0",
+	  	"ext-inflection": "~2.0",
 		"clevis/config-version-extension": "~1.1",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
