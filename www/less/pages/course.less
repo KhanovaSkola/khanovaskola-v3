@@ -370,6 +370,10 @@
 				}
 
 			}
+			.course-header-footer:before,
+			.course-header-footer:after {
+				display: none;
+			}
 
 			.exercise-color {
 				// Must also be changed in BlueprintCompiler
@@ -649,6 +653,9 @@
 					line-height: 69px;
 					&:hover {
 						background: @btn-default-active;
+					}
+					&.dim {
+						background-color: @khan-blue-light;
 					}
 					span {
 						float: left;

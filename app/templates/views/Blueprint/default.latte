@@ -55,41 +55,6 @@
     					<span class="question">
     					    {$exercise->question|noescape}
     					</span>
-    					{*
-    					<div class="choices">
-    						<div class="radio">
-    							<label>
-    								<input type="radio" name="result">
-    								<span></span>
-    								Přímka
-    							</label>
-    						</div>
-    						<div class="radio">
-    							<label>
-    								<input type="radio" name="result">
-    								<span></span>
-    								Úsečka
-    							</label>
-    						</div>
-    						<div class="radio">
-    							<label>
-    								<input type="radio" name="result">
-    								<span></span>
-    								Bod
-    							</label>
-    						</div>
-    						<div class="radio">
-    							<label>
-    								<input type="radio" name="result">
-    								<span></span>
-    								Polo přímka
-    							</label>
-    						</div>
-    					</div>
-    					*}
-    					{*<div class="send-wrapper">*}
-    						{*<input type="submit" class="btn" value="Zkontrolovat odpověd">*}
-    					{*</div>*}
 
     					{control answer}
 
@@ -102,5 +67,21 @@
     				</div>
     			</div>
     		</div>
+    		<div class="course-header-footer">
+                <div class="left"></div>
+                <div class="center">
+                    {*
+                    <i class="icon icon-comments"></i>
+                    <span>Máš nějaký dotaz k probírané látce?</span>
+                    *}
+                </div>
+                <div class="right">
+                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema" n:class="$dimNextButton ? dim">
+                        <span title="{$nextContent->title}">{$nextContent->title}</span>
+                        <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
+                        <i class="icon icon-arrow-right-double"></i>
+                    </a>
+                </div>
+            </div>
     	</div>
     </main>

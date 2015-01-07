@@ -89,6 +89,8 @@ final class Blueprint extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 
+		$this->template->dimNextButton = !$this->userEntity->hasCompleted($this->blueprint);
+
 		/** @var Rme\Answer[] $answers */
 		$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)->applyLimit(7);
 		$recentAnswers = [];
@@ -135,6 +137,7 @@ final class Blueprint extends Content
 		$answer->time = $v->time;
 		$answer->inactivity = $v->inactivity === 'true'; // js
 		$answer->hint = $v->hint === 'true'; // js
+		$this->getUserEntity()->answers->add($answer);
 
 		if ($seed = $this->getParameter('seed'))
 		{
@@ -164,8 +167,33 @@ final class Blueprint extends Content
 			$seed = $v->seed;
 		}
 
-		$this->getUserEntity()->answers->add($answer);
 		$this->orm->flush();
+
+		if (!$this->userEntity->hasCompleted($this->blueprint))
+		{
+			/** @var Rme\Answer[] $answers */
+			$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)->applyLimit(5);
+			$completed = TRUE;
+			foreach ($answers as $answer)
+			{
+				if (!$answer->correct || $answer->hint)
+				{
+					$completed = FALSE;
+					break;
+				}
+			}
+			if ($completed)
+			{
+				$completion = new Rme\CompletedContent();
+				$completion->schema = $this->schema;
+				$completion->block = $this->block;
+				$completion->content = $this->blueprint;
+				$completion->user = $this->userEntity;
+				$this->orm->completedContents->attach($completion);
+				$this->orm->flush();
+			}
+		}
+
 		$this->redirect('this', [
 			'seed' => $seed,
 			'slug' => $this->blueprint->slug,
