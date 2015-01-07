@@ -15,11 +15,11 @@ final class Js extends Presenter
 
 	/**
 	 * @param int $videoId
-	 * @param $blockId
-	 * @param $schemaId
+	 * @param NULL|int $blockId
+	 * @param NULL|int $schemaId
 	 * @throws BadRequestException
 	 */
-	public function actionVideoViewBegin($videoId, $blockId, $schemaId)
+	public function actionVideoViewBegin($videoId, $blockId = NULL, $schemaId = NULL)
 	{
 		if (!$video = $this->orm->contents->getById($videoId))
 		{
@@ -32,8 +32,14 @@ final class Js extends Presenter
 
 		$view = new VideoView();
 		$view->video = $video;
-		$view->block = $blockId;
-		$view->schema = $schemaId;
+		if ($blockId)
+		{
+			$view->block = $blockId;
+		}
+		if ($schemaId)
+		{
+			$view->schema = $schemaId;
+		}
 		$view->user = $this->userEntity->id;
 		$this->orm->videoViews->attach($view);
 
