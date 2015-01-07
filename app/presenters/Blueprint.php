@@ -96,7 +96,9 @@ final class Blueprint extends Content
 		$recentAnswers = [];
 		foreach ($answers as $answer)
 		{
-			$recentAnswers[] = $answer->correct && !$answer->hint ? 'ok' : 'error';
+			$recentAnswers[] = $answer->correct
+				? ($answer->hint ? 'answer-hint' : 'answer-correct')
+				: 'answer-wrong';
 		}
 		$recentAnswers = array_reverse($recentAnswers);
 		for ($i = count($recentAnswers); $i < 5; $i++)

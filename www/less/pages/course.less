@@ -493,7 +493,7 @@
 								width: 11px;
 								height: 11px;
 							}
-							&.ok {
+							&.answer-correct {
 								float: left;
 								margin-right: 10px;
 								color: @khan-green;
@@ -501,12 +501,21 @@
 									font-size: 13px;
 								}
 							}
-							&.error {
+							&.answer-wrong {
 								float: left;
 								margin-right: 10px;
 								color: @khan-red;
 								i {
 									font-size: 11px;
+								}
+							}
+							&.answer-hint {
+								float: left;
+								margin-right: 10px;
+								margin-top: 1px;
+								color: @khan-gold;
+								i {
+									font-size: 15px;
 								}
 							}
 						}
