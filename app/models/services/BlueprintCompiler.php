@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\BlueprintCompilerException;
 use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
 use App\Models\Structs\Exercise;
@@ -24,13 +25,12 @@ class BlueprintCompiler extends Object
 	const S_CLOSE = 'close';
 
 	/**
-	 * Must also be changed in exercise.less
-	 * @see http://www.colourlovers.com/palette/1930/cheer_up_emo_kid
+	 * Must also be changed in less
 	 */
-	const COLOR1 = '78,205,196';
-	const COLOR2 = '199,244,100';
-	const COLOR3 = '255,107,107';
-	const COLOR4 = '85,98,112';
+	const COLOR1 = '113,189,26'; // khan-green
+	const COLOR2 = '208,70,19'; // khan-red
+	const COLOR3 = '84,207,203'; // khan-cyan-dark
+	const COLOR4 = '236,148,5'; // khan-gold
 
 	/**
 	 * @var int
@@ -199,7 +199,7 @@ class BlueprintCompiler extends Object
 	{
 		if (!in_array($color, [1, 2, 3, 4]))
 		{
-			throw new InvalidArgumentException('Undefined color');
+			throw new BlueprintCompilerException("Color $color not found, must use [1,2,3,4]");
 		}
 
 		if ($inLatex)
@@ -208,15 +208,33 @@ class BlueprintCompiler extends Object
 			return "{\\color[RGB]{{$rgb}}";
 		}
 
-		return "<span class=\"color-$color\">";
+		return "<span class=\"exercise-color-$color\">";
 	}
 
+	/**
+	 * @param string $string xml
+	 * @throws BlueprintCompilerException
+	 * @return array
+	 */
 	private function tokenize($string)
 	{
 		$values = [];
 
 		$p = xml_parser_create();
-		xml_parse_into_struct($p, "<text>$string</text>", $values);
+		$res = xml_parse_into_struct($p, "<text>$string</text>", $values);
+		if (!$res)
+		{
+			$col = xml_get_current_column_number($p);
+			$line = xml_get_current_line_number($p);
+			$msg = xml_error_string(xml_get_error_code($p));
+
+			$contextLine = explode("\n", $string)[$line - 1];
+			$atError = substr($contextLine, $col, 15);
+			$context = substr($contextLine, max(0, $col - 15), 25);
+
+			throw new BlueprintCompilerException("Invalid XML: '$atError', $msg ($line:$col) context: '$context''");
+		}
+
 		xml_parser_free($p);
 
 		return $values;
