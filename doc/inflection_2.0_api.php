@@ -38,4 +38,10 @@ class Inflection
 	 */
 	public static function inflect($phrase, array $flags) {}
 
+	/**
+	 * @param string $word
+	 * @return array
+	 */
+	public static function parse($word) {}
+
 }
