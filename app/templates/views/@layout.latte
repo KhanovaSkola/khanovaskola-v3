@@ -43,10 +43,8 @@
 
 	{include content}
 
-	{cache expire => '1 hour'}
-		{includeblock _footerMobile.latte}
-		{include footerMobile}
-	{/cache}
+	{includeblock _footerMobile.latte}
+	{include footerMobile}
 
 	<script src="{$basePath}/libs/jquery/dist/jquery.min.js"></script>
 	{block scripts}{/block}

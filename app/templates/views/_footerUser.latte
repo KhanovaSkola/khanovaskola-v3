@@ -1,0 +1,68 @@
+{define footerUser}
+    {var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
+    {if !$userEntity->registered}
+        <section class="login">
+            <div>
+                <a n:href="Auth:in" class="text-black">
+                    <span>
+                        <i class="icon icon-auth-in"></i>
+                        Přihlásit se
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a n:href="Auth:registration" class="text-black">
+                    <span>
+                        <i class="icon icon-user"></i>
+                        Registrace
+                    </span>
+                </a>
+            </div>
+        </section>
+    {else}
+        <section class="userarea">
+            <div class="user-info clearfix">
+                <div class="pull-left">
+                    <span>
+                        <a n:href="Profile:default" class="text-black">
+                            {$userEntity->name}
+                        </a>
+                    </span>
+                </div>
+                <div n:if="$userEntity->avatar" class="avatar pull-right">
+                    <a n:href="Profile:default" class="text-black">
+                        <img src="{$userEntity->avatar}" alt="avatar">
+                    </a>
+                </div>
+            </div>
+            <div class="user-menu">
+                <ul class="list-unstyled">
+                    <li>
+                        <a n:href="Profile:default" class="text-black">
+                            <i class="icon icon-home"></i>
+                            <span>Přehled</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a n:href="Profile:settings" class="text-black">
+                            <i class="icon icon-settings"></i>
+                            <span>Nastavení</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a n:href="Auth:out" class="text-black">
+                            <i class="icon icon-auth-out"></i>
+                            <span>Odhlásit se</span>
+                        </a>
+                    </li>
+                    {*<li>*}
+                        {*<a href="#"  class="text-green">*}
+                            {*<i class="icon icon-user-add"></i>*}
+                            {*<span>Přidat žáky / děti</span>*}
+                        {*</a>*}
+                    {*</li>*}
+                </ul>
+            </div>
+        </section>
+    {/if}
+{/define}

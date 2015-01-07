@@ -109,6 +109,11 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 			$hash = '-' . substr(md5(file_get_contents($deploy)), 0, 10);
 		}
 		$this->template->add('staticHash', $hash);
+
+		$this->template->getRoundedContentCount = function() {
+			$count = $this->orm->contents->findAll()->count();
+			return round($count / 100) * 100;
+		};
 	}
 
 	/**

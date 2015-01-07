@@ -405,6 +405,7 @@
 		top: 32px;
 		display: none;
 		cursor: pointer;
+		margin-right: 1em;
 		@media (max-width: @screen-sm) {
 			display: block;
 		}
@@ -418,6 +419,9 @@
 		& .header-logo,
 		& .header-userarea.border {
 			border-color: @header-border;
+			@media (max-width: @screen-sm) {
+				border: none;
+			}
 		}
 		.header-content {
 			.search-wrapper {
