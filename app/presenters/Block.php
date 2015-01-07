@@ -29,7 +29,7 @@ class Block extends Presenter
 
 		if ($this->schema && !$this->schema->contains($this->block))
 		{
-			$this->error();
+			$this->redirectToEntity($this->block);
 		}
 
 		$this->checkSlug($this->block);

@@ -50,11 +50,11 @@ final class Blueprint extends Content
 
 		if ($this->block && !$this->block->contains($this->blueprint))
 		{
-			$this->error();
+			$this->redirectToEntity($this->blueprint);
 		}
 		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
-			$this->error();
+			$this->redirectToEntity($this->blueprint);
 		}
 
 		$this->checkSlug($this->blueprint);

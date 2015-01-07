@@ -14,7 +14,9 @@ final class SubjectEditor extends Presenter
 	public function startup()
 	{
 		parent::startup();
-		$this->loadSubject();
+		$this->loadSubject(function() {
+			$this->redirect('SubjectsEditor:default');
+		});
 
 		if (!$this->user->isAllowed($this->subject))
 		{

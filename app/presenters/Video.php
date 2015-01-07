@@ -41,11 +41,11 @@ final class Video extends Content
 
 		if ($this->block && !$this->block->contains($this->video))
 		{
-			$this->error();
+			$this->redirectToEntity($this->video);
 		}
 		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
-			$this->error();
+			$this->redirectToEntity($this->video);
 		}
 
 		$this->checkSlug($this->video);
