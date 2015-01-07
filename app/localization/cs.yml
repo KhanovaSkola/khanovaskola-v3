@@ -307,3 +307,6 @@ acl:
     video:
       title: "Nepovoleno."
       message: "Přístup na editor videí nemáte povolený. Pokud je máte mít, napište na fórum."
+    blueprint:
+      title: "Nepovoleno."
+      message: "Přístup na editor cvičení nemáte povolený. Pokud je máte mít, napište na fórum."

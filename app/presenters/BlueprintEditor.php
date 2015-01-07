@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Components\FormControl;
 use App\Components\Forms;
 use App\Models\Rme;
+use App\Models\Services\Acl;
 use App\Presenters\Parameters;
 
 
@@ -25,6 +26,12 @@ final class BlueprintEditor extends Presenter
 		$this->loadBlueprint(function() {
 			return NULL;
 		});
+
+		if (!($this->user->isAllowed(Acl::ADD_CONTENT) || ($this->blueprint && $this->user->isAllowed($this->blueprint))))
+		{
+			$this->flashError('acl.denied.blueprint');
+			$this->redirect('Homepage:default');
+		}
 	}
 
 	public function createComponentBlueprintEditor()
