@@ -26,6 +26,7 @@ class Router extends RouteList
 
 		$this[] = new Route('esi/header/user', 'Esi:headerUser');
 		$this[] = new Route('profil', 'Profile:default');
+		$this[] = new Route('prihlaseni', 'Auth:in');
 		$this[] = new Route('odhlaseni', 'Auth:out');
 		$this[] = new Route('heslo', 'Auth:resetPassword');
 		$this[] = new Route('o-skole', 'Text:about');

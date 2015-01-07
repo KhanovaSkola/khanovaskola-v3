@@ -28,21 +28,18 @@
 	<![endif]-->
 
 </head>
-<body>
+<body class="{$pageName}">
+	{includeblock _header.latte}
+	{include header}
 
-	<div class="{$pageName}">
-		{includeblock _header.latte}
-		{include header}
-
-		<div n:if="$flashes" class="container flashes">
-			<div n:foreach="$flashes as $flash" class="alert alert-dismissable alert-{$flash->type}">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong>{$flash->title}</strong> {$flash->message}
-			</div>
+	<div n:if="$flashes" class="container flashes">
+		<div n:foreach="$flashes as $flash" class="alert alert-dismissable alert-{$flash->type}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>{$flash->title}</strong> {$flash->message}
 		</div>
-
-		{include content}
 	</div>
+
+	{include content}
 
 	{cache expire => '1 hour'}
 		{includeblock _footerMobile.latte}

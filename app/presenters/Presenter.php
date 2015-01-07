@@ -127,15 +127,6 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	public function redirectToAuth()
 	{
 		$this->session->getSection('auth')->loginBacklink = $this->storeRequest();
-
-		if ($this->user->getLogoutReason() === Nette\Security\IUserStorage::INACTIVITY)
-		{
-			$this->flashInfo('auth.reason.inactivity');
-		}
-		else
-		{
-			$this->flashInfo('auth.reason.generic');
-		}
 		$this->redirect('Auth:in');
 	}
 

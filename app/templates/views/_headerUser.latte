@@ -1,6 +1,7 @@
 {define headerUser}
 	{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
 	{if $presenter->isLinkCurrent('Auth:registration')}
+	{elseif $presenter->isLinkCurrent('Auth:in')}
 	{elseif $isGuest || !$userEntity->registered}
 		{if $isGuest}
 			<a href="#" data-toggle="modal" data-target="#loginModal">

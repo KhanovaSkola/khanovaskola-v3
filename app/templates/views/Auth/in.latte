@@ -1,10 +1,9 @@
-{var $pageName = NULL}
+{var $pageName = 'auth-in'}
 {var $headerBorder = FALSE}
 {var $title = "Přihlášení"}
 {block content}
 	{**
 	 * @param User $userEntity
-	 *}
 
 	<h1 n:block=title>Sign in</h1>
 
@@ -13,3 +12,30 @@
 
 	<a n:href="resetPassword, email => $email" data-password-reset="{plink resetPassword}">{_'auth.reset.link'}</a>
 	{control loginForm}
+*}
+	{**
+	 * @param User $userEntity
+	 *}
+
+	<div class="modal modal-sign modal-static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2 class="text-center" n:block=title>Přihlášení</h2>
+                    <div>
+                        {control loginForm}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
+                        <i class="icon icon-facebook"></i>
+                        <span>přes Facebook</span>
+                    </a>
+                    <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
+                        <i class="icon icon-google-plus"></i>
+                        <span>přes Google</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
