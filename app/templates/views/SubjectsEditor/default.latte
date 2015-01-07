@@ -22,7 +22,7 @@
 		                    {/foreach}
 						</select>
 						<select name="icon">
-		                    {foreach ['subject-art', 'subject-sociology', 'subject-it', 'subject-physics', 'subject-math', 'subject-chemistry', 'subject-history', 'subject-biology', 'subject-psychology', 'subject-medicine', 'home', 'time', 'search', 'mail', 'circle-back', 'circle-close', 'user-add', 'user', 'video-fullscreen', 'settings', 'video-play', 'video-stop', 'content-previous', 'content-next', 'caret-down', 'comments', 'globe', 'lock', 'answer-correct', 'answer-wrong', 's-youtube', 's-facebook', 's-twitter', 's-google', 'video-play2', 'answer-hint'] as $icon}
+		                    {foreach ['auth-out', 'answer-hint', 'subject-physics', 'home', 'time', 'search', 'mail', 'circle-back', 'circle-close', 'user', 'video-fullscreen', 'settings', 'video-play', 'video-stop', 'content-previous', 'content-next', 'comments', 'globe', 'lock', 'answer-correct', 'answer-wrong', 's-youtube', 's-facebook', 's-twitter', 's-google', 'video-play2', 'dependency', 'subject-physics2', 'subject-art', 'subject-sociology', 'subject-it', 'subject-math', 'subject-chemistry', 'subject-history', 'subject-biology', 'subject-psychology', 'subject-medicine', 'auth-in', 'subject-economy', 'random'] as $icon}
 		                        <option{if $icon === $subject->icon} selected{/if} value="{$icon}">{ucFirst($icon)}</option>
 		                    {/foreach}
 		                </select>
