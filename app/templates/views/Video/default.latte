@@ -36,7 +36,7 @@
                         {if $block && $block->dependencies->count()}
 	                        <div class="idea">
 	                            <i class="icon icon-idea"></i>
-	                            <span>Je potřeba rozumět: {foreach $block->dependencies as $dep}{$dep->title}{sep}, {/sep}{/foreach}.</span>
+	                            <span>Je potřeba rozumět {foreach $block->dependencies as $dep}{$dep->title|dative}{sep}, {/sep}{/foreach}.</span>
 	                        </div>
 	                    {/if}
                     </div>

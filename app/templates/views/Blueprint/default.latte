@@ -34,10 +34,12 @@
     						<span>{$exercise->blueprint->title}</span>
     						<small>{$exercise->blueprint->description}</small>
     					</h1>
-    					<div class="idea">
-    						<i class="icon icon-idea"></i>
-    						<span>Je potřeba rozumět TODO.</span>
-    					</div>
+    					{if $block && $block->dependencies->count()}
+                            <div class="idea">
+                                <i class="icon icon-idea"></i>
+                                <span>Je potřeba rozumět {foreach $block->dependencies as $dep}{$dep->title|dative}{sep}, {/sep}{/foreach}.</span>
+                            </div>
+                        {/if}
     					<div class="goal-title">
     					    Odpověz 5&times; za sebou správně
 						</div>
