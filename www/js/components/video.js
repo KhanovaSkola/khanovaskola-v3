@@ -210,7 +210,11 @@
 	});
 
 	$overlay.on('click', function() {
-		return false;
+		if (window.innerWidth > 900) {
+			return false;
+		} else {
+			$clickCatcher.click();
+		}
 	});
 
 	App.video.onTick.push(updateProgress);

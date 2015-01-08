@@ -794,4 +794,41 @@
 			}
 		}
 	}
+	@media (max-width: @screen-sm) {
+		.dont-center {
+			left: ~'calc(50%  - 42px)' !important;
+			top: 360px !important;
+		}
+		.course-header.course-video {
+			.course-header-content {
+				.right .right-inner:before {
+					left: 0;
+					background: rgba(0, 0, 0, .7);
+					transform: none;
+				}
+			}
+			.course-header-footer {
+				&:before,
+				&:after {
+					display: none;
+				}
+				.left {
+					margin-left: 0;
+					width: auto;
+					.video-play {
+						display: none;
+					}
+				}
+				.center {
+					display: none;
+				}
+				.right {
+					width: auto;
+					.icon-content-next {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 }
