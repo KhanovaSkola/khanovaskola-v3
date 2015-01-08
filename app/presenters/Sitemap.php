@@ -44,7 +44,7 @@ class Sitemap extends Presenter
 			return $map->toString();
 		});
 
-		$this->getHttpResponse()->setContentType('text/xml');
+		$this->getHttpResponse()->setContentType('application/xml');
 		$this->sendResponse(new TextResponse($string));
 	}
 
