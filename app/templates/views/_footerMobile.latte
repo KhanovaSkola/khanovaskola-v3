@@ -37,14 +37,7 @@
 	{/cache}
 
     <div class="mobile-nav">
-		<esi:remove>
-			{includeblock _footerUser.latte}
-            {include footerUser}
-        </esi:remove>
-        <!--esi
-            <esi:include src="{plink //Esi:footerUser}" />
-        -->
-
+        <div id="mobile-nav-append"></div>
         {cache expire => '20 minutes', tags => ['header']}
 	        <div class="subjects">
 				{foreach $subjects as $subject}

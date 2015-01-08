@@ -14,7 +14,7 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a n:href="Auth:registration">
-                            <i class="icon icon-user"></i>
+                            <i class="icon icon-user-add"></i>
                             <span>Vytvořit si účet</span>
                         </a>
                     </li>
@@ -43,7 +43,7 @@
 	                    </li>
 	                    <li>
 	                        <a href="#" data-toggle="modal" data-target="#loginModal">
-	                            <i class="icon icon-auth-in"></i>
+	                            <i class="icon icon-user"></i>
 	                            <span>Přihlásit se</span>
 	                        </a>
 	                    </li>
@@ -104,7 +104,7 @@
                 </li>
                 <li>
                     <a n:href="Auth:out" class="text-success">
-                        <i class="icon icon-auth-out"></i>
+                        <i class="icon icon-circle-close"></i>
                         <span>Odhlásit se</span>
                     </a>
                 </li>
@@ -112,4 +112,9 @@
         </div>
 
     {/if}
+
+    <div id="mobile-nav-snippet" class="hidden">
+        {includeblock _footerUser.latte}
+        {include footerUser}
+    </div>
 {/define}
