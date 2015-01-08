@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Models\Rme;
 use Nette\Forms\Controls\TextInput;
 use Nette\Utils\Strings;
 
@@ -28,6 +29,29 @@ final class Search extends Presenter
 		$this->template->query = $query;
 		list($limit, $offset) = $this->getLinearLimitOffset(1);
 		$this->template->search = $this->orm->contents->getWithFulltext($query, $limit, $offset);
+	}
+
+	public function actionOpenSearchSuggest($query)
+	{
+		$search = $this->orm->contents->getWithFulltext($query, 5, 0);
+
+		/** @see http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions/1.1#Declaring_a_JSON-formatted_search_suggestion_URL */
+		$response = [
+			$query,
+			[], // suggestions
+			[], // suggestion details
+			[], // links
+		];
+		foreach ($search->getResults() as $content)
+		{
+			/** @var Rme\Content $content */
+			$response[1][] = $content->title;
+			$response[2][] = $content instanceof Rme\Video
+				? 'Video'
+				: ($content instanceof Rme\Blueprint ? 'Cvičení' : '');
+			$response[3][] = $this->absoluteLink($content);
+		}
+		$this->sendJson($response);
 	}
 
 	public function actionMore($query, $page)

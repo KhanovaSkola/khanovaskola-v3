@@ -35,6 +35,8 @@ class Router extends RouteList
 
 		$this[] = new Route('sitemap[!.xml]', 'Sitemap:default');
 
+		$this[] = new Route('opensearch.xml', 'File:opensearch');
+
 		$this[] = new Route('schema/[<action>/]<schemaId>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action>/][<schemaId>/]<blockId>[-<slug>]', 'Block:default');
 		$this[] = new Route('video/[<action>/][[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
