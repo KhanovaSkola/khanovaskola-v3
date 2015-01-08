@@ -24,8 +24,8 @@
 		<div class="course-header course-video">
             <div class="course-header-content">
                 <div class="left">
-                    <div n:if="$schema" class="icon-wrapper">
-                        <i class="icon icon-{$schema->subject->icon}"></i>
+                    <div class="icon-wrapper">
+                        <i class="icon icon-{$schema ? $schema->subject->icon : 'subject-history'}"></i>
                     </div>
                     <div class="content-wrapper">
                         <small n:if="$block">{$block->title} ({$position}/{$block->countContents()}) · {$video->duration|duration}</small>
