@@ -12,6 +12,12 @@
 	<meta n:ifset="$description" name="description" content="{$description}">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="{$basePath}/img/apple/apple-touch-icon-57.png" />
+	<link rel="apple-touch-icon-precomposed" href="{$basePath}/img/apple/apple-touch-icon-57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$basePath}/img/apple/apple-touch-icon-72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$basePath}/img/apple/apple-touch-icon-114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$basePath}/img/apple/apple-touch-icon-144.png" />
 	<title>{block title|striptags}{if $title}{$title} &ndash; {/if}Khanova škola{/block}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
