@@ -6,7 +6,7 @@ $(function() {
 	var $subjects = $('#mobile-nav-subjects').clone();
 	$('#mobile-nav-subjects-clone').append($subjects);
 
-	$('.container, main').click(function() {
+	$('header, .container, .modal, main').click(function() {
 		$nav.removeClass('open');
 	});
 	$('.burger').click(function() {
