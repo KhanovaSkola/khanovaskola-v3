@@ -6,6 +6,11 @@
 	border-bottom: 1px solid @header-border;
 	background: @white;
 
+	.icon-dropdown-caret {
+		color: darken(@khan-blue-light, 10%);
+		font-size: 7pt;
+	}
+
 	.header-logo,
 	.header-goback {
 		// display: flex;
@@ -406,6 +411,9 @@
 		display: none;
 		cursor: pointer;
 		margin-right: 1em;
+		color: @khan-black;
+		text-decoration: none !important;
+		font-size: 17pt;
 		@media (max-width: @screen-sm) {
 			display: block;
 		}

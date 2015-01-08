@@ -9,6 +9,7 @@ body {
 	// -webkit-font-smoothing: antialiased;
 	font-weight: @font-weight-light;
 	overflow-x: hidden;
+	overflow-y: hidden;
 	position: relative;
 	width: 100%;
 }
@@ -44,6 +45,13 @@ a {
 	font-size: @font-size-base;
 	color: @khan-blue;
 	line-height: 19px;
+
+	&.span-link:hover {
+		text-decoration: none;
+		span {
+			text-decoration: underline;
+		}
+	}
 }
 
 .text-colors() {
