@@ -44,9 +44,9 @@
 	    </div>
 	    <div class="scheme-wrapper">
 	        <div class="container">
-	            <div style="width: 910px; margin: auto;">
-		            {foreach $layout as $col}
-	                    <div class="col">
+	            <div class="schema-width">
+		            {foreach $layout as $i => $col}
+	                    <div class="col{if $i == 1 || $i == 3} col-filler{/if}">
 	                        {foreach $col as $cell}
 	                            {if is_array($cell)}
 	                                {var $first = array_shift($cell)}

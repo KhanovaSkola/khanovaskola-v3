@@ -51,6 +51,11 @@
 		padding-top: 30px;
 		padding-bottom: 100px;
 
+		.schema-width {
+			max-width: 910px;
+			margin: auto;
+		}
+
 		i {
 			display: block;
 			margin-bottom: 10px;
@@ -133,8 +138,8 @@
 		.cell-even span {
 			position: absolute;
 			top: 0;
-			left: 8px;
-			width: 174px;
+			left: 0;
+			width: 182px;
 			height: 42px;
 		}
 
@@ -158,16 +163,54 @@
 				background: -3px top url(/img/arrows/branch-left.svg) no-repeat;
 			}
 			&-branch-right {
-				background: 90px top url(/img/arrows/branch-right.svg) no-repeat;
+				background: 89px top url(/img/arrows/branch-right.svg) no-repeat;
 			}
 			&-to-right {
-				background: 0 bottom url(/img/arrows/to-right.svg) no-repeat;
+				background: 2px bottom url(/img/arrows/to-right.svg) no-repeat;
 			}
 			&-to-left {
-				background: 90px bottom url(/img/arrows/to-left.svg) no-repeat;
+				background: 87px bottom url(/img/arrows/to-left.svg) no-repeat;
 			}
 		}
 
+		@media (max-width: @screen-md) {
+			.schema-width {
+				width: 360px;
+			}
+			.container {
+				padding: 0;
+			}
+			.col {
+				width: 120px;
+				&.col-filler {
+					display: none;
+				}
+			}
+			.col div.arrow,
+			.col span.arrow {
+				&-horizontal {
+					background-position: 50% 13px;
+				}
+				&-vertical {
+					background-position: 50% 50%;
+				}
+				&-branch-left {
+					background-position: -30px top;
+				}
+				&-branch-right {
+					background-position: 65px top;
+				}
+				&-to-right {
+					background-position: -24px bottom;
+				}
+				&-to-left {
+					background-position: 62px bottom;
+				}
+				&-down {
+					background-position: 60px 0;
+				}
+			}
+		}
 	}
 
 	.arrow-picker {
