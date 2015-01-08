@@ -1,52 +1,47 @@
 {define footerMobile}
-	{cache expire => '20 minutes', tags => ['header']}
-		<div class="container">
-			<div class="footer-mobile">
-		        <strong>Předměty</strong>
-		        <div class="subjects">
-		            {foreach $subjects as $subject}
-			            <a n:href="$subject" class="subject text-{$subject->color}">
-			                <span>{$subject->title}</span>
-			                <i class="icon icon-{$subject->icon}"></i>
-			            </a>
-					{/foreach}
-		        </div>
+	<div class="container">
+		<div class="footer-mobile">
+	        <strong>Předměty</strong>
+	        <div class="subjects" id="mobile-nav-subjects">
+	            {foreach $subjects as $subject}
+                    <a href="#" class="subject text-{$subject->color}" data-subject-open="{$subject->id}">
+                        <span>{$subject->title}</span>
+                        <i class="icon icon-{$subject->icon}"></i>
+                    </a>
+                    <ul class="schemas list-unstyled" data-subject="{$subject->id}">
+                        <li n:foreach="$subject->schemas as $schema">
+                            <a n:href="$schema" class="schema text-{$subject->color}">
+                                <span>{$schema->title}</span>
+                            </a>
+                        </li>
+                    </ul>
+                {/foreach}
+	        </div>
+	        <strong>Khanova škola</strong>
+	        <div class="about">
+	            <p>
+		            Více než {$getRoundedContentCount()} výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd.
+		        </p>
+	            <a n:href="Text:about">O nás</a>
+	            {*<a href="#">Kontakt</a>*}
+	            {*<a href="#">Transparentní účet</a>*}
+	        </div>
 
-		        <strong>Khanova škola</strong>
-		        <div class="about">
-		            <p>
-			            Více než {$getRoundedContentCount()} výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd.
-			        </p>
-		            <a n:href="Text:about">O nás</a>
-		            {*<a href="#">Kontakt</a>*}
-		            {*<a href="#">Transparentní účet</a>*}
-		        </div>
-
-		        {*<strong>Kamarádi a Sponzoři</strong>*}
-		        {*<div class="sponsors">*}
-		            {*<a href="#">Matýskova matematika</a>*}
-		            {*<a href="#">Scio.cz</a>*}
-		            {*<a href="#">Google ČR</a>*}
-		            {*<a href="#">Microsoft ČR</a>*}
-		        {*</div>*}
-		    </div>
-
-		    <div class="copyright">
-		    </div>
+	        {*<strong>Kamarádi a Sponzoři</strong>*}
+	        {*<div class="sponsors">*}
+	            {*<a href="#">Matýskova matematika</a>*}
+	            {*<a href="#">Scio.cz</a>*}
+	            {*<a href="#">Google ČR</a>*}
+	            {*<a href="#">Microsoft ČR</a>*}
+	        {*</div>*}
 	    </div>
-	{/cache}
+
+	    <div class="copyright">
+	    </div>
+    </div>
 
     <div class="mobile-nav">
         <div id="mobile-nav-append"></div>
-        {cache expire => '20 minutes', tags => ['header']}
-	        <div class="subjects">
-				{foreach $subjects as $subject}
-				    <a n:href="$subject" class="subject text-{$subject->color}">
-				        <span>{$subject->title}</span>
-				        <i class="icon icon-{$subject->icon}"></i>
-				    </a>
-				{/foreach}
-	        </div>
-	    {/cache}
+        <div id="mobile-nav-subjects-clone"></div>
     </div>
 {/define}
