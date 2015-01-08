@@ -62,6 +62,9 @@ trait ControlTrait
 		$template->addFilter('minutes', function($seconds) {
 			return round($seconds / 60);
 		});
+		$template->addFilter('templateLink', function($link) {
+			return strtr($link, ['%7B' => '{', '%7D' => '}']);
+		});
 
 		$cases = [
 			'nominative' => 1,
