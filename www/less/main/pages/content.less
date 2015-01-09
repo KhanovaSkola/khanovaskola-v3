@@ -1,0 +1,228 @@
+.course-page {
+	.course-header {
+		margin-bottom: 90px;
+		width: 100%;
+	}
+	.course-header-content {
+		.clearfix;
+		background: @white;
+		position: relative;
+		min-height: 500px;
+		.left {
+			.clearfix;
+			float: left;
+			width: 370px;
+			height: 100%;
+			position: absolute;
+			padding-left: 30px;
+			padding-top: 35px;
+			background: fade(@header-border, 13);
+			.icon-wrapper {
+				float: left;
+				background: @khan-blue-light;
+				border-radius: 50%;
+				width: 33px;
+				height: 33px;
+				color: @white;
+				display: table;
+				margin-right: 10px;
+				margin-top: 40px;
+				i {
+					text-align: center;
+					vertical-align: middle;
+					display: table-cell;
+					font-size: 15px;
+				}
+			}
+			.content-wrapper {
+				float: left;
+				width: 230px;
+				small {
+					font-size: 11px;
+					color: @khan-blue-light;
+					line-height: 16px;
+				}
+				h1 {
+					font-size: 48px;
+					color: @khan-black;
+					line-height: 72px;
+					margin: 0;
+					margin-bottom: 10px;
+					span {
+						display: block;
+					}
+					small {
+						font-family: @font-family-base;
+						font-weight: @font-weight-light;
+						font-size: 16px;
+						color: @khan-black2;
+						line-height: 1.2;
+						text-transform: none;
+						display: block;
+						margin: 0;
+						margin-bottom: 10px;
+					}
+				}
+				.dependencies {
+					.clearfix;
+					color: @header-border;
+					margin-bottom: 30px;
+					margin-top: 35px;
+					padding-bottom: 20px;
+					i {
+						float: left;
+						width: 25px;
+						margin-left: -25px;
+						font-size: 19px;
+					}
+					span {
+						float: left;
+						width: 100%;
+						color: @khan-blue-light;
+						line-height: 20px;
+					}
+				}
+			}
+		}
+		.right {
+			margin-left: 370px;
+			.right-inner {
+				padding: 60px;
+				small {
+					font-size: 11px;
+					color: @khan-blue-light;
+					line-height: 16px;
+					display: block;
+				}
+			}
+		}
+	}
+	.course-header-footer {
+		.clearfix;
+		position: relative;
+		height: 72px;
+		border-top: 1px solid @header-border;
+		border-bottom: 1px solid @header-border;
+		@caret-size-width: 23px;
+		@caret-size-height: 11px;
+		@bottom: -11px;
+		&:before,
+		&:after {
+			.anim;
+			content: '';
+			position: absolute;
+			bottom: @bottom;
+			left: 50%;
+			margin-left: -@caret-size-width/2;
+			display: block;
+			width: 0;
+			height: 0;
+			border-top: @caret-size-height solid @header-border;
+			border-right: @caret-size-width/2 solid transparent;
+			border-left: @caret-size-width/2 solid transparent;
+		}
+		&:after {
+			border-top: @caret-size-height solid @white;
+			border-right: @caret-size-width/2 solid transparent;
+			border-left: @caret-size-width/2 solid transparent;
+			bottom: @bottom + 1px;
+		}
+		.left {
+			float: left;
+			width: 330px;
+			margin-left: 70px;
+			border-left: 1px solid @header-border;
+			a {
+				.anim;
+				border-right: 1px solid @header-border;
+				color: @khan-black;
+				width: 80px;
+				text-align: center;
+				display: block;
+				// padding-left: 25px;
+				// padding-right: 25px;
+				&:hover,
+				&:focus {
+					text-decoration: none;
+					background: @khan-blue;
+					.icon {
+						color: @white;
+					}
+				}
+				.icon {
+					line-height: 70px;
+					font-size: 28px;
+					color: @khan-black;
+				}
+			}
+		}
+		.center {
+			.clearfix;
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 50%;
+			margin-left: -140px;
+			text-align: center;
+			width: 320px;
+			height: 70px;
+			line-height: 70px;
+			float: left;
+			span {
+				float: left;
+				color: @khan-black2;
+				font-size: 16px;
+			}
+			i {
+				float: left;
+				color: @khan-black2;
+				font-size: 33px;
+				line-height: 69px;
+				margin-right: 10px;
+			}
+		}
+		.right {
+			float: right;
+			width: 340px;
+			text-align: right;
+			a {
+				.clearfix;
+				background: @khan-blue;
+				display: inline-block;
+				min-width: 170px;
+				width: auto;
+				color: @white;
+				padding-left: 15px;
+				padding-right: 10px;
+				line-height: 69px;
+				&:hover {
+					background: @btn-default-active;
+				}
+				&.dim {
+					background-color: @khan-blue-light;
+				}
+				span {
+					float: left;
+					font-size: 16px;
+					line-height: 70px;
+					max-width: 220px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				small {
+					float: left;
+					font-size: 11px;
+					color: @header-border;
+					margin-left: 6px;
+				}
+				i {
+					float: left;
+					font-size: 17px;
+					margin-left: 13px;
+					line-height: 69px;
+				}
+			}
+		}
+	}
+}

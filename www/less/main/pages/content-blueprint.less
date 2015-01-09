@@ -1,0 +1,118 @@
+.course-exercise {
+	.course-header-content {
+		.left {
+			.icon-wrapper {
+				margin-top: 35px;
+			}
+			.content-wrapper {
+				h1 {
+					margin-top: -5px;
+					small {
+						margin-top: 10px;
+					}
+				}
+				.idea {
+					margin-top: 20px;
+				}
+			}
+		}
+		.right {
+			.question {
+				font-size: 16px;
+				color: @khan-black2;
+				line-height: 19px;
+				display: block;
+				margin-bottom: 16px;
+			}
+			.choices {
+				.clearfix;
+				width: 600px;
+				margin-top: 50px;
+				margin-bottom: 30px;
+				.radio {
+					float: left;
+					margin: 0;
+					margin-right: 15px;
+				}
+			}
+			.send-wrapper {
+				.btn {
+					width: 180px;
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+	}
+	.course-header-footer:before,
+	.course-header-footer:after {
+		display: none;
+	}
+
+	.goal-title {
+		font-family: @font-family-base;
+		font-weight: @font-weight-light;
+		font-size: 16px;
+		color: @khan-black2;
+		line-height: 19px;
+		margin-bottom: 15px;
+	}
+	.box-goal {
+		margin-left: -45px;
+		.goal {
+			&:nth-child(1) {
+				opacity: .2;
+			}
+			&:nth-child(2) {
+				opacity: .4;
+			}
+			&.filler {
+				float: left;
+				margin-right: 10px;
+				width: 11px;
+				height: 11px;
+			}
+			&.answer-correct {
+				float: left;
+				margin-right: 10px;
+				color: @khan-green;
+				i {
+					font-size: 13px;
+				}
+			}
+			&.answer-wrong {
+				float: left;
+				margin-right: 10px;
+				color: @khan-red;
+				i {
+					font-size: 11px;
+				}
+			}
+			&.answer-hint {
+				float: left;
+				margin-right: 10px;
+				margin-top: 2px;
+				color: @khan-gold;
+				i {
+					font-size: 18px;
+				}
+			}
+		}
+	}
+
+	.exercise-color {
+		// Must also be changed in BlueprintCompiler
+		&-1 {
+			color: @khan-green;
+		}
+		&-2 {
+			color: @khan-red;
+		}
+		&-3 {
+			color: @khan-cyan-dark;
+		}
+		&-4 {
+			color: @khan-gold;
+		}
+	}
+}

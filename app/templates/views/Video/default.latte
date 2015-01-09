@@ -34,7 +34,7 @@
                             <small>{$video->description}</small>
                         </h1>
                         {if $block && $block->dependencies->count()}
-	                        <div class="idea">
+	                        <div class="dependencies">
 	                            <i class="icon icon-dependency"></i>
 	                            <span>Je potřeba rozumět {foreach $block->dependencies as $dep}{$dep->title|dative}{sep}, {/sep}{/foreach}.</span>
 	                        </div>
