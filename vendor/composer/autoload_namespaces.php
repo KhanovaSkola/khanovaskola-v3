@@ -33,7 +33,6 @@ return array(
     'Elasticsearch\\Tests' => array($vendorDir . '/elasticsearch/elasticsearch/tests'),
     'Elasticsearch\\Benchmarks' => array($vendorDir . '/elasticsearch/elasticsearch/benchmarks'),
     'Elasticsearch' => array($vendorDir . '/elasticsearch/elasticsearch/src'),
-    'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),

@@ -34,7 +34,6 @@
 		"tackk/cartographer": "~1.0.2"
 	},
 	"require-dev": {
-		"doctrine/dbal": "2.5.0-RC2 as 2.5.0",
 		"fzaninotto/faker": "~1.4",
 		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",

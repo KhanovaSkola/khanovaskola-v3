@@ -7,7 +7,7 @@ require __DIR__ . '/config/Configurator.php';
 require __DIR__ . '/shortcuts.php';
 
 $configurator = new App\Config\Configurator;
-$configurator->setDebugMode(php_uname('n') === 'MacBook-Pro.local');
+$configurator->setDebugMode(FALSE&&php_uname('n') === 'MacBook-Pro.local');
 $configurator->enableDebugger(__DIR__ . '/../log', 'rullaf+errors@gmail.com');
 
 $configurator->createRobotLoader()
