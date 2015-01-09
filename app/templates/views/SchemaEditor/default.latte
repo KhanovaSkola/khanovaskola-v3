@@ -1,4 +1,4 @@
-{var $pageName = 'scheme-page schema-editor'}
+{var $pageName = 'schema-page schema-editor'}
 {var $headerBorder = TRUE}
 {var $title = 'Editor'}
 {block headerBack}
@@ -17,7 +17,7 @@
 
 	<div class="container">
 		<div class="col-md-8">
-			<div class="scheme-wrapper editor" data-url-update="{plink updateSchema!, schemaId => $schema ? $schema->id}">
+			<div class="schema-wrapper editor" data-url-update="{plink updateSchema!, schemaId => $schema ? $schema->id}">
                 <div class="container">
                     {foreach $layout as $col}
 	                    <div class="col">
@@ -50,7 +50,7 @@
 		<div class="col-md-4">
 			{control schemaForm}
 			<h3>arrows:</h3>
-			<div class="scheme-wrapper arrow-picker">
+			<div class="schema-wrapper arrow-picker">
 				<div class="col">
                     <div class="cell cell-even arrow-vertical"></div>
 				    <div class="cell cell-even arrow-horizontal"></div>

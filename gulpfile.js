@@ -38,11 +38,10 @@ var lessFiles = [
 	path.join(libDir, 'bootstrap/less/bootstrap.less'),
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
-	path.join(lessDir, 'fonts/*.less'),
-	path.join(lessDir, 'base.less'),
-	path.join(lessDir, 'header.less'),
-	path.join(lessDir, 'components/*.less'),
-	path.join(lessDir, 'pages/*.less')
+	path.join(lessDir, 'main/fonts/*.less'),
+	path.join(lessDir, 'main/base.less'),
+	path.join(lessDir, 'main/components/*.less'),
+	path.join(lessDir, 'main/pages/*.less')
 ];
 var lessAdminFiles = [
 	path.join(libDir, 'chosen_v1.3.0/chosen.min.css'),

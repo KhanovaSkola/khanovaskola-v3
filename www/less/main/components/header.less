@@ -1,6 +1,5 @@
 .header {
 	.clearfix;
-	// display: flex;
 	min-height: @header-height;
 	width: 100%;
 	border-bottom: 1px solid @header-border;
@@ -13,14 +12,10 @@
 
 	.header-logo,
 	.header-goback {
-		// display: flex;
 		float: left;
 		width: 130px;
 		min-height: @header-height - 1px;
-		padding-left: 48px;
-		padding-right: 39px;
-		padding-top: 23px;
-		padding-bottom: 24px;
+		padding: 23px 39px 24px 48px;
 		border-right: 1px solid @header-border;
 		@media (max-width: @screen-sm) {
 			width: 100%;
@@ -30,9 +25,6 @@
 		}
 		img {
 			height: 36px;
-			@media (max-width: @screen-sm) {
-				// height: 70px;
-			}
 		}
 	}
 	.header-goback {
@@ -54,7 +46,6 @@
 	}
 
 	.header-content {
-		// display: flex;
 		float: left;
 		min-height: 80px;
 		@media (max-width: @screen-sm) {
@@ -68,9 +59,6 @@
 			}
 		}
 		.dropdown {
-			@media (max-width: @screen-sm) {
-				// width: 100%;
-			}
 			.dropdown-toggle {
 				font-weight: @font-weight-light;
 				font-size: @font-size-base;
@@ -90,7 +78,7 @@
 					width: 100%;
 					height: auto;
 					min-height: 300px;
-					margin-top: 0px;
+					margin-top: 0;
 				}
 				// border
 				.subjects-list {
@@ -151,8 +139,6 @@
 								font-size: @font-size-base;
 								color: @khan-black;
 								line-height: 24px;
-								// padding-top: 5px;
-								// padding-bottom: 5px;
 								display: inline-block;
 								span {
 									margin-right: 5px;
@@ -166,16 +152,6 @@
 								.icon {
 									font-size: 20px;
 									vertical-align: -10%;
-									&.icon-chemistry {
-										font-size: 19px;
-									}
-									&.icon-history {
-										font-size: 18px;
-									}
-									&.icon-it {
-										font-size: 12px;
-										vertical-align: 0;
-									}
 								}
 							}
 							.text-colors;
@@ -187,8 +163,7 @@
 					width: 600px;
 					height: 380px;
 					padding: 22px;
-					// border-left: 1px solid @header-border;
-					box-shadow: inset 1px 1px 0px 0px @header-border;
+					box-shadow: inset 1px 1px 0 0 @header-border;
 					background: rgba(10, 130, 204, 0.02);
 					@media (max-width: @screen-sm) {
 						width: 100%;
@@ -250,7 +225,7 @@
 			left: -9px !important;
 			z-index: 1000 !important;
 			background: @white;
-			box-shadow: -2px 2px 2px 0px rgba(38, 43, 55, 0.09), inset 0px -1px 0px 1px #D4E1E8;
+			box-shadow: -2px 2px 2px 0 rgba(38, 43, 55, 0.09), inset 0 -1px 0 1px #D4E1E8;
 			width: ~"calc(100% + 18px)";
 			.tt-suggestions {
 				padding: 0;
