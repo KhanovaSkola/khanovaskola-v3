@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9ac4d2beea19323b805d6d7ae63ed54",
+    "hash": "767586eeed9efaa1e7fb2c5485c3dd2f",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -3199,60 +3199,6 @@
             "time": "2014-06-04 14:43:02"
         },
         {
-            "name": "herzult/php-ssh",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Herzult/php-ssh.git",
-                "reference": "d590e812e138c5f32f414aa8a36a71ee8453785b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Herzult/php-ssh/zipball/d590e812e138c5f32f414aa8a36a71ee8453785b",
-                "reference": "d590e812e138c5f32f414aa8a36a71ee8453785b",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ssh2": "*",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/filesystem": "~2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Ssh": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "The contributors",
-                    "homepage": "http://github.com/Herzult/php-ssh/contributors"
-                },
-                {
-                    "name": "Antoine Hérault",
-                    "homepage": "https://github.com/Herzult"
-                }
-            ],
-            "description": "Provides an object-oriented wrapper for the php ssh2 extension.",
-            "keywords": [
-                "ssh",
-                "ssh2"
-            ],
-            "time": "2014-08-20 09:38:23"
-        },
-        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -3734,49 +3680,6 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2014-11-03 19:48:45"
-        },
-        {
-            "name": "vrtak-cz/newrelic-tracy",
-            "version": "v4.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Vrtak-CZ/NewRelic-Tracy.git",
-                "reference": "660eb89a4ec52142402100f70d834c688003973b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Vrtak-CZ/NewRelic-Tracy/zipball/660eb89a4ec52142402100f70d834c688003973b",
-                "reference": "660eb89a4ec52142402100f70d834c688003973b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "tracy/tracy": ">=2.2.0,<=2.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "VrtakCZ\\NewRelic\\Tracy\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Patrik Votoček",
-                    "email": "patrik@votocek.cz",
-                    "homepage": "http://patrik.votocek.cz",
-                    "role": "Developer"
-                }
-            ],
-            "description": "NewRelic PHP agent integration for Tracy",
-            "keywords": [
-                "newrelic",
-                "tracy"
-            ],
-            "time": "2014-11-07 13:11:18"
         }
     ],
     "aliases": [

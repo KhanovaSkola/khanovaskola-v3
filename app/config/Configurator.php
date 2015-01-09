@@ -102,24 +102,6 @@ class Configurator extends Nette\Configurator
 		return parent::detectDebugMode($list);
 	}
 
-	public function onInitNewrelic()
-	{
-		if (!extension_loaded('newrelic'))
-		{
-			return;
-		}
-
-		$logLevel = [
-			Logger::CRITICAL,
-			Logger::EXCEPTION,
-			Logger::ERROR,
-		];
-		$appName = 'khanovaskola-v3';
-		$license = 'f31b574242544c0f2058c2e02b12039da2863750';
-
-		NewRelic\Tracy\Bootstrap::init($logLevel, $appName, $license);
-	}
-
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();

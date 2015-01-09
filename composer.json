@@ -30,12 +30,12 @@
 		"pda/pheanstalk": "~3.0",
 		"petrp/orm": "0.4.*",
 		"symfony/console": "~2.4",
+	  	"symfony/process": "~2.5",
 		"bjeavons/zxcvbn-php": "~0.1",
 		"tackk/cartographer": "~1.0.2"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
-		"herzult/php-ssh": "~1.0.0",
 		"jdorn/sql-formatter": "~1.2.17",
 		"mikulas/adminer-package": "~4.0",
 		"mikulas/code-sniffs": "~1.1",
@@ -43,9 +43,7 @@
 		"mikulas/nette-panel-queries": "~1.0",
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
-		"petrp/access": "~0.2",
-		"symfony/process": "~2.5",
-		"vrtak-cz/newrelic-tracy": "~4.0"
+		"petrp/access": "~0.2"
 	},
 	"repositories": [
 		{

@@ -11,7 +11,6 @@ return array(
     'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
-    'Ssh' => array($vendorDir . '/herzult/php-ssh/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Mikulas\\LatteCS\\' => array($vendorDir . '/mikulas/lattecs/src'),

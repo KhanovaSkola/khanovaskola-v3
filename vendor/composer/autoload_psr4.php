@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'VrtakCZ\\NewRelic\\Tracy\\' => array($vendorDir . '/vrtak-cz/newrelic-tracy/src'),
     'Tackk\\Cartographer\\' => array($vendorDir . '/tackk/cartographer/src'),
     'Pheanstalk\\' => array($vendorDir . '/pda/pheanstalk/src'),
     'Nextras\\Migrations\\' => array($vendorDir . '/nextras/migrations/src'),
