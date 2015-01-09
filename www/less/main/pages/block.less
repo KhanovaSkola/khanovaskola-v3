@@ -1,6 +1,15 @@
 .block-page {
 	.content {
 		.left {
+			&:before {
+				position: absolute;
+				top: -@header-height;
+				height: @header-height;
+				width: 100%;
+				background-color: fade(@header-border, 13);
+				z-index: 0;
+			}
+
 			.clearfix;
 			position: fixed;
 			top: @header-height;
