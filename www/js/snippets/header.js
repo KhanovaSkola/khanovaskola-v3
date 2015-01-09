@@ -3,7 +3,10 @@ $(function() {
 	var $dropdown = $('.dropdown');
 
 	$('.dropdown .dropdown-toggle').on('click', function() {
-		$(this).parents('.dropdown').toggleClass('open');
+		var $this = $(this).parents('.dropdown');
+
+		$('.dropdown').not($this).removeClass('open');
+		$this.toggleClass('open');
 		$dropdown.parents('header').toggleClass('hover');
 		return false;
 	});
