@@ -4,7 +4,7 @@
 		margin-bottom: 30px;
 		min-width: 550px;
 		@media (max-width: @screen-sm) {
-			min-width: 0px;
+			min-width: 0;
 		}
 		&:last-of-type {
 			.timeline-content {
@@ -77,6 +77,13 @@
 						color: darken(@khan-blue, 20%);
 					}
 				}
+				.icon-time {
+					float: left;
+					font-size: 13px;
+					color: @khan-blue-light;
+					margin-right: 3px;
+					margin-top: 3px;
+				}
 				small {
 					.clearfix;
 					float: left;
@@ -84,12 +91,6 @@
 					margin-left: 10px;
 					display: block;
 					width: 100px;
-					i {
-						float: left;
-						font-size: 13px;
-						color: @khan-blue-light;
-						margin-right: 3px;
-					}
 					span {
 						font-family: @font-family-base;
 						font-weight: @font-weight-light;
