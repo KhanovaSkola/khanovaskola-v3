@@ -8,9 +8,6 @@ var neon = require('neon-js/src/neon.js');
 var configRaw = fs.readFileSync('./app/config/config.local.neon', 'utf8');
 var config = neon.decode(configRaw);
 
-var lessDir = './www/less';
-var lessFile = path.join(lessDir, 'main.less');
-var lessAdminFile = path.join(lessDir, 'main.admin.less');
 var buildDir = './www/build';
 var libDir = './www/libs';
 var jsDir = './www/js';
@@ -36,6 +33,23 @@ var jsAdminFiles = [
 	path.join(libDir, 'chosen_v1.3.0/chosen.jquery.min.js'),
 	path.join(jsDir, 'admin/*.js')
 ];
+var lessDir = './www/less';
+var lessFiles = [
+	path.join(libDir, 'bootstrap/less/bootstrap.less'),
+	path.join(lessDir, 'variables.less'),
+	path.join(lessDir, 'mixins.less'),
+	path.join(lessDir, 'fonts/*.less'),
+	path.join(lessDir, 'base.less'),
+	path.join(lessDir, 'header.less'),
+	path.join(lessDir, 'components/*.less'),
+	path.join(lessDir, 'pages/*.less')
+];
+var lessAdminFiles = [
+	path.join(libDir, 'chosen_v1.3.0/chosen.min.css'),
+	path.join(lessDir, 'variables.less'),
+	path.join(lessDir, 'mixins.less'),
+	path.join(lessDir, 'admin/*.less')
+];
 var jsxFiles = [
 	'./app/**/*.jsx'
 ];
@@ -47,8 +61,9 @@ gulp.task('jsx', function () {
 });
 
 gulp.task('less-dev', function() {
-	gulp.src(lessFile)
+	gulp.src(lessFiles)
 		.pipe($.sourcemaps.init())
+		.pipe($.concat('main.less'))
 		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.rename({suffix: '.min'}))
@@ -57,8 +72,9 @@ gulp.task('less-dev', function() {
 		}))
 		.pipe(gulp.dest(buildDir));
 
-	gulp.src(lessAdminFile)
+	gulp.src(lessAdminFiles)
 		.pipe($.sourcemaps.init())
+		.pipe($.concat(' main.admin.less'))
 		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.rename({suffix: '.min'}))
@@ -69,15 +85,17 @@ gulp.task('less-dev', function() {
 });
 
 gulp.task('less-production', function() {
-	gulp.src(lessFile)
-		.pipe($.less())
+	gulp.src(lessFiles)
+		.pipe($.concat())
+		.pipe($.less('main.less'))
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 
-	gulp.src(lessAdminFile)
-		.pipe($.less())
+	gulp.src(lessAdminFiles)
+		.pipe($.concat())
+		.pipe($.less('main.admin.less'))
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
