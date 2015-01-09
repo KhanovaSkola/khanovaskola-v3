@@ -205,7 +205,7 @@ class BlueprintCompiler extends Object
 		if ($inLatex)
 		{
 			$rgb = constant("self::COLOR{$color}");
-			return "{\\color[RGB]{{$rgb}}";
+			return '{\\color[RGB]{' . $rgb . '}';
 		}
 
 		return "<span class=\"exercise-color-$color\">";
