@@ -5,6 +5,7 @@ namespace App\Models\Orm;
 use App\Models\Orm\Mappers\Mapper;
 use DateTime;
 use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
 use Nette\DI\Container;
 use Orm;
 
@@ -19,6 +20,10 @@ abstract class Entity extends Orm\Entity
 
 	use ConstantGetterTrait;
 
+	/**
+	 * @var IStorage
+	 */
+	public static $metaDataStorage;
 
 	/**
 	 * @return Container
@@ -35,7 +40,10 @@ abstract class Entity extends Orm\Entity
 	 */
 	public static function createMetaData($entityClass)
 	{
-		return AnnotationMetaData::getMetaData($entityClass);
+		$cache = new Cache(self::$metaDataStorage, __CLASS__);
+		return $cache->load($entityClass, function() use ($entityClass) {
+			return AnnotationMetaData::getMetaData($entityClass);
+		});
 	}
 
 	/**

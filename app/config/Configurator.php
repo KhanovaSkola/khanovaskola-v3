@@ -3,6 +3,7 @@
 namespace App\Config;
 
 use App\Components\Controls\EditorSelector;
+use App\Models\Orm\Entity;
 use App\Models\Services\ElasticSearch;
 use Bin\Support\VariadicArgvInput;
 use Clevis\Version\DI\VersionExtension;
@@ -16,9 +17,7 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
 use Tracy\Debugger;
-use Tracy\Logger;
 use Tracy\QueryPanel\QueryPanel;
-use VrtakCZ\NewRelic;
 
 
 /**
@@ -163,6 +162,11 @@ class Configurator extends Nette\Configurator
 				$request = NULL;
 			}
 		};
+	}
+
+	public function onAfterEntityStaticCache(Container $container)
+	{
+		Entity::$metaDataStorage = $container->getService('cacheStorage');
 	}
 
 	/**

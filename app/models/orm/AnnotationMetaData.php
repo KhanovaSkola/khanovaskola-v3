@@ -215,7 +215,7 @@ class AnnotationMetaData extends Orm\AnnotationMetaData
 		if (!method_exists($property, $method))
 		{
 			$class = $property->getSince();
-			throw new AnnotationMetaDataException("Unknown annotation macro '{{$match[1]}}' in $class::\$$propertyName");
+			throw new AnnotationMetaDataException("Unknown annotation macro '{" . $match[1] . "}' in $class::\$$propertyName");
 		}
 		$params = isset($match[2]) ? $match[2] : NULL;
 		$paramMethod = "builtParams{$name}";
