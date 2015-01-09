@@ -100,7 +100,7 @@ class Acl
 		{
 			return $r;
 		}
-		else if ($r = $this->isAllowed_SubjectOnly($user, $schema->subject))
+		else if ($schema->subject && $r = $this->isAllowed_SubjectOnly($user, $schema->subject))
 		{
 			return $r;
 		}
