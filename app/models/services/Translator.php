@@ -56,10 +56,16 @@ class Translator implements Nette\Localization\ITranslator
 	 */
 	private $prefix;
 
-	public function __construct($dir, Logger $log)
+	/**
+	 * @var Nette\Caching\IStorage
+	 */
+	private $storage;
+
+	public function __construct($dir, Logger $log, Nette\Caching\IStorage $storage)
 	{
 		$this->dir = $dir;
 		$this->log = $log;
+		$this->storage = $storage;
 	}
 
 	public function setLanguage($language)
@@ -76,12 +82,15 @@ class Translator implements Nette\Localization\ITranslator
 
 	protected function getSource($file, $language)
 	{
-		if (!file_exists($file))
-		{
-			throw new FileNotFoundException("Localization file for '$language' not found at '$file'");
-		}
-		$raw = file_get_contents($file);
-		return Neon::decode($raw);
+		$cache = new Nette\Caching\Cache($this->storage, __CLASS__);
+		return $cache->load("$file|$language", function() use ($file, $language) {
+			if (!file_exists($file))
+			{
+				throw new FileNotFoundException("Localization file for '$language' not found at '$file'");
+			}
+			$raw = file_get_contents($file);
+			return Neon::decode($raw);
+		});
 	}
 
 	/**
