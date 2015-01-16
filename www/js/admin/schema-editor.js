@@ -42,7 +42,6 @@ $(function() {
 		},
 		stop: function() {
 			$blockTargets.removeClass('highlight');
-			console.log($(this).data('id'));
 			var id = $(this).data('id');
 			var title = $(this).text();
 			lastTarget.data('id', id)
@@ -57,7 +56,13 @@ $(function() {
 		if (e.which !== 3) {
 			return;
 		}
-		$(this).html('');
+		var $field = $(this);
+		$field[0].className.split(' ').forEach(function(className) {
+			if (className.indexOf('arrow-') === 0) {
+				$field.removeClass(className);
+			}
+		});
+		$field.html('');
 		return false;
 	});
 	$blockTargets.on('mousedown', function(e) {
