@@ -47,7 +47,7 @@
 	            <div class="schema-width">
 		            {foreach $layout as $i => $col}
 	                    <div class="col{if $i == 1 || $i == 3} col-filler{/if}">
-	                        {foreach $col as $cell}
+	                        {foreach $col as $c => $cell}
 	                            {if is_array($cell)}
 	                                {var $first = array_shift($cell)}
 	                                <div class="cell cell-even {$first}">
@@ -56,7 +56,8 @@
 	                                    {/foreach}
 	                                </div>
 	                            {else}
-	                                <div class="cell cell-odd">
+	                                {var $join = isset($layout[$i][$c - 1]) ? in_array('arrow-vertical', $layout[$i][$c - 1]) : FALSE}
+	                                <div class="cell cell-odd{if $join} arrow-vertical{/if}">
 	                                    {if $cell}
 	                                        {var $block = $getBlock($cell)}
 	                                        <a n:href="$block, $schema">
