@@ -6,9 +6,18 @@ namespace App\Presenters;
 final class Subjects extends Presenter
 {
 
-	public function renderDefault()
+	public function renderDefault($teacher = FALSE, $parent = FALSE)
 	{
 		$this->setCacheControlPublic();
+
+		if ($teacher)
+		{
+			$this->flashInfo('subjects.notYet.teacher');
+		}
+		else if ($parent)
+		{
+			$this->flashInfo('subjects.notYet.parent');
+		}
 
 		// group by 5 for easier rendering
 		$groups = [];

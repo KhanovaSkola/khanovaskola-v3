@@ -310,3 +310,12 @@ acl:
     blueprint:
       title: "Nepovoleno."
       message: "Přístup na editor cvičení nemáte povolený. Pokud je máte mít, napište na fórum."
+
+subjects:
+  notYet:
+    parent:
+      title: "Chystáme."
+      message: "Brzy pro Vás budeme mít rodičovské funkce pro dohled nad studiem Vašich dětí. Už teď si ale můžete kouknout na libovolný obsah."
+    teacher:
+      title: "Chystáme."
+      message: "Brzy pro Vás budeme mít učitelské funkce pro dohled nad studiem Vašich žáků. Už teď jim ale můžete nabídnout cokoliv z našeho obsahu."
