@@ -1,9 +1,8 @@
 .landing-page {
 
 	.container {
-		margin-left: 0;
-		margin-right: auto;
 		padding-left: 30px;
+		margin: 0 auto;
 
 		@media (min-width: @screen-sm-min) {
 			width: @container-sm;
@@ -13,8 +12,6 @@
 		}
 		@media (min-width: @screen-lg-min) {
 			width: @container-lg;
-		}
-		@media (min-width: @screen-lg-min) {
 			padding-left: 0;
 		}
 	}
@@ -24,7 +21,7 @@
 		.content-inner {
 			.clearfix;
 			width: 100%;
-			max-width: 960px;
+			max-width: 1130px;
 			margin-left: auto;
 			margin-right: auto;
 			min-height: 380px;
@@ -185,10 +182,13 @@
 
 	.landing-footer {
 		font-family: @headings-font-family;
-		text-transform: uppercase;
-		margin-bottom: 40px;
-		margin-left: 50px;
+		width: 100%;
+		padding-bottom: 65px;
+		// margin-left: 50px;
 		margin-top: 110px;
+		padding-top: 70px;
+		text-align: center;
+		background: fade(@header-border, 13%);
 		@media (max-width: @screen-sm) {
 			text-align: center;
 			margin-top: 40px;
@@ -216,6 +216,11 @@
 			font-size: 22px;
 			line-height: 37px;
 			margin-right: 10px;
+			margin-top: 5px;
+			display: inline-block;
+			&:first-of-type {
+				margin-left: -22px;
+			}
 			&:hover {
 				text-decoration: none;
 				&.text-green {
