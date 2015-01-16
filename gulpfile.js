@@ -73,7 +73,7 @@ gulp.task('less-dev', function() {
 
 	gulp.src(lessAdminFiles)
 		.pipe($.sourcemaps.init())
-		.pipe($.concat(' main.admin.less'))
+		.pipe($.concat('main.admin.less'))
 		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.rename({suffix: '.min'}))
@@ -85,16 +85,16 @@ gulp.task('less-dev', function() {
 
 gulp.task('less-production', function() {
 	gulp.src(lessFiles)
-		.pipe($.concat())
-		.pipe($.less('main.less'))
+		.pipe($.concat('main.less'))
+		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 
 	gulp.src(lessAdminFiles)
-		.pipe($.concat())
-		.pipe($.less('main.admin.less'))
+		.pipe($.concat('main.admin.less'))
+		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
