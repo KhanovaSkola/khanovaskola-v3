@@ -110,13 +110,12 @@ $(function() {
 	});
 
 	$('#filter').on('keyup change', function() {
-		var filter = $(this).val();
+		var filter = $(this).val().toLowerCase();
 		if (!filter) {
 			$('.block-picker li').show();
 		} else {
-			$('.block-picker li').hide();
-			$('.block-picker li').each(function() {
-				if ($(this).text().indexOf(filter) === 0) {
+			$('.block-picker li').hide().each(function() {
+				if ($(this).text().toLowerCase().indexOf(filter) !== -1) {
 					$(this).show();
 				}
 			});
