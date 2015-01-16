@@ -25,7 +25,7 @@
 				{/foreach}
 			{/foreach}
 		{/block}
-	{elseif $entity instanceof App\Models\Rme\Schema}
+	{elseif $entity instanceof App\Models\Rme\Schema && $entity->subject}
 		{include subjects, subjects => [$entity->subject]}
 	{/if}
 </ul>

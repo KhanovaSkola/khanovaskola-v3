@@ -8,7 +8,7 @@ $(function() {
 		no_results_text: "Email nenalezen"
 	});
 
-	var $arrowTargets = $(".scheme-wrapper.editor .cell-even");
+	var $arrowTargets = $(".schema-wrapper.editor .cell-even");
 	$(".arrow-picker .cell").draggable({
 		revert: true,
 		start: function() {
@@ -28,7 +28,7 @@ $(function() {
 	});
 
 	var lastTarget;
-	var $blockTargets = $(".scheme-wrapper.editor .cell-odd");
+	var $blockTargets = $(".schema-wrapper.editor .cell-odd");
 	$blockTargets.on('mouseenter', function() {
 		lastTarget = $(this);
 	});
@@ -75,7 +75,7 @@ $(function() {
 
 	function serializeSchema() {
 		var ser = [];
-		$('.scheme-wrapper.editor').find('.col').each(function() {
+		$('.schema-wrapper.editor').find('.col').each(function() {
 			var col = [];
 			$(this).find('.cell').each(function() {
 				$cell = $(this);
