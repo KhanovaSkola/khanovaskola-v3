@@ -188,10 +188,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	protected function setCacheControlPublic($ttl = '15m')
 	{
+		$expires = time() + ((int) $ttl * 60); // assume minutes
+
 		$resp = $this->getHttpResponse();
 		$resp->setHeader('Cache-Control', 'public');
 		$resp->setHeader('Varnish-TTL', $ttl);
-		$resp->setHeader('Expires', NULL);
+		$resp->setHeader('Expires', gmdate('D, d M Y H:i:s T', $expires)); // RFC 1123
 		$resp->setHeader('Pragma', NULL);
 		$resp->setHeader('Set-Cookie', NULL);
 	}
