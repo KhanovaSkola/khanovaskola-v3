@@ -137,6 +137,15 @@ auth:
     logout:
       title: "Mějte se."
       message: "Příště se naučíme ještě víc."
+    wrongUsername:
+      title: "Ještě nejste zaregistrovaní."
+      message: "Klikněte rovnou na přihlášení přes Facebook nebo Google, nebo pokračujte na registraci."
+    notSet:
+      title: "Nemáte nastavené heslo."
+      message: "Přihlaste se přes Facebook nebo Google, nebo si přes „Zapomenuté heslo“ pošlete nové."
+    wrongPassword:
+      title: "Špatné heslo."
+      message: "Jestli si nemůžete vzpomenout, můžete si nastavit heslo nové."
 
 badges:
   awarded:
@@ -190,23 +199,23 @@ registrationForm:
 
 linkStudentsForm:
   email:
-    wrong: "Zadejte spravny email"
+    wrong: "Zadejte správný email"
 
 resetPasswordForm:
   email:
-    missing: ""
-    wrong: ""
+    missing: "Zadejte email"
+    wrong: "Zadejte správný email"
 
 changePasswordForm:
   password:
-    missing: ""
+    missing: "Zadejte heslo"
 
 loginForm:
   email:
-    missing: ""
-    wrong: ""
+    missing: "Zadejte svůj email"
+    wrong: "Zadejte svůj email"
   password:
-    missing: ""
+    missing: "Zadejte svoje heslo"
 
 block:
   duration:

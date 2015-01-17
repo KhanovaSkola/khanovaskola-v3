@@ -42,17 +42,17 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 
 		if (!$user)
 		{
-			throw new AuthenticationException('auth.flash.password.wrongUsername', self::IDENTITY_NOT_FOUND);
+			throw new AuthenticationException('auth.flash.wrongUsername', self::IDENTITY_NOT_FOUND);
 		}
 		if (!$user->password)
 		{
-			throw new AuthenticationException('auth.flash.password.notSet', self::PASSWORD_NOT_SET);
+			throw new AuthenticationException('auth.flash.notSet', self::PASSWORD_NOT_SET);
 		}
 
 		$plainHash = $this->aes->decrypt($user->password);
 		if (!Passwords::verify($password, $plainHash))
 		{
-			throw new AuthenticationException('auth.flash.password.wrongPassword', self::INVALID_CREDENTIAL);
+			throw new AuthenticationException('auth.flash.wrongPassword', self::INVALID_CREDENTIAL);
 		}
 		if (Passwords::needsRehash($plainHash))
 		{
