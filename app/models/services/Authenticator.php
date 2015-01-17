@@ -2,7 +2,7 @@
 
 namespace App\Models\Services;
 
-use App\Models\Rme\UsersRepository;
+use App\Models\Orm\RepositoryContainer;
 use Nette;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
@@ -15,19 +15,19 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	const PASSWORD_NOT_SET = 5;
 
 	/**
-	 * @var UsersRepository
-	 */
-	protected $users;
-
-	/**
 	 * @var Aes
 	 */
 	private $aes;
 
-	public function __construct(UsersRepository $users, Aes $aes)
+	/**
+	 * @var RepositoryContainer
+	 */
+	private $orm;
+
+	public function __construct(RepositoryContainer $orm, Aes $aes)
 	{
-		$this->users = $users;
 		$this->aes = $aes;
+		$this->orm = $orm;
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	public function authenticate(array $credentials)
 	{
 		list($email, $password) = $credentials;
-		$user = $this->users->getByEmail($email);
+		$user = $this->orm->users->getByEmail($email);
 
 		if (!$user)
 		{
@@ -50,7 +50,11 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		}
 
 		$plainHash = $this->aes->decrypt($user->password);
-		if (!Passwords::verify($password, $plainHash))
+		if (strpos($user->password, 'old-password;') === 0)
+		{
+			$this->authOldPassword($password, $user);
+		}
+		else if (!Passwords::verify($password, $plainHash))
 		{
 			throw new AuthenticationException('auth.flash.wrongPassword', self::INVALID_CREDENTIAL);
 		}
@@ -58,10 +62,46 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 		{
 			$plainHash = Passwords::hash($password);
 			$user->password = $this->aes->encrypt($plainHash);
-			$this->users->flush();
+			$this->orm->flush();
 		}
 
 		return new Identity($user->id);
+	}
+
+	/**
+	 * @deprecated
+	 * @param string $password
+	 * @param $user
+	 * @throws AuthenticationException
+	 */
+	private function authOldPassword($password, $user)
+	{
+		list($_, $hash, $salt) = explode(';', $user->password);
+		if ($this->calculateHash($password, $salt) !== $hash)
+		{
+			throw new AuthenticationException('auth.flash.wrongPassword', self::INVALID_CREDENTIAL);
+		}
+
+		$plainHash = Passwords::hash($password);
+		$user->password = $this->aes->encrypt($plainHash);
+		$this->orm->flush();
+	}
+
+	/**
+	 * @deprecated
+	 * @param string $password
+	 * @param string $salt
+	 * @param int $depth
+	 * @return string
+	 */
+	private function calculateHash($password, $salt, $depth = 100)
+	{
+		if ($depth === 0)
+		{
+			return md5("$salt.$password.$salt");
+		}
+
+		return md5($this->calculateHash($password, $salt, $depth - 1));
 	}
 
 }
