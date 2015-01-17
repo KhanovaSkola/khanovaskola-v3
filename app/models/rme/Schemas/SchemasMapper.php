@@ -19,34 +19,67 @@ class SchemasMapper extends Mapper
 	}
 
 	/**
+	 * Find latest watched and return first next unwatched
+	 *
 	 * @param User $user
 	 * @param Schema $schema
 	 * @return NULL|array [Content, Block]
 	 */
 	public function getNextContent(User $user, Schema $schema)
 	{
-		$row = $this->connection->query('
+		$watched = $this->connection->query('
+			SELECT [bsb.position] [block_position], [cbb.position] [content_position], [cbb.content_id]
+			FROM [completed_contents] [cc]
+			LEFT JOIN [content_block_bridges] [cbb] ON [cbb.content_id] = [cc.content_id]
+			LEFT JOIN [block_schema_bridges] [bsb] ON [bsb.block_id] = [cbb.block_id]
+			WHERE [cc.user_id] = ?', $user->id, '
+				AND [cc.schema_id] = ?', $schema->id, '
+			ORDER BY [cc.created_at] DESC
+		')->fetchAll();
+
+		if (!$watched)
+		{
+			return NULL;
+		}
+
+		$ignore = [];
+		$latest = NULL;
+		foreach ($watched as $row)
+		{
+			if ($latest === NULL)
+			{
+				$latest = $row;
+			}
+			$ignore[] = $row['content_id'];
+		}
+
+		$next = $this->connection->query('
 			SELECT [cbb.block_id], [cbb.content_id]
-			FROM [block_schema_bridges] [bsb]
-			LEFT JOIN [content_block_bridges] [cbb] ON [cbb.block_id] = [bsb.block_id]
-			LEFT JOIN [completed_contents] [cc] ON (
-				[cc.content_id] = [cbb.content_id]
-				AND [cc.user_id] = ?', $user->id, '
-			)
+			FROM [content_block_bridges] [cbb]
+			LEFT JOIN [block_schema_bridges] [bsb]
+				ON [cbb.block_id] = [bsb.block_id]
 			WHERE [bsb.schema_id] = ?', $schema->id, '
-				AND [cc.id] IS NULL
+				AND (
+				(
+					[bsb.position] = ? AND [cbb.position] > ?',
+					$latest['block_position'], $latest['content_position'], '
+				)
+				OR
+				(
+					[bsb.position] > ?', $latest['block_position'], '
+				)
+			) AND [cbb.content_id] NOT IN (?)', $ignore, '
 			ORDER BY [bsb.position] ASC, [cbb.position] ASC
-			LIMIT 1
 		')->fetch();
 
-		if (!$row)
+		if (!$next)
 		{
 			return NULL;
 		}
 
 		return [
-			$this->model->contents->getById($row['content_id']),
-			$this->model->blocks->getById($row['block_id']),
+			$this->model->contents->getById($next['content_id']),
+			$this->model->blocks->getById($next['block_id']),
 		];
 	}
 
