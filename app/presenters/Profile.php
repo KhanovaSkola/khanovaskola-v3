@@ -54,6 +54,11 @@ final class Profile extends Presenter
 		$lastSchema = array_shift($lastSchemas);
 		$this->template->lastSchema = $lastSchema;
 		$this->template->lastSchemas = $lastSchemas;
+
+		if (!$lastSchema && !$this->userEntity->hasCacheBurstingPrivileges())
+		{
+			$this->redirect('Homepage:default');
+		}
 	}
 
 	public function renderSettings()
