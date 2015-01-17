@@ -16,11 +16,26 @@ backend default {
 import std;
 
 sub vcl_recv {
-        if (req.method != "GET") {
+        if (req.method != "GET")
+        {
                 return (pass);
         }
-        if (req.http.Cookie ~ "\bvarnish-force=pass") {
+        if (req.http.Cookie ~ "\bvarnish-force=pass")
+        {
                 return (pass);
+        }
+
+        if (req.url ~ "/esi/header")
+        {
+                set req.http.Cookie = ";" + req.http.Cookie;
+                set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
+                set req.http.Cookie = regsuball(req.http.Cookie, ";(PHPSESSID)=", "; \1=");
+                set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
+                set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
+                if (req.http.Cookie == "")
+                {
+                        unset req.http.Cookie;
+                }
         }
 
         return (hash);
@@ -29,11 +44,22 @@ sub vcl_recv {
 sub vcl_hash {
         hash_data(req.http.host);
         hash_data(req.url);
+        if (req.url ~ "/esi/header/")
+        {
+                hash_data(req.http.Cookie);
+        }
         return(lookup);
 }
 
 sub vcl_backend_response {
-        if (beresp.http.Cache-Control != "public") {
+        if (bereq.url ~ "/esi/header/")
+        {
+                unset beresp.http.Pragma;
+                unset beresp.http.Cache-control;
+                set beresp.ttl = 30m;
+        }
+        else if (beresp.http.Cache-Control != "public")
+        {
                 set beresp.uncacheable = true;
                 set beresp.ttl = 3m;
                 return (deliver);
