@@ -10,6 +10,7 @@ var config = neon.decode(configRaw);
 
 var buildDir = './www/build';
 var libDir = './www/libs';
+var bsDir = './www/libs/bootstrap/less/';
 var jsDir = './www/js';
 var jsFiles = [
 	path.join(libDir, 'bootstrap/js/alert.js'),
@@ -35,7 +36,46 @@ var jsAdminFiles = [
 ];
 var lessDir = './www/less';
 var lessFiles = [
-	path.join(libDir, 'bootstrap/less/bootstrap.less'),
+	path.join(bsDir, 'variables.less'),
+	path.join(bsDir, 'mixins.less'),
+	path.join(bsDir, 'normalize.less'),
+	//path.join(bsDir, 'print.less'),
+	//path.join(bsDir, 'glyphicons.less'),
+	path.join(bsDir, 'scaffolding.less'),
+	path.join(bsDir, 'type.less'),
+	//path.join(bsDir, 'code.less'),
+	path.join(bsDir, 'grid.less'),
+	//path.join(bsDir, 'tables.less'),
+	path.join(bsDir, 'forms.less'),
+	path.join(bsDir, 'buttons.less'),
+	path.join(bsDir, 'component-animations.less'),
+	path.join(bsDir, 'dropdowns.less'),
+	//path.join(bsDir, 'button-groups.less'),
+	//path.join(bsDir, 'input-groups.less'),
+	path.join(bsDir, 'navs.less'),
+	//path.join(bsDir, 'navbar.less'),
+	//path.join(bsDir, 'breadcrumbs.less'),
+	//path.join(bsDir, 'pagination.less'),
+	//path.join(bsDir, 'pager.less'),
+	//path.join(bsDir, 'labels.less'),
+	//path.join(bsDir, 'badges.less'),
+	//path.join(bsDir, 'jumbotron.less'),
+	//path.join(bsDir, 'thumbnails.less'),
+	path.join(bsDir, 'alerts.less'),
+	//path.join(bsDir, 'progress-bars.less'),
+	//path.join(bsDir, 'media.less'),
+	//path.join(bsDir, 'list-group.less'),
+	//path.join(bsDir, 'panels.less'),
+	//path.join(bsDir, 'responsive-embed.less'),
+	//path.join(bsDir, 'wells.less'),
+	path.join(bsDir, 'close.less'),
+	path.join(bsDir, 'modals.less'),
+	//path.join(bsDir, 'tooltip.less'),
+	//path.join(bsDir, 'popovers.less'),
+	//path.join(bsDir, 'carousel.less'),
+	path.join(bsDir, 'utilities.less'),
+	path.join(bsDir, 'responsive-utilities.less'),
+
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
 	path.join(lessDir, 'main/fonts/*.less'),
