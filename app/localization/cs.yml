@@ -61,7 +61,10 @@ commentForm:
     missing: ""
     short: ""
 
-
+token:
+  alreadyUsed:
+    title: "Kód nelze znovupoužít."
+    message: "Tento odkaz je jenom na jedno použití a už je vypotřebovaný."
 
 blueprintEditor:
   title: "Název"
