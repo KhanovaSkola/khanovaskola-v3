@@ -49,18 +49,9 @@ var lessAdminFiles = [
 	path.join(lessDir, 'mixins.less'),
 	path.join(lessDir, 'admin/*.less')
 ];
-var jsxFiles = [
-	'./app/**/*.jsx'
-];
 
-gulp.task('jsx', function () {
-	gulp.src(jsxFiles)
-		.pipe($.react())
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('less-dev', function() {
-	gulp.src(lessFiles)
+gulp.task('less-dev-main', function() {
+	return gulp.src(lessFiles)
 		.pipe($.sourcemaps.init())
 		.pipe($.concat('main.less'))
 		.pipe($.less())
@@ -70,8 +61,10 @@ gulp.task('less-dev', function() {
 			sourceRoot: '../less'
 		}))
 		.pipe(gulp.dest(buildDir));
+});
 
-	gulp.src(lessAdminFiles)
+gulp.task('less-dev-admin', function() {
+	return gulp.src(lessAdminFiles)
 		.pipe($.sourcemaps.init())
 		.pipe($.concat('main.admin.less'))
 		.pipe($.less())
@@ -83,16 +76,18 @@ gulp.task('less-dev', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('less-production', function() {
-	gulp.src(lessFiles)
+gulp.task('less-production-main', function() {
+	return gulp.src(lessFiles)
 		.pipe($.concat('main.less'))
 		.pipe($.less())
 		.pipe($.autoprefixer())
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
+});
 
-	gulp.src(lessAdminFiles)
+gulp.task('less-production-admin', function() {
+	return gulp.src(lessAdminFiles)
 		.pipe($.concat('main.admin.less'))
 		.pipe($.less())
 		.pipe($.autoprefixer())
@@ -101,8 +96,8 @@ gulp.task('less-production', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('js-dev', function() {
-	gulp.src(jsFiles)
+gulp.task('js-dev-main', function() {
+	return gulp.src(jsFiles)
 		.pipe($.sourcemaps.init())
 		.pipe($.uglify())
 		.pipe($.concat('app.min.js'))
@@ -120,8 +115,10 @@ gulp.task('js-dev', function() {
 			sourceRoot: '../js'
 		}))
 		.pipe(gulp.dest(buildDir));
+});
 
-	gulp.src(jsAdminFiles)
+gulp.task('js-dev-admin', function() {
+	return gulp.src(jsAdminFiles)
 		.pipe($.sourcemaps.init())
 		.pipe($.uglify())
 		.pipe($.concat('app.admin.min.js'))
@@ -131,8 +128,8 @@ gulp.task('js-dev', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('js-production', function() {
-	gulp.src(jsFiles)
+gulp.task('js-production-main', function() {
+	return gulp.src(jsFiles)
 		.pipe($.uglify())
 		.pipe($.concat('app.min.js'))
 		.pipe(replace({
@@ -146,23 +143,23 @@ gulp.task('js-production', function() {
 			}]
 		}))
 		.pipe(gulp.dest(buildDir));
+});
 
-	gulp.src(jsAdminFiles)
+gulp.task('js-production-admin', function() {
+	return gulp.src(jsAdminFiles)
 		.pipe($.uglify())
 		.pipe($.concat('app.admin.min.js'))
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('dev', function () {
-	gulp.start('less-dev');
-	gulp.start('js-dev');
-});
+gulp.task('less-dev', ['less-dev-main', 'less-dev-admin']);
+gulp.task('less-production', ['less-production-main', 'less-production-admin']);
 
-gulp.task('production', function () {
-	gulp.start('less-production');
-	gulp.start('js-production');
-});
+gulp.task('js-dev', ['js-dev-main', 'js-dev-admin']);
+gulp.task('js-production', ['js-production-main', 'js-production-admin']);
 
-gulp.task('default', function() {
-	gulp.start('dev');
-});
+gulp.task('dev', ['less-dev', 'js-dev']);
+
+gulp.task('production', ['less-production', 'js-production']);
+
+gulp.task('default', ['dev']);
