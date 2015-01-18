@@ -1,12 +1,15 @@
 {layout @layout.latte}
-{var $email->subject = "Přihlášení Khanova škola"}
+{var $email->subject = "Přihlášení na Khanovu školu"}
 {block body}
 	{**
 	 * @param Token $token
 	 * @param string $unsafe
 	 *}
-	<p>
-		<center><b>
-			<a href="{$token|token:$unsafe}">Přihlásit se</a>
-		</b></center>
-	</p>
+	{var $a = $recipient->gender === App\Models\Structs\Gender::FEMALE}
+
+    <h3>Ahoj {$recipient->firstName|vocative},</h3>
+    <p class="lead">kliknutím na následující odkaz se přihlásíš na Khanovu školu:</p>
+    <p class="callout center">
+        <a href="{$token|token:$unsafe}">Přihlásit se</a>
+    </p>
+    <p>Jestli si o přihlášení nezažádal{$a}, můžeš tento email ignorovat.</p>

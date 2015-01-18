@@ -9,6 +9,7 @@ use App\Models\Rme\Tokens\Unsubscribe;
 use App\Models\Rme\User;
 use App\Presenters;
 use Exception;
+use Inflection;
 use Latte\Engine;
 use Monolog\Logger;
 use Nette\Application\IPresenterFactory;
@@ -84,6 +85,7 @@ class Mailer extends Object
 		$this->orm->tokens->attach($token);
 		$this->orm->flush();
 
+		$args['recipient'] = $user;
 		$args['email'] = $msg;
 		$args['unsubscribe'] = (object) [
 			'token' => $token,
@@ -102,6 +104,9 @@ class Mailer extends Object
 
 		$latte->addFilter('token', function(Token $token, $unsafe) use ($presenter) {
 			return $presenter->link('//Token:', ['token' => $token->toString($unsafe)]);
+		});
+		$latte->addFilter('vocative', function($phrase) {
+			return Inflection::inflect($phrase, ['c' => 5]);
 		});
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
