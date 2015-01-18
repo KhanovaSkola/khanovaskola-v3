@@ -74,7 +74,7 @@ services:
 	- App\Models\Services\Gravatar
 	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Queue(%beanstalk.host%)
-	- App\Models\Services\Mailer(%smtp%)
+	- App\Models\Services\Mailer(%smtp%, %baseUrl%)
 	- App\Models\Services\Paths(@container)
 	- App\Models\Services\SchemaLayout
 	- App\Models\Services\Translator(%appDir%/localization)

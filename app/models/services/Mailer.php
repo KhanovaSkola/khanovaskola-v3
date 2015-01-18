@@ -43,12 +43,18 @@ class Mailer extends Object
 	 */
 	private $orm;
 
-	public function __construct($config, Logger $logger, IPresenterFactory $factory, RepositoryContainer $orm)
+	/**
+	 * @var string absolute url
+	 */
+	private $baseUrl;
+
+	public function __construct($config, $baseUrl, Logger $logger, IPresenterFactory $factory, RepositoryContainer $orm)
 	{
 		$this->mailer = new SmtpMailer($config);
 		$this->logger = $logger;
 		$this->factory = $factory;
 		$this->orm = $orm;
+		$this->baseUrl = $baseUrl;
 	}
 
 	private function getTemplate($view)
@@ -91,6 +97,7 @@ class Mailer extends Object
 			'token' => $token,
 			'code' => $token->getUnsafe(),
 		];
+		$args['baseUrl'] = rtrim($this->baseUrl, '/');
 
 		$latte = new Engine;
 
