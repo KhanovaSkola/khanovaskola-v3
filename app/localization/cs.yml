@@ -66,6 +66,10 @@ token:
     title: "Kód nelze znovupoužít."
     message: "Tento odkaz je jenom na jedno použití a už je vypotřebovaný."
 
+unsubscribe:
+  title: "Odhlášení v pořádku."
+  message: "Už nikdy vám nepošleme žádný email. Pokud si to rozmyslíte, můžete se v nastavení k emailům zase přihlásit."
+
 blueprintEditor:
   title: "Název"
   description: "Popisek"
