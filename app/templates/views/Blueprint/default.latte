@@ -34,12 +34,7 @@
     						<span>{$exercise->blueprint->title}</span>
     						<small>{$exercise->blueprint->description}</small>
     					</h1>
-    					{if $block && $block->dependencies->count()}
-                            <div class="dependencies">
-                                <i class="icon icon-dependency"></i>
-                                <span>Navazuje na {foreach $block->dependencies as $dep}{$dep->title|lcFirst|accusative}{sep}, {/sep}{/foreach}.</span>
-                            </div>
-                        {/if}
+    					{include '../_dependsOn.latte', block => $block}
     					<div class="goal-title">
     					    Odpověz 5&times; za sebou správně:
 						</div>

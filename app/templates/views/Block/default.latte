@@ -39,15 +39,7 @@
 	                            {/if}
                             </span>
                         </div>
-                        {if $block->dependencies->count()}
-	                        <div class="dependencies">
-                                <i class="icon icon-dependency"></i>
-	                            <span>
-	                                Navazuje na
-	                                {foreach $block->dependencies as $dep}{$dep->title|lcFirst|accusative}{sep}, {/sep}{/foreach}.
-	                            </span>
-	                        </div>
-	                    {/if}
+                        {include '../_dependsOn.latte', block => $block}
                         <div>
                             <a n:href="Block:continue" class="btn">Pokračovat</a>
                         </div>
