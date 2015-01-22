@@ -3,7 +3,7 @@
  * @param bool $link = TRUE
  *}
 {default $link = TRUE}
-{if $block->dependencies->count()}
+{if $block && $block->dependencies && $block->dependencies->count()}
 	<div class="dependencies">
 	    <i class="icon icon-dependency"></i>
 	    <span>
