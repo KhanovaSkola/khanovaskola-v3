@@ -65,6 +65,9 @@ trait ControlTrait
 		$template->addFilter('templateLink', function($link) {
 			return strtr($link, ['%7B' => '{', '%7D' => '}']);
 		});
+		$template->addFilter('lcFirst', function($text) {
+			return lcFirst($text);
+		});
 
 		$cases = [
 			'nominative' => 1,
