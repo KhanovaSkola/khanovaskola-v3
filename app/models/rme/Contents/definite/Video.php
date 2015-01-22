@@ -59,6 +59,7 @@ class Video extends Content
 	{
 		return parent::getIndexData() + [
 			'subtitles' => $this->getTextFromSubtitles(),
+			'youtube_id' => $this->youtubeId,
 		];
 	}
 

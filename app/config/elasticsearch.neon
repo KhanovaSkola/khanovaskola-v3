@@ -11,6 +11,10 @@ settings:
 				type: custom
 				tokenizer: standard
 				filter: [icu_folding]
+			youtube_id:
+				type: pattern
+				pattern: \s+
+				lowercase: false
 		filter:
 			cs_stem:
 				type: stemmer
@@ -47,6 +51,10 @@ mappings:
 				type: string
 				store: true
 				index_options: offsets
+			youtube_id:
+				type: string
+				index_analyzer: youtube_id
+				search_analyzer: youtube_id
 			block_count:
 				type: integer
 			schema_count:

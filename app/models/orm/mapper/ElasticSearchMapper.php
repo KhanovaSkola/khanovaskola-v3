@@ -49,6 +49,7 @@ class ElasticSearchMapper extends Mapper
 									['match' => ['title' => $query]],
 									['match' => ['description' => $query]],
 									['match_phrase' => ['subtitles' => $query]],
+									['term' => ['youtube_id' => $query]],
 								]
 							]
 						],
