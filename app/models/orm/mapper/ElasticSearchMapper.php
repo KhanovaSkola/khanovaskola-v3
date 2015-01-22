@@ -32,13 +32,23 @@ class ElasticSearchMapper extends Mapper
 		});
 	}
 
-	protected function findByFulltext($type, $query, $limit = 10, $offset = 0)
+	/**
+	 * If this method is changed, build:js must be run!
+	 *
+	 * @param string $type
+	 * @param array $fields
+	 * @param string $query
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array
+	 */
+	public function getQueryTemplate($type, array $fields, $query, $limit, $offset)
 	{
-		$args = [
+		return [
 			'index' => $this->elastic->getIndex(),
 			'type' => $type,
 			'body' => [
-				'fields' => ['id'],
+				'fields' => $fields,
 				'from' => $offset,
 				'size' => $limit,
 				'query' => [
@@ -93,7 +103,11 @@ class ElasticSearchMapper extends Mapper
 				],
 			]
 		];
+	}
 
+	protected function findByFulltext($type, $query, $limit = 10, $offset = 0)
+	{
+		$args = $this->getQueryTemplate($type, ['id'], $query, $limit, $offset);
 		return $this->elastic->search($args);
 	}
 
