@@ -1,13 +1,15 @@
 {**
  * @param App\Models\Rme\Block $block
+ * @param bool $link = TRUE
  *}
+{default $link = TRUE}
 {if $block->dependencies->count()}
 	<div class="dependencies">
 	    <i class="icon icon-dependency"></i>
 	    <span>
 	        Navazuje na
 	        {foreach $block->dependencies as $dep}
-	            <a n:href="$dep, $schema">
+	            <a n:tag-if="$link" n:href="$dep, $schema">
 	                {$dep->title|lcFirst|accusative}{*
 	            *}</a>{sep}, {/sep}{*
 	        *}{/foreach}.

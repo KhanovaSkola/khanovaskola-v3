@@ -33,7 +33,7 @@
                             <span>{$video->title}</span>
                             <small>{$video->description}</small>
                         </h1>
-                        {include '../_dependsOn.latte', block => $block}
+                        {include '../_dependsOn.latte', block => $block, link => FALSE}
                     </div>
                 </div>
                 <div class="right">
