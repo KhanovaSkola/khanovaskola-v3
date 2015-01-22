@@ -5,22 +5,15 @@ App.elasticSearch = {
 App.autocomplete = function(query, cb) {
 	$.ajax({
 		type: 'POST',
-		url: App.elasticSearch.host + '/@@elastic.index/_suggest',
+		url: App.elasticSearch.host + '/@@elastic.index/content/_search',
 		dataType: 'json',
-		data: JSON.stringify({
-			content: {
-				text: query,
-				completion: {
-					field: 'suggest'
-				}
-			}
-		}),
+		data: JSON.stringify(App.getSearchTemplate(query)),
 		success: function (results) {
 			var titles = [];
-			$.each(results.content[0].options, function(i, v) {
+			$.each(results.hits.hits, function(i, v) {
 				titles.push({
-					id: v.payload.id,
-					value: v.text
+					id: v._id,
+					value: v.fields.title
 				});
 			});
 			cb(titles);
