@@ -3,12 +3,19 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services;
 use Nette\Forms\Controls\TextInput;
 use Nette\Utils\Strings;
 
 
 final class Search extends Presenter
 {
+
+	/**
+	 * @var Services\Search
+	 * @inject
+	 */
+	public $search;
 
 	public function actionRedirectAutocomplete($contentId)
 	{
@@ -28,7 +35,13 @@ final class Search extends Presenter
 
 		$this->template->query = $query;
 		list($limit, $offset) = $this->getLinearLimitOffset(1);
-		$this->template->search = $this->orm->contents->getWithFulltext($query, $limit, $offset);
+		$this->template->search = $this->search->query($query, $limit, $offset);
+	}
+
+	public function actionMore($query, $page)
+	{
+		list($limit, $offset) = $this->getLinearLimitOffset($page);
+		$this->template->search = $this->search->query($query, $limit, $offset);
 	}
 
 	public function actionOpenSearchSuggest($query)
@@ -52,12 +65,6 @@ final class Search extends Presenter
 			$response[3][] = $this->absoluteLink($content);
 		}
 		$this->sendJson($response);
-	}
-
-	public function actionMore($query, $page)
-	{
-		list($limit, $offset) = $this->getLinearLimitOffset($page);
-		$this->template->search = $this->orm->contents->getWithFulltext($query, $limit, $offset);
 	}
 
 	/**

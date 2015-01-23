@@ -7,7 +7,7 @@ use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
 
 
-class BlocksMapper extends Mappers\Mapper
+class BlocksMapper extends Mappers\ElasticSearchMapper
 {
 
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)
@@ -51,6 +51,28 @@ class BlocksMapper extends Mappers\Mapper
 		}
 
 		return $this->model->contents->getById($row['content_id']);
+	}
+
+	public function findByFulltext($type, $query, $limit = 10, $offset = 0)
+	{
+		$args =  [
+			'index' => $this->elastic->getIndex(),
+			'type' => $type,
+			'body' => [
+				'fields' => ['id'],
+				'from' => $offset,
+				'size' => $limit,
+				'min_score' => 18,
+				'query' => [
+					'multi_match' => [
+						'query' => $query,
+						'fields' => ['title', 'description'],
+					],
+				]
+			]
+		];
+
+		return $this->elastic->search($args);
 	}
 
 }

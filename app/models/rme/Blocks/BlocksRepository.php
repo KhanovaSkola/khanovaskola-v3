@@ -8,7 +8,8 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection|Block[] findAll()
- * @method NULL|Content getNextContent(User $user, Block $block)
+ * @method mixed                  findByFulltext($type, $query, $limit = 10, $offset = 0)
+ * @method NULL|Content           getNextContent(User $user, Block $block)
  */
 class BlocksRepository extends Repository
 {

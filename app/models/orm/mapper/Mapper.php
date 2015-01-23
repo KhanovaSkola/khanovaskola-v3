@@ -64,9 +64,9 @@ class Mapper extends DibiMapper
 	{
 		$fqn = $this->repository->getEntityClassName();
 		$class = substr($fqn, strrpos($fqn, '\\') + 1);
-		return preg_replace_callback('~[A-Z]~', lcFirst($class), function($c) {
+		return preg_replace_callback('~[A-Z]~', function($c) {
 			return '-' . strToLower($c);
-		});
+		}, lcFirst($class));
 	}
 
 }

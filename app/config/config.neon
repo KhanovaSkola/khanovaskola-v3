@@ -77,6 +77,7 @@ services:
 	- App\Models\Services\Mailer(%smtp%, %baseUrl%)
 	- App\Models\Services\Paths(@container)
 	- App\Models\Services\SchemaLayout
+	- App\Models\Services\Search
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
 	- App\Models\Services\Youtube

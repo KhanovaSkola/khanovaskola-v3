@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers\ElasticSearchMapper;
+use App\Models\Services\Highlight;
 use Orm\DibiCollection;
 
 
@@ -142,6 +143,71 @@ class ContentsMapper extends ElasticSearchMapper
 			$this->model->blocks->getById($res['block_id']),
 			$this->model->schemas->getById($res['schema_id']),
 		];
+	}
+
+	public function findByFulltext($type, $query, $limit = 10, $offset = 0)
+	{
+		$args =  [
+			'index' => $this->elastic->getIndex(),
+			'type' => $type,
+			'body' => [
+				'fields' => ['id'],
+				'from' => $offset,
+				'size' => $limit,
+				'query' => [
+					'function_score' => [
+						'query' => [
+							'bool' => [
+								'should' => [
+									['match' => ['title' => $query]],
+									['match' => ['description' => $query]],
+									['match_phrase' => ['subtitles' => $query]],
+									['term' => ['youtube_id' => $query]],
+								]
+							]
+						],
+						'score_mode' => 'sum',
+						'boost_mode' => 'sum',
+						'functions' => [
+							[
+								'field_value_factor' => [
+									'field' => 'schema_count',
+									'factor' => 1.2,
+								]
+							],
+							[
+								'field_value_factor' => [
+									'field' => 'block_count',
+									'factor' => 1.1,
+								]
+							],
+							[
+								'field_value_factor' => [
+									'field' => 'position',
+									'factor' => -0.01,
+								]
+							],
+						],
+					],
+				],
+				'highlight' => [
+					'pre_tags' => [Highlight::START],
+					'post_tags' => [Highlight::END],
+					'fields' => [
+						'title' => ['number_of_fragments' => 0],
+						'description' => ['number_of_fragments' => 0],
+						'subtitles' => ['number_of_fragments' => 3],
+					]
+				],
+				'aggs' => [
+					'buckets' => [
+						'terms' => ['field' => 'bucket']
+					]
+				],
+			]
+		];
+
+		return $this->elastic->search($args);
 	}
 
 }

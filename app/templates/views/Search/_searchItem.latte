@@ -1,21 +1,40 @@
 {define searchItem}
 	{**
-	 * @param App\Models\Rme\Content $content
+	 * @param App\Models\Rme\Content|App\Models\Rme\Block $hit
 	 *}
 
-	{var $block = $content->getRandomParent()}
-    {var $schema = $block ? $block->getRandomParent() : NULL}
-    {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
-    <article>
-        <div class="left text-{$subject ? $subject->color : 'blue'}">
-            <i class="icon icon-{$subject ? $subject->icon : 'subject-history'}"></i>
-        </div>
-        <div class="right">
-            <span class="title" data-score="{$content->score|number:2}">
-                <a n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
-            </span>
-            <p>{$content->highlight('description')|noescape}</p>
-            <p class="transcript">{$content->highlight('subtitles')|noescape}</p>
-        </div>
+    <article data-score="{$hit->score|number:2}">
+        {if $hit instanceof App\Models\Rme\Block}
+            {var $block = $hit}
+            {var $schema = $block ? $block->getRandomParent() : NULL}
+            {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
+            <div class="left block text-{$subject ? $subject->color : 'blue'}">
+                <i class="icon icon-{$subject ? $subject->icon : 'subject-history'}"></i>
+            </div>
+            <div class="right">
+                <span class="title">
+                    <a n:href="$block, $schema">{$block->title}</a>
+                    <small>
+                        skupina {_'search.blockContains', $block->countContents()}
+                    </small>
+                </span>
+                <p>{$block->description}</p>
+            </div>
+        {else}
+            {var $content = $hit}
+            {var $block = $content->getRandomParent()}
+            {var $schema = $block ? $block->getRandomParent() : NULL}
+            {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
+            <div class="left text-{$subject ? $subject->color : 'blue'}">
+                <i class="icon icon-{$subject ? $subject->icon : 'subject-history'}"></i>
+            </div>
+            <div class="right">
+                <span class="title">
+                    <a n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
+                </span>
+                <p>{$content->highlight('description')|noescape}</p>
+                <p class="transcript">{$content->highlight('subtitles')|noescape}</p>
+            </div>
+        {/if}
     </article>
 {/define}

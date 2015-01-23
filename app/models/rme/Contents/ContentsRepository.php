@@ -9,8 +9,10 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection|Content[]   findAll()
+ * @method DibiCollection|Content[]   findById($id)
  * @method DibiCollection|Video[]     findAllVideos()
  * @method DibiCollection|Blueprint[] findAllBlueprints()
+ * @method mixed                      findByFulltext($type, $query, $limit = 10, $offset = 0)
  * @method Content                    getRandom()
  * @method NULL|Video                 getVideoById(int $id)
  * @method NULL|Video                 getVideoByYoutubeId(string $youtubeId)

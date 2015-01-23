@@ -19,7 +19,7 @@
                 <section class="search-result" data-url-more="{plink more, query => $query}">
                     {includeblock _searchItem.latte}
                     {foreach $search->results as $i => $content}
-                        {include searchItem, content => $content}
+                        {include searchItem, hit => $content}
 					{/foreach}
                 </section>
 

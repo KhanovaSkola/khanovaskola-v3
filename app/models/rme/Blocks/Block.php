@@ -2,6 +2,7 @@
 
 namespace App\Models\Rme;
 
+use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
 use Nette\InvalidStateException;
 use Orm\ManyToMany as MtM;
@@ -22,8 +23,14 @@ use Orm\OneToMany as OtM;
  * @property Content[]                $contents            {ignore}
  * @property Schema[]                 $schemas             {ignore}
  */
-class Block extends TitledEntity
+class Block extends TitledEntity implements IIndexable
 {
+
+	/**
+	 * Only set for SearchResponse
+	 * @var int
+	 */
+	public $score;
 
 	/**
 	 * @return NULL|Schema
@@ -113,4 +120,16 @@ class Block extends TitledEntity
 		return $this->getValue('contentBlockBridges')->get()->findBy(['contentId' => $content->id])->count();
 	}
 
+	/**
+	 * Values to be saved to es index
+	 *
+	 * @return array [field => data]
+	 */
+	public function getIndexData()
+	{
+		return [
+			'title' => $this->title,
+			'description' => $this->description,
+		];
+	}
 }

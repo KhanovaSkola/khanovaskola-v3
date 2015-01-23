@@ -14,7 +14,7 @@ use Orm\Events;
 /**
  * All entities handled by this mapper must implement IIndexable
  */
-class ElasticSearchMapper extends Mapper
+abstract class ElasticSearchMapper extends Mapper
 {
 
 	/**
@@ -32,138 +32,6 @@ class ElasticSearchMapper extends Mapper
 		});
 	}
 
-	/**
-	 * If this method is changed, build:js must be run!
-	 *
-	 * @param string $type
-	 * @param array $fields
-	 * @param string $query
-	 * @param int $limit
-	 * @param int $offset
-	 * @return array
-	 */
-	public function getQueryTemplate($type, array $fields, $query, $limit, $offset)
-	{
-		return [
-			'index' => $this->elastic->getIndex(),
-			'type' => $type,
-			'body' => [
-				'fields' => $fields,
-				'from' => $offset,
-				'size' => $limit,
-				'query' => [
-					'function_score' => [
-						'query' => [
-							'bool' => [
-								'should' => [
-									['match' => ['title' => $query]],
-									['match' => ['description' => $query]],
-									['match_phrase' => ['subtitles' => $query]],
-									['term' => ['youtube_id' => $query]],
-								]
-							]
-						],
-						'score_mode' => 'sum',
-						'boost_mode' => 'sum',
-						'functions' => [
-							[
-								'field_value_factor' => [
-									'field' => 'schema_count',
-									'factor' => 1.2,
-								]
-							],
-							[
-								'field_value_factor' => [
-									'field' => 'block_count',
-									'factor' => 1.1,
-								]
-							],
-							[
-								'field_value_factor' => [
-									'field' => 'position',
-									'factor' => -0.01,
-								]
-							],
-						],
-					],
-				],
-				'highlight' => [
-					'pre_tags' => [Highlight::START],
-					'post_tags' => [Highlight::END],
-					'fields' => [
-						'title' => ['number_of_fragments' => 0],
-						'description' => ['number_of_fragments' => 0],
-						'subtitles' => ['number_of_fragments' => 3],
-					]
-				],
-				'aggs' => [
-					'buckets' => [
-						'terms' => ['field' => 'bucket']
-					]
-				],
-			]
-		];
-	}
-
-	protected function findByFulltext($type, $query, $limit = 10, $offset = 0)
-	{
-		$args = $this->getQueryTemplate($type, ['id'], $query, $limit, $offset);
-		return $this->elastic->search($args);
-	}
-
-	/**
-	 * @param $query
-	 * @param NULL|int $limit
-	 * @param NULL|int $offset
-	 * @return SearchResponse
-	 */
-	public function getWithFulltext($query, $limit = 10, $offset = 0)
-	{
-		$res = $this->findByFulltext($this->getShortEntityName(), $query, $limit, $offset);
-		if ($res['hits']['total'] === 0)
-		{
-			return new SearchResponse();
-		}
-
-		$ids = [];
-		$highlights = [];
-		foreach ($res['hits']['hits'] as $hit)
-		{
-			$id = (int) $hit['_id'];
-
-			$ids[] = $id;
-			$highlights[$id] = [isset($hit['highlight']) ? $hit['highlight'] : [], $hit['_score']];
-		}
-
-		$entities = $this->findById($ids)->fetchAll();
-		$entities = $this->sortIdByList($entities, $ids);
-
-		$result = [];
-		foreach ($entities as $entity)
-		{
-			list($hls, $score) = $highlights[$entity->id];
-			$entity->highlights = $hls;
-			$entity->score = $score;
-			$result[] = $entity;
-		}
-
-		return new SearchResponse($result, $res['aggregations']['buckets']['buckets'], $res['hits']['total']);
-	}
-
-	/**
-	 * @param array $entities
-	 * @param array $list [position => id]
-	 * @return array sorted $entities
-	 */
-	private function sortIdByList(array $entities, array $list)
-	{
-		$sorted = [];
-		foreach ($entities as $entity)
-		{
-			$sorted[array_search($entity->id, $list)] = $entity;
-		}
-		ksort($sorted);
-		return $sorted;
-	}
+	abstract public function findByFulltext($type, $query, $limit = 10, $offset = 0);
 
 }

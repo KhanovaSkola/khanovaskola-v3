@@ -5,5 +5,5 @@
 
 {includeblock _searchItem.latte}
 {foreach $search->results as $i => $content}
-	{include searchItem, content => $content}
+	{include searchItem, hit => $content}
 {/foreach}

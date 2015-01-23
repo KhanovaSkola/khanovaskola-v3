@@ -61,3 +61,15 @@ mappings:
 				type: integer
 			position:
 				type: integer
+	block:
+		index_analyzer: cs_icu_analyzer
+		search_analyzer: cs_icu_analyzer
+		properties:
+			title:
+				type: string
+				store: true
+				boost: 5
+			description:
+				type: string
+				store: true
+				boost: 4
