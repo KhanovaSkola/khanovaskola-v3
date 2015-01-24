@@ -7,6 +7,7 @@ use App\Models\Routers\Redirect;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 use Nette\DI\Container;
+use Nextras\Routing\StaticRouter;
 
 
 class Router extends RouteList
@@ -21,22 +22,22 @@ class Router extends RouteList
 			Route::$defaultFlags |= Route::SECURED;
 		}
 
-		$this[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
-		$this[] = new Route('', 'Homepage:default');
+		$this[] = new StaticRouter(['Homepage:default' => 'index.php'], StaticRouter::ONE_WAY);
+		$this[] = new StaticRouter([
+			'Homepage:default' => '',
+			'Esi:headerUser' => 'esi/header/user',
+			'Profile:default' => 'profil',
+			'Auth:in' => 'prihlaseni',
+			'Auth:out' => 'odhlaseni',
+			'Auth:resetPassword' => 'heslo',
+			'Text:about' => 'o-skole',
+			'Subjects:default' => 'predmety',
+			'File:opensearch' => 'opensearch.xml',
+			'File:robots' => 'robots.txt',
+			'Sitemap:default' => 'sitemap.xml'
+		]);
 
-		$this[] = new Route('esi/header/user', 'Esi:headerUser');
-		$this[] = new Route('profil', 'Profile:default');
-		$this[] = new Route('prihlaseni', 'Auth:in');
-		$this[] = new Route('odhlaseni', 'Auth:out');
-		$this[] = new Route('heslo', 'Auth:resetPassword');
-		$this[] = new Route('o-skole', 'Text:about');
-		$this[] = new Route('predmety', 'Subjects:default');
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
-
-		$this[] = new Route('sitemap[!.xml]', 'Sitemap:default');
-
-		$this[] = new Route('opensearch.xml', 'File:opensearch');
-		$this[] = new Route('robots.txt', 'File:robots');
 
 		$this[] = new Route('schema/[<action>/]<schemaId>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action>/][<schemaId>/]<blockId>[-<slug>]', 'Block:default');
