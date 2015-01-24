@@ -6,6 +6,7 @@ $(function() {
 
 	App.searchPage = 1;
 
+	var lastPage = false;
 	var $showMore = $('[data-show-more]');
 
 	var xhr;
@@ -21,6 +22,7 @@ $(function() {
 			success: function(snippet) {
 				if (!snippet.trim()) {
 					$showMore.hide();
+					lastPage = true;
 				}
 
 				$results.append(snippet);
@@ -34,7 +36,7 @@ $(function() {
 	};
 
 	$(window).on('scroll', function() {
-		if (xhr) {
+		if (xhr || lastPage) {
 			return false;
 		}
 
