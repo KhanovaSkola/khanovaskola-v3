@@ -6,7 +6,12 @@ $(function() {
 	var $subjects = $('#mobile-nav-subjects').clone();
 	$('#mobile-nav-subjects-clone').append($subjects);
 
-	$('header, .container, .modal, main').click(function() {
+	$(document).on('click', function(e) {
+		var $target = $(e.target);
+		if ($target.is('.mobile-nav') || $target.parents('.mobile-nav').length !== 0)
+		{
+			return;
+		}
 		$nav.removeClass('open');
 	});
 	$('.burger').click(function() {

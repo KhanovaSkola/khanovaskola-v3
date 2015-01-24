@@ -11,7 +11,12 @@ $(function() {
 		return false;
 	});
 
-	$('body').children().not('header').on('click', function() {
+	$(document).on('click', function(e) {
+		var $target = $(e.target);
+		if ($target.is('.dropdown') || $target.parents('.dropdown').length !== 0)
+		{
+			return;
+		}
 		$dropdown.removeClass('open');
 		$dropdown.parents('header').removeClass('hover');
 	});
