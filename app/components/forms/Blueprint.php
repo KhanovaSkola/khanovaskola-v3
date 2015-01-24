@@ -2,13 +2,21 @@
 
 namespace App\Components\Forms;
 
+use App\BlueprintCompilerException;
 use App\Models\Rme;
+use App\Models\Services\BlueprintCompiler;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
 
 
 class Blueprint extends EntityForm
 {
+
+	/**
+	 * @var BlueprintCompiler
+	 * @inject
+	 */
+	public $compiler;
 
 	public function setupBoth()
 	{
@@ -87,6 +95,17 @@ class Blueprint extends EntityForm
 		$this->repos->flush();
 
 		$this->iLog('form.blueprint.edit', ['blueprint' => $blueprint->id]);
+
+		try
+		{
+			$this->compiler->compile($blueprint);
+		}
+		catch (BlueprintCompilerException $e)
+		{
+			$this->presenter->flashError('blueprintEditor.submit.error', NULL, ['error' => $e->getMessage()]);
+			return;
+		}
+
 		$this->presenter->flashSuccess('blueprintEditor.submit.edit');
 		$this->presenter->redirect('this', ['blueprintId' => $blueprint->id]);
 	}

@@ -91,6 +91,9 @@ blueprintEditor:
     edit:
       title: "Cvičení změněno."
       message: ""
+    error:
+      title: "Uloženo, ale je tam chyba."
+      message: "%error"
 
 columnChart:
   blueprint:
