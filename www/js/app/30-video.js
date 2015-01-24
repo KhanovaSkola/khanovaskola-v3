@@ -1,11 +1,13 @@
 App.video = {};
 
 App.video.tickerDelta = 100;
+App.video.longTickerDelta = 1200; // inactive chrome tab does not allow more
 
 App.video.onInit = [];
 App.video.onPlay = [];
 App.video.onPause = []; // current time
 App.video.onTick = []; // current time
+App.video.onLongTick = []; // current time
 App.video.onSeek = []; // current time, from time
 App.video.onStop = []; // current time
 App.video.onChangeView = []; // current time, is fullscreen
@@ -40,6 +42,9 @@ App.video.onPlayerStateChange = function(args) {
 			App.video.ticker = setInterval(function() {
 				App.callAll(App.video.onTick, [App.video.player.getCurrentTime()]);
 			}, App.video.tickerDelta);
+			App.video.longTicker = setInterval(function() {
+				App.callAll(App.video.onLongTick, [App.video.player.getCurrentTime()]);
+			}, App.video.longTickerDelta);
 			App.callAll(App.video.onPlay);
 			break;
 		case 2:

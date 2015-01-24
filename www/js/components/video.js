@@ -131,24 +131,30 @@
 	});
 
 	var renderSubtitle = function(now) {
-		if (lastIndex) {
+		if (lastIndex !== false) {
 			if (subs[lastIndex][0] <= now && subs[lastIndex][1] >= now) {
-				console.debug('optimization (do not rerender)');
+				//console.debug('optimization (do not rerender)');
+				return;
+			}
+			if (! lastIndex + 1 in subs) {
+				// end of subtitles
+				$subtitlesContent.text('');
+				lastIndex = false;
 				return;
 			}
 			if (subs[lastIndex + 1][0] <= now && subs[lastIndex + 1][1] >= now) {
 				lastIndex = lastIndex + 1;
-				console.debug('optimization (rerender)');
+				//console.debug('optimization (rerender)');
 				$subtitlesContent.text(subs[lastIndex][2]);
 				return;
 			}
 		}
 
-		console.debug('searching', now);
+		//console.debug('searching', now);
 		subs.every(function(node, index) {
 			if (node[0] <= now) {
 				if (node[1] >= now) {
-					console.debug('costly sub search');
+					//console.debug('costly sub search');
 					$subtitlesContent.text(node[2]);
 					lastIndex = index;
 					return false;

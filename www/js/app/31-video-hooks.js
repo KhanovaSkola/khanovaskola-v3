@@ -27,9 +27,9 @@
 	});
 
 	var slowTick = 0;
-	var slowTickSteps = 5000 / App.video.tickerDelta;
+	var slowTickSteps = 5000 / App.video.longTickerDelta;
 	var sendPosition = function (now) {
-		realTimeWatched += App.video.tickerDelta / 1000;
+		realTimeWatched += App.video.longTickerDelta / 1000;
 
 		slowTick++;
 		if (slowTick < slowTickSteps) {
@@ -51,7 +51,7 @@
 		});
 	};
 
-	App.video.onTick.push(sendPosition);
+	App.video.onLongTick.push(sendPosition);
 
 	var pauseDuration;
 	var pausedAt;
