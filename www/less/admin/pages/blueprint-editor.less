@@ -19,13 +19,14 @@
 		margin: 1em 0;
 	}
 
-
 	// highlighting styles
 	.underlay {
 		position: absolute;
 		margin-left: 2px;
 		margin-top: -5px;
 		color: transparent;
+		line-height: 2.4;
+		width: ~'calc( 100% - 95px )';
 
 		span {
 			display: inline-block;
@@ -41,6 +42,15 @@
 	.form-control {
 		background-color: transparent;
 	}
+
+	textarea {
+		padding: 0;
+		border: none;
+		line-height: 2.4;
+		margin-top: -5px;
+		margin-left: 2px;
+	}
+
 	.syntax {
 		&-latex {
 			background-color: lighten(@khan-blue, 50%);

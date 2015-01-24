@@ -25,7 +25,7 @@ class Blueprint extends EntityForm
 		$this->addText('description')
 			->setRequired('description.missing');
 
-		$this->addText('question')
+		$this->addTextArea('question')
 			->setRequired('question.missing');
 		$this->addText('answer')
 			->setRequired('answer.missing');
