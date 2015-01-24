@@ -3,7 +3,7 @@
 <form n:name="form">
     <div class="form-group form-group-mail">
         <div class="clearfix">
-            <div class="pull-left hidden">
+            <div n:ifset="$avatarUrl" class="pull-left hidden">
                 <img src="{$avatarUrl}" alt="avatar" class="avatar">
             </div>
             <div class="pull-left has-addend floating-placeholder">
