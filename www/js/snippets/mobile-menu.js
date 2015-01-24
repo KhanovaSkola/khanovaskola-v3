@@ -22,7 +22,7 @@ $(function() {
 	$('.footer-mobile ul.schemas, .mobile-nav ul.schemas').slideUp();
 	$('[data-subject-open]').click(function() {
 		var $open = $(this).siblings('[data-subject="' + $(this).data('subject-open') + '"]');
-		$open.slideToggle();
+		$open.slideToggle(120);
 		return false;
 	});
 });
