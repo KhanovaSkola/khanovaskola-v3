@@ -17,12 +17,14 @@ class Router extends RouteList
 	{
 		parent::__construct();
 
+		$secured = NULL;
 		if ($context->getParameters()['tls'])
 		{
 			Route::$defaultFlags |= Route::SECURED;
+			$secured = Route::SECURED;
 		}
 
-		$this[] = new StaticRouter(['Homepage:default' => 'index.php'], StaticRouter::ONE_WAY);
+		$this[] = new StaticRouter(['Homepage:default' => 'index.php'], StaticRouter::ONE_WAY | $secured);
 		$this[] = new StaticRouter([
 			'Homepage:default' => '',
 			'Esi:headerUser' => 'esi/header/user',
@@ -35,7 +37,7 @@ class Router extends RouteList
 			'File:opensearch' => 'opensearch.xml',
 			'File:robots' => 'robots.txt',
 			'Sitemap:default' => 'sitemap.xml'
-		]);
+		], $secured);
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
 
