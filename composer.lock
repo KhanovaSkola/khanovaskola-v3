@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "767586eeed9efaa1e7fb2c5485c3dd2f",
+    "hash": "9855a860f96c71b0f0c8ba125827cc22",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -2364,6 +2364,57 @@
             "time": "2014-08-19 20:17:04"
         },
         {
+            "name": "nextras/static-router",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/static-router.git",
+                "reference": "d97be13214443e03cc5efb849adc69d9ae0a2a5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/static-router/zipball/d97be13214443e03cc5efb849adc69d9ae0a2a5d",
+                "reference": "d97be13214443e03cc5efb849adc69d9ae0a2a5d",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "~2.2",
+                "php": "~5.3"
+            },
+            "require-dev": {
+                "nette/tester": "~1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Routing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nextras Community",
+                    "homepage": "https://github.com/nextras/static-router/graphs/contributors"
+                }
+            ],
+            "description": "Simple static router for Nette Framework",
+            "homepage": "https://github.com/nextras/static-router",
+            "keywords": [
+                "nette",
+                "nextras",
+                "router"
+            ],
+            "time": "2014-10-26 15:57:02"
+        },
+        {
             "name": "pda/pheanstalk",
             "version": "v3.0.2",
             "source": {
@@ -2652,6 +2703,53 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
             "time": "2014-10-30 20:17:55"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v2.5.7",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "ffe6e27a57e31262c3204a0955076c27c54c8e7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/ffe6e27a57e31262c3204a0955076c27c54c8e7e",
+                "reference": "ffe6e27a57e31262c3204a0955076c27c54c8e7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-11-03 19:48:45"
         },
         {
             "name": "tackk/cartographer",
@@ -3633,53 +3731,6 @@
                 "standards"
             ],
             "time": "2014-09-25 03:33:46"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v2.5.7",
-            "target-dir": "Symfony/Component/Process",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Process.git",
-                "reference": "ffe6e27a57e31262c3204a0955076c27c54c8e7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/ffe6e27a57e31262c3204a0955076c27c54c8e7e",
-                "reference": "ffe6e27a57e31262c3204a0955076c27c54c8e7e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.5-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Process\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Symfony Process Component",
-            "homepage": "http://symfony.com",
-            "time": "2014-11-03 19:48:45"
         }
     ],
     "aliases": [
@@ -3699,8 +3750,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 5.5.0",
-        "ext-inflection": "~2.0"
+        "php": ">= 5.5.0"
     },
     "platform-dev": []
 }

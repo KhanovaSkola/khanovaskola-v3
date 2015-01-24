@@ -3803,5 +3803,58 @@
             }
         ],
         "description": "A PHP sitemap generation tool."
+    },
+    {
+        "name": "nextras/static-router",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nextras/static-router.git",
+            "reference": "d97be13214443e03cc5efb849adc69d9ae0a2a5d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nextras/static-router/zipball/d97be13214443e03cc5efb849adc69d9ae0a2a5d",
+            "reference": "d97be13214443e03cc5efb849adc69d9ae0a2a5d",
+            "shasum": ""
+        },
+        "require": {
+            "nette/application": "~2.2",
+            "php": "~5.3"
+        },
+        "require-dev": {
+            "nette/tester": "~1.3"
+        },
+        "time": "2014-10-26 15:57:02",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Nextras\\Routing\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nextras Community",
+                "homepage": "https://github.com/nextras/static-router/graphs/contributors"
+            }
+        ],
+        "description": "Simple static router for Nette Framework",
+        "homepage": "https://github.com/nextras/static-router",
+        "keywords": [
+            "nette",
+            "nextras",
+            "router"
+        ]
     }
 ]

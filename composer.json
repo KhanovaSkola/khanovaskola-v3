@@ -13,7 +13,6 @@
 	},
 	"require": {
 		"php": ">= 5.5.0",
-	  	"ext-inflection": "~2.0",
 		"clevis/config-version-extension": "~1.1",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
@@ -32,7 +31,8 @@
 		"symfony/console": "~2.4",
 	  	"symfony/process": "~2.5",
 		"bjeavons/zxcvbn-php": "~0.1",
-		"tackk/cartographer": "~1.0.2"
+		"tackk/cartographer": "~1.0.2",
+		"nextras/static-router": "~1.0"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
@@ -44,6 +44,9 @@
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2"
+	},
+	"suggest": {
+	  "ext-inflection": "~2.0"
 	},
 	"repositories": [
 		{
