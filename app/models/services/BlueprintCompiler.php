@@ -7,6 +7,7 @@ use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
 use App\Models\Structs\Exercise;
 use App\NotImplementedException;
+use Inflection;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -18,6 +19,7 @@ class BlueprintCompiler extends Object
 	const T_COLOR = 'COLOR';
 	const T_LATEX = 'LATEX';
 	const T_EVAL = 'EVAL';
+	const T_INFLECT = 'INFLECT';
 
 	const S_COMPLETE = 'complete';
 	const S_INNER = 'cdata';
@@ -41,6 +43,16 @@ class BlueprintCompiler extends Object
 	 * @var BlueprintPurifier
 	 */
 	private $purifier;
+
+	/**
+	 * @var FALSE|array
+	 */
+	private $inInflection;
+
+	/**
+	 * @var string
+	 */
+	private $inflectBuffer;
 
 	public function __construct(BlueprintPurifier $purifier)
 	{
@@ -71,7 +83,7 @@ class BlueprintCompiler extends Object
 				case 'integer':
 					$min = $this->compileString($def->min, $vars);
 					$max = $this->compileString($def->max, $vars);
-					$vars[$var] = rand(is_integer($min) ? $min : 0, is_integer($max) ? $max : 0);
+					$vars[$var] = rand(ctype_digit($min) ? $min : 0, ctype_digit($max) ? $max : 0);
 					break;
 				case 'list':
 					$vars[$var] = $def->list[rand(0, count($def->list) - 1)];
@@ -105,7 +117,15 @@ class BlueprintCompiler extends Object
 		$inColor = FALSE;
 		foreach ($nodes as $node)
 		{
-			$out .= $this->compileNode($node, $vars, $inLatex, $inColor);
+			$partial = $this->compileNode($node, $vars, $inLatex, $inColor);
+			if ($this->inInflection)
+			{
+				$this->inflectBuffer .= $partial;
+			}
+			else
+			{
+				$out .= $partial;
+			}
 		}
 
 		return $this->purifier->filter($out);
@@ -190,6 +210,31 @@ class BlueprintCompiler extends Object
 				{
 					$inColor = FALSE;
 					return $close;
+				}
+
+			case self::T_INFLECT:
+				if ($node['type'] === self::S_COMPLETE)
+				{
+					return Inflection::inflect($node['value'], [
+						Inflection::CASE_N => $node['attributes']['CASE']
+					]);
+				}
+				else if ($node['type'] === self::S_OPEN)
+				{
+					$this->inInflection = [
+						Inflection::CASE_N => $node['attributes']['CASE']
+					];
+					return '';
+				}
+				else if ($node['type'] === self::S_INNER)
+				{
+					return $node['value'];
+				}
+				else // self::S_CLOSE
+				{
+					$out = Inflection::inflect($this->inflectBuffer, $this->inInflection);
+					$this->inInflection = FALSE;
+					return $out;
 				}
 
 			default:
