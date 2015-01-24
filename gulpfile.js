@@ -87,7 +87,8 @@ var lessAdminFiles = [
 	path.join(libDir, 'chosen_v1.3.0/chosen.min.css'),
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
-	path.join(lessDir, 'admin/*.less')
+	path.join(lessDir, 'admin/*.less'),
+	path.join(lessDir, 'admin/pages/*.less')
 ];
 
 gulp.task('less-dev-main', function() {
