@@ -26,6 +26,13 @@ $(function() {
 		return false;
 	});
 
+	$('#loginModal').on('shown.bs.modal', function() {
+		$(this).find('input').first().focus();
+
+		$dropdown.removeClass('open');
+		$dropdown.parents('header').removeClass('hover');
+	});
+
 	$('.search-wrapper .btn-search').on('click', function() {
 		$(this).parents('header').addClass('hover');
 
@@ -38,7 +45,7 @@ $(function() {
 		$searchInput.removeClass('hidden');
 		$searchButton.removeClass('hidden');
 
-		$input = $searchInput.find('input:last');
+		var $input = $searchInput.find('input:last');
 		$input.focus();
 
 		if (opened) {
