@@ -13,7 +13,10 @@
     </div>
 
 	<div class="form-group">
-		<label n:name="question">{_'vars'}</label>
+		<label n:name="question">
+			{_'vars'}
+			<small>(Proměnné můžou být závislé na vyšších proměnných pomocí eval.)</small>
+		</label>
 		<div data-definitions>
 	        {foreach $form['vars']->containers as $id => $_tmp}
 	            <div data-var-id="{$id}" class="variable">

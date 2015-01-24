@@ -38,8 +38,8 @@
 	    Renderer[method](def, $group, $input);
     };
     Renderer.renderInteger = function(def, $group, $input) {
-        var $min = $('<input type="number" class="form-control">').val(def.min);
-        var $max = $('<input type="number" class="form-control">').val(def.max);
+        var $min = $('<input class="form-control">').val(def.min);
+        var $max = $('<input class="form-control">').val(def.max);
         $group.append($min).append($max);
 
         Renderer.saveHook(def, $input, {

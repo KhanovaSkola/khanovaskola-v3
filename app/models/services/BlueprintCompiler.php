@@ -69,7 +69,9 @@ class BlueprintCompiler extends Object
 			switch ($def->type)
 			{
 				case 'integer':
-					$vars[$var] = rand($def->min, $def->max);
+					$min = $this->compileString($def->min, $vars);
+					$max = $this->compileString($def->max, $vars);
+					$vars[$var] = rand(is_integer($min) ? $min : 0, is_integer($max) ? $max : 0);
 					break;
 				case 'list':
 					$vars[$var] = $def->list[rand(0, count($def->list) - 1)];
