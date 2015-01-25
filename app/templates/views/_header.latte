@@ -11,7 +11,7 @@
 		{block headerBack}
 			{include headerLogo}
 		{/block}
-		<div class="header-content clearfix">
+		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : 'null'}">
 			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
 					<div class="dropdown dropdown-big">
@@ -23,7 +23,7 @@
 							<div class="subjects-list">
 								<ul class="ul-tab" role="tablist">
 									<li n:foreach="$subjects as $i => $subject"{first} class="active"{/first}>
-										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}">
+										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
 		                                    <span>{$subject->title}</span>
 		                                    <i class="icon icon-{$subject->icon}"></i>
 		                                </a>

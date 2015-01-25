@@ -11,6 +11,10 @@ $(function() {
 		return false;
 	});
 
+	var activeSubject = $('.header-content').data('active-subject');
+	var $activeTab = $('.dropdown-menu .subjects-list').find('[data-subject-id="' + activeSubject + '"]');
+	$activeTab.tab('show');
+
 	$(document).on('click', function(e) {
 		var $target = $(e.target);
 		if ($target.is('.dropdown') || $target.parents('.dropdown').length !== 0)
