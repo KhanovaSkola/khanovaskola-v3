@@ -80,8 +80,23 @@ class BlueprintCompiler extends Object
 		srand($this->seed);
 
 		$exercise = [];
+		$vars = $this->compileVars($blueprint->vars);
+		$exercise['vars'] = $vars;
+		$exercise['question'] = $this->compileString($blueprint->question, $vars);
+		$exercise['answer'] = $this->compileString($blueprint->answer, $vars);
+		$exercise['hints'] = [];
+		foreach ($blueprint->hints as $i => $hint)
+		{
+			$exercise['hints'][$i] = $this->compileString($hint, $vars);
+		}
+
+		return new Exercise($blueprint, $this->seed, $exercise['question'], $exercise['answer'], $exercise['hints']);
+	}
+
+	private function compileVars(array $blueprintVars)
+	{
 		$vars = [];
-		foreach ($blueprint->vars as $var => $def)
+		foreach ($blueprintVars as $var => $def)
 		{
 			switch ($def->type)
 			{
@@ -102,16 +117,7 @@ class BlueprintCompiler extends Object
 			}
 		}
 
-		$exercise['vars'] = $vars;
-		$exercise['question'] = $this->compileString($blueprint->question, $vars);
-		$exercise['answer'] = $this->compileString($blueprint->answer, $vars);
-		$exercise['hints'] = [];
-		foreach ($blueprint->hints as $i => $hint)
-		{
-			$exercise['hints'][$i] = $this->compileString($hint, $vars);
-		}
-
-		return new Exercise($blueprint, $this->seed, $exercise['question'], $exercise['answer'], $exercise['hints']);
+		return $vars;
 	}
 
 	private function compileString($string, array $vars)
@@ -296,10 +302,15 @@ class BlueprintCompiler extends Object
 	 */
 	private function evaluate($eval, array $vars)
 	{
-		foreach ($vars as $var => $value)
-		{
-			$eval = preg_replace('~\b' . preg_quote($var, '~') . '\b~', $value, $eval);
-		}
+		$original = $eval;
+		$eval = preg_replace_callback('~\b\w+\b~', function($match) use ($original, $vars) {
+			$var = $match[0];
+			if (!isset($vars[$var]))
+			{
+				throw new BlueprintCompilerException("Undefined variable '$var' in '$original'.");
+			}
+			return $vars[$var];
+		}, $eval);
 
 		if (preg_match('~^[0-9.+/*^()\s-]+$~', $eval))
 		{

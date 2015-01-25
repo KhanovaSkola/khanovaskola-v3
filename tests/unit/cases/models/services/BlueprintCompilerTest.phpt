@@ -107,7 +107,45 @@ class BlueprintCompilerTest extends TestCase
 		Assert::same('A<span class="exercise-color-1">B</span>${\color[RGB]{113,189,26}C -6 D}$<span class="exercise-color-1">E</span>F', $out);
 	}
 
+	public function testDependentVariable()
+	{
+		$exp = 10;
+		$vars = [
+			'a' => (object) [
+				'type' => 'integer',
+				'min' => $exp,
+				'max' => $exp,
+			],
+			'b' => (object) [
+				'type' => 'integer',
+				'min' => '<eval>a</eval>',
+				'max' => '<eval>a</eval>',
+			]
+		];
+		$out = $this->compileVars->callArgs([$vars]);
 
+		Assert::same($exp, $out['b']);
+	}
+
+	public function testDependentVariableUndefined()
+	{
+		$vars = [
+			'a' => (object) [
+				'type' => 'integer',
+				'min' => '<eval>b</eval>',
+				'max' => '<eval>b</eval>',
+			],
+			'b' => (object) [
+				'type' => 'integer',
+				'min' => 0,
+				'max' => 0,
+			]
+		];
+
+		Assert::exception(function() use ($vars) {
+			$this->compileVars->callArgs([$vars]);
+
+		}, BlueprintCompilerException::class);
 	}
 
 }
