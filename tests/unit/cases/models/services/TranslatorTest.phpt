@@ -12,6 +12,9 @@ use Tests\TestCase;
 
 $container = require __DIR__ . '/../../../bootstrap.php';
 
+/**
+ * @skip
+ */
 class TranslatorTest extends TestCase
 {
 

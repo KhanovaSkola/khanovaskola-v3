@@ -3,7 +3,10 @@
 namespace Tests\Cases\Unit;
 
 use AccessMethod;
+use App\BlueprintCompilerException;
+use App\Models\Rme\Blueprint;
 use App\Models\Services\BlueprintCompiler;
+use App\Presenters\BlueprintEditor;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -24,33 +27,39 @@ class BlueprintCompilerTest extends TestCase
 	/**
 	 * @var AccessMethod
 	 */
-	private $compile;
+	private $compileString;
+
+	/**
+	 * @var AccessMethod
+	 */
+	private $compileVars;
 
 	public function setUp()
 	{
-		$this->compile = Access($this->compiler, 'compileString');
+		$this->compileString = Access($this->compiler, 'compileString');
+		$this->compileVars = Access($this->compiler, 'compileVars');
 	}
 
 	public function testColorInText()
 	{
 		$in = 'pre <color id="1">inner</color> post';
-		$out = $this->compile->callArgs([$in, []]);
+		$out = $this->compileString->callArgs([$in, []]);
 
-		Assert::same('pre <span class="color-1">inner</span> post', $out);
+		Assert::same('pre <span class="exercise-color-1">inner</span> post', $out);
 	}
 
 	public function testColorInLatex()
 	{
 		$in = 'pretext <latex>pre <color id="1">inner</color> post</latex> posttext';
-		$out = $this->compile->callArgs([$in, []]);
+		$out = $this->compileString->callArgs([$in, []]);
 
-		Assert::same('pretext $pre {\color[RGB]{78,205,196}inner} post$ posttext', $out);
+		Assert::same('pretext $pre {\color[RGB]{113,189,26}inner} post$ posttext', $out);
 	}
 
 	public function testLatexSimple()
 	{
 		$in = 'pre <latex>inner</latex> post';
-		$out = $this->compile->callArgs([$in, []]);
+		$out = $this->compileString->callArgs([$in, []]);
 
 		Assert::same('pre $inner$ post', $out);
 	}
@@ -58,15 +67,15 @@ class BlueprintCompilerTest extends TestCase
 	public function testColorAroundLatex()
 	{
 		$in = 'pretext <color id="1">pre <latex>latex</latex> post</color> posttext';
-		$out = $this->compile->callArgs([$in, []]);
+		$out = $this->compileString->callArgs([$in, []]);
 
-		Assert::same('pretext <span class="color-1">pre </span>${\color[RGB]{78,205,196}latex}$<span class="color-1"> post</span> posttext', $out);
+		Assert::same('pretext <span class="exercise-color-1">pre </span>${\color[RGB]{113,189,26}latex}$<span class="exercise-color-1"> post</span> posttext', $out);
 	}
 
 	public function testEval()
 	{
 		$in = 'pre <eval>a</eval> mid <eval>b</eval> post';
-		$out = $this->compile->callArgs([$in, [
+		$out = $this->compileString->callArgs([$in, [
 			'a' => 'foo',
 			'b' => 21
 		]]);
@@ -77,7 +86,7 @@ class BlueprintCompilerTest extends TestCase
 	public function testEvalMath()
 	{
 		$in = '<eval>(a - b) * c</eval>';
-		$out = $this->compile->callArgs([$in, [
+		$out = $this->compileString->callArgs([$in, [
 			'a' => $a = 3.5,
 			'b' => $b = 5,
 			'c' => $c = 4,
@@ -89,13 +98,16 @@ class BlueprintCompilerTest extends TestCase
 	public function testNested()
 	{
 		$in = 'A<color id="1">B<latex>C <eval>(a - b) * c</eval> D</latex>E</color>F';
-		$out = $this->compile->callArgs([$in, [
+		$out = $this->compileString->callArgs([$in, [
 			'a' => $a = 3.5,
 			'b' => $b = 5,
 			'c' => $c = 4,
 		]]);
 
-		Assert::same('A<span class="color-1">B</span>${\color[RGB]{78,205,196}C -6 D}$<span class="color-1">E</span>F', $out);
+		Assert::same('A<span class="exercise-color-1">B</span>${\color[RGB]{113,189,26}C -6 D}$<span class="exercise-color-1">E</span>F', $out);
+	}
+
+
 	}
 
 }

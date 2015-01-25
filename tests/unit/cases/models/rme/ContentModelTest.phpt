@@ -20,6 +20,8 @@ $container = require __DIR__ . '/../../../bootstrap.php';
  * Integration test
  * There are no wild errors while linking those entities
  * and when persisting.
+ *
+ * @skip
  */
 class ContentModelTest extends TestCase
 {
@@ -39,7 +41,8 @@ class ContentModelTest extends TestCase
 
 		$schema = new Schema();
 		$schema->author = $user;
-		$schema->name = 'Dummy Schema';
+		$schema->title = 'Dummy Schema';
+		$schema->layout = [];
 
 		$this->repos->schemas->persist($schema);
 
@@ -47,7 +50,7 @@ class ContentModelTest extends TestCase
 		{
 			$block = new Block();
 			$block->author = $user;
-			$block->name = "Dummy Block $i";
+			$block->title = "Dummy Block $i";
 			$this->repos->blocks->persist($block);
 
 			$bridge = new BlockSchemaBridge();
