@@ -7,7 +7,6 @@ use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
 use App\Models\Structs\Exercise;
 use App\NotImplementedException;
-use Inflection;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -45,7 +44,7 @@ class BlueprintCompiler extends Object
 	private $purifier;
 
 	/**
-	 * @var FALSE|array
+	 * @var FALSE|mixed
 	 */
 	private $inInflection;
 
@@ -54,10 +53,16 @@ class BlueprintCompiler extends Object
 	 */
 	private $inflectBuffer;
 
-	public function __construct(BlueprintPurifier $purifier)
+	/**
+	 * @var Inflection
+	 */
+	private $inflection;
+
+	public function __construct(BlueprintPurifier $purifier, Inflection $inflection)
 	{
 		$this->seed = mt_rand();
 		$this->purifier = $purifier;
+		$this->inflection = $inflection;
 	}
 
 	public function setSeed($seed)
@@ -215,15 +220,11 @@ class BlueprintCompiler extends Object
 			case self::T_INFLECT:
 				if ($node['type'] === self::S_COMPLETE)
 				{
-					return Inflection::inflect($node['value'], [
-						Inflection::CASE_N => $node['attributes']['CASE']
-					]);
+					return $this->inflection->inflect($node['value'], $node['attributes']['CASE']);
 				}
 				else if ($node['type'] === self::S_OPEN)
 				{
-					$this->inInflection = [
-						Inflection::CASE_N => $node['attributes']['CASE']
-					];
+					$this->inInflection = $node['attributes']['CASE'];
 					return '';
 				}
 				else if ($node['type'] === self::S_INNER)
@@ -232,8 +233,9 @@ class BlueprintCompiler extends Object
 				}
 				else // self::S_CLOSE
 				{
-					$out = Inflection::inflect($this->inflectBuffer, $this->inInflection);
+					$out = $this->inflection->inflect($this->inflectBuffer, $this->inInflection);
 					$this->inInflection = FALSE;
+					$this->inflectBuffer = '';
 					return $out;
 				}
 

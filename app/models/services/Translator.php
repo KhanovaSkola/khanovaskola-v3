@@ -6,7 +6,6 @@ use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
 use App\Models\Structs\Gender;
-use Inflection;
 use Monolog\Logger;
 use Nette;
 use Nette\Neon\Neon;
@@ -61,11 +60,17 @@ class Translator implements Nette\Localization\ITranslator
 	 */
 	private $storage;
 
-	public function __construct($dir, Logger $log, Nette\Caching\IStorage $storage)
+	/**
+	 * @var Inflection
+	 */
+	private $inflection;
+
+	public function __construct($dir, Logger $log, Nette\Caching\IStorage $storage, Inflection $inflection)
 	{
 		$this->dir = $dir;
 		$this->log = $log;
 		$this->storage = $storage;
+		$this->inflection = $inflection;
 	}
 
 	public function setLanguage($language)
@@ -188,7 +193,7 @@ class Translator implements Nette\Localization\ITranslator
 
 			if (isset($match['case']))
 			{
-				return Inflection::inflect($values[$key], [Inflection::CASE_N => $match['case']]);
+				return $this->inflection->inflect($values[$key], $match['case']);
 			}
 			return $values[$key];
 		}, $text);

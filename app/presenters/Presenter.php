@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Components\ControlTrait;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
+use App\Models\Services\Inflection;
 use App\Models\Services\Translator;
 use App\Models\Services\UserState;
 use App\Models\Structs\EventList;
@@ -58,6 +59,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 * @inject
 	 */
 	public $cacheStorage;
+
+	/**
+	 * @var Inflection
+	 * @inject
+	 */
+	public $inflection;
 
 	public function startup()
 	{

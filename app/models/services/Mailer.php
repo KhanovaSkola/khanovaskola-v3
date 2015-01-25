@@ -9,7 +9,6 @@ use App\Models\Rme\Tokens\Unsubscribe;
 use App\Models\Rme\User;
 use App\Presenters;
 use Exception;
-use Inflection;
 use Latte\Engine;
 use Monolog\Logger;
 use Nette\Application\IPresenterFactory;
@@ -48,13 +47,19 @@ class Mailer extends Object
 	 */
 	private $baseUrl;
 
-	public function __construct($config, $baseUrl, Logger $logger, IPresenterFactory $factory, RepositoryContainer $orm)
+	/**
+	 * @var Inflection
+	 */
+	private $inflection;
+
+	public function __construct($config, $baseUrl, Logger $logger, IPresenterFactory $factory, RepositoryContainer $orm, Inflection $inflection)
 	{
 		$this->mailer = new SmtpMailer($config);
 		$this->logger = $logger;
 		$this->factory = $factory;
 		$this->orm = $orm;
 		$this->baseUrl = $baseUrl;
+		$this->inflection = $inflection;
 	}
 
 	private function getTemplate($view)
@@ -113,7 +118,7 @@ class Mailer extends Object
 			return $presenter->link('//Token:', ['token' => $token->toString($unsafe)]);
 		});
 		$latte->addFilter('vocative', function($phrase) {
-			return Inflection::inflect($phrase, ['c' => 5]);
+			$this->inflection->inflect($phrase, 5);
 		});
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);

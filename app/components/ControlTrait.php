@@ -5,10 +5,10 @@ namespace App\Components;
 use App\Models\Orm\Entity;
 use App\Models\Orm\TitledEntity;
 use App\Models\Rme;
+use App\Models\Services\Inflection;
 use App\NotImplementedException;
 use App\Presenters\Presenter;
 use DateTime;
-use Inflection;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
@@ -81,7 +81,10 @@ trait ControlTrait
 		foreach ($cases as $name => $case)
 		{
 			$template->addFilter($name, function($phrase) use ($case) {
-				return Inflection::inflect($phrase, [Inflection::CASE_N => $case]);
+				/** @var self|NControl $this */
+				/** @var Presenter $presenter */
+				$presenter = $this->getPresenter();
+				return $presenter->inflection->inflect($phrase, $case);
 			});
 		}
 	}

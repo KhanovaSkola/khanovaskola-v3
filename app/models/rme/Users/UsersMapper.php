@@ -3,8 +3,8 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use App\Models\Services\Inflection;
 use App\Models\Structs\Gender;
-use Inflection;
 use Orm\DibiCollection;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
@@ -13,50 +13,25 @@ use Orm\IRepository;
 class UsersMapper extends Mappers\Mapper
 {
 
+	/**
+	 * @var Inflection
+	 * @inject
+	 */
+	public $inflection;
+
 	public function getJsonFields()
 	{
 		return ['privileges'];
 	}
 
-	protected function getNameGenderFlags($name)
-	{
-		$res = Inflection::parse($name);
-		$genders = [Gender::FEMALE => 0, Gender::MALE => 0];
-		foreach ($res as $flags)
-		{
-			switch ($flags[Inflection::GENDER])
-			{
-				case 'I':
-				case 'M':
-					$g = Gender::MALE;
-					break;
-				case 'F':
-					$g = Gender::FEMALE;
-					break;
-				default:
-					continue 2;
-			}
-			$genders[$g]++;
-		}
-		return $genders;
-	}
-
 	/**
 	 * @param string $firstName
 	 * @param NULL|string $lastName
-	 * @return Gender ::MALE|Gender::FEMALE
+	 * @return Gender::MALE|Gender::FEMALE
 	 */
 	public function getGender($firstName, $lastName = NULL)
 	{
-		$genders = $this->getNameGenderFlags($firstName);
-		if ($lastName)
-		{
-			foreach ($this->getNameGenderFlags($firstName) as $k => $v)
-			{
-				$genders[$k] += $v;
-			}
-		}
-		return array_search(max($genders), $genders);
+		return $this->inflection->gender($firstName);
 	}
 
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)

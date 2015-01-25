@@ -45,9 +45,6 @@
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2"
 	},
-	"suggest": {
-	  "ext-inflection": "~2.0"
-	},
 	"repositories": [
 		{
 			"type": "composer",
