@@ -8,6 +8,8 @@ use Orm\DibiCollection;
 
 /**
  * @method DibiCollection|Subject[] findAll()
+ * @method DibiCollection|Block[] findAllButOldWeb()
+ * @method DibiCollection|Subject[] findMetaSubjects()
  */
 class SubjectsRepository extends Repository
 {

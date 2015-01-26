@@ -12,7 +12,7 @@ final class Homepage extends Presenter
 	{
 		$this->setCacheControlPublic();
 
-		$subjects = $this->orm->subjects->findAll()->applyLimit(6)->fetchAll();
+		$subjects = $this->orm->subjects->findAllButOldWeb()->applyLimit(6)->fetchAll();
 		$this->template->firstSubject = array_shift($subjects);
 		$this->template->secondThirdSubject = array_filter([array_shift($subjects), array_shift($subjects)]);
 		$this->template->moreSubjects = array_filter([array_shift($subjects), array_shift($subjects), array_shift($subjects)]);

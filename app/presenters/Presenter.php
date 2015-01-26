@@ -100,7 +100,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
 		$this->template->add('userEntity', $this->getUserEntity());
-		$this->template->add('subjects', $this->orm->subjects->findAll());
+		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
+		$this->template->add('metaSubjects', $this->orm->subjects->findMetaSubjects());
 
 		if (!$this->user->isRegisteredUser())
 		{

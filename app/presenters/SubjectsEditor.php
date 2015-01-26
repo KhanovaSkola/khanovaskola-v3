@@ -17,7 +17,7 @@ final class SubjectsEditor extends Presenter
 			$this->redirect('Homepage:default');
 		}
 
-		$this->template->subjects = $this->orm->subjects->findAll();
+		$this->template->subjects = $this->orm->subjects->findAllButOldWeb();
 	}
 
 	public function handleSave($payload)

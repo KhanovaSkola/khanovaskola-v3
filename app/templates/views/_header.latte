@@ -29,6 +29,12 @@
 		                                </a>
 									</li>
 									<li class="divider"></li>
+									<li n:foreach="$metaSubjects as $j => $subject">
+                                        <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
+                                            <span>{$subject->title}</span>
+                                            <i class="icon icon-{$subject->icon}"></i>
+                                        </a>
+                                    </li>
 									<li>
 										<a n:href="Homepage:randomContent">
 											<span>Zkusím štěstí</span>
@@ -39,31 +45,36 @@
 							</div>
 							<div class="subject-detail tab-content">
 								<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
-									<div class="row">
-										{foreach $subject->schemas->get()->applyLimit(3) as $schema}
-											<div class="col-md-4">
-                                                <div class="title">
-                                                    <a n:href="$schema">{$schema->title}</a>
-                                                </div>
-                                                <ul class="list-unstyled">
-                                                    <li n:foreach="$schema->blocks as $block">
-                                                        <a n:href="$block, $schema">
-                                                            {$block->title}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										{/foreach}
-									</div>
-									<div class="row">
-										<div class="col-md-12 schema-more">
-											{foreach $subject->schemas->get()->applyLimit(NULL, 3) as $schema}
-												<span class="title">
-													<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
-												</span>
+									{block subjectDetail}
+										<div class="row">
+											{foreach $subject->schemas->get()->applyLimit(3) as $schema}
+												<div class="col-md-4">
+	                                                <div class="title">
+	                                                    <a n:href="$schema">{$schema->title}</a>
+	                                                </div>
+	                                                <ul class="list-unstyled">
+	                                                    <li n:foreach="$schema->blocks as $block">
+	                                                        <a n:href="$block, $schema">
+	                                                            {$block->title}
+	                                                        </a>
+	                                                    </li>
+	                                                </ul>
+	                                            </div>
 											{/foreach}
 										</div>
-									</div>
+										<div class="row">
+											<div class="col-md-12 schema-more">
+												{foreach $subject->schemas->get()->applyLimit(NULL, 3) as $schema}
+													<span class="title">
+														<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
+													</span>
+												{/foreach}
+											</div>
+										</div>
+									{/block}
+								</div>
+								<div n:foreach="$metaSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}">
+									{include subjectDetail}
 								</div>
 							</div>
 						</div>
