@@ -19,6 +19,7 @@ use Orm\OneToMany as OtM;
  * @property MtM|Block[]              $dependencies        {m:m blocks $dependencyFor map}
  * @property MtM|Block[]              $dependencyFor       {m:m blocks $dependencies}
  * @property OtM|VideoView[]          $views               {1:m videoViews $block}
+ * @property bool                     $fromOldWeb          {default FALSE}
  *
  * @property Content[]                $contents            {ignore}
  * @property Schema[]                 $schemas             {ignore}

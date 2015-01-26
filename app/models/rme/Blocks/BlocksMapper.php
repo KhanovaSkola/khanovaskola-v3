@@ -10,6 +10,14 @@ use Orm\IRepository;
 class BlocksMapper extends Mappers\ElasticSearchMapper
 {
 
+	public function findAllButOldWeb()
+	{
+		return $this->dataSource("
+			SELECT * FROM [blocks]
+			WHERE [from_old_web] = 'f'
+		");
+	}
+
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)
 	{
 		/** @var DibiManyToManyMapper $mapper */
