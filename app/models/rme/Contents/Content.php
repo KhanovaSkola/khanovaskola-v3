@@ -78,7 +78,7 @@ abstract class Content extends TitledEntity implements IIndexable
 				'payload' => [
 					'id' => $this->id,
 				],
-				'weight' => $weight,
+				'weight' => round($weight),
 			],
 			'description' => $this->description,
 			'block_count' => $blockCount,
