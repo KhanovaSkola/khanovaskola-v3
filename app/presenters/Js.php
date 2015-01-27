@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\InvalidArgumentException;
 use App\Models\Rme;
 use App\Models\Rme\VideoView;
 use App\Models\Structs\EventList;
@@ -119,9 +120,16 @@ final class Js extends Presenter
 			$this->error();
 		}
 
-		$view->percent = $percent;
-		$view->time = $time;
-		$view->furthest = $furthest;
+		try
+		{
+			$view->percent = $percent;
+			$view->time = $time;
+			$view->furthest = $furthest;
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$this->sendJson(['status' => 'error', 'watched' => FALSE]);
+		}
 
 		if (!$watched && $view->percent > 70) // real time percents
 		{
