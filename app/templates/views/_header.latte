@@ -46,8 +46,8 @@
 							<div class="subject-detail tab-content">
 								<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
 									{block subjectDetail}
-										<div class="row">
-											{foreach $subject->schemas->get()->applyLimit(3) as $schema}
+										<div class="row row-main">
+											{foreach $subject->getLargeMenuItems() as $schema}
 												<div class="col-md-4">
 	                                                <div class="title">
 	                                                    <a n:href="$schema">{$schema->title}</a>
@@ -62,9 +62,9 @@
 	                                            </div>
 											{/foreach}
 										</div>
-										<div class="row">
+										<div class="row row-supplement">
 											<div class="col-md-12 schema-more">
-												{foreach $subject->schemas->get()->applyLimit(NULL, 3) as $schema}
+												{foreach $subject->getLargeMenuItemsSupplement() as $schema}
 													<span class="title">
 														<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
 													</span>
