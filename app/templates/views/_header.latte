@@ -29,7 +29,7 @@
 		                                </a>
 									</li>
 									<li class="divider"></li>
-									<li n:foreach="$metaSubjects as $j => $subject">
+									<li n:foreach="$oldSubjects as $j => $subject">
                                         <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
                                             <span>{$subject->title}</span>
                                             <i class="icon icon-{$subject->icon}"></i>
@@ -73,7 +73,7 @@
 										</div>
 									{/block}
 								</div>
-								<div n:foreach="$metaSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}">
+								<div n:foreach="$oldSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}">
 									{include subjectDetail}
 								</div>
 							</div>

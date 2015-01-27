@@ -17,20 +17,22 @@ class SubjectsMapper extends Mapper
 	{
 		return $this->dataSource('
 			SELECT * FROM [subjects]
-			WHERE [position] >= 0
-			ORDER BY position ASC
+			WHERE [from_old_web] = "f"
+			AND [hidden] = "f"
+			ORDER BY [position] ASC
 		');
 	}
 
 	/**
 	 * @deprecated
 	 */
-	public function findMetaSubjects()
+	public function findAllOldWeb()
 	{
 		return $this->dataSource('
 			SELECT * FROM [subjects]
-			WHERE [position] < 0
-			ORDER BY position ASC
+			WHERE [from_old_web] = "t"
+			AND [hidden] = "f"
+			ORDER BY [position] ASC
 		');
 	}
 

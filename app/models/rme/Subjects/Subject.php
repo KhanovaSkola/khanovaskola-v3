@@ -13,6 +13,8 @@ use Orm\OneToMany as OtM;
  * @property string       $icon
  * @property int          $position
  * @property MtM|User[]   $editors {m:m users $subjectsEdited}
+ * @property bool         $fromOldWeb {default false}
+ * @property bool         $hidden {default false}
  */
 class Subject extends TitledEntity
 {
