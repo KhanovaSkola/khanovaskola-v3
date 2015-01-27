@@ -35,6 +35,7 @@ App.video.onPlayerReady = function() {
 
 App.video.onPlayerStateChange = function(args) {
 	clearInterval(App.video.ticker);
+	clearInterval(App.video.longTicker);
 
 	var state = args.data;
 	switch (state) {
