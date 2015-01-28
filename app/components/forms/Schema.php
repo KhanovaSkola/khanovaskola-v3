@@ -76,6 +76,10 @@ class Schema extends EditorForm
 		$schema->description = $v->description;
 		$schema->layout = $parsed;
 
+		foreach ($schema->blocks as $block)
+		{
+			$block->dependencies = [];
+		}
 		foreach ($this->schemaLayout->buildBlockDependencies($parsed) as $blockId => $deps)
 		{
 			/** @var Rme\Block $block */
