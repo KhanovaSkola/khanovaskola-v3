@@ -12,7 +12,9 @@
 	{var $subjects = []}
 	{if $entity instanceof App\Models\Rme\Block}
 		{foreach $entity->schemas as $schema}
-			{?$subjects[$schema->subject->id] = $schema->subject}
+			{if $schema->subject}
+				{?$subjects[$schema->subject->id] = $schema->subject}
+			{/if}
 			{foreach $schema->editors as $editor}
 				<li>{$editor->email} <span class="small">(schéma {$schema->title})</span></li>
 			{/foreach}
