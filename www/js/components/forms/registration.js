@@ -9,7 +9,14 @@ $(function() {
 		if (changer) {
 			clearTimeout(changer);
 		}
-		App.remote.guessGender($(this).val(), function(res) {
+
+		var name = $(this).val();
+		if (!name.trim())
+		{
+			return;
+		}
+
+		App.remote.guessGender(name, function(res) {
 			changer = setTimeout(function() {
 				$('#frm-registrationForm-form-gender-' + res.gender).prop('checked', true);
 			}, 200);
