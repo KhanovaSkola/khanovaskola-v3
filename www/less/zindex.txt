@@ -1,0 +1,24 @@
+.header-content .dropdown-menu 1500
+.header-content .dropdown-menu .subjects-list li.active 12
+.header-content .dropdown-menu .subjects-list a 123
+.dropdown .caret @zindex-dropdown+2
+.floating-placeholder label 12345
+.tt-dropdown-menu 1000
+.header 15
+.mobile-nav 1100
+.timeline 0
+.timeline-icon 123
+.timeline-icon:after 12
+.about-page .header 12
+.block-page .content .left:before 0
+.course-header-footer 100
+.course-header-content .right 1
+.right-inner 12
+.video-wrapper 12
+.video-preview 1
+.video-subtitles 50
+.video-real 11
+.video-click-catcher 101
+.video-play 100
+.course-progress-container 200
+.progress-label 2
