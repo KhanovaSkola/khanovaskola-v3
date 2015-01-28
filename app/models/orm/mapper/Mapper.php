@@ -53,6 +53,14 @@ class Mapper extends DibiMapper
 					$args->values[$key] = Json::encode($args->values[$key]);
 				}
 			}
+
+			foreach ($args->values as &$value)
+			{
+				if (is_string($value) && $value === '')
+				{
+					$value = NULL;
+				}
+			}
 		});
 	}
 
