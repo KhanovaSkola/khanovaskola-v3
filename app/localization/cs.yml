@@ -94,6 +94,15 @@ blueprintEditor:
     error:
       title: "Uloženo, ale je tam chyba."
       message: "%error"
+  form:
+    title:
+      missing: "Vyplňte název cvičení"
+    description:
+      missing: "Vyplňte popis cvičení"
+    question:
+      missing: "Vyplňte otázku"
+    answer:
+      missing: "Vyplňte odpověď"
 
 columnChart:
   blueprint:
@@ -156,6 +165,9 @@ auth:
     wrongPassword:
       title: "Špatné heslo."
       message: "Jestli si nemůžete vzpomenout, můžete si nastavit heslo nové."
+    alreadyRegistered:
+      title: "Už jste zaregistrovaní."
+      message: "Není potřeba se registrovat víckrát."
 
 badges:
   awarded:
@@ -299,16 +311,6 @@ videoForm:
   youtubeId:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
 
-blueprintForm:
-  title:
-    missing: "Vyplňte název cvičení"
-  description:
-    missing: "Vyplňte popis cvičení"
-  question:
-    missing: "Vyplňte otázku"
-  answer:
-    missing: "Vyplňte odpověď"
-
 blockForm:
   title:
     missing: "Vyplňte název bloku"
@@ -319,24 +321,35 @@ profileForm:
   success:
     title: ""
     message: "Uloženo."
+  name:
+    missing: "Vyplňte své jméno nebo se přihlaste přes Facebook nebo Google"
 
 acl:
   denied:
     block:
       title: "Nepovoleno."
-      message: "Přístup na editor bloků nemáte povolený. Pokud je máte mít, napište na fórum."
+      message: "Přístup na editor bloků nemáte povolený. Pokud je to chyba, napište na fórum."
     schema:
       title: "Nepovoleno."
-      message: "Přístup na editor schémat nemáte povolený. Pokud je máte mít, napište na fórum."
+      message: "Přístup na editor schémat nemáte povolený. Pokud je to chyba, napište na fórum."
+    subject:
+      title: "Nepovoleno."
+      message: "Přístup na editor předmětu nemáte povolený. Pokud je to chyba, napište na fórum."
     subjects:
       title: "Nepovoleno."
-      message: "Přístup na editor předmětů nemáte povolený. Pokud je máte mít, napište na fórum."
+      message: "Přístup na editor předmětů nemáte povolený. Pokud je to chyba, napište na fórum."
     video:
       title: "Nepovoleno."
-      message: "Přístup na editor videí nemáte povolený. Pokud je máte mít, napište na fórum."
+      message: "Přístup na editor videí nemáte povolený. Pokud je to chyba, napište na fórum."
     blueprint:
       title: "Nepovoleno."
-      message: "Přístup na editor cvičení nemáte povolený. Pokud je máte mít, napište na fórum."
+      message: "Přístup na editor cvičení nemáte povolený. Pokud je to chyba, napište na fórum."
+
+subjectForm:
+  title:
+    missing: "Vyplňte název předmětu"
+  description:
+    missing: "Vyplňte popis předmětu"
 
 subjects:
   notYet:

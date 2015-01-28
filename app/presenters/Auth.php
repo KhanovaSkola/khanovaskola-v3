@@ -162,7 +162,7 @@ final class Auth extends Presenter
 			}
 			else
 			{
-				$this->flashInfo('alreadyRegistered.loggedIn');
+				$this->flashInfo('auth.flash.alreadyRegistered');
 				$this->redirect('Profile:');
 			}
 		}

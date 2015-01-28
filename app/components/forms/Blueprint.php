@@ -21,14 +21,14 @@ class Blueprint extends EntityForm
 	public function setupBoth()
 	{
 		$this->addText('title')
-			->setRequired('title.missing');
+			->setRequired('form.title.missing');
 		$this->addText('description')
-			->setRequired('description.missing');
+			->setRequired('form.description.missing');
 
 		$this->addTextArea('question')
-			->setRequired('question.missing');
+			->setRequired('form.question.missing');
 		$this->addText('answer')
-			->setRequired('answer.missing');
+			->setRequired('form.answer.missing');
 
 		$this->addDynamic('vars', function(Container $container) {
 			$container->addText('name');
