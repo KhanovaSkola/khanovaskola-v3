@@ -39,6 +39,10 @@ class HtmlPurifier extends Object
 		$config->set('HTML.Doctype', 'HTML 4.01 Transitional');
 		$config->set('HTML.AllowedElements', implode(', ', static::getAllowedElements()));
 		$config->set('HTML.AllowedAttributes', implode(', ', static::getAllowedAttributes()));
+
+		// we are generating dynamic content, cache is never hit
+		$config->set('Cache.SerializerPath', NULL);
+
 		return $config;
 	}
 
