@@ -23,8 +23,8 @@
         <div class="content-inner">
             <div class="clearfix">
                 <div class="left">
-                    <div class="icon-wrapper text-{$schema ? $schema->subject->color : 'blue'}">
-                        <i class="icon icon-{$schema ? $schema->subject->icon : 'subject-history'}"></i>
+                    <div class="icon-wrapper text-{$schema && $schema->subject ? $schema->subject->color : 'blue'}">
+                        <i class="icon icon-{$schema && $schema->subject ? $schema->subject->icon : 'subject-history'}"></i>
                     </div>
                     <div class="content-wrapper">
                         <h2>{$block->title}</h2>
@@ -62,7 +62,7 @@
                             {foreach $block->contents as $content}
 	                            <div class="timeline-item">
 	                                <div class="timeline-icon">
-	                                    <i class="icon icon-{$schema ? $schema->subject->icon : 'subject-history'}"></i>
+	                                    <i class="icon icon-{$schema && $schema->subject ? $schema->subject->icon : 'subject-history'}"></i>
 	                                </div>
 	                                <div class="timeline-content">
 	                                    <h3>
