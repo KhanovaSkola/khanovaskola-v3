@@ -39,7 +39,14 @@ class SchemaEditor extends Presenter
 	public function actionDefault()
 	{
 		$this->template->schema = $this->schema;
-		$this->template->blocks = $this->orm->blocks->findAllButOldWeb()->orderBy('id', 'ASC');
+		if ($this->userEntity->id === 1)
+		{
+			$this->template->blocks = $this->orm->blocks->findAll()->orderBy('id', 'ASC');
+		}
+		else
+		{
+			$this->template->blocks = $this->orm->blocks->findAllButOldWeb()->orderBy('id', 'ASC');
+		}
 		$this->template->getBlock = function($id) {
 			return $this->orm->blocks->getById($id);
 		};
