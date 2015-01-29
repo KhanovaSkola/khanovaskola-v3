@@ -19,10 +19,6 @@ class OldCategory extends OldLinkRouter
 	public function match(Nette\Http\IRequest $httpRequest)
 	{
 		$slug = ltrim($httpRequest->getUrl()->getPath(), '/');
-		if (Strings::contains($slug, '/'))
-		{
-			return NULL;
-		}
 
 		$id = $this->dibi->query('
 			SELECT [c.id]
