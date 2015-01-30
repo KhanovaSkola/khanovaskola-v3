@@ -337,7 +337,7 @@ final class Auth extends Presenter
 			$this->redirectToAuth();
 		}
 
-		$url = $this->discourse->getLoginUrl($sso, $this->user->entity);
+		$url = $this->discourse->getLoginUrl($sso, $this->user->getUserEntity());
 		$this->redirectUrl($url);
 	}
 
