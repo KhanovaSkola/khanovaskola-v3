@@ -35,7 +35,7 @@ class Discourse extends Object
 		$params = [
 			'nonce' => $this->getNonce($payload),
 			'email' => $user->email,
-			'external_id' => $user->id,
+			'external_id' => $user->getSsoId(),
 			'name' => $user->name,
 		];
 

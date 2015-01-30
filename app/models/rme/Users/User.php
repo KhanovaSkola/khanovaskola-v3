@@ -29,6 +29,7 @@ use Orm\OneToMany as OtM;
  * @property NULL|string            $facebookAccessToken    aes encrypted
  * @property NULL|string            $googleId
  * @property NULL|string            $googleAccessToken      aes encrypted
+ * @property NULL|int               $oldId                  for discourse sso
  *
  * Relations:
  * @property OtM|Answer[]           $answers                {1:m answers $user}
@@ -139,6 +140,14 @@ class User extends Entity
 			return FALSE;
 		}
 		return (bool) $this->model->unsubscribes->getByEmail($this->email);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSsoId()
+	{
+		return $this->oldId ?: "3-{$this->id}";
 	}
 
 }
