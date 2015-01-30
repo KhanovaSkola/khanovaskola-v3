@@ -41,10 +41,10 @@ class Router extends RouteList
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
 
-		$this[] = new Route('schema/[<action>/]<schemaId>[-<slug>]', 'Schema:default');
-		$this[] = new Route('blok/[<action>/][<schemaId>/]<blockId>[-<slug>]', 'Block:default');
-		$this[] = new Route('video/[<action>/][[<schemaId>/]<blockId>/]<videoId>[-<slug>]', 'Video:default');
-		$this[] = new Route('cviceni/[<action>/][[<schemaId>/]<blockId>/]<blueprintId>[-<slug>]', 'Blueprint:default');
+		$this[] = new Route('schema/[<action>/]<schemaId \d+>[-<slug>]', 'Schema:default');
+		$this[] = new Route('blok/[<action>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
+		$this[] = new Route('video/[<action>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]', 'Video:default');
+		$this[] = new Route('cviceni/[<action>/][[<schemaId \d+>/]<blockId \d+>/]<blueprintId \d+>[-<slug>]', 'Blueprint:default');
 
 		// old links
 		$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
