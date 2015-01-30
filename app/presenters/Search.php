@@ -26,7 +26,7 @@ final class Search extends Presenter
 	{
 		if (!Strings::trim($query))
 		{
-			$this->redirect('Subjects:default');
+			$this->redirect('Homepage:default');
 		}
 
 		/** @var TextInput $input */
