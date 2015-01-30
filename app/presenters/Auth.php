@@ -327,6 +327,11 @@ final class Auth extends Presenter
 
 	public function actionSso($sso, $sig)
 	{
+		if ($this->user->getUserEntity() instanceof LazyEntity)
+		{
+			$this->redirectToRegistration();
+		}
+
 		if ($this->discourse->getSignature($sso) !== $sig)
 		{
 			$this->error();
