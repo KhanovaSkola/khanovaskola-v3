@@ -4,7 +4,6 @@ namespace App\Models\Routers;
 
 use Nette;
 use Nette\Application\Request;
-use Nette\Utils\Strings;
 
 
 class OldCategory extends OldLinkRouter
@@ -19,7 +18,6 @@ class OldCategory extends OldLinkRouter
 	public function match(Nette\Http\IRequest $httpRequest)
 	{
 		$slug = ltrim($httpRequest->getUrl()->getPath(), '/');
-
 		$id = $this->dibi->query('
 			SELECT [c.id]
 			FROM [old_links] [l]
@@ -33,7 +31,8 @@ class OldCategory extends OldLinkRouter
 			return NULL;
 		}
 
-		return new Request('Video:default', $httpRequest->getMethod(), [
+		return new Request('Video', $httpRequest->getMethod(), [
+			'action' => 'default',
 			'videoId' => $id,
 		]);
 	}

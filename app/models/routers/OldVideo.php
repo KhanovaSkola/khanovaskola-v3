@@ -33,12 +33,14 @@ class OldVideo extends OldLinkRouter
 
 			WHERE [mask] = %s', $match['slug'], '
 		')->fetchSingle();
+
 		if (!$id)
 		{
 			return NULL;
 		}
 
-		return new Request('Video:default', $httpRequest->getMethod(), [
+		return new Request('Video', $httpRequest->getMethod(), [
+			'action' => 'default',
 			'videoId' => $id,
 		]);
 	}
