@@ -22,8 +22,8 @@
 		<div class="content-inner">
 	        <div class="container">
 	            <div class="text-center">
-	                <span class="text-{$schema->subject ? $schema->subject->color : 'blue'}">
-	                    <i class="icon icon-{$schema->subject ? $schema->subject->icon : 'subject-history'}"></i>
+	                <span class="text-{$schema|subjectColor}">
+	                    <i class="icon icon-{$schema|subjectIcon}"></i>
 	                </span>
 	                <h1>
 	                    {$schema->title}
@@ -61,7 +61,7 @@
 	                                    {if $cell}
 	                                        {var $block = $getBlock($cell)}
 	                                        <a n:href="$block, $schema">
-						                        <i class="icon icon-{$schema->subject ? $schema->subject->icon : 'subject-history'} text-{$schema->subject ? $schema->subject->color : 'blue'}"></i>
+						                        <i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
 						                        <span>{$block->title}</span>
 					                        </a>
 					                    {/if}

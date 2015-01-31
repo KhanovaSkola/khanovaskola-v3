@@ -26,7 +26,7 @@
     		<div class="course-header-content">
     			<div class="left">
     				<div class="icon-wrapper{if !$block} move-higher{/if}">
-    					<i class="icon icon-{$schema ? $schema->subject->icon : 'subject-history'}"></i>
+    					<i class="icon icon-{$schema|subjectIcon}"></i>
     				</div>
     				<div class="content-wrapper">
     					<small n:if="$block">{$block->title} ({$position}/{$block->countContents()})</small>
