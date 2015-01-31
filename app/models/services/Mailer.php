@@ -114,8 +114,11 @@ class Mailer extends Object
 		$ref->setAccessible(TRUE);
 		$ref->setValue($presenter, []);
 
-		$latte->addFilter('token', function(Token $token, $unsafe) use ($presenter) {
-			return $presenter->link('//Token:', ['token' => $token->toString($unsafe)]);
+		$latte->addFilter('token', function(Token $token, $unsafe) use ($presenter, $view) {
+			return $presenter->link('//Token:', [
+				'token' => $token->toString($unsafe),
+				'utm_campaign' => "email-$view",
+			]);
 		});
 		$latte->addFilter('vocative', function($phrase) {
 			$this->inflection->inflect($phrase, 5);
