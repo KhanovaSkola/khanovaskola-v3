@@ -230,7 +230,7 @@ final class Auth extends Presenter
 		{
 			$me = $this->google->getProfile();
 			$this->registerOrLogin($me, function($id) {
-				return $this->orm->users->getByFacebookId($id);
+				return $this->orm->users->getByGoogleId($id);
 			}, function(User $user, $me) {
 				$user->googleId = $me->id;
 				$token = $this->google->getAccessToken()['access_token'];
