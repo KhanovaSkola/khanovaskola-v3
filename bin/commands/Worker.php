@@ -58,7 +58,7 @@ class Worker extends Command
 					{
 						exit(1);
 					}
-					pcntl_signal(SIGTERM, SIGTERM); // revert to original
+					pcntl_signal(SIGTERM, SIG_DFL); // revert to original
 					$next();
 				}
 			});
