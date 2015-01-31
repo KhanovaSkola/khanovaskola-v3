@@ -29,12 +29,12 @@ class Worker extends Command
 
 	public function invoke(Queue $queue, Logger $logger, RepositoryContainer $orm, Container $container)
 	{
-		pcntl_signal(SIGTERM, [self::class, 'handleSigterm']);
-
 		$this->out->writeln('<info>Worker is running...</info>');
 		while (TRUE)
 		{
 			$queue->watch(function(Task $task, callable $next) use ($queue, $logger, $orm, $container) {
+				pcntl_signal(SIGTERM, [self::class, 'handleSigterm']);
+
 				$orm->purge(); // flush identity map
 
 				$class = get_class($task);
@@ -53,15 +53,15 @@ class Worker extends Command
 				}
 				finally
 				{
+					pcntl_signal_dispatch();
+					if (self::$terminationRequested)
+					{
+						exit(1);
+					}
+					pcntl_signal(SIGTERM, SIGTERM); // revert to original
 					$next();
 				}
 			});
-
-			pcntl_signal_dispatch();
-			if (self::$terminationRequested)
-			{
-				exit(0);
-			}
 		}
 	}
 
