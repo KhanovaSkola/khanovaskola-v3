@@ -6,6 +6,11 @@
 	 * @param string $unsafe
 	 *}
 	{var $a = $recipient->gender === App\Models\Structs\Gender::FEMALE}
+	{capture $actionUrl}{$token|token:$unsafe}{/capture}
+	{include '_gmail.goToAction.latte', url => $actionUrl,
+	    label => 'Přihlásit se',
+	    description => 'Přihlásit se na web Khanovy školy bez hesla'
+	}
 
     <h3>
         Ahoj {$recipient->firstName|vocative},
@@ -15,6 +20,6 @@
     </h3>
     <p class="lead">kliknutím na následující odkaz se přihlásíš na Khanovu školu:</p>
     <p class="callout center">
-        <a href="{$token|token:$unsafe}">Přihlásit se</a>
+        <a href="{$actionUrl}">Přihlásit se</a>
     </p>
     <p>Jestli si o přihlášení nezažádal{$a}, můžeš tento email ignorovat.</p>
