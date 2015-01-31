@@ -13,18 +13,16 @@ Link directory
 --------------
 
 <dl>
-	<dt>http server</dt>
-		<dd>http://vagrant.khanovaskola.cz/</dd>
 	<dt>adminer</dt>
-		<dd>http://vagrant.khanovaskola.cz/tools/db/</dd>
+		<dd>/tools/db/</dd>
 	<dt>mail trap</dt>
 		<dd>https://mailtrap.io/inboxes/23883/messages</dd>
 	<dt>elasticsearch console</dt>
-		<dd>http://www.elastichq.org/app/index.php?url=http://vagrant.khanovaskola.cz:9200</dd>
+		<dd>http://www.elastichq.org/app/index.php?url=http://localhost:9200</dd>
 	<dt>beanstalkd console</dt>
 		<dd>http://vagrant.khanovaskola.cz/tools/beanstalk/public/</dd>
 	<dt>opcache dashboard</dt>
-		<dd>http://vagrant.khanovaskola.cz/tools/opcache/</dd>
+		<dd>/tools/opcache/</dd>
 </dl>
 
 Requirements
@@ -33,11 +31,12 @@ Requirements
 *Server:*
 
 - php 5.5
-- postgres
-- redis
-- elasticsearch 1.2.
+- postgres 9.3.5
+- elasticsearch 1.2
 - elasticsearch/elasticsearch-analysis-icu/2.2.0
 - beanstalkd
+- bc
+- redis (optional)
 
 <img src="http://www.jasoncavett.com/wp-content/uploads/2014/08/postgresql_logo.png" width="170">
 <img width="30">
@@ -50,7 +49,7 @@ Requirements
 - phantomjs
 - casperjs
 - nodejs
-- grunt
+- gulp
 
 Setup
 -----
@@ -95,24 +94,24 @@ run coding style (cs) tests:
 sh tests/cs/run.sh
 ```
 
-create new migration from template:
+invoke console:
 ```sh
-php bin/console db:create whatAmIChanging
+php www/index.php
 ```
 
-drop all data, recreate schemas and indices:
+create new migration from template:
 ```sh
-bin/console db:reset && bin/console neo:reset && bin/console db:migrate && bin/console es:recreate && bin/console db:fill
+php www/index.php scaffolding:migration:sql note-what-are-you-changing
+```
+
+recreate elasticsearch mappings and repopulate
+```sh
+php www/index.php es:recreate && php www/index.php es:populate
 ```
 
 run migrations:
 ```sh
-php bin/console db:migrate
-```
-
-recreate elasticsearch indices from config file:
-```sh
-php bin/console db:es recreate
+php www/index.php migrations:migrate
 ```
 
 build frontend:
