@@ -5,15 +5,12 @@ namespace App\Components;
 use App\Models\Orm\Entity;
 use App\Models\Orm\TitledEntity;
 use App\Models\Rme;
-use App\Models\Services\Inflection;
 use App\NotImplementedException;
 use App\Presenters\Presenter;
-use DateTime;
 use Kdyby\Events\EventArgsList;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;
-use Nette\Utils\Html;
 
 
 /**
@@ -44,49 +41,10 @@ trait ControlTrait
 	 */
 	protected function registerFilters($template)
 	{
-		$template->addFilter('timeAgo', function(DateTime $d) {
-			return Html::el('time')
-				->setText($d->format('j.n.Y H:i'))
-				->addAttributes([
-					'datetime' => $d->format('c')
-				]);
-		});
-		$template->addFilter('duration', function($seconds) {
-			$m = floor($seconds / 60);
-			$s = $seconds - 60 * $m;
-			return $m . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
-		});
-		$template->addFilter('hours', function($seconds) {
-			return round($seconds / 3600);
-		});
-		$template->addFilter('minutes', function($seconds) {
-			return round($seconds / 60);
-		});
-		$template->addFilter('templateLink', function($link) {
-			return strtr($link, ['%7B' => '{', '%7D' => '}']);
-		});
-		$template->addFilter('lcFirst', function($text) {
-			return lcFirst($text);
-		});
-
-		$cases = [
-			'nominative' => 1,
-			'genitive' => 2,
-			'dative' => 3,
-			'accusative' => 4,
-			'vocative' => 5,
-			'locative' => 6,
-			'instrumental' => 7,
-		];
-		foreach ($cases as $name => $case)
-		{
-			$template->addFilter($name, function($phrase) use ($case) {
-				/** @var self|NControl $this */
-				/** @var Presenter $presenter */
-				$presenter = $this->getPresenter();
-				return $presenter->inflection->inflect($phrase, $case);
-			});
-		}
+		/** @var self|Presenter $this */
+		/** @var Presenter $presenter */
+		$presenter = $this->getPresenter();
+		(new Filters())->register($template, $presenter->inflection);
 	}
 
 	public function absoluteLink(Entity $entity)
