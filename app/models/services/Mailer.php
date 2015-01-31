@@ -121,7 +121,7 @@ class Mailer extends Object
 			]);
 		});
 		$latte->addFilter('vocative', function($phrase) {
-			$this->inflection->inflect($phrase, 5);
+			return $this->inflection->inflect($phrase, 5);
 		});
 		$template = $latte->renderToString($this->getTemplate($view), $args);
 		$msg->setHtmlBody($template);
