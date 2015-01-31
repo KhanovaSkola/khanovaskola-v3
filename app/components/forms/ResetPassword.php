@@ -56,7 +56,8 @@ class ResetPassword extends Form
 		if (!$userEntity || !$userEntity->registered)
 		{
 			$this->iLog('form.resetPassword.fail', ['email' => $v->email]);
-			$this->addError('Email not found');
+			$this->presenter->flashError('auth.reset.notFound');
+			$this->addError('auth.reset.notFound');
 			return;
 		}
 

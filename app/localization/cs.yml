@@ -123,6 +123,9 @@ auth:
     success:
       title: "Email odeslán."
       message: "Pro další instrukce se koukněte do svého mailu." #TODO link to user email by domain
+    notFound:
+      title: "Email není registrován."
+      message: "Buď nejste na Khanova škole zaregistrovaní, nebo jste napsali emailovou adresu špatně." #TODO link to user email by domain
   changePassword:
     success:
       title: "Heslo změněno."
