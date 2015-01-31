@@ -99,7 +99,7 @@
 				color: @khan-black2;
 				line-height: 24px;
 				text-align: left;
-				margin-bottom: 8px;
+				margin-bottom: 5ex;
 				word-break: normal;
 				&.lead {
 					font-weight: @font-weight-normal;
@@ -109,12 +109,10 @@
 					margin-bottom: 20px;
 				}
 			}
-			.images {
+			.media {
 				.clearfix;
-				margin-left: -90px;
-				margin-right: -90px;
-				margin-top: 40px;
-				margin-bottom: 40px;
+				margin: 40px -90px;
+				text-align: center;
 				@media (max-width: @screen-sm) {
 					margin-left: 0;
 					margin-right: 0;
@@ -147,12 +145,18 @@
 					color: @khan-blue-light;
 					line-height: 19px;
 				}
+				.video {
+					max-width: 520px;
+				}
 			}
 			h2 {
 				font-size: 48px;
 				color: @khan-black;
 				line-height: 72px;
 				margin-top: 30px;
+			}
+			.org {
+				margin-left: 2em;
 			}
 		}
 	}
