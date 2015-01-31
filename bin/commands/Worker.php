@@ -14,14 +14,23 @@ use Tracy\Debugger;
 class Worker extends Command
 {
 
+	public static $terminationRequested = FALSE;
+
 	protected function configure()
 	{
 		$this->setName('worker')
 			->setDescription('Queue worker (should be run with supervisord)');
 	}
 
+	public static function handleSigterm()
+	{
+		self::$terminationRequested = TRUE;
+	}
+
 	public function invoke(Queue $queue, Logger $logger, RepositoryContainer $orm, Container $container)
 	{
+		pcntl_signal(SIGTERM, [self::class, 'handleSigterm']);
+
 		$this->out->writeln('<info>Worker is running...</info>');
 		while (TRUE)
 		{
@@ -47,6 +56,12 @@ class Worker extends Command
 					$next();
 				}
 			});
+
+			pcntl_signal_dispatch();
+			if (self::$terminationRequested)
+			{
+				exit(0);
+			}
 		}
 	}
 
