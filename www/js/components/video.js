@@ -6,7 +6,7 @@
 
 	var $overlay = $course.find('.left:first');
 	var $shadow = $course.find('.right .right-inner');
-	var $overlayPlayButton = $course.find('.video-play');
+	var $overlayPlayButton = $course.find('.video-wrapper .video-play');
 	var $videoPreview = $course.find('.video-preview');
 	var $videoReal = $course.find('.video-real');
 	var $videoControls = $course.find('.course-header-footer .left');
@@ -234,12 +234,12 @@
 	});
 
 	App.video.onPlay.push(function() {
-		$videoControls.find('.toggle .icon').addClass('icon-pause').removeClass('icon-play');
+		$videoControls.find('.toggle .icon').addClass('icon-video-pause').removeClass('icon-video-play');
 		$overlayPlayButton.fadeOut(180);
 	});
 
 	App.video.onPause.push(function() {
-		$videoControls.find('.toggle .icon').addClass('icon-play').removeClass('icon-pause');
+		$videoControls.find('.toggle .icon').addClass('icon-video-play').removeClass('icon-video-pause');
 		$overlayPlayButton.fadeIn(180);
 	});
 
