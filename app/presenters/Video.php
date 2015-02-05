@@ -18,6 +18,12 @@ final class Video extends Content
 	public function startup()
 	{
 		parent::startup();
+
+		if ($this->action === 'youtube')
+		{
+			return;
+		}
+
 		$this->loadVideo();
 		$this->loadBlock(function() {
 			$block = $this->video->getRandomParent();
@@ -65,6 +71,12 @@ final class Video extends Content
 		$this->template->nextSchema = $nextSchema;
 		$this->template->suggestions = $this->getSuggestions($this->video);
 		$this->template->position = $this->block ? $this->block->getPositionOf($this->video) : NULL;
+	}
+
+	public function actionYoutube($youtubeId)
+	{
+		$video = $this->orm->contents->getVideoByYoutubeId($youtubeId);
+		$this->redirectToEntity($video);
 	}
 
 	public function createComponentComments()
