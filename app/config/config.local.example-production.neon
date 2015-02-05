@@ -5,24 +5,26 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 
-version: [8]
+version: [9]
 
 parameters:
 	baseUrl: "http://vagrant.khanovaskola.cz/"
 	aesKey: "generate-24-random-chars"
+	tls: true
 	database:
-		username: postgres
-		password: root
-		database: khanovaskola
+		username: khanovaskola
+		password:
+		database: khanovaskola-production
+		port: 5433
 	discourse:
 		secret: 'same-key-as-in-discourse-settings'
 		redirect: 'https://forum.khanovaskola.cz/session/sso_login'
 	smtp:
-		host: mailtrap.io
-		port: 25
-		username: "197407abde040f4e4"
-		password: "fd4cd6f1568ac1"
-		# secure: ssl
+		ost: smtp.mandrillapp.com
+		secure: tls
+		port: 587
+		username: khanovaskola
+		password:
 	elastic:
 		index: khanovaskola
 		logging: true
@@ -30,25 +32,31 @@ parameters:
 		traceObject: @elasticSearchLogger
 		hosts:
 			- localhost
-		# connectionParams:
-		# 	auth: [username, password", "Basic"]
 
 monolog:
-	# registerFallback: yes # development
 	handlers:
-		- Monolog\Handler\SyslogHandler('main-site', 'local4') # production
+		- Monolog\Handler\SyslogHandler('main-site', 'local4')
+
+extensions:
+	redis: Kdyby\Redis\DI\RedisExtension
 
 console:
 	url: %baseUrl%
 
 facebook:
 	appId: "273608052753035"
-	appSecret: "7be86a7s3bc83aa6e260d032ce393a15" # dummy
+	appSecret:
 
 google:
 	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
-	clientSecret: "sT1mUz-XAAAX58fI1dXXXQWY" # dummy
-	apiKey: "AIzaSyC3wrCJAoz4jBytysfpNX7FqOHrFL1234E" # dummy
+	clientSecret:
+	apiKey:
+
+redis:
+	journal: on
+	storage: on
+	session: on
+	debugger: off
 
 services:
 	elasticSearchLogger: Mikulas\Diagnostics\ElasticSearchLogger

@@ -53,7 +53,7 @@ class Configurator extends Nette\Configurator
 
 		$root = __DIR__ . '/../..';
 
-		VersionExtension::$samplePath = '%appDir%/config/config.local.example.neon';
+		VersionExtension::$samplePath = '%appDir%/config/config.local.example-dev.neon';
 
 		$this->setTempDirectory(realpath("$root/temp"));
 

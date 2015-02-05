@@ -1,0 +1,50 @@
+#
+# After adding new keys, bump version key and
+# don't forget to update tests/travis/config.local.neon
+#
+# Passwords in this file are unsafe. We know they are public.
+#
+
+version: [9]
+
+parameters:
+	baseUrl: "http://ks/"
+	aesKey: "generate-24-random-chars"
+	database:
+		username: postgres
+		password: root
+		database: khanovaskola
+	discourse:
+		# not needed on dev machine
+		secret: 'same-key-as-in-discourse-settings'
+		redirect: 'https://forum.khanovaskola.cz/session/sso_login'
+	smtp:
+		host: mailtrap.io
+		port: 25
+		username: "197407abde040f4e4"
+		password: "fd4cd6f1568ac1"
+	elastic:
+		index: khanovaskola
+		logging: true
+		logObject: @elasticSearchLogger
+		traceObject: @elasticSearchLogger
+		hosts:
+			- localhost
+
+monolog:
+	registerFallback: yes
+
+console:
+	url: %baseUrl%
+
+facebook:
+	appId: "273608052753035"
+	appSecret: "7be86a7s3bc83aa6e260d032ce393a15" # dummy
+
+google:
+	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
+	clientSecret: "sT1mUz-XAAAX58fI1dXXXQWY" # dummy
+	apiKey: "AIzaSyC3wrCJAoz4jBytysfpNX7FqOHrFL1234E" # dummy
+
+services:
+	elasticSearchLogger: Mikulas\Diagnostics\ElasticSearchLogger

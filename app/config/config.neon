@@ -34,18 +34,11 @@ extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
 	google: Kdyby\Google\DI\GoogleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
-	redis: Kdyby\Redis\DI\RedisExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 	version: Clevis\Version\DI\VersionExtension
 
 monolog:
 	name: main-site
-
-redis:
-	journal: on
-	storage: on
-	session: on
-	debugger: off
 
 facebook:
 	permissions: [email, user_interests, user_likes, user_education_history]
