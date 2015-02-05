@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
+use App\Models\Structs\Gender;
 use Nette\Security\Passwords;
 use Nette\Utils\Strings;
 use Orm;
@@ -91,6 +92,15 @@ class User extends Entity
 			array_shift($parts);
 			$this->familyName = implode(' ', $parts);
 		}
+	}
+
+	public function setGender($gender)
+	{
+		if ($gender !== Gender::FEMALE)
+		{
+			$gender = Gender::MALE;
+		}
+		$this->setValue('gender', $gender);
 	}
 
 	/**
