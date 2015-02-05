@@ -41,10 +41,10 @@ class Router extends RouteList
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
 
-		$this[] = new Route('schema/[<action>/]<schemaId \d+>[-<slug>]', 'Schema:default');
-		$this[] = new Route('blok/[<action>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
-		$this[] = new Route('video/[<action>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]', 'Video:default');
-		$this[] = new Route('cviceni/[<action>/][[<schemaId \d+>/]<blockId \d+>/]<blueprintId \d+>[-<slug>]', 'Blueprint:default');
+		$this[] = new Route('schema/[<action \D+>/]<schemaId \d+>[-<slug>]', 'Schema:default');
+		$this[] = new Route('blok/[<action \D+>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
+		$this[] = new Route('video/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]', 'Video:default');
+		$this[] = new Route('cviceni/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blueprintId \d+>[-<slug>]', 'Blueprint:default');
 
 		// old links
 		$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
@@ -56,7 +56,7 @@ class Router extends RouteList
 		$this[] = $context->createInstance(Routers\OldCategory::class);
 		$this[] = $context->createInstance(Routers\OldBlog::class);
 
-		$this[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+		$this[] = new Route('<presenter>/<action \D+>[/<id>]', 'Homepage:default');
 	}
 
 }
