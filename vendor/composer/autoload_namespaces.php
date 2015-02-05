@@ -32,11 +32,5 @@ return array(
     'Elasticsearch\\Tests' => array($vendorDir . '/elasticsearch/elasticsearch/tests'),
     'Elasticsearch\\Benchmarks' => array($vendorDir . '/elasticsearch/elasticsearch/benchmarks'),
     'Elasticsearch' => array($vendorDir . '/elasticsearch/elasticsearch/src'),
-    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
-    'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
-    'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib'),
-    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
-    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'Clevis\\Version\\DI\\' => array($vendorDir . '/clevis/config-version-extension/src'),
 );

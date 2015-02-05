@@ -45,6 +45,7 @@ use Nette;
  * @property-read string $basePath
  * @property-read string $baseUrl
  * @property-read string $relativeUrl
+ * @property-read array $queryParameters
  */
 class Url extends Nette\Object
 {
@@ -64,19 +65,19 @@ class Url extends Nette\Object
 	private $user = '';
 
 	/** @var string */
-	private $pass = '';
+	private $password = '';
 
 	/** @var string */
 	private $host = '';
 
 	/** @var int */
-	private $port = NULL;
+	private $port;
 
 	/** @var string */
 	private $path = '';
 
-	/** @var string */
-	private $query = '';
+	/** @var array */
+	private $query = array();
 
 	/** @var string */
 	private $fragment = '';
@@ -89,22 +90,20 @@ class Url extends Nette\Object
 	public function __construct($url = NULL)
 	{
 		if (is_string($url)) {
-			$parts = @parse_url($url); // @ - is escalated to exception
-			if ($parts === FALSE) {
+			$p = @parse_url($url); // @ - is escalated to exception
+			if ($p === FALSE) {
 				throw new Nette\InvalidArgumentException("Malformed or unsupported URI '$url'.");
 			}
 
-			foreach ($parts as $key => $val) {
-				$this->$key = $val;
-			}
-
-			if (!$this->port && isset(self::$defaultPorts[$this->scheme])) {
-				$this->port = self::$defaultPorts[$this->scheme];
-			}
-
-			if ($this->path === '' && ($this->scheme === 'http' || $this->scheme === 'https')) {
-				$this->path = '/';
-			}
+			$this->scheme = isset($p['scheme']) ? $p['scheme'] : '';
+			$this->port = isset($p['port']) ? $p['port']
+				: (isset(self::$defaultPorts[$this->scheme]) ? self::$defaultPorts[$this->scheme] : NULL);
+			$this->host = isset($p['host']) ? rawurldecode($p['host']) : '';
+			$this->user = isset($p['user']) ? rawurldecode($p['user']) : '';
+			$this->password = isset($p['pass']) ? rawurldecode($p['pass']) : '';
+			$this->setPath(isset($p['path']) ? $p['path'] : '');
+			$this->setQuery(isset($p['query']) ? $p['query'] : array());
+			$this->fragment = isset($p['fragment']) ? rawurldecode($p['fragment']) : '';
 
 		} elseif ($url instanceof self) {
 			foreach ($this as $key => $val) {
@@ -165,7 +164,7 @@ class Url extends Nette\Object
 	 */
 	public function setPassword($value)
 	{
-		$this->pass = (string) $value;
+		$this->password = (string) $value;
 		return $this;
 	}
 
@@ -176,7 +175,7 @@ class Url extends Nette\Object
 	 */
 	public function getPassword()
 	{
-		return $this->pass;
+		return $this->password;
 	}
 
 
@@ -232,6 +231,9 @@ class Url extends Nette\Object
 	public function setPath($value)
 	{
 		$this->path = (string) $value;
+		if (substr($this->path, 0, 1) !== '/' && in_array($this->scheme, array('http', 'https'), TRUE)) {
+			$this->path = '/' . $this->path;
+		}
 		return $this;
 	}
 
@@ -253,7 +255,7 @@ class Url extends Nette\Object
 	 */
 	public function setQuery($value)
 	{
-		$this->query = (string) (is_array($value) ? http_build_query($value, '', '&') : $value);
+		$this->query = is_array($value) ? $value : self::parseQuery($value);
 		return $this;
 	}
 
@@ -265,8 +267,9 @@ class Url extends Nette\Object
 	 */
 	public function appendQuery($value)
 	{
-		$value = (string) (is_array($value) ? http_build_query($value, '', '&') : $value);
-		$this->query .= ($this->query === '' || $value === '') ? $value : '&' . $value;
+		$this->query = is_array($value)
+			? $value + $this->query
+			: self::parseQuery($this->getQuery() . '&' . $value);
 		return $this;
 	}
 
@@ -276,6 +279,18 @@ class Url extends Nette\Object
 	 * @return string
 	 */
 	public function getQuery()
+	{
+		if (PHP_VERSION < 50400) {
+			return str_replace('+', '%20', http_build_query($this->query, '', '&'));
+		}
+		return http_build_query($this->query, '', '&', PHP_QUERY_RFC3986);
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getQueryParameters()
 	{
 		return $this->query;
 	}
@@ -288,8 +303,7 @@ class Url extends Nette\Object
 	 */
 	public function getQueryParameter($name, $default = NULL)
 	{
-		parse_str($this->query, $params);
-		return isset($params[$name]) ? $params[$name] : $default;
+		return isset($this->query[$name]) ? $this->query[$name] : $default;
 	}
 
 
@@ -300,13 +314,7 @@ class Url extends Nette\Object
 	 */
 	public function setQueryParameter($name, $value)
 	{
-		parse_str($this->query, $params);
-		if ($value === NULL) {
-			unset($params[$name]);
-		} else {
-			$params[$name] = $value;
-		}
-		$this->setQuery($params);
+		$this->query[$name] = $value;
 		return $this;
 	}
 
@@ -340,7 +348,7 @@ class Url extends Nette\Object
 	public function getAbsoluteUrl()
 	{
 		return $this->getHostUrl() . $this->path
-			. ($this->query === '' ? '' : '?' . $this->query)
+			. ($this->query ? '?' . $this->getQuery() : '')
 			. ($this->fragment === '' ? '' : '#' . $this->fragment);
 	}
 
@@ -357,7 +365,7 @@ class Url extends Nette\Object
 		}
 
 		if ($this->user !== '' && $this->scheme !== 'http' && $this->scheme !== 'https') {
-			$authority = $this->user . ($this->pass === '' ? '' : ':' . $this->pass) . '@' . $authority;
+			$authority = rawurlencode($this->user) . ($this->password === '' ? '' : ':' . rawurlencode($this->password)) . '@' . $authority;
 		}
 
 		return $authority;
@@ -413,19 +421,19 @@ class Url extends Nette\Object
 	public function isEqual($url)
 	{
 		$url = new self($url);
-		parse_str($url->query, $query);
+		$query = $url->query;
 		sort($query);
-		parse_str($this->query, $query2);
+		$query2 = $this->query;
 		sort($query2);
 		$http = in_array($this->scheme, array('http', 'https'), TRUE);
 		return $url->scheme === $this->scheme
-			&& !strcasecmp(rawurldecode($url->host), rawurldecode($this->host))
+			&& !strcasecmp($url->host, $this->host)
 			&& $url->port === $this->port
-			&& ($http || rawurldecode($url->user) === rawurldecode($this->user))
-			&& ($http || rawurldecode($url->pass) === rawurldecode($this->pass))
+			&& ($http || $url->user === $this->user)
+			&& ($http || $url->password === $this->password)
 			&& self::unescape($url->path, '%/') === self::unescape($this->path, '%/')
 			&& $query === $query2
-			&& rawurldecode($url->fragment) === rawurldecode($this->fragment);
+			&& $url->fragment === $this->fragment;
 	}
 
 
@@ -435,9 +443,12 @@ class Url extends Nette\Object
 	 */
 	public function canonicalize()
 	{
-		$this->path = $this->path === '' ? '/' : self::unescape($this->path, '%/');
-		$this->host = strtolower(rawurldecode($this->host));
-		$this->query = self::unescape(strtr($this->query, '+', ' '), '%&;=+');
+		$this->path = preg_replace_callback(
+			'#[^!$&\'()*+,/:;=@%]+#',
+			function($m) { return rawurlencode($m[0]); },
+			self::unescape($this->path, '%/')
+		);
+		$this->host = strtolower($this->host);
 		return $this;
 	}
 
@@ -452,7 +463,7 @@ class Url extends Nette\Object
 
 
 	/**
-	 * Similar to rawurldecode, but preserve reserved chars encoded.
+	 * Similar to rawurldecode, but preserves reserved chars encoded.
 	 * @param  string to decode
 	 * @param  string reserved characters
 	 * @return string
@@ -462,14 +473,28 @@ class Url extends Nette\Object
 		// reserved (@see RFC 2396) = ";" | "/" | "?" | ":" | "@" | "&" | "=" | "+" | "$" | ","
 		// within a path segment, the characters "/", ";", "=", "?" are reserved
 		// within a query component, the characters ";", "/", "?", ":", "@", "&", "=", "+", ",", "$" are reserved.
-		preg_match_all('#(?<=%)[a-f0-9][a-f0-9]#i', $s, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
-		foreach (array_reverse($matches) as $match) {
-			$ch = chr(hexdec($match[0][0]));
-			if (strpos($reserved, $ch) === FALSE) {
-				$s = substr_replace($s, $ch, $match[0][1] - 1, 3);
-			}
+		if ($reserved !== '') {
+			$s = preg_replace_callback(
+				'#%(' . substr(chunk_split(bin2hex($reserved), 2, '|'), 0, -1) . ')#i',
+				function($m) { return '%25' . strtoupper($m[1]); },
+				$s
+			);
 		}
-		return $s;
+		return rawurldecode($s);
+	}
+
+
+	/**
+	 * Parses query string.
+	 * @return array
+	 */
+	public static function parseQuery($s)
+	{
+		parse_str($s, $res);
+		if (get_magic_quotes_gpc()) { // for PHP 5.3
+			$res = Helpers::stripSlashes($res);
+		}
+		return $res;
 	}
 
 }

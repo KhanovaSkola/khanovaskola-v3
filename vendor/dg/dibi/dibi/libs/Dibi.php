@@ -39,8 +39,8 @@ class dibi
 		FIELD_TIME = dibi::TIME;
 
 	/** version */
-	const VERSION = '2.2.2',
-		REVISION = 'released on 2014-06-30';
+	const VERSION = '2.3.0',
+		REVISION = 'released on 2015-01-23';
 
 	/** sorting order */
 	const ASC = 'ASC',
@@ -68,7 +68,7 @@ class dibi
 	public static $numOfQueries = 0;
 
 	/** @var string  Default dibi driver */
-	public static $defaultDriver = 'mysql';
+	public static $defaultDriver = 'mysqli';
 
 
 	/**
@@ -86,12 +86,14 @@ class dibi
 	/**
 	 * Creates a new DibiConnection object and connects it to specified database.
 	 * @param  mixed   connection parameters
-	 * @param  string  connection name
 	 * @return DibiConnection
 	 * @throws DibiException
 	 */
 	public static function connect($config = array(), $name = 0)
 	{
+		if ($name) {
+			trigger_error(__METHOD__ . '(): named connections are deprecated.', E_USER_DEPRECATED);
+		}
 		return self::$connection = self::$registry[$name] = new DibiConnection($config, $name);
 	}
 
@@ -118,7 +120,6 @@ class dibi
 
 	/**
 	 * Retrieve active connection.
-	 * @param  string   connection registy name
 	 * @return DibiConnection
 	 * @throws DibiException
 	 */
@@ -131,6 +132,8 @@ class dibi
 
 			return self::$connection;
 		}
+
+		trigger_error(__METHOD__ . '(): named connections are deprecated.', E_USER_DEPRECATED);
 
 		if (!isset(self::$registry[$name])) {
 			throw new DibiException("There is no connection named '$name'.");
@@ -152,13 +155,11 @@ class dibi
 
 
 	/**
-	 * Change active connection.
-	 * @param  string   connection registy name
-	 * @return void
-	 * @throws DibiException
+	 * @deprecated
 	 */
 	public static function activate($name)
 	{
+		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
 		self::$connection = self::getConnection($name);
 	}
 
@@ -471,7 +472,7 @@ class dibi
 				$sql = self::$sql;
 			}
 
-			static $keywords1 = 'SELECT|(?:ON\s+DUPLICATE\s+KEY)?UPDATE|INSERT(?:\s+INTO)?|REPLACE(?:\s+INTO)?|DELETE|CALL|UNION|FROM|WHERE|HAVING|GROUP\s+BY|ORDER\s+BY|LIMIT|OFFSET|SET|VALUES|LEFT\s+JOIN|INNER\s+JOIN|TRUNCATE';
+			static $keywords1 = 'SELECT|(?:ON\s+DUPLICATE\s+KEY)?UPDATE|INSERT(?:\s+INTO)?|REPLACE(?:\s+INTO)?|DELETE|CALL|UNION|FROM|WHERE|HAVING|GROUP\s+BY|ORDER\s+BY|LIMIT|OFFSET|SET|VALUES|LEFT\s+JOIN|INNER\s+JOIN|TRUNCATE|START\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK(?:\s+TO\s+SAVEPOINT)?|(?:RELEASE\s+)?SAVEPOINT';
 			static $keywords2 = 'ALL|DISTINCT|DISTINCTROW|IGNORE|AS|USING|ON|AND|OR|IN|IS|NOT|NULL|LIKE|RLIKE|REGEXP|TRUE|FALSE';
 
 			// insert new lines

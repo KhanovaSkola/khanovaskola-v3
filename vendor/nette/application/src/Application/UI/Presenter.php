@@ -28,7 +28,7 @@ use Nette,
  * @property-read bool $ajax
  * @property-read Nette\Application\Request $lastCreatedRequest
  * @property-read Nette\Http\SessionSection $flashSession
- * @property-read \SystemContainer|Nette\DI\Container $context
+ * @property-read Nette\DI\Container $context
  * @property-read Nette\Http\Session $session
  * @property-read Nette\Security\User $user
  */
@@ -48,7 +48,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	/** @var int */
 	public $invalidLinkMode;
 
-	/** @var array of function(Presenter $sender, IResponse $response = NULL); Occurs when the presenter is shutting down */
+	/** @var callable[]  function(Presenter $sender, IResponse $response = NULL); Occurs when the presenter is shutting down */
 	public $onShutdown;
 
 	/** @var Nette\Application\Request */
@@ -102,7 +102,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	/** @var array */
 	private $lastCreatedRequestFlag;
 
-	/** @var \SystemContainer|Nette\DI\Container */
+	/** @var Nette\DI\Container */
 	private $context;
 
 	/** @var Nette\Http\IRequest */
@@ -219,7 +219,9 @@ abstract class Presenter extends Control implements Application\IPresenter
 			}
 
 			// finish template rendering
-			$this->sendTemplate();
+			if ($this->getTemplate()) {
+				$this->sendTemplate();
+			}
 
 		} catch (Application\AbortException $e) {
 			// continue with shutting down
@@ -446,11 +448,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	public function sendTemplate()
 	{
 		$template = $this->getTemplate();
-		if (!$template) {
-			return;
-		}
-
-		if (!$template->getFile()) { // content template
+		if (!$template->getFile()) {
 			$files = $this->formatTemplateFiles();
 			foreach ($files as $file) {
 				if (is_file($file)) {
@@ -509,12 +507,9 @@ abstract class Presenter extends Control implements Application\IPresenter
 		$list = array(
 			"$dir/templates/$presenter/@$layout.latte",
 			"$dir/templates/$presenter.@$layout.latte",
-			"$dir/templates/$presenter/@$layout.phtml",
-			"$dir/templates/$presenter.@$layout.phtml",
 		);
 		do {
 			$list[] = "$dir/templates/@$layout.latte";
-			$list[] = "$dir/templates/@$layout.phtml";
 			$dir = dirname($dir);
 		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
 		return $list;
@@ -534,8 +529,6 @@ abstract class Presenter extends Control implements Application\IPresenter
 		return array(
 			"$dir/templates/$presenter/$this->view.latte",
 			"$dir/templates/$presenter.$this->view.latte",
-			"$dir/templates/$presenter/$this->view.phtml",
-			"$dir/templates/$presenter.$this->view.phtml",
 		);
 	}
 
@@ -641,10 +634,6 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public function terminate()
 	{
-		if (func_num_args() !== 0) {
-			trigger_error(__METHOD__ . ' is not intended to send a Application\Response; use sendResponse() instead.', E_USER_WARNING);
-			$this->sendResponse(func_get_arg(0));
-		}
 		throw new Application\AbortException();
 	}
 
@@ -743,7 +732,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public function canonicalize()
 	{
-		if (!$this->isAjax() && ($this->request->isMethod('get') || $this->request->isMethod('head'))) {
+		if (!$this->isAjax() && !$this->request->hasFlag(Application\Request::RESTORED) && ($this->request->isMethod('get') || $this->request->isMethod('head'))) {
 			try {
 				$url = $this->createRequest($this, $this->action, $this->getGlobalState() + $this->request->getParameters(), 'redirectX');
 			} catch (InvalidLinkException $e) {}
@@ -777,7 +766,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	/**
 	 * Request/URL factory.
 	 * @param  PresenterComponent  base
-	 * @param  string   destination in format "[[module:]presenter:]action" or "signal!" or "this"
+	 * @param  string   destination in format "[//] [[[module:]presenter:]action | signal! | this] [#fragment]"
 	 * @param  array    array of arguments
 	 * @param  string   forward|redirect|link
 	 * @return string   URL
@@ -803,6 +792,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 		// 2) ?query syntax
 		$a = strpos($destination, '?');
 		if ($a !== FALSE) {
+			trigger_error('Query syntax is deprecated.', E_USER_DEPRECATED);
 			parse_str(substr($destination, $a + 1), $args); // requires disabled magic quotes
 			$destination = substr($destination, 0, $a);
 		}
@@ -1019,8 +1009,9 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 * @param  array   supplemental arguments
 	 * @return void
 	 * @throws InvalidLinkException
+	 * @internal
 	 */
-	private static function argsToParams($class, $method, & $args, $supplemental = array())
+	public static function argsToParams($class, $method, & $args, $supplemental = array())
 	{
 		$i = 0;
 		$rm = new \ReflectionMethod($class, $method);
@@ -1231,8 +1222,8 @@ abstract class Presenter extends Control implements Application\IPresenter
 		$params = $this->request->getParameters();
 		if ($this->isAjax()) {
 			$params += $this->request->getPost();
-		} elseif (isset($this->request->post[self::SIGNAL_KEY])) {
-			$params[self::SIGNAL_KEY] = $this->request->post[self::SIGNAL_KEY];
+		} elseif (($tmp = $this->request->getPost(self::SIGNAL_KEY)) !== NULL) {
+			$params[self::SIGNAL_KEY] = $tmp;
 		}
 
 		foreach ($params as $key => $value) {
@@ -1341,7 +1332,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 
 	/**
 	 * Gets the context.
-	 * @return \SystemContainer|Nette\DI\Container
+	 * @return Nette\DI\Container
 	 * @deprecated
 	 */
 	public function getContext()
@@ -1350,16 +1341,6 @@ abstract class Presenter extends Control implements Application\IPresenter
 			throw new Nette\InvalidStateException('Context has not been set.');
 		}
 		return $this->context;
-	}
-
-
-	/**
-	 * @deprecated
-	 */
-	final public function getService($name)
-	{
-		trigger_error(__METHOD__ . '() is deprecated; use dependency injection instead.', E_USER_DEPRECATED);
-		return $this->context->getService($name);
 	}
 
 

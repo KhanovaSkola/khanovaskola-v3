@@ -62,13 +62,17 @@ class Strings
 
 	/**
 	 * Returns a specific character in UTF-8.
-	 * @param  int     codepoint
+	 * @param  int     code point (0x0 to 0xD7FF or 0xE000 to 0x10FFFF)
 	 * @return string
+	 * @throws Nette\InvalidArgumentException if code point is not in valid range
 	 */
 	public static function chr($code)
 	{
 		if (func_num_args() > 1 && strcasecmp(func_get_arg(1), 'UTF-8')) {
 			trigger_error(__METHOD__ . ' supports only UTF-8 encoding.', E_USER_DEPRECATED);
+		}
+		if ($code < 0 || ($code >= 0xD800 && $code <= 0xDFFF) || $code > 0x10FFFF) {
+			throw new Nette\InvalidArgumentException('Code point must be in range 0x0 to 0xD7FF or 0xE000 to 0x10FFFF.');
 		}
 		return iconv('UTF-32BE', 'UTF-8//IGNORE', pack('N', $code));
 	}
@@ -113,17 +117,21 @@ class Strings
 	/**
 	 * Returns a part of UTF-8 string.
 	 * @param  string
-	 * @param  int
-	 * @param  int
+	 * @param  int in characters (code points)
+	 * @param  int in characters (code points)
 	 * @return string
 	 */
 	public static function substring($s, $start, $length = NULL)
 	{
-		if ($length === NULL) {
-			$length = self::length($s);
-		}
 		if (function_exists('mb_substr')) {
+			if ($length === NULL && PHP_VERSION_ID < 50408) {
+				$length = self::length($s);
+			}
 			return mb_substr($s, $start, $length, 'UTF-8'); // MB is much faster
+		} elseif ($length === NULL) {
+			$length = self::length($s);
+		} elseif ($start < 0 && $length < 0) {
+			$start += self::length($s); // unifies iconv_substr behavior with mb_substr
 		}
 		return iconv_substr($s, $start, $length, 'UTF-8');
 	}
@@ -131,7 +139,7 @@ class Strings
 
 	/**
 	 * Removes special controls characters and normalizes line endings and spaces.
-	 * @param  string  UTF-8 encoding or 8-bit
+	 * @param  string  UTF-8 encoding
 	 * @return string
 	 */
 	public static function normalize($s)
@@ -139,7 +147,7 @@ class Strings
 		$s = self::normalizeNewLines($s);
 
 		// remove control characters; leave \t + \n
-		$s = preg_replace('#[\x00-\x08\x0B-\x1F\x7F]+#', '', $s);
+		$s = preg_replace('#[\x00-\x08\x0B-\x1F\x7F-\x9F]+#u', '', $s);
 
 		// right trim
 		$s = preg_replace('#[\t ]+$#m', '', $s);
@@ -170,10 +178,13 @@ class Strings
 	public static function toAscii($s)
 	{
 		$s = preg_replace('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{2FF}\x{370}-\x{10FFFF}]#u', '', $s);
-		$s = strtr($s, '`\'"^~', "\x01\x02\x03\x04\x05");
+		$s = strtr($s, '`\'"^~?', "\x01\x02\x03\x04\x05\x06");
 		$s = str_replace(array("\xE2\x80\x9E", "\xE2\x80\x9C", "\xE2\x80\x9D", "\xE2\x80\x9A",
-			"\xE2\x80\x98", "\xE2\x80\x99", "\xC2\xBB", "\xC2\xAB"),
-			array("\x03", "\x03", "\x03", "\x02", "\x02", "\x02", ">>", "<<"), $s);
+			"\xE2\x80\x98", "\xE2\x80\x99", "\xC2\xBB", "\xC2\xAB", "\xC2\xB0"),
+			array("\x03", "\x03", "\x03", "\x02", "\x02", "\x02", ">>", "<<", "\x04"), $s);
+		if (class_exists('Transliterator') && $transliterator = \Transliterator::create('Any-Latin; Latin-ASCII')) {
+			$s = $transliterator->transliterate($s);
+		}
 		if (ICONV_IMPL === 'glibc') {
 			$s = @iconv('UTF-8', 'WINDOWS-1250//TRANSLIT', $s); // intentionally @
 			$s = strtr($s, "\xa5\xa3\xbc\x8c\xa7\x8a\xaa\x8d\x8f\x8e\xaf\xb9\xb3\xbe\x9c\x9a\xba\x9d\x9f\x9e"
@@ -181,11 +192,12 @@ class Strings
 				. "\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8"
 				. "\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf8\xf9\xfa\xfb\xfc\xfd\xfe\x96",
 				"ALLSSSSTZZZallssstzzzRAAAALCCCEEEEIIDDNNOOOOxRUUUUYTsraaaalccceeeeiiddnnooooruuuuyt-");
+			$s = preg_replace('#[^\x00-\x7F]++#', '', $s);
 		} else {
 			$s = @iconv('UTF-8', 'ASCII//TRANSLIT', $s); // intentionally @
 		}
-		$s = str_replace(array('`', "'", '"', '^', '~'), '', $s);
-		return strtr($s, "\x01\x02\x03\x04\x05", '`\'"^~');
+		$s = str_replace(array('`', "'", '"', '^', '~', '?'), '', $s);
+		return strtr($s, "\x01\x02\x03\x04\x05\x06", '`\'"^~?');
 	}
 
 
@@ -339,13 +351,14 @@ class Strings
 
 
 	/**
-	 * Returns UTF-8 string length.
+	 * Returns number of characters (not bytes) in UTF-8 string.
+	 * That is the number of Unicode code points which may differ from the number of graphemes.
 	 * @param  string
 	 * @return int
 	 */
 	public static function length($s)
 	{
-		return strlen(utf8_decode($s)); // fastest way
+		return function_exists('mb_strlen') ? mb_strlen($s, 'UTF-8') : strlen(utf8_decode($s));
 	}
 
 
@@ -499,6 +512,13 @@ class Strings
 	/** @internal */
 	public static function pcre($func, $args)
 	{
+		static $messages = array(
+			PREG_INTERNAL_ERROR => 'Internal error',
+			PREG_BACKTRACK_LIMIT_ERROR => 'Backtrack limit was exhausted',
+			PREG_RECURSION_LIMIT_ERROR => 'Recursion limit was exhausted',
+			PREG_BAD_UTF8_ERROR => 'Malformed UTF-8 data',
+			5 => 'Offset didn\'t correspond to the begin of a valid UTF-8 code point', // PREG_BAD_UTF8_OFFSET_ERROR
+		);
 		$res = Callback::invokeSafe($func, $args, function($message) use ($args) {
 			// compile-time error, not detectable by preg_last_error
 			throw new RegexpException($message . ' in pattern: ' . implode(' or ', (array) $args[0]));
@@ -507,7 +527,8 @@ class Strings
 		if (($code = preg_last_error()) // run-time error, but preg_last_error & return code are liars
 			&& ($res === NULL || !in_array($func, array('preg_filter', 'preg_replace_callback', 'preg_replace')))
 		) {
-			throw new RegexpException(NULL, $code, implode(' or ', (array) $args[0]));
+			throw new RegexpException((isset($messages[$code]) ? $messages[$code] : 'Unknown error')
+				. ' (pattern: ' . implode(' or ', (array) $args[0]) . ')', $code);
 		}
 		return $res;
 	}
@@ -520,20 +541,4 @@ class Strings
  */
 class RegexpException extends \Exception
 {
-	static public $messages = array(
-		PREG_INTERNAL_ERROR => 'Internal error',
-		PREG_BACKTRACK_LIMIT_ERROR => 'Backtrack limit was exhausted',
-		PREG_RECURSION_LIMIT_ERROR => 'Recursion limit was exhausted',
-		PREG_BAD_UTF8_ERROR => 'Malformed UTF-8 data',
-		5 => 'Offset didn\'t correspond to the begin of a valid UTF-8 code point', // PREG_BAD_UTF8_OFFSET_ERROR
-	);
-
-	public function __construct($message, $code = NULL, $pattern = NULL)
-	{
-		if (!$message) {
-			$message = (isset(self::$messages[$code]) ? self::$messages[$code] : 'Unknown error') . ($pattern ? " (pattern: $pattern)" : '');
-		}
-		parent::__construct($message, $code);
-	}
-
 }

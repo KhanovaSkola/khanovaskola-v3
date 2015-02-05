@@ -83,7 +83,7 @@ class ElasticSearchQuery extends Object implements IQuery
 	 */
 	public function getElapsedTime()
 	{
-		return isset($this->response['took']) ? $this->response['took'] : NULL;
+		return $this->response['took'];
 	}
 
 	/**

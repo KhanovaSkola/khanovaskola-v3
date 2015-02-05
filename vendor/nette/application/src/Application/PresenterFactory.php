@@ -17,17 +17,11 @@ use Nette;
  */
 class PresenterFactory extends Nette\Object implements IPresenterFactory
 {
-	/** @var bool */
-	public $caseSensitive = FALSE;
-
 	/** @var array[] of module => splited mask */
 	private $mapping = array(
 		'*' => array('', '*Module\\', '*Presenter'),
 		'Nette' => array('NetteModule\\', '*\\', '*Presenter'),
 	);
-
-	/** @var string */
-	private $baseDir;
 
 	/** @var array */
 	private $cache = array();
@@ -35,14 +29,14 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 	/** @var Nette\DI\Container */
 	private $container;
 
+	/** @var bool */
+	private $autoRebuild;
 
-	/**
-	 * @param  string
-	 */
-	public function __construct($baseDir, Nette\DI\Container $container)
+
+	public function __construct(Nette\DI\Container $container, $autoRebuild = FALSE)
 	{
-		$this->baseDir = $baseDir;
 		$this->container = $container;
+		$this->autoRebuild = $autoRebuild;
 	}
 
 
@@ -54,17 +48,25 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 	public function createPresenter($name)
 	{
 		$class = $this->getPresenterClass($name);
-		if (count($services = $this->container->findByType($class)) === 1) {
-			$presenter = $this->container->createService($services[0]);
-		} else {
-			$presenter = $this->container->createInstance($class);
-		}
-		$this->container->callInjects($presenter);
+		$services = array_keys($this->container->findByTag('nette.presenter'), $class);
+		if (count($services) > 1) {
+			throw new InvalidPresenterException("Multiple services of type $class found: " . implode(', ', $services) . '.');
 
-		if ($presenter instanceof UI\Presenter && $presenter->invalidLinkMode === NULL) {
-			$presenter->invalidLinkMode = $this->container->parameters['debugMode'] ? UI\Presenter::INVALID_LINK_WARNING : UI\Presenter::INVALID_LINK_SILENT;
+		} elseif (!$services) {
+			if ($this->autoRebuild) {
+				$rc = new \ReflectionClass($this->container);
+				@unlink($rc->getFileName()); // @ file may not exists
+			}
+
+			$presenter = $this->container->createInstance($class);
+			$this->container->callInjects($presenter);
+			if ($presenter instanceof UI\Presenter && $presenter->invalidLinkMode === NULL) {
+				$presenter->invalidLinkMode = $this->container->parameters['debugMode'] ? UI\Presenter::INVALID_LINK_WARNING : UI\Presenter::INVALID_LINK_SILENT;
+			}
+			return $presenter;
 		}
-		return $presenter;
+
+		return $this->container->createService($services[0]);
 	}
 
 
@@ -77,8 +79,7 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 	public function getPresenterClass(& $name)
 	{
 		if (isset($this->cache[$name])) {
-			list($class, $name) = $this->cache[$name];
-			return $class;
+			return $this->cache[$name];
 		}
 
 		if (!is_string($name) || !Nette\Utils\Strings::match($name, '#^[a-zA-Z\x7f-\xff][a-zA-Z0-9\x7f-\xff:]*\z#')) {
@@ -86,17 +87,8 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 		}
 
 		$class = $this->formatPresenterClass($name);
-
 		if (!class_exists($class)) {
-			// internal autoloading
-			$file = $this->formatPresenterFile($name);
-			if (is_file($file) && is_readable($file)) {
-				call_user_func(function() use ($file) { require $file; });
-			}
-
-			if (!class_exists($class)) {
-				throw new InvalidPresenterException("Cannot load presenter '$name', class '$class' was not found in '$file'.");
-			}
+			throw new InvalidPresenterException("Cannot load presenter '$name', class '$class' was not found.");
 		}
 
 		$reflection = new Nette\Reflection\ClassType($class);
@@ -104,26 +96,11 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 
 		if (!$reflection->implementsInterface('Nette\Application\IPresenter')) {
 			throw new InvalidPresenterException("Cannot load presenter '$name', class '$class' is not Nette\\Application\\IPresenter implementor.");
-		}
-
-		if ($reflection->isAbstract()) {
+		} elseif ($reflection->isAbstract()) {
 			throw new InvalidPresenterException("Cannot load presenter '$name', class '$class' is abstract.");
 		}
 
-		// canonicalize presenter name
-		$realName = $this->unformatPresenterClass($class);
-		if ($name !== $realName) {
-			if ($this->caseSensitive) {
-				throw new InvalidPresenterException("Cannot load presenter '$name', case mismatch. Real name is '$realName'.");
-			} else {
-				$this->cache[$name] = array($class, $realName);
-				$name = $realName;
-			}
-		} else {
-			$this->cache[$name] = array($class, $realName);
-		}
-
-		return $class;
+		return $this->cache[$name] = $class;
 	}
 
 
@@ -160,36 +137,6 @@ class PresenterFactory extends Nette\Object implements IPresenterFactory
 			$mapping[0] .= str_replace('*', $part, $mapping[$parts ? 1 : 2]);
 		}
 		return $mapping[0];
-	}
-
-
-	/**
-	 * Formats presenter name from class name.
-	 * @param  string
-	 * @return string
-	 * @internal
-	 */
-	public function unformatPresenterClass($class)
-	{
-		foreach ($this->mapping as $module => $mapping) {
-			$mapping = str_replace(array('\\', '*'), array('\\\\', '(\w+)'), $mapping);
-			if (preg_match("#^\\\\?$mapping[0]((?:$mapping[1])*)$mapping[2]\\z#i", $class, $matches)) {
-				return ($module === '*' ? '' : $module . ':')
-					. preg_replace("#$mapping[1]#iA", '$1:', $matches[1]) . $matches[3];
-			}
-		}
-	}
-
-
-	/**
-	 * Formats presenter class file name.
-	 * @param  string
-	 * @return string
-	 */
-	public function formatPresenterFile($presenter)
-	{
-		$path = '/' . str_replace(':', 'Module/', $presenter);
-		return $this->baseDir . substr_replace($path, '/presenters', strrpos($path, '/'), 0) . 'Presenter.php';
 	}
 
 }

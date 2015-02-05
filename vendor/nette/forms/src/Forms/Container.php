@@ -24,7 +24,7 @@ use Nette;
  */
 class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 {
-	/** @var array of function(Container $sender); Occurs when the form is validated */
+	/** @var callable[]  function(Container $sender); Occurs when the form is validated */
 	public $onValidate;
 
 	/** @var ControlGroup */
@@ -136,10 +136,14 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 	 */
 	public function validate(array $controls = NULL)
 	{
-		foreach ($controls === NULL ? $this->getControls() : $controls as $control) {
+		foreach ($controls === NULL ? $this->getComponents() : $controls as $control) {
 			$control->validate();
 		}
-		$this->onValidate($this);
+		foreach ($this->onValidate ?: array() as $handler) {
+			$params = Nette\Utils\Callback::toReflection($handler)->getParameters();
+			$values = isset($params[1]) ? $this->getValues($params[1]->isArray()) : NULL;
+			Nette\Utils\Callback::invoke($handler, $this, $values);
+		}
 		$this->validated = TRUE;
 	}
 
@@ -183,7 +187,7 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 
 	/**
 	 * Adds the specified component to the IContainer.
-	 * @param  IComponent
+	 * @param  Nette\ComponentModel\IComponent
 	 * @param  string
 	 * @param  string
 	 * @return self
@@ -234,7 +238,10 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 	public function addText($name, $label = NULL, $cols = NULL, $maxLength = NULL)
 	{
 		$control = new Controls\TextInput($label, $maxLength);
-		$control->setAttribute('size', $cols);
+		if ($cols) {
+			trigger_error(__METHOD__ . '() third parameter $cols is deprecated, use setAttribute("size", ...).', E_USER_DEPRECATED);
+			$control->setAttribute('size', $cols);
+		}
 		return $this[$name] = $control;
 	}
 
@@ -250,7 +257,10 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 	public function addPassword($name, $label = NULL, $cols = NULL, $maxLength = NULL)
 	{
 		$control = new Controls\TextInput($label, $maxLength);
-		$control->setAttribute('size', $cols);
+		if ($cols) {
+			trigger_error(__METHOD__ . '() third parameter $cols is deprecated, use setAttribute("size", ...).', E_USER_DEPRECATED);
+			$control->setAttribute('size', $cols);
+		}
 		return $this[$name] = $control->setType('password');
 	}
 
@@ -266,8 +276,11 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 	public function addTextArea($name, $label = NULL, $cols = NULL, $rows = NULL)
 	{
 		$control = new Controls\TextArea($label);
-		$control->setAttribute('cols', $cols)->setAttribute('rows', $rows);
-		return $this[$name] = $control;
+		if ($cols) {
+			trigger_error(__METHOD__ . '() parameters $cols is deprecated, use setAttribute("cols", ...).', E_USER_DEPRECATED);
+			$control->setAttribute('cols', $cols);
+		}
+		return $this[$name] = $control->setAttribute('rows', $rows);
 	}
 
 

@@ -19,6 +19,8 @@ class Container extends Nette\Object
 {
 	const TAGS = 'tags';
 	const TYPES = 'types';
+	const SERVICES = 'services';
+	const ALIASES = 'aliases';
 
 	/** @var array  user parameters */
 	/*private*/public $parameters = array();
@@ -56,22 +58,19 @@ class Container extends Nette\Object
 	 */
 	public function addService($name, $service)
 	{
-		if (func_num_args() > 2) {
-			throw new Nette\DeprecatedException('Parameter $meta has been removed.');
-
-		} elseif (!is_string($name) || !$name) {
+		if (!is_string($name) || !$name) {
 			throw new Nette\InvalidArgumentException(sprintf('Service name must be a non-empty string, %s given.', gettype($name)));
 
-		} elseif (isset($this->registry[$name])) {
+		}
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
+		if (isset($this->registry[$name])) {
 			throw new Nette\InvalidStateException("Service '$name' already exists.");
 
-		} elseif (is_string($service) || is_array($service) || $service instanceof \Closure || $service instanceof Nette\Callback) {
-			trigger_error(sprintf('Passing factories to %s() is deprecated; pass the object itself.', __METHOD__), E_USER_DEPRECATED);
-			$service = is_string($service) && !preg_match('#\x00|:#', $service) ? new $service : call_user_func($service, $this);
-		}
+		} elseif (!is_object($service)) {
+			throw new Nette\InvalidArgumentException(sprintf("Service '%s' must be a object, %s given.", $name, gettype($service)));
 
-		if (!is_object($service)) {
-			throw new Nette\InvalidArgumentException(sprintf('Service must be a object, %s given.', gettype($service)));
+		} elseif (isset($this->meta[self::SERVICES][$name]) && !$service instanceof $this->meta[self::SERVICES][$name]) {
+			throw new Nette\InvalidArgumentException(sprintf("Service '%s' must be instance of %s, %s given.", $name, $this->meta[self::SERVICES][$name], get_class($service)));
 		}
 
 		$this->registry[$name] = $service;
@@ -86,6 +85,7 @@ class Container extends Nette\Object
 	 */
 	public function removeService($name)
 	{
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		unset($this->registry[$name]);
 	}
 
@@ -98,6 +98,7 @@ class Container extends Nette\Object
 	 */
 	public function getService($name)
 	{
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		if (!isset($this->registry[$name])) {
 			$this->registry[$name] = $this->createService($name);
 		}
@@ -112,6 +113,7 @@ class Container extends Nette\Object
 	 */
 	public function hasService($name)
 	{
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		return isset($this->registry[$name])
 			|| method_exists($this, $method = Container::getMethodName($name)) && $this->getReflection()->getMethod($method)->getName() === $method;
 	}
@@ -127,6 +129,7 @@ class Container extends Nette\Object
 		if (!$this->hasService($name)) {
 			throw new MissingServiceException("Service '$name' not found.");
 		}
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		return isset($this->registry[$name]);
 	}
 
@@ -139,6 +142,7 @@ class Container extends Nette\Object
 	 */
 	public function createService($name, array $args = array())
 	{
+		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		$method = Container::getMethodName($name);
 		if (isset($this->creating[$name])) {
 			throw new Nette\InvalidStateException(sprintf('Circular reference detected for services: %s.', implode(', ', array_keys($this->creating))));
@@ -191,10 +195,14 @@ class Container extends Nette\Object
 	 * @param  string
 	 * @return string[]
 	 */
-	public function findByType($class)
+	public function findByType($class, $autowired = TRUE)
 	{
 		$class = ltrim(strtolower($class), '\\');
-		return isset($this->meta[self::TYPES][$class]) ? $this->meta[self::TYPES][$class] : array();
+		$meta = & $this->meta[self::TYPES];
+		return array_merge(
+			isset($meta[$class][TRUE]) ? $meta[$class][TRUE] : array(),
+			!$autowired && isset($meta[$class][FALSE]) ? $meta[$class][FALSE] : array()
+		);
 	}
 
 
@@ -280,6 +288,7 @@ class Container extends Nette\Object
 	 * Expands %placeholders%.
 	 * @param  mixed
 	 * @return mixed
+	 * @deprecated
 	 */
 	public function expand($s)
 	{
@@ -323,7 +332,7 @@ class Container extends Nette\Object
 	private function error($oldName, $newName)
 	{
 		if (empty($this->parameters['container']['accessors'])) {
-			trigger_error("$oldName() is deprecated; use $newName() or enable nette.container.accessors in configuration.", E_USER_DEPRECATED);
+			trigger_error("$oldName() is deprecated; use $newName() or enable di.accessors in configuration.", E_USER_DEPRECATED);
 		}
 	}
 

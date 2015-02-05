@@ -14,10 +14,11 @@ use Nette;
  * DI container generator.
  *
  * @author     David Grudl
+ * @deprecated
  */
 class ContainerFactory extends Nette\Object
 {
-	/** @var array of function(ContainerFactory $factory, Compiler $compiler, $config); Occurs after the compiler is created */
+	/** @var callable[]  function(ContainerFactory $factory, Compiler $compiler, $config); Occurs after the compiler is created */
 	public $onCompile;
 
 	/** @var bool */
@@ -44,6 +45,7 @@ class ContainerFactory extends Nette\Object
 
 	public function __construct($tempDirectory)
 	{
+		trigger_error(__CLASS__ . " is deprecated; use ContainerLoader.", E_USER_DEPRECATED);
 		$this->tempDirectory = $tempDirectory;
 	}
 
@@ -107,41 +109,42 @@ class ContainerFactory extends Nette\Object
 	private function loadClass()
 	{
 		$key = md5(serialize(array($this->config, $this->configFiles, $this->class, $this->parentClass)));
-		$handle = fopen($file = "$this->tempDirectory/$key.php", 'c+');
-		if (!$handle) {
-			throw new Nette\IOException("Unable to open or create file '$file'.");
+		$file = "$this->tempDirectory/$key.php";
+
+		if (!$this->autoRebuild && (@include $file) !== FALSE) { // @ - file may not exist
+			return;
 		}
 
-		flock($handle, LOCK_SH);
-		$stat = fstat($handle);
-		if ($stat['size']) {
-			if ($this->autoRebuild) {
-				foreach ((array) @unserialize(file_get_contents($file . '.meta')) as $f => $time) { // @ - file may not exist
-					if (@filemtime($f) !== $time) { // @ - stat may fail
-						goto write;
-					}
+		$handle = fopen("$file.lock", 'c+');
+		if (!$handle) {
+			throw new Nette\IOException("Unable to open or create file '$file.lock'.");
+		}
+
+		if ($this->autoRebuild) {
+			flock($handle, LOCK_SH);
+			foreach ((array) @unserialize(file_get_contents("$file.meta")) as $f => $time) { // @ - file may not exist
+				if (@filemtime($f) !== $time) { // @ - stat may fail
+					@unlink($file); // @ - file may not exist
+					break;
 				}
 			}
-		} else {
-			write:
-			ftruncate($handle, 0);
+		}
+
+		if (!is_file($file)) {
 			flock($handle, LOCK_EX);
-			$stat = fstat($handle);
-			if (!$stat['size']) {
+			if (!is_file($file)) {
 				$this->dependencies = array();
 				$code = $this->generateCode();
-				if (fwrite($handle, $code, strlen($code)) !== strlen($code)) {
-					ftruncate($handle, 0);
-					throw new Nette\IOException("Unable to write file '$file'.");
+				if (file_put_contents("$file.tmp", $code) !== strlen($code) || !rename("$file.tmp", $file)) {
+					@unlink("$file.tmp"); // @ - file may not be created
+					throw new Nette\IOException("Unable to create file '$file'.");
 				}
-
 				$tmp = array();
 				foreach ($this->dependencies as $f) {
 					$tmp[$f] = @filemtime($f); // @ - stat may fail
 				}
-				file_put_contents($file . '.meta', serialize($tmp));
+				file_put_contents("$file.meta", serialize($tmp));
 			}
-			flock($handle, LOCK_SH);
 		}
 
 		require $file;

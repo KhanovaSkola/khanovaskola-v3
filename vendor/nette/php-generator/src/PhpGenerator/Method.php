@@ -37,6 +37,7 @@ use Nette;
  * @method Method setDocuments(string[])
  * @method string[] getDocuments()
  * @method Method addDocument(string)
+ * @method Method setNamespace(PhpNamespace|NULL)
  */
 class Method extends Nette\Object
 {
@@ -73,6 +74,9 @@ class Method extends Nette\Object
 	/** @var array of string */
 	private $documents = array();
 
+	/** @var PhpNamespace */
+	private $namespace;
+
 
 	/** @return Method */
 	public static function from($from)
@@ -90,7 +94,7 @@ class Method extends Nette\Object
 		$method->body = $from->isAbstract() ? FALSE : '';
 		$method->returnReference = $from->returnsReference();
 		$method->variadic = PHP_VERSION_ID >= 50600 && $from->isVariadic();
-		$method->documents = preg_replace('#^\s*\* ?#m', '', trim($from->getDocComment(), "/* \r\n"));
+		$method->documents = preg_replace('#^\s*\* ?#m', '', trim($from->getDocComment(), "/* \r\n\t"));
 		return $method;
 	}
 
@@ -136,7 +140,11 @@ class Method extends Nette\Object
 		$parameters = array();
 		foreach ($this->parameters as $param) {
 			$variadic = $this->variadic && $param === end($this->parameters);
-			$parameters[] = ($param->typeHint ? $param->typeHint . ' ' : '')
+			$hint = in_array($param->typeHint, array('array', ''))
+				? $param->typeHint
+				: ($this->namespace ? $this->namespace->unresolveName($param->typeHint) : $param->typeHint);
+
+			$parameters[] = ($hint ? $hint . ' ' : '')
 				. ($param->reference ? '&' : '')
 				. ($variadic ? '...' : '')
 				. '$' . $param->name

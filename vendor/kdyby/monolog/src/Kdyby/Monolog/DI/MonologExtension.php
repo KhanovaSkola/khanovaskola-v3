@@ -46,7 +46,9 @@ class MonologExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
+		$builder->parameters[$this->name] = array('name' => $config['name']);
 
+		$builder->removeDefinition('tracy.logger'); // HOTFIX
 		$builder->addDefinition($this->prefix('logger'))
 			->setClass('Kdyby\Monolog\Logger', array($config['name']));
 
@@ -140,7 +142,7 @@ class MonologExtension extends CompilerExtension
 		}
 
 		if (empty(Debugger::$logDirectory)) {
-			$initialize->addBody('Tracy\Debugger::$logDirectory = ?', array($builder->expand('%logDir%')));
+			$initialize->addBody('Tracy\Debugger::$logDirectory = ?;', array($builder->expand('%logDir%')));
 		}
 	}
 

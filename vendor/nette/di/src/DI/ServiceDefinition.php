@@ -25,8 +25,8 @@ use Nette;
  * @method array getTags()
  * @method ServiceDefinition setAutowired(bool)
  * @method bool isAutowired()
- * @method ServiceDefinition setInject(bool)
- * @method bool getInject()
+ * @method ServiceDefinition setDynamic(bool)
+ * @method bool isDynamic()
  * @method ServiceDefinition setImplement(string)
  * @method string getImplement()
  * @method ServiceDefinition setImplementType(string)
@@ -53,7 +53,7 @@ class ServiceDefinition extends Nette\Object
 	private $autowired = TRUE;
 
 	/** @var bool */
-	public $inject = FALSE;
+	private $dynamic = FALSE;
 
 	/** @var string  interface name */
 	private $implement;
@@ -92,7 +92,7 @@ class ServiceDefinition extends Nette\Object
 
 	public function addSetup($target, array $args = array())
 	{
-		$this->setup[] = new Statement($target, $args);
+		$this->setup[] = $target instanceof Statement ? $target : new Statement($target, $args);
 		return $this;
 	}
 
@@ -123,6 +123,22 @@ class ServiceDefinition extends Nette\Object
 	public function isShared()
 	{
 		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
+	}
+
+
+	/** @deprecated */
+	public function setInject($on)
+	{
+		//trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
+		return $this->addTag(Extensions\InjectExtension::TAG_INJECT, $on);
+	}
+
+
+	/** @deprecated */
+	public function getInject()
+	{
+		//trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
+		return $this->getTag(Extensions\InjectExtension::TAG_INJECT);
 	}
 
 }

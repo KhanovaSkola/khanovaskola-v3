@@ -38,10 +38,17 @@ class DibiQuery extends Object implements IQuery
 			return;
 		}
 
-		$html = Dumper::toHtml($this->event->result->fetchAll(), [
-			Dumper::COLLAPSE => TRUE,
-			Dumper::TRUNCATE => 50,
-		]);
+		if ($this->event->result instanceof \DibiResult)
+		{
+			$html = Dumper::toHtml($this->event->result->fetchAll(), [
+				Dumper::COLLAPSE => TRUE,
+				Dumper::TRUNCATE => 50,
+			]);
+		}
+		else
+		{
+			$html = Html::el()->setText($this->event->result);
+		}
 		return Html::el()->setHtml($html);
 	}
 
@@ -91,6 +98,11 @@ class DibiQuery extends Object implements IQuery
 	 */
 	public function getInfo()
 	{
+		if (!$this->event->sql || stripos($this->event->sql, 'select') !== 0)
+		{
+			return;
+		}
+
 		$query = 'EXPLAIN (FORMAT JSON) (' . $this->event->sql . ')';
 		$explain = $this->event->connection->nativeQuery($query);
 		$data = json_decode($explain->fetchSingle(), TRUE);

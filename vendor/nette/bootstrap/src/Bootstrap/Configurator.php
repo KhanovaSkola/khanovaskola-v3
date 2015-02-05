@@ -22,38 +22,54 @@ use Nette,
  */
 class Configurator extends Object
 {
-	const AUTO = TRUE;
-
-	/** @deprecated */
-	const DEVELOPMENT = 'development',
-		PRODUCTION = 'production',
+	const AUTO = TRUE,
 		NONE = FALSE;
 
 	const COOKIE_SECRET = 'nette-debug';
 
-	/** @var array of function(Configurator $sender, DI\Compiler $compiler); Occurs after the compiler is created */
+	/** @var callable[]  function(Configurator $sender, DI\Compiler $compiler); Occurs after the compiler is created */
 	public $onCompile;
 
 	/** @var array */
 	public $defaultExtensions = array(
 		'php' => 'Nette\DI\Extensions\PhpExtension',
 		'constants' => 'Nette\DI\Extensions\ConstantsExtension',
-		'nette' => 'Nette\Bridges\Framework\NetteExtension',
-		'database' => 'Nette\Bridges\DatabaseDI\DatabaseExtension',
 		'extensions' => 'Nette\DI\Extensions\ExtensionsExtension',
+		'decorator' => 'Nette\DI\Extensions\DecoratorExtension',
+		'application' => array('Nette\Bridges\ApplicationDI\ApplicationExtension', array('%debugMode%', array('%appDir%'))),
+		'cache' => array('Nette\Bridges\CacheDI\CacheExtension', array('%tempDir%')),
+		'database' => array('Nette\Bridges\DatabaseDI\DatabaseExtension', array('%debugMode%')),
+		'di' => array('Nette\DI\Extensions\DIExtension', array('%debugMode%')),
+		'forms' => 'Nette\Bridges\FormsDI\FormsExtension',
+		'http' => 'Nette\Bridges\HttpDI\HttpExtension',
+		'latte' => array('Nette\Bridges\ApplicationDI\LatteExtension', array('%tempDir%/cache/latte', '%debugMode%')),
+		'mail' => 'Nette\Bridges\MailDI\MailExtension',
+		'reflection' => array('Nette\Bridges\ReflectionDI\ReflectionExtension', array('%debugMode%')),
+		'routing' => array('Nette\Bridges\ApplicationDI\RoutingExtension', array('%debugMode%')),
+		'security' => array('Nette\Bridges\SecurityDI\SecurityExtension', array('%debugMode%')),
+		'session' => array('Nette\Bridges\HttpDI\SessionExtension', array('%debugMode%')),
+		'tracy' => array('Tracy\Bridges\DI\TracyExtension', array('%debugMode%')),
+		'inject' => 'Nette\DI\Extensions\InjectExtension',
+	);
+
+	/** @var string[] of classes which shouldn't be autowired */
+	public $autowireExcludedClasses = array(
+		'stdClass',
 	);
 
 	/** @var array */
 	protected $parameters;
 
 	/** @var array */
+	protected $services = array();
+
+	/** @var array [file|array, section] */
 	protected $files = array();
 
 
 	public function __construct()
 	{
 		$this->parameters = $this->getDefaultParameters();
-		Nette\Bridges\Framework\TracyBridge::initialize();
 	}
 
 
@@ -66,6 +82,7 @@ class Configurator extends Object
 	{
 		$this->parameters['debugMode'] = is_string($value) || is_array($value) ? static::detectDebugMode($value) : (bool) $value;
 		$this->parameters['productionMode'] = !$this->parameters['debugMode']; // compatibility
+		$this->parameters['environment'] = $this->parameters['debugMode'] ? 'development' : 'production';
 		return $this;
 	}
 
@@ -102,23 +119,33 @@ class Configurator extends Object
 
 
 	/**
+	 * Add instances of services.
+	 * @return self
+	 */
+	public function addServices(array $services)
+	{
+		$this->services = $services + $this->services;
+		return $this;
+	}
+
+
+	/**
 	 * @return array
 	 */
 	protected function getDefaultParameters()
 	{
 		$trace = debug_backtrace(PHP_VERSION_ID >= 50306 ? DEBUG_BACKTRACE_IGNORE_ARGS : FALSE);
+		$last = end($trace);
 		$debugMode = static::detectDebugMode();
 		return array(
 			'appDir' => isset($trace[1]['file']) ? dirname($trace[1]['file']) : NULL,
-			'wwwDir' => isset($_SERVER['SCRIPT_FILENAME'])
-				? dirname(realpath($_SERVER['SCRIPT_FILENAME']))
-				: NULL,
+			'wwwDir' => isset($last['file']) ? dirname($last['file']) : NULL,
 			'debugMode' => $debugMode,
 			'productionMode' => !$debugMode,
 			'environment' => $debugMode ? 'development' : 'production',
 			'consoleMode' => PHP_SAPI === 'cli',
 			'container' => array(
-				'class' => 'SystemContainer',
+				'class' => NULL,
 				'parent' => 'Nette\DI\Container',
 			)
 		);
@@ -134,6 +161,7 @@ class Configurator extends Object
 	{
 		Tracy\Debugger::$strictMode = TRUE;
 		Tracy\Debugger::enable(!$this->parameters['debugMode'], $logDirectory, $email);
+		Nette\Bridges\Framework\TracyBridge::initialize();
 	}
 
 
@@ -175,11 +203,23 @@ class Configurator extends Object
 
 	/**
 	 * Returns system DI container.
-	 * @return \SystemContainer|DI\Container
+	 * @return DI\Container
 	 */
 	public function createContainer()
 	{
-		$container = $this->createContainerFactory()->create();
+		$loader = new DI\ContainerLoader(
+			$this->getCacheDirectory() . '/Nette.Configurator',
+			$this->parameters['debugMode']
+		);
+		$class = $loader->load(
+			array($this->parameters, $this->files),
+			array($this, 'generateContainer')
+		);
+
+		$container = new $class;
+		foreach ($this->services as $name => $service) {
+			$container->addService($name, $service);
+		}
 		$container->initialize();
 		if (class_exists('Nette\Environment')) {
 			Nette\Environment::setContext($container); // back compatibility
@@ -189,44 +229,108 @@ class Configurator extends Object
 
 
 	/**
-	 * @return DI\ContainerFactory
+	 * @return array [string, array]
+	 * @internal
 	 */
-	protected function createContainerFactory()
+	public function generateContainer($className)
 	{
-		$factory = new DI\ContainerFactory(NULL);
-		$factory->autoRebuild = $this->parameters['debugMode'] ? TRUE : 'compat';
-		$factory->class = $this->parameters['container']['class'];
-		$factory->config = array('parameters' => $this->parameters);
-		$factory->configFiles = $this->files;
-		$factory->tempDirectory = $this->getCacheDirectory() . '/Nette.Configurator';
-		if (!is_dir($factory->tempDirectory)) {
-			@mkdir($factory->tempDirectory); // @ - directory may already exist
+		$loader = $this->createLoader();
+		$config = array();
+		$code = '';
+		foreach ($this->files as $info) {
+			if (is_scalar($info[0])) {
+				$code .= "// source: $info[0] $info[1]\n";
+				$info[0] = $loader->load($info[0], $info[1]);
+			}
+			$config = DI\Config\Helpers::merge($info[0], $config);
+		}
+		$config = DI\Config\Helpers::merge($config, array('parameters' => $this->parameters));
+
+		$compiler = $this->createCompiler();
+		$builder = $compiler->getContainerBuilder();
+		$builder->addExcludedClasses($this->autowireExcludedClasses);
+
+		foreach ($this->defaultExtensions as $name => $extension) {
+			list($class, $args) = is_string($extension) ? array($extension, array()) : $extension;
+			if (class_exists($class)) {
+				$rc = new \ReflectionClass($class);
+				$args = DI\Helpers::expand($args, $config['parameters'], TRUE);
+				$compiler->addExtension($name, $args ? $rc->newInstanceArgs($args) : $rc->newInstance());
+			}
 		}
 
-		$me = $this;
-		$factory->onCompile[] = function(DI\ContainerFactory $factory, DI\Compiler $compiler, $config) use ($me) {
-			foreach ($me->defaultExtensions as $name => $class) {
-				if (class_exists($class)) {
-					$compiler->addExtension($name, new $class);
-				}
-			}
-			$factory->parentClass = $config['parameters']['container']['parent'];
-			$me->onCompile($me, $compiler);
-		};
-		return $factory;
+		$this->fixCompatibility($config);
+
+		$this->onCompile($this, $compiler);
+
+		$code .= $compiler->compile($config, $className, $config['parameters']['container']['parent'])
+			. (($parent = $config['parameters']['container']['class']) ? "\nclass $parent extends $className {}\n" : '');
+
+		return array($code, array_merge($loader->getDependencies(), $builder->getDependencies()));
+	}
+
+
+	/**
+	 * @return DI\Compiler
+	 */
+	protected function createCompiler()
+	{
+		return new DI\Compiler;
+	}
+
+
+	/**
+	 * @return DI\Config\Loader
+	 */
+	protected function createLoader()
+	{
+		return new DI\Config\Loader;
 	}
 
 
 	protected function getCacheDirectory()
 	{
 		if (empty($this->parameters['tempDir'])) {
-			throw new Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
+			throw new Nette\InvalidStateException("Set path to temporary directory using setTempDirectory().");
 		}
 		$dir = $this->parameters['tempDir'] . '/cache';
 		if (!is_dir($dir)) {
 			@mkdir($dir); // @ - directory may already exist
 		}
 		return $dir;
+	}
+
+
+	/**
+	 * Back compatiblity with < v2.3
+	 * @return void
+	 */
+	protected function fixCompatibility(& $config)
+	{
+		if (isset($config['nette']['security']['frames'])) {
+			$config['nette']['http']['frames'] = $config['nette']['security']['frames'];
+			unset($config['nette']['security']['frames']);
+		}
+		foreach (array('application', 'cache', 'database', 'di' => 'container', 'forms', 'http',
+			'latte', 'mail' => 'mailer', 'routing', 'session', 'tracy' => 'debugger') as $new => $old) {
+			if (isset($config['nette'][$old])) {
+				$new = is_int($new) ? $old : $new;
+				if (isset($config[$new])) {
+					throw new Nette\DeprecatedException("Configuration section 'nette.$old' is deprecated, move it to section '$new'.");
+				}
+				$config[$new] = $config['nette'][$old];
+				unset($config['nette'][$old]);
+			}
+		}
+		if (isset($config['nette']['xhtml'])) {
+			trigger_error("Configuration option 'nette.xhtml' is deprecated, use section 'latte.xhtml' instead.", E_USER_DEPRECATED);
+			$config['latte']['xhtml'] = $config['nette']['xhtml'];
+			unset($config['nette']['xhtml']);
+		}
+
+		if (empty($config['nette'])) {
+			unset($config['nette']);
+		}
 	}
 
 

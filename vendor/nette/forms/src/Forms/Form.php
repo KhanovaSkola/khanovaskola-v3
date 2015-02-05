@@ -83,13 +83,13 @@ class Form extends Container implements Nette\Utils\IHtmlString
 	/** @internal protection token ID */
 	const PROTECTOR_ID = '_token_';
 
-	/** @var array of function(Form $sender); Occurs when the form is submitted and successfully validated */
+	/** @var callable[]  function(Form $sender); Occurs when the form is submitted and successfully validated */
 	public $onSuccess;
 
-	/** @var array of function(Form $sender); Occurs when the form is submitted and is not valid */
+	/** @var callable[]  function(Form $sender); Occurs when the form is submitted and is not valid */
 	public $onError;
 
-	/** @var array of function(Form $sender); Occurs when the form is submitted */
+	/** @var callable[]  function(Form $sender); Occurs when the form is submitted */
 	public $onSubmit;
 
 	/** @var mixed or NULL meaning: not detected yet */
@@ -482,7 +482,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 			$maxSize <<= $units[$ch];
 		}
 		if ($maxSize > 0 && $maxSize < $_SERVER['CONTENT_LENGTH']) {
-			$this->addError(sprintf(Rules::$defaultMessages[self::MAX_FILE_SIZE], $maxSize));
+			$this->addError(sprintf(Validator::$messages[self::MAX_FILE_SIZE], $maxSize));
 		}
 	}
 
@@ -600,7 +600,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 
 	/**
 	 * Renders form to string.
-	 * @return can throw exceptions? (hidden parameter)
+	 * @param can throw exceptions? (hidden parameter)
 	 * @return string
 	 */
 	public function __toString()

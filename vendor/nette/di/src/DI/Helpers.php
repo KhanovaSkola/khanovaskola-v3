@@ -14,6 +14,7 @@ use Nette;
  * The DI helpers.
  *
  * @author     David Grudl
+ * @internal
  */
 class Helpers
 {
@@ -35,12 +36,8 @@ class Helpers
 			}
 			return $res;
 
-		} elseif ($var instanceof \stdClass || $var instanceof Statement) {
-			$res = clone $var;
-			foreach ($var as $key => $val) {
-				$res->$key = self::expand($val, $params, $recursive);
-			}
-			return $res;
+		} elseif ($var instanceof Statement) {
+			return new Statement(self::expand($var->entity, $params, $recursive), self::expand($var->arguments, $params, $recursive));
 
 		} elseif (!is_string($var)) {
 			return $var;
@@ -159,7 +156,7 @@ class Helpers
 				throw new Nette\InvalidStateException("Property $property has no @var annotation.");
 			}
 
-			$type = Nette\Reflection\AnnotationsParser::expandClassName($type, $property->getDeclaringClass());
+			$type = Nette\Reflection\AnnotationsParser::expandClassName($type, Nette\Reflection\Helpers::getDeclaringClass($property));
 			if (!class_exists($type) && !interface_exists($type)) {
 				throw new Nette\InvalidStateException("Class or interface '$type' used in @var annotation at $property not found. Check annotation and 'use' statements.");
 			} elseif ($container && !$container->getByType($type, FALSE)) {

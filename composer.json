@@ -6,14 +6,15 @@
 		{"name": "Mikuláš Dítě"}
 	],
 	"license": "MIT",
-	"minimum-stability": "stable",
+	"minimum-stability": "beta",
+  	"prefer-stable": true,
 	"config": {
 		"preferred-install": "dist",
 		"optimize-autoloader": true
 	},
 	"require": {
 		"php": ">= 5.5.0",
-		"clevis/config-version-extension": "~1.1",
+		"clevis/config-version-extension": ">=1.1.1-beta",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
@@ -24,7 +25,9 @@
 		"kdyby/google": "dev-master#16cb87a2 as 1.0",
 		"kdyby/monolog": "~1.0",
 		"kdyby/redis": "~3.1",
-		"nette/nette": "~2.2.0",
+
+		"nette/nette": "~2.3.0-beta",
+
 		"nextras/migrations": "~2.3",
 		"pda/pheanstalk": "~3.0",
 		"petrp/orm": "0.4.*",
@@ -39,8 +42,8 @@
 		"jdorn/sql-formatter": "~1.2.17",
 		"mikulas/adminer-package": "~4.0",
 		"mikulas/code-sniffs": "~1.1",
-		"mikulas/lattecs": "~0.3",
-		"mikulas/nette-panel-queries": "~1.0",
+		"mikulas/lattecs": "0.3.1-RC",
+		"mikulas/nette-panel-queries": ">=1.0.3-RC",
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2"
