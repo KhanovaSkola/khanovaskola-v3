@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\Models\Structs\Gender;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 
@@ -35,6 +36,11 @@ class Inflection
 	public function inflect($phrase, $case)
 	{
 		return $this->cache->load("$phrase|$case", function() use ($phrase, $case) {
+			if (!trim($phrase))
+			{
+				return $phrase;
+			}
+
 			$template = 'https://words.khanovaskola.cz/inflect/%s/%s';
 			$raw = file_get_contents(sprintf($template, urlencode($case), urlencode($phrase)));
 			$response = json_decode($raw, TRUE);
@@ -49,6 +55,11 @@ class Inflection
 	public function gender($phrase)
 	{
 		return $this->cache->load("$phrase", function() use ($phrase) {
+			if (!trim($phrase))
+			{
+				return Gender::MALE;
+			}
+
 			$template = 'https://words.khanovaskola.cz/gender/%s';
 			$raw = file_get_contents(sprintf($template, urlencode($phrase)));
 			$response = json_decode($raw, TRUE);
