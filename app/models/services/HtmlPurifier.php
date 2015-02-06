@@ -41,6 +41,7 @@ class HtmlPurifier extends Object
 		$config->set('HTML.AllowedAttributes', implode(', ', static::getAllowedAttributes()));
 
 		// we are generating dynamic content, cache is never hit
+		$config->set('Core.DefinitionCache', NULL);
 		$config->set('Cache.SerializerPath', NULL);
 
 		return $config;
