@@ -54,21 +54,10 @@ final class Auth extends Presenter
 	public $queue;
 
 	/**
-	 * @var Facebook
-	 */
-	protected $facebook;
-
-	/**
 	 * @var Google
+	 * @inject
 	 */
-	protected $google;
-
-	public function __construct(Facebook $facebook, Google $google)
-	{
-		parent::__construct();
-		$this->facebook = $facebook;
-		$this->google = $google;
-	}
+	public $google;
 
 	public function onLogin(User $user, $newUser = FALSE, $service = NULL)
 	{
