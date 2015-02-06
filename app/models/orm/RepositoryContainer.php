@@ -15,6 +15,7 @@ use Nette\DI\Container;
  * @property-read Rme\BadgeUserBridgesRepository $badgeUserBridges
  * @property-read Rme\BlockSchemaBridgesRepository $blockSchemaBridges
  * @property-read Rme\BlocksRepository $blocks
+ * @property-read Rme\BlueprintPartialsRepository $blueprintPartials
  * @property-read Rme\CommentsRepository $comments
  * @property-read Rme\CompletedBlocksRepository $completedBlocks
  * @property-read Rme\CompletedContentsRepository $completedContents

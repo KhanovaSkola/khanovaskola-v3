@@ -81,11 +81,15 @@ class BlueprintCompiler extends Object
 
 		$exercise = [];
 		$vars = $this->compileVars($blueprint->vars);
+
+		$partials = $blueprint->partials->get()->fetchAll();
+		$partial = $partials[rand(0, count($partials) - 1)];
+
 		$exercise['vars'] = $vars;
-		$exercise['question'] = $this->compileString($blueprint->question, $vars);
-		$exercise['answer'] = $this->compileString($blueprint->answer, $vars);
+		$exercise['question'] = $this->compileString($partial->question, $vars);
+		$exercise['answer'] = $this->compileString($partial->answer, $vars);
 		$exercise['hints'] = [];
-		foreach ($blueprint->hints as $i => $hint)
+		foreach ($partial->hints as $i => $hint)
 		{
 			$exercise['hints'][$i] = $this->compileString($hint, $vars);
 		}

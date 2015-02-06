@@ -28,7 +28,7 @@ class ContentsMapper extends ElasticSearchMapper
 
 	public function getJsonFields()
 	{
-		return ['vars', 'hints'];
+		return ['vars'];
 	}
 
 	public function getShortEntityName()

@@ -9,12 +9,9 @@ use Orm\OneToMany as OtM;
 
 
 /**
- * @property array        $vars
- * @property string       $question
- * @property string       $answer
- * @property array        $hints
- *
- * @property OtM|Answer[] $answers {1:m answers $content}
+ * @property array                  $vars
+ * @property OtM|BlueprintPartial[] $partials {1:m blueprintPartials $blueprint}
+ * @property OtM|Answer[]           $answers  {1:m answers $content}
  */
 class Blueprint extends Content
 {
@@ -27,7 +24,6 @@ class Blueprint extends Content
 	{
 		parent::__construct();
 		$this->type = 'blueprint';
-		$this->hints = [];
 		$this->vars = [];
 	}
 
@@ -97,13 +93,6 @@ class Blueprint extends Content
 			'few' => $few,
 			'many' => $many
 		]);
-	}
-
-	public function addHint($hint)
-	{
-		$hints = $this->hints;
-		$hints[] = $hint;
-		$this->setValue('hints', $hints);
 	}
 
 	/**

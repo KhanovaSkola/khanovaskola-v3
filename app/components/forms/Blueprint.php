@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\BlueprintCompilerException;
+use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\BlueprintCompiler;
 use Nette\Forms\Container;
@@ -24,21 +25,28 @@ class Blueprint extends EntityForm
 			->setRequired('form.title.missing');
 		$this->addText('description')
 			->setRequired('form.description.missing');
-
-		$this->addTextArea('question')
-			->setRequired('form.question.missing');
-		$this->addText('answer')
-			->setRequired('form.answer.missing');
-
 		$this->addDynamic('vars', function(Container $container) {
 			$container->addText('name');
 			$container->addText('definition');
 		});
-		$this->addDynamic('hints', function(Container $container) {
-			$container->addText('hint');
+
+		$this->addDynamic('partials', function(Container $container) {
+			$container->addTextArea('question')
+				->setRequired('form.question.missing');
+			$container->addText('answer')
+				->setRequired('form.answer.missing');
+
+			$container->addDynamic('hints', function(Container $container) {
+				$container->addText('hint');
+			});
 		});
 
 		$this->addSubmit();
+	}
+
+	public function setupAdd()
+	{
+		$this['partials']->createOne();
 	}
 
 	/**
@@ -50,9 +58,23 @@ class Blueprint extends EntityForm
 		$this->setDefaults([
 			'title' => $blueprint->title,
 			'description' => $blueprint->description,
-			'question' => $blueprint->question,
-			'answer' => $blueprint->answer,
 		]);
+
+		foreach ($blueprint->partials as $partial)
+		{
+			$id = (string) $partial->id;
+			$this['partials'][$id]->setDefaults([
+				'question' => $partial->question,
+				'answer' => $partial->answer,
+			]);
+
+			foreach ($partial->hints as $i => $hint)
+			{
+				/** @var TextInput $input */
+				$input = $this['partials'][$id]['hints'][$i]['hint'];
+				$input->setValue($hint);
+			}
+		}
 
 		$id = 0;
 		foreach ($blueprint->vars as $name => $var)
@@ -64,13 +86,6 @@ class Blueprint extends EntityForm
 			$input->setValue(json_encode($var));
 			$id++;
 		}
-
-		foreach ($blueprint->hints as $i => $hint)
-		{
-			/** @var TextInput $input */
-			$input = $this['hints'][$i]['hint'];
-			$input->setValue($hint);
-		}
 	}
 
 	public function onAdd()
@@ -78,7 +93,9 @@ class Blueprint extends EntityForm
 		$blueprint = $this->updateBlueprint($this->values, new Rme\Blueprint);
 
 		$this->repos->contents->persist($blueprint);
-		$this->repos->contents->flush();
+		$this->repos->flush();
+
+		// TODO run onEdit compiler check as well
 
 		$this->iLog('form.blueprint.add', ['blueprint' => $blueprint->id]);
 		$this->presenter->flashSuccess('blueprintEditor.submit.new');
@@ -114,8 +131,6 @@ class Blueprint extends EntityForm
 	{
 		$blueprint->title = $v->title;
 		$blueprint->description = $v->description;
-		$blueprint->question = $v->question;
-		$blueprint->answer = $v->answer;
 
 		$vars = [];
 		foreach ($v->vars as $row)
@@ -127,10 +142,28 @@ class Blueprint extends EntityForm
 		}
 		$blueprint->vars = $vars;
 
-		$blueprint->hints = [];
-		foreach ($v->hints as $row)
+		$this->repos->contents->attach($blueprint);
+
+		foreach ($v->partials as $id => $values)
 		{
-			$blueprint->addHint($row->hint);
+			// removed partials are never deleted!
+
+			$partial = $blueprint->partials->get()->getBy(['id' => $id]);
+			if (!$partial)
+			{
+				$partial = new Rme\BlueprintPartial();
+
+				$partial->question = $values->question;
+				$partial->answer = $values->answer;
+
+				$partial->hints = [];
+				foreach ($values->hints as $hint)
+				{
+					$partial->addHint($hint);
+				}
+
+				$blueprint->partials->add($partial);
+			}
 		}
 
 		return $blueprint;
