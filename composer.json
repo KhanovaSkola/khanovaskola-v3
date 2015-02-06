@@ -43,7 +43,7 @@
 		"mikulas/adminer-package": "~4.0",
 		"mikulas/code-sniffs": "~1.1",
 		"mikulas/lattecs": "0.3.1-RC",
-		"mikulas/nette-panel-queries": ">=1.0.3-RC",
+		"mikulas/nette-panel-queries": ">=1.0.4-RC",
 		"nette/tester": "~1.1",
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2"
