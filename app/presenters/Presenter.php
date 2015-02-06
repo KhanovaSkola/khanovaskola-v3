@@ -12,6 +12,7 @@ use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
+use Kdyby\Facebook\Facebook;
 use Nette;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Caching\Cache;
@@ -66,6 +67,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	public $inflection;
 
+	/**
+	 * @var Facebook
+	 * @inject
+	 */
+	public $facebook;
+
 	public function startup()
 	{
 		parent::startup();
@@ -102,6 +109,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());
+		$this->template->add('fbAppId', $this->facebook->config->appId);
 
 		if (!$this->user->isRegisteredUser())
 		{
