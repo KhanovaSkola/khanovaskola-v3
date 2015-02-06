@@ -28,7 +28,7 @@
 	                    {foreach $moreSubjects as $subject}
 	                        {first}A také{/first}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>{sep}, {/sep}
-	                        {last}A <a n:href="Subjects:default" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
+	                        {last}A <a href="#tab-{$tab++}" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
 	                    {/foreach}
 	                </h4>
 	            </hgroup>
