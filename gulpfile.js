@@ -146,7 +146,7 @@ gulp.task('js-dev-main', function() {
 			patterns: [{
 				json: {
 					elastic: {
-						url: 'http://192.168.2.1:9200',
+						url: 'http://192.168.0.102:9200',
 						index: config.get('parameters').get('elastic').get('index')
 					}
 				}
