@@ -107,7 +107,6 @@
 		highlight($(this)); // on load
 	});
 
-
 	$form.find('[data-add-hint]').on('click', function() {
         var partial = $(this).parents('[data-partial]').data('partial');
 		var id = $(this).parent().find('input').length;

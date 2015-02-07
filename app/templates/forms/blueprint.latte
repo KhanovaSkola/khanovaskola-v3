@@ -32,27 +32,29 @@
         {foreach ['integer', 'list', 'plural'] as $type}
 			<a href="#" data-add-type="{$type}">{_"type.$type"}</a>{sep}, {/sep}
 		{/foreach}
-      </div>
+    </div>
 
 	{foreach $form['partials']->containers as $id => $partial}
-		<div class="form-group">
-	        <label n:name="partials-$id-question">{_'question'}</label>
-	        <textarea n:name="partials-$id-question" class="form-control"></textarea>
-	    </div>
-	    <div class="form-group">
-	        <label n:name="partials-$id-answer">{_'answer'}</label>
-	        <input n:name="partials-$id-answer" class="form-control">
-	    </div>
+		<div class="partial" data-partial="{$id}">
+			<div class="form-group">
+		        <label n:name="partials-$id-question">{_'question'}</label>
+		        <textarea n:name="partials-$id-question" class="form-control"></textarea>
+		    </div>
+		    <div class="form-group">
+		        <label n:name="partials-$id-answer">{_'answer'}</label>
+		        <input n:name="partials-$id-answer" class="form-control">
+		    </div>
 
-		<div class="form-group hints" data-partial="{$id}">
-			<label n:name="partials-$id-hints-0-hint">{_'hints'}</label>
-			{foreach $partial['hints']->containers as $i => $_tmp}
-				<div class="hint">
-					<input n:name="partials-$id-hints-$i-hint" class="form-control">
-				</div>
-			{/foreach}
+			<div class="form-group hints">
+				<label n:name="partials-$id-hints-0-hint">{_'hints'}</label>
+				{foreach $partial['hints']->containers as $i => $_tmp}
+					<div class="hint">
+						<input n:name="partials-$id-hints-$i-hint" class="form-control">
+					</div>
+				{/foreach}
 
-			<a href="#" data-add-hint>přidat nápovědu</a>
+				<a href="#" data-add-hint>přidat nápovědu</a>
+			</div>
 		</div>
 	{/foreach}
 

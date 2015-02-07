@@ -32,8 +32,10 @@ class Blueprint extends EntityForm
 
 		$this->addDynamic('partials', function(Container $container) {
 			$container->addTextArea('question')
+				->addCondition($this::FILLED)
 				->setRequired('form.question.missing');
 			$container->addText('answer')
+				->addCondition($this::FILLED)
 				->setRequired('form.answer.missing');
 
 			$container->addDynamic('hints', function(Container $container) {
@@ -46,7 +48,8 @@ class Blueprint extends EntityForm
 
 	public function setupAdd()
 	{
-		$this['partials']->createOne();
+		/** @var self|\Kdyby\Replicator\Container[] $this */
+		$this['partials']->createOne('new');
 	}
 
 	/**
@@ -86,6 +89,9 @@ class Blueprint extends EntityForm
 			$input->setValue(json_encode($var));
 			$id++;
 		}
+
+		/** @var self|\Kdyby\Replicator\Container[] $this */
+		$this['partials']->createOne('new');
 	}
 
 	public function onAdd()
@@ -146,6 +152,11 @@ class Blueprint extends EntityForm
 
 		foreach ($v->partials as $id => $values)
 		{
+			if (!$values->question && !$values->answer)
+			{
+				continue;
+			}
+
 			// removed partials are never deleted!
 
 			$partial = $blueprint->partials->get()->getBy(['id' => $id]);
