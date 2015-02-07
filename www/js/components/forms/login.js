@@ -1,5 +1,5 @@
 $(function() {
-	$form = $('#frm-loginForm-form');
+	$form = $('[data-login-form]');
 	if (!$form.length) {
 		return;
 	}

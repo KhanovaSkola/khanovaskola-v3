@@ -4,7 +4,7 @@ $(function() {
 		return;
 	}
 
-	$('#frm-schemaForm-form-editors').chosen({
+	$('[data-editors]').chosen({
 		no_results_text: "Email nenalezen"
 	});
 
@@ -102,11 +102,10 @@ $(function() {
 		});
 		return ser;
 	}
-	window.debug=serializeSchema;
 
-	$('#frm-schemaForm-form-save').click(function() {
+	$('[data-submit]').click(function() {
 		var ser = JSON.stringify(serializeSchema());
-		$('#frm-schemaForm-form-layout').val(ser);
+		$('[data-layout]').val(ser);
 	});
 
 	$('#filter').on('keyup change', function() {

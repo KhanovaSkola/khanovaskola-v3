@@ -1,5 +1,5 @@
 $(function() {
-    $form = $('#frm-registrationForm-form');
+    $form = $('[data-registration-form]');
     if (!$form.length) {
         return;
     }
@@ -18,7 +18,7 @@ $(function() {
 
 		App.remote.guessGender(name, function(res) {
 			changer = setTimeout(function() {
-				$('#frm-registrationForm-form-gender-' + res.gender).prop('checked', true);
+				$('[data-gender-' + res.gender + ']').prop('checked', true);
 			}, 200);
 		});
 	});

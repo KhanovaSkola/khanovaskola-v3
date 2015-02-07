@@ -4,7 +4,7 @@ $(function() {
 		return;
 	}
 
-	$('#frm-blockForm-form-editors').chosen({
+	$('[data-editors]').chosen({
 		no_results_text: "Email nenalezen"
 	});
 
@@ -36,8 +36,8 @@ $(function() {
 		return ser;
 	}
 
-	$('#frm-blockForm-form-save').on('click', function() {
+	$('[data-save]').on('click', function() {
 		var ser = JSON.stringify(serializeBlocks());
-		$('#frm-blockForm-form-contents').val(ser);
+		$('[data-contents]').val(ser);
 	});
 });

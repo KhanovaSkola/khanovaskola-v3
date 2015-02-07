@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form" class="form-horizontal">
+<form n:name="form" class="form-horizontal" data-link-students-form>
 	<div class="form-group{if $form['emails']->errors} has-error{/if}">
 		{foreach $form['emails']->containers as $id => $_tmp}
 			<input type="email" n:name="emails-$id-email" class="form-control">

@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form" class="form-horizontal">
+<form n:name="form" class="form-horizontal" data-subject-form>
 	{include formError, form => $form}
 	<div class="form-group{if $form['title']->errors} has-error{/if}">
 		<label n:name="title">Název</label>
@@ -17,5 +17,6 @@
         {input editors}
     </div>
 
-	<input n:name="save" value="Uložit" class="btn">
+	{input positions, data-positions => TRUE}
+	<input n:name="save" value="Uložit" class="btn" data-save>
 </form>

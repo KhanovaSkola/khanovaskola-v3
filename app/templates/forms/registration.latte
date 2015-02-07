@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form">
+<form n:name="form" data-registration-form>
 	<ul class=error n:if="$form->ownErrors">
         <li n:foreach="$form->ownErrors as $error">{$error}</li>
     </ul>
@@ -33,14 +33,14 @@
 	<div class="choices {if $form['gender']->errors} has-error{/if}">
         <div class="radio pull-left">
             <label>
-                <input type="radio" n:name="gender:male">
+                <input type="radio" n:name="gender:male" data-gender-male>
                 <span></span>
                 <span class="offset">Chlapec</span>
             </label>
         </div>
         <div class="radio pull-left">
             <label>
-                <input type="radio" n:name="gender:female">
+                <input type="radio" n:name="gender:female" data-gender-female>
                 <span></span>
                 <span class="offset">Děvče</span>
             </label>

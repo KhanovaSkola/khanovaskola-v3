@@ -26,11 +26,11 @@ $(function() {
 		return ser;
 	}
 
-	$('#frm-subjectForm-form').on('submit', function() {
-		$('#frm-subjectForm-form-positions').val(JSON.stringify(serializeSchemas()));
+	$('[data-subject-form]').on('submit', function() {
+		$('[data-positions]').val(JSON.stringify(serializeSchemas()));
 	});
 
-	$('#frm-subjectForm-form-editors').chosen({
+	$('[data-editors]').chosen({
 		no_results_text: "Email nenalezen"
 	});
 });

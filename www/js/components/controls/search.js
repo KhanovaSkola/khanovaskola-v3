@@ -22,7 +22,7 @@ App.autocomplete = function(query, cb) {
 };
 
 $(function() {
-    $('#frm-search-form-query').typeahead(
+    $('[data-search-form-query]:first').typeahead(
         {
             hint: true,
             highlight: false,

@@ -1,5 +1,5 @@
 $(function() {
-	var $form = $('#frm-linkStudentsForm-form');
+	var $form = $('[data-link-students-form]');
 	if (!$form.length) {
 		return;
 	}
