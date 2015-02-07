@@ -73,16 +73,22 @@ class Translator implements Nette\Localization\ITranslator
 		$this->inflection = $inflection;
 	}
 
+	/**
+	 * @param $prefix
+	 * @return Translator
+	 */
+	public function getPrefixed($prefix)
+	{
+		$new = clone $this;
+		$new->prefix = ltrim("{$this->prefix}$prefix.", '.');
+		return $new;
+	}
+
 	public function setLanguage($language)
 	{
 		$this->language = $language;
 
 		$this->source = $this->getSource("$this->dir/$language.yml", $language);
-	}
-
-	public function setPrefix($prefix)
-	{
-		$this->prefix = $prefix;
 	}
 
 	protected function getSource($file, $language)

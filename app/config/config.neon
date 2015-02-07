@@ -54,7 +54,6 @@ events:
 		- App\Models\Services\CompletedContentCreator
 
 services:
-	- App\Models\Factories\TranslatorFactory
 	- App\Models\Rme\UsersRepository
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)

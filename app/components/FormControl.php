@@ -63,8 +63,8 @@ class FormControl extends Control
 	{
 		/** @var Form $form */
 		$form = $this->buildComponent($this->formClass, $this->args);
+		$form->setTranslator($this->translator->getPrefixed($this->getName()));
 		$form->setup();
-		$form->setTranslator($this->getTranslator());
 		return $form;
 	}
 
