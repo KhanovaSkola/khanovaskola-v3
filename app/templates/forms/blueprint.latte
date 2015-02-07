@@ -20,6 +20,7 @@
 		<div data-definitions>
 	        {foreach $form['vars']->containers as $id => $_tmp}
 	            <div data-var-id="{$id}" class="variable">
+	                <div class="handle"></div>
 		            <input n:name="vars-$id-name" class="form-control">
 		            <input n:name="vars-$id-definition" data-definition class="form-control">
 		            <a href="#" data-var-remove="{$id}" data-label-undo="{_'removeUndo'}">

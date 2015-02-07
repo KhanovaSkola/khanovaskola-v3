@@ -107,6 +107,20 @@
 		highlight($(this)); // on load
 	});
 
+    $('[data-definitions]').sortable({
+        handle: '.handle',
+        update: function(event, ui) {
+            var id = 0;
+            $('[data-definitions] .variable').each(function() {
+                $(this).attr('data-var-id', id);
+                $(this).find('input[name]').each(function() {
+                    $(this).attr('name', ($(this).attr('name').replace(/vars\[\d+\]/, 'vars[' + id + ']')));
+                });
+                id++;
+            });
+        }
+    });
+
 	$form.find('[data-add-hint]').on('click', function() {
         var partial = $(this).parents('[data-partial]').data('partial');
 		var id = $(this).parent().find('input').length;
