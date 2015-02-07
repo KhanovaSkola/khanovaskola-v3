@@ -103,6 +103,9 @@ blueprintEditor:
       missing: "Vyplňte otázku"
     answer:
       missing: "Vyplňte odpověď"
+  answerType:
+    scalar: "skalár (enum povolený)"
+    select: "výběr jednoho z možností (očekává json pole stringů, enum povolený v hodnotách)"
 
 columnChart:
   blueprint:

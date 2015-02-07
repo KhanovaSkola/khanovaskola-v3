@@ -33,7 +33,8 @@ class Blueprint extends EntityForm
 			$container->addTextArea('question')
 				->addCondition($this::FILLED)
 				->setRequired('form.question.missing');
-			$container->addSelect('answerType', NULL, Rme\BlueprintPartial::getAnswerTypes());
+			$container->addSelect('answerType', NULL, Rme\BlueprintPartial::getAnswerTypes())
+				->setTranslator($this->translator->getPrefixed('answerType'));
 			$container->addText('answer')
 				->addCondition($this::FILLED)
 				->setRequired('form.answer.missing');
