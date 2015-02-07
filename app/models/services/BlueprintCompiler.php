@@ -58,6 +58,11 @@ class BlueprintCompiler extends Object
 	 */
 	private $inflection;
 
+	/**
+	 * @var string
+	 */
+	private $errorContext;
+
 	public function __construct(BlueprintPurifier $purifier, Inflection $inflection)
 	{
 		$this->seed = mt_rand();
@@ -126,6 +131,8 @@ class BlueprintCompiler extends Object
 
 	private function compileString($string, array $vars)
 	{
+		$this->errorContext = $string;
+
 		$nodes = $this->tokenize($string);
 		$out = '';
 		$inLatex = FALSE;
@@ -250,7 +257,7 @@ class BlueprintCompiler extends Object
 				}
 
 			default:
-				throw new NotImplementedException("Unknown tag '$node[tag]''");
+				throw new NotImplementedException("Unknown tag '$node[tag]' in '$this->errorContext'");
 		}
 	}
 
@@ -311,7 +318,7 @@ class BlueprintCompiler extends Object
 			$var = $match[0];
 			if (!isset($vars[$var]))
 			{
-				throw new BlueprintCompilerException("Undefined variable '$var' in '$original'.");
+				throw new BlueprintCompilerException("Undefined variable '$var' in '$this->errorContext'.");
 			}
 			return $vars[$var];
 		}, $eval);
