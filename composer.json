@@ -24,6 +24,7 @@
 		"kdyby/forms-replicator": "dev-master#5330eba0",
 		"kdyby/google": "dev-master#16cb87a2 as 1.0",
 		"kdyby/monolog": "~1.0",
+	  	"kdyby/rabbitmq": "dev-master#cc3890fe",
 		"kdyby/redis": "~3.1",
 
 		"nette/nette": "~2.3.0-beta",
@@ -35,8 +36,7 @@
 	  	"symfony/process": "~2.5",
 		"bjeavons/zxcvbn-php": "~0.1",
 		"tackk/cartographer": "~1.0.2",
-		"nextras/static-router": "~1.0",
-		"kdyby/rabbitmq": "dev-master#91474c2"
+		"nextras/static-router": "~1.0"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
@@ -61,6 +61,10 @@
 		{
 			"type": "vcs",
 			"url": "git@github.com:Mikulas/Facebook.git"
+		},
+		{
+		  "type": "vcs",
+		  "url": "git@github.com:Mikulas/RabbitMq.git"
 		}
 	],
 	"scripts": {

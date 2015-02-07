@@ -164,15 +164,11 @@ class AbstractChannel
         $this->dispatch_reader->reuse($args);
 
         if ($content == null) {
-            BaseConsumerCommand::staticRegisterSignals();
             $result = call_user_func([$this, $amqp_method], $this->dispatch_reader);
-            BaseConsumerCommand::staticUnregisterSignals();
             return $result;
         }
 
-        BaseConsumerCommand::staticRegisterSignals();
         $result = call_user_func([$this, $amqp_method], $this->dispatch_reader, $content);
-        BaseConsumerCommand::staticUnregisterSignals();
         return $result;
     }
 

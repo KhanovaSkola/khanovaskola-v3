@@ -34,9 +34,6 @@ abstract class BaseConsumerCommand extends Command
 	 */
 	protected $amount;
 
-	protected static $registerSignals;
-	protected static $unregisterSignals;
-
 
 
 	protected function configure()
@@ -51,61 +48,6 @@ abstract class BaseConsumerCommand extends Command
 	}
 
 
-	public static function staticRegisterSignals()
-	{
-		if (self::$registerSignals)
-		{
-			call_user_func(self::$registerSignals);
-		}
-	}
-
-	public static function staticUnregisterSignals()
-	{
-		if (self::$unregisterSignals)
-		{
-			call_user_func(self::$unregisterSignals);
-		}
-	}
-
-
-	public function registerSignals()
-	{
-		if (!AMQP_WITHOUT_SIGNALS && extension_loaded('pcntl')) {
-			if (!function_exists('pcntl_signal')) {
-				throw new \BadFunctionCallException("Function 'pcntl_signal' is referenced in the php.ini 'disable_functions' and can't be called.");
-			}
-
-			pcntl_signal(SIGTERM, function () {
-				if ($this->consumer) {
-					pcntl_signal(SIGTERM, SIG_DFL);
-					$this->consumer->forceStopConsumer();
-				}
-			});
-			pcntl_signal(SIGINT, function () {
-				if ($this->consumer) {
-					pcntl_signal(SIGINT, SIG_DFL);
-					$this->consumer->forceStopConsumer();
-				}
-			});
-			pcntl_signal(SIGHUP, function () {
-				if ($this->consumer) {
-					pcntl_signal(SIGHUP, SIG_DFL);
-					$this->consumer->forceStopConsumer();
-				}
-
-				// TODO: Implement restarting of consumer
-			});
-		}
-	}
-
-	public function unregisterSignals()
-	{
-		if (!AMQP_WITHOUT_SIGNALS && extension_loaded('pcntl')) {
-			pcntl_signal(SIGTERM, SIG_DFL);
-			pcntl_signal(SIGINT, SIG_DFL);
-			pcntl_signal(SIGHUP, SIG_DFL);
-		}
-	}
 
 	/**
 	 * @param InputInterface $input An InputInterface instance
@@ -130,9 +72,6 @@ abstract class BaseConsumerCommand extends Command
 			throw new \InvalidArgumentException("The -m option should be null or greater than 0");
 		}
 
-		self::$registerSignals = [$this, 'registerSignals'];
-		self::$unregisterSignals = [$this, 'unregisterSignals'];
-
 		$this->consumer = $this->connection->getConsumer($input->getArgument('name'));
 
 		if (!is_null($input->getOption('memory-limit')) && ctype_digit((string) $input->getOption('memory-limit')) && $input->getOption('memory-limit') > 0) {
@@ -141,6 +80,40 @@ abstract class BaseConsumerCommand extends Command
 
 		if ($routingKey = $input->getOption('route')) {
 			$this->consumer->setRoutingKey($routingKey);
+		}
+
+		if (!AMQP_WITHOUT_SIGNALS && extension_loaded('pcntl')) {
+			if (!function_exists('pcntl_signal')) {
+				throw new \BadFunctionCallException("Function 'pcntl_signal' is referenced in the php.ini 'disable_functions' and can't be called.");
+			}
+
+			$this->consumer->onConsume[] = function() {
+				pcntl_signal(SIGTERM, function () {
+					if ($this->consumer) {
+						pcntl_signal(SIGTERM, SIG_DFL);
+						$this->consumer->forceStopConsumer();
+					}
+				});
+				pcntl_signal(SIGINT, function () {
+					if ($this->consumer) {
+						pcntl_signal(SIGINT, SIG_DFL);
+						$this->consumer->forceStopConsumer();
+					}
+				});
+				pcntl_signal(SIGHUP, function () {
+					if ($this->consumer) {
+						pcntl_signal(SIGHUP, SIG_DFL);
+						$this->consumer->forceStopConsumer();
+					}
+
+					// TODO: Implement restarting of consumer
+				});
+			};
+			$this->consumer->onConsumeStop[] = function() {
+				pcntl_signal(SIGTERM, SIG_DFL);
+				pcntl_signal(SIGINT, SIG_DFL);
+				pcntl_signal(SIGHUP, SIG_DFL);
+			};
 		}
 	}
 

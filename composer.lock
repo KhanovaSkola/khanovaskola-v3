@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2032fb87850fba1056874b0ee4abac36",
+    "hash": "d880de7f9b5037cf05f42cd2ed3c9940",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -1040,13 +1040,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Kdyby/RabbitMq.git",
-                "reference": "91474c2"
+                "url": "https://github.com/Mikulas/RabbitMq.git",
+                "reference": "cc3890fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/RabbitMq/zipball/91474c2e0c25e91a7e5ee80e06016b9091e1edea",
-                "reference": "91474c2",
+                "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/cc3890feb4e5422f0a6a2bc37ed4f18f57750979",
+                "reference": "cc3890fe",
                 "shasum": ""
             },
             "require": {
@@ -1093,7 +1093,6 @@
                     "src/Kdyby/RabbitMq/exceptions.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1103,14 +1102,14 @@
                 },
                 {
                     "name": "Filip Procházka",
-                    "email": "filip@prochazka.su",
-                    "homepage": "http://filip-prochazka.com"
+                    "homepage": "http://filip-prochazka.com",
+                    "email": "filip@prochazka.su"
                 }
             ],
             "description": "Integrates php-amqplib with RabbitMq and Nette Framework",
             "homepage": "http://kdyby.org",
             "keywords": [
-                "AMQP",
+                "amqp",
                 "bunny",
                 "kdyby",
                 "message",
@@ -1120,7 +1119,12 @@
                 "rabbit",
                 "rabbitmq"
             ],
-            "time": "2014-12-28 13:24:28"
+            "support": {
+                "email": "filip@prochazka.su",
+                "issues": "https://github.com/Kdyby/RabbitMq/issues",
+                "source": "https://github.com/Mikulas/RabbitMq/tree/fix-idle-signals"
+            },
+            "time": "2015-02-07 20:40:37"
         },
         {
             "name": "kdyby/redis",
@@ -3665,8 +3669,8 @@
         "kdyby/facebook": 20,
         "kdyby/forms-replicator": 20,
         "kdyby/google": 20,
-        "nette/nette": 10,
-        "kdyby/rabbitmq": 20
+        "kdyby/rabbitmq": 20,
+        "nette/nette": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

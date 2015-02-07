@@ -3686,13 +3686,13 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/Kdyby/RabbitMq.git",
-            "reference": "91474c2"
+            "url": "https://github.com/Mikulas/RabbitMq.git",
+            "reference": "cc3890fe"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/RabbitMq/zipball/91474c2e0c25e91a7e5ee80e06016b9091e1edea",
-            "reference": "91474c2",
+            "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/cc3890feb4e5422f0a6a2bc37ed4f18f57750979",
+            "reference": "cc3890fe",
             "shasum": ""
         },
         "require": {
@@ -3725,14 +3725,14 @@
             "nette/tokenizer": "~2.2@dev",
             "tracy/tracy": "~2.2@dev"
         },
-        "time": "2014-12-28 13:24:28",
+        "time": "2015-02-07 20:40:37",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.0-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Kdyby\\RabbitMq\\": "src/"
@@ -3741,7 +3741,6 @@
                 "src/Kdyby/RabbitMq/exceptions.php"
             ]
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -3751,14 +3750,14 @@
             },
             {
                 "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
+                "homepage": "http://filip-prochazka.com",
+                "email": "filip@prochazka.su"
             }
         ],
         "description": "Integrates php-amqplib with RabbitMq and Nette Framework",
         "homepage": "http://kdyby.org",
         "keywords": [
-            "AMQP",
+            "amqp",
             "bunny",
             "kdyby",
             "message",
@@ -3767,6 +3766,11 @@
             "queue",
             "rabbit",
             "rabbitmq"
-        ]
+        ],
+        "support": {
+            "email": "filip@prochazka.su",
+            "issues": "https://github.com/Kdyby/RabbitMq/issues",
+            "source": "https://github.com/Mikulas/RabbitMq/tree/fix-idle-signals"
+        }
     }
 ]
