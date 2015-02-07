@@ -4,12 +4,13 @@ namespace App\Models\Structs;
 
 use App\Models\Orm\Entity;
 use App\Models\Orm\RepositoryContainer;
+use Serializable;
 
 
 /**
  * Serializable for tasks
  */
-class EntityPointer
+class EntityPointer implements Serializable
 {
 
 	/**
@@ -37,4 +38,13 @@ class EntityPointer
 		return $orm->getRepository($this->repoClass)->getById($this->id);
 	}
 
+	public function serialize()
+	{
+		return $this->repoClass . ':' . $this->id;
+	}
+
+	public function unserialize($serialized)
+	{
+		list($this->repoClass, $this->id) = explode(':', $serialized);
+	}
 }

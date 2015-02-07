@@ -24,7 +24,6 @@ console:
 		- Bin\Commands\Schema\Reset
 		- Bin\Commands\Tests\Run
 		- Bin\Commands\Video\Update
-		- Bin\Commands\Worker
 
 database:
     dsn: 'pgsql:host=127.0.0.1;port=%database.port%;dbname=%database.database%'

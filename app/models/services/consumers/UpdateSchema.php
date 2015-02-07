@@ -1,30 +1,18 @@
 <?php
 
-namespace App\Models\Tasks;
+namespace App\Models\Services\Consumers;
 
-use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\BlockSchemaBridge;
 use App\Models\Rme\Schema;
-use App\Models\Structs\EntityPointer;
 
 
-class UpdateSchema extends Task
+class UpdateSchema extends Consumer
 {
 
-	/**
-	 * @var EntityPointer to Schema
-	 */
-	private $pSchema;
-
-	public function __construct(Schema $schema)
-	{
-		$this->pSchema = new EntityPointer($schema);
-	}
-
-	public function run(RepositoryContainer $orm)
+	public function invoke(array $args)
 	{
 		/** @var Schema $schema */
-		$schema = $this->pSchema->resolve($orm);
+		$schema = $args['schema'];
 
 		$bridges = [];
 		$position = 0;
@@ -43,14 +31,13 @@ class UpdateSchema extends Task
 					$bridge = new BlockSchemaBridge();
 					$bridge->schema = $schema;
 					$bridge->position = $position++;
-					$bridge->block = $orm->blocks->getById($cell);
+					$bridge->block = $this->orm->blocks->getById($cell);
 					$bridges[] = $bridge;
 				}
 			}
 		}
 		$schema->blockSchemaBridges = $bridges;
 
-		$orm->flush();
+		$this->orm->flush();
 	}
-
 }

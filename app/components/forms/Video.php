@@ -3,8 +3,8 @@
 namespace App\Components\Forms;
 
 use App\Models\Rme;
-use App\Models\Services\Queue;
 use App\Models\Tasks;
+use Kdyby\RabbitMq\Connection;
 use Nette\Forms\Controls\BaseControl;
 
 
@@ -12,7 +12,7 @@ class Video extends EditorForm
 {
 
 	/**
-	 * @var Queue
+	 * @var Connection
 	 * @inject
 	 */
 	public $queue;
@@ -56,7 +56,10 @@ class Video extends EditorForm
 
 		$this->orm->flush();
 
-		$this->queue->enqueue(new Tasks\UpdateVideo($video));
+		$producer = $this->queue->getProducer('updateVideo');
+		$producer->publish(serialize([
+			'schema' => new EntityPointer($video),
+		]));
 
 		$this->presenter->flashSuccess("editor.$mode.video");
 

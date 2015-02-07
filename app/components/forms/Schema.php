@@ -4,10 +4,11 @@ namespace App\Components\Forms;
 
 use App\Components\Controls\EditorSelector;
 use App\Models\Rme;
-use App\Models\Services\Queue;
 use App\Models\Services\SchemaLayout;
 use App\Models\Services\UserState;
+use App\Models\Structs\EntityPointer;
 use App\Models\Tasks;
+use Kdyby\RabbitMq\Connection;
 use Nette\Utils\Json;
 
 
@@ -21,7 +22,7 @@ class Schema extends EditorForm
 	public $schemaLayout;
 
 	/**
-	 * @var Queue
+	 * @var Connection
 	 * @inject
 	 */
 	public $queue;
@@ -90,7 +91,10 @@ class Schema extends EditorForm
 		$this->orm->flush();
 		$this->presenter->purgeHeaderTemplateCache();
 
-		$this->queue->enqueue(new Tasks\UpdateSchema($schema));
+		$producer = $this->queue->getProducer('updateSchema');
+		$producer->publish(serialize([
+			'schema' => new EntityPointer($schema),
+		]));
 
 		$this->presenter->flashSuccess("editor.$mode.schema");
 		$this->presenter->redirect('this', ['schemaId' => $schema->id]);

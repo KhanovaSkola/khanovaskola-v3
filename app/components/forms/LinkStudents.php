@@ -10,6 +10,7 @@ use App\Models\Rme\User;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
 use App\Models\Tasks\SendMailTask;
+use Kdyby\RabbitMq\Connection;
 use Nette\Forms\Container;
 
 
@@ -17,16 +18,16 @@ class LinkStudents extends Form
 {
 
 	/**
-	 * @var Queue
-	 * @inject
-	 */
-	public $queue;
-
-	/**
 	 * @var RepositoryContainer
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var Connection
+	 * @inject
+	 */
+	public $queue;
 
 	public function setup()
 	{
@@ -178,16 +179,17 @@ class LinkStudents extends Form
 		$this->orm->tokens->persist($token);
 		$this->orm->flush(); // prevent race condition with queue
 
-		$task = new SendMailTask($template, $student, [
-			'teacher' => new EntityPointer($teacher),
-			'invitee' => new EntityPointer($student),
-			'token' => new EntityPointer($token),
-			'unsafe' => $token->getUnsafe(),
-		]);
 
 		$teacher->studentInvitesSent->add($invite);
 
-		$this->queue->enqueue($task);
+		$producer = $this->queue->getProducer('mail');
+		$producer->publish(serialize([
+			'template' => $template,
+			'recipient' => new EntityPointer($student),
+			'teacher' => new EntityPointer($teacher),
+			'token' => new EntityPointer($token),
+			'unsafe' => $token->getUnsafe(),
+		]));
 	}
 
 	/**

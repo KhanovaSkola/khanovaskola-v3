@@ -37,7 +37,6 @@ use Orm\OneToMany as OtM;
  * @property OtM|BadgeUserBridge[]  $badges                 {1:m badgeUserBridges $user}
  * @property OtM|Block[]            $blocksAuthored         {1:m blocks $author}
  * @property OtM|Comment[]          $comments               {1:m comments $author}
- * @property OtM|Path[]             $paths                  {1:m paths $author}
  * @property OtM|CompletedBlock[]   $completedBlocks        {1:m completedBlocks $user}
  * @property OtM|CompletedContent[] $completedContents      {1:m completedContents $user}
  * @property OtM|Schema[]           $schemasAuthored        {1:m schemas $author}

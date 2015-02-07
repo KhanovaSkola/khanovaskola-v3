@@ -8,6 +8,7 @@ use App\Models\Services\Aes;
 use App\Models\Services\Discourse;
 use App\Models\Services\Queue;
 use App\Models\Services\UserMerger;
+use App\Models\Structs\EntityPointer;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
 use App\Models\Tasks;
@@ -17,6 +18,7 @@ use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
 use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Kdyby\Google\Google;
+use Kdyby\RabbitMq\Connection;
 use Nette;
 use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
@@ -48,16 +50,16 @@ final class Auth extends Presenter
 	public $discourse;
 
 	/**
-	 * @var Queue
-	 * @inject
-	 */
-	public $queue;
-
-	/**
 	 * @var Google
 	 * @inject
 	 */
 	public $google;
+
+	/**
+	 * @var Connection
+	 * @inject
+	 */
+	public $queue;
 
 	public function onLogin(User $user, $newUser = FALSE, $service = NULL)
 	{
@@ -72,7 +74,10 @@ final class Auth extends Presenter
 
 		if (!$this->userEntity->avatar)
 		{
-			$this->queue->enqueue(new Tasks\UpdateAvatar($this->userEntity));
+			$producer = $this->queue->getProducer('updateAvatar');
+			$producer->publish(serialize([
+				'user' => new EntityPointer($this->userEntity),
+			]));
 		}
 
 		if ($this->userEntity->hasCacheBurstingPrivileges())

@@ -22,7 +22,6 @@ use Nette\DI\Container;
  * @property-read Rme\ContentBlockBridgesRepository $contentBlockBridges
  * @property-read Rme\ContentsRepository $contents
  * @property-read Rme\GistsRepository $gists
- * @property-read Rme\PathsRepository $paths
  * @property-read Rme\StudentInvitesRepository $studentInvites
  * @property-read Rme\SubjectsRepository $subjects
  * @property-read Rme\TokensRepository $tokens

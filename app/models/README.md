@@ -7,6 +7,6 @@
     	<dd>Repositories mappers entities, actual implementations</dd>
     <dt>services</dt>
         <dd>Classes that might as well be static (e.g. Translator)</dd>
-	<dt>tasks</dt>
-		<dd>Background tasks that are to be run from worker</dd>
+	<dt>structs</dt>
+		<dd>Pretty much glorified hash maps (refactored arrays)</dd>
 </dl>

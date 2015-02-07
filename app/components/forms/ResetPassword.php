@@ -5,10 +5,9 @@ namespace App\Components\Forms;
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Tokens;
-use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
-use App\Models\Tasks\SendMailTask;
 use App\Presenters\Auth;
+use Kdyby\RabbitMq\Connection;
 
 
 class ResetPassword extends Form
@@ -21,7 +20,7 @@ class ResetPassword extends Form
 	public $orm;
 
 	/**
-	 * @var Queue
+	 * @var Connection
 	 * @inject
 	 */
 	public $queue;
@@ -65,7 +64,10 @@ class ResetPassword extends Form
 		$this->orm->tokens->persist($token);
 		$this->orm->flush(); // prevent race condition with queue
 
-		$this->queue->enqueue(new SendMailTask('resetPassword', $userEntity, [
+		$producer = $this->queue->getProducer('mail');
+		$producer->publish(serialize([
+			'template' => 'resetPassword',
+			'recipient' => new EntityPointer($userEntity),
 			'token' => new EntityPointer($token),
 			'unsafe' => $token->getUnsafe(),
 		]));
