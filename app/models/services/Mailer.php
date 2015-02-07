@@ -7,7 +7,6 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Token;
 use App\Models\Rme\Tokens\Unsubscribe;
 use App\Models\Rme\User;
-use App\Models\Structs\EntityPointer;
 use App\Presenters;
 use Exception;
 use Kdyby\RabbitMq\IConsumer;
@@ -19,7 +18,6 @@ use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
 use Nette\Object;
-use PhpAmqpLib\Message\AMQPMessage;
 
 
 class Mailer extends Object implements IConsumer

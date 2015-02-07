@@ -4,7 +4,6 @@ namespace App\Models\Services\Blueprints;
 
 use App\Models\Rme\Blueprint;
 use App\Models\Rme\BlueprintPartial;
-use App\Models\Structs\Exercises\ScalarExercise;
 use App\Models\Structs\Exercises\SelectExercise;
 use Nette\Utils\Json;
 

@@ -14,7 +14,7 @@ class Schema extends Presenter
 	use Parameters\Schema;
 	use Parameters\Slug;
 
-	private $_preloadedBlocks = [];
+	private $preloadedBlocks = [];
 
 	/**
 	 * @var SchemaLayout
@@ -37,16 +37,16 @@ class Schema extends Presenter
 		$this->template->layout = $this->schemaLayout->trim($this->schema->layout);
 
 		$this->template->getBlock = function($id) {
-			if (!$this->_preloadedBlocks)
+			if (!$this->preloadedBlocks)
 			{
 				$b = iterator_to_array($this->schema->blocks);
 				foreach ($b as $block)
 				{
-					$this->_preloadedBlocks[$block->id] = $block;
+					$this->preloadedBlocks[$block->id] = $block;
 				}
 			}
-			return isset($this->_preloadedBlocks[$id])
-				? $this->_preloadedBlocks[$id]
+			return isset($this->preloadedBlocks[$id])
+				? $this->preloadedBlocks[$id]
 				: $this->orm->blocks->getById($id);
 		};
 	}

@@ -9,7 +9,6 @@ use App\Models\Rme\Tokens\LinkNewStudent;
 use App\Models\Rme\User;
 use App\Models\Services\Queue;
 use App\Models\Structs\EntityPointer;
-use App\Models\Tasks\SendMailTask;
 use Kdyby\RabbitMq\Connection;
 use Nette\Forms\Container;
 

@@ -3,10 +3,10 @@
 namespace App\Models\Services;
 
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\Block;
 use App\Models\Rme\BlocksMapper;
 use App\Models\Rme\ContentsMapper;
 use App\Models\Structs\SearchResponse;
-use Tracy\Debugger;
 
 
 class Search
@@ -64,7 +64,8 @@ class Search
 		{
 			foreach ($resBlocks['hits']['hits'] as $hit)
 			{
-				$block  = $blocks->getById($hit['_id']);
+				/** @var Block $block */
+				$block = $blocks->getById($hit['_id']);
 				$block->score = $hit['_score'];
 				array_unshift($result, $block);
 			}

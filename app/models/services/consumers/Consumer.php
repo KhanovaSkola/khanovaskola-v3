@@ -23,7 +23,6 @@ abstract class Consumer implements IConsumer
 
 	final public function process(AMQPMessage $msg)
 	{
-echo static::class . "\n";
 		$raw = unserialize($msg->body);
 		foreach ($raw as &$val)
 		{

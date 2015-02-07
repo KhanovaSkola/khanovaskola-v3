@@ -6,7 +6,7 @@ use App\Models\Rme;
 use App\Models\Rme\Badge;
 use App\Models\Rme\BadgeUserBridges as Bridges;
 use App\Models\Rme\User;
-use App\Models\Structs\Exercise;
+use App\Models\Structs\Exercises\ScalarExercise;
 use Orm;
 
 
@@ -16,9 +16,9 @@ class ExerciseMastery extends Badge
 	/**
 	 * @subscribe
 	 * @param User $user
-	 * @param Exercise $exercise
+	 * @param ScalarExercise $exercise
 	 */
-	public function onCorrectAnswer(User $user, Exercise $exercise)
+	public function onCorrectAnswer(User $user, ScalarExercise $exercise)
 	{
 		$blueprint = $exercise->getBlueprint();
 

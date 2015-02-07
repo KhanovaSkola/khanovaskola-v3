@@ -15,7 +15,6 @@ use App\Models\Tasks;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
 use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
-use Kdyby\Facebook\Facebook;
 use Kdyby\Facebook\FacebookApiException;
 use Kdyby\Google\Google;
 use Kdyby\RabbitMq\Connection;

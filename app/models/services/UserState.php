@@ -25,7 +25,8 @@ class UserState extends Security\User
 	 */
 	protected $orm;
 
-	public function __construct(IUserStorage $storage, IAuthenticator $authenticator = NULL, IAuthorizator $authorizator = NULL,
+	public function __construct(IUserStorage $storage, IAuthenticator $authenticator = NULL,
+	                            IAuthorizator $authorizator = NULL,
 	                            Acl $acl, RepositoryContainer $orm)
 	{
 		parent::__construct($storage, $authenticator, $authorizator);

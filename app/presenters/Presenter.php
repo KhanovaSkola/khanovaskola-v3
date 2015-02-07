@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\ControlTrait;
+use App\Components\FormControl;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Inflection;
@@ -114,6 +115,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		if (!$this->user->isRegisteredUser())
 		{
 			$section = $this->session->getSection('auth');
+			/** @var self|Nette\Forms\Controls\TextInput[]|FormControl[] $this */
 			$this['loginForm-form-email']->setDefaultValue($section->lastUser['email']);
 			$this['loginForm']->setArgument('avatarUrl', $section->lastUser['avatar']);
 		}

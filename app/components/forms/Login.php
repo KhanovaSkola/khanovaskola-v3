@@ -5,7 +5,6 @@ namespace App\Components\Forms;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\UserMerger;
 use App\Presenters\Auth;
-use App\Presenters\Presenter;
 use Nette\Security\AuthenticationException;
 
 

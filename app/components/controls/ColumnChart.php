@@ -15,7 +15,7 @@ class ColumnChart extends Control
 	protected function renderDefault($dataPath, $yTitle)
 	{
 		$this->template->add('dataUrl', $this->presenter->link($dataPath));
-		$this->template->add('yTitle', $this->getTranslator()->translate($yTitle));
+		$this->template->add('yTitle', $this->translator->translate($yTitle));
 	}
 
 }

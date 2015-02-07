@@ -70,5 +70,7 @@ class Video extends EditorForm
 			'blockId' => $block ? $block->id : NULL,
 			'schemaId' => $schema ? $schema->id : NULL,
 		]);
+
+		return TRUE;
 	}
 }

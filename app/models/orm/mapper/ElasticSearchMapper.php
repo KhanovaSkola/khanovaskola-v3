@@ -5,8 +5,6 @@ namespace App\Models\Orm\Mappers;
 use App\Models\Orm\Entity;
 use App\Models\Orm\IIndexable;
 use App\Models\Services\ElasticSearch;
-use App\Models\Services\Highlight;
-use App\Models\Structs\SearchResponse;
 use Orm\EventArguments;
 use Orm\Events;
 

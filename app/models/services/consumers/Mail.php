@@ -4,9 +4,6 @@ namespace App\Models\Services\Consumers;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Mailer;
-use App\Models\Structs\EntityPointer;
-use Kdyby\RabbitMq\IConsumer;
-use PhpAmqpLib\Message\AMQPMessage;
 
 
 class Mail extends Consumer

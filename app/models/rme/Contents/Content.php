@@ -66,10 +66,6 @@ abstract class Content extends TitledEntity implements IIndexable
 			}
 		}
 
-		$weight = 100 - $avgPosition;
-		$weight += 20 * $blockCount;
-		$weight += 50 * $schemaCount;
-
 		return [
 			'title' => $this->title,
 			'suggest' => $this->title,
