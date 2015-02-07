@@ -33,7 +33,7 @@
                         <div class="time">
                             <i class="icon icon-time"></i>
                             <span>
-	                            {if $block->duration >= 3600}
+	                            {if $block->duration >= 60 * 90}
 	                                {_'block.duration.hours', $template->hours($block->duration)}
 	                            {else}
 	                                {_'block.duration.minutes', $template->minutes($block->duration)}
