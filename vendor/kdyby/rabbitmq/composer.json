@@ -1,0 +1,67 @@
+{
+	"name": "kdyby/rabbitmq",
+	"type": "library",
+	"description": "Integrates php-amqplib with RabbitMq and Nette Framework",
+	"keywords": ["nette", "kdyby", "rabbitmq", "rabbit", "bunny", "amqp", "messaging", "message", "queue"],
+	"homepage": "http://kdyby.org",
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Alvaro Videla"
+		},
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
+		}
+	],
+	"require": {
+	  	"nette/di": "~2.2@dev",
+		"nette/utils": "~2.2@dev",
+
+		"videlalvaro/php-amqplib": "~2.4.0"
+	},
+	"require-dev": {
+		"nette/nette": "~2.2@dev",
+		"nette/application": "~2.2@dev",
+		"nette/bootstrap": "~2.2@dev",
+		"nette/caching": "~2.2@dev",
+		"nette/component-model": "~2.2@dev",
+		"nette/database": "~2.2@dev",
+		"nette/finder": "~2.2@dev",
+		"nette/forms": "~2.2@dev",
+		"nette/http": "~2.2@dev",
+		"nette/mail": "~2.2@dev",
+		"nette/neon": "~2.2@dev",
+		"nette/php-generator": "~2.2@dev",
+		"nette/reflection": "~2.2@dev",
+		"nette/robot-loader": "~2.2@dev",
+		"nette/safe-stream": "~2.2@dev",
+		"nette/security": "~2.2@dev",
+		"nette/tokenizer": "~2.2@dev",
+		"latte/latte": "~2.2@dev",
+		"tracy/tracy": "~2.2@dev",
+
+		"nette/tester": "@dev",
+		"mockery/mockery": "~0.9.1",
+		"kdyby/console": "~2.3@dev",
+		"jakub-onderka/php-parallel-lint": "~0.7"
+	},
+	"support": {
+		"email": "filip@prochazka.su",
+		"issues": "https://github.com/Kdyby/RabbitMq/issues"
+	},
+	"autoload": {
+		"psr-0": {
+			"Kdyby\\RabbitMq\\": "src/"
+		},
+		"classmap": [
+			"src/Kdyby/RabbitMq/exceptions.php"
+		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	}
+}
