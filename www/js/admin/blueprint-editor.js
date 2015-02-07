@@ -101,7 +101,7 @@
 		$underlay.html(text);
 	};
 
-	$form.find('[name=question], [name=answer], [name^=hints]').on('change keyup', function() {
+	$form.find('[name$="[question]"], [name$="[answer]"], [name$="[hint]"]').on('change keyup', function() {
 		highlight($(this));
 	}).each(function() {
 		highlight($(this)); // on load
