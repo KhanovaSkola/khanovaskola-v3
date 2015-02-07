@@ -44,7 +44,7 @@
 	        <input n:name="partials-$id-answer" class="form-control">
 	    </div>
 
-		<div class="form-group hints">
+		<div class="form-group hints" data-partial="{$id}">
 			<label n:name="partials-$id-hints-0-hint">{_'hints'}</label>
 			{foreach $partial['hints']->containers as $i => $_tmp}
 				<div class="hint">

@@ -109,8 +109,9 @@
 
 
 	$form.find('[data-add-hint]').on('click', function() {
-		var id = $(this).parent().children('input').length;
-		var $input = $('<input type="text" name="hints[' + id + '][hint]" class="form-control">');
+        var partial = $(this).parents('[data-partial]').data('partial');
+		var id = $(this).parent().find('input').length;
+		var $input = $('<input type="text" name="partials[' + partial + '][hints][' + id + '][hint]" class="form-control">');
 		$input.on('change keyup', function() {
 			highlight($(this));
 		});

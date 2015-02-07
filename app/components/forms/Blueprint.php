@@ -152,18 +152,18 @@ class Blueprint extends EntityForm
 			if (!$partial)
 			{
 				$partial = new Rme\BlueprintPartial();
-
-				$partial->question = $values->question;
-				$partial->answer = $values->answer;
-
-				$partial->hints = [];
-				foreach ($values->hints as $hint)
-				{
-					$partial->addHint($hint);
-				}
-
-				$blueprint->partials->add($partial);
 			}
+
+			$partial->question = $values->question;
+			$partial->answer = $values->answer;
+
+			$partial->hints = [];
+			foreach ($values->hints as $i => $container)
+			{
+				$partial->addHint($container->hint);
+			}
+
+			$blueprint->partials->add($partial);
 		}
 
 		return $blueprint;
