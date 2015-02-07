@@ -72,14 +72,8 @@ abstract class Content extends TitledEntity implements IIndexable
 
 		return [
 			'title' => $this->title,
+			'suggest' => $this->title,
 			'bucket' => $this->type,
-			'suggest' => [
-				'input' => $this->title,
-				'payload' => [
-					'id' => $this->id,
-				],
-				'weight' => round($weight),
-			],
 			'description' => $this->description,
 			'block_count' => $blockCount,
 			'schema_count' => $schemaCount,

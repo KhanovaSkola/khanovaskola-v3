@@ -6,6 +6,7 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\BlocksMapper;
 use App\Models\Rme\ContentsMapper;
 use App\Models\Structs\SearchResponse;
+use Tracy\Debugger;
 
 
 class Search
@@ -74,9 +75,21 @@ class Search
 			]);
 		}
 
-		return new SearchResponse($result, $aggregations, $res['hits']['total']);
-	}
+		$didYouMean = [];
+		$changeFound = FALSE;
+		foreach ($res['suggest']['did_you_mean'] as $word)
+		{
+			$suggested = array_shift($word['options']);
+			if ($suggested)
+			{
+				$changeFound = TRUE;
+			}
+			$didYouMean[] = $suggested ? $suggested['text'] : $word['text'];
+		}
+		$didYouMean = $changeFound ? implode(' ', $didYouMean) : NULL;
 
+		return new SearchResponse($result, $aggregations, $res['hits']['total'], $didYouMean);
+	}
 
 	/**
 	 * @param array $entities

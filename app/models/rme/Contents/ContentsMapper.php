@@ -4,7 +4,11 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers\ElasticSearchMapper;
 use App\Models\Services\Highlight;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Nette\Utils\Json;
+use Nette\Utils\Strings;
 use Orm\DibiCollection;
+use Tracy\Debugger;
 
 
 class ContentsMapper extends ElasticSearchMapper
@@ -197,6 +201,16 @@ class ContentsMapper extends ElasticSearchMapper
 						'title' => ['number_of_fragments' => 0],
 						'description' => ['number_of_fragments' => 0],
 						'subtitles' => ['number_of_fragments' => 3],
+					]
+				],
+				'suggest' => [
+					'text' => $query,
+					'did_you_mean' => [
+						'term' => [
+							'field' => 'suggest',
+							'size' => 10,
+							'sort' => 'frequency',
+						]
 					]
 				],
 				'aggs' => [

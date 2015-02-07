@@ -34,15 +34,14 @@ mappings:
 				type: string
 				store: true
 				boost: 5
+			suggest: # same as title
+				type: string
+				index_analyzer: cs_icu_analyzer_suggest
+				search_analyzer: cs_icu_analyzer_suggest
 			bucket:
 				type: string
 				index_analyzer: simple
 				search_analyzer: simple
-			suggest: # same content as title
-				type: completion
-				index_analyzer: cs_icu_analyzer_suggest
-				search_analyzer: cs_icu_analyzer_suggest
-				payloads: true
 			description:
 				type: string
 				store: true

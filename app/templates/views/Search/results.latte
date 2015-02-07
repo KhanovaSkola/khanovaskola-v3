@@ -27,7 +27,11 @@
                     {if $search->total > count($search->results)}
 	                    <a href="#" data-show-more>Zobrazit další</a>
 	                {elseif !$search->results}
-	                    Takový obsah tady nemáme&hellip;
+	                    Takový obsah tady nemáme&hellip;<br>
+	                    {var $q = $search->getDidYouMean()}
+                        {if $q}
+	                        Nechtěli jste hledat <a n:href="this, query => $q">{$q}</a>?
+	                    {/if}
 	                {/if}
                 </div>
             </div>

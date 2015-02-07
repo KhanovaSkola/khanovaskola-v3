@@ -23,11 +23,17 @@ class SearchResponse extends Object
 	 */
 	private $total;
 
-	public function __construct(array $results = [], array $aggregations = [], $total = 0)
+	/**
+	 * @var string
+	 */
+	private $didYouMean;
+
+	public function __construct(array $results = [], array $aggregations = [], $total = 0, $didYouMean = '')
 	{
 		$this->results = $results;
 		$this->aggregations = $aggregations;
 		$this->total = $total;
+		$this->didYouMean = $didYouMean;
 	}
 
 	/**
@@ -52,6 +58,14 @@ class SearchResponse extends Object
 	public function getTotal()
 	{
 		return $this->total;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDidYouMean()
+	{
+		return $this->didYouMean;
 	}
 
 }
