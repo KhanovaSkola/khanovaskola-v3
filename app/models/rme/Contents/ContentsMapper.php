@@ -207,7 +207,21 @@ class ContentsMapper extends ElasticSearchMapper
 			]
 		];
 
-		return $this->elastic->search($args);
+		try
+		{
+			return $this->elastic->search($args);
+		}
+		catch (BadRequest400Exception $e)
+		{
+			Debugger::getBlueScreen()->addPanel(function() use ($e) {
+				$raw= Json::decode($e->getMessage());
+				$match = Strings::match($raw->error, '~Failed to parse source \[(.*?)\]+; nested: (.*?);~is');
+				$context = Json::decode($match[1]);
+				$error = $match[2];
+				dump($error, $context);
+			});
+			throw $e;
+		}
 	}
 
 }
