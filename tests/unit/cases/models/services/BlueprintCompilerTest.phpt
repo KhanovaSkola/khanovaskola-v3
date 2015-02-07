@@ -4,9 +4,7 @@ namespace Tests\Cases\Unit;
 
 use AccessMethod;
 use App\BlueprintCompilerException;
-use App\Models\Rme\Blueprint;
-use App\Models\Services\BlueprintCompiler;
-use App\Presenters\BlueprintEditor;
+use App\Models\Services\Blueprints\Compiler;
 use Nette;
 use Tester;
 use Tester\Assert;
@@ -19,7 +17,7 @@ class BlueprintCompilerTest extends TestCase
 {
 
 	/**
-	 * @var BlueprintCompiler
+	 * @var Compiler
 	 * @inject
 	 */
 	public $compiler;
@@ -146,6 +144,14 @@ class BlueprintCompilerTest extends TestCase
 			$this->compileVars->callArgs([$vars]);
 
 		}, BlueprintCompilerException::class);
+	}
+
+	public function testEvalScalars()
+	{
+		$out = $this->compileString->call('<eval>a+1</eval>', [
+			'a' => 1
+		]);
+		Assert::same(2, (int) $out);
 	}
 
 }

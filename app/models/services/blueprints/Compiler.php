@@ -329,6 +329,13 @@ class Compiler extends Object
 		$original = $eval;
 		$eval = preg_replace_callback('~\b\w+\b~', function($match) use ($original, $vars) {
 			$var = $match[0];
+
+			if (ctype_digit($var))
+			{
+				// scalar
+				return $var;
+			}
+
 			if (!isset($vars[$var]))
 			{
 				throw new BlueprintCompilerException("Undefined variable '$var' in '$this->errorContext'.");
