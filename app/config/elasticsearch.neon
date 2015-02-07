@@ -6,7 +6,7 @@ settings:
 			cs_icu_analyzer:
 				type: custom
 				tokenizer: standard
-				filter: [icu_folding, cs_stop, cs_stem]
+				filter: [icu_folding, cs_stop, synonyms, cs_stem]
 			cs_icu_analyzer_suggest:
 				type: custom
 				tokenizer: standard
@@ -25,6 +25,14 @@ settings:
 			cs_icu_collation:
 				type: icu_collation
 				language: cs
+			synonyms:
+				type: synonym
+				synonyms:
+					# applied after folding, do not use diacritics
+					- "linearni algebra => lingebra"
+					- "elementarni, zakladni"
+					- "negativni => zaporna"
+
 mappings:
 	content:
 		index_analyzer: cs_icu_analyzer
