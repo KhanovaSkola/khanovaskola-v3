@@ -14,7 +14,7 @@
 	},
 	"require": {
 		"php": ">= 5.5.0",
-		"clevis/config-version-extension": ">=1.1.1-beta",
+		"clevis/config-version-extension": ">=1.1.1-beta,<2.0.0",
 		"dg/dibi": "~2.1",
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
