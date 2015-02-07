@@ -26,11 +26,8 @@
 		"kdyby/monolog": "~1.0",
 	  	"kdyby/rabbitmq": "dev-master#cc3890fe",
 		"kdyby/redis": "~3.1",
-
 		"nette/nette": "~2.3.0-beta",
-
 		"nextras/migrations": "~2.3",
-		"pda/pheanstalk": "~3.0",
 		"petrp/orm": "0.4.*",
 		"symfony/console": "~2.4",
 	  	"symfony/process": "~2.5",

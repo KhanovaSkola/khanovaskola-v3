@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d880de7f9b5037cf05f42cd2ed3c9940",
+    "hash": "61d7af9959ada5b84236ae66d23a1797",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -2672,56 +2672,6 @@
                 "router"
             ],
             "time": "2014-10-26 15:57:02"
-        },
-        {
-            "name": "pda/pheanstalk",
-            "version": "v3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pda/pheanstalk.git",
-                "reference": "2078587884faf43fc00976b152b2dde0b5e3830e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/2078587884faf43fc00976b152b2dde0b5e3830e",
-                "reference": "2078587884faf43fc00976b152b2dde0b5e3830e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Pheanstalk\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Annesley",
-                    "email": "paul@annesley.cc",
-                    "homepage": "http://paul.annesley.cc/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP client for beanstalkd queue",
-            "homepage": "https://github.com/pda/pheanstalk",
-            "keywords": [
-                "beanstalkd"
-            ],
-            "time": "2014-11-08 20:00:00"
         },
         {
             "name": "petrp/orm",
