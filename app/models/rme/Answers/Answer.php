@@ -3,7 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
-use App\Models\Structs\Exercise;
+use App\Models\Structs\Exercises\ScalarExercise;
 use Orm;
 
 
@@ -22,7 +22,7 @@ use Orm;
 class Answer extends Entity
 {
 
-	public function __construct(Exercise $exercise, $answer)
+	public function __construct(ScalarExercise $exercise, $answer)
 	{
 		parent::__construct();
 

@@ -1,54 +1,48 @@
 <?php
 
-namespace App\Models\Structs;
+namespace App\Models\Structs\Exercises;
 
 use App\Models\Rme\Answer;
 use App\Models\Rme\Blueprint;
 use Nette\Object;
 
 
-class Exercise extends Object
+class ScalarExercise extends Object
 {
 
 	/**
 	 * @var Blueprint
 	 */
-	private $blueprint;
+	protected $blueprint;
 
 	/**
 	 * @var int
 	 */
-	private $seed;
+	protected $seed;
 
 	/**
 	 * @var string
 	 */
-	private $question;
+	protected $question;
 
 	/**
 	 * @var string
 	 */
-	private $answer;
+	protected $answer;
 
 	/**
 	 * @var string[]
 	 */
-	private $hints;
+	protected $hints;
 
 	/**
 	 * @param Blueprint $blueprint
 	 * @param int $seed
-	 * @param string $question
-	 * @param string $answer
-	 * @param string[] $hints
 	 */
-	public function __construct(Blueprint $blueprint, $seed, $question, $answer, array $hints)
+	public function __construct(Blueprint $blueprint, $seed)
 	{
 		$this->blueprint = $blueprint;
 		$this->seed = $seed;
-		$this->question = $question;
-		$this->answer = $answer;
-		$this->hints = $hints;
 	}
 
 	public function verifyAnswer(Answer $answer)
@@ -94,6 +88,41 @@ class Exercise extends Object
 	public function getHints()
 	{
 		return $this->hints;
+	}
+
+	/**
+	 * @param string $question
+	 */
+	public function setQuestion($question)
+	{
+		$this->question = $question;
+	}
+
+	/**
+	 * @param string $answer
+	 */
+	public function setAnswer($answer)
+	{
+		$this->answer = $answer;
+	}
+
+	/**
+	 * @param \string[] $hints
+	 */
+	public function setHints($hints)
+	{
+		$this->hints = $hints;
+	}
+
+	/**
+	 * @return string
+	 * Foo\SelectExercise => select
+	 */
+	public function getTemplateName()
+	{
+		$parts = explode('\\', (static::class));
+		$last = $parts[count($parts) - 1];
+		return lcFirst(substr($last, 0, -strlen('Exercise')));
 	}
 
 }

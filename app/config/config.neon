@@ -59,8 +59,8 @@ services:
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
-	- App\Models\Services\BlueprintCompiler
 	- App\Models\Services\BlueprintPurifier
+	- App\Models\Services\Blueprints\Compiler
 	- App\Models\Services\Discourse(%discourse.secret%, %discourse.redirect%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy

@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Models\Services;
+namespace App\Models\Services\Blueprints;
 
 use App\BlueprintCompilerException;
 use App\InvalidArgumentException;
 use App\Models\Rme\Blueprint;
-use App\Models\Structs\Exercise;
+use App\Models\Rme\BlueprintPartial;
+use App\Models\Services\BlueprintPurifier;
+use App\Models\Services\Inflection;
+use App\Models\Structs\Exercises\ScalarExercise;
 use App\NotImplementedException;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
 
-class BlueprintCompiler extends Object
+class Compiler extends Object
 {
 
 	const T_TEXT = 'TEXT';
@@ -77,32 +80,42 @@ class BlueprintCompiler extends Object
 
 	/**
 	 * @param Blueprint $blueprint
-	 * @return Exercise
+	 * @return ScalarExercise
 	 * @throws \Exception
 	 */
 	public function compile(Blueprint $blueprint)
 	{
 		srand($this->seed);
 
-		$exercise = [];
 		$vars = $this->compileVars($blueprint->vars);
+		$partial = $this->pickPartial($blueprint);
 
-		$partials = $blueprint->partials->get()->fetchAll();
-		$partial = $partials[rand(0, count($partials) - 1)];
-
-		$exercise['vars'] = $vars;
-		$exercise['question'] = $this->compileString($partial->question, $vars);
-		$exercise['answer'] = $this->compileString($partial->answer, $vars);
-		$exercise['hints'] = [];
-		foreach ($partial->hints as $i => $hint)
-		{
-			$exercise['hints'][$i] = $this->compileString($hint, $vars);
-		}
-
-		return new Exercise($blueprint, $this->seed, $exercise['question'], $exercise['answer'], $exercise['hints']);
+		$partialCompiler = $this->createPartialCompiler($partial, $vars);
+		return $partialCompiler->compilePartial($partial);
 	}
 
-	private function compileVars(array $blueprintVars)
+	/**
+	 * @param BlueprintPartial $partial
+	 * @param array $vars
+	 * @return ScalarCompiler
+	 */
+	private function createPartialCompiler(BlueprintPartial $partial, array $vars)
+	{
+		$class = 'App\\Models\\Services\\Blueprints\\' . ucFirst($partial->answerType) . 'Compiler';
+		return new $class($this, $vars);
+	}
+
+	/**
+	 * @param Blueprint $blueprint
+	 * @return BlueprintPartial
+	 */
+	protected function pickPartial(Blueprint $blueprint)
+	{
+		$partials = $blueprint->partials->get()->fetchAll();
+		return $partials[rand(0, count($partials) - 1)];
+	}
+
+	protected function compileVars(array $blueprintVars)
 	{
 		$vars = [];
 		foreach ($blueprintVars as $var => $def)
@@ -129,7 +142,7 @@ class BlueprintCompiler extends Object
 		return $vars;
 	}
 
-	private function compileString($string, array $vars)
+	public function compileString($string, array $vars)
 	{
 		$this->errorContext = $string;
 
@@ -340,6 +353,18 @@ class BlueprintCompiler extends Object
 		$process->setTimeout(1);
 		$process->run();
 		return (float) trim($process->getOutput());
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSeed()
+	{
+		return $this->seed;
+	}
+
+	protected function onCompile()
+	{
 	}
 
 }

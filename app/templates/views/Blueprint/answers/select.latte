@@ -1,0 +1,9 @@
+{**
+ * @param App\Models\Structs\Exercises\SelectExercise $exercise
+ *}
+
+{foreach $exercise->getAnswerOptions() as $v}
+	<label><input type="radio" name="answer" value="{$v}"> {$v}</label>
+{/foreach}
+<code>select</code>
+{input send}

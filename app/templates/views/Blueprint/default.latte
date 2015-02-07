@@ -19,7 +19,7 @@
 {/block}
 {block content}
 	{**
-	 * @param App\Models\Rme\Exercise $exercise
+	 * @param App\Models\Rme\ScalarExercise $exercise
 	 *}
 	<main class="content">
     	<div class="course-header course-exercise">
@@ -51,9 +51,9 @@
     					    {$exercise->question|noescape}
     					</span>
 
-    					{control answer}
-
-						<code>answer: ${$exercise->answer}$</code>
+						{form answer}
+							{include "answers/{$exercise->getTemplateName()}.latte", _form => $_form}
+						{/form}
 
     					<ol data-hints>
                             <li n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>

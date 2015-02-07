@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
-use App\Models\Services\BlueprintCompiler;
+use App\Models\Services\Blueprints\Compiler;
 use App\Models\Structs\EventList;
 use App\Presenters\Parameters;
 use Nette\Application\UI\Form;
@@ -19,10 +19,10 @@ final class Blueprint extends Content
 	use Parameters\Slug;
 
 	/**
-	 * @var BlueprintCompiler
+	 * @var Compiler
 	 * @inject
 	 */
-	public $blueprintCompiler;
+	public $compiler;
 
 	public function startup()
 	{
@@ -64,10 +64,10 @@ final class Blueprint extends Content
 	{
 		if ($seed !== NULL)
 		{
-			$this->blueprintCompiler->setSeed($seed);
+			$this->compiler->setSeed($seed);
 		}
 
-		return $this->blueprintCompiler->compile($this->blueprint);
+		return $this->compiler->compile($this->blueprint);
 	}
 
 	public function renderDefault($seed = NULL)

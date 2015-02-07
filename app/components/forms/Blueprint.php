@@ -3,9 +3,8 @@
 namespace App\Components\Forms;
 
 use App\BlueprintCompilerException;
-use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
-use App\Models\Services\BlueprintCompiler;
+use App\Models\Services\Blueprints\Compiler;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
 
@@ -14,7 +13,7 @@ class Blueprint extends EntityForm
 {
 
 	/**
-	 * @var BlueprintCompiler
+	 * @var Compiler
 	 * @inject
 	 */
 	public $compiler;
@@ -34,10 +33,12 @@ class Blueprint extends EntityForm
 			$container->addTextArea('question')
 				->addCondition($this::FILLED)
 				->setRequired('form.question.missing');
+			$container->addSelect('answerType', NULL, Rme\BlueprintPartial::getAnswerTypes());
 			$container->addText('answer')
 				->addCondition($this::FILLED)
 				->setRequired('form.answer.missing');
 
+			/** @var self|\Kdyby\Replicator\Container[] $container */
 			$container->addDynamic('hints', function(Container $container) {
 				$container->addText('hint');
 			});
@@ -68,6 +69,7 @@ class Blueprint extends EntityForm
 			$id = (string) $partial->id;
 			$this['partials'][$id]->setDefaults([
 				'question' => $partial->question,
+				'answerType' => $partial->answerType,
 				'answer' => $partial->answer,
 			]);
 
@@ -166,6 +168,7 @@ class Blueprint extends EntityForm
 			}
 
 			$partial->question = $values->question;
+			$partial->answerType = $values->answerType;
 			$partial->answer = $values->answer;
 
 			$partial->hints = [];
