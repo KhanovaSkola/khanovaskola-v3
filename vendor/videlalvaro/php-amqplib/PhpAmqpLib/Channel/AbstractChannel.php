@@ -2,6 +2,7 @@
 
 namespace PhpAmqpLib\Channel;
 
+use Kdyby\RabbitMq\Command\BaseConsumerCommand;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Exception\AMQPOutOfBoundsException;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
@@ -101,8 +102,8 @@ class AbstractChannel
         $this->connection = $connection;
         $this->channel_id = $channel_id;
         $connection->channels[$channel_id] = $this;
-        $this->frame_queue = array(); // Lower level queue for frames
-        $this->method_queue = array(); // Higher level queue for methods
+        $this->frame_queue = []; // Lower level queue for frames
+        $this->method_queue = []; // Higher level queue for methods
         $this->auto_decode = false;
         $this->debug = defined('AMQP_DEBUG') ? AMQP_DEBUG : false;
 
@@ -163,10 +164,16 @@ class AbstractChannel
         $this->dispatch_reader->reuse($args);
 
         if ($content == null) {
-            return call_user_func(array($this, $amqp_method), $this->dispatch_reader);
+            BaseConsumerCommand::staticRegisterSignals();
+            $result = call_user_func([$this, $amqp_method], $this->dispatch_reader);
+            BaseConsumerCommand::staticUnregisterSignals();
+            return $result;
         }
 
-        return call_user_func(array($this, $amqp_method), $this->dispatch_reader, $content);
+        BaseConsumerCommand::staticRegisterSignals();
+        $result = call_user_func([$this, $amqp_method], $this->dispatch_reader, $content);
+        BaseConsumerCommand::staticUnregisterSignals();
+        return $result;
     }
 
 
@@ -227,7 +234,7 @@ class AbstractChannel
         $msg = new AMQPMessage();
         $msg->load_properties($this->msg_property_reader);
 
-        $body_parts = array();
+        $body_parts = [];
         $body_received = 0;
         while (bccomp($body_size, $body_received) == 1) {
             $frm = $this->next_frame();
@@ -343,7 +350,7 @@ class AbstractChannel
                 MiscHelper::debug_msg("Queueing for later: $method_sig: "
                     . $PROTOCOL_CONSTANTS_CLASS::$GLOBAL_METHOD_NAMES[MiscHelper::methodSig($method_sig)]);
             }
-            $this->method_queue[] = array($method_sig, $args, $content);
+            $this->method_queue[] = [$method_sig, $args, $content];
 
             if ($non_blocking) {
                 break;

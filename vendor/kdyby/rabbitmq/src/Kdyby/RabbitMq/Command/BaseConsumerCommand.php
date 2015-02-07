@@ -34,6 +34,9 @@ abstract class BaseConsumerCommand extends Command
 	 */
 	protected $amount;
 
+	protected static $registerSignals;
+	protected static $unregisterSignals;
+
 
 
 	protected function configure()
@@ -48,22 +51,25 @@ abstract class BaseConsumerCommand extends Command
 	}
 
 
-
-	/**
-	 * @param InputInterface $input An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @throws \InvalidArgumentException When the number of messages to consume is less than 0
-	 * @throws \BadFunctionCallException When the pcntl is not installed and option -s is true
-	 */
-	protected function initialize(InputInterface $input, OutputInterface $output)
+	public static function staticRegisterSignals()
 	{
-		parent::initialize($input, $output);
-
-		if (defined('AMQP_WITHOUT_SIGNALS') === false) {
-			define('AMQP_WITHOUT_SIGNALS', $input->getOption('without-signals'));
+		if (self::$registerSignals)
+		{
+			call_user_func(self::$registerSignals);
 		}
+	}
 
+	public static function staticUnregisterSignals()
+	{
+		if (self::$unregisterSignals)
+		{
+			call_user_func(self::$unregisterSignals);
+		}
+	}
+
+
+	public function registerSignals()
+	{
 		if (!AMQP_WITHOUT_SIGNALS && extension_loaded('pcntl')) {
 			if (!function_exists('pcntl_signal')) {
 				throw new \BadFunctionCallException("Function 'pcntl_signal' is referenced in the php.ini 'disable_functions' and can't be called.");
@@ -90,6 +96,31 @@ abstract class BaseConsumerCommand extends Command
 				// TODO: Implement restarting of consumer
 			});
 		}
+	}
+
+	public function unregisterSignals()
+	{
+		if (!AMQP_WITHOUT_SIGNALS && extension_loaded('pcntl')) {
+			pcntl_signal(SIGTERM, SIG_DFL);
+			pcntl_signal(SIGINT, SIG_DFL);
+			pcntl_signal(SIGHUP, SIG_DFL);
+		}
+	}
+
+	/**
+	 * @param InputInterface $input An InputInterface instance
+	 * @param OutputInterface $output An OutputInterface instance
+	 *
+	 * @throws \InvalidArgumentException When the number of messages to consume is less than 0
+	 * @throws \BadFunctionCallException When the pcntl is not installed and option -s is true
+	 */
+	protected function initialize(InputInterface $input, OutputInterface $output)
+	{
+		parent::initialize($input, $output);
+
+		if (defined('AMQP_WITHOUT_SIGNALS') === false) {
+			define('AMQP_WITHOUT_SIGNALS', $input->getOption('without-signals'));
+		}
 
 		if (defined('AMQP_DEBUG') === false) {
 			define('AMQP_DEBUG', (bool) $input->getOption('debug'));
@@ -98,6 +129,9 @@ abstract class BaseConsumerCommand extends Command
 		if (($this->amount = $input->getOption('messages')) < 0) {
 			throw new \InvalidArgumentException("The -m option should be null or greater than 0");
 		}
+
+		self::$registerSignals = [$this, 'registerSignals'];
+		self::$unregisterSignals = [$this, 'unregisterSignals'];
 
 		$this->consumer = $this->connection->getConsumer($input->getArgument('name'));
 
