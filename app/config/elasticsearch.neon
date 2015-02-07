@@ -10,7 +10,7 @@ settings:
 			cs_icu_analyzer_suggest:
 				type: custom
 				tokenizer: standard
-				filter: [icu_folding]
+				filter: []
 			youtube_id:
 				type: pattern
 				pattern: \s+

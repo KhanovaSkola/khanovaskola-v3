@@ -76,18 +76,9 @@ class Search
 			]);
 		}
 
-		$didYouMean = [];
-		$changeFound = FALSE;
-		foreach ($res['suggest']['did_you_mean'] as $word)
-		{
-			$suggested = array_shift($word['options']);
-			if ($suggested)
-			{
-				$changeFound = TRUE;
-			}
-			$didYouMean[] = $suggested ? $suggested['text'] : $word['text'];
-		}
-		$didYouMean = $changeFound ? implode(' ', $didYouMean) : NULL;
+		$didYouMean = isset($res['suggest']['did_you_mean'][0]['options'][0])
+			? $res['suggest']['did_you_mean'][0]['options'][0]['text']
+			: NULL;
 
 		return new SearchResponse($result, $aggregations, $res['hits']['total'], $didYouMean);
 	}

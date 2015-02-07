@@ -206,10 +206,9 @@ class ContentsMapper extends ElasticSearchMapper
 				'suggest' => [
 					'text' => $query,
 					'did_you_mean' => [
-						'term' => [
+						'phrase' => [
 							'field' => 'suggest',
-							'size' => 10,
-							'sort' => 'frequency',
+							'size' => 3,
 						]
 					]
 				],
