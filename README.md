@@ -28,21 +28,25 @@ Link directory
 Requirements
 ------------
 
+All required dependencies are avaiable for both both Unix and Windows OSes.
+
 *Server:*
 
 - php 5.5
 - postgres 9.3.5
 - elasticsearch 1.2
 - elasticsearch/elasticsearch-analysis-icu/2.2.0
-- beanstalkd
+- rabbitmq
 - bc
 - redis (optional)
 
-<img src="http://www.jasoncavett.com/wp-content/uploads/2014/08/postgresql_logo.png" width="170">
-<img width="30">
-<img src="http://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/467px-Redis_Logo.svg.png" width="150">
-<img width="30">
-<img src="http://blog.trifork.com/wp-content/uploads/2013/04/elasticsearch-logo.png" width="170">
+<img src="http://www.jasoncavett.com/wp-content/uploads/2014/08/postgresql_logo.png" width="160">
+<img width="20">
+<img src="http://blog.trifork.com/wp-content/uploads/2013/04/elasticsearch-logo.png" width="160">
+<img width="20">
+<img src="http://gordondickens.com/wordpress/wp-content/uploads/2012/01/rabbitmq_logo_strap.png" width="160">
+<img width="20">
+<img src="http://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/467px-Redis_Logo.svg.png" width="135">
 
 *Dev / tests:*
 
