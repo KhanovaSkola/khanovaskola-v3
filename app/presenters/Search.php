@@ -46,7 +46,7 @@ final class Search extends Presenter
 
 	public function actionOpenSearchSuggest($query)
 	{
-		$search = $this->orm->contents->getWithFulltext($query, 5, 0);
+		$search = $this->search->query($query, 5, 0);
 
 		/** @see http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions/1.1#Declaring_a_JSON-formatted_search_suggestion_URL */
 		$response = [
