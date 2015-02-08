@@ -10,7 +10,7 @@
 	        Navazuje na
 	        {foreach $block->dependencies as $dep}
 	            <a n:tag-if="$link" n:href="$dep, $schema">
-	                {$dep->title|lcFirst|accusative}{*
+	                {$dep->title|lower|accusative}{*
 	            *}</a>{sep}, {/sep}{*
 	        *}{/foreach}.
 	    </span>
