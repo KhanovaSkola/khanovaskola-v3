@@ -6,7 +6,7 @@ settings:
 			cs_icu_analyzer:
 				type: custom
 				tokenizer: standard
-				filter: [cs_stop, icu_folding, synonyms, cs_stem, remove_duplicities]
+				filter: [cs_stop, icu_folding, cs_stem, synonyms, remove_duplicities]
 			cs_icu_analyzer_suggest:
 				type: custom
 				tokenizer: standard
@@ -31,11 +31,11 @@ settings:
 			synonyms:
 				type: synonym
 				synonyms:
-					# applied after folding, do not use diacritics
-					- "linearni algebra => lingebra"
-					- "matematicka analyza => matalyza"
-					- "elementarni, zakladni"
-					- "negativni => zaporna"
+					# applied after folding and stemmer
+					- "linearn algebr => lingebr"
+					- "matematick analyh => matalyh"
+					- "elementarn, zakladn"
+					- "negativn => zaporn"
 
 mappings:
 	content:
