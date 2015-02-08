@@ -12,6 +12,7 @@ console:
 		- Bin\Commands\Backup\Restore
 		- Bin\Commands\Data\Drop
 		- Bin\Commands\Data\Fake
+		- Bin\Commands\ElasticSearch\Analyzer
 		- Bin\Commands\ElasticSearch\Populate
 		- Bin\Commands\ElasticSearch\Recreate
 		- Bin\Commands\Link

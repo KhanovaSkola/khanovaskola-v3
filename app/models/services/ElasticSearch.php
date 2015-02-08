@@ -160,4 +160,21 @@ class ElasticSearch extends Client
 		return $this->index;
 	}
 
+	public function analyze($analyzer, $query)
+	{
+		$endpointBuilder = $this->dicEndpoints;
+
+		/** @var \Elasticsearch\Endpoints\Indices\Analyze $endpoint */
+		$endpoint = $endpointBuilder('Indices\Analyze');
+		$endpoint
+			->setIndex($this->getIndex())
+			->setBody($query)
+			->setParams([
+				'analyzer' => $analyzer,
+			]);
+
+		$response = $endpoint->performRequest();
+		return $response['data'];
+	}
+
 }
