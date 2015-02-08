@@ -48,6 +48,7 @@ $(function() {
 
 		$searchInput.removeClass('hidden');
 		$searchButton.removeClass('hidden');
+		$dropdown.removeClass('open');
 
 		var $input = $searchInput.find('input:last');
 		$input.focus();
