@@ -35,6 +35,22 @@ class Inflection
 	 */
 	public function inflect($phrase, $case)
 	{
+		$out = [];
+		foreach (preg_split('~\s*(:)\s*~', $phrase, -1, PREG_SPLIT_DELIM_CAPTURE) as $coherent)
+		{
+			if ($coherent === ':')
+			{
+				$out[] = ': ';
+				continue;
+			}
+
+			$out[] = $this->inflectCoherentPhrase($coherent, $case);
+		}
+		return implode('', $out);
+	}
+
+	protected function inflectCoherentPhrase($phrase, $case)
+	{
 		return $this->cache->load("$phrase|$case", function() use ($phrase, $case) {
 			if (!trim($phrase))
 			{
