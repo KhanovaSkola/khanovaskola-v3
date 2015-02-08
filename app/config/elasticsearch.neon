@@ -6,7 +6,7 @@ settings:
 			cs_icu_analyzer:
 				type: custom
 				tokenizer: standard
-				filter: [icu_folding, cs_stop, synonyms, cs_stem]
+				filter: [cs_stop, icu_folding, synonyms, cs_stem, remove_duplicities]
 			cs_icu_analyzer_suggest:
 				type: custom
 				tokenizer: standard
@@ -21,15 +21,19 @@ settings:
 				name: czech
 			cs_stop:
 				type: stop
-				stopwords: [_czech_]
+				stopwords: ["právě", "že", _czech_]
 			cs_icu_collation:
 				type: icu_collation
 				language: cs
+			remove_duplicities:
+				type: unique
+				only_on_same_position: true
 			synonyms:
 				type: synonym
 				synonyms:
 					# applied after folding, do not use diacritics
 					- "linearni algebra => lingebra"
+					- "matematicka analyza => matalyza"
 					- "elementarni, zakladni"
 					- "negativni => zaporna"
 
