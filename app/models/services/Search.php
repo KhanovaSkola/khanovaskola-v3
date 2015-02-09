@@ -79,6 +79,7 @@ class Search
 		$didYouMean = isset($res['suggest']['did_you_mean'][0]['options'][0])
 			? $res['suggest']['did_you_mean'][0]['options'][0]['text']
 			: NULL;
+		$didYouMean = $didYouMean !== $query ? $didYouMean : NULL;
 
 		return new SearchResponse($result, $aggregations, $res['hits']['total'], $didYouMean);
 	}
