@@ -209,6 +209,8 @@ class ContentsMapper extends ElasticSearchMapper
 						'phrase' => [
 							'field' => 'suggest',
 							'size' => 3,
+							'confidence' => 0.5,
+							'max_errors' => 3
 						]
 					]
 				],
