@@ -108,6 +108,12 @@ class ElasticSearch extends Client
 	{
 		$conf = file_get_contents($this->appDir . '/config/elasticsearch.neon');
 		$args = Neon::decode($conf);
+
+		$confSynonyms = file_get_contents($this->appDir . '/config/synonyms.compiled.neon');
+		$synonyms = Neon::decode($confSynonyms);
+
+		$args['settings']['analysis']['filter']['synonyms']['synonyms'] = $synonyms;
+
 		try
 		{
 			$this->indices()->delete([

@@ -11,6 +11,10 @@ settings:
 				type: custom
 				tokenizer: standard
 				filter: []
+			synonyms_compiler:
+				type: custom
+				tokenizer: standard
+				filter: [cs_stop, icu_folding, cs_stem]
 			youtube_id:
 				type: pattern
 				pattern: \s+
@@ -30,12 +34,7 @@ settings:
 				only_on_same_position: true
 			synonyms:
 				type: synonym
-				synonyms:
-					# applied after folding and stemmer
-					- "linearn algebr => lingebr"
-					- "matematick analyh => matalyh"
-					- "elementarn, zakladn"
-					- "negativn => zaporn"
+				synonyms: # Loaded from synonyms.compiled.neon
 
 mappings:
 	content:
