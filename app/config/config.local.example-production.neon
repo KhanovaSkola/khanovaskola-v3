@@ -33,6 +33,10 @@ parameters:
 		hosts:
 			- localhost
 
+nette:
+	session:
+		savePath: "/srv/sessions/production.khanovaskola.cz"
+
 monolog:
 	handlers:
 		- Monolog\Handler\SyslogHandler('main-site', 'local4')
@@ -55,7 +59,7 @@ google:
 redis:
 	journal: on
 	storage: on
-	session: on
+	session: off
 	debugger: off
 
 services:
