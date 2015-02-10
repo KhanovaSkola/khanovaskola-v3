@@ -164,6 +164,7 @@ class Compiler extends Object
 			}
 		}
 
+		$out = preg_replace('~\n{2,}~', '<br>', $out);
 		return $this->purifier->filter($out);
 	}
 
