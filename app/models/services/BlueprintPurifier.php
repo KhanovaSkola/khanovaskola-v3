@@ -8,12 +8,12 @@ class BlueprintPurifier extends HtmlPurifier
 
 	public static function getAllowedElements()
 	{
-		return ['span'];
+		return ['span', 'img'];
 	}
 
 	public static function getAllowedAttributes()
 	{
-		return ['span.class'];
+		return ['span.class', 'img.src', 'img.height'];
 	}
 
 }

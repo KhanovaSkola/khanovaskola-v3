@@ -22,6 +22,7 @@ class Compiler extends Object
 	const T_LATEX = 'LATEX';
 	const T_EVAL = 'EVAL';
 	const T_INFLECT = 'INFLECT';
+	const T_IMG = 'IMG';
 
 	const S_COMPLETE = 'complete';
 	const S_INNER = 'cdata';
@@ -268,6 +269,16 @@ class Compiler extends Object
 					$this->inflectBuffer = '';
 					return $out;
 				}
+
+			case self::T_IMG:
+				if ($node['type'] !== self::S_COMPLETE)
+				{
+					throw new BlueprintCompilerException('Invalid image syntax');
+				}
+				$url = $node['attributes']['SRC'];
+				$count = $this->evaluate($node['attributes']['COUNT'], $vars);
+				$size = isset($node['attributes']['SIZE']) ? $node['attributes']['SIZE'] : 48;
+				return str_repeat("<img src=\"$url\" height=\"$size\" />", max(0, $count));
 
 			default:
 				throw new NotImplementedException("Unknown tag '$node[tag]' in '$this->errorContext'");
