@@ -19,7 +19,7 @@
 		min-height: @header-height - 1px;
 		padding: 23px 39px 24px 48px;
 		border-right: 1px solid @header-border;
-		@media (max-width: @screen-sm) {
+		@media (max-width: @screen-sm-max) {
 			width: 100%;
 			float: none;
 			border-bottom: 1px solid @header-border;
@@ -50,7 +50,7 @@
 	.header-content {
 		float: left;
 		min-height: 80px;
-		@media (max-width: @screen-sm) {
+		@media (max-width: @screen-sm-max) {
 			width: 100%;
 			float: none;
 			display: none;
@@ -65,7 +65,7 @@
 	.header-userarea {
 		// display: flex;
 		float: right;
-		width: 333px;
+		//width: 333px;
 		min-height: @header-height - 1px;
 		padding-left: 15px;
 		padding-top: 29px;
@@ -77,7 +77,7 @@
 		&.border {
 			border-left: 1px solid @header-border;
 		}
-		@media (max-width: @screen-sm) {
+		@media (max-width: @screen-sm-max) {
 			width: 100%;
 			float: none;
 			border-top: 1px solid @header-border;
@@ -176,7 +176,7 @@
 		color: @khan-black;
 		text-decoration: none !important;
 		font-size: 17pt;
-		@media (max-width: @screen-sm) {
+		@media (max-width: @screen-sm-max) {
 			display: block;
 		}
 	}
@@ -189,7 +189,7 @@
 		& .header-logo,
 		& .header-userarea.border {
 			border-color: @header-border;
-			@media (max-width: @screen-sm) {
+			@media (max-width: @screen-sm-max) {
 				border: none;
 			}
 		}

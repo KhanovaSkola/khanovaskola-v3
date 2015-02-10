@@ -15,7 +15,7 @@
 			height: 380px;
 			padding: 0;
 			z-index: 1500;
-			@media (max-width: @screen-sm) {
+			@media (max-width: @screen-sm-max) {
 				width: 100%;
 				height: auto;
 				min-height: 300px;
@@ -25,25 +25,25 @@
 			.subjects-list {
 				float: left;
 				width: 248px;
-				@media (max-width: @screen-sm) {
+				@media (max-width: @screen-sm-max) {
 					width: 100%;
 					float: none;
 				}
 				ul {
 					padding-left: 30px;
-					@media (max-width: @screen-sm) {
+					@media (max-width: @screen-sm-max) {
 						.clearfix;
 						margin-bottom: 20px;
 					}
 					li {
-						@media (max-width: @screen-sm) {
+						@media (max-width: @screen-sm-max) {
 							float: left;
 							margin-right: 15px;
 						}
 						&.divider {
 							background-color: @khan-black2;
 							width: 170px;
-							@media (max-width: @screen-sm) {
+							@media (max-width: @screen-sm-max) {
 								width: 1px;
 								height: 12px;
 								margin-right: 10px;
@@ -51,7 +51,7 @@
 						}
 						&.active {
 							position: relative;
-							@media (max-width: @screen-sm) {
+							@media (max-width: @screen-sm-max) {
 								a {
 									font-weight: @font-weight-normal;
 								}
@@ -67,7 +67,7 @@
 								background: @header-border;
 								height: 1px;
 								width: 100%;
-								@media (max-width: @screen-sm) {
+								@media (max-width: @screen-sm-max) {
 									display: none;
 								}
 							}
@@ -106,7 +106,7 @@
 				padding: 22px;
 				box-shadow: inset 1px 1px 0 0 @header-border;
 				background: rgba(10, 130, 204, 0.02);
-				@media (max-width: @screen-sm) {
+				@media (max-width: @screen-sm-max) {
 					width: 100%;
 					height: auto;
 				}
