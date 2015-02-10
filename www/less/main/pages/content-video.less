@@ -1,6 +1,40 @@
 .course-page {
 	.course-header {
 		&.course-video {
+			@media (max-width: 1024px) { // intentionally not using @screen-sm-max, because landscape iPad
+				.icon-wrapper {
+					display: none;
+				}
+				.course-header-content .left {
+					display: none;
+				}
+				.course-header-content .right {
+					position: relative !important;
+					left: 0;
+					top: 0;
+					float: none;
+					display: block;
+				}
+				.video-click-catcher {
+					display: none;
+				}
+				.video-preview {
+					display: none;
+				}
+				.video-play {
+					display: none !important;
+				}
+				.hidden-video {
+					visibility: visible !important;
+				}
+				.video-subtitles {
+//					display: none;
+				}
+				.right-inner:before {
+					display: none;
+				}
+			}
+
 			&.fullscreen {
 				margin-bottom: 0;
 				height: 100%;
@@ -149,6 +183,7 @@
 								z-index: 50;
 								height: 100%;
 								width: 100%;
+								pointer-events: none;
 								font-size: 18pt;
 								font-weight: 400;
 								color: @white;
