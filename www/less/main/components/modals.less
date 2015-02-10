@@ -60,6 +60,23 @@
 	.transition-transform(~"0.1s ease-out");
 }
 
+.modal-registration,
+.modal-change-password {
+	background-color: lighten(@modal-backdrop-bg, 50%);
+	.radio {
+		.offset {
+			vertical-align: -2px;
+		}
+	}
+	.radio + .radio {
+		margin-top: 4px;
+		margin-left: 12px;
+	}
+	.form-group-password {
+		margin-top: 75px;
+	}
+}
+
 .modal-sign {
 	.modal-dialog {
 		padding-top: 0;
