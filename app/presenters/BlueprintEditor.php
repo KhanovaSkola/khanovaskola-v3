@@ -34,6 +34,11 @@ final class BlueprintEditor extends Presenter
 		}
 	}
 
+	public function renderDefault()
+	{
+		$this->template->blueprint = $this->blueprint;
+	}
+
 	public function createComponentBlueprintEditor()
 	{
 		return $this->buildComponent(FormControl::class, [Forms\Blueprint::class, $this->blueprint]);

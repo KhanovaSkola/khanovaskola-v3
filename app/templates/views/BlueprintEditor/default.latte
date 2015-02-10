@@ -7,6 +7,9 @@
 	 *}
 
 	<div class="container">
+		<div n:if="$blueprint" class="open-exercise">
+			<a n:href="$blueprint" target="_blank">Otevřít cvičení v novém okně</a>
+		</div>
 		{control blueprintEditor}
 
 		<div class="cheatsheet">
