@@ -50,6 +50,7 @@
 		$progressInner.css('width', percent * 100 + '%');
 		$progressContainer.find('.label-left').text(App.filters.duration(current));
 	};
+	$progressInner.css('width', $progressContainer.data('initial') * 100 + '%');
 
 	var seek = function(e) {
 		var current = e.clientX || e.pageX;

@@ -60,7 +60,7 @@
                             <meta itemprop="thumbnail" content="{$video->preview}" />
                             <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
                             <div class="video-real hidden-video">
-                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}" id="youtube-video"></iframe>
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&controls=0&showinfo=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
                             </div>
                             <div class="video-subtitles">
                                 <div class="subtitles-inner">
@@ -77,10 +77,10 @@
                 </div>
             </div>
             <div class="video-controls">
-	            <div class="course-progress-container">
+	            <div class="course-progress-container" data-initial="{$startAtTime / $video->duration}">
 		            <div class="course-progress">
 		                <div class="progress-inner"></div>
-		                <div class="progress-label label-left">{0|duration}</div>
+		                <div class="progress-label label-left">{$startAtTime|duration}</div>
 		                <div class="progress-label label-right">{$video->duration|duration}</div>
 		            </div>
 		        </div>

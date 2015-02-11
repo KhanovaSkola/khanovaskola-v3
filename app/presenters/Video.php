@@ -15,6 +15,12 @@ final class Video extends Content
 	use Parameters\Slug;
 	use Parameters\Video;
 
+	/**
+	 * @var int
+	 * @persistent
+	 */
+	public $startAtTime = 0;
+
 	public function startup()
 	{
 		parent::startup();
@@ -71,6 +77,7 @@ final class Video extends Content
 		$this->template->nextSchema = $nextSchema;
 		$this->template->suggestions = $this->getSuggestions($this->video);
 		$this->template->position = $this->block ? $this->block->getPositionOf($this->video) : NULL;
+		$this->template->startAtTime = $this->startAtTime;
 	}
 
 	public function actionYoutube($youtubeId)
