@@ -57,11 +57,14 @@ trait ControlTrait
 		$absolute = $args === TRUE;
 
 		$scalarArgs = [];
-		foreach ($args as $key => $arg)
+		if (is_array($args))
 		{
-			if (!is_object($arg))
+			foreach ($args as $key => $arg)
 			{
-				$scalarArgs[$key] = $arg;
+				if (!is_object($arg))
+				{
+					$scalarArgs[$key] = $arg;
+				}
 			}
 		}
 
