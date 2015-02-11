@@ -56,9 +56,18 @@ trait ControlTrait
 	{
 		$absolute = $args === TRUE;
 
+		$scalarArgs = [];
+		foreach ($args as $key => $arg)
+		{
+			if (!is_object($arg))
+			{
+				$scalarArgs[$key] = $arg;
+			}
+		}
+
 		if ($destination instanceof Rme\Schema)
 		{
-			$args = ['schemaId' => $destination->id];
+			$args = ['schemaId' => $destination->id] + $scalarArgs;
 			$presenter = 'Schema:';
 		}
 		else if ($destination instanceof Rme\Block)
@@ -73,7 +82,7 @@ trait ControlTrait
 			$args = [
 				'blockId' => $destination->id,
 				'schemaId' => $schema ? $schema->id : NULL,
-			];
+			] + $scalarArgs;
 			$presenter = 'Block:';
 		}
 		else if ($destination instanceof Rme\Content)
@@ -113,7 +122,7 @@ trait ControlTrait
 				$idKey => $id,
 				'blockId' => $block ? $block->id : NULL,
 				'schemaId' => $schema ? $schema->id : NULL,
-			];
+			] + $scalarArgs;
 		}
 		else
 		{
