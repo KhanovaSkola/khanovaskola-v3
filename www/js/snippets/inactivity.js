@@ -3,31 +3,37 @@
  * App.onInactive.add(callback);
  */
 
-App._idleSince = null;
-
-App._resetIdleTime = function() {
-    App._idleSince = App.getTime();
-};
-
-App._checkIdle = function() {
-    if (App._idleSince === null)
-    {
+(function() {
+    var $exercise = $('[data-exercise]');
+    if (!$exercise.length) {
         return;
     }
 
-    var idleFor = App.getTime() - App._idleSince;
-    if (idleFor > 60 * 1000)
-    {
-        App.onInactive.fire();
-        App._idleSince = null;
-    }
-};
+    App._idleSince = null;
 
+    App._resetIdleTime = function() {
+        App._idleSince = App.getTime();
+    };
 
-App._resetIdleTime();
-App.onInactive = $.Callbacks();
+    App._checkIdle = function() {
+        if (App._idleSince === null)
+        {
+            return;
+        }
 
-$(document).mousemove(App._resetIdleTime);
-$(document).keypress(App._resetIdleTime);
+        var idleFor = App.getTime() - App._idleSince;
+        if (idleFor > 60 * 1000)
+        {
+            App.onInactive.fire();
+            App._idleSince = null;
+        }
+    };
 
-setInterval(App._checkIdle, 250);
+    App._resetIdleTime();
+    App.onInactive = $.Callbacks();
+
+    $(document).mousemove(App._resetIdleTime);
+    $(document).keypress(App._resetIdleTime);
+
+    setInterval(App._checkIdle, 250);
+})();
