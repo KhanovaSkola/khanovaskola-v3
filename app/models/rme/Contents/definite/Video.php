@@ -40,6 +40,12 @@ class Video extends Content
 		return $this->getSubtitleService()->getSubtitles($this->youtubeId);
 	}
 
+	public function forceSubtitleUpdate()
+	{
+		$this->markAsChanged('youtubeId'); // hack to force persist on flush
+		$this->getSubtitleService()->reloadSubtitles($this->youtubeId);
+	}
+
 	public function getTextFromSubtitles()
 	{
 		return $this->getSubtitleService()->getTextFromSubtitles($this->youtubeId);
