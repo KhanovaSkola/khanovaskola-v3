@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use App\Models\Services\Highlight;
 use App\Models\Services\Inflection;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Utils\DateTime;
@@ -13,7 +14,7 @@ class Filters
 	public function register(Template $template, Inflection $inflection)
 	{
 		foreach ([
-			'timeAgo', 'duration', 'hours', 'minutes', 'templateLink', 'lcFirst', 'subjectColor', 'subjectIcon'
+			'timeAgo', 'duration', 'hours', 'minutes', 'templateLink', 'lcFirst', 'subjectColor', 'subjectIcon', 'highlight'
 		] as $filter)
 		{
 			$template->addFilter($filter, [$this, $filter]);
@@ -81,6 +82,11 @@ class Filters
 	public function subjectIcon($schema)
 	{
 		return $schema && $schema->subject ? $schema->subject->icon : 'subject-history';
+	}
+
+	public function highlight($phrase)
+	{
+		return Highlight::process($phrase);
 	}
 
 }
