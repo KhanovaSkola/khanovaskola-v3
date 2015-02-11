@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Rme\BadgeUserBridges\VideoWatched;
+use App\Models\Services\Highlight;
 use App\Models\Services\RemoteSubtitles;
 use Orm;
 use Orm\OneToMany as OtM;
@@ -42,6 +43,14 @@ class Video extends Content
 	public function getTextFromSubtitles()
 	{
 		return $this->getSubtitleService()->getTextFromSubtitles($this->youtubeId);
+	}
+
+	/**
+	 * @return array [time int, sentence string]
+	 */
+	public function getTimedSentences()
+	{
+		return $this->getSubtitleService()->getTimedSentences($this->youtubeId);
 	}
 
 	/**

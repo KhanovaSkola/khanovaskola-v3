@@ -6,6 +6,7 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\Block;
 use App\Models\Rme\BlocksMapper;
 use App\Models\Rme\ContentsMapper;
+use App\Models\Rme\Video;
 use App\Models\Structs\SearchResponse;
 
 
@@ -54,7 +55,7 @@ class Search
 		foreach ($entities as $entity)
 		{
 			list($hls, $score) = $highlights[$entity->id];
-			$entity->highlights = $hls;
+			$entity->highlights = $this->timeSubtitleHighlights($entity, $hls);
 			$entity->score = $score;
 			$result[] = $entity;
 		}
@@ -98,6 +99,37 @@ class Search
 		}
 		ksort($sorted);
 		return $sorted;
+	}
+
+	protected function timeSubtitleHighlights($entity, $hls)
+	{
+		if (!isset($hls['subtitles']))
+		{
+			return $hls;
+		}
+
+		/** @var Video $entity */
+		$timed = $entity->getTimedSentences();
+
+		$sentences = [];
+		foreach ($hls['subtitles'] as $highlight)
+		{
+			$sentence = preg_replace('~{{%/?highlight%}}~', '', $highlight);
+			foreach ($timed as $node)
+			{
+				if (strpos($node['sentence'], $sentence) !== FALSE)
+				{
+					$sentences[] = (object) [
+						'time' => $node['time'] - 1, // start slightly before the sentence starts
+						'sentence' => $highlight,
+					];
+				}
+			}
+		}
+
+		$hls['subtitles'] = $sentences;
+
+		return $hls;
 	}
 
 }

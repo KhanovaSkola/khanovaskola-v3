@@ -81,4 +81,55 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 		});
 	}
 
+	/**
+	 * @param string $youtubeId
+	 * @return array [time int, sentence string]
+	 */
+	public function getTimedSentences($youtubeId)
+	{
+		$srt = $this->getSubtitles($youtubeId);
+		$result = [];
+
+		$sentence = NULL;
+		$time = NULL;
+
+		$lastCharEndedSentence = FALSE;
+
+		foreach (preg_split('~(^|\r*\n\r*\n\r*)\d+\r*\n\r*~', $srt, -1, PREG_SPLIT_NO_EMPTY) as $row)
+		{
+			$row = preg_replace_callback('~(\d+:\d+:\d+[.,]\d+)\s+-->\s+\d+:\d+:\d+[.,]\d+\n+~m', function($m) use (&$time) {
+				$time = $this->parseTime($m[1]);
+				return '';
+			}, $row);
+
+			$startsWithUppercase = $row[0] === mb_convert_case($row[0], MB_CASE_UPPER);
+
+			if ($lastCharEndedSentence && $startsWithUppercase)
+			{
+				$result[] = ['time' => $time, 'sentence' => $sentence];
+				$sentence = NULL;
+			}
+
+			$sentence = trim("$sentence $row", ' ');
+			$lastCharEndedSentence = (bool) preg_match('~[.?!]$~', $row);
+		}
+		if ($sentence)
+		{
+			$result[] = ['time' => $time, 'sentence' => $sentence];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @param string $time 00:00:18,943
+	 * @return string seconds
+	 */
+	protected function parseTime($time)
+	{
+		list($h, $m, $s) = explode(':', $time);
+		list($s) = explode('.', str_replace(',', '.', $s));
+		return $h * 3600 + $m * 60 + $s;
+	}
+
 }
