@@ -17,6 +17,8 @@ class ReportBridge extends Presenter
 		$video->forceSubtitleUpdate();
 		$this->orm->flush();
 
+		$this->log->addInfo('report-bridge update-video invoked', ['youtubeId' => $youtubeId]);
+
 		$this->sendJson(['result' => 'success']);
 	}
 
