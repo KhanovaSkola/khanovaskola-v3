@@ -102,6 +102,11 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 				return '';
 			}, $row);
 
+			if (!$row)
+			{
+				continue;
+			}
+
 			$startsWithUppercase = $row[0] === mb_convert_case($row[0], MB_CASE_UPPER);
 
 			if ($lastCharEndedSentence && $startsWithUppercase)
