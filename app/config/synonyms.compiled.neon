@@ -2,6 +2,7 @@
 # edit synonyms.esn and run elasticsearch:build-synonyms command.
 
 - "scitan => souct"
+- "lomn, deln"
 - "linearn algebr => lingebr"
 - "matematick analyh => matalyh"
 - "elementarn, zakladn"
