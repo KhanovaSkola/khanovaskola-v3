@@ -137,6 +137,9 @@ class Configurator extends Nette\Configurator
 			return;
 		}
 
+		Debugger::$maxDepth++;
+		Debugger::$maxLen = 1e4;
+
 		/** @var QueryPanel $panel */
 		$panel = $container->getByType(QueryPanel::class);
 		Debugger::getBar()->addPanel($panel);
