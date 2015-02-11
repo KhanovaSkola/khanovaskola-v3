@@ -15,8 +15,8 @@ class Analyzer extends Command
 		$this
 			->setName('elasticsearch:analyzer')
 			->setAliases(['es:analyzer'])
-			->addArgument('analyzer', InputArgument::REQUIRED)
 			->addArgument('query', InputArgument::REQUIRED)
+			->addArgument('analyzer', InputArgument::OPTIONAL, NULL, 'cs_icu_analyzer')
 			->setDescription('Test analyzer output');
 	}
 
