@@ -277,6 +277,15 @@ class Compiler extends Object
 					throw new BlueprintCompilerException('Invalid image syntax');
 				}
 				$url = $node['attributes']['SRC'];
+				if (strpos($url, 'http://') !== FALSE)
+				{
+					throw new BlueprintCompilerException("Invalid image source '$url', http not allowed.");
+				}
+				if (strpos($url, 'https://') === FALSE)
+				{
+					$url = "/data/exercise/$url";
+				}
+
 				$count = $this->evaluate($node['attributes']['COUNT'], $vars);
 				$size = isset($node['attributes']['SIZE']) ? $node['attributes']['SIZE'] : 48;
 				return str_repeat("<img src=\"$url\" height=\"$size\" />", max(0, $count));
