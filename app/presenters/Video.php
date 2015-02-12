@@ -83,6 +83,11 @@ final class Video extends Content
 	public function actionYoutube($youtubeId)
 	{
 		$video = $this->orm->contents->getVideoByYoutubeId($youtubeId);
+		if (!$video)
+		{
+			$this->error();
+		}
+
 		$this->redirectToEntity($video);
 	}
 
