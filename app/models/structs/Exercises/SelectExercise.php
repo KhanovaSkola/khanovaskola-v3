@@ -11,9 +11,17 @@ class SelectExercise extends ScalarExercise
 	 */
 	protected $answerOptions;
 
+	/**
+	 * @var bool
+	 */
+	protected $shuffle = TRUE;
+
 	public function setAnswerOptions(array $options)
 	{
-		shuffle($options);
+		if ($this->shuffle)
+		{
+			shuffle($options);
+		}
 		$this->answerOptions = $options;
 	}
 
@@ -23,6 +31,16 @@ class SelectExercise extends ScalarExercise
 	public function getAnswerOptions()
 	{
 		return $this->answerOptions;
+	}
+
+	public function setShuffle($shuffle = TRUE)
+	{
+		$this->shuffle = $shuffle;
+	}
+
+	public function getShuffle()
+	{
+		return $this->shuffle;
 	}
 
 }

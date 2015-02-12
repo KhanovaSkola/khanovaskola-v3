@@ -7,6 +7,10 @@ use App\Models\Rme\BlueprintPartial;
 use App\Models\Structs\Exercises\ScalarExercise;
 
 
+/**
+ * Supported data keys:
+ * none
+ */
 class ScalarCompiler
 {
 
