@@ -40,7 +40,7 @@ class Mapper extends DibiMapper
 			{
 				if (isset($args->data[$key]))
 				{
-					$args->data[$key] = Json::decode($args->data[$key]);
+					$args->data[$key] = Json::decode($args->data[$key], Json::FORCE_ARRAY);
 				}
 			}
 		});

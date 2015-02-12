@@ -10,6 +10,7 @@ use App\Models\Orm\Entity;
  * @property string       $answerType {enum self::getAnswerTypes()}
  * @property string       $answer
  * @property array        $hints
+ * @property mixed        $data
  *
  * @property Blueprint    $blueprint  {m:1 contents $partials}
  */

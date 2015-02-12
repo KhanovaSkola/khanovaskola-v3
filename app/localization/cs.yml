@@ -75,6 +75,7 @@ blueprintEditor:
   description: "Popisek"
   question: "Otázka"
   answer: "Odpověď"
+  data: "Data"
   vars: "Proměnné"
   hints: "Nápovědy"
   addButton: "přidat"

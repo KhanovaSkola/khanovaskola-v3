@@ -7,6 +7,7 @@ use App\Models\Rme;
 use App\Models\Services\Blueprints\Compiler;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
+use Nette\Utils\Json;
 
 
 class Blueprint extends EntityForm
@@ -35,6 +36,7 @@ class Blueprint extends EntityForm
 				->setRequired('form.question.missing');
 			$container->addSelect('answerType', NULL, Rme\BlueprintPartial::getAnswerTypes())
 				->setTranslator($this->translator->getPrefixed('answerType'));
+			$container->addText('data');
 			$container->addText('answer')
 				->addCondition($this::FILLED)
 				->setRequired('form.answer.missing');
@@ -72,6 +74,7 @@ class Blueprint extends EntityForm
 				'question' => $partial->question,
 				'answerType' => $partial->answerType,
 				'answer' => $partial->answer,
+				'data' => Json::encode($partial->data),
 			]);
 
 			foreach ($partial->hints as $i => $hint)
@@ -171,6 +174,7 @@ class Blueprint extends EntityForm
 			$partial->question = $values->question;
 			$partial->answerType = $values->answerType;
 			$partial->answer = $values->answer;
+			$partial->data = Json::decode($values->data, Json::FORCE_ARRAY);
 
 			$partial->hints = [];
 			foreach ($values->hints as $i => $container)

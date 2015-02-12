@@ -14,11 +14,6 @@ use Nette\Utils\Json;
 class SelectCompiler extends ScalarCompiler
 {
 
-	/**
-	 * @var array
-	 */
-	private $precompiledAnswers;
-
 	protected function createExercise(Blueprint $blueprint, $seed)
 	{
 		return new SelectExercise($blueprint, $seed);
@@ -26,24 +21,17 @@ class SelectCompiler extends ScalarCompiler
 
 	public function compilePartial(BlueprintPartial $partial)
 	{
-		$this->precompiledAnswers = $this->precompileAnswer($partial->answer, $this->vars);
-
 		/** @var SelectExercise $exercise */
 		$exercise = parent::compilePartial($partial);
-		$exercise->setAnswerOptions($this->precompiledAnswers);
+		$exercise->setAnswerOptions($this->compileOptions($partial, $this->vars));
 
 		return $exercise;
 	}
 
-	protected function compileAnswer($answer, $vars)
-	{
-		return $this->precompiledAnswers[0];
-	}
-
-	protected function precompileAnswer($answer, $vars)
+	protected function compileOptions(BlueprintPartial $partial, $vars)
 	{
 		$compiled = [];
-		foreach (Json::decode($answer, Json::FORCE_ARRAY) as $item)
+		foreach ($partial->data['options'] as $item)
 		{
 			$compiled[] = $this->compiler->compileString($item, $vars);
 		}

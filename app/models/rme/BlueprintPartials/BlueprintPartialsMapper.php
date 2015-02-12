@@ -10,7 +10,7 @@ class BlueprintPartialsMapper extends Mapper
 
 	public function getJsonFields()
 	{
-		return ['hints'];
+		return ['hints', 'data'];
 	}
 
 }
