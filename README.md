@@ -25,6 +25,11 @@ Link directory
 		<dd>/tools/opcache/</dd>
 </dl>
 
+Documentation
+-------------
+
+See [doc/readme.md](doc/readme.md).
+
 Requirements
 ------------
 

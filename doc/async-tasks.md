@@ -7,6 +7,9 @@ until the page loads. Instead, those tasks should be separated into async tasks.
 
 This is implemented with `kdyby/rabbitmq` library.
 
+The following documentation elaborates on specific tasks in this very app.
+For more general documentation, see https://github.com/Kdyby/RabbitMq/blob/master/docs/en/index.md.
+
 Enqueue new task
 ----------------
 
@@ -49,6 +52,8 @@ rabbitmq:
 			exchange: {name: 'my-producer', type: direct}
 ```
 
+- Run `rabbitmq:setup-fabric` command. This is similar to creating db schema or es mapping.
+
 Consume the task
 ----------------
 
@@ -72,6 +77,8 @@ rabbitmq:
 			queue: {name: 'my-consumer'}
 			callback: [@App\Models\Services\Consumers\MyConsumer, process]
 ```
+
+- Run `rabbitmq:setup-fabric` command. This is similar to creating db schema or es mapping.
 
 Add the consumer to worker
 --------------------------
