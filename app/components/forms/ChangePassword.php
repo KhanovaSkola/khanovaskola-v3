@@ -8,6 +8,7 @@ use App\Models\Services\Aes;
 use App\Models\Services\Entropy;
 use App\Presenters\Auth;
 use Nette\Security\Passwords;
+use App\Models\Services\UserState;
 
 
 class ChangePassword extends Form
@@ -18,6 +19,12 @@ class ChangePassword extends Form
 	 * @inject
 	 */
 	public $orm;
+
+	/**
+	 * @var userState
+	 * @inject
+	 */
+	public $userState;
 
 	/**
 	 * @var Aes
@@ -33,9 +40,11 @@ class ChangePassword extends Form
 
 	public function setup()
 	{
+		$user = $this->userState->getUserEntity();
 		$this->addText('password')
 			->addRule($this::FILLED, 'password.missing');
-
+		$this->addHidden('name')->setDefaultValue($user->name);
+		$this->addHidden('email')->setDefaultValue($user->email);
 		$this->addSubmit();
 	}
 

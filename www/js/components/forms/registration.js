@@ -1,5 +1,5 @@
 $(function() {
-    $form = $('[data-registration-form]');
+    $form = $('[data-registration-form], [data-change-password-form]');
     if (!$form.length) {
         return;
     }
