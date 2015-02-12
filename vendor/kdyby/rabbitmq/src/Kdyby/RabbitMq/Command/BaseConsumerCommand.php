@@ -3,6 +3,7 @@
 namespace Kdyby\RabbitMq\Command;
 
 use Kdyby\RabbitMq\BaseConsumer as Consumer;
+use Kdyby\RabbitMq\InvalidArgumentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -72,7 +73,16 @@ abstract class BaseConsumerCommand extends Command
 			throw new \InvalidArgumentException("The -m option should be null or greater than 0");
 		}
 
-		$this->consumer = $this->connection->getConsumer($input->getArgument('name'));
+		$name = $input->getArgument('name');
+		try
+		{
+			$this->consumer = $this->connection->getConsumer($name);
+		}
+		catch (InvalidArgumentException $e)
+		{
+			$names = implode(', ', $this->connection->getDefinedConsumers());
+			throw new InvalidArgumentException("Unknown consumer $name, expecting one of [$names]\nIf you added or renamed a consumer, run 'rabbitmq:setup-fabric'");
+		}
 
 		if (!is_null($input->getOption('memory-limit')) && ctype_digit((string) $input->getOption('memory-limit')) && $input->getOption('memory-limit') > 0) {
 			$this->consumer->setMemoryLimit($input->getOption('memory-limit'));

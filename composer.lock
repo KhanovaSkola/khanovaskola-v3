@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "61d7af9959ada5b84236ae66d23a1797",
+    "hash": "abfb18563d7668b0fb7d88891af79088",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -1041,12 +1041,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/RabbitMq.git",
-                "reference": "cc3890fe"
+                "reference": "4a7edf4f"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/cc3890feb4e5422f0a6a2bc37ed4f18f57750979",
-                "reference": "cc3890fe",
+                "reference": "4a7edf4f",
                 "shasum": ""
             },
             "require": {
@@ -3615,7 +3615,6 @@
     ],
     "minimum-stability": "beta",
     "stability-flags": {
-        "clevis/config-version-extension": 10,
         "kdyby/facebook": 20,
         "kdyby/forms-replicator": 20,
         "kdyby/google": 20,

@@ -3635,12 +3635,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Mikulas/RabbitMq.git",
-            "reference": "cc3890fe"
+            "reference": "4a7edf4f"
         },
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/cc3890feb4e5422f0a6a2bc37ed4f18f57750979",
-            "reference": "cc3890fe",
+            "reference": "4a7edf4f",
             "shasum": ""
         },
         "require": {

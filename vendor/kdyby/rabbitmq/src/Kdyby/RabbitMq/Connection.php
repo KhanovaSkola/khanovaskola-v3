@@ -164,4 +164,14 @@ class Connection extends PhpAmqpLib\Connection\AMQPLazyConnection implements ICo
 		return $channel;
 	}
 
+
+
+	/**
+	 * @return array
+	 */
+	public function getDefinedConsumers()
+	{
+		return array_keys($this->serviceMap['consumer']);
+	}
+
 }
