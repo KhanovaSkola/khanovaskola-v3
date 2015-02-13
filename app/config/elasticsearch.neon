@@ -5,27 +5,72 @@ settings:
 		analyzer:
 			cs_icu_analyzer:
 				type: custom
-				tokenizer: standard
-				filter: [cs_stop, icu_folding, cs_stem, synonyms, remove_duplicities]
+				tokenizer: whitespace
+				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, cs_typo]
+				filter: [cs_stop, icu_folding, letters, cs_stop, cs_stem, synonyms, remove_duplicities]
+			synonyms_compiler:
+				type: custom
+				tokenizer: whitespace
+				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, cs_typo]
+				filter: [cs_stop, icu_folding, letters, cs_stop, cs_stem]
 			cs_icu_analyzer_suggest:
 				type: custom
 				tokenizer: standard
 				filter: []
-			synonyms_compiler:
-				type: custom
-				tokenizer: standard
-				filter: [cs_stop, icu_folding, cs_stem]
 			youtube_id:
 				type: pattern
 				pattern: \s+
 				lowercase: false
+		char_filter:
+			cs_delim: # this could be replaced by custom tokenizer
+				type: mapping
+				mappings:
+					- ": => \\u0020" # space
+					- "- => \\u0020"
+			cs_math:
+				type: mapping
+				mappings:
+					- "+ => \\u0020plus\\u0020" # space
+					- "* => \\u0020krát\\u0020"
+					- "= => \\u0020rovná se\\u0020"
+					# - minus, dash
+					# / deleno, nebo
+			cs_math_multiplication:
+				type: pattern_replace
+				pattern: "(\\d)\\s*(x|X)"
+				replacement: "$1 krát " # intentional appended space
+			cs_order:
+				type: mapping
+				mappings:
+					- "1. => první" # první světová válka
+					- "2. => druhý" # druhá kapitola
+					- "3. => třetý"
+					- "4. => čtvrtý"
+					- "5. => pátý"
+					- "6. => šestý"
+					- "7. => sedmý"
+					- "8. => osmý"
+					- "9. => devátý"
+			cs_typo: # should be applied last
+				type: mapping
+				mappings:
+					- "z => s" # gymnazium vs gymnasium, but also ztrata vs strata
+					- "i => y" # glykolyza vs glikoliza
+					- "í => ý" # glykolyza vs glikoliza
+					- "c => k" # kalvinův vs calvinův
+					- "ie => ě" # hey, do not judge
+
 		filter:
+			letters:
+				type: pattern_replace
+				pattern: '[^A-Za-z0-9]'
+				replacement: ''
 			cs_stem:
 				type: stemmer
 				name: czech
 			cs_stop:
 				type: stop
-				stopwords: ["právě", "že", _czech_]
+				stopwords: ['a', 's', 'k', 'o', 'i', 'u', 'v', 'z', 'cz', 'tímto', 'tamtím', 'budeš', 'budem', 'budou', 'byli', 'jseš', 'můj', 'ta', 'tomto', 'tohle', 'tuto', 'tyto', 'jej', 'zda', 'máte', 'tato', 'kam', 'tohoto', 'kteří', 'mi', 'nám', 'tom', 'tomuto', 'mít', 'nic', 'proto', 'kterou', 'byla', 'toho', 'protože', 'asi', 'ho', 'naši', 're', 'což', 'tím', 'takže', 'svých', 'její', 'svými', 'jste', 'aj', 'tu', 'tedy', 'teto', 'bylo', 'ke', 'pravé', 'ji', 'nejsou', 'či', 'ty', 'pak', 'vám', 'ani', 'když', 'však', 'neg', 'jsem', 'tento', 'aby', 'jsme', 'pta', 'jejich', 'byl', 'ještě', 'až', 'také', 'pouze', 'vaše', 'nás', 'tipy', 'pokud', 'může', 'jeho', 'své', 'jiné', 'zprávy', 'vás', 'jen', 'podle', 'zde', 'už', 'být', 'více', 'bude', 'již', 'než', 'by', 'co', 'nebo', 'ten', 'tak', 'má', 'při', 'od', 'po', 'jsou', 'ale', 'si', 'se', 've', 'to', 'jako', 'za', 'zpět', 'ze', 'do', 'pro', 'je', 'na', 'atd.', 'atp.', 'jakmile', 'přičemž', 'já', 'on', 'ona', 'ono', 'oni', 'ony', 'my', 'vy', 'jí', 'ji', 'mě', 'mne', 'jemu', 'tomu', 'těm', 'těmu', 'němu', 'němuž', 'jehož', 'jíž', 'jelikož', 'jež', 'jakož', 'načež', 'právě', 'že', 'jak']
 			cs_icu_collation:
 				type: icu_collation
 				language: cs

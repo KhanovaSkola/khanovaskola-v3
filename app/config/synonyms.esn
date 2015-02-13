@@ -5,7 +5,8 @@ linearní algebra => lingebra
 matematická analýza => matalýza
 elementarní, zakladní
 negativní, zaporná
-log => logaritmus
+logaritmus => log
+limita => lim
 diagram => graf
 univerzální množina => univerzum
 náhoda, šance => pravděpodobnost
@@ -22,6 +23,7 @@ trigonometrie => trigonometrie, goniometrie
 
 # Chemie
 organická chemie, orgána => organika
+ion, jont => iont
 kation => kationt
 anion => aniont
 rovnice ideálního plynu, rovnice plynu, plyn rovnice, ideální plyn rovnice => rov_ideal_plynu
@@ -30,6 +32,7 @@ rovnice ideálního plynu, rovnice plynu, plyn rovnice, ideální plyn rovnice =
 biola, přírodopis, přírodověda => biologie
 brouci => hmyz
 molekulární biologie => molekulára
+ATP => atp, adenosintrifosfát
 
 # Ekonomie
 ekonomika => ekonomie
@@ -40,15 +43,15 @@ křivka poptávky, poptávková křivka => krivka_poptavka
 nabídková křivka, křivka nabídky => krivka_nabidka
 méněcenný statek, podřadný statek => podradny_statek
 procentuální, procentní
-náklady obětované příležitosti, oportunitní náklady, implicitní náklady, alternativní náklady, náklady ztracené příležitosti, náklady ušlé příležitosti => oportunitni_naklady
+náklady obětované příležitosti, oportunitní náklady, implicitní náklady, alternativní náklady, náklady ztracené příležitosti, náklady ušlé příležitosti => náklady, oportunitni_naklady
 pozitivní externality, externí přínosy => externi_prinosy
 negativní externality, externí náklady => externi_naklady
 hranice produkčních možností, hranice výrobních možností => hranice_vyrobnich_moznosti
 rozpočtová linie, linie rozpočtu, linie příjmů, rozpočtové omezení => rozpoctove_omezeni
 
 # Fyzika
+Bernoulliho jev, Bernouliho jev, Bernuliho jev, Bernulliho jev, Bernoulliho rovnice, Bernouliho rovnice, Bernuliho rovnice, Bernulliho rovnice => Bernoulliho, bernoulliho_rovnice
 Bernouliho, Bernuliho, Bernulliho => Bernoulliho
-Bernoulliho jev => Bernoulliho rovnice
 kinematika => kinematika, mechanika
 dynamika => dynamika, mechanika
 kapalná látka, kapalné skupenství, kapalina => kapalina, tekutina
