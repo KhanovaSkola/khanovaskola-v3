@@ -13,12 +13,12 @@
             </div>
             <div class="right">
                 <span class="title">
-                    <a n:href="$block, $schema">{$block->title}</a>
+                    <a n:href="$block, $schema">{$block->highlight('title')|noescape}</a>
                     <small>
                         skupina {_'search.blockContains', $block->countContents()}
                     </small>
                 </span>
-                <p>{$block->description}</p>
+                <p>{$block->highlight('description')|noescape}</p>
             </div>
         {else}
             {var $content = $hit}

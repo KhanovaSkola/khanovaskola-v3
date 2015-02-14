@@ -4,6 +4,7 @@ namespace App\Models\Rme;
 
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
+use App\Models\Services\Highlight;
 use Nette\InvalidStateException;
 use Orm\ManyToMany as MtM;
 use Orm\OneToMany as OtM;
@@ -32,6 +33,12 @@ class Block extends TitledEntity implements IIndexable
 	 * @var int
 	 */
 	public $score;
+
+	/**
+	 * Only set for SearchResponse
+	 * @var mixed
+	 */
+	public $highlights;
 
 	/**
 	 * @return NULL|Schema
@@ -134,4 +141,20 @@ class Block extends TitledEntity implements IIndexable
 			'from_old_web' => $this->fromOldWeb ? 1 : 0,
 		];
 	}
+
+	/**
+	 * @param $field
+	 * @return string safe html
+	 */
+	public function highlight($field)
+	{
+		if (isset($this->highlights[$field]))
+		{
+			$highlights = $this->highlights[$field];
+			return Highlight::process(implode(' ', $highlights));
+		}
+
+		return $this->getValue($field);
+	}
+
 }

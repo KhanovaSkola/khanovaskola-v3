@@ -61,6 +61,7 @@ class Search
 		}
 
 		$aggregations = $res['aggregations']['buckets']['buckets'];
+		$blockResults = [];
 		if ($count = $resBlocks['hits']['total'])
 		{
 			foreach ($resBlocks['hits']['hits'] as $hit)
@@ -68,13 +69,23 @@ class Search
 				/** @var Block $block */
 				$block = $blocks->getById($hit['_id']);
 				$block->score = $hit['_score'];
-				array_unshift($result, $block);
+				$block->highlights = $hit['highlight'];
+				$blockResults[] = $block;
 			}
 
 			array_unshift($aggregations, [
 				'key' => 'block',
 				'doc_count' => $count,
 			]);
+
+
+			usort($blockResults, function($a, $b) {
+				return $a->score < $b->score ? -1 : 1;
+			});
+			foreach ($blockResults as $block)
+			{
+				array_unshift($result, $block);
+			}
 		}
 
 		$didYouMean = isset($res['suggest']['did_you_mean'][0]['options'][0])
