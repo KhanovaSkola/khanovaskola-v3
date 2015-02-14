@@ -90,6 +90,9 @@ var lessAdminFiles = [
 	path.join(lessDir, 'admin/*.less'),
 	path.join(lessDir, 'admin/pages/*.less')
 ];
+var lessExperimentFiles = [
+	path.join(lessDir, 'experiments/*.less')
+];
 
 gulp.task('less-dev-main', function() {
 	return gulp.src(lessFiles)
@@ -114,6 +117,16 @@ gulp.task('less-dev-admin', function() {
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../less'
 		}))
+		.pipe(gulp.dest(buildDir));
+});
+
+gulp.task('less-experiment', function() {
+	return gulp.src(lessExperimentFiles)
+		.pipe($.concat('experiment.search.always.visible.less'))
+		.pipe($.less())
+		.pipe($.autoprefixer())
+		.pipe($.cssmin())
+		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 });
 
@@ -193,8 +206,8 @@ gulp.task('js-production-admin', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('less-dev', ['less-dev-main', 'less-dev-admin']);
-gulp.task('less-production', ['less-production-main', 'less-production-admin']);
+gulp.task('less-dev', ['less-dev-main', 'less-dev-admin', 'less-experiment']);
+gulp.task('less-production', ['less-production-main', 'less-production-admin', 'less-experiment']);
 
 gulp.task('js-dev', ['js-dev-main', 'js-dev-admin']);
 gulp.task('js-production', ['js-production-main', 'js-production-admin']);
