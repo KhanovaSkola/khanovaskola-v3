@@ -4,9 +4,13 @@ namespace App\Models\Services;
 
 use App\DeprecatedException;
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Mikulas\Diagnostics\ElasticSearchLogger;
 use Nette\Neon\Neon;
+use Nette\Utils\Json;
+use Nette\Utils\Strings;
+use Tracy\Debugger;
 
 
 class ElasticSearch extends Client
@@ -176,6 +180,25 @@ class ElasticSearch extends Client
 
 		$response = $endpoint->performRequest();
 		return $response['data'];
+	}
+
+	public function search($params = [])
+	{
+		try
+		{
+			return parent::search($params);
+		}
+		catch (BadRequest400Exception $e)
+		{
+			Debugger::getBlueScreen()->addPanel(function() use ($e) {
+				$raw= Json::decode($e->getMessage());
+				$match = Strings::match($raw->error, '~Failed to parse source \[(.*?)\]+; nested: (.*?);~is');
+				$context = Json::decode($match[1]);
+				$error = $match[2];
+				dump($error, $context);
+			});
+			throw $e;
+		}
 	}
 
 }
