@@ -32,7 +32,7 @@ rovnice ideálního plynu, rovnice plynu, plyn rovnice, ideální plyn rovnice =
 biola, přírodopis, přírodověda => biologie
 brouci => hmyz
 molekulární biologie => molekulára
-ATP => atp, adenosintrifosfát
+ATP, adenosintrifosfát
 
 # Ekonomie
 ekonomika => ekonomie
@@ -50,18 +50,22 @@ hranice produkčních možností, hranice výrobních možností => hranice_vyro
 rozpočtová linie, linie rozpočtu, linie příjmů, rozpočtové omezení => rozpoctove_omezeni
 
 # Fyzika
-Bernoulliho jev, Bernouliho jev, Bernuliho jev, Bernulliho jev, Bernoulliho rovnice, Bernouliho rovnice, Bernuliho rovnice, Bernulliho rovnice => Bernoulliho, bernoulliho_rovnice
-Bernouliho, Bernuliho, Bernulliho => Bernoulliho
+Bernoulliho jev, Bernulliho jev, Bernoulliho rovnice, Bernulliho rovnice => Bernoulliho, bernoulliho_rovnice
+Bernulliho => Bernoulliho
 kinematika => kinematika, mechanika
 dynamika => dynamika, mechanika
 kapalná látka, kapalné skupenství, kapalina => kapalina, tekutina
 plyn, plynná látka, plynné skupenství => plyn, tekutina
 pascalův zákon => pascalův zákon, hydromechanika, mechanika tekutin
 torr, mm hg => výška sloupce rtuti, jednotka hydrostatického tlaku
-Archimédův zákon, Archimedův zákon
 vztlaková síla => vztlak
 Coulombův zákon, Coulombův síla, Coulombův jev, Coulombova interakce
 elektrické napětí, elektrický potenciál
 magnetismus, magnetizmus => magnetizmus, elektromagnetizmus
 elektromagnetismus => elektromagnetizmus
 elektrický motor => elektromotor
+mm => milimetr
+cm => centimentr
+dm => decimetr
+m => metr
+km => kilometr

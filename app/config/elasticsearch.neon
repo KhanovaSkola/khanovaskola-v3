@@ -6,12 +6,12 @@ settings:
 			cs_icu_analyzer:
 				type: custom
 				tokenizer: whitespace
-				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, cs_typo]
+				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, remove_doubles, cs_typo]
 				filter: [cs_stop, icu_folding, letters, cs_stop, cs_stem, synonyms, remove_duplicities]
 			synonyms_compiler:
 				type: custom
 				tokenizer: whitespace
-				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, cs_typo]
+				char_filter: [cs_delim, cs_math, cs_math_multiplication, cs_order, remove_doubles, cs_typo]
 				filter: [cs_stop, icu_folding, letters, cs_stop, cs_stem]
 			cs_icu_analyzer_suggest:
 				type: custom
@@ -39,6 +39,10 @@ settings:
 				type: pattern_replace
 				pattern: "(\\d)\\s*(x|X)"
 				replacement: "$1 krát " # intentional appended space
+			remove_doubles: # nn => n etc.
+				type: pattern_replace
+				pattern: "([a-zA-Z])\\1+"
+				replacement: "$1"
 			cs_order:
 				type: mapping
 				mappings:
