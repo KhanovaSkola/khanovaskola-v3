@@ -55,9 +55,12 @@ settings:
 				type: mapping
 				mappings:
 					- "z => s" # gymnazium vs gymnasium, but also ztrata vs strata
+					- "Z => S"
 					- "i => y" # glykolyza vs glikoliza
+					- "I => Y" # glykolyza vs glikoliza
 					- "í => ý" # glykolyza vs glikoliza
 					- "c => k" # kalvinův vs calvinův
+					- "C => K"
 					- "ie => ě" # hey, do not judge
 
 		filter:
