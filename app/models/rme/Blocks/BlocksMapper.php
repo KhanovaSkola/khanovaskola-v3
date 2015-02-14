@@ -70,7 +70,7 @@ class BlocksMapper extends Mappers\ElasticSearchMapper
 				'fields' => ['id'],
 				'from' => $offset,
 				'size' => $limit,
-				'min_score' => 18,
+				'min_score' => 5,
 				'query' => [
 					'multi_match' => [
 						'query' => $query,
