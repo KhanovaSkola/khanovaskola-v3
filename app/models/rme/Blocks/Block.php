@@ -131,6 +131,7 @@ class Block extends TitledEntity implements IIndexable
 		return [
 			'title' => $this->title,
 			'description' => $this->description,
+			'from_old_web' => $this->fromOldWeb ? 1 : 0,
 		];
 	}
 }

@@ -131,3 +131,5 @@ mappings:
 				type: string
 				store: true
 				boost: 4
+			from_old_web:
+				type: integer # intentionally not bool, used in scoring

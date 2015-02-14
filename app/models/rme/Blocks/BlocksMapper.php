@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers;
+use App\Models\Services\Highlight;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
 
@@ -70,13 +71,39 @@ class BlocksMapper extends Mappers\ElasticSearchMapper
 				'fields' => ['id'],
 				'from' => $offset,
 				'size' => $limit,
-				'min_score' => 5,
+				'min_score' => 0.3,
 				'query' => [
-					'multi_match' => [
-						'query' => $query,
-						'fields' => ['title', 'description'],
+					'function_score' => [
+						'query' => [
+							'bool' => [
+								'should' => [
+									['match' => [
+										'title' => ['query' => $query, 'boost' => 10]
+									]],
+									['match' => ['description' => $query]],
+								]
+							]
+						],
+						'score_mode' => 'sum',
+						'boost_mode' => 'sum',
+						'functions' => [
+							[
+								'field_value_factor' => [
+									'field' => 'from_old_web',
+									'factor' => -5,
+								]
+							],
+						],
 					],
-				]
+				],
+				'highlight' => [
+					'pre_tags' => [Highlight::START],
+					'post_tags' => [Highlight::END],
+					'fields' => [
+						'title' => ['number_of_fragments' => 0],
+						'description' => ['number_of_fragments' => 0],
+					]
+				],
 			]
 		];
 
