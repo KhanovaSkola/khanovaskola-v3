@@ -41,9 +41,10 @@
 			furthest = now;
 		}
 
+		var percent = realTimeWatched / App.video.duration * 100;
 		sendEvent('tick', {
 			time: realTimeWatched,
-			percent: realTimeWatched / App.video.duration * 100,
+			percent: percent === Infinity ? 0 : percent,
 			furthest: furthest,
 			watched: watched ? 1 : 0
 		}, function(res) {
