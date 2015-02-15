@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bower": "latest",
+    "event-stream": "^3.2.2",
     "gulp": "~3.8",
     "gulp-autoprefixer": "~0.0.8",
     "gulp-concat": "~2.4",

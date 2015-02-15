@@ -2,6 +2,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var path = require('path');
+var stream = require("event-stream")
 var replace = require('gulp-replace-task');
 var neon = require('neon-js/src/neon.js');
 
@@ -13,6 +14,14 @@ var libDir = './www/libs';
 var bsDir = './www/libs/bootstrap/less/';
 var jsDir = './www/js';
 var jsFiles = [
+	path.join(jsDir, 'app/*.js'),
+	path.join(jsDir, 'services/*.js'),
+	path.join(jsDir, 'snippets/*.js'),
+	path.join(jsDir, 'components/*.js'),
+	path.join(jsDir, 'components/controls/*.js'),
+	path.join(jsDir, 'components/forms/*.js')
+];
+var jsLibFiles = [
 	path.join(libDir, 'bootstrap/js/alert.js'),
 	path.join(libDir, 'bootstrap/js/tab.js'),
 	path.join(libDir, 'bootstrap/js/modal.js'),
@@ -21,18 +30,16 @@ var jsFiles = [
 	path.join(libDir, 'nette-forms/src/assets/netteForms.js'),
 	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
 	path.join(libDir, 'smooth-scroll/dist/js/smooth-scroll.js'),
-	path.join(libDir, 'isInViewport/lib/isInViewport.min.js'),
-	path.join(jsDir, 'app/*.js'),
-	path.join(jsDir, 'services/*.js'),
-	path.join(jsDir, 'snippets/*.js'),
-	path.join(jsDir, 'components/*.js'),
-	path.join(jsDir, 'components/controls/*.js'),
-	path.join(jsDir, 'components/forms/*.js')
+	path.join(libDir, 'isInViewport/lib/isInViewport.min.js')
 ];
 var jsAdminFiles = [
+	path.join(jsDir, 'admin/*.js')
+];
+var jsAdminLibFiles = [
 	path.join(libDir, 'jquery-ui/jquery-ui.min.js'),
 	path.join(libDir, 'chosen/chosen.jquery.min.js'),
-	path.join(jsDir, 'admin/*.js')
+	path.join(libDir, 'zeroclipboard/dist/ZeroClipboard.min.js'),
+	path.join(libDir, 'handsontable/dist/handsontable.full.min.js')
 ];
 var lessDir = './www/less';
 var lessFiles = [
@@ -83,8 +90,11 @@ var lessFiles = [
 	path.join(lessDir, 'main/components/*.less'),
 	path.join(lessDir, 'main/pages/*.less')
 ];
+var lessAdminLibFiles = [
+	path.join(libDir, 'chosen/chosen.min.css'),
+	path.join(libDir, 'handsontable/dist/handsontable.full.min.css')
+];
 var lessAdminFiles = [
-	path.join(libDir, 'chosen_v1.3.0/chosen.min.css'),
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
 	path.join(lessDir, 'admin/*.less'),
@@ -108,11 +118,15 @@ gulp.task('less-dev-main', function() {
 });
 
 gulp.task('less-dev-admin', function() {
-	return gulp.src(lessAdminFiles)
-		.pipe($.sourcemaps.init())
-		.pipe($.concat('main.admin.less'))
-		.pipe($.less())
-		.pipe($.autoprefixer())
+	return stream.concat(
+		gulp.src(lessAdminLibFiles),
+		gulp.src(lessAdminFiles)
+			.pipe($.sourcemaps.init())
+			.pipe($.concat('main.admin.less'))
+			.pipe($.less())
+			.pipe($.autoprefixer())
+	)
+		.pipe($.concat('main.admin.css'))
 		.pipe($.rename({suffix: '.min'}))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../less'
@@ -141,30 +155,38 @@ gulp.task('less-production-main', function() {
 });
 
 gulp.task('less-production-admin', function() {
-	return gulp.src(lessAdminFiles)
-		.pipe($.concat('main.admin.less'))
-		.pipe($.less())
-		.pipe($.autoprefixer())
-		.pipe($.cssmin())
+	return stream.concat(
+		gulp.src(lessAdminLibFiles),
+		gulp.src(lessAdminFiles)
+			.pipe($.concat('main.admin.less'))
+			.pipe($.less())
+			.pipe($.autoprefixer())
+			.pipe($.cssmin())
+	)
+		.pipe($.concat('main.admin.css'))
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 });
 
 gulp.task('js-dev-main', function() {
-	return gulp.src(jsFiles)
-		.pipe($.sourcemaps.init())
-		.pipe($.uglify())
-		.pipe($.concat('app.min.js'))
-		.pipe(replace({
-			patterns: [{
-				json: {
-					elastic: {
-						url: 'http://' + config.get('parameters').get('elastic').get('hosts').get(0) + ':9200',
-						index: config.get('parameters').get('elastic').get('index')
+	return stream.concat(
+		gulp.src(jsLibFiles),
+		gulp.src(jsFiles)
+			.pipe($.sourcemaps.init())
+			.pipe($.concat('app.min.js'))
+			.pipe($.uglify())
+			.pipe(replace({
+				patterns: [{
+					json: {
+						elastic: {
+							url: 'http://' + config.get('parameters').get('elastic').get('hosts').get(0) + ':9200',
+							index: config.get('parameters').get('elastic').get('index')
+						}
 					}
-				}
-			}]
-		}))
+				}]
+			}))
+	)
+		.pipe($.concat('app.min.js'))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../js'
 		}))
@@ -172,9 +194,13 @@ gulp.task('js-dev-main', function() {
 });
 
 gulp.task('js-dev-admin', function() {
-	return gulp.src(jsAdminFiles)
-		.pipe($.sourcemaps.init())
-		.pipe($.uglify())
+	return stream.concat(
+		gulp.src(jsAdminLibFiles),
+		gulp.src(jsAdminFiles)
+			.pipe($.sourcemaps.init())
+			.pipe($.concat('app.admin.min.js'))
+			.pipe($.uglify())
+	)
 		.pipe($.concat('app.admin.min.js'))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../js'
@@ -183,33 +209,43 @@ gulp.task('js-dev-admin', function() {
 });
 
 gulp.task('js-production-main', function() {
-	return gulp.src(jsFiles)
-		.pipe($.uglify())
-		.pipe($.concat('app.min.js'))
-		.pipe(replace({
-			patterns: [{
-				json: {
-					elastic: {
-						url: 'https://elastic.khanovaskola.cz',
-						index: config.get('parameters').get('elastic').get('index')
+	return stream.concat(
+		gulp.src(jsLibFiles),
+		gulp.src(jsFiles)
+			.pipe($.concat('app.min.js'))
+			.pipe($.uglify())
+			.pipe(replace({
+				patterns: [{
+					json: {
+						elastic: {
+							url: 'https://elastic.khanovaskola.cz',
+							index: config.get('parameters').get('elastic').get('index')
+						}
 					}
-				}
-			}]
-		}))
+				}]
+			}))
+	)
+		.pipe($.concat('app.min.js'))
 		.pipe(gulp.dest(buildDir));
 });
 
 gulp.task('js-production-admin', function() {
-	return gulp.src(jsAdminFiles)
-		.pipe($.uglify())
+	return stream.concat(
+		gulp.src(jsAdminLibFiles),
+		gulp.src(jsAdminFiles)
+			.pipe($.concat('app.admin.min.js'))
+			.pipe($.uglify())
+	)
 		.pipe($.concat('app.admin.min.js'))
 		.pipe(gulp.dest(buildDir));
 });
 
 gulp.task('less-dev', ['less-dev-main', 'less-dev-admin', 'less-experiment']);
+gulp.task('less', ['less-dev-main', 'less-dev-admin', 'less-experiment']);
 gulp.task('less-production', ['less-production-main', 'less-production-admin', 'less-experiment']);
 
 gulp.task('js-dev', ['js-dev-main', 'js-dev-admin']);
+gulp.task('js', ['js-dev-main', 'js-dev-admin']);
 gulp.task('js-production', ['js-production-main', 'js-production-admin']);
 
 gulp.task('dev', ['less-dev', 'js-dev']);
