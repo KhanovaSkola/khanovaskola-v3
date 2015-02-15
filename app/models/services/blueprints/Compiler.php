@@ -123,6 +123,15 @@ class Compiler extends Object
 		{
 			switch ($def->type)
 			{
+				case 'table':
+					$table = array_map('str_getcsv', explode("\n", $def->data));
+					$line = rand(1, count($table) - 1); // row 0 is var names
+					// TODO validate the data
+					foreach ($table[0] as $i => $var)
+					{
+						$vars[$var] = $table[$line][$i];
+					}
+					break;
 				case 'integer':
 					$min = $this->compileString($def->min, $vars);
 					$max = $this->compileString($def->max, $vars);

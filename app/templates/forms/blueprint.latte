@@ -30,7 +30,7 @@
 	        {/foreach}
 	    </div>
 	    Přidat proměnnou:
-        {foreach ['integer', 'list', 'plural'] as $type}
+        {foreach ['table', 'integer', 'list', 'plural'] as $type}
 			<a href="#" data-add-type="{$type}">{_"type.$type"}</a>{sep}, {/sep}
 		{/foreach}
     </div>

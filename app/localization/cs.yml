@@ -82,6 +82,7 @@ blueprintEditor:
   removeVar: "smazat proměnnou"
   removeUndo: "vrátit zpět"
   type:
+    table: "tabulka"
     integer: "celé číslo"
     list: "náhodné slovo"
     plural: "plurál"

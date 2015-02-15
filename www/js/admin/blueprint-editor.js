@@ -19,6 +19,8 @@
     };
 	Renderer.label = function(type) {
 		switch (type) {
+            case 'table':
+                return 'tabulka';
 			case 'integer':
 				return 'celé číslo';
 			case 'list':
@@ -36,6 +38,18 @@
 
         var method = 'render' + def.type.charAt(0).toUpperCase() + def.type.slice(1);
 	    Renderer[method](def, $group, $input);
+    };
+    Renderer.renderTable = function(def, $group, $input) {
+        var $data = $('<textarea class="form-control csv-control" />').text(def.data);
+        $group.append($data);
+
+        var $name = $group.parent().find('[name$="[name]"]');
+        $name.val($name.val() || 'table');
+        $name.hide();
+
+        Renderer.saveHook(def, $input, {
+            'data': $data
+        });
     };
     Renderer.renderInteger = function(def, $group, $input) {
         var $min = $('<input class="form-control">').val(def.min);
