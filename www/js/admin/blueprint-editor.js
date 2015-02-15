@@ -40,15 +40,36 @@
 	    Renderer[method](def, $group, $input);
     };
     Renderer.renderTable = function(def, $group, $input) {
-        var $data = $('<textarea class="form-control csv-control" />').text(def.data);
-        $group.append($data);
-
         var $name = $group.parent().find('[name$="[name]"]');
         $name.val($name.val() || 'table');
         $name.hide();
 
-        Renderer.saveHook(def, $input, {
-            'data': $data
+        var $table = $('<div/>');
+        $group.append($table);
+        var table = new Handsontable($table[0], {
+            data: def.data || [["", ""], ["", ""]],
+            minSpareRows: 1,
+            colHeaders: false,
+            contextMenu: true,
+            afterChange: function(changes, source) {
+                var data = this.getData();
+                for (var i = 0; i < data.length; i++) {
+                    var empty = true;
+                    for (var val in data[i])
+                    {
+                        if (data[i][val]) {
+                            empty = false;
+                            break;
+                        }
+                    }
+                    if (empty) {
+                        data.splice(i, 1);
+                        i--;
+                    }
+                }
+                def.data = data;
+                $input.val(JSON.stringify(def));
+            }
         });
     };
     Renderer.renderInteger = function(def, $group, $input) {
