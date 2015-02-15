@@ -180,6 +180,22 @@
 					}
 				}
 			}
+
+			.search {
+				display: none;
+				text-align: center;
+				margin-top: 6ex;
+				.search-input {
+					max-width: 300px;
+				}
+				.pull-left {
+					float: none !important;
+					display: inline-block;
+				}
+				@media (max-width: @screen-sm) {
+					display: block;
+				}
+			}
 		}
 	}
 
