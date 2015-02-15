@@ -11,6 +11,7 @@ use Orm\OneToMany as OtM;
 
 /**
  * @property string                   $type                {enum \App\Models\Rme\ContentsRepository::getClasses()}
+ * @property bool                     $hidden              {default TRUE}
  *
  * @property OtM|Comment[]            $comments            {1:m comments $content}
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $content}
@@ -36,10 +37,15 @@ abstract class Content extends TitledEntity implements IIndexable
 	/**
 	 * Values to be saved to es index
 	 *
-	 * @return array [field => data]
+	 * @return FALSE|array [field => data]
 	 */
 	public function getIndexData()
 	{
+		if ($this->hidden)
+		{
+			return FALSE;
+		}
+
 		$blockCount = 0;
 		$schemaCount = 0;
 		$positions = [];

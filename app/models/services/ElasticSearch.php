@@ -201,4 +201,28 @@ class ElasticSearch extends Client
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @param void $params
+	 * @return void|array
+	 */
+	public function delete($params)
+	{
+		throw new DeprecatedException('Use removeFromIndex instead');
+	}
+
+	/**
+	 * @param string $type entity name
+	 * @param int $id entity id
+	 * @return array
+	 */
+	public function removeFromIndex($type, $id)
+	{
+		return parent::delete([
+			'index' => $this->index,
+			'type' => $type,
+			'id' => $id,
+		]);
+	}
+
 }

@@ -68,11 +68,17 @@ class Video extends Content
 	}
 
 	/**
-	 * @return array [field => data]
+	 * @return FALSE|array [field => data]
 	 */
 	public function getIndexData()
 	{
-		return parent::getIndexData() + [
+		$index = parent::getIndexData();
+		if ($index === FALSE)
+		{
+			return FALSE;
+		}
+
+		return $index + [
 			'subtitles' => $this->getTextFromSubtitles(),
 			'youtube_id' => $this->youtubeId,
 		];

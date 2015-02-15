@@ -11,7 +11,9 @@ interface IIndexable
 
 	/**
 	 * Values to be saved to es index
-	 * @return array [field => data]
+	 * If FALSE is returned, the entity is removed from ES.
+	 *
+	 * @return FALSE|array [field => data]
 	 */
 	public function getIndexData();
 

@@ -26,7 +26,15 @@ abstract class ElasticSearchMapper extends Mapper
 		$events->addCallbackListener($events::PERSIST_AFTER, function(EventArguments $args) {
 			/** @var IIndexable|Entity $e */
 			$e = $args->entity;
-			$this->elastic->addToIndex($this->getShortEntityName(), (int) $e->id, $e->getIndexData());
+			$data = $e->getIndexData();
+			if ($data === FALSE)
+			{
+				$this->elastic->removeFromIndex($this->getShortEntityName(), (int) $e->id);
+			}
+			else
+			{
+				$this->elastic->addToIndex($this->getShortEntityName(), (int) $e->id, $data);
+			}
 		});
 	}
 

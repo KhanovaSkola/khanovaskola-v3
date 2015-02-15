@@ -21,6 +21,7 @@ use Orm\OneToMany as OtM;
  * @property MtM|Block[]              $dependencyFor       {m:m blocks $dependencies}
  * @property OtM|VideoView[]          $views               {1:m videoViews $block}
  * @property bool                     $fromOldWeb          {default FALSE}
+ * @property bool                     $hidden              {default TRUE}
  *
  * @property Content[]                $contents            {ignore}
  * @property Schema[]                 $schemas             {ignore}
@@ -131,10 +132,15 @@ class Block extends TitledEntity implements IIndexable
 	/**
 	 * Values to be saved to es index
 	 *
-	 * @return array [field => data]
+	 * @return FALSE|array [field => data]
 	 */
 	public function getIndexData()
 	{
+		if ($this->hidden)
+		{
+			return FALSE;
+		}
+
 		return [
 			'title' => $this->title,
 			'description' => $this->description,
