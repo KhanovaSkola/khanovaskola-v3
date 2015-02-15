@@ -31,7 +31,7 @@ var jsFiles = [
 ];
 var jsAdminFiles = [
 	path.join(libDir, 'jquery-ui/jquery-ui.min.js'),
-	path.join(libDir, 'chosen_v1.3.0/chosen.jquery.min.js'),
+	path.join(libDir, 'chosen/chosen.jquery.min.js'),
 	path.join(jsDir, 'admin/*.js')
 ];
 var lessDir = './www/less';

@@ -16,6 +16,7 @@
     "jquery-ui": "~1.11.2",
     "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git",
     "isInViewport": "~2.2.0",
-	"bower": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
+    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
+    "handsontable": "~0.12.5"
   }
 }
