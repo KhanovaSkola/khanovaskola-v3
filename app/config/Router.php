@@ -31,6 +31,7 @@ class Router extends RouteList
 			'Profile:default' => 'profil',
 			'Auth:in' => 'prihlaseni',
 			'Auth:out' => 'odhlaseni',
+			'Auth:registration' => 'registrace',
 			'Auth:resetPassword' => 'heslo',
 			'Text:about' => 'o-skole',
 			'Subjects:default' => 'predmety',
