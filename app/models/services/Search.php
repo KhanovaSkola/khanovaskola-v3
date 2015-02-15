@@ -123,17 +123,25 @@ class Search
 		$timed = $entity->getTimedSentences();
 
 		$sentences = [];
+		$startAtIndex = 0;
 		foreach ($hls['subtitles'] as $highlight)
 		{
 			$sentence = preg_replace('~{{%/?highlight%}}~', '', $highlight);
-			foreach ($timed as $node)
+			foreach ($timed as $i => $node)
 			{
+				if ($i < $startAtIndex)
+				{
+					continue;
+				}
+				$startAtIndex++;
+
 				if (strpos($node['sentence'], $sentence) !== FALSE)
 				{
 					$sentences[] = (object) [
 						'time' => $node['time'] - 1, // start slightly before the sentence starts
 						'sentence' => $highlight,
 					];
+					break;
 				}
 			}
 		}
