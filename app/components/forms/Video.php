@@ -26,6 +26,7 @@ class Video extends EditorForm
 			->setRequired('description.missing');
 		$this->addText('youtubeId')
 			->setRequired('youtubeId.missing');
+		$this->addCheckbox('visible');
 
 		$this->addSubmit();
 	}
@@ -54,6 +55,7 @@ class Video extends EditorForm
 		$video->title = $v->title;
 		$video->description = $v->description;
 		$video->youtubeId = $v->youtubeId;
+		$video->hidden = !$v->visible;
 
 		$this->orm->flush();
 

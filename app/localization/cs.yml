@@ -74,6 +74,7 @@ blueprintEditor:
   title: "Název"
   description: "Popisek"
   question: "Otázka"
+  visible: "Zobrazit ve vyhledávání"
   answer: "Odpověď"
   data: "Data"
   vars: "Proměnné"
@@ -318,12 +319,14 @@ videoForm:
     missing: "Vyplňte popis videa"
   youtubeId:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
+  visible: "Zobrazit ve vyhledávání"
 
 blockForm:
   title:
     missing: "Vyplňte název bloku"
   description:
     missing: "Vyplňte popis bloku"
+  visible: "Zobrazit ve vyhledávání"
 
 profileForm:
   success:

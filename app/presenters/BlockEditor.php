@@ -46,6 +46,7 @@ class BlockEditor extends Presenter
 		{
 			$form['title']->setDefaultValue($this->block->title);
 			$form['description']->setDefaultValue($this->block->description);
+			$form['visible']->setDefaultValue(!$this->block->hidden);
 
 			$allowed = $this->block->author->id === $this->userEntity->id;
 			foreach ($this->block->schemas as $schema)

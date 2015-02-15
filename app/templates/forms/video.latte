@@ -17,6 +17,12 @@
         <input n:name="youtubeId" type="text" class="form-control">
         {include error, control => $form['youtubeId']}
     </div>
+    <div class="checkbox">
+   		<label n:name="visible">
+   			<input n:name="visible"> {_'visible'}
+   			<span></span>
+   		</label>
+   	</div>
 
 	<input n:name="save" value="Uložit" class="btn">
 </form>

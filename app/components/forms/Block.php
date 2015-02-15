@@ -17,6 +17,7 @@ class Block extends EditorForm
 		$this->addText('description')
 			->setRequired('description.missing');
 		$this->addEditorSelector('editors', $this->orm);
+		$this->addCheckbox('visible');
 		$this->addHidden('contents');
 
 		$this->addSubmit();
@@ -47,6 +48,7 @@ class Block extends EditorForm
 
 		$block->title = $v->title;
 		$block->description = $v->description;
+		$block->hidden = !$v->visible;
 		$block->contentBlockBridges = [];
 
 		$position = 0;

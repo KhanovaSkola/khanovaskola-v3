@@ -29,6 +29,7 @@ class Blueprint extends EntityForm
 			$container->addText('name');
 			$container->addText('definition');
 		});
+		$this->addCheckbox('visible');
 
 		$this->addDynamic('partials', function(Container $container) {
 			$container->addTextArea('question')
@@ -65,6 +66,7 @@ class Blueprint extends EntityForm
 		$this->setDefaults([
 			'title' => $blueprint->title,
 			'description' => $blueprint->description,
+			'visible' => !$blueprint->hidden,
 		]);
 
 		foreach ($blueprint->partials as $partial)
@@ -143,6 +145,7 @@ class Blueprint extends EntityForm
 	{
 		$blueprint->title = $v->title;
 		$blueprint->description = $v->description;
+		$blueprint->hidden = !$v->visible;
 
 		$vars = [];
 		foreach ($v->vars as $row)
