@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\Models\Rme;
+use App\Models\Structs\EntityPointer;
 use App\Models\Tasks;
 use Kdyby\RabbitMq\Connection;
 use Nette\Forms\Controls\BaseControl;
