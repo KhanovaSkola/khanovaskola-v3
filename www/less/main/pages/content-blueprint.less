@@ -115,4 +115,23 @@
 			color: @khan-gold;
 		}
 	}
+
+	.exercise-scalar-drag-to-box {
+		img {
+			width: 48px;
+			height: 48px;
+			cursor: pointer;
+			cursor: grab;
+		}
+		img.dragging {
+			cursor: grabbing;
+		}
+		.bucket {
+			border: 1px dashed @khan-blue;
+			display: block;
+			min-width: 200px;
+			min-height: 50px;
+		}
+	}
+
 }

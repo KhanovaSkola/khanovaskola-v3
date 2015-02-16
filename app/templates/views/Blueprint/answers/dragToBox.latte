@@ -1,0 +1,19 @@
+{**
+ * @param App\Models\Structs\Exercises\ScalarExercise $exercise
+ *}
+
+<div class="exercise-scalar-drag-to-box">
+	<div class="bucket">
+		{for $i = 0; $i < $exercise->getImageCount(); $i++}
+			<img src="/data/exercise/{$exercise->getImage()}" width="48" height="48" />
+		{/for}
+	</div>
+	<div class="bucket answer-bucket">
+    </div>
+
+	<code>scalar answer, drag to box</code><br>
+	<code>answer: ${$exercise->answer}$</code>
+
+	<input type="hidden" name="answer">
+	{input send}
+</div>

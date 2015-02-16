@@ -109,6 +109,7 @@ blueprintEditor:
   answerType:
     scalar: "skalár (enum povolený)"
     select: "výběr jednoho z možností (očekává json pole stringů, enum povolený v hodnotách)"
+    dragToBox: "přetáhnutí obrázků do boxu"
 
 columnChart:
   blueprint:

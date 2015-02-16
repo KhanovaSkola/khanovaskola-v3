@@ -19,12 +19,14 @@ class BlueprintPartial extends Entity
 
 	const ANSWER_SCALAR = 'scalar';
 	const ANSWER_SELECT = 'select';
+	const ANSWER_DRAG_TO_BOX = 'dragToBox';
 
 	public static function getAnswerTypes()
 	{
 		return [
 			self::ANSWER_SCALAR => self::ANSWER_SCALAR,
 			self::ANSWER_SELECT => self::ANSWER_SELECT,
+			self::ANSWER_DRAG_TO_BOX => self::ANSWER_DRAG_TO_BOX,
 		];
 	}
 

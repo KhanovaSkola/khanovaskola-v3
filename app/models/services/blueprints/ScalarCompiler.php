@@ -62,8 +62,13 @@ class ScalarCompiler
 
 	protected function compileHints(array $hints, $vars)
 	{
+		return $this->compileShallowJson($hints, $vars);
+	}
+
+	protected function compileShallowJson(array $array, $vars)
+	{
 		$compiled = [];
-		foreach ($hints as $i => $hint)
+		foreach ($array as $i => $hint)
 		{
 			$compiled[$i] = $this->compiler->compileString($hint, $vars);
 		}

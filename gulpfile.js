@@ -19,7 +19,8 @@ var jsFiles = [
 	path.join(jsDir, 'snippets/*.js'),
 	path.join(jsDir, 'components/*.js'),
 	path.join(jsDir, 'components/controls/*.js'),
-	path.join(jsDir, 'components/forms/*.js')
+	path.join(jsDir, 'components/forms/*.js'),
+	path.join(jsDir, 'components/exercises/*.js')
 ];
 var jsLibFiles = [
 	path.join(libDir, 'bootstrap/js/alert.js'),
