@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Orm\Mappers;
 use App\Models\Services\Inflection;
 use App\Models\Structs\Gender;
+use Nette\Utils\DateTime;
 use Orm\DibiCollection;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
@@ -62,11 +63,32 @@ class UsersMapper extends Mappers\Mapper
 	}
 
 	/**
-	 * @return DibiCollection
+	 * @return DibiCollection|\Orm\IEntityCollection
 	 */
 	public function findRegistered()
 	{
 		return $this->findBy(['registered' => TRUE]);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * Results of this function are periodically deleted
+	 * from production database. Update with caution!
+	 */
+	public function deleteOldEmpty()
+	{
+		$this->connection->query('
+			DELETE
+			FROM [users]
+			WHERE name IS NULL
+				AND password IS NULL
+				AND email IS NULL
+				AND facebook_id IS NULL
+				AND google_id IS NULL
+				AND registered = "f"
+				AND created_at < ?
+		', DateTime::from('2 weeks ago')->format('Y-m-d H:i:s'));
 	}
 
 }

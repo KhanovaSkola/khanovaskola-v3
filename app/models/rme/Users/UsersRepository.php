@@ -10,6 +10,8 @@ use Orm\DibiCollection;
  * @method DibiCollection findAll()
  * @method DibiCollection findRegistered()
  *
+ * @method void deleteOldEmpty()
+ *
  * @method User getByFacebookId($facebookId)
  * @method User getByGoogleId($googleId)
  * @method User getByEmail($email)

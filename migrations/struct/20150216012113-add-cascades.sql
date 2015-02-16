@@ -1,0 +1,2 @@
+ALTER TABLE "completed_contents" DROP CONSTRAINT "fk_user",
+ADD CONSTRAINT "fk_user" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;

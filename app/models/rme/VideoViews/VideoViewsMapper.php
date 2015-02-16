@@ -3,6 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Mappers\Mapper;
+use Nette\Utils\DateTime;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -34,6 +35,24 @@ class VideoViewsMapper extends Mapper
 		$events->addCallbackListener($events::SERIALIZE_BEFORE, function(EventArguments $args) use ($key) {
 			$args->values[$key] = json_encode($args->values[$key] ?: []);
 		});
+	}
+
+	/**
+	 * @return void
+	 *
+	 * Results of this function are periodically deleted
+	 * from production database. Update with caution!
+	 */
+	public function deleteOldEmpty()
+	{
+		$this->connection->query('
+			DELETE FROM [video_views]
+			WHERE [percent] = 0
+				AND [time] = 0
+				AND [furthest] = 0
+				AND [events]::text = "[]"
+				AND [created_at] < ?
+		', DateTime::from('7 days ago'));
 	}
 
 }

@@ -1,1 +1,3 @@
 * * * * * www-data bash /srv/sites/production.khanovaskola.cz/production/worker.sh
+0 1,8,12,15,18,19,20,23 * * * root bash /srv/sites/production.khanovaskola.cz/production/backup.sh
+30 1 * * * php bash /srv/sites/production.khanovaskola.cz/www/index.php data:delete-old
