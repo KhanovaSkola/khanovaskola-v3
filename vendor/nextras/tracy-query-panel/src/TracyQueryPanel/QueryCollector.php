@@ -1,24 +1,19 @@
 <?php
 
-namespace Tracy\QueryPanel;
-
-use Nette;
+namespace Nextras\TracyQueryPanel;
 
 
-/**
- * @internal
- */
-class QueryCollector extends Nette\Object
+class QueryCollector implements \Countable
 {
 
-	/** @var IQuery[] */
+	/** @var IVoidQuery[] */
 	protected $queries = array();
 
 
 	/**
-	 * @param IQuery $query
+	 * @param IVoidQuery $query
 	 */
-	public function addQuery(IQuery $query)
+	public function addQuery(IVoidQuery $query)
 	{
 		$this->queries[] = $query;
 	}
@@ -43,7 +38,7 @@ class QueryCollector extends Nette\Object
 	/**
 	 * @return array
 	 */
-	public function getPerStorageInfo()
+	public function getAggregations()
 	{
 		$elapsed = array();
 		foreach ($this->queries as $query)
@@ -75,7 +70,7 @@ class QueryCollector extends Nette\Object
 
 
 	/**
-	 * @return IQuery[]
+	 * @return IVoidQuery[] ordered by time called asc
 	 */
 	public function getQueries()
 	{

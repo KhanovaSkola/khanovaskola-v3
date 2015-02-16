@@ -90,6 +90,17 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
+	public function onInitDebug()
+	{
+		if (!$this->isDebugMode())
+		{
+			return;
+		}
+
+		Debugger::$maxDepth++;
+		Debugger::$maxLen = 1e4;
+	}
+
 	public static function detectDebugMode($list = NULL)
 	{
 		if (strpos(php_uname('n'), 'testing-worker-') !== FALSE)
@@ -130,43 +141,6 @@ class Configurator extends Nette\Configurator
 		EditorSelector::register();
 	}
 
-	public function onAfterQueryPanel(Container $container)
-	{
-		if (!$this->isDebugMode() || php_uname('n') === 'travis')
-		{
-			return;
-		}
-
-		Debugger::$maxDepth++;
-		Debugger::$maxLen = 1e4;
-
-		/** @var QueryPanel $panel */
-		$panel = $container->getByType(QueryPanel::class);
-		Debugger::getBar()->addPanel($panel);
-
-		/** @var DibiConnection $dibi */
-		$dibi = $container->getService('dibiConnection');
-		$dibi->onEvent[] = function(\DibiEvent $event) use ($panel) {
-			$panel->addQuery(new DibiQuery($event));
-		};
-
-		/** @var ElasticSearch $elastic */
-		$elastic = $container->getByType(ElasticSearch::class);
-		$request = NULL;
-		$elastic->onEvent[] = function($message, $content) use ($panel, &$request) {
-			if ($message === 'Request Body')
-			{
-				$request = $content[0];
-				return;
-			}
-			if ($request && $message === 'Response')
-			{
-				$panel->addQuery(new ElasticSearchQuery($request, $content[0]));
-				$request = NULL;
-			}
-		};
-	}
-
 	public function onAfterEntityStaticCache(Container $container)
 	{
 		Entity::$metaDataStorage = $container->getService('cacheStorage');
@@ -184,7 +158,6 @@ class Configurator extends Nette\Configurator
 		$loader->addDirectory($params['appDir'] . '/../migrations');
 		$loader->addDirectory($params['appDir'] . '/../tests');
 		$loader->addDirectory($params['libsDir'] . '/others');
-		$loader->addDirectory($params['libsDir'] . '/mikulas/nette-panel-queries/queries');
 
 		return $loader;
 	}

@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Tackk\\Cartographer\\' => array($vendorDir . '/tackk/cartographer/src'),
+    'Nextras\\TracyQueryPanel\\Handlers\\' => array($vendorDir . '/nextras/tracy-query-panel/src/handlers'),
+    'Nextras\\TracyQueryPanel\\' => array($vendorDir . '/nextras/tracy-query-panel/src/TracyQueryPanel'),
     'Nextras\\Routing\\' => array($vendorDir . '/nextras/static-router/src'),
     'Nextras\\Migrations\\' => array($vendorDir . '/nextras/migrations/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),

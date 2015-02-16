@@ -32,9 +32,14 @@ extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
 	google: Kdyby\Google\DI\GoogleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
+	queryPanel: Nextras\TracyQueryPanel\DI\QueryPanelExtension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
 	version: Clevis\Version\DI\VersionExtension
+
+queryPanel:
+	- Nextras\TracyQueryPanel\Handlers\DibiHandler
+	- App\Dev\Handlers\ElasticsearchHandler
 
 monolog:
 	name: main-site
@@ -120,7 +125,6 @@ services:
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
 	- App\Models\Services\Youtube
-	- Tracy\QueryPanel\QueryPanel
 
 	user: App\Models\Services\UserState
 

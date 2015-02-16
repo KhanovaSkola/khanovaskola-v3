@@ -1,41 +1,44 @@
 <?php
 
-namespace Mikulas\Tracy\QueryPanel;
+namespace Nextras\TracyQueryPanel\Handlers;
 
+use DibiConnection;
 use DibiEvent;
-use Nette\Object;
 use Nette\Utils\Html;
+use Nextras\TracyQueryPanel\IQuery;
+use Nextras\TracyQueryPanel\QueryPanel;
 use Tracy\Dumper;
-use Tracy\QueryPanel\IQuery;
 
 
-class DibiQuery extends Object implements IQuery
+class DibiHandler implements IQuery
 {
 
 	/** @var DibiEvent */
-	private $event;
+	protected $event;
 
 	public function __construct(DibiEvent $event)
 	{
 		$this->event = $event;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getResultCount()
+	public static function register(DibiConnection $dibi, QueryPanel $panel)
 	{
-		return $this->event->result->getRowCount();
+		$dibi->onEvent[] = function(DibiEvent $event) use ($panel) {
+			$panel->addQuery(new static($event));
+		};
 	}
 
 	/**
-	 * @return Html|string
+	 * Suggested behavior: print Tracy\Dumper::toHtml() array
+	 * of returned rows so row count is immediately visible.
+	 *
+	 * @return NULL|Html|string
 	 */
 	public function getResult()
 	{
 		if (!$this->event->result)
 		{
-			return;
+			return NULL;
 		}
 
 		if ($this->event->result instanceof \DibiResult)
@@ -75,6 +78,8 @@ class DibiQuery extends Object implements IQuery
 	}
 
 	/**
+	 * Actual formatted query, e.g. 'SELECT * FROM ...'
+	 *
 	 * @return Html|string
 	 */
 	public function getQuery()
@@ -95,12 +100,14 @@ class DibiQuery extends Object implements IQuery
 	 * e.g. SQL explain
 	 *
 	 * @return NULL|Html|string
+	 * @throws \DibiException
+	 * @throws \Exception
 	 */
 	public function getInfo()
 	{
-		if (!$this->event->sql || stripos($this->event->sql, 'select') !== 0)
+		if (!$this->event->sql)
 		{
-			return;
+			return NULL;
 		}
 
 		$query = 'EXPLAIN (FORMAT JSON) (' . $this->event->sql . ')';

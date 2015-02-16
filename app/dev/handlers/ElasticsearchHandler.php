@@ -1,41 +1,56 @@
 <?php
 
-namespace Mikulas\Tracy\QueryPanel;
+namespace App\Dev\Handlers;
 
-use Everyman\Neo4j\Query;
-use Everyman\Neo4j\Transport;
-use Nette\Object;
+use Elasticsearch\Client as Elasticsearch;
 use Nette\Utils\Html;
+use Nette\Utils\Json;
+use Nextras\TracyQueryPanel\IQuery;
+use Nextras\TracyQueryPanel\QueryPanel;
 use Tracy\Dumper;
-use Tracy\QueryPanel\IQuery;
 
 
-class ElasticSearchQuery extends Object implements IQuery
+class ElasticsearchHandler implements IQuery
 {
 
+	/** @var array */
 	private $request;
 
+	/** @var array */
 	private $response;
 
 	/**
 	 * @param string $request json
 	 * @param string $response json
+	 * @throws \Nette\Utils\JsonException
 	 */
 	public function __construct($request, $response)
 	{
-		$this->request = json_decode($request, TRUE);
-		$this->response = json_decode($response, TRUE);
+		$this->request = Json::decode($request, JSON_OBJECT_AS_ARRAY);
+		$this->response = Json::decode($response, JSON_OBJECT_AS_ARRAY);
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getResultCount()
+	public static function register(Elasticsearch $es, QueryPanel $panel)
 	{
-		return $this->response['hits']['total'];
+		$request = NULL;
+		$es->onEvent[] = function($message, $content) use ($panel, &$request) {
+			if ($message === 'Request Body')
+			{
+				$request = $content[0];
+				return;
+			}
+			if ($request && $message === 'Response')
+			{
+				$panel->addQuery(new static($request, $content[0]));
+				$request = NULL;
+			}
+		};
 	}
 
 	/**
+	 * Suggested behavior: print Tracy\Dumper::toHtml() array
+	 * of returned rows so row count is immediately visible.
+	 *
 	 * @return Html|string
 	 */
 	public function getResult()
@@ -63,15 +78,18 @@ class ElasticSearchQuery extends Object implements IQuery
 	}
 
 	/**
-	 * Database, fulltext index or similar, NULL if not applicable
+	 * Database name, fulltext index or similar, NULL if not applicable
 	 *
 	 * @return NULL|string
 	 */
 	public function getDatabaseName()
 	{
+		// TODO: Implement getDatabaseName() method.
 	}
 
 	/**
+	 * Actual formatted query, e.g. 'SELECT * FROM ...'
+	 *
 	 * @return Html|string
 	 */
 	public function getQuery()
@@ -92,7 +110,7 @@ class ElasticSearchQuery extends Object implements IQuery
 	}
 
 	/**
-	 * e.g. SQL explain
+	 * e.g. explain
 	 *
 	 * @return NULL|Html|string
 	 */

@@ -10,8 +10,8 @@ return array(
     $vendorDir . '/nette/safe-stream/src/loader.php',
     $vendorDir . '/nette/deprecated/src/loader.php',
     $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
-    $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/petrp/access/Access/Init.php',
+    $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/petrp/orm/Orm.php',
     $vendorDir . '/tackk/cartographer/src/functions.php',
 );

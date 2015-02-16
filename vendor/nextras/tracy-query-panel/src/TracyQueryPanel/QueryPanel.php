@@ -1,13 +1,12 @@
 <?php
 
-namespace Tracy\QueryPanel;
+namespace Nextras\TracyQueryPanel;
 
 use Latte;
-use Nette;
 use Tracy;
 
 
-class QueryPanel extends Nette\Object implements Tracy\IBarPanel
+class QueryPanel implements Tracy\IBarPanel
 {
 
 	/** @var QueryCollector */
@@ -25,7 +24,7 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 
 
 
-	public function addQuery(IQuery $query)
+	public function addQuery(IVoidQuery $query)
 	{
 		$this->collector->addQuery($query);
 	}
@@ -34,6 +33,7 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 
 	/**
 	 * @return string
+	 * @internal
 	 */
 	public function getTitle()
 	{
@@ -51,7 +51,7 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 			$title = "$c queries";
 		}
 
-		return "$title, " . number_format($this->collector->totalElapsedTime, 1) . '&nbsp;ms';
+		return "$title, " . number_format($this->collector->getTotalElapsedTime(), 1) . '&nbsp;ms';
 	}
 
 
@@ -60,6 +60,7 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 	 * Renders HTML code for custom tab.
 	 *
 	 * @return string
+	 * @internal
 	 */
 	public function getTab()
 	{
@@ -75,20 +76,21 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 	 * Renders HTML code for custom panel.
 	 *
 	 * @return string html
+	 * @internal
 	 */
 	public function getPanel()
 	{
 		$latte = new Latte\Engine;
 
-		$latte->addFilter('storageId', $this->getStorageId);
-		$latte->addFilter('colorRange', $this->getColorInRange);
+		$latte->addFilter('storageId', [$this, 'getStorageId']);
+		$latte->addFilter('colorRange', [$this, 'getColorInRange']);
 
-		$args = array(
+		$args = [
 			'title' => $this->getTitle(),
 			'collector' => $this->collector,
-		);
+		];
 
-		if ($this->collector->queries)
+		if ($this->collector->getQueries())
 		{
 			$this->extremes = $this->collector->getTimeExtremes();
 		}
@@ -99,6 +101,9 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 
 	/**
 	 * @internal
+	 * @param IQuery|stdClass $query
+	 * @return string
+	 * @internal
 	 */
 	public function getStorageId($query)
 	{
@@ -106,7 +111,7 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 		{
 			return $query->getStorageType() . '|' . $query->getDatabaseName();
 		}
-		// StdClass from perStorageInfo
+		// else is aggregation, stdClass
 		return $query->storageType . '|' . $query->databaseName;
 	}
 
@@ -116,18 +121,19 @@ class QueryPanel extends Nette\Object implements Tracy\IBarPanel
 	 * Linear color gradient
 	 * @param float $value
 	 * @return string hex color
+	 * @internal
 	 */
 	public function getColorInRange($value)
 	{
-		$a = array(54, 170, 31);
-		$b = array(220, 1, 57);
+		$a = [54, 170, 31];
+		$b = [220, 1, 57];
 
 		list($min, $max) = $this->extremes;
 
 		$d = $max - $min;
-		$lin = ($value - $min) / ($d ?: 0.5);
+		$lin = ($value - $min) / ($d ?: 0.5); // prevent x/0
 
-		$color = array();
+		$color = [];
 		for ($i = 0; $i < 3; ++$i)
 		{
 			$color[$i] = (int) ($a[$i] + ($b[$i] - $a[$i]) * $lin);

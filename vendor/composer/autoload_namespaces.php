@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ZxcvbnPhp' => array($vendorDir . '/bjeavons/zxcvbn-php/src'),
-    'Tracy\\QueryPanel\\' => array($vendorDir . '/mikulas/nette-panel-queries/src'),
     'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
