@@ -14,8 +14,15 @@ class Cislo
 		{
 			throw new OutOfRangeException("Number '$number' should be from [0, 999_999_999]");
 		}
-
-		if ($number === 0)
+		if ($number && !ctype_digit("$number"))
+		{
+			throw new InvalidArgumentException("Expecting integer, got $number.");
+		}
+		if ((string) $number !== "0" && !$number)
+		{
+			return '';
+		}
+		if ($number == 0)
 		{
 			return 'nula';
 		}
@@ -27,7 +34,7 @@ class Cislo
 			$groups[] = $group;
 		}
 		$groups = array_reverse($groups, TRUE);
-
+		
 		$words = [];
 		foreach ($groups as $rank => $group)
 		{
@@ -77,11 +84,11 @@ class Cislo
 		$tens = $ranks[1] . $ranks[0];
 
 		$words = [];
-		if ($hundreds != 0)
+		if ($hundreds && $hundreds != 0)
 		{
 			$words[] = static::hundredsToWord($hundreds);
 		}
-		if ($tens != 0)
+		if ($tens && $tens != 0)
 		{
 			$words[] = static::tensToWord($tens);
 		}
@@ -106,6 +113,11 @@ class Cislo
 
 	public static function tensToWord($tens)
 	{
+		if (!$tens)
+		{
+			return NULL;
+		}
+
 		switch ($tens)
 		{
 			case 1: return 'jedna';
