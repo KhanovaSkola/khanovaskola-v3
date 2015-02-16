@@ -5,6 +5,7 @@ namespace App\Models\Orm\Mappers;
 use App\Models\Orm\Entity;
 use App\Models\Orm\IIndexable;
 use App\Models\Services\ElasticSearch;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Orm\EventArguments;
 use Orm\Events;
 
@@ -29,7 +30,14 @@ abstract class ElasticSearchMapper extends Mapper
 			$data = $e->getIndexData();
 			if ($data === FALSE)
 			{
-				$this->elastic->removeFromIndex($this->getShortEntityName(), (int) $e->id);
+				try
+				{
+					$this->elastic->removeFromIndex($this->getShortEntityName(), (int) $e->id);
+				}
+				catch (Missing404Exception $e)
+				{
+					// entity was yet not in index
+				}
 			}
 			else
 			{
