@@ -13,4 +13,5 @@ return array(
     'Nextras\\Migrations\\' => array($vendorDir . '/nextras/migrations/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
+    'KhanovaSkola\\' => array($vendorDir . '/khanovaskola/cislo/src'),
 );

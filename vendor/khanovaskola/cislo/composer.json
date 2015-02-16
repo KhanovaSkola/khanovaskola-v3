@@ -1,0 +1,21 @@
+{
+    "name": "khanovaskola/cislo",
+    "description": "Translates integers to words and vice versa",
+    "require-dev": {
+        "nette/tester": "~1.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mikulas Dite",
+            "email": "mikulas@khanovaskola.cz"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "nette/utils": "~2.2"
+    },
+    "autoload": {
+        "psr-4": {"KhanovaSkola\\": "src/"}
+    }
+}
