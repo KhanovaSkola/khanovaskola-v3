@@ -10,6 +10,7 @@ use App\Models\Services\BlueprintPurifier;
 use App\Models\Services\Inflection;
 use App\Models\Structs\Exercises\ScalarExercise;
 use App\NotImplementedException;
+use KhanovaSkola\Cislo;
 use Nette\Object;
 use Symfony\Component\Process\Process;
 
@@ -23,6 +24,7 @@ class Compiler extends Object
 	const T_EVAL = 'EVAL';
 	const T_INFLECT = 'INFLECT';
 	const T_IMG = 'IMG';
+	const T_NUMBER = 'NUMBER';
 
 	const S_COMPLETE = 'complete';
 	const S_INNER = 'cdata';
@@ -48,14 +50,19 @@ class Compiler extends Object
 	private $purifier;
 
 	/**
-	 * @var FALSE|mixed
+	 * @var int
 	 */
-	private $inInflection;
+	private $bufferLevel = 0;
 
 	/**
-	 * @var string
+	 * @var string[]
 	 */
-	private $inflectBuffer;
+	private $buffers;
+
+	/**
+	 * @var array
+	 */
+	private $bufferData;
 
 	/**
 	 * @var Inflection
@@ -162,9 +169,9 @@ class Compiler extends Object
 		foreach ($nodes as $node)
 		{
 			$partial = $this->compileNode($node, $vars, $inLatex, $inColor);
-			if ($this->inInflection)
+			if ($this->bufferLevel)
 			{
-				$this->inflectBuffer .= $partial;
+				@$this->buffers[$this->bufferLevel] .= $partial; // default to empty string
 			}
 			else
 			{
@@ -264,7 +271,8 @@ class Compiler extends Object
 				}
 				else if ($node['type'] === self::S_OPEN)
 				{
-					$this->inInflection = $node['attributes']['CASE'];
+					$this->bufferLevel++;
+					$this->bufferData[$this->bufferLevel] = $node['attributes']['CASE'];
 					return '';
 				}
 				else if ($node['type'] === self::S_INNER)
@@ -273,9 +281,12 @@ class Compiler extends Object
 				}
 				else // self::S_CLOSE
 				{
-					$out = $this->inflection->inflect($this->inflectBuffer, $this->inInflection);
-					$this->inInflection = FALSE;
-					$this->inflectBuffer = '';
+					$buffer = $this->buffers[$this->bufferLevel];
+					$case = $this->bufferData[$this->bufferLevel];
+					$out = $this->inflection->inflect($buffer, $case);
+
+					$this->bufferLevel--;
+					array_pop($this->buffers);
 					return $out;
 				}
 
@@ -297,6 +308,30 @@ class Compiler extends Object
 				$count = $this->evaluate($node['attributes']['COUNT'], $vars);
 				$size = isset($node['attributes']['SIZE']) ? $node['attributes']['SIZE'] : 48;
 				return str_repeat("<img src=\"$url\" height=\"$size\" />", max(0, $count));
+
+			case self::T_NUMBER:
+				if ($node['type'] === self::S_COMPLETE)
+				{
+					return Cislo::toWord($node['value']);
+				}
+				else if ($node['type'] === self::S_OPEN)
+				{
+					$this->bufferLevel++;
+					return '';
+				}
+				else if ($node['type'] === self::S_INNER)
+				{
+					return $node['value'];
+				}
+				else // self::S_CLOSE
+				{
+					$buffer = $this->buffers[$this->bufferLevel];
+					$out = Cislo::toWord($buffer);
+
+					$this->bufferLevel--;
+					array_pop($this->buffers);
+					return $out;
+				}
 
 			default:
 				throw new NotImplementedException("Unknown tag '$node[tag]' in '$this->errorContext'");
