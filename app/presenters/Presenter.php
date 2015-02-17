@@ -225,13 +225,4 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		]);
 	}
 
-	/**
-	 * @param string $name
-	 * @return bool
-	 */
-	public function isExperimentActive($name)
-	{
-		return in_array($name, $this->getParameter('experiments') ?: []);
-	}
-
 }

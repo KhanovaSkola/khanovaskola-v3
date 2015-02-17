@@ -241,9 +241,9 @@ gulp.task('js-production-admin', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('less-dev', ['less-dev-main', 'less-dev-admin', 'less-experiment']);
-gulp.task('less', ['less-dev-main', 'less-dev-admin', 'less-experiment']);
-gulp.task('less-production', ['less-production-main', 'less-production-admin', 'less-experiment']);
+gulp.task('less-dev', ['less-dev-main', 'less-dev-admin']);
+gulp.task('less', ['less-dev-main', 'less-dev-admin']);
+gulp.task('less-production', ['less-production-main', 'less-production-admin']);
 
 gulp.task('js-dev', ['js-dev-main', 'js-dev-admin']);
 gulp.task('js', ['js-dev-main', 'js-dev-admin']);

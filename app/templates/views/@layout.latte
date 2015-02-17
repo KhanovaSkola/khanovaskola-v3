@@ -7,21 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Google Analytics Content Experiment code -->
-    <script n:syntax="off">function utmx_section(){}function utmx(){}(function(){var
-    k='62747299-3',d=document,l=d.location,c=d.cookie;
-    if(l.search.indexOf('utm_expid='+k)>0)return;
-    function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-    indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-    length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-    '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-    '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-    '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-    valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-    '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-    </script><script>utmx('url','A/B');</script>
-    <!-- End of Google Analytics Content Experiment code -->
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta n:ifset="$description" name="description" content="{$description}">
@@ -54,9 +39,6 @@
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
 		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.admin.min{$staticHash}.css">
-	{/if}
-	{if $presenter->isExperimentActive('search-always-visible')}
-		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/experiment.search.always.visible.min{$staticHash}.css">
 	{/if}
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="author" type="text/plain" href="humans.txt">
