@@ -83,7 +83,11 @@ class ElasticPopulator extends Object
 	 */
 	public function indexEntity(Entity $entity)
 	{
-		$this->es->addToIndex($entity->getShortEntityName(), (int) $entity->id, $entity->getIndexData());
+		$data = $entity->getIndexData();
+		if ($data !== FALSE)
+		{
+			$this->es->addToIndex($entity->getShortEntityName(), (int) $entity->id, $data);
+		}
 	}
 
 }
