@@ -6,9 +6,9 @@ use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Aes;
 use App\Models\Services\Entropy;
+use App\Models\Services\UserState;
 use App\Presenters\Auth;
 use Nette\Security\Passwords;
-use App\Models\Services\UserState;
 
 
 class ChangePassword extends Form
@@ -21,7 +21,7 @@ class ChangePassword extends Form
 	public $orm;
 
 	/**
-	 * @var userState
+	 * @var UserState
 	 * @inject
 	 */
 	public $userState;
@@ -43,8 +43,8 @@ class ChangePassword extends Form
 		$user = $this->userState->getUserEntity();
 		$this->addText('password')
 			->addRule($this::FILLED, 'password.missing');
-		$this->addHidden('name')->setDefaultValue($user->name);
-		$this->addHidden('email')->setDefaultValue($user->email);
+		$this->addHidden('name')->setDefaultValue($user->name)->setDisabled();
+		$this->addHidden('email')->setDefaultValue($user->email)->setDisabled();
 		$this->addSubmit();
 	}
 
