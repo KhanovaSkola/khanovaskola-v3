@@ -24,7 +24,8 @@ class BuildSynonyms extends Command
 		$output = [];
 		foreach (explode("\n", $raw) as $line)
 		{
-			if (!$line || strpos($line, '#') === 0)
+			$line = preg_replace('~\s*#.*$~m', '', $line); // remove comments
+			if (!$line)
 			{
 				continue;
 			}
