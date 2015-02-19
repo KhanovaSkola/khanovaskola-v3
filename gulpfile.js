@@ -118,16 +118,12 @@ gulp.task('less-dev-main', function() {
 			.pipe($.concat('bootstrap.less'))
 			.pipe(cache($.less())),
 		gulp.src(lessFiles)
-			.pipe($.sourcemaps.init())
 			.pipe($.concat('main.less'))
 			.pipe($.less())
 			.pipe($.autoprefixer())
 	)
 		.pipe($.concat('main.css'))
 		.pipe($.rename({suffix: '.min'}))
-		.pipe($.sourcemaps.write('.', {
-			sourceRoot: '../less'
-		}))
 		.pipe(gulp.dest(buildDir));
 });
 
@@ -135,16 +131,12 @@ gulp.task('less-dev-admin', function() {
 	return stream.concat(
 		gulp.src(lessAdminLibFiles),
 		gulp.src(lessAdminFiles)
-			.pipe($.sourcemaps.init())
 			.pipe($.concat('main.admin.less'))
 			.pipe($.less())
 			.pipe($.autoprefixer())
 	)
 		.pipe($.concat('main.admin.css'))
 		.pipe($.rename({suffix: '.min'}))
-		.pipe($.sourcemaps.write('.', {
-			sourceRoot: '../less'
-		}))
 		.pipe(gulp.dest(buildDir));
 });
 
