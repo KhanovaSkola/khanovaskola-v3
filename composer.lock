@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc000628c99545bbbee9a26550543fa1",
+    "hash": "02470bbb5feb399bccd503002ec78366",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -1210,16 +1210,16 @@
         },
         {
             "name": "khanovaskola/cislo",
-            "version": "v1.2",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KhanovaSkola/cislo.git",
-                "reference": "37508bb95f0445b895a41b80780cd97f5e6ed921"
+                "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/37508bb95f0445b895a41b80780cd97f5e6ed921",
-                "reference": "37508bb95f0445b895a41b80780cd97f5e6ed921",
+                "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/9648e011a35638ed7d55119e6974ca3e22fd1905",
+                "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905",
                 "shasum": ""
             },
             "require": {
@@ -1245,7 +1245,7 @@
                 }
             ],
             "description": "Translates integers to words and vice versa",
-            "time": "2015-02-19 13:15:30"
+            "time": "2015-02-19 13:32:43"
         },
         {
             "name": "latte/latte",
