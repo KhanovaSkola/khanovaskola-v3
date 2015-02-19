@@ -32,7 +32,7 @@ final class Blueprint extends Content
 			$block = $this->blueprint->getRandomParent();
 			if ($block)
 			{
-				$this->redirectToEntity($this->blueprint, $block, $block->getRandomParent());
+				$this->redirectToEntity($this->blueprint, $block);
 			}
 		});
 		$this->loadSchema(function() {
