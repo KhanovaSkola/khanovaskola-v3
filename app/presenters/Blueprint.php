@@ -124,7 +124,8 @@ final class Blueprint extends Content
 		$form->addHidden('hint');
 		$form->addText('answer');
 
-		$form->addSubmit('send');
+		$form->addSubmit('send', 'Zkontrolovat')
+			->getControlPrototype()->addAttributes(['class' => 'btn bnt-primary']);
 		$form->onSuccess[] = $this->onSuccessAnswer;
 
 		return $form;

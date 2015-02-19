@@ -22,7 +22,14 @@
 				color: @khan-black2;
 				line-height: 19px;
 				display: block;
-				margin-bottom: 16px;
+				margin-bottom: 3ex;
+
+				br {
+					display: block;
+					margin-bottom: 2ex;
+					content: " ";
+					line-height: 2ex;
+				}
 			}
 			.choices {
 				.clearfix;
@@ -113,6 +120,25 @@
 		}
 		&-4 {
 			color: @khan-gold;
+		}
+	}
+
+	.answer-group {
+		float: left;
+		[name="answer"] {
+			width: 200px;
+		}
+	}
+	[name="send"] {
+		float: left;
+		margin-left: 1em;
+	}
+
+	.hints-wrapper {
+		margin-top: 3ex;
+		.btn-hints {
+			cursor: pointer;
+
 		}
 	}
 

@@ -2,7 +2,8 @@
  * @param App\Models\Structs\Exercises\ScalarExercise $exercise
  *}
 
-<input type="text" name="answer">
-<code>scalar answer</code>
-<code>answer: ${$exercise->answer}$</code>
+<div class="form-group answer-group floating-placeholder">
+	<label n:name="answer">Odpověď</label>
+	<input n:name="answer" class="form-control" placeholder="Odpověď">
+</div>
 {input send}

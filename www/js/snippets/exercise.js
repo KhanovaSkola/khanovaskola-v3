@@ -17,9 +17,11 @@ $(function() {
     $('[data-show-hint]').click(function() {
         $exercise.find('[name=hint]').val(true);
         $(hints.shift()).show();
+        $exercise.find('[data-hint-label]').removeClass('hidden');
 
         if (!hints.length) {
             $(this).hide();
         }
+        return false;
     });
 });
