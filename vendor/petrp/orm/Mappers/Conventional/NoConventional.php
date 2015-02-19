@@ -68,7 +68,7 @@ class NoConventional extends Object implements IDatabaseConventional
 	public function getTable(IRepository $repository)
 	{
 		$helper = $repository->getModel()->getContext()->getService('repositoryHelper', 'Orm\RepositoryHelper');
-		return str_replace('\\', '_', $helper->normalizeRepository($repository));
+		return str_replace('\\', '_', strtolower($helper->normalizeRepository($repository)));
 	}
 
 	/**

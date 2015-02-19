@@ -55,7 +55,7 @@ class PerformanceHelper extends Object
 			{
 				$key = substr($key, 0, 20) . md5($key);
 			}
-			self::$toLoad = isset($cache[$key]) ? $cache[$key] : NULL;
+			self::$toLoad = $cache->load($key);
 			if (!self::$toLoad) self::$toLoad = array();
 			if ($key === '*')
 			{
@@ -64,7 +64,7 @@ class PerformanceHelper extends Object
 
 			register_shutdown_function(function ($cache, $key) {
 				// @codeCoverageIgnoreStart
-				$cache[$key] = \Orm\PerformanceHelper::$toSave;
+				$cache->save($key, \Orm\PerformanceHelper::$toSave);
 				// @codeCoverageIgnoreEnd
 			}, $cache, $key);
 		}

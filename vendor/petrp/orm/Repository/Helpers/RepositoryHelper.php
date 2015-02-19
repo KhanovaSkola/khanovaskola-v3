@@ -30,8 +30,8 @@ class RepositoryHelper extends Object
 		$repositoryClass = get_class($repository);
 		if (!isset($this->normalizeRepositoryCache[$repositoryClass]))
 		{
-			$name = strtolower($repositoryClass);
-			if (substr($name, -10) === 'repository')
+			$name = $repositoryClass;
+			if (substr($name, -10) === 'Repository')
 			{
 				$name = substr($name, 0, strlen($name) - 10);
 			}
