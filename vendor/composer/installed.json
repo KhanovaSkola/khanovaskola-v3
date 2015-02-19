@@ -859,78 +859,6 @@
         ]
     },
     {
-        "name": "kdyby/google",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Google.git",
-            "reference": "16cb87a2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Google/zipball/16cb87a2e37d9983d821728b1312624ed1a751c2",
-            "reference": "16cb87a2",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "google/apiclient": "~1.1",
-            "nette/nette": "~2.1@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.7",
-            "nette/tester": "@dev"
-        },
-        "time": "2014-11-23 12:48:34",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Google\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Google/exceptions.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            },
-            {
-                "name": "Mikuláš Dítě",
-                "email": "mikulas@dite.pro"
-            },
-            {
-                "name": "Google",
-                "homepage": "https://github.com/google/google-api-php-client/graphs/contributors"
-            }
-        ],
-        "description": "Google API wrapper and authentication for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "Authentication",
-            "auth",
-            "google",
-            "login",
-            "nette"
-        ]
-    },
-    {
         "name": "mikulas/code-sniffs",
         "version": "v1.4.0",
         "version_normalized": "1.4.0.0",
@@ -965,176 +893,6 @@
             }
         ],
         "description": "Code sniffer rules for Clevis coding standard"
-    },
-    {
-        "name": "kdyby/forms-replicator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Replicator.git",
-            "reference": "5330eba0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/b99ff4089ec288e45c554f1ae5b06f391b3a0119",
-            "reference": "5330eba0",
-            "shasum": ""
-        },
-        "require": {
-            "nette/forms": "~2.2@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.6",
-            "latte/latte": "~2.2@dev",
-            "nette/application": "~2.2@dev",
-            "nette/bootstrap": "~2.2@dev",
-            "nette/caching": "~2.2@dev",
-            "nette/component-model": "~2.2@dev",
-            "nette/database": "~2.2@dev",
-            "nette/di": "~2.2@dev",
-            "nette/finder": "~2.2@dev",
-            "nette/forms": "~2.2@dev",
-            "nette/http": "~2.2@dev",
-            "nette/mail": "~2.2@dev",
-            "nette/neon": "~2.2@dev",
-            "nette/nette": "~2.2@dev",
-            "nette/php-generator": "~2.2@dev",
-            "nette/reflection": "~2.2@dev",
-            "nette/robot-loader": "~2.2@dev",
-            "nette/safe-stream": "~2.2@dev",
-            "nette/security": "~2.2@dev",
-            "nette/tester": "@dev",
-            "nette/tokenizer": "~2.2@dev",
-            "nette/utils": "~2.2@dev",
-            "tracy/tracy": "~2.2@dev"
-        },
-        "time": "2014-06-24 11:59:09",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Replicator\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Nette forms container replicator aka addDynamic",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "Forms",
-            "addDynamic",
-            "kdyby",
-            "nette",
-            "replicator"
-        ]
-    },
-    {
-        "name": "kdyby/facebook",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/Facebook.git",
-            "reference": "d6cff663d1a789c69857e669fc9b6228ee81bbec"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/Facebook/zipball/d6cff663d1a789c69857e669fc9b6228ee81bbec",
-            "reference": "d6cff663d1a789c69857e669fc9b6228ee81bbec",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "kdyby/curl-ca-bundle": "~1.0",
-            "nette/application": "~2.2@dev",
-            "nette/di": "~2.2@dev",
-            "nette/http": "~2.2@dev"
-        },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.7",
-            "latte/latte": "~2.2@dev",
-            "nette/bootstrap": "~2.2@dev",
-            "nette/caching": "~2.2@dev",
-            "nette/component-model": "~2.2@dev",
-            "nette/database": "~2.2@dev",
-            "nette/deprecated": "~2.2@dev",
-            "nette/finder": "~2.2@dev",
-            "nette/forms": "~2.2@dev",
-            "nette/mail": "~2.2@dev",
-            "nette/neon": "~2.2@dev",
-            "nette/nette": "~2.2@dev",
-            "nette/php-generator": "~2.2@dev",
-            "nette/reflection": "~2.2@dev",
-            "nette/robot-loader": "~2.2@dev",
-            "nette/safe-stream": "~2.2@dev",
-            "nette/security": "~2.2@dev",
-            "nette/tester": "@dev",
-            "nette/tokenizer": "~2.2@dev",
-            "nette/utils": "~2.2@dev",
-            "tracy/tracy": "~2.2@dev"
-        },
-        "time": "2014-11-23 15:45:35",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Facebook\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Facebook/exceptions.php"
-            ]
-        },
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "homepage": "http://filip-prochazka.com",
-                "email": "filip@prochazka.su"
-            },
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            }
-        ],
-        "description": "Facebook PHP SDK with authorization for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "facebook",
-            "nette",
-            "sdk"
-        ],
-        "support": {
-            "email": "filip@prochazka.su",
-            "issues": "https://github.com/kdyby/facebook/issues",
-            "source": "https://github.com/Mikulas/Facebook/tree/master"
-        }
     },
     {
         "name": "league/flysystem",
@@ -2579,60 +2337,6 @@
         }
     },
     {
-        "name": "nextras/tracy-query-panel",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "/Users/mikulas/Projects/tracy-query-panel",
-            "reference": "357e479e905a387f4b51106ad298a6d97f5f00b0"
-        },
-        "require": {
-            "latte/latte": "~2.2.0 || ~2.3.0-beta",
-            "nette/di": "~2.3.0-beta",
-            "php": ">=5.4",
-            "tracy/tracy": "~2.3.0-RC"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9",
-            "nette/nette": "~2.3.0-beta",
-            "nette/tester": "~1.3",
-            "petrp/access": "~0.2.2"
-        },
-        "time": "2015-02-15 21:24:13",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Nextras\\TracyQueryPanel\\": "src/TracyQueryPanel",
-                "Nextras\\TracyQueryPanel\\Handlers\\": "src/handlers"
-            }
-        },
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nextras Project",
-                "homepage": "https://github.com/nextras/tracy-query-panel/graphs/contributors"
-            }
-        ],
-        "description": "Query panel for Tracy php debugger",
-        "homepage": "https://github.com/nextras/tracy-query-panel",
-        "keywords": [
-            "nextras",
-            "tracy"
-        ],
-        "support": {
-            "issues": "https://github.com/nextras/tracy-query-panel/issues"
-        }
-    },
-    {
         "name": "khanovaskola/cislo",
         "version": "v1.4",
         "version_normalized": "1.4.0.0",
@@ -3773,6 +3477,306 @@
             "nette",
             "testing",
             "unit"
+        ]
+    },
+    {
+        "name": "kdyby/facebook",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/Facebook.git",
+            "reference": "f94840bb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/Facebook/zipball/d6cff663d1a789c69857e669fc9b6228ee81bbec",
+            "reference": "f94840bb",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "kdyby/curl-ca-bundle": "~1.0",
+            "nette/application": "~2.2@dev",
+            "nette/di": "~2.2@dev",
+            "nette/http": "~2.2@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.7",
+            "latte/latte": "~2.2@dev",
+            "nette/bootstrap": "~2.2@dev",
+            "nette/caching": "~2.2@dev",
+            "nette/component-model": "~2.2@dev",
+            "nette/database": "~2.2@dev",
+            "nette/deprecated": "~2.2@dev",
+            "nette/finder": "~2.2@dev",
+            "nette/forms": "~2.2@dev",
+            "nette/mail": "~2.2@dev",
+            "nette/neon": "~2.2@dev",
+            "nette/nette": "~2.2@dev",
+            "nette/php-generator": "~2.2@dev",
+            "nette/reflection": "~2.2@dev",
+            "nette/robot-loader": "~2.2@dev",
+            "nette/safe-stream": "~2.2@dev",
+            "nette/security": "~2.2@dev",
+            "nette/tester": "@dev",
+            "nette/tokenizer": "~2.2@dev",
+            "nette/utils": "~2.2@dev",
+            "tracy/tracy": "~2.2@dev"
+        },
+        "time": "2014-11-23 15:45:35",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Facebook\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Facebook/exceptions.php"
+            ]
+        },
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "homepage": "http://filip-prochazka.com",
+                "email": "filip@prochazka.su"
+            },
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            }
+        ],
+        "description": "Facebook PHP SDK with authorization for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "facebook",
+            "nette",
+            "sdk"
+        ],
+        "support": {
+            "email": "filip@prochazka.su",
+            "issues": "https://github.com/kdyby/facebook/issues",
+            "source": "https://github.com/Mikulas/Facebook/tree/master"
+        }
+    },
+    {
+        "name": "kdyby/forms-replicator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Replicator.git",
+            "reference": "d10ec08a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/b99ff4089ec288e45c554f1ae5b06f391b3a0119",
+            "reference": "d10ec08a",
+            "shasum": ""
+        },
+        "require": {
+            "nette/forms": "~2.2@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "latte/latte": "~2.2@dev",
+            "nette/application": "~2.2@dev",
+            "nette/bootstrap": "~2.2@dev",
+            "nette/caching": "~2.2@dev",
+            "nette/component-model": "~2.2@dev",
+            "nette/database": "~2.2@dev",
+            "nette/di": "~2.2@dev",
+            "nette/finder": "~2.2@dev",
+            "nette/forms": "~2.2@dev",
+            "nette/http": "~2.2@dev",
+            "nette/mail": "~2.2@dev",
+            "nette/neon": "~2.2@dev",
+            "nette/nette": "~2.2@dev",
+            "nette/php-generator": "~2.2@dev",
+            "nette/reflection": "~2.2@dev",
+            "nette/robot-loader": "~2.2@dev",
+            "nette/safe-stream": "~2.2@dev",
+            "nette/security": "~2.2@dev",
+            "nette/tester": "@dev",
+            "nette/tokenizer": "~2.2@dev",
+            "nette/utils": "~2.2@dev",
+            "tracy/tracy": "~2.2@dev"
+        },
+        "time": "2014-06-24 11:59:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Replicator\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Nette forms container replicator aka addDynamic",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "Forms",
+            "addDynamic",
+            "kdyby",
+            "nette",
+            "replicator"
+        ]
+    },
+    {
+        "name": "kdyby/google",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Google.git",
+            "reference": "9acc49db"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Google/zipball/16cb87a2e37d9983d821728b1312624ed1a751c2",
+            "reference": "9acc49db",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "google/apiclient": "~1.1",
+            "nette/nette": "~2.1@dev"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.7",
+            "nette/tester": "@dev"
+        },
+        "time": "2014-11-23 12:48:34",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Google\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Google/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            },
+            {
+                "name": "Mikuláš Dítě",
+                "email": "mikulas@dite.pro"
+            },
+            {
+                "name": "Google",
+                "homepage": "https://github.com/google/google-api-php-client/graphs/contributors"
+            }
+        ],
+        "description": "Google API wrapper and authentication for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "Authentication",
+            "auth",
+            "google",
+            "login",
+            "nette"
+        ]
+    },
+    {
+        "name": "nextras/tracy-query-panel",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nextras/tracy-query-panel.git",
+            "reference": "357e479e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/357e479e905a387f4b51106ad298a6d97f5f00b0",
+            "reference": "357e479e",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2.0 || ~2.3.0-beta",
+            "nette/di": "~2.3.0-beta",
+            "php": ">=5.4",
+            "tracy/tracy": "~2.3.0-RC"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "nette/nette": "~2.3.0-beta",
+            "nette/tester": "~1.3",
+            "petrp/access": "~0.2.2"
+        },
+        "time": "2015-02-15 21:31:16",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Nextras\\TracyQueryPanel\\": "src/TracyQueryPanel",
+                "Nextras\\TracyQueryPanel\\Handlers\\": "src/handlers"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nextras Project",
+                "homepage": "https://github.com/nextras/tracy-query-panel/graphs/contributors"
+            }
+        ],
+        "description": "Query panel for Tracy php debugger",
+        "homepage": "https://github.com/nextras/tracy-query-panel",
+        "keywords": [
+            "nextras",
+            "tracy"
         ]
     }
 ]

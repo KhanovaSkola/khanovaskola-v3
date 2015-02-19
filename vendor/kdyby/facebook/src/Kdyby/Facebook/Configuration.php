@@ -223,12 +223,6 @@ class Configuration extends Nette\Object
 	public $graphVersion = '';
 
 	/**
-	 * Enforce tls
-	 * @var bool
-	 */
-	public $tls;
-
-	/**
 	 * Maps aliases to Facebook domains.
 	 * @var array
 	 */

@@ -575,11 +575,6 @@ class Facebook extends Nette\Object
 			$url->setScheme($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ? 'https' : 'http');
 		}
 
-		if ($this->config->tls)
-		{
-			$url->setScheme('https');
-		}
-
 		parse_str($url->getQuery(), $query);
 		$query = array_diff_key($query, array_flip($this->config->dropQueryParams));
 		$url->setQuery($query);

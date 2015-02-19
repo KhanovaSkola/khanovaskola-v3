@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3eca2a4f46604b8f21c851b38535956c",
+    "hash": "07aa80f5dc1185d048eaed514c89caf5",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -718,12 +718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/Facebook.git",
-                "reference": "d6cff663d1a789c69857e669fc9b6228ee81bbec"
+                "reference": "f94840bb"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Mikulas/Facebook/zipball/d6cff663d1a789c69857e669fc9b6228ee81bbec",
-                "reference": "d6cff663d1a789c69857e669fc9b6228ee81bbec",
+                "reference": "f94840bb",
                 "shasum": ""
             },
             "require": {
@@ -807,12 +807,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Replicator.git",
-                "reference": "5330eba0"
+                "reference": "d10ec08a"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/b99ff4089ec288e45c554f1ae5b06f391b3a0119",
-                "reference": "5330eba0",
+                "reference": "d10ec08a",
                 "shasum": ""
             },
             "require": {
@@ -884,12 +884,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Google.git",
-                "reference": "16cb87a2"
+                "reference": "9acc49db"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Kdyby/Google/zipball/16cb87a2e37d9983d821728b1312624ed1a751c2",
-                "reference": "16cb87a2",
+                "reference": "9acc49db",
                 "shasum": ""
             },
             "require": {
@@ -3446,8 +3446,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "/Users/mikulas/Projects/tracy-query-panel",
-                "reference": "357e479e905a387f4b51106ad298a6d97f5f00b0"
+                "url": "https://github.com/nextras/tracy-query-panel.git",
+                "reference": "357e479e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/357e479e905a387f4b51106ad298a6d97f5f00b0",
+                "reference": "357e479e",
+                "shasum": ""
             },
             "require": {
                 "latte/latte": "~2.2.0 || ~2.3.0-beta",
@@ -3473,6 +3479,7 @@
                     "Nextras\\TracyQueryPanel\\Handlers\\": "src/handlers"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3488,10 +3495,7 @@
                 "nextras",
                 "tracy"
             ],
-            "support": {
-                "issues": "https://github.com/nextras/tracy-query-panel/issues"
-            },
-            "time": "2015-02-15 21:24:13"
+            "time": "2015-02-15 21:31:16"
         },
         {
             "name": "oodle/inflect",
@@ -3659,8 +3663,20 @@
     ],
     "aliases": [
         {
-            "alias": "1.0",
-            "alias_normalized": "1.0.0.0",
+            "alias": "1.2.999",
+            "alias_normalized": "1.2.999.0",
+            "version": "9999999-dev",
+            "package": "kdyby/facebook"
+        },
+        {
+            "alias": "1.1.999",
+            "alias_normalized": "1.1.999.0",
+            "version": "9999999-dev",
+            "package": "kdyby/forms-replicator"
+        },
+        {
+            "alias": "0.1.999",
+            "alias_normalized": "0.1.999.0",
             "version": "9999999-dev",
             "package": "kdyby/google"
         }
