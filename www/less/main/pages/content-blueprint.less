@@ -160,4 +160,45 @@
 		}
 	}
 
+
+	.monster-correct {
+		position: absolute;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+		padding-top: 160px;
+		background-color: fadeout(@khan-green, 15%);
+		color: white;
+
+		.shout {
+			font-size: 50pt;
+			line-height: 0.9;
+			max-width: 500px;
+			margin: 0 auto 0.6ex;
+		}
+		& > .icon {
+			font-size: 40pt;
+		}
+		.continue {
+			max-width: 500px;
+			margin: 4ex auto 0.6ex;
+			a {
+				font-size: 30pt;
+				line-height: 1.1;
+				.icon {
+					font-size: 25px;
+				}
+			}
+		}
+		.stay {
+			max-width: 500px;
+			margin: 4ex auto 0.6ex;
+			a {
+				font-size: 20pt;
+				line-height: 1.1;
+			}
+		}
+	}
+
 }
