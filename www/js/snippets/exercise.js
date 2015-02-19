@@ -16,7 +16,7 @@ $(function() {
     var hints = $exercise.find('[data-hint]').hide().toArray();
     $('[data-show-hint]').click(function() {
         $exercise.find('[name=hint]').val(true);
-        $(hints.shift()).show();
+        $(hints.shift()).removeClass('hidden').show();
         $exercise.find('[data-hint-label]').removeClass('hidden');
 
         if (!hints.length) {

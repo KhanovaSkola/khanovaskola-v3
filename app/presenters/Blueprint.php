@@ -89,11 +89,17 @@ final class Blueprint extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 
+
 		$session = $this->session->getSection('exercise');
 		$id = $this->blueprint->id;
 		$key = "$id|completed";
 		$this->template->justCompleted = $session[$key] ?: FALSE;
 		$session->offsetUnset($key);
+
+		$key = "$id|animateLast";
+		$this->template->animateLast = $session[$key] ?: FALSE;
+		$session->offsetUnset($key);
+
 
 		$this->template->dimNextButton = !$this->userEntity->hasCompleted($this->blueprint);
 
@@ -166,17 +172,19 @@ final class Blueprint extends Content
 			]);
 
 			$answer->correct = TRUE;
-//			$this->flashSuccess('exercise.correct', ['answer' => $v->answer]);
 			$seed = NULL;
 		}
 		else
 		{
 			$answer->correct = FALSE;
-//			$this->flashError('exercise.wrong', ['answer' => $v->answer]);
 			$seed = $v->seed;
 		}
 
 		$this->orm->flush();
+
+		$session = $this->session->getSection('exercise');
+		$id = $this->blueprint->id;
+		$session["$id|animateLast"] = !$answer->correct || $answer->firstTry;
 
 		if (!$this->userEntity->hasCompleted($this->blueprint))
 		{
@@ -201,7 +209,6 @@ final class Blueprint extends Content
 				$this->orm->completedContents->attach($completion);
 				$this->orm->flush();
 
-				$session = $this->session->getSection('exercise');
 				$id = $this->blueprint->id;
 				$session["$id|completed"] = TRUE;
 			}

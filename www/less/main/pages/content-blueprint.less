@@ -160,6 +160,23 @@
 		}
 	}
 
+	@keyframes zoomInDown {
+		0% {
+			opacity: 0;
+			transform: scale3d(20, 20, 20) translate3d(20px, -17px, 0);
+			animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+		}
+	}
+	.animateAnswer {
+		animation-duration: 0.8s;
+		animation-fill-mode: both;
+		animation-name: zoomInDown;
+		transition-timing-function: ease-out;
+		-webkit-perspective: 1000; // crisp scale-up
+
+		position: absolute;
+		z-index: 99999;
+	}
 
 	.monster-correct {
 		position: absolute;

@@ -40,7 +40,8 @@
 						</div>
 						<div class="box-goal">
 							{foreach $recentAnswers as $answer}
-								<div class="goal {$answer}"><i class="icon icon-{$answer}"></i></div>
+								{var $animate = $animateLast && $iterator->isLast()}
+								<div class="goal {$answer}"><i class="icon icon-{$answer}{if $animate} animateAnswer{/if}"></i></div>
 							{/foreach}
                         </div>
     				</div>
@@ -59,7 +60,7 @@
 						<div class="hints-wrapper">
 							<div data-hint-label class="hidden">Nápovědy:</div>
 	                        <ol data-hints>
-	                            <li n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
+	                            <li class="hidden" n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
 	                        </ol>
 	                        <a href="#" class="btn-hints" data-show-hint>{_'exercise.showHint'}</a>
                         </div>
