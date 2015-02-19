@@ -1,6 +1,7 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var cache = require('gulp-cache');
 var path = require('path');
 var stream = require("event-stream")
 var replace = require('gulp-replace-task');
@@ -43,8 +44,10 @@ var jsAdminLibFiles = [
 	path.join(libDir, 'handsontable/dist/handsontable.full.min.js')
 ];
 var lessDir = './www/less';
-var lessFiles = [
+var lessBootstrapFiles = [
 	path.join(bsDir, 'variables.less'),
+	path.join(lessDir, 'variables.less'),
+
 	path.join(bsDir, 'mixins.less'),
 	path.join(bsDir, 'normalize.less'),
 	//path.join(bsDir, 'print.less'),
@@ -82,7 +85,11 @@ var lessFiles = [
 	//path.join(bsDir, 'popovers.less'),
 	//path.join(bsDir, 'carousel.less'),
 	path.join(bsDir, 'utilities.less'),
-	path.join(bsDir, 'responsive-utilities.less'),
+	path.join(bsDir, 'responsive-utilities.less')
+];
+var lessFiles = [
+	path.join(bsDir, 'variables.less'),
+	path.join(bsDir, 'mixins.less'),
 
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
@@ -106,11 +113,17 @@ var lessExperimentFiles = [
 ];
 
 gulp.task('less-dev-main', function() {
-	return gulp.src(lessFiles)
-		.pipe($.sourcemaps.init())
-		.pipe($.concat('main.less'))
-		.pipe($.less())
-		.pipe($.autoprefixer())
+	return stream.concat(
+		gulp.src(lessBootstrapFiles)
+			.pipe($.concat('bootstrap.less'))
+			.pipe(cache($.less())),
+		gulp.src(lessFiles)
+			.pipe($.sourcemaps.init())
+			.pipe($.concat('main.less'))
+			.pipe($.less())
+			.pipe($.autoprefixer())
+	)
+		.pipe($.concat('main.css'))
 		.pipe($.rename({suffix: '.min'}))
 		.pipe($.sourcemaps.write('.', {
 			sourceRoot: '../less'
