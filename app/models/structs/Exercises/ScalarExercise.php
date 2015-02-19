@@ -4,6 +4,7 @@ namespace App\Models\Structs\Exercises;
 
 use App\Models\Rme\Answer;
 use App\Models\Rme\Blueprint;
+use KhanovaSkola\Cislo;
 use Nette\Object;
 
 
@@ -47,7 +48,8 @@ class ScalarExercise extends Object
 
 	public function verifyAnswer(Answer $answer)
 	{
-		return $answer->answer == $this->answer; // TODO check typecasting
+		return $answer->answer == $this->answer
+			|| Cislo::parse($answer->answer) == $this->answer; // TODO check typecasting
 	}
 
 	/**
