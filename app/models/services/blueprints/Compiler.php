@@ -295,7 +295,10 @@ class Compiler extends Object
 				{
 					throw new BlueprintCompilerException('Invalid image syntax');
 				}
-				$url = $node['attributes']['SRC'];
+				$url = isset($node['attributes']['SRC'])
+					? $node['attributes']['SRC']
+					: $this->evaluate($node['attributes']['EVALSRC'], $vars);
+
 				if (strpos($url, 'http://') !== FALSE)
 				{
 					throw new BlueprintCompilerException("Invalid image source '$url', http not allowed.");
