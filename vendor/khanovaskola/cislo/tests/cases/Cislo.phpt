@@ -80,6 +80,10 @@ class CisloTest extends TestCase
 	public function testParseFolding()
 	{
 		Assert::same(
+			Cislo::parse('DEVĚT'),
+			Cislo::parse('devět')
+		);
+		Assert::same(
 			Cislo::parse('tři tisíce devadesát tři'),
 			Cislo::parse('tri tisice devadesat tri')
 		);

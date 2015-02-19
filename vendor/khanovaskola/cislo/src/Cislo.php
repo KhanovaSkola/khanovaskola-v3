@@ -162,7 +162,7 @@ class Cislo
 
 	public static function parse($phrase)
 	{
-		$normalized = Strings::normalize(Strings::toAscii($phrase));
+		$normalized = Strings::lower(Strings::normalize(Strings::toAscii($phrase)));
 
 		$words = preg_split('~\\s+~', $normalized, -1, PREG_SPLIT_NO_EMPTY);
 
