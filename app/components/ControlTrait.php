@@ -61,7 +61,7 @@ trait ControlTrait
 		{
 			foreach ($args as $key => $arg)
 			{
-				if (!is_object($arg))
+				if (!is_object($arg) && $arg !== NULL)
 				{
 					$scalarArgs[$key] = $arg;
 				}
@@ -93,16 +93,16 @@ trait ControlTrait
 			/** @var Rme\Content $destination */
 			/** @var Rme\Block $block */
 			$block = NULL;
-			if (isset($args[0]) && $args[0] instanceof Rme\Block)
+			if (isset($scalarArgs[0]) && $scalarArgs[0] instanceof Rme\Block)
 			{
-				$block = $args[0];
+				$block = $scalarArgs[0];
 			}
 
 			/** @var Rme\Schema $schema */
 			$schema = NULL;
-			if (isset($args[1]) && $args[1] instanceof Rme\Schema)
+			if (isset($scalarArgs[1]) && $scalarArgs[1] instanceof Rme\Schema)
 			{
-				$schema = $args[1];
+				$schema = $scalarArgs[1];
 			}
 
 			$id = $destination->id;
