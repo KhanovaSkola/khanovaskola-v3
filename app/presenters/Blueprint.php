@@ -89,7 +89,6 @@ final class Blueprint extends Content
 		$this->template->nextBlock = $nextBlock;
 		$this->template->nextSchema = $nextSchema;
 
-
 		$session = $this->session->getSection('exercise');
 		$id = $this->blueprint->id;
 		$key = "$id|completed";
@@ -99,7 +98,6 @@ final class Blueprint extends Content
 		$key = "$id|animateLast";
 		$this->template->animateLast = $session[$key] ?: FALSE;
 		$session->offsetUnset($key);
-
 
 		$this->template->dimNextButton = !$this->userEntity->hasCompleted($this->blueprint);
 
@@ -188,29 +186,34 @@ final class Blueprint extends Content
 
 		if (!$this->userEntity->hasCompleted($this->blueprint))
 		{
-			/** @var Rme\Answer[] $answers */
-			$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)->applyLimit(5);
-			$completed = TRUE;
-			foreach ($answers as $answer)
-			{
-				if (!$answer->correct || $answer->hint)
-				{
-					$completed = FALSE;
-					break;
-				}
-			}
-			if ($completed)
-			{
-				$completion = new Rme\CompletedContent();
-				$completion->schema = $this->schema;
-				$completion->block = $this->block;
-				$completion->content = $this->blueprint;
-				$completion->user = $this->userEntity;
-				$this->orm->completedContents->attach($completion);
-				$this->orm->flush();
+			$minAnswers = 5;
 
-				$id = $this->blueprint->id;
-				$session["$id|completed"] = TRUE;
+			/** @var Rme\Answer[] $answers */
+			$answers = $this->blueprint->getRecentAnswersBy($this->userEntity)->applyLimit($minAnswers);
+			if (count($answers) === $minAnswers)
+			{
+				$completed = TRUE;
+				foreach ($answers as $answer)
+				{
+					if (!$answer->correct || $answer->hint)
+					{
+						$completed = FALSE;
+						break;
+					}
+				}
+				if ($completed)
+				{
+					$completion = new Rme\CompletedContent();
+					$completion->schema = $this->schema;
+					$completion->block = $this->block;
+					$completion->content = $this->blueprint;
+					$completion->user = $this->userEntity;
+					$this->orm->completedContents->attach($completion);
+					$this->orm->flush();
+
+					$id = $this->blueprint->id;
+					$session["$id|completed"] = TRUE;
+				}
 			}
 		}
 
