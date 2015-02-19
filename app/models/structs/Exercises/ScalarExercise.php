@@ -48,8 +48,19 @@ class ScalarExercise extends Object
 
 	public function verifyAnswer(Answer $answer)
 	{
-		return $answer->answer == $this->answer
-			|| Cislo::parse($answer->answer) == $this->answer; // TODO check typecasting
+		// TODO check typecasting
+		if ($answer->answer == $this->answer)
+		{
+			return TRUE;
+		}
+		try
+		{
+			return Cislo::parse($answer->answer) == $this->answer;
+		}
+		catch (\Exception $e)
+		{
+			return FALSE;
+		}
 	}
 
 	/**
