@@ -10,8 +10,7 @@ namespace Nette\Application\UI;
 use Nette,
 	Nette\Application,
 	Nette\Application\Responses,
-	Nette\Http,
-	Nette\Reflection;
+	Nette\Http;
 
 
 /**
@@ -292,7 +291,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public function checkRequirements($element)
 	{
-		$user = (array) $element->getAnnotation('User');
+		$user = (array) PresenterComponentReflection::parseAnnotation($element, 'User');
 		if (in_array('loggedIn', $user, TRUE) && !$this->getUser()->isLoggedIn()) {
 			throw new Application\ForbiddenRequestException;
 		}
@@ -732,7 +731,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public function canonicalize()
 	{
-		if (!$this->isAjax() && !$this->request->hasFlag(Application\Request::RESTORED) && ($this->request->isMethod('get') || $this->request->isMethod('head'))) {
+		if (!$this->isAjax() && ($this->request->isMethod('get') || $this->request->isMethod('head'))) {
 			try {
 				$url = $this->createRequest($this, $this->action, $this->getGlobalState() + $this->request->getParameters(), 'redirectX');
 			} catch (InvalidLinkException $e) {}
@@ -872,7 +871,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 				// counterpart of signalReceived() & tryCall()
 				$method = $component->formatSignalMethod($signal);
 				if (!$reflection->hasCallableMethod($method)) {
-					throw new InvalidLinkException("Unknown signal '$signal', missing handler {$reflection->name}::$method()");
+					throw new InvalidLinkException("Unknown signal '$signal', missing handler {$reflection->getName()}::$method()");
 				}
 				if ($args) { // convert indexed parameters to named
 					self::argsToParams(get_class($component), $method, $args);
@@ -1036,7 +1035,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 				continue;
 			}
 
-			$def = $param->isDefaultValueAvailable() && $param->isOptional() ? $param->getDefaultValue() : NULL; // see PHP bug #62988
+			$def = $param->isDefaultValueAvailable() ? $param->getDefaultValue() : NULL;
 			$type = $param->isArray() ? 'array' : gettype($def);
 			if (!PresenterComponentReflection::convertType($args[$name], $type)) {
 				throw new InvalidLinkException("Invalid value for parameter '$name' in method $class::$method(), expected " . ($type === 'NULL' ? 'scalar' : $type) . ".");
@@ -1125,7 +1124,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public static function getPersistentComponents()
 	{
-		return (array) Reflection\ClassType::from(get_called_class())->getAnnotation('persistent');
+		return (array) PresenterComponentReflection::parseAnnotation(new \ReflectionClass(get_called_class()), 'persistent');
 	}
 
 

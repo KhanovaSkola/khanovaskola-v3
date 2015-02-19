@@ -25,7 +25,7 @@ class Container extends Nette\Object
 	/** @var array  user parameters */
 	/*private*/public $parameters = array();
 
-	/** @var array  storage for shared objects */
+	/** @var object[]  storage for shared objects */
 	private $registry = array();
 
 	/** @var array[] */
@@ -98,8 +98,10 @@ class Container extends Nette\Object
 	 */
 	public function getService($name)
 	{
-		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		if (!isset($this->registry[$name])) {
+			if (isset($this->meta[self::ALIASES][$name])) {
+				return $this->getService($this->meta[self::ALIASES][$name]);
+			}
 			$this->registry[$name] = $this->createService($name);
 		}
 		return $this->registry[$name];
@@ -115,7 +117,8 @@ class Container extends Nette\Object
 	{
 		$name = isset($this->meta[self::ALIASES][$name]) ? $this->meta[self::ALIASES][$name] : $name;
 		return isset($this->registry[$name])
-			|| method_exists($this, $method = Container::getMethodName($name)) && $this->getReflection()->getMethod($method)->getName() === $method;
+			|| (method_exists($this, $method = Container::getMethodName($name))
+				&& ($rm = new \ReflectionMethod($this, $method)) && $rm->getName() === $method);
 	}
 
 
@@ -147,7 +150,7 @@ class Container extends Nette\Object
 		if (isset($this->creating[$name])) {
 			throw new Nette\InvalidStateException(sprintf('Circular reference detected for services: %s.', implode(', ', array_keys($this->creating))));
 
-		} elseif (!method_exists($this, $method) || $this->getReflection()->getMethod($method)->getName() !== $method) {
+		} elseif (!method_exists($this, $method) || !($rm = new \ReflectionMethod($this, $method)) || $rm->getName() !== $method) {
 			throw new MissingServiceException("Service '$name' not found.");
 		}
 
@@ -177,15 +180,14 @@ class Container extends Nette\Object
 	 */
 	public function getByType($class, $need = TRUE)
 	{
-		$names = $this->findByType($class);
-		if (!$names) {
-			if ($need) {
-				throw new MissingServiceException("Service of type $class not found.");
-			}
+		$class = ltrim($class, '\\');
+		$names = & $this->meta[self::TYPES][$class][TRUE];
+		if (count($names) === 1) {
+			return $this->getService($names[0]);
 		} elseif (count($names) > 1) {
 			throw new MissingServiceException("Multiple services of type $class found: " . implode(', ', $names) . '.');
-		} else {
-			return $this->getService($names[0]);
+		} elseif ($need) {
+			throw new MissingServiceException("Service of type $class not found.");
 		}
 	}
 
@@ -195,13 +197,13 @@ class Container extends Nette\Object
 	 * @param  string
 	 * @return string[]
 	 */
-	public function findByType($class, $autowired = TRUE)
+	public function findByType($class)
 	{
-		$class = ltrim(strtolower($class), '\\');
+		$class = ltrim($class, '\\');
 		$meta = & $this->meta[self::TYPES];
 		return array_merge(
 			isset($meta[$class][TRUE]) ? $meta[$class][TRUE] : array(),
-			!$autowired && isset($meta[$class][FALSE]) ? $meta[$class][FALSE] : array()
+			isset($meta[$class][FALSE]) ? $meta[$class][FALSE] : array()
 		);
 	}
 
@@ -229,7 +231,7 @@ class Container extends Nette\Object
 	 */
 	public function createInstance($class, array $args = array())
 	{
-		$rc = Nette\Reflection\ClassType::from($class);
+		$rc = new \ReflectionClass($class);
 		if (!$rc->isInstantiable()) {
 			throw new ServiceCreationException("Class $class is not instantiable.");
 
@@ -260,7 +262,7 @@ class Container extends Nette\Object
 			}
 		}
 
-		foreach (Helpers::getInjectProperties(Nette\Reflection\ClassType::from($service), $this) as $property => $type) {
+		foreach (Helpers::getInjectProperties(new \ReflectionClass($service), $this) as $property => $type) {
 			$service->$property = $this->getByType($type);
 		}
 	}

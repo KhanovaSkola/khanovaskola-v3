@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
  */
 
-namespace Tracy\Bridges\DI;
+namespace Tracy\Bridges\Nette;
 
 use Nette;
 
@@ -43,6 +43,7 @@ class TracyExtension extends Nette\DI\CompilerExtension
 
 	public function loadConfiguration()
 	{
+		$this->validateConfig($this->defaults);
 		$container = $this->getContainerBuilder();
 
 		$container->addDefinition($this->prefix('logger'))
@@ -59,10 +60,10 @@ class TracyExtension extends Nette\DI\CompilerExtension
 
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
-		$initialize = $class->methods['initialize'];
+		$initialize = $class->getMethod('initialize');
 		$container = $this->getContainerBuilder();
-		$config = $options = $this->validateConfig($this->defaults);
 
+		$options = $this->config;
 		unset($options['bar'], $options['blueScreen']);
 		foreach ($options as $key => $value) {
 			if ($value !== NULL) {
@@ -71,7 +72,7 @@ class TracyExtension extends Nette\DI\CompilerExtension
 		}
 
 		if ($this->debugMode) {
-			foreach ((array) $config['bar'] as $item) {
+			foreach ((array) $this->config['bar'] as $item) {
 				$initialize->addBody($container->formatPhp(
 					'$this->getService(?)->addPanel(?);',
 					Nette\DI\Compiler::filterArguments(array(
@@ -82,10 +83,10 @@ class TracyExtension extends Nette\DI\CompilerExtension
 			}
 		}
 
-		foreach ((array) $config['blueScreen'] as $item) {
+		foreach ((array) $this->config['blueScreen'] as $item) {
 			$initialize->addBody($container->formatPhp(
 				'$this->getService(?)->addPanel(?);',
-				Nette\DI\Compiler::filterArguments(array($this->prefix('bluescreen'), $item))
+				Nette\DI\Compiler::filterArguments(array($this->prefix('blueScreen'), $item))
 			));
 		}
 	}

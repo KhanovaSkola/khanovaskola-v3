@@ -33,7 +33,7 @@ class ContainerLoader extends Nette\Object
 
 	/**
 	 * @param  mixed
-	 * @param  callable  function(string $class): [code, files]
+	 * @param  callable  function(Nette\DI\Compiler $compiler): string|NULL
 	 * @return string
 	 */
 	public function load($key, $generator)
@@ -61,46 +61,63 @@ class ContainerLoader extends Nette\Object
 	private function loadFile($class, $generator)
 	{
 		$file = "$this->tempDirectory/$class.php";
-		if (!$this->autoRebuild && (@include $file) !== FALSE) { // @ - file may not exist
+		if (!$this->isExpired($file) && (@include $file) !== FALSE) {
 			return;
 		}
 
 		if (!is_dir($this->tempDirectory)) {
 			@mkdir($this->tempDirectory); // @ - directory may already exist
 		}
+
 		$handle = fopen("$file.lock", 'c+');
-		if (!$handle) {
-			throw new Nette\IOException("Unable to open or create file '$file.lock'.");
+		if (!$handle || !flock($handle, LOCK_EX)) {
+			throw new Nette\IOException("Unable to acquire exclusive lock on '$file.lock'.");
 		}
 
+		if (!is_file($file) || $this->isExpired($file)) {
+			list($toWrite[$file], $toWrite["$file.meta"]) = $this->generate($class, $generator);
+
+			foreach ($toWrite as $name => $content) {
+				if (file_put_contents("$name.tmp", $content) !== strlen($content) || !rename("$name.tmp", $name)) {
+					@unlink("$name.tmp"); // @ - file may not exist
+					throw new Nette\IOException("Unable to create file '$name'.");
+				}
+			}
+		}
+
+		if ((@include $file) === FALSE) { // @ - error escalated to exception
+			throw new Nette\IOException("Unable to include '$file'.");
+		}
+		flock($handle, LOCK_UN);
+	}
+
+
+	private function isExpired($file)
+	{
 		if ($this->autoRebuild) {
-			flock($handle, LOCK_SH);
-			foreach ((array) @unserialize(file_get_contents("$file.meta")) as $f => $time) { // @ - file may not exist
-				if (@filemtime($f) !== $time) { // @ - stat may fail
-					@unlink($file); // @ - file may not exist
-					break;
-				}
-			}
+			$meta = @unserialize(file_get_contents("$file.meta")); // @ - files may not exist
+			$files = $meta ? array_combine($tmp = array_keys($meta), $tmp) : array();
+			return $meta !== @array_map('filemtime', $files); // @ - files may not exist
 		}
+		return FALSE;
+	}
 
-		if (!is_file($file)) {
-			flock($handle, LOCK_EX);
-			if (!is_file($file)) {
-				list($code, $dependencies) = call_user_func($generator, $class);
-				$code = "<?php\n" . $code;
-				if (file_put_contents("$file.tmp", $code) !== strlen($code) || !rename("$file.tmp", $file)) {
-					@unlink("$file.tmp"); // @ - file may not be created
-					throw new Nette\IOException("Unable to create file '$file'.");
-				}
-				$tmp = array();
-				foreach ((array) $dependencies as $f) {
-					$tmp[$f] = @filemtime($f); // @ - stat may fail
-				}
-				file_put_contents("$file.meta", serialize($tmp));
-			}
-		}
 
-		require $file;
+	/**
+	 * @return array of (code, file[])
+	 */
+	protected function generate($class, $generator)
+	{
+		$compiler = new Compiler;
+		$compiler->getContainerBuilder()->setClassName($class);
+		$code = call_user_func_array($generator, array(& $compiler));
+		$code = $code ?: implode("\n\n\n", $compiler->compile());
+		$files = $compiler->getDependencies();
+		$files = $files ? array_combine($files, $files) : array(); // workaround for PHP 5.3 array_combine
+		return array(
+			"<?php\n$code",
+			serialize(@array_map('filemtime', $files)) // @ - file may not exist
+		);
 	}
 
 }

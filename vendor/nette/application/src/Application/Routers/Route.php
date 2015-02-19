@@ -70,7 +70,7 @@ class Route extends Nette\Object implements Application\IRouter
 			self::FILTER_OUT => array(__CLASS__, 'presenter2path'),
 		),
 		'action' => array(
-			self::PATTERN => '[a-z0-9][a-z0-9-]*',
+			self::PATTERN => '[a-z][a-z0-9-]*',
 			self::FILTER_IN => array(__CLASS__, 'path2action'),
 			self::FILTER_OUT => array(__CLASS__, 'action2path'),
 		),
@@ -805,6 +805,7 @@ class Route extends Nette\Object implements Application\IRouter
 	 */
 	public static function addStyle($style, $parent = '#')
 	{
+		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
 		if (isset(static::$styles[$style])) {
 			throw new Nette\InvalidArgumentException("Style '$style' already exists.");
 		}
@@ -826,6 +827,7 @@ class Route extends Nette\Object implements Application\IRouter
 	 */
 	public static function setStyleProperty($style, $key, $value)
 	{
+		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
 		if (!isset(static::$styles[$style])) {
 			throw new Nette\InvalidArgumentException("Style '$style' doesn't exist.");
 		}

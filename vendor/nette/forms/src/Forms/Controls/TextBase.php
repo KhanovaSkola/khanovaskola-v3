@@ -24,9 +24,6 @@ abstract class TextBase extends BaseControl
 	/** @var string */
 	protected $emptyValue = '';
 
-	/** @var array */
-	protected $filters = array();
-
 	/** @var mixed unfiltered submitted value */
 	protected $rawValue = '';
 
@@ -54,14 +51,7 @@ abstract class TextBase extends BaseControl
 	 */
 	public function getValue()
 	{
-		$value = $this->value;
-		if (!empty($this->control->maxlength)) {
-			$value = Strings::substring($value, 0, $this->control->maxlength);
-		}
-		foreach ($this->filters as $filter) {
-			$value = (string) call_user_func($filter, $value);
-		}
-		return $value === Strings::trim($this->translate($this->emptyValue)) ? '' : $value;
+		return $this->value === Strings::trim($this->translate($this->emptyValue)) ? '' : $this->value;
 	}
 
 
@@ -103,11 +93,10 @@ abstract class TextBase extends BaseControl
 	 * Appends input string filter callback.
 	 * @param  callable
 	 * @return self
-	 * @deprecated
 	 */
 	public function addFilter($filter)
 	{
-		$this->filters[] = Nette\Utils\Callback::check($filter);
+		$this->rules->addFilter($filter);
 		return $this;
 	}
 

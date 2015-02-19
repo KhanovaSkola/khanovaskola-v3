@@ -46,25 +46,30 @@ class RoutingExtension extends Nette\DI\CompilerExtension
 			$router->addSetup('$service[] = new Nette\Application\Routers\Route(?, ?);', array($mask, $action));
 		}
 
-		if ($this->debugMode && $config['debugger'] && $container->hasDefinition('application')) {
-			$container->getDefinition('application')->addSetup('@Tracy\Bar::addPanel', array(
-				new Nette\DI\Statement('Nette\Bridges\ApplicationTracy\RoutingPanel')
-			));
-		}
-
 		if ($this->name === 'routing') {
 			$container->addAlias('router', $this->prefix('router'));
 		}
 	}
 
 
+	public function beforeCompile()
+	{
+		$container = $this->getContainerBuilder();
+
+		if ($this->debugMode && $this->config['debugger'] && $application = $container->getByType('Nette\Application\Application')) {
+			$container->getDefinition($application)->addSetup('@Tracy\Bar::addPanel', array(
+				new Nette\DI\Statement('Nette\Bridges\ApplicationTracy\RoutingPanel')
+			));
+		}
+	}
+
+
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
-		$config = $this->getConfig();
-		if (!empty($config['cache'])) {
-			$method = $class->methods[Nette\DI\Container::getMethodName($this->prefix('router'))];
+		if (!empty($this->config['cache'])) {
+			$method = $class->getMethod(Nette\DI\Container::getMethodName($this->prefix('router')));
 			try {
-				$router = serialize(eval($method->body));
+				$router = serialize(eval($method->getBody()));
 			} catch (\Exception $e) {
 				throw new Nette\DI\ServiceCreationException('Unable to cache router due to error: ' . $e->getMessage(), 0, $e);
 			}

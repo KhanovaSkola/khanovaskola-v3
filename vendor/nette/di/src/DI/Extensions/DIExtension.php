@@ -43,11 +43,10 @@ class DIExtension extends Nette\DI\CompilerExtension
 
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
-		$initialize = $class->methods['initialize'];
+		$initialize = $class->getMethod('initialize');
 		$container = $this->getContainerBuilder();
-		$config = $this->getConfig();
 
-		if ($this->debugMode && $config['debugger']) {
+		if ($this->debugMode && $this->config['debugger']) {
 			$initialize->addBody($container->formatPhp('?;', array(
 				new Nette\DI\Statement('@Tracy\Bar::addPanel', array(new Nette\DI\Statement('Nette\Bridges\DITracy\ContainerPanel')))
 			)));
@@ -57,12 +56,12 @@ class DIExtension extends Nette\DI\CompilerExtension
 			$initialize->addBody('$this->getService(?);', array($name));
 		}
 
-		if (!empty($config['accessors'])) {
-			$definitions = $container->definitions;
+		if (!empty($this->config['accessors'])) {
+			$definitions = $container->getDefinitions();
 			ksort($definitions);
 			foreach ($definitions as $name => $def) {
 				if (Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-					$type = $def->implement ?: $def->class;
+					$type = $def->getImplement() ?: $def->getClass();
 					$class->addDocument("@property $type \$$name");
 				}
 			}

@@ -78,25 +78,23 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 
 	public function beforeCompile()
 	{
-		$this->validateConfig($this->defaults);
 		$container = $this->getContainerBuilder();
 		$all = array();
 
-		foreach ($container->findByType('Nette\Application\IPresenter', FALSE) as $name) {
-			$def = $container->getDefinition($name);
-			$all[strtolower($def->class)] = $def;
+		foreach ($container->findByType('Nette\Application\IPresenter') as $def) {
+			$all[$def->getClass()] = $def;
 		}
 
 		$counter = 0;
 		foreach ($this->findPresenters() as $class) {
-			if (empty($all[$tmp = strtolower($class)])) {
-				$all[$tmp] = $container->addDefinition($this->prefix(++$counter))->setClass($class);
+			if (empty($all[$class])) {
+				$all[$class] = $container->addDefinition($this->prefix(++$counter))->setClass($class);
 			}
 		}
 
 		foreach ($all as $def) {
-			$def->setInject(TRUE)->setAutowired(FALSE)->addTag('nette.presenter', $def->class);
-			if (is_subclass_of($def->class, 'Nette\Application\UI\Presenter')) {
+			$def->setInject(TRUE)->setAutowired(FALSE)->addTag('nette.presenter', $def->getClass());
+			if (is_subclass_of($def->getClass(), 'Nette\Application\UI\Presenter')) {
 				$def->addSetup('$invalidLinkMode', array(
 					$this->debugMode ? UI\Presenter::INVALID_LINK_WARNING : UI\Presenter::INVALID_LINK_SILENT
 				));
