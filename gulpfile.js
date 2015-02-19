@@ -159,10 +159,16 @@ gulp.task('less-experiment', function() {
 });
 
 gulp.task('less-production-main', function() {
-	return gulp.src(lessFiles)
-		.pipe($.concat('main.less'))
-		.pipe($.less())
-		.pipe($.autoprefixer())
+	return stream.concat(
+		gulp.src(lessBootstrapFiles)
+			.pipe($.concat('bootstrap.less'))
+			.pipe($.less()),
+		gulp.src(lessFiles)
+			.pipe($.concat('main.less'))
+			.pipe($.less())
+			.pipe($.autoprefixer())
+	)
+		.pipe($.concat('main.css'))
 		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
