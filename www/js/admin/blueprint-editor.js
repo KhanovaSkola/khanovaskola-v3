@@ -39,9 +39,10 @@
         var method = 'render' + def.type.charAt(0).toUpperCase() + def.type.slice(1);
 	    Renderer[method](def, $group, $input);
     };
+    var tableId = 0;
     Renderer.renderTable = function(def, $group, $input) {
         var $name = $group.parent().find('[name$="[name]"]');
-        $name.val($name.val() || 'table');
+        $name.val('table' + tableId++);
         $name.hide();
 
         var $table = $('<div/>');
