@@ -147,6 +147,11 @@ final class Blueprint extends Content
 		$v = $form->values;
 		$exercise = $this->getExercise($v->seed);
 
+		if (!$v->answer)
+		{
+			$this->redirect('this', ['seed' => $v->seed]);
+		}
+
 		$answer = new Rme\Answer($exercise, $v->answer);
 		$answer->time = $v->time;
 		$answer->inactivity = $v->inactivity === 'true'; // js
