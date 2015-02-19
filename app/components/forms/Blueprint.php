@@ -182,7 +182,10 @@ class Blueprint extends EntityForm
 			$partial->hints = [];
 			foreach ($values->hints as $i => $container)
 			{
-				$partial->addHint($container->hint);
+				if ($container->hint)
+				{
+					$partial->addHint($container->hint);
+				}
 			}
 
 			$blueprint->partials->add($partial);
