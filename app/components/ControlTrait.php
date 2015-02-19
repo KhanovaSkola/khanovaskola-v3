@@ -93,16 +93,16 @@ trait ControlTrait
 			/** @var Rme\Content $destination */
 			/** @var Rme\Block $block */
 			$block = NULL;
-			if (isset($scalarArgs[0]) && $scalarArgs[0] instanceof Rme\Block)
+			if (isset($args[0]) && $args[0] instanceof Rme\Block)
 			{
-				$block = $scalarArgs[0];
+				$block = $args[0];
 			}
 
 			/** @var Rme\Schema $schema */
 			$schema = NULL;
-			if (isset($scalarArgs[1]) && $scalarArgs[1] instanceof Rme\Schema)
+			if (isset($args[1]) && $args[1] instanceof Rme\Schema)
 			{
-				$schema = $scalarArgs[1];
+				$schema = $args[1];
 			}
 
 			$id = $destination->id;
