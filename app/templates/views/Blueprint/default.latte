@@ -57,7 +57,7 @@
 	                            {$exercise->question|noescape}
 	                        </span>
 
-							{form answer, class => "ajax"}
+							{form answer, class => "ajax", autocomplete => "off"}
 								{include "answers/{$exercise->getTemplateName()}.latte", _form => $_form}
 							{/form}
 

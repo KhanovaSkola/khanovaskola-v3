@@ -25,6 +25,7 @@ $(function() {
         hints = null;
         $container.find('[name=hint]').val(false);
         timer = App.getTimer();
+        $container.find('input:first').focus();
     });
 
     $container.on('click', '[data-show-hint]', function() {

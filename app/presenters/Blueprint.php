@@ -80,6 +80,9 @@ final class Blueprint extends Content
 		/** @var TextInput $seedInput */
 		$seedInput = $this['answer-seed'];
 		$seedInput->setValue($this->seed);
+		/** @var TextInput $answerInput */
+		$answerInput = $this['answer-answer'];
+		$answerInput->setValue('');
 
 		$this->template->exercise = $exercise;
 		$this->template->blueprint = $exercise->getBlueprint();
