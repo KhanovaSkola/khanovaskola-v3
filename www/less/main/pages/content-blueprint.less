@@ -163,17 +163,18 @@
 
 	@keyframes zoomInDown {
 		0% {
-			opacity: 0;
-			transform: scale3d(20, 20, 20) translate3d(20px, -17px, 0);
+			opacity: .3;
+			transform: scale3d(20, 20, 20) translate3d(20px, -8px, 0);
 			animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
 		}
 	}
 	.animate-answer {
-		animation-duration: 0.8s;
+		animation-duration: 0.4s;
 		animation-fill-mode: both;
 		animation-name: zoomInDown;
-		transition-timing-function: ease-out;
 		-webkit-perspective: 1000; // crisp scale-up
+		transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); // easeOutCirc
+		transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
 		position: absolute;
 		z-index: 99999;

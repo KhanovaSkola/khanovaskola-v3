@@ -15,7 +15,8 @@ $(function() {
     };
     $container.on('submit', '[data-exercise]', onSubmit);
     App.ajax.onBefore.push(function(xhr, settings) {
-        settings.data.append('time', timer())
+        settings.data.append('time', timer());
+        $container.find('[type="submit"]').addClass('disabled');
     });
 
 
