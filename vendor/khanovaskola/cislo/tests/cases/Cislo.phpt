@@ -75,6 +75,7 @@ class CisloTest extends TestCase
 	public function testParse()
 	{
 		Assert::same(0, Cislo::parse('nula'));
+		Assert::same(10, Cislo::parse('deset'));
 		Assert::same(100, Cislo::parse('sto'));
 		Assert::same(100, Cislo::parse('jedno sto'));
 		Assert::same(125, Cislo::parse('sto dvacet pět'));

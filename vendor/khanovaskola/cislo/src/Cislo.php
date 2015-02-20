@@ -211,8 +211,10 @@ class Cislo
 					$buffer += 8; break;
 				case 'devet':
 					$buffer += 9; break;
-				case 'jedenact':
+				case 'deset':
 					$buffer += 10; break;
+				case 'jedenact':
+					$buffer += 11; break;
 				case 'dvanact':
 					$buffer += 12; break;
 				case 'trinact':

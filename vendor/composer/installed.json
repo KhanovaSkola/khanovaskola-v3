@@ -2337,47 +2337,6 @@
         }
     },
     {
-        "name": "khanovaskola/cislo",
-        "version": "v1.4",
-        "version_normalized": "1.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/KhanovaSkola/cislo.git",
-            "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/9648e011a35638ed7d55119e6974ca3e22fd1905",
-            "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905",
-            "shasum": ""
-        },
-        "require": {
-            "nette/utils": "~2.2"
-        },
-        "require-dev": {
-            "nette/tester": "~1.3"
-        },
-        "time": "2015-02-19 13:32:43",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "KhanovaSkola\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite",
-                "email": "mikulas@khanovaskola.cz"
-            }
-        ],
-        "description": "Translates integers to words and vice versa"
-    },
-    {
         "name": "tracy/tracy",
         "version": "v2.3.0-RC3",
         "version_normalized": "2.3.0.0-RC3",
@@ -3778,5 +3737,46 @@
             "nextras",
             "tracy"
         ]
+    },
+    {
+        "name": "khanovaskola/cislo",
+        "version": "v1.5",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/KhanovaSkola/cislo.git",
+            "reference": "72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73",
+            "reference": "72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73",
+            "shasum": ""
+        },
+        "require": {
+            "nette/utils": "~2.2"
+        },
+        "require-dev": {
+            "nette/tester": "~1.3"
+        },
+        "time": "2015-02-20 21:08:44",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "KhanovaSkola\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@khanovaskola.cz"
+            }
+        ],
+        "description": "Translates integers to words and vice versa"
     }
 ]

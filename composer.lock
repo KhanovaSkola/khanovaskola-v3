@@ -1210,16 +1210,16 @@
         },
         {
             "name": "khanovaskola/cislo",
-            "version": "v1.4",
+            "version": "v1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KhanovaSkola/cislo.git",
-                "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905"
+                "reference": "72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/9648e011a35638ed7d55119e6974ca3e22fd1905",
-                "reference": "9648e011a35638ed7d55119e6974ca3e22fd1905",
+                "url": "https://api.github.com/repos/KhanovaSkola/cislo/zipball/72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73",
+                "reference": "72dd1a7062dc60ce7bbf5df5cedf0ec391eaef73",
                 "shasum": ""
             },
             "require": {
@@ -1245,7 +1245,7 @@
                 }
             ],
             "description": "Translates integers to words and vice versa",
-            "time": "2015-02-19 13:32:43"
+            "time": "2015-02-20 21:08:44"
         },
         {
             "name": "latte/latte",
