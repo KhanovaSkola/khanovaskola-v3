@@ -1,7 +1,7 @@
 <form class="clearfix" n:name="form" data-url-direct="{plink Search:redirectAutocomplete}">
     <div class="pull-left search-input{ifset $class} {$class}{/ifset}">
         <label n:if="$label">{$label}</label>
-        <input n:name="query" type="text" class="form-control" placeholder="Hledat" data-search-form-query>
+        <input n:name="query" type="text" class="form-control" placeholder="Hledat" {ifset $query}value="{$query}"{/ifset} data-search-form-query>
     </div>
     <div class="pull-left">
         <button n:name="search" class="btn btn-search">

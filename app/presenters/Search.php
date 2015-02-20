@@ -29,10 +29,6 @@ final class Search extends Presenter
 			$this->redirect('Homepage:default');
 		}
 
-		/** @var TextInput $input */
-		$input = $this->getComponent('search-form-query');
-		$input->setDefaultValue($query);
-
 		$this->template->query = $query;
 		list($limit, $offset) = $this->getLinearLimitOffset(1);
 		$this->template->search = $this->search->query($query, $limit, $offset);
