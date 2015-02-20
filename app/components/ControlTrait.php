@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use App\InvalidArgumentException;
 use App\Models\Orm\Entity;
 use App\Models\Orm\TitledEntity;
 use App\Models\Rme;
@@ -164,19 +165,21 @@ trait ControlTrait
 		else if (substr($name, -4) === 'Form')
 		{
 			$formClass = 'App\\Components\\Forms\\' . ucFirst(substr($name, 0, -4));
-			if (class_exists($formClass))
+			if (!class_exists($formClass))
 			{
-				array_unshift($args, $formClass);
-				return $this->buildComponent(FormControl::class, $args);
+				throw new InvalidArgumentException("Form class '$formClass' does not exist, component '$name' cannot be created.");
 			}
+			array_unshift($args, $formClass);
+			return $this->buildComponent(FormControl::class, $args);
 		}
 		else
 		{
 			$controlClass = 'App\\Components\\Controls\\' . ucFirst($name);
-			if (class_exists($controlClass))
+			if (!class_exists($controlClass))
 			{
-				return $this->buildComponent($controlClass, $args);
+				throw new InvalidArgumentException("Class '$controlClass' does not exist, component '$name' cannot be created.");
 			}
+			return $this->buildComponent($controlClass, $args);
 		}
 
 		return Presenter::createComponent($name);
