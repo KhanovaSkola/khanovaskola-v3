@@ -81,6 +81,18 @@ class Compiler extends Object
 		$this->inflection = $inflection;
 	}
 
+	public function reseed($seed = NULL)
+	{
+		if ($seed)
+		{
+			$this->setSeed($seed);
+		}
+		else
+		{
+			$this->setSeed(mt_rand());
+		}
+	}
+
 	public function setSeed($seed)
 	{
 		$this->seed = $seed;

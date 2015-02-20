@@ -30,6 +30,7 @@ var jsLibFiles = [
 	path.join(libDir, 'jquery-timeago/jquery.timeago.js'),
 	path.join(libDir, 'jquery-timeago/locales/jquery.timeago.cs.js'),
 	path.join(libDir, 'nette-forms/src/assets/netteForms.js'),
+	path.join(libDir, 'nette.ajax.js/nette.ajax.js'),
 	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
 	path.join(libDir, 'smooth-scroll/dist/js/smooth-scroll.js'),
 	path.join(libDir, 'isInViewport/lib/isInViewport.min.js')

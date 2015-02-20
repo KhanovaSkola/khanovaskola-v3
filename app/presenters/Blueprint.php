@@ -6,7 +6,6 @@ use App\Models\Rme;
 use App\Models\Services\Blueprints\Compiler;
 use App\Models\Structs\EventList;
 use App\Presenters\Parameters;
-use KhanovaSkola\Cislo;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 
@@ -24,6 +23,12 @@ final class Blueprint extends Content
 	 * @inject
 	 */
 	public $compiler;
+
+	/**
+	 * @var NULL|int
+	 * @persistent
+	 */
+	public $seed;
 
 	public function startup()
 	{
@@ -63,21 +68,18 @@ final class Blueprint extends Content
 
 	private function getExercise($seed = NULL)
 	{
-		if ($seed !== NULL)
-		{
-			$this->compiler->setSeed($seed);
-		}
-
+		$this->compiler->reseed($seed);
 		return $this->compiler->compile($this->blueprint);
 	}
 
-	public function renderDefault($seed = NULL)
+	public function renderDefault()
 	{
-		$exercise = $this->getExercise($seed);
+		$exercise = $this->getExercise($this->seed);
+		$this->seed = $exercise->getSeed();
 
 		/** @var TextInput $seedInput */
 		$seedInput = $this['answer-seed'];
-		$seedInput->setDefaultValue($exercise->getSeed());
+		$seedInput->setValue($this->seed);
 
 		$this->template->exercise = $exercise;
 		$this->template->blueprint = $exercise->getBlueprint();
@@ -153,16 +155,18 @@ final class Blueprint extends Content
 		}
 
 		$answer = new Rme\Answer($exercise, $v->answer);
-		$answer->time = $v->time;
+		$answer->time = $v->time ?: 0;
 		$answer->inactivity = $v->inactivity === 'true'; // js
 		$answer->hint = $v->hint === 'true'; // js
 		$this->getUserEntity()->answers->add($answer);
 
-		if ($seed = $this->getParameter('seed'))
+		if ($this->seed)
 		{
 			/** @var NULL|Rme\Answer $last */
-			$last = $this->userEntity->answers->get()->orderBy('createdAt', 'DESC')->fetch();
-			if ($last && $last->seed === (int) $seed)
+			$last = $this->userEntity->answers->get()
+				->findBy(['content' => $exercise->getBlueprint()->id])
+				->orderBy('createdAt', 'DESC')->applyLimit(1, 1)->fetch(); // ignore this answer
+			if ($last && $last->seed === (int) $this->seed)
 			{
 				$answer->firstTry = FALSE;
 			}
@@ -176,12 +180,12 @@ final class Blueprint extends Content
 			]);
 
 			$answer->correct = TRUE;
-			$seed = NULL;
+			$this->seed = NULL;
 		}
 		else
 		{
 			$answer->correct = FALSE;
-			$seed = $v->seed;
+			$this->seed = $v->seed;
 		}
 
 		$this->orm->flush();
@@ -223,8 +227,14 @@ final class Blueprint extends Content
 			}
 		}
 
+		if ($this->isAjax())
+		{
+			$this->redrawControl('goalBox');
+			$this->redrawControl('question');
+			return;
+		}
+
 		$this->redirect('this', [
-			'seed' => $seed,
 			'slug' => $this->blueprint->slug,
 		]);
 	}

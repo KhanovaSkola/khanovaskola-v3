@@ -10,7 +10,7 @@ App.getTime = function() {
     return date.getTime();
 };
 
-App.getTimer = function(name) {
+App.getTimer = function() {
     var then = App.getTime();
     return function() {
         return App.getTime() - then;

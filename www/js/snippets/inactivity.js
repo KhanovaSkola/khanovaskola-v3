@@ -9,31 +9,31 @@
         return;
     }
 
-    App._idleSince = null;
+    var idleSince = null;
 
-    App._resetIdleTime = function() {
-        App._idleSince = App.getTime();
+    var resetIdleTime = function() {
+        idleSince = App.getTime();
     };
 
-    App._checkIdle = function() {
-        if (App._idleSince === null)
+    var checkIdle = function() {
+        if (idleSince === null)
         {
             return;
         }
 
-        var idleFor = App.getTime() - App._idleSince;
+        var idleFor = App.getTime() - idleSince;
         if (idleFor > 60 * 1000)
         {
-            App.onInactive.fire();
-            App._idleSince = null;
+            App.callAll(App.onInactive);
+            idleSince = null;
         }
     };
 
-    App._resetIdleTime();
-    App.onInactive = $.Callbacks();
+    resetIdleTime();
+    App.onInactive = [];
 
-    $(document).mousemove(App._resetIdleTime);
-    $(document).keypress(App._resetIdleTime);
+    $(document).mousemove(resetIdleTime);
+    $(document).keypress(resetIdleTime);
 
-    setInterval(App._checkIdle, 250);
+    setInterval(checkIdle, 250);
 })();
