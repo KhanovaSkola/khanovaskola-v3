@@ -95,7 +95,12 @@ final class Blueprint extends Content
 		$session = $this->session->getSection('exercise');
 		$id = $this->blueprint->id;
 		$key = "$id|completed";
-		$this->template->justCompleted = $session[$key] ?: FALSE;
+		$this->template->justCompleted = FALSE;
+		if ($session[$key])
+		{
+			$this->template->justCompleted = TRUE;
+			$this->redrawControl('monsterCorrect');
+		}
 		$session->offsetUnset($key);
 
 		$key = "$id|animateLast";
