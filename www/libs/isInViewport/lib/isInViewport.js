@@ -2,7 +2,14 @@
  * @author  Mudit Ameta
  * @license https://github.com/zeusdeux/isInViewport/blob/master/license.md MIT
  */
-(function($) {
+(function($, window) {
+
+  // polyfilling trim for ie < 9. sigh ;-;
+  if (!String.prototype.hasOwnProperty('trim')) {
+    String.prototype.trim = function() {
+      return this.replace(/^\s*(.*?)\s*$/, '$1');
+    };
+  }
 
   //lets you chain any arbitrary function or an array of functions and returns a jquery object
   var run = function(args) {
@@ -26,16 +33,11 @@
 
   //do is a reserved word and hence using it as a property throws on some browsers
   //it is now aliased as $.fn.run
-  try {
-    $.fn.do = function(args) {
-      console.warn('isInViewport: .do causes issues in IE and some browsers since its a reserved. Use $.fn.run instead i.e., $(el).run(fn).');
-      return run(args);
-    };
-    $.fn.run = run;
-  }
-  catch (e) {
-    $.fn.run = run;
-  }
+  $.fn['do'] = function(args) {
+    console.warn('isInViewport: .do causes issues in IE and some browsers since its a reserved. Use $.fn.run instead i.e., $(el).run(fn).');
+    return run(args);
+  };
+  $.fn.run = run;
 
   //gets the width of the scrollbar
   function getScrollbarWidth(viewport) {
@@ -57,17 +59,17 @@
   }
 
   function isInViewport(element, options) {
-    var boundingRect = element.getBoundingClientRect();
-    var top = boundingRect.top;
-    var bottom = boundingRect.bottom;
-    var left = boundingRect.left;
-    var right = boundingRect.right;
-    var settings = $.extend({
+    var boundingRect  = element.getBoundingClientRect();
+    var top           = boundingRect.top;
+    var bottom        = boundingRect.bottom;
+    var left          = boundingRect.left;
+    var right         = boundingRect.right;
+    var settings      = $.extend({
       'tolerance': 0,
       'viewport': window
     }, options);
     var isVisibleFlag = false;
-    var $viewport = settings.viewport.get ? settings.viewport : $(settings.viewport);
+    var $viewport     = settings.viewport.jquery ? settings.viewport : $(settings.viewport);
 
     if (!$viewport.length) {
       console.warn('isInViewport: The viewport selector you have provided matches no element on page.');
@@ -76,20 +78,22 @@
     }
 
     var $viewportHeight = $viewport.height();
-    var $viewportWidth = $viewport.width();
-    var typeofViewport = $viewport.get(0).toString();
+    var $viewportWidth  = $viewport.width();
+    var typeofViewport  = $viewport.get(0).toString();
 
     //if the viewport is other than window recalculate the top,
     //bottom,left and right wrt the new viewport
     //the [object DOMWindow] check is for window object type in PhantomJS
-    if (typeofViewport !== '[object Window]' && typeofViewport !== '[object DOMWindow]') {
-      var $viewportOffset = $viewport.offset();
+    if ($viewport[0] !== window && typeofViewport !== '[object Window]' && typeofViewport !== '[object DOMWindow]') {
+      // Use getBoundingClientRect() instead of $.Offset()
+      // since the original top/bottom positions are calculated relative to browser viewport and not document
+      var viewportRect = $viewport.get(0).getBoundingClientRect();
 
       //recalculate these relative to viewport
-      top = top - $viewportOffset.top;
-      bottom = bottom - $viewportOffset.top;
-      left = left - $viewportOffset.left;
-      right = left + $viewportWidth;
+      top    = top - viewportRect.top;
+      bottom = bottom - viewportRect.top;
+      left   = left - viewportRect.left;
+      right  = left + $viewportWidth;
 
       //get the scrollbar width from cache or calculate it
       isInViewport.scrollBarWidth = isInViewport.scrollBarWidth || getScrollbarWidth($viewport);
@@ -129,15 +133,16 @@
         //when user only gives viewport and no tolerance
         if (args.length === 1 && isNaN(args[0])) {
           args[1] = args[0];
-          args[0] = undefined;
+          args[0] = void 0;
         }
+
         return isInViewport(currObj, {
-          tolerance: args[0] ? args[0].trim() : undefined,
-          viewport: args[1] ? args[1].trim() : undefined
+          tolerance: args[0] ? args[0].trim() : void 0,
+          viewport: args[1] ? args[1].trim() : void 0
         });
       }
       else
         return isInViewport(currObj);
     }
   });
-})(jQuery);
+})(window.jQuery, window);

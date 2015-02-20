@@ -6,7 +6,7 @@
     "html5shiv": "latest",
     "bootstrap": "latest",
     "MathJax": "latest",
-    "nette-forms": "latest",
+    "nette-forms": "~2.2",
     "medium-editor": "latest",
     "typeahead.js": "latest",
     "d3": "latest",
@@ -17,6 +17,7 @@
     "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git",
     "isInViewport": "~2.2.0",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
-    "handsontable": "~0.12.5"
+    "handsontable": "~0.12.5",
+    "nette.ajax.js": "~2.0.0"
   }
 }

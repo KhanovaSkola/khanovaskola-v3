@@ -20,17 +20,18 @@
     "src/Bridges",
     "src/Forms",
     "tests",
+    "examples",
     "**/.*",
     "*.json"
   ],
-  "version": "2.2.2",
-  "_release": "2.2.2",
+  "version": "2.2.4",
+  "_release": "2.2.4",
   "_resolution": {
     "type": "version",
-    "tag": "v2.2.2",
-    "commit": "62c9a81aefbbd7dc5dcda348d29f926e3242bd7e"
+    "tag": "v2.2.4",
+    "commit": "341a1b976f9b1bb4bed6c4a5820a6991ec041d71"
   },
   "_source": "git://github.com/nette/bower-nette-forms.git",
-  "_target": "*",
+  "_target": "~2.2",
   "_originalSource": "nette-forms"
 }

@@ -16,7 +16,7 @@
 
 	var smoothScroll = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var settings;
+	var settings, eventTimeout, fixedHeader;
 
 	// Default settings
 	var defaults = {
@@ -96,6 +96,16 @@
 			}
 		}
 		return false;
+	};
+
+	/**
+	 * Get the height of an element
+	 * @private
+	 * @param  {Node]} elem The element
+	 * @return {Number}     The element's height
+	 */
+	var getHeight = function (elem) {
+		return Math.max( elem.scrollHeight, elem.offsetHeight, elem.clientHeight );
 	};
 
 	/**
@@ -266,10 +276,10 @@
 		anchor = '#' + escapeCharacters(anchor.substr(1)); // Escape special characters and leading numbers
 
 		// Selectors and variables
-		var anchorElem = document.querySelector(anchor);
-		var fixedHeader = document.querySelector('[data-scroll-header]'); // Get the fixed header
-		var headerHeight = fixedHeader === null ? 0 : (fixedHeader.offsetHeight + fixedHeader.offsetTop); // Get the height of a fixed header if one exists
+		var anchorElem = anchor === '#' ? document.documentElement : document.querySelector(anchor);
 		var startLocation = root.pageYOffset; // Current location on the page
+		if ( !fixedHeader ) { fixedHeader = document.querySelector('[data-scroll-header]'); }  // Get the fixed header if not already set
+		var headerHeight = fixedHeader === null ? 0 : ( getHeight( fixedHeader ) + fixedHeader.offsetTop ); // Get the height of a fixed header if one exists
 		var endLocation = getEndLocation( anchorElem, headerHeight, parseInt(settings.offset, 10) ); // Scroll to location
 		var animationInterval; // interval timer
 		var distance = endLocation - startLocation; // distance to travel
@@ -344,13 +354,37 @@
 	};
 
 	/**
+	 * On window scroll and resize, only run events at a rate of 15fps for better performance
+	 * @private
+	 * @param  {Function} eventTimeout Timeout function
+	 * @param  {Object} settings
+	 */
+	var eventThrottler = function (event) {
+		if ( !eventTimeout ) {
+			eventTimeout = setTimeout(function() {
+				eventTimeout = null; // Reset timeout
+				headerHeight = fixedHeader === null ? 0 : ( getHeight( fixedHeader ) + fixedHeader.offsetTop ); // Get the height of a fixed header if one exists
+			}, 66);
+		}
+	};
+
+	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
 	smoothScroll.destroy = function () {
+
+		// If plugin isn't already initialized, stop
 		if ( !settings ) return;
+
+		// Remove event listeners
 		document.removeEventListener( 'click', eventHandler, false );
+		root.removeEventListener( 'resize', eventThrottler, false );
+
+		// Reset varaibles
 		settings = null;
+		eventTimeout = null;
+		fixedHeader = null;
 	};
 
 	/**
@@ -368,9 +402,11 @@
 
 		// Selectors and variables
 		settings = extend( defaults, options || {} ); // Merge user options with defaults
+		fixedHeader = document.querySelector('[data-scroll-header]'); // Get the fixed header
 
 		// When a toggle is clicked, run the click handler
-		document.addEventListener('click', eventHandler, false);
+		document.addEventListener('click', eventHandler, false );
+		if ( fixedHeader ) { root.addEventListener( 'resize', eventThrottler, false ); }
 
 	};
 
