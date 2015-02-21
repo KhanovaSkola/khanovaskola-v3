@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Models\Rme;
 use App\Models\Structs\EventList;
 use App\Presenters\Blueprint;
+use Nette\Utils\Strings;
 
 
 class Exercise extends Form
@@ -32,7 +33,7 @@ class Exercise extends Form
 		$v = $this->values;
 		$exercise = $presenter->getExercise($v->seed);
 
-		if (!$v->answer)
+		if (!Strings::trim($v->answer))
 		{
 			$presenter->redirect('this', ['seed' => $v->seed]);
 		}
