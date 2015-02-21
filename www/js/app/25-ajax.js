@@ -8,8 +8,8 @@
 		before: function(xhr, settings) {
 			App.callAll(App.ajax.onBefore, [xhr, settings]);
 		},
-		success: function() {
-			App.callAll(App.ajax.onSuccess);
+		success: function(payload) {
+			App.callAll(App.ajax.onSuccess, [payload]);
 		}
 	});
 	$.nette.ext('mathjax', {

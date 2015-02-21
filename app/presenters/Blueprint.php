@@ -99,9 +99,11 @@ final class Blueprint extends Content
 		$id = $this->blueprint->id;
 		$key = "$id|completed";
 		$this->template->justCompleted = FALSE;
+		$this->payload->monsterCorrect = FALSE;
 		if ($session[$key])
 		{
 			$this->template->justCompleted = TRUE;
+			$this->payload->monsterCorrect = TRUE;
 			$this->redrawControl('monsterCorrect');
 		}
 		$session->offsetUnset($key);
@@ -195,6 +197,7 @@ final class Blueprint extends Content
 			$answer->correct = FALSE;
 			$this->seed = $v->seed;
 		}
+		$this->payload->correct = $answer->correct;
 
 		$this->orm->flush();
 

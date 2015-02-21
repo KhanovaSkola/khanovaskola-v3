@@ -20,8 +20,37 @@ $(function() {
     });
 
 
+    var loadSound = function (src) {
+        var sound = document.createElement("audio");
+        if ("src" in sound) {
+            sound.autoPlay = false;
+        } else {
+            sound = document.createElement("bgsound");
+            sound.volume = -10000;
+            sound.play = function () {
+                this.src = src;
+                this.volume = 0;
+            }
+        }
+        sound.src = src;
+        document.body.appendChild(sound);
+        return sound;
+    };
+    var soundWrong = loadSound("/fx/wrong.mp3"); // preloads
+    var soundCorrect = loadSound("/fx/correct.mp3");
+    var soundDrumroll = loadSound("/fx/drumroll.mp3");
+
+
     var hints = null;
-    App.ajax.onSuccess.push(function() {
+    App.ajax.onSuccess.push(function(payload) {
+        if (payload.monsterCorrect) {
+            soundDrumroll.play();
+        } else if (payload.correct) {
+            soundCorrect.play();
+        } else {
+            soundWrong.play();
+        }
+
         hints = null;
         $container.find('[name=hint]').val(false);
         timer = App.getTimer();
