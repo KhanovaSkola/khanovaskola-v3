@@ -53,7 +53,7 @@ $(function() {
             colHeaders: false,
             contextMenu: true,
             afterChange: function(changes, source) {
-                var data = this.getData();
+                var data = $.extend({}, this.getData());
                 for (var i = 0; i < data.length; i++) {
                     var empty = true;
                     for (var val in data[i])
