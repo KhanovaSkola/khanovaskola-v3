@@ -45,13 +45,17 @@ $(function() {
         $name.val('table' + tableId++);
         $name.hide();
 
-        var $table = $('<div/>');
+        var $table = $('<div/>').css({
+            'overflow-y': 'scroll',
+            'max-height': '500px'
+        });
         $group.append($table);
         var table = new Handsontable($table[0], {
             data: def.data || [["", ""], ["", ""]],
             minSpareRows: 1,
             colHeaders: false,
             contextMenu: true,
+            fixedRowsTop: 1,
             afterChange: function(changes, source) {
                 var data = $.extend({}, this.getData());
                 for (var i = 0; i < data.length; i++) {
