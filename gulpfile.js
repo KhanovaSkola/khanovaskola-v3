@@ -39,10 +39,14 @@ var jsAdminFiles = [
 	path.join(jsDir, 'admin/*.js')
 ];
 var jsAdminLibFiles = [
+	path.join(libDir, 'handsontable/dist/handsontable.full.min.js'),
+	path.join(libDir, 'codemirror/lib/codemirror.js'),
+	path.join(libDir, 'codemirror/addon/fold/xml-fold.js'),
+	path.join(libDir, 'codemirror/addon/edit/closetag.js'),
+	path.join(libDir, 'codemirror/mode/xml/xml.js'),
 	path.join(libDir, 'jquery-ui/jquery-ui.min.js'),
 	path.join(libDir, 'chosen/chosen.jquery.min.js'),
-	path.join(libDir, 'zeroclipboard/dist/ZeroClipboard.min.js'),
-	path.join(libDir, 'handsontable/dist/handsontable.full.min.js')
+	path.join(libDir, 'zeroclipboard/dist/ZeroClipboard.min.js')
 ];
 var lessDir = './www/less';
 var lessBootstrapFiles = [
@@ -101,6 +105,8 @@ var lessFiles = [
 ];
 var lessAdminLibFiles = [
 	path.join(libDir, 'chosen/chosen.min.css'),
+	path.join(libDir, 'codemirror/lib/codemirror.css'),
+	path.join(libDir, 'codemirror/theme/solarized.css'),
 	path.join(libDir, 'handsontable/dist/handsontable.full.min.css')
 ];
 var lessAdminFiles = [

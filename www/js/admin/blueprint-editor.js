@@ -1,4 +1,4 @@
-(function() {
+$(function() {
     var $form = $('[data-blueprint-editor]');
     if (!$form.length) {
         return;
@@ -123,25 +123,32 @@
     });
 
 
-
-	var highlight = function($input) {
-		var $underlay = $input.siblings('.underlay');
-		if (!$underlay.length) {
-			$underlay = $('<div/>').addClass('underlay');
-			$input.before($underlay);
-		}
-		var text = $input.val();
-		text = text.replace(/<(\w+)\b/g, '<span class="syntax-$1">&lt;$1');
-		text = text.replace(/(<\/.*?>)/g, '$1</span>');
-		text = text.replace(/<(?!\/?span)/g, '&lt;');
-		$underlay.html(text);
-	};
-
-	$form.find('[name$="[question]"], [name$="[answer]"], [name$="[hint]"]').on('change keyup', function() {
-		highlight($(this));
-	}).each(function() {
-		highlight($(this)); // on load
-	});
+	$form.find('textarea').each(function() {
+        CodeMirror.fromTextArea($(this)[0], {
+            mode: "xml",
+            lineNumbers: true,
+            theme: "solarized",
+            htmlMode: true,
+            autoCloseTags: true,
+            extraKeys: {
+                "Ctrl-E": function(cm) {
+                    cm.replaceSelection("<eval>" + cm.getSelection() + "</eval>");
+                },
+                "Ctrl-L": function(cm) {
+                    cm.replaceSelection("<latex>" + cm.getSelection() + "</latex>");
+                },
+                "Ctrl-C": function(cm) {
+                    cm.replaceSelection("<color id=\"1\">" + cm.getSelection() + "</color>");
+                },
+                "Ctrl-I": function(cm) {
+                    cm.replaceSelection("<inflect case=\"3\">" + cm.getSelection() + "</inflect>");
+                },
+                "Ctrl-N": function(cm) {
+                    cm.replaceSelection("<numebr>" + cm.getSelection() + "</number>");
+                }
+            }
+        });
+    });
 
     $('[data-definitions]').sortable({
         handle: '.handle',
@@ -224,4 +231,4 @@
         $group.detach();
         $undo = $group;
     });
-})();
+});

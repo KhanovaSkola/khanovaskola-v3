@@ -37,14 +37,14 @@ class Blueprint extends EntityForm
 				->setRequired('form.question.missing');
 			$container->addSelect('answerType', NULL, Rme\BlueprintPartial::getAnswerTypes())
 				->setTranslator($this->translator->getPrefixed('answerType'));
-			$container->addText('data');
-			$container->addText('answer')
+			$container->addTextArea('data');
+			$container->addTextArea('answer')
 				->addCondition($this::FILLED)
 				->setRequired('form.answer.missing');
 
 			/** @var self|\Kdyby\Replicator\Container[] $container */
 			$container->addDynamic('hints', function(Container $container) {
-				$container->addText('hint');
+				$container->addTextArea('hint');
 			});
 		});
 

@@ -52,18 +52,18 @@
 			</div>
 			<div class="form-group">
                 <label n:name="partials-$id-data">{_'data'}</label>
-                <input n:name="partials-$id-data" class="form-control">
+                <textarea n:name="partials-$id-data" class="form-control"></textarea>
             </div>
 		    <div class="form-group">
 		        <label n:name="partials-$id-answer">{_'answer'}</label>
-		        <input n:name="partials-$id-answer" class="form-control">
+		        <textarea n:name="partials-$id-answer" class="form-control"></textarea>
 		    </div>
 
 			<div class="form-group hints">
 				<label n:name="partials-$id-hints-0-hint">{_'hints'}</label>
 				{foreach $partial['hints']->containers as $i => $_tmp}
 					<div class="hint">
-						<input n:name="partials-$id-hints-$i-hint" class="form-control">
+						<textarea n:name="partials-$id-hints-$i-hint" class="form-control"></textarea>
 					</div>
 				{/foreach}
 

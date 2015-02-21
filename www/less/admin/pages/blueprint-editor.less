@@ -39,56 +39,6 @@
 		margin: 1em 0;
 	}
 
-	// highlighting styles
-	.underlay {
-		position: absolute;
-		margin-left: 2px;
-		margin-top: -5px;
-		color: transparent;
-		line-height: 2.4;
-		width: ~'calc( 100% - 95px )';
-
-		span {
-			display: inline-block;
-			height: 28px;
-			border-radius: 3px 3px 0 0;
-			vertical-align: top;
-		}
-		span > span {
-			margin-top: 4px;
-			height: ~'calc(100% - 4px)';
-		}
-	}
-	.form-control {
-		background-color: transparent;
-	}
-
-	textarea {
-		padding: 0;
-		border: none;
-		line-height: 2.4;
-		margin-top: -5px;
-		margin-left: 2px;
-	}
-
-	.syntax {
-		&-latex {
-			background-color: lighten(@khan-blue, 50%);
-		}
-		&-eval {
-			background-color: lighten(@khan-green, 50%);
-		}
-		&-color {
-			background-color: lighten(@khan-red, 45%);
-		}
-		&-inflect {
-			background-color: lighten(@khan-yellow, 40%);
-		}
-		&-number {
-			background-color: lighten(@khan-cyan, 45%);
-		}
-	}
-
 	.partial {
 		border-left: 2px solid @khan-green;
 		margin-left: -25px;
@@ -120,5 +70,10 @@
 		margin-left: -1em;
 		margin-bottom: 1ex;
 		margin-top: -1ex;
+	}
+
+	.CodeMirror {
+		height: auto;
+		border-bottom: 1px solid @khan-blue-light;
 	}
 }
