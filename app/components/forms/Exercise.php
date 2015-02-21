@@ -84,7 +84,7 @@ class Exercise extends Form
 			$minAnswers = 5;
 
 			/** @var Rme\Answer[] $answers */
-			$answers = $this->blueprint->getRecentAnswersBy($presenter->userEntity)->applyLimit($minAnswers);
+			$answers = $presenter->blueprint->getRecentAnswersBy($presenter->userEntity)->applyLimit($minAnswers);
 			if (count($answers) === $minAnswers)
 			{
 				$completed = TRUE;
@@ -103,8 +103,8 @@ class Exercise extends Form
 					$completion->block = $presenter->block;
 					$completion->content = $presenter->blueprint;
 					$completion->user = $presenter->userEntity;
-					$this->orm->completedContents->attach($completion);
-					$this->orm->flush();
+					$presenter->orm->completedContents->attach($completion);
+					$presenter->orm->flush();
 
 					$id = $presenter->blueprint->id;
 					$session["$id|completed"] = TRUE;
