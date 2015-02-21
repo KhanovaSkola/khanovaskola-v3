@@ -91,19 +91,22 @@
             </div>
             {snippet monsterCorrect}
 	            <div n:if="$justCompleted" class="monster-correct">
-	                <div class="shout">Cvičení dokončeno</div>
-	                {for $i = 0; $i < 5; $i++}
-	                    <i class="icon icon-answer-correct"></i>
-	                {/for}
-					<div class="continue">
-		                <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema" n:class="$dimNextButton ? dim">
-		                    <span title="{$nextContent->title}">{$nextContent->title}</span>
-		                    <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
-		                    <i class="icon icon-content-next"></i>
-		                </a>
-	                </div>
-	                <div class="stay">
-	                    <a n:href="this">Ještě chvíli zůstat na tomto cvičení</a>
+	                <div class="rays"></div>
+	                <div class="content">
+		                <div class="shout">Cvičení dokončeno</div>
+		                {for $i = 0; $i < 5; $i++}
+		                    <i class="icon icon-answer-correct"></i>
+		                {/for}
+						<div class="continue">
+			                <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema" n:class="$dimNextButton ? dim">
+			                    <span title="{$nextContent->title}">{$nextContent->title}</span>
+			                    <small>({$nextBlock->getPositionOf($nextContent)}/{$nextBlock->countContents()})</small>
+			                    <i class="icon icon-content-next"></i>
+			                </a>
+		                </div>
+		                <div class="stay">
+		                    <a n:href="this">Ještě chvíli zůstat na tomto cvičení</a>
+		                </div>
 	                </div>
 	            </div>
             {/snippet}

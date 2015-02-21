@@ -187,36 +187,94 @@
 		height: 100%;
 		width: 100%;
 		text-align: center;
-		padding-top: 160px;
 		background-color: fadeout(@khan-green, 15%);
 		color: white;
 
-		.shout {
-			font-size: 50pt;
-			line-height: 0.9;
-			max-width: 500px;
-			margin: 0 auto 0.6ex;
-		}
-		& > .icon {
-			font-size: 40pt;
-		}
-		.continue {
-			max-width: 500px;
-			margin: 4ex auto 0.6ex;
-			a {
-				font-size: 30pt;
-				line-height: 1.1;
-				.icon {
-					font-size: 25px;
+		.rays {
+			position: absolute;
+			height: 100vw;
+			width: 100vw;
+			background-image: url('/img/rays.svg');
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			opacity: 0.04;
+
+			@keyframes spin {
+				100% {
+					transform: rotateZ(360deg);
 				}
 			}
+			animation: spin 16s linear infinite;
 		}
-		.stay {
-			max-width: 500px;
-			margin: 4ex auto 0.6ex;
-			a {
-				font-size: 20pt;
-				line-height: 1.1;
+		.content {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			padding-top: 160px;
+
+			.shout {
+				font-size: 50pt;
+				font-family: @headings-font-family;
+				line-height: 0.9;
+				max-width: 500px;
+				margin: 0 auto 0.6ex;
+			}
+			& > .icon {
+				@keyframes checkmark {
+					0% {
+						top: 0;
+						color: @white;
+					}
+					25% {
+						top: -20px;
+					}
+					50% {
+						color: lighten(@khan-green, 40%);
+					}
+					60% {
+						top: 0;
+					}
+					100% {
+						color: @white;
+					}
+				}
+
+				animation: checkmark 1.5s infinite ease-in-out;
+				font-size: 40pt;
+				display: inline-block;
+				position: relative;
+				&:nth-child(2) {
+					animation-delay: 0.25s;
+				}
+				&:nth-child(3) {
+					animation-delay: 0.5s;
+				}
+				&:nth-child(4) {
+					animation-delay: 0.9s;
+				}
+				&:nth-child(5) {
+					animation-delay: 1.2s;
+				}
+			}
+			.continue {
+				max-width: 500px;
+				margin: 4ex auto 0.6ex;
+				a {
+					font-size: 30pt;
+					line-height: 1.1;
+					.icon {
+						font-size: 25px;
+					}
+				}
+			}
+			.stay {
+				max-width: 500px;
+				margin: 4ex auto 0.6ex;
+				a {
+					font-size: 20pt;
+					line-height: 1.1;
+				}
 			}
 		}
 	}

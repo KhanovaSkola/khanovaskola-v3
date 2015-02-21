@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">
+<svg version="1.1" baseProfile="basic" id="Layer_1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1000px" height="1000px"
+	 viewBox="0 0 1000 1000" xml:space="preserve">
+<circle display="none" fill="none" stroke="#000000" stroke-width="500" stroke-miterlimit="10" stroke-dasharray="60.3880806,60.3880806" cx="500.0002441" cy="500" r="249.8786621"/>
+<defs>
+	
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="0.121582" y="0.1230469" width="999.7573242" height="999.7539062">
+		
+			<feColorMatrix  type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0" color-interpolation-filters="sRGB" result="source"/>
+	</filter>
+</defs>
+<mask maskUnits="userSpaceOnUse" x="0.121582" y="0.1230469" width="999.7573242" height="999.7539062" id="SVGID_1_">
+	<g filter="url(#Adobe_OpacityMaskFilter)">
+		<radialGradient id="SVGID_2_" cx="500" cy="500" r="500" gradientUnits="userSpaceOnUse">
+			<stop  offset="0" style="stop-color:#000000"/>
+			<stop  offset="1" style="stop-color:#FFFFFF"/>
+		</radialGradient>
+		<circle fill="url(#SVGID_2_)" cx="500" cy="500" r="500"/>
+	</g>
+</mask>
+<g mask="url(#SVGID_1_)">
+	
+		<circle fill="none" stroke="#000000" stroke-width="500" stroke-miterlimit="10" stroke-dasharray="60.3880882,60.3880882" cx="499.9985352" cy="500" r="249.8769531"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
