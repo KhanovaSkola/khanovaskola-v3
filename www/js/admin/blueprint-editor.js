@@ -208,6 +208,16 @@ $(function() {
         Renderer.render(defaults, $input);
     });
 
+    var $partialNew = $('[data-partial="new"]');
+    $partialNew.hide();
+    var $btnAddPartial = $('<a href="#"/>').text('Přidat další variantu otázka/odpověď').click(function() {
+        $partialNew.show();
+        $(this).remove();
+        return false;
+    });
+    $partialNew.after($('<div/>').append($btnAddPartial));
+
+
     var $undo;
     var $pointer;
     var $undoLink;
