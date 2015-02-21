@@ -23,20 +23,20 @@ class Search
 		$this->orm = $orm;
 	}
 
-	public function query($query, $limit, $offset)
+	public function query($query, $limit, $offset, $filterType = NULL)
 	{
 		$blocks = $this->orm->blocks;
 		/** @var BlocksMapper $blocksMapper */
 		$blocksMapper = $blocks->getMapper();
 		$resBlocks = $blocks->findByFulltext($blocksMapper->getShortEntityName(), $query, $limit, $offset);
 
-		$contentLimit = max(0, $limit - $resBlocks['hits']['total']);
-		$contentOffset = max(0, $offset - $resBlocks['hits']['total']);
+		$contentLimit = $filterType ? $limit : max(0, $limit - $resBlocks['hits']['total']);
+		$contentOffset = $filterType ? $offset : max(0, $offset - $resBlocks['hits']['total']);
 
 		$contents = $this->orm->contents;
 		/** @var ContentsMapper $contentsMapper */
 		$contentsMapper = $contents->getMapper();
-		$res = $contents->findByFulltext($contentsMapper->getShortEntityName(), $query, $contentLimit, $contentOffset);
+		$res = $contents->findByFulltext($contentsMapper->getShortEntityName(), $query, $contentLimit, $contentOffset, $filterType);
 
 		$ids = [];
 		$highlights = [];
@@ -64,13 +64,16 @@ class Search
 		$blockResults = [];
 		if ($count = $resBlocks['hits']['total'])
 		{
-			foreach ($resBlocks['hits']['hits'] as $hit)
+			if ((!$filterType || $filterType === 'block'))
 			{
-				/** @var Block $block */
-				$block = $blocks->getById($hit['_id']);
-				$block->score = $hit['_score'];
-				$block->highlights = $hit['highlight'];
-				$blockResults[] = $block;
+				foreach ($resBlocks['hits']['hits'] as $hit)
+				{
+					/** @var Block $block */
+					$block = $blocks->getById($hit['_id']);
+					$block->score = $hit['_score'];
+					$block->highlights = $hit['highlight'];
+					$blockResults[] = $block;
+				}
 			}
 
 			array_unshift($aggregations, [

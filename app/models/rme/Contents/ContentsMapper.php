@@ -145,7 +145,7 @@ class ContentsMapper extends ElasticSearchMapper
 		];
 	}
 
-	public function findByFulltext($type, $query, $limit = 10, $offset = 0)
+	public function findByFulltext($type, $query, $limit = 10, $offset = 0, $filterType = NULL)
 	{
 		$args =  [
 			'index' => $this->elastic->getIndex(),
@@ -217,6 +217,15 @@ class ContentsMapper extends ElasticSearchMapper
 				],
 			]
 		];
+
+		if ($filterType)
+		{
+			$args['body']['post_filter'] = [
+				'term' => [
+					'bucket' => $filterType,
+				]
+			];
+		}
 
 		return $this->elastic->search($args);
 	}

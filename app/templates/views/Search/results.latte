@@ -13,7 +13,14 @@
                 <section class="search-form">
                     {control search, label => 'Hledáte'}
                     <ul n:if="$search->results" class="list-unstyled result-count">
-                        Nalezeno: {foreach $search->aggregations as $ag}{_"search.count.{$ag['key']}", $ag['doc_count']}{sep}, {/sep}{/foreach}
+                        Nalezeno: {foreach $search->aggregations as $ag}{*
+                            *}<a n:href="this, filter => $ag['key']">{*
+                                *}<strong n:tag-if="$ag['key'] === $filter">
+                                    {_"search.count.{$ag['key']}", $ag['doc_count']}{*
+                                *}</strong>{*
+                            *}</a>{sep}, {/sep}{*
+                        *}{/foreach}
+                        <a n:if="$filter" n:href="this, filter => NULL">(zobrazit vše)</a>
                     </ul>
                 </section>
                 <section class="search-result" data-url-more="{plink more, query => $query}">

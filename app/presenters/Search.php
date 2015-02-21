@@ -22,7 +22,7 @@ final class Search extends Presenter
 		$this->redirectToEntity($this->orm->contents->getById($contentId));
 	}
 
-	public function renderResults($query)
+	public function renderResults($query, $filter = NULL)
 	{
 		if (!Strings::trim($query))
 		{
@@ -34,14 +34,15 @@ final class Search extends Presenter
 		$input->setDefaultValue($query);
 
 		$this->template->query = $query;
+		$this->template->filter = $filter;
 		list($limit, $offset) = $this->getLinearLimitOffset(1);
-		$this->template->search = $this->search->query($query, $limit, $offset);
+		$this->template->search = $this->search->query($query, $limit, $offset, $filter);
 	}
 
-	public function actionMore($query, $page)
+	public function actionMore($query, $page, $filter = NULL)
 	{
 		list($limit, $offset) = $this->getLinearLimitOffset($page);
-		$this->template->search = $this->search->query($query, $limit, $offset);
+		$this->template->search = $this->search->query($query, $limit, $offset, $filter);
 	}
 
 	public function actionOpenSearchSuggest($query)
