@@ -206,6 +206,9 @@ exercise:
     title: "To není dobře."
     message: "%answer není správná odpověď."
 
+exerciseForm:
+  verify: "Zkontrolovat"
+
 errors: #TODO
   403:
     title: "Přístup zamítnut"

@@ -31,7 +31,7 @@ trait ControlTrait
 	 * @param $event
 	 * @param array $args
 	 */
-	protected function trigger($event, array $args = [])
+	public function trigger($event, array $args = [])
 	{
 		/** @var NControl $this */
 		$this->eventManager->dispatchEvent($event, new EventArgsList($args));
