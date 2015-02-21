@@ -57,7 +57,7 @@ $(function() {
             contextMenu: true,
             fixedRowsTop: 1,
             afterChange: function(changes, source) {
-                var data = $.extend({}, this.getData());
+                var data = this.getData().slice();
                 for (var i = 0; i < data.length; i++) {
                     var empty = true;
                     for (var val in data[i])

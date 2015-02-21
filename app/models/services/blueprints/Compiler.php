@@ -140,27 +140,27 @@ class Compiler extends Object
 		$vars = [];
 		foreach ($blueprintVars as $var => $def)
 		{
-			switch ($def->type)
+			switch ($def['type'])
 			{
 				case 'table':
-					$line = rand(1, count($def->data) - 1); // row 0 is var names
+					$line = rand(1, count($def['data']) - 1); // row 0 is var names
 					// TODO validate the data
-					foreach ($def->data[0] as $i => $var)
+					foreach ($def['data'][0] as $i => $var)
 					{
-						$vars[$var] = $def->data[$line][$i];
+						$vars[$var] = $def['data'][$line][$i];
 					}
 					break;
 				case 'integer':
-					$min = $this->compileString($def->min, $vars);
-					$max = $this->compileString($def->max, $vars);
+					$min = $this->compileString($def['min'], $vars);
+					$max = $this->compileString($def['max'], $vars);
 					$vars[$var] = rand(ctype_digit($min) ? $min : 0, ctype_digit($max) ? $max : 0);
 					break;
 				case 'list':
-					$vars[$var] = $def->list[rand(0, count($def->list) - 1)];
+					$vars[$var] = $def['list'][rand(0, count($def['list']) - 1)];
 					break;
 				case 'plural':
-					$val = abs($this->compileString($def->count, $vars));
-					$vars[$var] = $val === 1 ? $def->one : ($val >= 2 && $val <= 4 ? $def->few : $def->many);
+					$val = abs($this->compileString($def['count'], $vars));
+					$vars[$var] = $val === 1 ? $def['one'] : ($val >= 2 && $val <= 4 ? $def['few'] : $def['many']);
 					break;
 				default:
 					throw new NotImplementedException;

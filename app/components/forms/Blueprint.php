@@ -152,7 +152,7 @@ class Blueprint extends EntityForm
 		{
 			if ($row->name && $row->definition)
 			{
-				$vars[$row->name] = json_decode($row->definition);
+				$vars[$row->name] = Json::decode($row->definition, Json::FORCE_ARRAY);
 			}
 		}
 		$blueprint->vars = $vars;
