@@ -19,6 +19,7 @@
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
     "handsontable": "~0.12.5",
     "nette.ajax.js": "~2.0.0",
-    "codemirror": "~5.0.0"
+    "codemirror": "~5.0.0",
+    "requirejs": "~2.1.16"
   }
 }
