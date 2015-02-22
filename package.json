@@ -21,5 +21,8 @@
   "scripts": {
     "prepublish": "bower install --config.interactive=false && gulp",
     "start": "gulp && gulp watch"
+  },
+  "devDependencies": {
+    "gulp-react": "^2.0.0"
   }
 }
