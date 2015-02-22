@@ -14,6 +14,13 @@ var buildDir = './www/build';
 var libDir = './www/libs';
 var bsDir = './www/libs/bootstrap/less/';
 var jsDir = './www/js';
+var jsJsxFiles = [
+	path.join(jsDir, 'jsx/*.jsx')
+];
+var jsV2Files = [
+	path.join('./www/jsv2', '*.js'),
+	path.join('./www/jsv2', '**/*.js')
+];
 var jsFiles = [
 	path.join(jsDir, 'app/*.js'),
 	path.join(jsDir, 'services/*.js'),
@@ -33,7 +40,8 @@ var jsLibFiles = [
 	path.join(libDir, 'nette.ajax.js/nette.ajax.js'),
 	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
 	path.join(libDir, 'smooth-scroll/dist/js/smooth-scroll.js'),
-	path.join(libDir, 'isInViewport/lib/isInViewport.min.js')
+	path.join(libDir, 'isInViewport/lib/isInViewport.min.js'),
+	path.join(libDir, 'react/react.min.js')
 ];
 var jsAdminFiles = [
 	path.join(jsDir, 'admin/*.js')
@@ -190,6 +198,8 @@ gulp.task('less-production-admin', function() {
 gulp.task('js-dev-main', function() {
 	return stream.concat(
 		gulp.src(jsLibFiles),
+		gulp.src(jsJsxFiles)
+			.pipe($.react()),
 		gulp.src(jsFiles)
 			.pipe($.sourcemaps.init())
 			.pipe($.concat('app.min.js'))
@@ -230,6 +240,8 @@ gulp.task('js-dev-admin', function() {
 gulp.task('js-production-main', function() {
 	return stream.concat(
 		gulp.src(jsLibFiles),
+		gulp.src(jsJsxFiles)
+			.pipe($.react()),
 		gulp.src(jsFiles)
 			.pipe($.concat('app.min.js'))
 			.pipe($.uglify())
@@ -257,6 +269,12 @@ gulp.task('js-production-admin', function() {
 	)
 		.pipe($.concat('app.admin.min.js'))
 		.pipe(gulp.dest(buildDir));
+});
+
+gulp.task('js-v2', function() {
+	return gulp.src(jsV2Files)
+		.pipe($.babel())
+		.pipe(gulp.dest(buildDir + '/jsv2'));
 });
 
 gulp.task('less-dev', ['less-dev-main', 'less-dev-admin']);
