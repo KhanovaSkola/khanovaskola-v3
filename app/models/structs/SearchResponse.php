@@ -2,10 +2,11 @@
 
 namespace App\Models\Structs;
 
+use Countable;
 use Nette\Object;
 
 
-class SearchResponse extends Object
+class SearchResponse extends Object implements Countable
 {
 
 	/**
@@ -66,6 +67,14 @@ class SearchResponse extends Object
 	public function getDidYouMean()
 	{
 		return $this->didYouMean;
+	}
+
+	/**
+	 * @return int Count of results for this limit and offset
+	 */
+	public function count()
+	{
+		return count($this->results);
 	}
 
 }

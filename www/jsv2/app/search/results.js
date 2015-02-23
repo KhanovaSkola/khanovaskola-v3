@@ -15,16 +15,17 @@ define(function() {
 		const url = template.replace('{page}', lastLoadedPage + 1);
 		request = new XMLHttpRequest();
 		request.open('GET', url, true);
+		request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-		request.onload = function() {
+		request.onload = function(payload) {
 			if (request.status >= 200 && request.status < 400) {
-				const snippet = request.responseText;
-				if (!snippet.trim()) {
+				const payload = JSON.parse(request.responseText);
+				if (payload.results === 0) {
 					noMorePages = true;
 					$showMoreButton.classList.add('hidden');
 					return;
 				}
-				$results.insertAdjacentHTML('beforeend', snippet);
+				$results.insertAdjacentHTML('beforeend', payload.snippets['snippet--results']);
 				lastLoadedPage++;
 				request = null;
 			}
