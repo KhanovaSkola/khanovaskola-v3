@@ -82,34 +82,6 @@
 		{include footerMobile}
 	{/cache}
 
-	<script data-main="main" src="{$basePath}/libs/requirejs/require.js"></script>
-	<script>
-		require.config({
-            baseUrl: {$basePath} + "/build/jsv2",
-            paths: {
-                "babel-polyfill": {$basePath} + "/libs/babel/browser-polyfill",
-                dropdown: {$basePath} + "/libs/bootstrap/js/dropdown",
-                flux: {$basePath} + "/libs/flux/dist/Flux",
-				jquery: {$basePath} + "/libs/jquery/dist/jquery.min",
-                modal: {$basePath} + "/libs/bootstrap/js/modal",
-                tab: {$basePath} + "/libs/bootstrap/js/tab",
-				typeahead: {$basePath} + "/libs/typeahead.js/dist/typeahead.jquery",
-				zxcvbn: {$basePath} + "/libs/zxcvbn/zxcvbn"
-			},
-			shim: {
-				dropdown: ["jquery"],
-				modal: ["jquery"],
-                typeahead: ["jquery"]
-            }
-		});
-	</script>
-	{*
-	<script src="{$basePath}/libs/jquery/dist/jquery.min.js"></script>
-	{block scripts}{/block}
-	<script src="{$basePath}/build/app.min{$staticHash}.js"></script>
-	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
-    	<script src="{$basePath}/build/app.admin.min{$staticHash}.js"></script>
-    {/if}
-    *}
+	<script data-main="{$basePath}/build/jsv2/main" data-basepath="{$basePath}" src="{$basePath}/libs/requirejs/require.js"></script>
 </body>
 </html>
