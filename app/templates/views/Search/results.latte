@@ -23,7 +23,7 @@
                         <a n:if="$filter" n:href="this, filter => NULL">(zobrazit vše)</a>
                     </ul>
                 </section>
-                <section class="search-result" data-url-more="{plink more, query => $query}">
+                <section class="search-result" data-url-more="{plink more, query => $query, page => '{page}'|templateLink}">
                     {includeblock _searchItem.latte}
                     {foreach $search->results as $i => $content}
                         {include searchItem, hit => $content}
