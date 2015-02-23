@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form" data-password-strength>
+<form n:name="form" data-password-strength data-guess-gender data-guess-gender-url-template="{plink Js:guessGender, name => '{name}'|templateLink}">
 	<ul class=error n:if="$form->ownErrors">
         <li n:foreach="$form->ownErrors as $error">{$error}</li>
     </ul>
