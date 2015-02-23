@@ -16,6 +16,12 @@ define(['logic/header/hover', 'dropdown'], function(hover) {
 		event.stopPropagation();
 	});
 
+	const openDropdown = function($dropdown) {
+		$dropdown.classList.add('open');
+		openedDropdown = $dropdown;
+		hover.onDropdownOpened();
+	};
+
 	for (let $dropdown of document.querySelectorAll('.dropdown')) {
 		const $toggle = $dropdown.querySelector('.dropdown-toggle');
 		$toggle.addEventListener('click', event => {
@@ -26,19 +32,20 @@ define(['logic/header/hover', 'dropdown'], function(hover) {
 				hover.onDropdownClosed();
 
 			} else {
-				// Open dropdown
 				if (openedDropdown) {
 					// Open dropdown when another is opened
 					openedDropdown.classList.remove('open');
 				}
 
-				$dropdown.classList.add('open');
-				openedDropdown = $dropdown;
-				hover.onDropdownOpened();
+				openDropdown($dropdown);
 			}
 
 			event.stopPropagation();
 			event.preventDefault();
 		});
 	}
+
+	return {
+		openDropdown: openDropdown
+	};
 });

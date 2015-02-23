@@ -3,5 +3,6 @@ define([
 	'logic/header/dropdowns',
 	'logic/header/hover',
 	'logic/header/modals',
-	'logic/header/search'
+	'logic/header/search',
+	'logic/header/tabs'
 ]);

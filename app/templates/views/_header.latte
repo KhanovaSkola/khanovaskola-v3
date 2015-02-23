@@ -11,10 +11,10 @@
 		{block headerBack}
 			{include headerLogo}
 		{/block}
-		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : 'null'}">
+		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : ''}">
 			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
-					<div class="dropdown dropdown-big">
+					<div class="dropdown dropdown-big" data-subjects-dropdown>
 						<a href="#" class="dropdown-toggle span-link">
 							<span>Předmět</span>
 							<i class="icon icon-dropdown-caret"></i>
@@ -22,7 +22,7 @@
 						<div class="dropdown-menu">
 							<div class="subjects-list">
 								<ul class="ul-tab" role="tablist">
-									<li n:foreach="$subjects as $i => $subject"{first} class="active"{/first}>
+									<li n:foreach="$subjects as $i => $subject"{first} data-default-label{/first}>
 										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
 		                                    <span>{$subject->title}</span>
 		                                    <i class="icon icon-{$subject->icon}"></i>
@@ -44,7 +44,7 @@
 								</ul>
 							</div>
 							<div class="subject-detail tab-content">
-								<div n:foreach="$subjects as $i => $subject" class="tab-pane{first} active{/first}" id="tab-{$i}">
+								<div n:foreach="$subjects as $i => $subject" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subject->id}">
 									{block subjectDetail}
 										<div class="row row-main">
 											{foreach $subject->getLargeMenuItems() as $schema}
@@ -73,7 +73,7 @@
 										</div>
 									{/block}
 								</div>
-								<div n:foreach="$oldSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}">
+								<div n:foreach="$oldSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subject->id}">
 									{include subjectDetail}
 								</div>
 							</div>
