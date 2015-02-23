@@ -31,7 +31,6 @@ define(['logic/header/dropdowns'], function(dropdowns) {
 			$activeLabel = $label;
 			$activeTab = $tab;
 
-			$dropdown.classList.add('open');
 			dropdowns.openDropdown($dropdown);
 
 			window.scrollTo(0, 0);

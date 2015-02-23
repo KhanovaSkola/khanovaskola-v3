@@ -1,6 +1,5 @@
 (function() {
 	const basePath = document.querySelector('script[data-basepath]').getAttribute('data-basepath');
-console.log(basePath);
 	require.config({
 		baseUrl: `${basePath}/build/jsv2`,
 		paths: {
