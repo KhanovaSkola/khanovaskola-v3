@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "07aa80f5dc1185d048eaed514c89caf5",
+    "hash": "5dc7261eb2746afb4efca2eeab8275d9",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -3447,12 +3447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextras/tracy-query-panel.git",
-                "reference": "357e479e"
+                "reference": "a7137ec"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/357e479e905a387f4b51106ad298a6d97f5f00b0",
-                "reference": "357e479e",
+                "reference": "a7137ec",
                 "shasum": ""
             },
             "require": {

@@ -43,7 +43,7 @@
 		"mikulas/code-sniffs": "~1.1",
 		"mikulas/lattecs": "0.3.1-RC",
 		"nette/tester": "~1.1",
-		"nextras/tracy-query-panel": "dev-master#357e479e",
+		"nextras/tracy-query-panel": "dev-master#a7137ec",
 		"oodle/inflect": "~0.2",
 		"petrp/access": "~0.2"
 	},
