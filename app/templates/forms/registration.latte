@@ -48,7 +48,7 @@
         {include error, control => $form['gender']}
     </div>
 
-    <div class="form-group form-group-password clearfix{if $form['password']->errors} has-error{/if}">
+    <div class="form-group clearfix{if $form['password']->errors} has-error{/if}" data-password-group>
         <div class="pull-left floating-placeholder">
             <label n:name="password">Nové heslo</label>
             <input n:name="password" type="password" class="form-control input-password" placeholder="Nové heslo">

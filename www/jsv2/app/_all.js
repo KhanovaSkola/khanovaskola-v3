@@ -1,5 +1,5 @@
 define([
-	'logic/loginForm',
+	'logic/auth/loginForm',
 	'logic/header/dropdowns',
 	'logic/header/hover',
 	'logic/header/modals',

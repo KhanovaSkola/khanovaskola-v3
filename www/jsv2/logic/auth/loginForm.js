@@ -1,4 +1,4 @@
-define(function() {
+define(['services/showPassword'], function(showPassword) {
 	const $loginForm = document.querySelector('[data-login-form]');
 	if ($loginForm) {
 		const $emailInput = $loginForm.querySelector('input[name="email"]');
@@ -14,5 +14,9 @@ define(function() {
 		$emailInput.addEventListener('change', handler);
 		$emailInput.addEventListener('paste', handler);
 		$emailInput.addEventListener('keyup', handler);
+
+
+		const $passwordGroup = $loginForm.querySelector('[data-password-group]');
+		showPassword.registerFormGroup($passwordGroup);
 	}
 });
