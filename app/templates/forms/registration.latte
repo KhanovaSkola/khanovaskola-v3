@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form" data-registration-form>
+<form n:name="form" data-password-strength>
 	<ul class=error n:if="$form->ownErrors">
         <li n:foreach="$form->ownErrors as $error">{$error}</li>
     </ul>

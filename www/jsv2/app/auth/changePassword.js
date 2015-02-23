@@ -1,0 +1,1 @@
+define(['logic/auth/passwordStrength']);
