@@ -91,10 +91,12 @@
                 dropdown: {$basePath} + "/libs/bootstrap/js/dropdown",
                 flux: {$basePath} + "/libs/flux/dist/Flux",
 				jquery: {$basePath} + "/libs/jquery/dist/jquery.min",
+                modal: {$basePath} + "/libs/bootstrap/js/modal",
 				typeahead: {$basePath} + "/libs/typeahead.js/dist/typeahead.jquery"
 			},
 			shim: {
 				dropdown: ["jquery"],
+				modal: ["jquery"],
                 typeahead: ["jquery"]
             }
 		});
