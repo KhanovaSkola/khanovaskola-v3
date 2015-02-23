@@ -274,6 +274,16 @@ gulp.task('js-production-admin', function() {
 gulp.task('js-v2', function() {
 	return gulp.src(jsV2Files)
 		.pipe($.babel())
+		.pipe(replace({
+			patterns: [{
+				json: {
+					elastic: {
+						url: 'http://' + config.get('parameters').get('elastic').get('hosts').get(0) + ':9200',
+						index: config.get('parameters').get('elastic').get('index')
+					}
+				}
+			}]
+		}))
 		.pipe(gulp.dest(buildDir + '/jsv2'));
 });
 
