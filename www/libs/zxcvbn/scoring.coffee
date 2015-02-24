@@ -229,25 +229,22 @@ extra_l33t_entropy = (match) ->
 # utilities --------------------------------------------------------------------
 
 calc_bruteforce_cardinality = (password) ->
-  [lower, upper, digits, symbols, unicode] = [false, false, false, false, false]
+  [lower, upper, digits, symbols] = [false, false, false, false]
   for chr in password.split('')
     ord = chr.charCodeAt(0)
     if 0x30 <= ord <= 0x39
       digits = true
-    else if 0x41 <= ord <= 0x5a
+    if 0x41 <= ord <= 0x5a
       upper = true
-    else if 0x61 <= ord <= 0x7a
+    if 0x61 <= ord <= 0x7a
       lower = true
-    else if ord <= 0x7f
-      symbols = true
     else
-      unicode = true
+      symbols = true
   c = 0
   c += 10 if digits
   c += 26 if upper
   c += 26 if lower
   c += 33 if symbols
-  c += 100 if unicode
   c
 
 display_time = (seconds) ->

@@ -1,14 +1,12 @@
 {
   "name": "zxcvbn",
-  "main": "zxcvbn.js",
-  "homepage": "https://github.com/lowe/zxcvbn",
-  "_release": "9de5055f0b",
-  "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "9de5055f0b28a88b142cd738630a858652024678"
+  "_cacheHeaders": {
+    "ETag": "\"90b7d2908d1305e0ab9f0fe0d983041e546af760\"",
+    "Content-Type": "application/zip",
+    "Content-Disposition": "attachment; filename=zxcvbn-1.0.zip"
   },
-  "_source": "git://github.com/lowe/zxcvbn.git",
+  "_release": "e-tag:90b7d2908",
+  "_source": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip",
   "_target": "*",
-  "_originalSource": "zxcvbn"
+  "_originalSource": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip"
 }
