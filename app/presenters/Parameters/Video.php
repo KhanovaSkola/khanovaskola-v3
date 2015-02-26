@@ -31,6 +31,11 @@ trait Video
 	protected function loadVideo(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
+		if ($this->videoId && !ctype_digit("$this->videoId"))
+		{
+			$this->error();
+		}
+
 		$this->video = $this->orm->contents->getById($this->videoId);
 		if (!$this->video || ! $this->video instanceof Rme\Video)
 		{

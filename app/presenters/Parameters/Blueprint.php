@@ -31,6 +31,11 @@ trait Blueprint
 	protected function loadBlueprint(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
+		if ($this->blueprintId && !ctype_digit("$this->blueprintId"))
+		{
+			$this->error();
+		}
+
 		$this->blueprint = $this->orm->contents->getById($this->blueprintId);
 		if (!$this->blueprint || ! $this->blueprint instanceof Rme\Blueprint)
 		{

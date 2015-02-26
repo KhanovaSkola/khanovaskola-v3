@@ -31,6 +31,11 @@ trait Schema
 	protected function loadSchema(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
+		if ($this->schemaId && !ctype_digit("$this->schemaId"))
+		{
+			$this->error();
+		}
+
 		$this->schema = $this->orm->schemas->getById($this->schemaId);
 		if (!$this->schema)
 		{

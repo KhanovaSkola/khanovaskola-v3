@@ -31,6 +31,11 @@ trait Subject
 	protected function loadSubject(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
+		if ($this->subjectId && !ctype_digit("$this->subjectId"))
+		{
+			$this->error();
+		}
+
 		$this->subject = $this->orm->subjects->getById($this->subjectId);
 		if (!$this->subject)
 		{

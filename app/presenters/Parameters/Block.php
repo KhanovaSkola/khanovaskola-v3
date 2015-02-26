@@ -31,6 +31,11 @@ trait Block
 	protected function loadBlock(callable $fallback = NULL)
 	{
 		/** @var Presenter $this */
+		if ($this->blockId && !ctype_digit("$this->blockId"))
+		{
+			$this->error();
+		}
+
 		$this->block = $this->orm->blocks->getById($this->blockId);
 		if (!$this->block)
 		{
