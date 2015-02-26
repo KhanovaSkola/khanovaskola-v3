@@ -5,7 +5,7 @@ define(function() {
 	};
 
 	let player; // YT.Player
-	let ticker = {
+	let tickerId = {
 		short: null,
 		long: null
 	};
@@ -38,23 +38,22 @@ define(function() {
 	};
 
 	const longTicker = () => {
-		for (let cb of on.shortTick) {
+		for (let cb of on.longTick) {
 			cb(player.getCurrentTime());
 		}
 	};
 
 	const onStateChange = function(args) {
-		clearInterval(ticker.short);
-		clearInterval(ticker.long);
+		clearInterval(tickerId.short);
+		clearInterval(tickerId.long);
 
 		const state = args.data;
 		switch (state) {
 			case 1:
 				shortTicker();
 				longTicker();
-				ticker.short = setInterval(shortTicker, delta.short);
-				ticker.short = setInterval(longTicker, delta.short);
-
+				tickerId.short = setInterval(shortTicker, delta.short);
+				tickerId.long = setInterval(longTicker, delta.long);
 				for (let cb of on.play) {
 					cb(player.getCurrentTime());
 				}
@@ -105,8 +104,15 @@ define(function() {
 
 	const togglePlay = function() {
 		if (player.getPlayerState() != 1) {
+			for (let cb of on.play) {
+				cb(player.getCurrentTime());
+			}
+
 			player.playVideo();
 		} else {
+			for (let cb of on.pause) {
+				cb(player.getCurrentTime());
+			}
 			player.pauseVideo();
 		}
 	};
