@@ -1,10 +1,4 @@
 $(function() {
-    var $exercise = $('[data-exercise]');
-    if (!$exercise.length) {
-        return;
-    }
-    var $container = $('.right-inner');
-
     App.onInactive.push(function() {
         $container.find('[name=inactivity]').val(true);
     });
@@ -55,20 +49,5 @@ $(function() {
         $container.find('[name=hint]').val(false);
         timer = App.getTimer();
         $container.find('input:first').focus();
-    });
-
-    $container.on('click', '[data-show-hint]', function() {
-        if (hints === null)
-        {
-            hints = $container.find('[data-hint]').hide().toArray();
-        }
-        $container.find('[name=hint]').val(true);
-        $(hints.shift()).removeClass('hidden').show();
-        $container.find('[data-hint-label]').removeClass('hidden');
-
-        if (!hints.length) {
-            $(this).hide();
-        }
-        return false;
     });
 });
