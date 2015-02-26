@@ -1,9 +1,10 @@
 define([
 	'services/ajax',
 	'services/sounds',
+	'services/inactivity',
 	'logic/blueprint/latex',
 	'logic/blueprint/setupHints'
-], function(ajax, sounds, latex, hints) {
+], function(ajax, sounds, inactivity, latex, hints) {
 	const $exercise = document.querySelector('[data-exercise]');
 
 
@@ -27,5 +28,10 @@ define([
 		}
 
 		$exercise.querySelector('input').focus();
+	});
+
+
+	inactivity.onInactive.push(() => {
+		document.querySelector('input[name="inactivity"]').value = true;
 	});
 });
