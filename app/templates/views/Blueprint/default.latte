@@ -109,4 +109,15 @@
 	            </div>
             {/snippet}
     	</div>
+
+    	{if $reason = $user->isAllowed($blueprint)}
+	        <div class="container editor-bar">
+	            <div class="alert alert-info">
+	                <a n:href="BlueprintEditor:default, blueprintId => $blueprint->id">Editovat cvičení</a>
+	                <small class="pull-right">
+	                    Možnost úpravy máš, protože jsi {$reason->toString($blueprint)}.
+	                </small>
+	            </div>
+	        </div>
+	    {/if}
     </main>
