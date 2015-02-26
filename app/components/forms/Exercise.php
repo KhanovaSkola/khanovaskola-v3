@@ -32,8 +32,7 @@ class Exercise extends Form
 
 		$v = $this->values;
 		$exercise = $presenter->getExercise($v->seed);
-
-		if (!Strings::trim($v->answer))
+		if (Strings::trim($v->answer) === '')
 		{
 			$presenter->redirect('this', ['seed' => $v->seed]);
 		}
