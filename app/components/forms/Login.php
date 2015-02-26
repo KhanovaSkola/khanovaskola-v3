@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\Models\Orm\RepositoryContainer;
+use App\Models\Rme\User;
 use App\Models\Services\UserMerger;
 use App\Presenters\Auth;
 use Nette\Security\AuthenticationException;
@@ -60,7 +61,7 @@ class Login extends Form
 
 			$presenter->user->login($v->email, $v->password);
 
-			if ($guest)
+			if ($guest && $guest instanceof User)
 			{
 				$this->userMerger->mergeUserInto($guest, $presenter->getUserEntity());
 				$this->orm->flush();
