@@ -45,15 +45,13 @@
                 <div class="right">
                     <div class="right-inner">
                         <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"
-                            data-subtitles-url="{plink Subtitles:default, videoId => $video->id}"
-                            data-url-event-begin="{plink Js:videoViewBegin}"
-                            data-url-event-seek="{plink Js:videoViewSeek}"
-                            data-url-event-pause="{plink Js:videoViewPause}"
-                            data-url-event-change-view="{plink Js:videoViewChangeView}"
-                            data-url-event-tick="{plink Js:videoViewTick}"
-                            data-video-id="{$video->id}"
-                            data-block-id="{$block ? $block->id}"
-                            data-schema-id="{$schema ? $schema->id}"
+                            data-subtitles-url="{plink Subtitles:json, videoId => $video->id}"
+                            data-url-event-begin="{plink Js:videoViewBegin, videoId => $video->id, blockId => $block ? $block->id, schemaId => $schema ? $schema->id}"
+                            data-url-event-seek="{plink Js:videoViewSeek, viewId => '{viewId}', from => '{from}', to => '{to}'|templateLink}"
+                            data-url-event-pause="{plink Js:videoViewPause, viewId => '{viewId}', at => '{at}', duration => '{duration}'|templateLink}"
+                            data-url-event-change-view="{plink Js:videoViewChangeView, viewId => '{viewId}', at => '{at}', isFullscreenNow => '{isFullscreenNow}'|templateLink}"
+                            data-url-event-tick="{plink Js:videoViewTick, viewId => '{viewId}', percent => '{percent}', time => '{time}', furthest => '{furthest}', watched => '{watched}'|templateLink}"
+                            data-duration="{$video->duration}"
                             >
 
                             <meta itemprop="name" content="{$video->title}" />
@@ -77,7 +75,7 @@
                 </div>
             </div>
             <div class="video-controls">
-	            <div class="course-progress-container" data-initial="{$startAtTime / $video->duration}">
+	            <div class="course-progress-container" data-initial="{$startAtTime}">
 		            <div class="course-progress">
 		                <div class="progress-inner"></div>
 		                <div class="progress-label label-left">{$startAtTime|duration}</div>

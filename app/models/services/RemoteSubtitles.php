@@ -57,6 +57,27 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 
 	/**
 	 * @param $youtubeId
+	 * @return array[start, end, text]
+	 */
+	public function getParsedSubtitles($youtubeId)
+	{
+		$srt = $this->getSubtitles($youtubeId);
+		$parsed = [];
+		foreach (preg_split('~(^|\r*\n\r*\n\r*)\d+\r*\n\r*~', $srt, -1, PREG_SPLIT_NO_EMPTY) as $row)
+		{
+			$row = preg_replace_callback('~(\d+:\d+:\d+[.,]\d+)\s+-->\s+(\d+:\d+:\d+[.,]\d+)\n+~m', function ($m) use (&$start, &$end)
+			{
+				$start = $this->parseTime($m[1]);
+				$end = $this->parseTime($m[2]);
+				return '';
+			}, $row);
+			$parsed[] = [$start, $end, $row];
+		}
+		return $parsed;
+	}
+
+	/**
+	 * @param $youtubeId
 	 * @return NULL|mixed
 	 */
 	public function reloadSubtitles($youtubeId)

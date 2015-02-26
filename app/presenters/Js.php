@@ -112,7 +112,7 @@ final class Js extends Presenter
 	 * @param bool $watched
 	 * @throws BadRequestException
 	 */
-	public function actionVideoViewTick($viewId, $percent, $time, $furthest, $watched = FALSE)
+	public function actionVideoViewTick($viewId, $percent, $time, $furthest, $watched = NULL)
 	{
 		/** @var VideoView $view */
 		if (!$view = $this->orm->videoViews->getById($viewId))

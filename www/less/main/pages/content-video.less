@@ -242,10 +242,19 @@
 								display: block;
 								background: url(../img/play.svg) no-repeat;
 								background-size: 85px auto;
+
+								visibility: visible;
+								opacity: 1;
+								transition: visibility 0s linear 0.25s, opacity 0.25s linear;
+
 								&.dont-center {
 									@media all and (max-width: 900px) {
 										left: 450px;
 									}
+								}
+								&.fade-out {
+									visibility: hidden;
+									opacity: 0;
 								}
 							}
 						}
