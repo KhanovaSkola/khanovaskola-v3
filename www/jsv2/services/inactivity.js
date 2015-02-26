@@ -3,7 +3,7 @@ define(['services/timer'], function(timer) {
 	let lastActionAt = timer.create();
 
 	setInterval(() => {
-		if (lastActionAt() > 180) {
+		if (lastActionAt() > 5 * 60 * 1000) {
 			for (let cb of onInactive) {
 				cb();
 			}

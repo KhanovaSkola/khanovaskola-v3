@@ -1,16 +1,27 @@
 define([
 	'services/ajax',
 	'services/sounds',
+	'services/timer',
 	'services/inactivity',
 	'logic/blueprint/latex',
 	'logic/blueprint/setupHints'
-], function(ajax, sounds, inactivity, latex, hints) {
+], function(ajax, sounds, timer, inactivity, latex, hints) {
 	const $exercise = document.querySelector('[data-exercise]');
 
 
 	hints.setup();
 	ajax.onSuccess.push(latex.render);
 	ajax.onSuccess.push(hints.setup);
+
+
+	let timeSpentOnThisQuestion = timer.create();
+	ajax.onBefore.push((xhr, settings) => {
+		settings.data.append('time', timeSpentOnThisQuestion());
+		$exercise.querySelector('[type="submit"]').classList.add('disabled');
+	});
+	ajax.onSuccess.push(() => {
+		timeSpentOnThisQuestion = timer.create();
+	});
 
 
 	const effects = {
@@ -32,6 +43,6 @@ define([
 
 
 	inactivity.onInactive.push(() => {
-		document.querySelector('input[name="inactivity"]').value = true;
+		$exercise.querySelector('input[name="inactivity"]').value = true;
 	});
 });
