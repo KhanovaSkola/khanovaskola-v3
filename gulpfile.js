@@ -177,6 +177,12 @@ gulp.task('js-dev', function() {
 gulp.task('js-production', function() {
 	return gulp.src(jsFiles)
 		.pipe($.babel())
+		.pipe($.tap(function(file) {
+			var name = file.path.replace(/.*[/\\]www[/\\]js[/\\]|\.js$/g, '');
+			var content = file.contents.toString();
+			content = content.replace(/\bdefine\(/, 'define("' + name + '", ');
+			file.contents = new Buffer(content);
+		}))
 		.pipe(replace({
 			patterns: [{
 				json: {
@@ -187,6 +193,8 @@ gulp.task('js-production', function() {
 				}
 			}]
 		}))
+		.pipe($.concat('main.js'))
+		.pipe($.uglify())
 		.pipe(gulp.dest(buildDir + '/js'));
 });
 
