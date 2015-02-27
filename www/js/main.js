@@ -3,38 +3,37 @@
 	require.config({
 		baseUrl: `${basePath}/build/js`,
 		paths: {
-			babel: `${basePath}/libs/babel/browser-polyfill`,
-			chosen: `${basePath}/libs/chosen/chosen.jquery.min`,
-			dropdown: `${basePath}/libs/bootstrap/js/dropdown`,
-			handsontable: `${basePath}/libs/handsontable/dist/handsontable.full.min`,
-			jquery: `${basePath}/libs/jquery/dist/jquery.min`,
-			'jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
-			mathjax: `${basePath}/libs/MathJax/MathJax`,
-			modal: `${basePath}/libs/bootstrap/js/modal`,
-			'nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
-			'nette-ajax': `${basePath}/libs/nette.ajax.js/nette.ajax`,
-			'sortable': `${basePath}/libs/Sortable/Sortable.min`,
-			tab: `${basePath}/libs/bootstrap/js/tab`,
-			typeahead: `${basePath}/libs/typeahead.js/dist/typeahead.jquery`,
-			zeroclipboard: `${basePath}/libs/zeroclipboard/dist/ZeroClipboard.min`,
-			zxcvbn: `${basePath}/libs/zxcvbn/zxcvbn`,
-
-			'codemirror': `${basePath}/libs/codemirror/lib/codemirror`,
-			'codemirror-xml': `${basePath}/libs/codemirror/mode/xml/xml`,
+			'lib/babel': `${basePath}/libs/babel/browser-polyfill`,
+			'lib/chosen': `${basePath}/libs/chosen/chosen.jquery.min`,
+			'lib/codemirror': `${basePath}/libs/codemirror/lib/codemirror`,
+			'lib/codemirror-xml': `${basePath}/libs/codemirror/mode/xml/xml`,
+			'lib/dropdown': `${basePath}/libs/bootstrap/js/dropdown`,
+			'lib/handsontable': `${basePath}/libs/handsontable/dist/handsontable.full.min`,
+			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,
+			'lib/jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
+			'lib/mathjax': `${basePath}/libs/MathJax/MathJax`,
+			'lib/modal': `${basePath}/libs/bootstrap/js/modal`,
+			'lib/nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
+			'lib/nette-ajax': `${basePath}/libs/nette.ajax.js/nette.ajax`,
+			'lib/sortable': `${basePath}/libs/Sortable/Sortable.min`,
+			'lib/tab': `${basePath}/libs/bootstrap/js/tab`,
+			'lib/typeahead': `${basePath}/libs/typeahead.js/dist/typeahead.jquery`,
+			'lib/zeroclipboard': `${basePath}/libs/zeroclipboard/dist/ZeroClipboard.min`,
+			'lib/zxcvbn': `${basePath}/libs/zxcvbn/zxcvbn`
 		},
 		shim: {
-			chosen: ["jquery"],
-			dropdown: ["jquery"],
-			handonstable: ['zeroclipboard'],
-			'jquery-ui': ['jquery'],
-			modal: ['jquery'],
-			"nette-ajax": ['jquery', 'nette'],
-			typeahead: ['jquery']
+			'lib/chosen': ['lib/jquery'],
+			'lib/dropdown': ['lib/jquery'],
+			'lib/handonstable': ['lib/zeroclipboard'],
+			'lib/jquery-ui': ['lib/jquery'],
+			'lib/modal': ['lib/jquery'],
+			'lib/nette-ajax': ['lib/jquery', 'lib/nette'],
+			'lib/typeahead': ['lib/jquery']
 		}
 	});
 
-	require(['babel'], function() {
-		require(['modal', 'logic/urlFixes', 'logic/floatingPlaceholder', 'logic/mobileMenu', 'logic/clickCatchers'], function() {
+	require(['lib/babel'], function() {
+		require(['lib/modal', 'logic/urlFixes', 'logic/floatingPlaceholder', 'logic/mobileMenu', 'logic/clickCatchers'], function() {
 			const body = document.getElementsByTagName('body')[0];
 			const scripts = JSON.parse(body.getAttribute('data-scripts'));
 			require(scripts);

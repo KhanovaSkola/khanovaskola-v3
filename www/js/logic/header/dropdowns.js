@@ -1,5 +1,5 @@
 // Open dropdowns onClick toggle element
-define(['logic/header/hover', 'dropdown'], function(hover) {
+define(['logic/header/hover', 'lib/dropdown'], function(hover) {
 	let openedDropdown = null;
 
 	const close = function() {

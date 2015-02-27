@@ -1,4 +1,4 @@
-define(['codemirror', 'codemirror-xml'], function(CodeMirror) {
+define(['lib/codemirror', 'lib/codemirror-xml'], function(CodeMirror) {
 
 	require(['app/blueprint-editor/to-refactor']);
 

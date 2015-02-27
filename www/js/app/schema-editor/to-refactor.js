@@ -1,4 +1,4 @@
-define(['jquery', 'jquery-ui'], function() {
+define(['lib/jquery', 'lib/jquery-ui'], function() {
 	var $arrowTargets = $(".schema-wrapper.editor .cell-even");
 	$(".arrow-picker .cell").draggable({
 		revert: true,

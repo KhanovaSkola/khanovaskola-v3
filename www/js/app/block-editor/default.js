@@ -1,5 +1,5 @@
 define([
-	'sortable',
+	'lib/sortable',
 	'services/search',
 	'logic/editorSelector'
 ], function(Sortable, search) {

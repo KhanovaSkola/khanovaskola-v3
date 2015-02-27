@@ -1,4 +1,4 @@
-define(['sortable', 'handsontable', 'jquery'], function(Sortable) {
+define(['lib/sortable', 'lib/handsontable', 'lib/jquery'], function(Sortable) {
 	var $form = $('[data-blueprint-editor]');
 
 	var Renderer = {};

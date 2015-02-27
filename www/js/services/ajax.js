@@ -1,4 +1,4 @@
-define(['nette-ajax'], function() {
+define(['lib/nette-ajax'], function() {
 	let onBefore = [];
 	let onSuccess = [];
 

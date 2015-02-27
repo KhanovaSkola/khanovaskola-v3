@@ -1,4 +1,4 @@
-define(['sortable'], function(Sortable) {
+define(['lib/sortable'], function(Sortable) {
 	const $list = document.querySelector('[data-subject-list]');
 	const url = $list.dataset.saveUrl;
 	const $saveButton = document.querySelector('[data-save]');

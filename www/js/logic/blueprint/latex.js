@@ -1,4 +1,4 @@
-define(['mathjax'], function() {
+define(['lib/mathjax'], function() {
 	MathJax.Hub.Config({
 		extensions: ["tex2jax.js"],
 		jax: ["input/TeX", "output/HTML-CSS"],
