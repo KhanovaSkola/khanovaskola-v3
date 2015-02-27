@@ -8,7 +8,7 @@
                 Přihlásit se
             </a>
             <div class="dropdown no-image" style="display:inline-block">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="dropdown-toggle">
                     <i class="icon icon-dropdown-caret"></i>
                 </a>
                 <ul class="dropdown-menu">
@@ -28,7 +28,7 @@
             </div>
 	        <div class="pull-right">
 	            <div class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                <a href="#" class="dropdown-toggle">
 	                    <span>
 	                        <img src="{$basePath}/img/anonym-user.svg" alt="user">
 	                    </span>
@@ -81,7 +81,7 @@
     {else}{*if $userEntity->registered*}
 
         <div class="dropdown{if !$userEntity->avatar} missing-avatar{/if}">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle">
 				{if $userEntity->avatar}
 					<img src="{$userEntity->avatar}">
 				{else}
