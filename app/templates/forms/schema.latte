@@ -1,6 +1,6 @@
 {includeblock _error.latte}
 
-<form n:name="form" class="form-horizontal">
+<form n:name="form" class="form-horizontal" data-schema-form>
 	{include formError, form => $form}
 	<div class="form-group{if $form['title']->errors} has-error{/if}">
 		<label n:name="title">Název</label>

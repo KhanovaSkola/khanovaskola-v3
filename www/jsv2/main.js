@@ -4,6 +4,7 @@
 		baseUrl: `${basePath}/build/jsv2`,
 		paths: {
 			babel: `${basePath}/libs/babel/browser-polyfill`,
+			chosen: `${basePath}/libs/chosen/chosen.jquery.min`,
 			dropdown: `${basePath}/libs/bootstrap/js/dropdown`,
 			handsontable: `${basePath}/libs/handsontable/dist/handsontable.full.min`,
 			jquery: `${basePath}/libs/jquery/dist/jquery.min`,
@@ -11,6 +12,7 @@
 			modal: `${basePath}/libs/bootstrap/js/modal`,
 			'nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
 			'nette-ajax': `${basePath}/libs/nette.ajax.js/nette.ajax`,
+			'sortable': `${basePath}/libs/Sortable/Sortable.min`,
 			tab: `${basePath}/libs/bootstrap/js/tab`,
 			typeahead: `${basePath}/libs/typeahead.js/dist/typeahead.jquery`,
 			zeroclipboard: `${basePath}/libs/zeroclipboard/dist/ZeroClipboard.min`,
@@ -20,6 +22,7 @@
 			'codemirror-xml': `${basePath}/libs/codemirror/mode/xml/xml`,
 		},
 		shim: {
+			chosen: ["jquery"],
 			dropdown: ["jquery"],
 			handonstable: ['zeroclipboard'],
 			modal: ['jquery'],

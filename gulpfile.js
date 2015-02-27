@@ -121,6 +121,7 @@ var lessAdminFiles = [
 	path.join(lessDir, 'variables.less'),
 	path.join(lessDir, 'mixins.less'),
 	path.join(lessDir, 'admin/*.less'),
+	path.join(lessDir, 'admin/components/*.less'),
 	path.join(lessDir, 'admin/pages/*.less')
 ];
 var lessExperimentFiles = [

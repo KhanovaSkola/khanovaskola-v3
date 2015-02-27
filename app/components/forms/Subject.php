@@ -47,18 +47,20 @@ class Subject extends EditorForm
 			$subject->editors = $v->editors;
 		}
 
-		$data = Json::decode($v['positions']);
+		$schemas = Json::decode($v['positions']);
 		foreach ($subject->schemas as $schema)
 		{
 			$schema->position = NULL;
 			$schema->subject = NULL;
 		}
-		foreach ($data as $schemaId => $values)
+		$position = 0;
+		foreach ($schemas as $schemaId)
 		{
 			/** @var Rme\Schema $schema */
 			$schema = $this->orm->schemas->getById($schemaId);
-			$schema->position = $values->position;
+			$schema->position = $position;
 			$schema->subject = $subject;
+			$position++;
 		}
 
 		$this->orm->flush();

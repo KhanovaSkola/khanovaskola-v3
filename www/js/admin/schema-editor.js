@@ -1,9 +1,4 @@
 $(function() {
-	var $page = $('.schema-editor');
-	if (!$page.length) {
-		return;
-	}
-
 	$('[data-editors]').chosen({
 		no_results_text: "Email nenalezen"
 	});
