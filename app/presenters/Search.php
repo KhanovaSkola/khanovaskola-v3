@@ -22,13 +22,18 @@ final class Search extends Presenter
 		$this->redirectToEntity($this->orm->contents->getById($contentId));
 	}
 
+	public function createComponentSearchResultsForm()
+	{
+		return $this->createComponent('search');
+	}
+
 	public function renderResults($query)
 	{
 		if (!Strings::trim($query))
 		{
 			$this->redirect('Homepage:default');
 		}
-
+		$this["SearchResultsForm-query"]->setValue($query);
 		$this->template->query = $query;
 		list($limit, $offset) = $this->getLinearLimitOffset(1);
 		$this->template->search = $this->search->query($query, $limit, $offset);
