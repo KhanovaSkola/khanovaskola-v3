@@ -42,19 +42,19 @@
 		                <div class="subject">
 		                    <h2>
 		                        <a n:href="Schema:continue, schemaId => $schema->id">
-			                        <i class="icon icon-{$schema->subject->icon} text-{$schema->subject->color}"></i>
+			                        <i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
 			                        <span>{$schema->title}</span>
 			                    </a>
 		                    </h2>
 		                    <div class="progress-wrapper">
 		                        {var $percent = $schema->getCompletedPercent($userEntity)}
 		                        <div class="progress">
-		                            <div class="progress-bar progress-bar-{$schema->subject->color}" style="width: {$percent|number:3|noescape}%;"></div>
+		                            <div class="progress-bar progress-bar-{$schema|subjectColor}" style="width: {$percent|number:3|noescape}%;"></div>
 		                        </div>
 		                        <span>{$percent|number}&thinsp;%</span>
 		                    </div>
 		                    <div class="action">
-		                        <a n:href="Schema:continue, schemaId => $schema->id" class="btn btn-{$schema->subject->color}">
+		                        <a n:href="Schema:continue, schemaId => $schema->id" class="btn btn-{$schema|subjectColor}">
 		                            <i class="icon icon-video-play"></i>
 		                        </a>
 		                    </div>
