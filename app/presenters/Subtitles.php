@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
+use App\Models\Structs\CachingJsonResponse;
 use App\Presenters\Parameters;
-use Nette\Application\Responses\JsonResponse;
 use Nette\Application\Responses\TextResponse;
 
 
@@ -39,7 +39,8 @@ class Subtitles extends Presenter
 				'text' => $text,
 			];
 		}
-		$this->sendResponse(new JsonResponse($mapped));
+
+		$this->sendResponse(new CachingJsonResponse($mapped));
 	}
 
 }
