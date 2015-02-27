@@ -133,7 +133,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$hash = NULL;
 		if (file_exists($deploy))
 		{
-			$hash = '-' . substr(md5(file_get_contents($deploy)), 0, 10);
+			$hash = '-hashed-' . substr(md5(file_get_contents($deploy)), 0, 10);
 		}
 		$this->template->add('staticHash', $hash);
 
