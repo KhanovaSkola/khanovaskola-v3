@@ -181,8 +181,6 @@ trait ControlTrait
 			}
 			return $this->buildComponent($controlClass, $args);
 		}
-
-		return Presenter::createComponent($name);
 	}
 
 	/**
