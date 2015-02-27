@@ -2,19 +2,13 @@
 define(['logic/header/hover', 'dropdown'], function(hover) {
 	let openedDropdown = null;
 
-	// Close dropdown on clicking outside header
-	const $body = document.getElementsByTagName('body')[0];
-	const $header = document.getElementsByTagName('header')[0];
-	$body.addEventListener('click', event => {
+	const close = function() {
 		if (openedDropdown) {
 			openedDropdown.classList.remove('open');
 			openedDropdown = null;
 			hover.onDropdownClosed();
 		}
-	});
-	$header.addEventListener('click', event => {
-		event.stopPropagation();
-	});
+	};
 
 	const openDropdown = function($dropdown) {
 		$dropdown.classList.add('open');
@@ -46,6 +40,7 @@ define(['logic/header/hover', 'dropdown'], function(hover) {
 	}
 
 	return {
-		openDropdown: openDropdown
+		openDropdown: openDropdown,
+		close: close
 	};
 });

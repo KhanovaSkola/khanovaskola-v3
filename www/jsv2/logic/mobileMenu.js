@@ -29,5 +29,9 @@ define(function() {
 		event.preventDefault();
 	});
 
-
+	return {
+		close: () => {
+			$mobileNav.classList.remove('open');
+		}
+	};
 });
