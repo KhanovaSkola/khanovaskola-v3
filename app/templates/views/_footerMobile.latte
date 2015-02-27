@@ -8,7 +8,7 @@
                         <span>{$subject->title}</span>
                         <i class="icon icon-{$subject->icon}"></i>
                     </a>
-                    <ul class="schemas list-unstyled" data-subject="{$subject->id}">
+                    <ul class="schemas list-unstyled hidden" data-subject="{$subject->id}">
                         <li n:foreach="$subject->schemas as $schema">
                             <a n:href="$schema" class="schema text-{$subject->color}">
                                 <span>{$schema->title}</span>

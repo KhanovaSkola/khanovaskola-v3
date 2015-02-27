@@ -34,7 +34,7 @@
 	});
 
 	require(['babel'], function() {
-		require(['modal', 'logic/urlFixes', 'logic/floatingPlaceholder'], function() {
+		require(['modal', 'logic/urlFixes', 'logic/floatingPlaceholder', 'logic/mobileMenu'], function() {
 			const body = document.getElementsByTagName('body')[0];
 			const scripts = JSON.parse(body.getAttribute('data-scripts'));
 			require(scripts);

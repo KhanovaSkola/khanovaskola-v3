@@ -1,10 +1,4 @@
 $(function() {
-	var $nav = $('.mobile-nav');
-
-	$('#mobile-nav-append').after($('#mobile-nav-snippet').children()).remove();
-
-	var $subjects = $('#mobile-nav-subjects').clone();
-	$('#mobile-nav-subjects-clone').append($subjects);
 
 	$(document).on('click', function(e) {
 		var $target = $(e.target);
@@ -13,10 +7,6 @@ $(function() {
 			return;
 		}
 		$nav.removeClass('open');
-	});
-	$('.burger').click(function() {
-		$nav.addClass('open');
-		return false;
 	});
 
 	$('.footer-mobile ul.schemas, .mobile-nav ul.schemas').slideUp();
