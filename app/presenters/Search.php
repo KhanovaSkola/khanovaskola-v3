@@ -23,6 +23,11 @@ final class Search extends Presenter
 		$this->redirectToEntity($this->orm->contents->getById($contentId));
 	}
 
+	public function createComponentSearchResultsForm()
+	{
+		return $this->createComponent('search');
+	}
+
 	public function renderResults($query, $page = NULL, $filter = NULL)
 	{
 		if (!Strings::trim($query))
@@ -30,9 +35,7 @@ final class Search extends Presenter
 			$this->redirect('Homepage:default');
 		}
 
-		/** @var TextInput $input */
-		$input = $this->getComponent('search-form-query');
-		$input->setDefaultValue($query);
+		$this['searchResultsForm-form-query']->setDefaultValue($query);
 
 		$this->template->query = $query;
 		$this->template->filter = $filter;
