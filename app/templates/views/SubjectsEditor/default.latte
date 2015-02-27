@@ -9,7 +9,7 @@
 
 	<div class="container">
 		<div class="col-md-12">
-			<ul class="subject-list drag" data-save-url="{plink save!}">
+			<ul class="subject-list drag" data-subject-list data-save-url="{plink save!, payload => '{payload}'|templateLink}">
 				{foreach $subjects as $subject}
 					<li data-subject-id="{$subject->id}">
 						<span class="subject-name text-{$subject->color}">
@@ -30,6 +30,6 @@
 					</li>
 				{/foreach}
 			</ul>
-			<input id="save" type="submit" class="btn" value="Uložit">
+			<input id="save" type="submit" class="btn" value="Uložit" data-save>
 		</div>
 	</div>
