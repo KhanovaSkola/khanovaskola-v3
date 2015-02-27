@@ -62,7 +62,7 @@
 		<script src="{$basePath}/libs/respond/dest/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body class="{$pageName}">
+<body class="{$pageName}" data-scripts="{$scripts}">
 	{includeblock _header.latte}
 	{include header}
 
@@ -82,11 +82,29 @@
 		{include footerMobile}
 	{/cache}
 
+	<script data-main="main" src="{$basePath}/libs/requirejs/require.js"></script>
+	<script>
+		require.config({
+            baseUrl: {$basePath} + "/build/jsv2",
+            paths: {
+                "babel-polyfill": {$basePath} + "/libs/babel/browser-polyfill",
+                dropdown: {$basePath} + "/libs/bootstrap/js/dropdown",
+				jquery: {$basePath} + "/libs/jquery/dist/jquery.min",
+				typeahead: {$basePath} + "/libs/typeahead.js/dist/typeahead.jquery"
+			},
+			shim: {
+				dropdown: ["jquery"],
+                typeahead: ["jquery"]
+            }
+		});
+	</script>
+	{*
 	<script src="{$basePath}/libs/jquery/dist/jquery.min.js"></script>
 	{block scripts}{/block}
 	<script src="{$basePath}/build/app.min{$staticHash}.js"></script>
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
     	<script src="{$basePath}/build/app.admin.min{$staticHash}.js"></script>
     {/if}
+    *}
 </body>
 </html>

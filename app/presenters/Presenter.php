@@ -7,6 +7,7 @@ use App\Components\FormControl;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme;
 use App\Models\Services\Inflection;
+use App\Models\Services\Paths;
 use App\Models\Services\Translator;
 use App\Models\Services\UserState;
 use App\Models\Structs\EventList;
@@ -74,6 +75,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	public $facebook;
 
+	/**
+	 * @var Paths
+	 * @inject
+	 */
+	public $paths;
+
 	public function startup()
 	{
 		parent::startup();
@@ -111,6 +118,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());
 		$this->template->add('fbAppId', $this->facebook->config->appId);
+
+		$this->setScripts();
 
 		if (!$this->user->isRegisteredUser())
 		{
@@ -223,6 +232,42 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$cache->clean([
 			Cache::TAGS => ['header'],
 		]);
+	}
+
+	private function setScripts()
+	{
+		$current = preg_replace_callback('~\B[A-Z]~', function($m) {
+			return '-' . strToLower($m[0]);
+		}, $this->getAction(TRUE));
+		$partials = explode(':', 'app' . strToLower($current));
+
+		$scripts = [];
+		$last = TRUE;
+		for ($i = count($partials); $i > 0; $i--)
+		{
+			$script = [];
+			for ($p = 0; $p < $i; $p++)
+			{
+				$script[] = $partials[$p];
+			}
+			if (!$last)
+			{
+				$script[] = '_all';
+			}
+			$scripts[] = implode('/', $script);
+			$last = FALSE;
+		}
+		$jsDir = $this->paths->getJs();
+		$existingScripts = [];
+		foreach (array_reverse($scripts) as $script)
+		{
+			if (file_exists("$jsDir/$script.js"))
+			{
+				$existingScripts[] = $script;
+			}
+		}
+
+		$this->template->scripts = Nette\Utils\Json::encode($existingScripts);
 	}
 
 }

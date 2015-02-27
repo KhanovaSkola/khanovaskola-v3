@@ -83,4 +83,9 @@ class Paths
 		return $this->www;
 	}
 
+	public function getJs()
+	{
+		return "{$this->www}/jsv2";
+	}
+
 }
