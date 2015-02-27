@@ -21,7 +21,7 @@ define(function() {
 	};
 
 	let video = {
-		duration: document.querySelector('[data-duration]').getAttribute('data-duration')
+		duration: document.querySelector('[data-duration]').dataset.duration
 	};
 
 	const onReady = function() {

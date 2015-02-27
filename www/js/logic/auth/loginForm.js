@@ -8,7 +8,7 @@ define([
 		{
 			const $emailInput = $loginForm.querySelector('input[name="email"]');
 			const $link = $loginForm.querySelector('[data-reset-password]');
-			const template = $link.getAttribute('data-url-template');
+			const template = $link.dataset.urlTemplate;
 
 			const handler = function () {
 				const email = $emailInput.value;

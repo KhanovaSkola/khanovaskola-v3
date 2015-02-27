@@ -3,7 +3,7 @@ define(function() {
 	let noMorePages = false;
 
 	const $results = document.querySelector('.search-result');
-	const template = document.querySelector('[data-url-more]').getAttribute('data-url-more');
+	const template = document.querySelector('[data-url-more]').dataset.urlMore;
 	const $showMoreButton = document.querySelector('[data-show-more]');
 
 	let request = null;

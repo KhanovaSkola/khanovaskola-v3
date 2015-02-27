@@ -1,5 +1,5 @@
 (function() {
-	const basePath = document.querySelector('script[data-basepath]').getAttribute('data-basepath');
+	const basePath = document.querySelector('script[data-basepath]').dataset.basepath;
 	require.config({
 		baseUrl: `${basePath}/build/js`,
 		paths: {
@@ -34,7 +34,7 @@
 
 	require(['lib/babel'], function() {
 		const body = document.getElementsByTagName('body')[0];
-		const scripts = JSON.parse(body.getAttribute('data-scripts'));
+		const scripts = JSON.parse(body.dataset.scripts);
 		require(scripts);
 	});
 })();

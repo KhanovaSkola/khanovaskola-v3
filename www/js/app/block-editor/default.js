@@ -20,7 +20,7 @@ define([
 	const serialize = function() {
 		let list = [];
 		for (let $entry of $content.querySelectorAll('li')) {
-			list.push($entry.getAttribute('data-content-id'));
+			list.push($entry.dataset.contentId);
 		}
 		return JSON.stringify(list);
 	};

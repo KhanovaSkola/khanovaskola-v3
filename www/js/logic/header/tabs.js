@@ -1,7 +1,7 @@
 define(['logic/header/dropdowns'], function(dropdowns) {
 	const $dropdown = document.querySelector('[data-subjects-dropdown]');
 	const subjectLinks = document.querySelectorAll('[href^="#tab-"]');
-	const defaultSubjectId = document.querySelector('[data-active-subject]').getAttribute('data-active-subject');
+	const defaultSubjectId = document.querySelector('[data-active-subject]').dataset.activeSubject;
 
 	let $activeLabel = defaultSubjectId
 		? document.querySelector(`[data-subjects-dropdown] .subjects-list [data-subject-id="${defaultSubjectId}"]`).parentNode

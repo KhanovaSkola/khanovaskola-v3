@@ -12,7 +12,7 @@ define([
 		$inner.style.width = percent * 100 + '%';
 		$container.querySelector('.label-left').innerText = filters.duration(time);
 	};
-	update($container.getAttribute('data-initial'));
+	update($container.dataset.initial);
 
 	let hideControls = null;
 	document.addEventListener('mousemove', () => {

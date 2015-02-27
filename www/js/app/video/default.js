@@ -25,7 +25,7 @@ define([
 	};
 	let overlayVisible = true;
 
-	subtitles.load($wrapper.getAttribute('data-subtitles-url'));
+	subtitles.load($wrapper.dataset.subtitlesUrl);
 	player.init();
 
 

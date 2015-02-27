@@ -18,7 +18,7 @@ define([
 	const serialize = function() {
 		let list = [];
 		for (let $entry of $content.querySelectorAll('li')) {
-			list.push($entry.getAttribute('data-schema-id'));
+			list.push($entry.dataset.schemaId);
 		}
 		return JSON.stringify(list);
 	};

@@ -1,11 +1,11 @@
 define(function() {
 	const getUrls = function($wrapper) {
 		return {
-			init: $wrapper.getAttribute('data-url-event-begin'),
-			seek: $wrapper.getAttribute('data-url-event-seek'),
-			pause: $wrapper.getAttribute('data-url-event-pause'),
-			changeView: $wrapper.getAttribute('data-url-event-change-view'),
-			tick: $wrapper.getAttribute('data-url-event-tick')
+			init: $wrapper.dataset.urlEventBegin,
+			seek: $wrapper.dataset.urlEventSeek,
+			pause: $wrapper.dataset.urlEventPause,
+			changeView: $wrapper.dataset.urlEventChangeView,
+			tick: $wrapper.dataset.urlEventTick,
 		};
 	};
 

@@ -1,7 +1,7 @@
 define(['services/gender'], function(gender) {
 	const $form = document.querySelector('[data-guess-gender]');
 	const $nameInput = $form.querySelector('input[name="name"]');
-	const template = $form.getAttribute('data-guess-gender-url-template');
+	const template = $form.dataset.guessGenderUrlTemplate;
 	const genderRadios = {
 		male: $form.querySelector('[data-gender-male]'),
 		female: $form.querySelector('[data-gender-female]')
