@@ -1,8 +1,4 @@
-$(function() {
-	$('[data-editors]').chosen({
-		no_results_text: "Email nenalezen"
-	});
-
+define(['jquery', 'jquery-ui'], function() {
 	var $arrowTargets = $(".schema-wrapper.editor .cell-even");
 	$(".arrow-picker .cell").draggable({
 		revert: true,

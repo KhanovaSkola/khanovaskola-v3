@@ -1,4 +1,7 @@
 define(['codemirror', 'codemirror-xml'], function(CodeMirror) {
+
+	require(['app/blueprint-editor/to-refactor']);
+
 	for (let $textarea of document.querySelectorAll('textarea')) {
 		CodeMirror.fromTextArea($textarea, {
 			mode: "xml",

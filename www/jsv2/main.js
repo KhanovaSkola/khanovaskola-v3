@@ -8,6 +8,7 @@
 			dropdown: `${basePath}/libs/bootstrap/js/dropdown`,
 			handsontable: `${basePath}/libs/handsontable/dist/handsontable.full.min`,
 			jquery: `${basePath}/libs/jquery/dist/jquery.min`,
+			'jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
 			mathjax: `${basePath}/libs/MathJax/MathJax`,
 			modal: `${basePath}/libs/bootstrap/js/modal`,
 			'nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
@@ -25,6 +26,7 @@
 			chosen: ["jquery"],
 			dropdown: ["jquery"],
 			handonstable: ['zeroclipboard'],
+			'jquery-ui': ['jquery'],
 			modal: ['jquery'],
 			"nette-ajax": ['jquery', 'nette'],
 			typeahead: ['jquery']
