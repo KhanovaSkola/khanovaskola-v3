@@ -13,8 +13,7 @@ elasticsearch.log
 /todo
 /tests/_data
 /www/_index.php
-/www/build/*.css
-/www/build/*.js
-/www/build/*.map
+/www/build/*
+!/www/build/.gitkeep
 /temp/btfj.dat
 /temp/cachegrind*
