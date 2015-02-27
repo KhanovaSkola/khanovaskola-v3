@@ -1,7 +1,7 @@
 (function() {
 	const basePath = document.querySelector('script[data-basepath]').getAttribute('data-basepath');
 	require.config({
-		baseUrl: `${basePath}/build/jsv2`,
+		baseUrl: `${basePath}/build/js`,
 		paths: {
 			babel: `${basePath}/libs/babel/browser-polyfill`,
 			chosen: `${basePath}/libs/chosen/chosen.jquery.min`,

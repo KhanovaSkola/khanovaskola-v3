@@ -14,48 +14,6 @@ var buildDir = './www/build';
 var libDir = './www/libs';
 var bsDir = './www/libs/bootstrap/less/';
 var jsDir = './www/js';
-var jsJsxFiles = [
-	path.join(jsDir, 'jsx/*.jsx')
-];
-var jsV2Files = [
-	path.join('./www/jsv2', '*.js'),
-	path.join('./www/jsv2', '**/*.js')
-];
-var jsFiles = [
-	path.join(jsDir, 'app/*.js'),
-	path.join(jsDir, 'services/*.js'),
-	path.join(jsDir, 'snippets/*.js'),
-	path.join(jsDir, 'components/*.js'),
-	path.join(jsDir, 'components/controls/*.js'),
-	path.join(jsDir, 'components/forms/*.js'),
-	path.join(jsDir, 'components/exercises/*.js')
-];
-var jsLibFiles = [
-	path.join(libDir, 'bootstrap/js/alert.js'),
-	path.join(libDir, 'bootstrap/js/tab.js'),
-	path.join(libDir, 'bootstrap/js/modal.js'),
-	path.join(libDir, 'jquery-timeago/jquery.timeago.js'),
-	path.join(libDir, 'jquery-timeago/locales/jquery.timeago.cs.js'),
-	path.join(libDir, 'nette-forms/src/assets/netteForms.js'),
-	path.join(libDir, 'nette.ajax.js/nette.ajax.js'),
-	path.join(libDir, 'typeahead.js/dist/typeahead.jquery.min.js'),
-	path.join(libDir, 'smooth-scroll/dist/js/smooth-scroll.js'),
-	path.join(libDir, 'isInViewport/lib/isInViewport.min.js'),
-	path.join(libDir, 'react/react.min.js')
-];
-var jsAdminFiles = [
-	path.join(jsDir, 'admin/*.js')
-];
-var jsAdminLibFiles = [
-	path.join(libDir, 'handsontable/dist/handsontable.full.min.js'),
-	path.join(libDir, 'codemirror/lib/codemirror.js'),
-	path.join(libDir, 'codemirror/addon/fold/xml-fold.js'),
-	path.join(libDir, 'codemirror/addon/edit/closetag.js'),
-	path.join(libDir, 'codemirror/mode/xml/xml.js'),
-	path.join(libDir, 'jquery-ui/jquery-ui.min.js'),
-	path.join(libDir, 'chosen/chosen.jquery.min.js'),
-	path.join(libDir, 'zeroclipboard/dist/ZeroClipboard.min.js')
-];
 var lessDir = './www/less';
 var lessBootstrapFiles = [
 	path.join(bsDir, 'variables.less'),
@@ -127,6 +85,10 @@ var lessAdminFiles = [
 var lessExperimentFiles = [
 	path.join(lessDir, 'experiments/*.less')
 ];
+var jsFiles = [
+	path.join(jsDir, '*.js'),
+	path.join(jsDir, '**/*.js')
+];
 
 gulp.task('less-dev-main', function() {
 	return stream.concat(
@@ -196,84 +158,8 @@ gulp.task('less-production-admin', function() {
 		.pipe(gulp.dest(buildDir));
 });
 
-gulp.task('js-dev-main', function() {
-	return stream.concat(
-		gulp.src(jsLibFiles),
-		gulp.src(jsJsxFiles)
-			.pipe($.react()),
-		gulp.src(jsFiles)
-			.pipe($.sourcemaps.init())
-			.pipe($.concat('app.min.js'))
-			.pipe($.uglify())
-			.pipe(replace({
-				patterns: [{
-					json: {
-						elastic: {
-							url: 'http://' + config.get('parameters').get('elastic').get('hosts').get(0) + ':9200',
-							index: config.get('parameters').get('elastic').get('index')
-						}
-					}
-				}]
-			}))
-	)
-		.pipe($.concat('app.min.js'))
-		.pipe($.sourcemaps.write('.', {
-			sourceRoot: '../js'
-		}))
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('js-dev-admin', function() {
-	return stream.concat(
-		gulp.src(jsAdminLibFiles),
-		gulp.src(jsAdminFiles)
-			.pipe($.sourcemaps.init())
-			.pipe($.concat('app.admin.min.js'))
-			.pipe($.uglify())
-	)
-		.pipe($.concat('app.admin.min.js'))
-		.pipe($.sourcemaps.write('.', {
-			sourceRoot: '../js'
-		}))
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('js-production-main', function() {
-	return stream.concat(
-		gulp.src(jsLibFiles),
-		gulp.src(jsJsxFiles)
-			.pipe($.react()),
-		gulp.src(jsFiles)
-			.pipe($.concat('app.min.js'))
-			.pipe($.uglify())
-			.pipe(replace({
-				patterns: [{
-					json: {
-						elastic: {
-							url: 'https://elastic.khanovaskola.cz',
-							index: config.get('parameters').get('elastic').get('index')
-						}
-					}
-				}]
-			}))
-	)
-		.pipe($.concat('app.min.js'))
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('js-production-admin', function() {
-	return stream.concat(
-		gulp.src(jsAdminLibFiles),
-		gulp.src(jsAdminFiles)
-			.pipe($.concat('app.admin.min.js'))
-			.pipe($.uglify())
-	)
-		.pipe($.concat('app.admin.min.js'))
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('js-v2', function() {
-	return gulp.src(jsV2Files)
+gulp.task('js-dev', function() {
+	return gulp.src(jsFiles)
 		.pipe($.babel())
 		.pipe(replace({
 			patterns: [{
@@ -285,16 +171,30 @@ gulp.task('js-v2', function() {
 				}
 			}]
 		}))
-		.pipe(gulp.dest(buildDir + '/jsv2'));
+		.pipe(gulp.dest(buildDir + '/js'));
+});
+
+gulp.task('js-production', function() {
+	return gulp.src(jsFiles)
+		.pipe($.babel())
+		.pipe(replace({
+			patterns: [{
+				json: {
+					elastic: {
+						url: 'https://elastic.khanovaskola.cz',
+						index: config.get('parameters').get('elastic').get('index')
+					}
+				}
+			}]
+		}))
+		.pipe(gulp.dest(buildDir + '/js'));
 });
 
 gulp.task('less-dev', ['less-dev-main', 'less-dev-admin']);
 gulp.task('less', ['less-dev-main', 'less-dev-admin']);
 gulp.task('less-production', ['less-production-main', 'less-production-admin']);
 
-gulp.task('js-dev', ['js-dev-main', 'js-dev-admin']);
-gulp.task('js', ['js-dev-main', 'js-dev-admin']);
-gulp.task('js-production', ['js-production-main', 'js-production-admin']);
+gulp.task('js', ['js-dev']);
 
 gulp.task('dev', ['less-dev', 'js-dev']);
 
