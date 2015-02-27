@@ -15,6 +15,7 @@
     "respond": "~1.4.2",
     "Sortable": "~1.1.1",
     "typeahead.js": "~0.10.5",
-    "zxcvbn": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip"
+    "zxcvbn": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip",
+    "jquery-ui": "~1.11.3"
   }
 }
