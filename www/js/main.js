@@ -33,10 +33,8 @@
 	});
 
 	require(['lib/babel'], function() {
-		require(['lib/modal', 'logic/urlFixes', 'logic/floatingPlaceholder', 'logic/mobileMenu', 'logic/clickCatchers'], function() {
-			const body = document.getElementsByTagName('body')[0];
-			const scripts = JSON.parse(body.getAttribute('data-scripts'));
-			require(scripts);
-		});
+		const body = document.getElementsByTagName('body')[0];
+		const scripts = JSON.parse(body.getAttribute('data-scripts'));
+		require(scripts);
 	});
 })();

@@ -1,8 +1,13 @@
 define([
+	'lib/modal',
 	'logic/auth/loginForm',
+	'logic/clickCatchers',
+	'logic/floatingPlaceholder',
 	'logic/header/dropdowns',
 	'logic/header/hover',
 	'logic/header/modals',
 	'logic/header/search',
-	'logic/header/tabs'
+	'logic/header/tabs',
+	'logic/mobileMenu',
+	'logic/urlFixes'
 ]);
