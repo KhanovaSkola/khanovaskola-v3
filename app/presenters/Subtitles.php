@@ -21,13 +21,13 @@ class Subtitles extends Presenter
 
 	public function actionDefault()
 	{
-		$this->setCacheControlPublic('1h');
+		$this->setCacheControlPublic(60);
 		$this->sendResponse(new TextResponse($this->video->getSubtitles()));
 	}
 
 	public function renderJson()
 	{
-		$this->setCacheControlPublic('1h');
+		$this->setCacheControlPublic(60);
 
 		$array = $this->video->getParsedSubtitles();
 		$mapped = [];

@@ -8,7 +8,7 @@ class Text extends Presenter
 
 	public function renderAbout()
 	{
-		$this->setCacheControlPublic('1h');
+		$this->setCacheControlPublic(60);
 	}
 
 }
