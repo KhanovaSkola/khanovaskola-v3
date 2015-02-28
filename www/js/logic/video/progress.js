@@ -10,7 +10,7 @@ define([
 	const update = time => {
 		const percent = time / player.video.duration;
 		$inner.style.width = percent * 100 + '%';
-		$container.querySelector('.label-left').innerText = filters.duration(time);
+		$container.querySelector('.label-left').textContent = filters.duration(time);
 	};
 	update($container.dataset.initial);
 

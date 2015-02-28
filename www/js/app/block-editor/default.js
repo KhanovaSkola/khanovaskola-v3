@@ -38,7 +38,7 @@ define([
 			for (let entry of entries) {
 				const $item = document.createElement('li');
 				$item.dataset.contentId = entry.id;
-				$item.innerText = entry.value;
+				$item.textContent = entry.value;
 				$add.appendChild($item);
 			}
 		});
