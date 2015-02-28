@@ -74,7 +74,7 @@ define(['lib/jquery', 'lib/jquery-ui'], function() {
 		$('.schema-wrapper.editor').find('.col').each(function() {
 			var col = [];
 			$(this).find('.cell').each(function() {
-				$cell = $(this);
+				var $cell = $(this);
 				var id = $cell.data('id');
 				if (col.length % 2 === 0) {
 					col.push(id);
@@ -82,7 +82,8 @@ define(['lib/jquery', 'lib/jquery-ui'], function() {
 					var base = getArrow($cell[0]);
 					var arrows = base ? [base] : [];
 					$cell.children('span').each(function() {
-						if (arrow = getArrow($(this)[0])) {
+						var arrow = getArrow($(this)[0]);
+						if (arrow) {
 							arrows.push(arrow);
 						}
 					});
