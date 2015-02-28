@@ -68,7 +68,7 @@ class Block extends EditorForm
 
 		$this->presenter->flashSuccess("editor.$mode.block");
 		$schema = $this->presenter->schema;
-		$this->presenter->redirect('this', [
+		$this->presenter->redirect('Block:default', [
 			'blockId' => $block->id,
 			'schemaId' => $schema ? $schema->id : NULL,
 		]);

@@ -69,7 +69,7 @@ class Video extends EditorForm
 
 		$block = $this->presenter->block;
 		$schema = $this->presenter->schema;
-		$this->presenter->redirect('this', [
+		$this->presenter->redirect('Video:default', [
 			'videoId' => $video->id,
 			'blockId' => $block ? $block->id : NULL,
 			'schemaId' => $schema ? $schema->id : NULL,
