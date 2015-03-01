@@ -60,4 +60,9 @@ final class VideoEditor extends Content
 		}
 	}
 
+	public function actionReport()
+	{
+		$this->redirectUrl('https://report.khanovaskola.cz/diff/yt/' . $this->video->youtubeId);
+	}
+
 }
