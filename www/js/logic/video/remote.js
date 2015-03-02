@@ -23,6 +23,11 @@ define(function() {
 
 	return {
 		call: (event, args = [], cb = (payload) => {}) => {
+			if (event !== 'init' && viewId === null) {
+				// TODO maybe queue it for later?
+				return;
+			}
+
 			const request = new XMLHttpRequest();
 			request.open('POST', getUrl(event, args), true);
 			request.onload = () => {
