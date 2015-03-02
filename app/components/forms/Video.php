@@ -62,7 +62,7 @@ class Video extends EditorForm
 
 		$producer = $this->queue->getProducer('updateVideo');
 		$producer->publish(serialize([
-			'schema' => new EntityPointer($video),
+			'video' => new EntityPointer($video),
 		]));
 
 		$this->presenter->flashSuccess("editor.$mode.video");
