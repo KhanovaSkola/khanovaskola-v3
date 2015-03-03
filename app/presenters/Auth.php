@@ -349,9 +349,15 @@ final class Auth extends Presenter
 	public function actionReportSso($sso, $sig)
 	{
 		$user = $this->user->getUserEntity();
-		if ($user instanceof LazyEntity || !$this->user->isAllowed(Acl::LOGIN_REPORT))
+		if (!$this->user->loggedIn)
 		{
-			$this->error(NULL, Nette\Http\IResponse::S403_FORBIDDEN);
+			$this->flashError('auth.flash.report.loggedOut');
+			$this->redirectToAuthOrRegister();
+		}
+		else if ($user instanceof LazyEntity || !$this->user->isAllowed(Acl::LOGIN_REPORT))
+		{
+			$this->flashError('auth.flash.report.notAllowed');
+			$this->redirectToAuthOrRegister();
 		}
 
 		$this->processSso($this->ssos->getSso('report'), $sso, $sig);

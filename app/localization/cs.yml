@@ -178,6 +178,13 @@ auth:
     alreadyRegistered:
       title: "Už jste zaregistrovaní."
       message: "Není potřeba se registrovat víckrát."
+    report:
+      loggedOut:
+        title: "Nejprve se přihlaste se na Khanově škole."
+        message: "Poté znovu klikněte na login na reportu (časem zjednoduším)."
+      notAllowed:
+        title: "Na report nemáte přístup."
+        message: "Pokud se jedná o omyl, napište na fórum."
 
 badges:
   awarded:
