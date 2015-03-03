@@ -5,8 +5,9 @@ namespace App\Presenters;
 use App\Models\Rme;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
-use App\Models\Services\Discourse;
 use App\Models\Services\Queue;
+use App\Models\Services\Sso;
+use App\Models\Services\SsoContainer;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EntityPointer;
 use App\Models\Structs\EventList;
@@ -43,10 +44,10 @@ final class Auth extends Presenter
 	public $aes;
 
 	/**
-	 * @var Discourse
+	 * @var SsoContainer
 	 * @inject
 	 */
-	public $discourse;
+	public $ssos;
 
 	/**
 	 * @var Google
@@ -318,14 +319,14 @@ final class Auth extends Presenter
 		$this->template->name = $name;
 	}
 
-	public function actionDiscourseSso($sso, $sig)
+	protected function processSso(Sso $sso, $data, $sig)
 	{
 		if ($this->user->getUserEntity() instanceof LazyEntity)
 		{
 			$this->redirectToRegistration();
 		}
 
-		if ($this->discourse->getSignature($sso) !== $sig)
+		if ($sso->getSignature($data) !== $sig)
 		{
 			$this->error();
 		}
@@ -335,8 +336,18 @@ final class Auth extends Presenter
 			$this->redirectToAuth();
 		}
 
-		$url = $this->discourse->getLoginUrl($sso, $this->user->getUserEntity());
+		$url = $sso->getLoginUrl($data, $this->user->getUserEntity());
 		$this->redirectUrl($url);
+	}
+
+	public function actionDiscourseSso($sso, $sig)
+	{
+		$this->processSso($this->ssos->getSso('discourse'), $sso, $sig);
+	}
+
+	public function actionReportSso($sso, $sig)
+	{
+		$this->processSso($this->ssos->getSso('report'), $sso, $sig);
 	}
 
 }

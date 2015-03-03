@@ -5,7 +5,7 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 
-version: [9]
+version: [10]
 
 parameters:
 	baseUrl: "http://vagrant.khanovaskola.cz/"
@@ -19,6 +19,9 @@ parameters:
 	discourse:
 		secret: 'same-key-as-in-discourse-settings'
 		redirect: 'https://forum.khanovaskola.cz/session/sso_login'
+	report:
+        secret: 'same-key-as-in-report-settings'
+        redirect: 'https://report.khanovaskola.cz/auth/login'
 	smtp:
 		ost: smtp.mandrillapp.com
 		secure: tls

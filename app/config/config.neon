@@ -112,7 +112,6 @@ services:
 	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema
 	- App\Models\Services\Consumers\UpdateVideo
-	- App\Models\Services\Discourse(%discourse.secret%, %discourse.redirect%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
 	- App\Models\Services\Gravatar
@@ -127,6 +126,14 @@ services:
 	- App\Models\Services\Youtube
 
 	user: App\Models\Services\UserState
+
+	discourseSso: App\Models\Services\Sso(%discourse.secret%, %discourse.redirect%)
+	reportSso: App\Models\Services\Sso(%report.secret%, %report.redirect%)
+	-
+		class: App\Models\Services\SsoContainer
+		setup:
+			- addSso(discourse, @discourseSso)
+			- addSso(report, @reportSso)
 
 	subtitleStorage:
 		class: App\Models\Services\SubtitleStorage(%tempDir%/subs)

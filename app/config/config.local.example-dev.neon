@@ -5,7 +5,7 @@
 # Passwords in this file are unsafe. We know they are public.
 #
 
-version: [9]
+version: [10]
 
 parameters:
 	baseUrl: "http://ks/"
@@ -18,6 +18,10 @@ parameters:
 		# not needed on dev machine
 		secret: 'same-key-as-in-discourse-settings'
 		redirect: 'https://forum.khanovaskola.cz/session/sso_login'
+	report:
+		# not needed on dev machine
+		secret: 'same-key-as-in-report-settings'
+		redirect: 'https://report.khanovaskola.cz/auth/login'
 	smtp:
 		host: mailtrap.io
 		port: 25

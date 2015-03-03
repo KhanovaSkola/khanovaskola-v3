@@ -6,7 +6,11 @@ use App\Models\Rme\User;
 use Nette\Object;
 
 
-class Discourse extends Object
+/**
+ * Single Sign On
+ * @see https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
+ */
+class Sso extends Object
 {
 
 	private $secret;
