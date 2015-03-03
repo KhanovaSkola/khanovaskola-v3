@@ -10,8 +10,8 @@
 	<main class="content">
         <div class="content-inner">
             {if $lastSchema}
-	            <div class="head text-{$lastSchema->subject->color}">
-	                <i class="icon icon-{$lastSchema->subject->icon}"></i>
+	            <div class="head text-{$lastSchema|subjectColor}">
+	                <i class="icon icon-{$lastSchema|subjectIcon}"></i>
 	                <h1>
 	                    <a n:href="$lastSchema">
 	                        {$lastSchema->title}
@@ -21,7 +21,7 @@
 	            <div class="progress-wrapper ph">
 	                {var $percent = $lastSchema->getCompletedPercent($userEntity)}
 	                <div class="progress">
-	                    <div class="progress-bar progress-bar-{$lastSchema->subject->color}" style="width: {$percent|number:3|noescape}%;"></div>
+	                    <div class="progress-bar progress-bar-{$lastSchema|subjectColor}" style="width: {$percent|number:3|noescape}%;"></div>
 	                </div>
 	                <span>{$percent|number}&thinsp;%</span>
 	            </div>

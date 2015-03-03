@@ -55,7 +55,7 @@ final class Profile extends Presenter
 		$this->template->lastSchema = $lastSchema;
 		$this->template->lastSchemas = $lastSchemas;
 
-		if (!$lastSchema)
+		if (!$lastSchema && !$this->getUserEntity()->hasCacheBurstingPrivileges())
 		{
 			$this->redirect('Homepage:default');
 		}
