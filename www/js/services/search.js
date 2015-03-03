@@ -17,39 +17,20 @@ define(function() {
 		request.send(data);
 	};
 
-	const buildQuery = function (query) {
+	const buildQuery = function (query, size) {
 		return {
-			"fields": [
-				"id",
-				"title"
-			],
+			"fields": ["id", "title"],
 			"from": 0,
-			"size": 5,
+			"size": size,
 			"query": {
 				"function_score": {
 					"query": {
 						"bool": {
 							"should": [
-								{
-									"match_phrase_prefix": {
-										"title": query
-									}
-								},
-								{
-									"match": {
-										"description": query
-									}
-								},
-								{
-									"match_phrase": {
-										"subtitles": query
-									}
-								},
-								{
-									"term": {
-										"youtube_id": query
-									}
-								}
+								{"match": {"title": query}},
+								{"match": {"description": query}},
+								{"match_phrase": {"subtitles": query}},
+								{"term": {"youtube_id": query}}
 							]
 						}
 					},
@@ -80,9 +61,9 @@ define(function() {
 		}
 	};
 
-	let complete = function(query, cb) {
+	let complete = function(query, cb, size = 5) {
 		const url = `${host}/${index}/content/_search`;
-		const data = JSON.stringify(buildQuery(query));
+		const data = JSON.stringify(buildQuery(query, size));
 		postRequest(url, data, results => {
 			let titles = [];
 			results.hits.hits.forEach(row => {

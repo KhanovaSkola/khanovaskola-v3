@@ -41,6 +41,6 @@ define([
 				$item.textContent = entry.value;
 				$add.appendChild($item);
 			}
-		});
+		}, 10);
 	});
 });
