@@ -107,7 +107,7 @@
             <h2>Spravované předměty</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->subjectsEdited as $subject">
-                    <a n:href="$subject">{$subject->title}</a>
+                    <a n:href="SubjectEditor:default, subjectId => $subject->id">{$subject->title}</a>
                 </li>
             </ul>
         </div>
@@ -115,10 +115,10 @@
             <h2>Spravovaná schémata</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->schemasAuthored as $schema">
-                    <a n:href="$schema">{$schema->title}</a>
+                    <a n:href="SchemaEditor:default, schemaId => $schema->id">{$schema->title}</a>
                 </li>
                 <li n:foreach="$profile->schemasEdited as $schema">
-                    <a n:href="$schema">{$schema->title}</a>
+                    <a n:href="SchemaEditor:default, schemaId => $schema->id">{$schema->title}</a>
                 </li>
             </ul>
         </div>
@@ -126,10 +126,10 @@
             <h2>Spravované bloky</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->blocksAuthored as $block">
-                    <a n:href="$block">{$block->title}</a>
+                    <a n:href="BlockEditor:default, blockId => $block->id">{$block->title}</a>
                 </li>
                 <li n:foreach="$profile->blocksEdited as $block">
-                    <a n:href="$block">{$block->title}</a>
+                    <a n:href="BlockEditor:default, blockId => $block->id">{$block->title}</a>
                 </li>
             </ul>
         </div>
