@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Rme\User;
+use App\Models\Services\Acl;
 use App\Models\Services\Aes;
 use App\Models\Services\Queue;
 use App\Models\Services\Sso;
@@ -347,6 +348,12 @@ final class Auth extends Presenter
 
 	public function actionReportSso($sso, $sig)
 	{
+		$user = $this->user->getUserEntity();
+		if ($user instanceof LazyEntity || !$this->user->isAllowed(Acl::LOGIN_REPORT))
+		{
+			$this->error(NULL, Nette\Http\IResponse::S403_FORBIDDEN);
+		}
+
 		$this->processSso($this->ssos->getSso('report'), $sso, $sig);
 	}
 
