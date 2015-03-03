@@ -318,7 +318,7 @@ final class Auth extends Presenter
 		$this->template->name = $name;
 	}
 
-	public function actionSso($sso, $sig)
+	public function actionDiscourseSso($sso, $sig)
 	{
 		if ($this->user->getUserEntity() instanceof LazyEntity)
 		{
