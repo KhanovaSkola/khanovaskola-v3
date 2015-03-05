@@ -230,4 +230,16 @@ class ContentsMapper extends ElasticSearchMapper
 		return $this->elastic->search($args);
 	}
 
+	/**
+	 * @return \Orm\DataSourceCollection
+	 */
+	public function findVideosWithoutDuration()
+	{
+		return $this->dataSource("
+			SELECT * FROM [contents]
+			WHERE [type] = 'video'
+				AND ([duration] IS NULL OR [duration] = 1200)
+		");
+	}
+
 }

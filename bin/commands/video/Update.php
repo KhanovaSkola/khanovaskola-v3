@@ -50,7 +50,7 @@ class Update extends Command
 	{
 		$count = 0;
 
-		$videos = $orm->contents->findAllVideos()->findBy(['duration' => NULL]);
+		$videos = $orm->contents->findVideosWithoutDuration();
 		$progress = new ProgressBar($this->out, $videos->count());
 		$progress->start();
 
