@@ -74,6 +74,9 @@
 	                                        </small>
 	                                    </h3>
 	                                    <p>
+                                            <span n:if="$content instanceof App\Models\Rme\Blueprint" class="content-exercise">
+                                                Cvičení &mdash;
+                                            </span>
 	                                        {$content->description}
 	                                    </p>
 	                                </div>
