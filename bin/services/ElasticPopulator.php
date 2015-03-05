@@ -4,6 +4,7 @@ namespace Bin\Services;
 
 use App\Models\Orm\Entity;
 use App\Models\Orm\IIndexable;
+use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\ElasticSearch;
 use Nette\Object;
@@ -38,6 +39,7 @@ class ElasticPopulator extends Object
 	{
 		$counter = 0;
 
+		/** @var Repository[] $repos */
 		$repos = [];
 		foreach ($this->orm->getRepositoryClasses() as $class)
 		{
@@ -67,11 +69,23 @@ class ElasticPopulator extends Object
 
 		foreach ($repos as $repo)
 		{
+			$rows = [];
+			/** @var Entity|IIndexable $entity */
 			foreach ($repo->findAll() as $entity)
 			{
-				$this->indexEntity($entity);
+				$data = $entity->getIndexData();
+				if ($data === FALSE)
+				{
+					continue;
+				}
+
+				$rows[$entity->id] = $data;
 				$tick();
 				$counter++;
+			}
+			if ($rows && isset($entity)) // $entity from last iteration
+			{
+				$this->es->addToIndexBulk($entity->getShortEntityName(), $rows);
 			}
 		}
 
