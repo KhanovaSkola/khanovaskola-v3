@@ -14,9 +14,15 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 	 */
 	public $cache;
 
-	public function __construct(SubtitleCache $cache)
+	/**
+	 * @var Srt
+	 */
+	private $srt;
+
+	public function __construct(SubtitleCache $cache, Srt $srt)
 	{
 		$this->cache = $cache;
+		$this->srt = $srt;
 	}
 
 	protected function fetchSubtitles($youtubeId, $cached)
@@ -39,7 +45,7 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 		$data = json_decode($res);
 		if ($data->found)
 		{
-			return Strings::normalize($data->subtitles);
+			return Strings::normalize(Strings::fixEncoding($data->subtitles));
 		}
 		return NULL;
 	}
@@ -51,29 +57,8 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 	public function getSubtitles($youtubeId)
 	{
 		return $this->cache->load($youtubeId, function() use ($youtubeId) {
-			return $this->fetchSubtitles($youtubeId, FALSE);
+			return $this->fetchSubtitles($youtubeId, FALSE) ?: ''; // NULL does not cache
 		});
-	}
-
-	/**
-	 * @param $youtubeId
-	 * @return array[start, end, text]
-	 */
-	public function getParsedSubtitles($youtubeId)
-	{
-		$srt = $this->getSubtitles($youtubeId);
-		$parsed = [];
-		foreach (preg_split('~(^|\r*\n\r*\n\r*)\d+\r*\n\r*~', $srt, -1, PREG_SPLIT_NO_EMPTY) as $row)
-		{
-			$row = preg_replace_callback('~(\d+:\d+:\d+[.,]\d+)\s+-->\s+(\d+:\d+:\d+[.,]\d+)\n+~m', function ($m) use (&$start, &$end)
-			{
-				$start = $this->parseTime($m[1]);
-				$end = $this->parseTime($m[2]);
-				return '';
-			}, $row);
-			$parsed[] = [$start, $end, $row];
-		}
-		return $parsed;
 	}
 
 	/**
@@ -86,23 +71,31 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 		return $this->getSubtitles($youtubeId);
 	}
 
+	/**
+	 * @param $youtubeId
+	 * @return array[start, end, text]
+	 */
+	public function getParsedSubtitles($youtubeId)
+	{
+		$plaintext = $this->getSubtitles($youtubeId);
+		return $this->srt->parse($plaintext);
+	}
+
+	/**
+	 * @param string $youtubeId
+	 * @return string
+	 */
 	public function getTextFromSubtitles($youtubeId)
 	{
-		$srt = $this->getSubtitles($youtubeId);
-		$text = Strings::replace($srt, '~\d+\n+\d+:\d+:\d+[.,]\d+\s+-->\s+\d+:\d+:\d+[.,]\d+\n+~m');
-		$text = Strings::replace($text, '~(.)\n+(.)~u', function($m) {
-			// add missing sentence fullstops
-			if (strpos('.?!…', $m[1]) === FALSE && $m[2] === Strings::upper($m[2]))
-			{
-				return "$m[1].\n$m[2]";
-			}
-			return $m[0];
-		});
-		$text = Strings::replace($text, '~\n+~', ' ');
-		return Strings::replace($text, '~[.!?…]\s+(\w)~u', function($m) {
-			// fix sentence capitalization
-			return Strings::upper($m[0]);
-		});
+		$plaintext = $this->getSubtitles($youtubeId);
+		$srt = $this->srt->parseToTimedSentences($plaintext);
+
+		$out = '';
+		foreach ($srt as $row)
+		{
+			$out .= ' ' . $row['sentence'];
+		}
+		return ltrim($out);
 	}
 
 	/**
@@ -111,54 +104,8 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 	 */
 	public function getTimedSentences($youtubeId)
 	{
-		$srt = $this->getSubtitles($youtubeId);
-		$result = [];
-
-		$sentence = NULL;
-		$time = NULL;
-
-		$lastCharEndedSentence = FALSE;
-
-		foreach (preg_split('~(^|\r*\n\r*\n\r*)\d+\r*\n\r*~', $srt, -1, PREG_SPLIT_NO_EMPTY) as $row)
-		{
-			$row = preg_replace_callback('~(\d+:\d+:\d+[.,]\d+)\s+-->\s+\d+:\d+:\d+[.,]\d+\n+~m', function($m) use (&$time) {
-				$time = $this->parseTime($m[1]);
-				return '';
-			}, $row);
-
-			if (!$row)
-			{
-				continue;
-			}
-
-			$startsWithUppercase = $row[0] === mb_convert_case($row[0], MB_CASE_UPPER);
-
-			if ($lastCharEndedSentence && $startsWithUppercase)
-			{
-				$result[] = ['time' => $time, 'sentence' => $sentence];
-				$sentence = NULL;
-			}
-
-			$sentence = trim("$sentence $row", ' ');
-			$lastCharEndedSentence = (bool) preg_match('~[.?!]$~', $row);
-		}
-		if ($sentence)
-		{
-			$result[] = ['time' => $time, 'sentence' => $sentence];
-		}
-
-		return $result;
-	}
-
-	/**
-	 * @param string $time 00:00:18,943
-	 * @return string seconds
-	 */
-	protected function parseTime($time)
-	{
-		list($h, $m, $s) = explode(':', $time);
-		list($s) = explode('.', str_replace(',', '.', $s));
-		return $h * 3600 + $m * 60 + $s;
+		$plaintext = $this->getSubtitles($youtubeId);
+		return $this->srt->parseToTimedSentences($plaintext);
 	}
 
 }
