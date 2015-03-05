@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 use App\DeprecatedException;
+use App\ElasticsearchException;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
@@ -76,9 +77,48 @@ class ElasticSearch extends Client
 		]);
 	}
 
+	/**
+	 * @param string $type entity name
+	 * @param array $data [[id => body]]
+	 * @return array
+	 *
+	 * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html
+	 */
+	public function addToIndexBulk($type, array $data)
+	{
+		$queries = [];
+		foreach ($data as $id => $body)
+		{
+			$queries[] = [
+				'index' => [
+					'_id' => $id,
+				]
+			];
+			$queries[] = $body;
+		}
+
+		$res = parent::bulk([
+			'index' => $this->index,
+			'type' => $type,
+			'body' => $queries,
+		]);
+		foreach ($res['items'] as $queries)
+		{
+			foreach ($queries as $query)
+			{
+				if (isset($query['error']))
+				{
+					throw new ElasticsearchException($query['error']);
+				}
+			}
+		}
+
+		return $res;
+	}
+
 	public function update($args)
 	{
-		throw new DeprecatedException('Use updateDoc or updateScript instead');
+		throw new DeprecatedException('Use updateDoc instead');
 	}
 
 	public function updateDoc($type, $id, array $data)

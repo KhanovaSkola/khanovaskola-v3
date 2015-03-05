@@ -34,6 +34,8 @@ class DuplicateEntryException extends \RuntimeException { }
 
 class IOException extends \RuntimeException { }
 
+class ElasticsearchException extends \RuntimeException { }
+
 class FileNotFoundException extends IOException { }
 
 class DirectoryNotFoundException extends IOException { }
