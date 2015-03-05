@@ -5,6 +5,7 @@ namespace App\Dev\Handlers;
 use Elasticsearch\Client as Elasticsearch;
 use Nette\Utils\Html;
 use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 use Nextras\TracyQueryPanel\IQuery;
 use Nextras\TracyQueryPanel\QueryPanel;
 use Tracy\Dumper;
@@ -22,12 +23,18 @@ class ElasticsearchHandler implements IQuery
 	/**
 	 * @param string $request json
 	 * @param string $response json
-	 * @throws \Nette\Utils\JsonException
 	 */
 	public function __construct($request, $response)
 	{
-		$this->request = Json::decode($request, JSON_OBJECT_AS_ARRAY);
-		$this->response = Json::decode($response, JSON_OBJECT_AS_ARRAY);
+		try
+		{
+			$this->request = Json::decode($request, JSON_OBJECT_AS_ARRAY);
+			$this->response = Json::decode($response, JSON_OBJECT_AS_ARRAY);
+		}
+		catch (JsonException $e)
+		{
+			// bulk request
+		}
 	}
 
 	public static function register(Elasticsearch $es, QueryPanel $panel)
