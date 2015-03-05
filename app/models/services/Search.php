@@ -141,7 +141,7 @@ class Search
 				if (strpos($node['sentence'], $sentence) !== FALSE)
 				{
 					$sentences[] = (object) [
-						'time' => $node['time'] - 1, // start slightly before the sentence starts
+						'time' => max(0, $node['time'] - 1), // start slightly before the sentence starts
 						'sentence' => $highlight,
 					];
 					break;
