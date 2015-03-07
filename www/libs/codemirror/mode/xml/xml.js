@@ -6,7 +6,7 @@
     mod(require("../../lib/codemirror"));
   else if (typeof define == "function" && define.amd) // AMD
     //define(["../../lib/codemirror"], mod);
-    define(["codemirror"], mod); // TODO PATCHED CODE
+    define(["lib/codemirror"], mod); // TODO PATCHED CODE
   else // Plain browser env
     mod(CodeMirror);
 })(function(CodeMirror) {
