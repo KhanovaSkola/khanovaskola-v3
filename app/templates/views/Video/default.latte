@@ -1,7 +1,7 @@
 {var $pageName = 'course-page'}
 {var $headerBorder = FALSE}
 {var $title = $video->title}
-{var $description = $video->description}
+{var $description = $video->getAugmentedDescription($block, $schema)}
 {block headerBack}
 	{if $block}
 		<div class="header-goback">

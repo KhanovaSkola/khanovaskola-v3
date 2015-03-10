@@ -97,4 +97,32 @@ class Video extends Content
 		return $this->getValue('duration') ?: 20 * 60;
 	}
 
+	public function getAugmentedDescription(Block $block = NULL, Schema $schema = NULL)
+	{
+		$out = $this->description;
+		if (!preg_match('~[.!?]$~', $this->description))
+		{
+			$out .= '.';
+		}
+		$out .= ' ';
+
+		$breadcrumbs = [];
+		if ($schema && $schema->subject)
+		{
+			$breadcrumbs[] = $schema->subject->title;
+		}
+		if ($schema)
+		{
+			$breadcrumbs[] = $schema->title;
+		}
+		if ($block)
+		{
+			$breadcrumbs[] = $block->title;
+		}
+
+		$out .= implode(', ', $breadcrumbs);
+
+		return $out;
+	}
+
 }
