@@ -118,6 +118,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());
 		$this->template->add('fbAppId', $this->facebook->config->appId);
+		$this->template->add('slug', $this->getParameter('slug'));
 
 		$this->setScripts();
 

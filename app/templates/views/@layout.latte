@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta n:ifset="$description" name="description" content="{$description}">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
-	{capture $canonicalUrl}{link //this, startAtTime => NULL}{/capture}
+	{capture $canonicalUrl}{link //this, slug => $slug, startAtTime => NULL}{/capture}
 	<link rel="canonical" href="{$canonicalUrl}" />
 
 	<meta property="fb:app_id" content="{$fbAppId}"/>
