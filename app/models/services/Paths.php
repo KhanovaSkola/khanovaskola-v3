@@ -88,4 +88,9 @@ class Paths
 		return "{$this->www}/js";
 	}
 
+	public function getTemplate($presenter, $view)
+	{
+		return "{$this->app}/templates/views/" . ucFirst($presenter) . "/{$view}.latte";
+	}
+
 }

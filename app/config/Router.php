@@ -41,6 +41,7 @@ class Router extends RouteList
 		], $secured);
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
+		$this[] = new Route('vyhledavani/cviceni', 'Search:blueprints');
 
 		$this[] = new Route('schema/[<action \D+>/]<schemaId \d+>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action \D+>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');

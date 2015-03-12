@@ -4,9 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Services;
-use Nette\Forms\Controls\TextInput;
 use Nette\Utils\Strings;
-use Tracy\Debugger;
 
 
 final class Search extends Presenter
@@ -17,6 +15,12 @@ final class Search extends Presenter
 	 * @inject
 	 */
 	public $search;
+
+	/**
+	 * @var Services\Paths
+	 * @inject
+	 */
+	public $paths;
 
 	public function actionRedirectAutocomplete($contentId)
 	{
@@ -41,6 +45,32 @@ final class Search extends Presenter
 		$this->template->filter = $filter;
 		list($limit, $offset) = $this->getLinearLimitOffset($page ?: 1);
 		$this->template->search = $results = $this->search->query($query, $limit, $offset, $filter);
+
+		$this->payload->results = $results->count();
+		$this->redrawControl('results');
+	}
+
+	public function renderBlueprints($page = NULL)
+	{
+		$this->template->setFile($this->paths->getTemplate('Search', 'results'));
+
+		$this->template->query = $query = 'Všechna cvičení';
+		$this->template->filter = NULL;
+
+		$this['searchResultsForm-form-query']->setDefaultValue($query);
+
+		list($limit, $offset) = $this->getLinearLimitOffset($page ?: 1);
+		$results = $this->orm->contents->findAllBlueprints()->applyLimit($limit, $offset);
+		$this->template->search = (object) [
+			'results' => $results,
+			'aggregations' => [
+				[
+					'key' => 'blueprint',
+					'doc_count' => $results->count(),
+				]
+			],
+			'total' => $results->count(),
+		];
 
 		$this->payload->results = $results->count();
 		$this->redrawControl('results');
