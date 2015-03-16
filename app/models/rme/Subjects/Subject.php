@@ -32,7 +32,7 @@ class Subject extends TitledEntity
 		$a = $this->schemas->get()
 			->orderBy('position')
 			->findBy(['from_old_web' => 'f'])
-			->applyLimit(0, 3);
+			->applyLimit(NULL, 3);
 		$b = $this->schemas->get()
 			->orderBy('position')
 			->findBy(['from_old_web' => 't']);
