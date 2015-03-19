@@ -8,11 +8,12 @@
         <div class="clearfix">
             <div class="pull-left has-addend floating-placeholder">
                 <label n:name="email">Email</label>
-                <input n:name="email" type="text" class="form-control input-mail" placeholder="Email">
+                <input n:name="email" type="text" class="form-control input-mail" placeholder="Email" data-email>
                 <div class="addend-icon">
                     <i class="icon icon-mail"></i>
                 </div>
             </div>
+            <span class="help-block hidden" data-suggestion>Nemáte na mysli spíš <a href="" data-suggestion-email></a>?</span>
         </div>
         {include error, control => $form['email']}
     </div>

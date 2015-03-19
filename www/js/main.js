@@ -11,6 +11,7 @@
 			'lib/handsontable': `${basePath}/libs/handsontable/dist/handsontable.full.min`,
 			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,
 			'lib/jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
+			'lib/mailcheck': `${basePath}/libs/mailcheck/src/mailcheck.min`,
 			'lib/mathjax': `${basePath}/libs/MathJax/MathJax`,
 			'lib/modal': `${basePath}/libs/bootstrap/js/modal`,
 			'lib/nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
