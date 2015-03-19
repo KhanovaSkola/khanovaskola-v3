@@ -1,4 +1,4 @@
-define(['services/transliterate', 'zxcvbn'], function(string) {
+define(['services/transliterate', 'lib/zxcvbn'], function(string) {
 	const $form = document.querySelector('[data-password-strength]');
 	const $passwordInput = $form.querySelector('input[name="password"]');
 	const $emailInput = $form.querySelector('input[name="email"]');
