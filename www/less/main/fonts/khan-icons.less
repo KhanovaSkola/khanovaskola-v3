@@ -1,3 +1,10 @@
+/**
+ * When updating:
+ * - updates font paths, remove ?...
+ * - .icon-circle-up
+ * - .icon-content-next
+ * - view diff and verify
+ */
 @font-face {
 	font-family: 'khan';
 	src:url('../fonts/khan-icons-3.3/khan.eot');
@@ -48,6 +55,11 @@
 .icon-circle-back:before {
 	content: "\e609";
 }
+.icon-circle-up:before {
+	content: "\e609";
+	display: inline-block;
+    transform: rotate(90deg);
+}
 .icon-circle-close:before {
 	content: "\e601";
 }
@@ -70,6 +82,11 @@
 	content: "\e607";
 }
 .icon-content-next:before {
+	content: "\e609";
+	display: inline-block;
+    transform: rotate(180deg);
+}
+.icon-arrow-next:before {
 	content: "\e60a";
 }
 .icon-comments:before {
