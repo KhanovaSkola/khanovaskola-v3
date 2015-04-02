@@ -111,29 +111,32 @@
 					height: auto;
 				}
 
-				li {
-					width: 110%;
+				.tab-pane {
+					overflow: hidden;
+					margin-bottom: 2ex;
+					height: 345px;
 				}
 
-				.row-main {
-					height: 315px;
-					overflow-y: auto;
-					overflow-x: hidden;
-				}
-
-				.schema-more span {
-					margin-left: 0.3em;
-					&:first-of-type {
-						margin-left: 0;
-					}
+				.row {
+					padding-bottom: 1ex;
+					margin: 0;
 				}
 
 				.title {
+					display: inline;
 					font-weight: @font-weight-light;
 					font-size: @font-size-small;
 					color: @khan-blue;
 					line-height: 22px;
 					text-transform: uppercase;
+				}
+				.blocks {
+					display: inline;
+					margin: 0;
+					text-overflow: ellipsis;
+					a {
+						color: @khan-black;
+					}
 				}
 			}
 		}

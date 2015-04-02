@@ -46,31 +46,25 @@
 							<div class="subject-detail tab-content">
 								<div n:foreach="$subjects as $i => $subject" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subject->id}">
 									{block subjectDetail}
-										<div class="row row-main">
-											{foreach $subject->getLargeMenuItems() as $schema}
-												<div class="col-md-4">
-	                                                <div class="title">
-	                                                    <a n:href="$schema">{$schema->title}</a>
-	                                                </div>
-	                                                <ul class="list-unstyled">
-	                                                    <li n:foreach="$schema->blocks as $block">
-	                                                        <a n:href="$block, $schema">
-	                                                            {$block->title}
-	                                                        </a>
-	                                                    </li>
-	                                                </ul>
-	                                            </div>
-											{/foreach}
-										</div>
-										<div class="row row-supplement">
-											<div class="col-md-12 schema-more">
-												{foreach $subject->getLargeMenuItemsSupplement() as $schema}
-													<span class="title">
-														<a n:href="$schema">{$schema->title}</a>{sep}, {/sep}
-													</span>
-												{/foreach}
-											</div>
-										</div>
+										{foreach $subject->getMenuItems() as $schema}
+											<div class="row">
+                                                <span class="title">
+                                                    <a n:href="$schema">{$schema->title}</a> &mdash;
+                                                </span>
+                                                <span class="blocks">
+                                                	{var $blocks = $schema->blocks}
+                                                	{var $limit = 8}
+                                                    {foreach $blocks as $block}
+                                                    	{if $limit <= 0}
+                                                    		<a n:href="$schema">a další &hellip;</a>
+                                                    		{php break}
+                                                    	{/if}
+                                                        <a n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                        {php $limit--}
+                                                    {/foreach}
+                                                </span>
+                                            </div>
+										{/foreach}
 									{/block}
 								</div>
 								<div n:foreach="$oldSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subject->id}">

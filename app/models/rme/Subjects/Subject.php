@@ -19,6 +19,12 @@ use Orm\OneToMany as OtM;
 class Subject extends TitledEntity
 {
 
+	public function getMenuItems()
+	{
+		return $this->schemas->get()
+			->orderBy('position');
+	}
+
 	public function getLargeMenuItems()
 	{
 		return $this->schemas->get()
