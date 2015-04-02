@@ -16,6 +16,10 @@ final class Homepage extends Presenter
 		$this->template->firstSubject = array_shift($subjects);
 		$this->template->secondThirdSubject = array_filter([array_shift($subjects), array_shift($subjects)]);
 		$this->template->moreSubjects = array_filter([array_shift($subjects), array_shift($subjects), array_shift($subjects)]);
+
+		$videoCount = $this->orm->contents->findAllVideos()->count();
+		$precision = 100;
+		$this->template->videoCount = round($videoCount / $precision) * $precision;
 	}
 
 }
