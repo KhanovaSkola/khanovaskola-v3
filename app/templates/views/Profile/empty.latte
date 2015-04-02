@@ -1,0 +1,68 @@
+{var $pageName = 'dashboard-page'}
+{var $headerBorder = FALSE}
+{var $title = $profile->name}
+{block content}
+	{**
+	 * @param App\Models\Rme\User             $profile
+	 *}
+
+	<main class="content">
+        <div class="content-inner">
+            <div class="inprogress-box">
+                <div class="title">
+                    <div class="title-inner">
+                        <span>Zde uvidíte načlá témata</span>
+                    </div>
+                </div>
+                <div class="inprogress-border">
+                    <div class="subject">
+                        <h2>
+                            <i class="icon icon-subject-history text-blue"></i>
+                            <span>Nějaké rozkoukané téma</span>
+                        </h2>
+                        <div class="progress-wrapper">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-blue" style="width: {=mt_rand(10, 90)}%;"></div>
+                            </div>
+                            <span>∞ &thinsp;%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="other-subjects">
+            <div class="inner">
+                <h1>
+                    Začít můžete třeba tady:
+                </h1>
+                <div class="subjects">
+                    {var $phrases = [
+                        'Naučit se',
+                        'Zkouknout',
+                        'Prozkoumat',
+                        'Dozvědět se víc',
+                        'Studovat',
+                        'Prostudovat',
+                        'Poznat',
+                        'Zkusit',
+                        'Vyzkoušet',
+                    ]}
+                    {php shuffle($phrases)}
+
+                    {foreach $suggestions as $content}
+                        {var $block = $content->getRandomParent()}
+                        {var $schema = $block ? $block->getRandomParent() : NULL}
+                        <div class="subject">
+                            <h4>
+                                <i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
+                                {$content->title}
+                            </h4>
+                            <p>{$content->description}</p>
+                            <a n:href="$content" class="btn">{=array_pop($phrases)}</a>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </main>

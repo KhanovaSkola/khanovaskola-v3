@@ -57,8 +57,19 @@ final class Profile extends Presenter
 
 		if (!$lastSchema && !$this->getUserEntity()->hasCacheBurstingPrivileges())
 		{
-			$this->redirect('Homepage:default');
+			$this->forward('empty');
+			// $this->redirect('Homepage:default');
 		}
+	}
+
+	public function renderEmpty()
+	{
+		$this->template->profile = $this->profile;
+		$this->template->suggestions = [
+			$this->orm->contents->getRandom(),
+			$this->orm->contents->getRandom(),
+			$this->orm->contents->getRandom()
+		];
 	}
 
 	public function renderSettings()
