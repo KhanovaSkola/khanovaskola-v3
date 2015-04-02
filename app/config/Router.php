@@ -37,7 +37,9 @@ class Router extends RouteList
 			'Subjects:default' => 'predmety',
 			'File:opensearch' => 'opensearch.xml',
 			'File:robots' => 'robots.txt',
-			'Sitemap:default' => 'sitemap.xml'
+			'Sitemap:default' => 'sitemap.xml',
+			'Text:tos' => 'podminky',
+			'Text:privacy' => 'soukromi'
 		], $secured);
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
