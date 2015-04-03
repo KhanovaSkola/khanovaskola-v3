@@ -17,7 +17,7 @@
 							<span data-icon class="icon-{$subject->icon}"></span>
 						</span>
 						<select name="color">
-							{foreach ['black', 'blue', 'green', 'cyan', 'cyan-dark', 'yellow', 'gold', 'purple', 'brown', 'red'] as $color}
+							{foreach ['black', 'blue', 'green', 'cyan', 'cyan-dark', 'yellow', 'gold', 'purple', 'brown', 'red', 'wine'] as $color}
 		                        <option{if $color === $subject->color} selected{/if} value="{$color}">{ucFirst($color)}</option>
 		                    {/foreach}
 						</select>

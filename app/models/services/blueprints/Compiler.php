@@ -34,10 +34,10 @@ class Compiler extends Object
 	/**
 	 * Must also be changed in less
 	 */
-	const COLOR1 = '113,189,26'; // khan-green
-	const COLOR2 = '208,70,19'; // khan-red
-	const COLOR3 = '84,207,203'; // khan-cyan-dark
-	const COLOR4 = '236,148,5'; // khan-gold
+	const COLOR1 = '89,156,13'; // khan-green
+	const COLOR2 = '229,61,0'; // khan-red
+	const COLOR3 = '0,143,168'; // khan-cyan-dark
+	const COLOR4 = '184,141,0'; // khan-gold
 
 	/**
 	 * @var int
