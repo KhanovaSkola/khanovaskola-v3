@@ -59,9 +59,9 @@
 							<div class="clearfix"></div>
 							<div class="hints-wrapper">
 								<div data-hint-label class="hidden">Nápovědy:</div>
-		                        <ol data-hints>
+		                        <ul data-hints>
 		                            <li class="hidden" n:foreach="$exercise->hints as $i => $hint" data-hint="{$i}">{$hint|noescape}</li>
-		                        </ol>
+		                        </ul>
 		                        <a href="#" class="btn-hints" data-show-hint>{_'exercise.showHint'}</a>
 	                        </div>
 	                    {/snippet}
