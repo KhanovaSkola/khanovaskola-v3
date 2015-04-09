@@ -17,3 +17,6 @@ elasticsearch.log
 !/www/build/.gitkeep
 /temp/btfj.dat
 /temp/cachegrind*
+pubring.gpg~
+secring.gpg
+production/config.local.neon

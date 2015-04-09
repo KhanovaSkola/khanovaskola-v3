@@ -68,6 +68,15 @@ install git hooks:
 sh bin/install-hooks
 ```
 
+Encrypted files
+---------------
+
+https://github.com/StackExchange/blackbox
+
+Following files are GPG crypted: [blackbox files](keyrings/live/blackbox-files.txt)
+
+Following developers can decrypt those files: [blackbox admins](keyrings/live/blackbox-admins.txt)
+
 Data Model
 ----------
 <img src="doc/khanova-skola-content.png" alt="Content Structure Schema" height="657">
