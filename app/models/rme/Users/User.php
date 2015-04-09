@@ -93,15 +93,6 @@ class User extends Entity
 		}
 	}
 
-	public function setGender($gender)
-	{
-		if ($gender !== Gender::FEMALE)
-		{
-			$gender = Gender::MALE;
-		}
-		$this->setValue('gender', $gender);
-	}
-
 	/**
 	 * @param Content $content
 	 * @return bool

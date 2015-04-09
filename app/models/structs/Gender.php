@@ -8,6 +8,7 @@ class Gender
 
 	const MALE = 'male';
 	const FEMALE = 'female';
+	const OTHER = 'other';
 
 	/**
 	 * @return array
@@ -17,6 +18,7 @@ class Gender
 		return [
 			self::MALE => self::MALE,
 			self::FEMALE => self::FEMALE,
+			self::OTHER => self::OTHER,
 		];
 	}
 
