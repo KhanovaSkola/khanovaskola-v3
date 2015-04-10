@@ -269,6 +269,8 @@ block:
       one: "1 minuta"
       few: "%1 minuty"
       many: "%1 minut"
+  continue:
+    info: "Pokračuj od poslední látky"
 
 editor:
   form:
@@ -381,3 +383,8 @@ subjects:
     teacher:
       title: "Chystáme."
       message: "Brzy pro Vás budeme mít učitelské funkce pro dohled nad studiem Vašich žáků. Už teď jim ale můžete nabídnout cokoliv z našeho obsahu."
+
+schema:
+  continue:
+    info: "Na poslední látku co jsi studoval[|a] navazuje"
+    block: "z bloku"

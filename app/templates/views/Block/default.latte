@@ -41,8 +41,23 @@
                             </span>
                         </div>
                         {include '../_dependsOn.latte', block => $block}
-                        <div>
-                            <a n:href="Block:continue" class="btn" rel="nofollow">Pokračovat</a>
+
+                        <div class="continue">
+                            {if $continueTo}
+                                <div class="continue-pre">
+                                    <p>{_'block.continue.info', ['gender' => $userEntity->gender]}</p>
+                                </div>
+                                <a n:href="continue" class="btn" rel="nofollow">
+                                    {var $content = $continueTo[0]}
+                                    {$content->title}
+                                </a>
+                            {elseif $continueTo === FALSE}
+                                {* all content seen *}
+                            {else}
+                                <a n:href="continue" class="btn" rel="nofollow">
+                                    Začít od prvního videa
+                                </a>
+                            {/if}
                         </div>
                     </div>
                 </div>

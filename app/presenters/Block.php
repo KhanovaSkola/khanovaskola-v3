@@ -39,21 +39,43 @@ class Block extends Presenter
 	{
 		$this->template->add('block', $this->block);
 		$this->template->add('schema', $this->schema);
+
+		$this->template->continueTo = NULL;
+		if (!$this->user->isEphemeralGuest())
+		{
+			$this->template->continueTo = $this->getContinueToContent();
+		}
 	}
 
-	public function actionContinue()
+	public function getContinueToContent()
 	{
 		$user = $this->userEntity;
 		if (! $user instanceof LazyEntity)
 		{
 			$next = $this->orm->blocks->getNextContent($user, $this->block);
-			if ($next)
+			if ($next === FALSE)
 			{
-				$this->redirectToEntity($next, $this->block, $this->schema);
+				return FALSE;
+			}
+			else if ($next !== NULL)
+			{
+				return [$next, $this->block, $this->schema];
 			}
 		}
 
-		$this->redirectToEntity($this->block->getFirstContent(), $this->block, $this->schema);
+		return NULL;
+	}
+
+	public function actionContinue()
+	{
+		$list = $this->getContinueToContent();
+		if ($list === NULL)
+		{
+			$list = [$this->block->getFirstContent(), $this->block, $this->schema];
+		}
+
+		list($content, $block, $schema) = $list;
+		$this->redirectToEntity($content, $block, $schema);
 	}
 
 }

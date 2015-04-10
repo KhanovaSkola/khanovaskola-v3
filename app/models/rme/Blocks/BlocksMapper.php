@@ -37,10 +37,27 @@ class BlocksMapper extends Mappers\ElasticSearchMapper
 	/**
 	 * @param User $user
 	 * @param Block $block
-	 * @return NULL|Content
+	 * @return NULL|Content|FALSE null for first, FALSE for end
 	 */
 	public function getNextContent(User $user, Block $block)
 	{
+		$lastPosition = $this->connection->query('
+			SELECT [cbb.position]
+			FROM [completed_contents] [cc]
+			LEFT JOIN [content_block_bridges] [cbb] ON (
+				[cbb.content_id] = [cc.content_id]
+			)
+			WHERE [cbb.block_id] = ?', $block->id, '
+				AND [cc.user_id] = ?', $user->id, '
+			ORDER BY [cc.created_at] DESC
+			LIMIT 1
+		')->fetchSingle();
+
+		if ($lastPosition === FALSE || $lastPosition === NULL) // allow 0
+		{
+			return NULL;
+		}
+
 		$row = $this->connection->query('
 			SELECT [cbb.content_id]
 			FROM [content_block_bridges] [cbb]
@@ -50,13 +67,14 @@ class BlocksMapper extends Mappers\ElasticSearchMapper
 			)
 			WHERE [cbb.block_id] = ?', $block->id, '
 				AND [cc.id] IS NULL
+				AND [cbb.position] > ?', $lastPosition, '
 			ORDER BY [cbb.position] ASC
 			LIMIT 1
 		')->fetch();
 
 		if (!$row)
 		{
-			return NULL;
+			return FALSE;
 		}
 
 		return $this->model->contents->getById($row['content_id']);

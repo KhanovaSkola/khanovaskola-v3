@@ -36,9 +36,27 @@
 	                <p>
 	                    {$schema->description}
 	                </p>
-	                <a n:href="continue" class="btn" rel="nofollow">
-	                    Pokračovat
-	                </a>
+	                <div class="continue">
+		                {if $continueTo}
+		                    <div class="continue-pre">
+		                        {_'schema.continue.info', ['gender' => $userEntity->gender]}
+		                    </div>
+		                    <a n:href="continue" class="btn" rel="nofollow">
+	                            {var $content = $continueTo[0]}
+	                            {$content->title}
+	                        </a>
+	                        <div n:if="$continueTo[1]" class="continue-post">
+			                    {_'schema.continue.block'}
+			                    <a n:href="$continueTo[1]">
+				                    {$continueTo[1]->title}
+			                    </a>
+		                    </div>
+	                    {else}
+	                        <a n:href="continue" class="btn" rel="nofollow">
+	                            Začít od prvního videa
+	                        </a>
+		                {/if}
+	                </div>
 	            </div>
 	        </div>
 	    </div>

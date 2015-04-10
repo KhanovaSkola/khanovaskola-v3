@@ -47,12 +47,18 @@ class Schema extends Presenter
 				? $this->preloadedBlocks[$id]
 				: $this->orm->blocks->getById($id);
 		};
+
+		$this->template->continueTo = NULL;
+		if (!$this->user->isEphemeralGuest())
+		{
+			$this->template->continueTo = $this->getContinueToContent();
+		}
 	}
 
 	/**
-	 * Redirects user to the first content he has not completed yet
+	 * @return array first [content, block, schema] this user has not completed yet
 	 */
-	public function actionContinue()
+	public function getContinueToContent()
 	{
 		$user = $this->userEntity;
 		if (! $user instanceof LazyEntity)
@@ -61,12 +67,27 @@ class Schema extends Presenter
 			if ($next)
 			{
 				list($content, $block) = $next;
-				$this->redirectToEntity($content, $block, $this->schema);
+				return [$content, $block, $this->schema];
 			}
 		}
 
-		$block = $this->schema->getFirstBlock();
-		$this->redirectToEntity($block->getFirstContent(), $block, $this->schema);
+		return NULL;
+	}
+
+	/**
+	 * Redirects user to the first content he has not completed yet
+	 */
+	public function actionContinue()
+	{
+		$list = $this->getContinueToContent();
+		if ($list === NULL)
+		{
+			$firstBlock = $this->schema->getFirstBlock();
+			$list = [$firstBlock->getFirstContent(), $firstBlock, $this->schema];
+		}
+
+		list($content, $block, $schema) = $list;
+		$this->redirectToEntity($content, $block, $schema);
 	}
 
 }
