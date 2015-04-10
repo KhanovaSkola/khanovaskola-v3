@@ -81,11 +81,6 @@ final class Auth extends Presenter
 			]));
 		}
 
-		if ($this->userEntity->hasCacheBurstingPrivileges())
-		{
-			$this->getHttpResponse()->setCookie('varnish-force', 'pass', strToTime('5 years'));
-		}
-
 		$this->iLog("auth.login.$service");
 
 		$section = $this->session->getSection('auth');
@@ -106,8 +101,6 @@ final class Auth extends Presenter
 	 */
 	public function renderIn($email = NULL)
 	{
-		$this->setCacheControlPublic();
-
 		/** @var TextInput $input */
 		$input = $this['loginForm-form-email'];
 		$input->setDefaultValue($email);

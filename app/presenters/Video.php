@@ -65,8 +65,6 @@ final class Video extends Content
 
 	public function renderDefault()
 	{
-		$this->setCacheControlPublic();
-
 		list($nextContent, $nextBlock, $nextSchema) = $this->orm->contents->getNext($this->video, $this->block, $this->schema);
 
 		$this->template->video = $this->video;

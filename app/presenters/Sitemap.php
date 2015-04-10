@@ -13,8 +13,6 @@ class Sitemap extends Presenter
 
 	public function renderDefault()
 	{
-		$this->setCacheControlPublic(24 * 60);
-
 		$cache = new Cache($this->cacheStorage, 'sitemap');
 		$string = $cache->load('full', function(&$dependencies) {
 			$dependencies[Cache::EXPIRE] = '1 day';
