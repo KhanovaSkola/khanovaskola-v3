@@ -103,6 +103,11 @@ class Configurator extends Nette\Configurator
 
 	public static function detectDebugMode($list = NULL)
 	{
+		if (isset($_SERVER['HTTP_X_BLACKFIRE_QUERY']))
+		{
+			// Blackfire
+			return FALSE;
+		}
 		if (strpos(php_uname('n'), 'testing-worker-') !== FALSE)
 		{
 			// Travis
