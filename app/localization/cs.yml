@@ -386,5 +386,5 @@ subjects:
 
 schema:
   continue:
-    info: "Na poslední látku co jsi studoval[|a] navazuje"
+    info: "Na poslední studovanou látku navazuje"
     block: "z bloku"
