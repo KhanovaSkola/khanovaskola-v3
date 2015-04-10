@@ -32,7 +32,7 @@ final class SubjectsEditor extends Presenter
 
 		$this->orm->flush();
 
-		$this->purgeHeaderTemplateCache();
+		$this->purgeCacheTag('header');
 		$this->redirect('this');
 	}
 

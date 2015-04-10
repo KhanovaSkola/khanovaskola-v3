@@ -66,7 +66,7 @@ class Subject extends EditorForm
 		$this->orm->flush();
 
 		$this->presenter->flashSuccess('editor.edited.schema');
-		$this->presenter->purgeHeaderTemplateCache();
+		$this->presenter->purgeCacheTag('header');
 		$this->presenter->redirect('this');
 	}
 }

@@ -89,7 +89,8 @@ class Schema extends EditorForm
 		}
 
 		$this->orm->flush();
-		$this->presenter->purgeHeaderTemplateCache();
+		$this->presenter->purgeCacheTag('header');
+		$this->presenter->purgeCacheTag("schema-{$schema->id}");
 
 		$producer = $this->queue->getProducer('updateSchema');
 		$producer->publish(serialize([

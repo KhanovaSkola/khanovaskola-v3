@@ -208,11 +208,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->redirectToEntity($content, $block, $schema);
 	}
 
-	public function purgeHeaderTemplateCache()
+	/**
+	 * @param string $tag
+	 */
+	public function purgeCacheTag($tag)
 	{
 		$cache = new Cache($this->cacheStorage);
 		$cache->clean([
-			Cache::TAGS => ['header'],
+			Cache::TAGS => [$tag],
 		]);
 	}
 

@@ -27,6 +27,7 @@ class Block extends EditorForm
 	{
 		$v = $this->getValues();
 
+		/** @var Rme\Block $block */
 		$block = $this->presenter->block;
 		$mode = 'edited';
 		if (!$block)
@@ -65,6 +66,12 @@ class Block extends EditorForm
 		}
 
 		$this->orm->flush();
+
+		$this->presenter->purgeCacheTag('header');
+		foreach ($block->schemas as $schema)
+		{
+			$this->presenter->purgeCacheTag("schema-{$schema->id}");
+		}
 
 		$this->presenter->flashSuccess("editor.$mode.block");
 		$schema = $this->presenter->schema;
