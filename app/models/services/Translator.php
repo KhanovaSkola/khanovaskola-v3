@@ -204,12 +204,12 @@ class Translator implements Nette\Localization\ITranslator
 			return $values[$key];
 		}, $text);
 
-		if (isset($values[self::GENDER]))
+		if (array_key_exists(self::GENDER, $values))
 		{
 			// inflect by gender from '[he|she]' syntax
-			$isMale = $values[self::GENDER] === Gender::MALE;
-			$translated = preg_replace_callback('~\[([^|]*)\|([^|]*)\]~', function($m) use ($isMale) {
-				return $isMale ? $m[1] : $m[2];
+			$isFemale = $values[self::GENDER] === Gender::FEMALE;
+			$translated = preg_replace_callback('~\[([^|]*)\|([^|]*)\]~', function($m) use ($isFemale) {
+				return $isFemale ? $m[2] : $m[1];
 			}, $translated);
 		}
 
