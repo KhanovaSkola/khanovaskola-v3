@@ -60,8 +60,37 @@ class Inflection
 			$template = 'https://words.khanovaskola.cz/inflect/%s/%s';
 			$raw = file_get_contents(sprintf($template, urlencode($case), urlencode($phrase)));
 			$response = json_decode($raw, TRUE);
-			return $response['result'];
+			return $this->fixCapitalization($response['result'], $phrase);
 		});
+	}
+
+	private function fixCapitalization($phrase, $template)
+	{
+		$split = '~(\s+|\.)~u';
+		$phraseParts = preg_split($split, $phrase, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		$templateParts = preg_split($split, $phrase, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		if (count($phraseParts) !== count($templateParts))
+		{
+			// template has different words than phrase
+			return $phrase;
+		}
+		foreach ($phraseParts as $i => &$part)
+		{
+			$upperWord = $templateParts[$i] == mb_convert_case($templateParts[$i], MB_CASE_UPPER);
+			if ($upperWord) // eg. USA
+			{
+				$part = mb_convert_case($part, MB_CASE_UPPER);
+				continue;
+			}
+
+			$upperFirst = $templateParts[$i][0] == mb_convert_case($templateParts[$i][0], MB_CASE_UPPER);
+			if ($upperFirst)
+			{
+				$part = mb_convert_case($part, MB_CASE_TITLE); // hopefully will work like ucFirst
+			}
+		}
+
+		return implode('', $phraseParts);
 	}
 
 	/**
