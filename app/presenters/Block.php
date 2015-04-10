@@ -69,7 +69,7 @@ class Block extends Presenter
 	public function actionContinue()
 	{
 		$list = $this->getContinueToContent();
-		if ($list === NULL)
+		if (!$list)
 		{
 			$list = [$this->block->getFirstContent(), $this->block, $this->schema];
 		}

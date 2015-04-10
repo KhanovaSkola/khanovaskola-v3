@@ -80,7 +80,7 @@ class Schema extends Presenter
 	public function actionContinue()
 	{
 		$list = $this->getContinueToContent();
-		if ($list === NULL)
+		if (!$list)
 		{
 			$firstBlock = $this->schema->getFirstBlock();
 			$list = [$firstBlock->getFirstContent(), $firstBlock, $this->schema];

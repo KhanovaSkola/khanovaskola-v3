@@ -36,6 +36,7 @@ class SchemasMapper extends Mapper
 			LEFT JOIN [block_schema_bridges] [bsb] ON [bsb.block_id] = [cbb.block_id]
 			WHERE [cc.user_id] = ?', $user->id, '
 				AND [cc.schema_id] = ?', $schema->id, '
+				AND [cbb.content_id] IS NOT NULL
 			ORDER BY [cc.created_at] DESC
 		')->fetchAll();
 
