@@ -28,7 +28,7 @@ class SchemasMapper extends Mapper
 	public function getNextContent(User $user, Schema $schema)
 	{
 		$watched = $this->connection->query('
-			SELECT [bsb.position] [block_position], [cbb.position] [content_position], [cbb.content_id]
+			SELECT [bsb.position] [block_position], [cbb.position] [content_position], [cbb.content_id], [cbb.block_id]
 			FROM [completed_contents] [cc]
 			LEFT JOIN [content_block_bridges] [cbb] ON [cbb.content_id] = [cc.content_id]
 			LEFT JOIN [block_schema_bridges] [bsb] ON [bsb.block_id] = [cbb.block_id]
@@ -61,8 +61,9 @@ class SchemasMapper extends Mapper
 			WHERE [bsb.schema_id] = ?', $schema->id, '
 				AND (
 				(
-					[bsb.position] = ? AND [cbb.position] > ?',
-					$latest['block_position'], $latest['content_position'], '
+					[bsb.position] = ?', $latest['block_position'], '
+					AND [cbb.position] > ?', $latest['content_position'], '
+					AND [cbb.block_id] = ?', $latest['block_id'], '
 				)
 				OR
 				(
