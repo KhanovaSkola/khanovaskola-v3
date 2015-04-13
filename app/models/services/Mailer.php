@@ -73,7 +73,6 @@ class Mailer extends Object implements IConsumer
 	 * @param User $user
 	 * @param NULL|array $args template variables
 	 *
-	 * @throws InvalidStateException if user unsubscribed
 	 * @throws Exception from Latte\Engine
 	 * @throws SmtpException from Mailer
 	 */
@@ -84,7 +83,8 @@ class Mailer extends Object implements IConsumer
 			// Last line of defense. Make sure unsubscribed users
 			// really dont receive any email. This should however
 			// be handled before the task is queued.
-			throw new InvalidStateException;
+			$this->logger->addAlert("Email to '$user->email' not send, user unsubscribed. Find out why it was queued");
+			return;
 		}
 
 		$msg = new Message();
