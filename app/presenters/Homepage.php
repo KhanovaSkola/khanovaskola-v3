@@ -20,4 +20,9 @@ final class Homepage extends Presenter
 		$this->template->videoCount = round($videoCount / $precision) * $precision;
 	}
 
+	public function actionMarathon()
+	{
+		$this->redirectUrl('http://srazy.info/khanova-skola-prekladatelsky-maraton/5351');
+	}
+
 }
