@@ -3,7 +3,7 @@
 namespace App\Models\Rme;
 
 use App\Models\Orm\Entity;
-use App\Models\Structs\Gender;
+
 use Nette\Security\Passwords;
 use Nette\Utils\Strings;
 use Orm;
@@ -44,6 +44,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|StudentInvite[]    $studentInvitesSent     {1:m studentInvites $sender}
  * @property OtM|StudentInvite[]    $studentInvitesReceived {1:m studentInvites $student}
  * @property OtM|Token[]            $tokens                 {1:m tokens $user}
+ * @property OtM|UserAliases[]      $aliases                {1:m userAliases $user}
  * @property OtM|VideoView[]        $videosViewed           {1:m videoViews $user}
  *
  * @property MtM|Subject[]          $subjectsEdited         {m:m subjects $editors mapped}

@@ -35,6 +35,22 @@ class UsersMapper extends Mappers\Mapper
 		return $this->inflection->gender($firstName);
 	}
 
+	public function getByEmail($email)
+	{
+		$res = $this->getBy(['email' => $email]);
+		if ($res)
+		{
+			return $res;
+		}
+
+		$alias = $this->model->userAliases->getByEmail($email);
+		if ($alias)
+		{
+			return $alias->user;
+		}
+		return NULL;
+	}
+
 	public function createManyToManyMapper($param, IRepository $targetRepository, $targetParam)
 	{
 		/** @var DibiManyToManyMapper $mtm */

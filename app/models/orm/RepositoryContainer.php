@@ -27,6 +27,7 @@ use Nette\DI\Container;
  * @property-read Rme\TokensRepository $tokens
  * @property-read Rme\UnsubscribesRepository $unsubscribes
  * @property-read Rme\UsersRepository $users
+ * @property-read Rme\UserAliasesRepository $userAliases
  * @property-read Rme\VideoViewsRepository $videoViews
  * @property-read Rme\SchemasRepository $schemas
  */
