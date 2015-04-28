@@ -68,9 +68,7 @@ class Schema extends EditorForm
 		/** @var self|EditorSelector[] $this */
 		if ($this['editors']->isEditable())
 		{
-			$schema->editors = array_filter($v->editors, function($id) use ($schema) {
-				return $id !== $schema->author->id;
-			});
+			$schema->editors = $v->editors;
 		}
 
 		$schema->title = $v->title;
