@@ -57,6 +57,14 @@
 	                        </a>
 		                {/if}
 	                </div>
+
+	                {var $editorCount = $schema->editors->count()}
+	                <div n:if="$editorCount" class="schema-editors">
+	                    {_'schema.editors', $editorCount}
+	                    {foreach $schema->editors as $editor}
+	                        <a href="https://forum.khanovaskola.cz/users/{$editor->discourseUsername}/activity">{$editor->name}</a>{sep}, {/sep}
+	                    {/foreach}
+	                </div>
 	            </div>
 	        </div>
 	    </div>

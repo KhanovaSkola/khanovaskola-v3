@@ -388,3 +388,7 @@ schema:
   continue:
     info: "Na poslední studovanou látku navazuje"
     block: "z bloku"
+  editors:
+    one: "Toto schéma spravuje"
+    few: "Toto schéma spravují"
+    many: "Toto schéma spravují"
