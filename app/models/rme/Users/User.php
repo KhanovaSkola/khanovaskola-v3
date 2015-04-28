@@ -31,6 +31,7 @@ use Orm\OneToMany as OtM;
  * @property NULL|string            $googleId
  * @property NULL|string            $googleAccessToken      aes encrypted
  * @property NULL|int               $oldId                  for discourse sso
+ * @property NULL|string            $discourseUsername      manually set only
  *
  * Relations:
  * @property OtM|Answer[]           $answers                {1:m answers $user}
