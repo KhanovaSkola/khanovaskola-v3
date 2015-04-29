@@ -28,20 +28,25 @@ class Views extends Command
 		}
 
 		$rows = $db->query('
-			WITH t([video_id], [youtube_id], [percent]) AS (
-				SELECT [v.id], [v.youtube_id], [vv.percent]
+			WITH t([video_id], [youtube_id], [percent], [block], [schema]) AS (
+				SELECT [v.id], [v.youtube_id], [vv.percent], [b.title], [s.title]
 				FROM [video_views] [vv]
 				LEFT JOIN [contents] [v] ON [vv.video_id] = [v.id]
+				LEFT JOIN [content_block_bridges] [cbb] ON [cbb.content_id] = [v.id]
+				LEFT JOIN [blocks] [b] ON [b.id] = [cbb.block_id]
+				LEFT JOIN [block_schema_bridges] [bsb] ON [bsb.block_id] = [b.id]
+				LEFT JOIN [schemas] [s] ON [bsb.schema_id] = [s.id]
+				GROUP BY [v.id], [v.youtube_id], [vv.percent], [b.title], [s.title]
 			)
-			SELECT [video_id], Count(*) [views], [youtube_id],
+			SELECT [video_id], Count(*) [views], [youtube_id], [block], [schema],
 				' . implode(',', $percentiles) . '
 			FROM [t]
-			GROUP BY [video_id], [youtube_id]
+			GROUP BY [video_id], [youtube_id], [block], [schema]
 			HAVING Count(*) >= 10
 			ORDER BY Count(*) DESC
 		')->fetchAll();
 
-		$cols = ['video_id', 'youtube_id', 'views'];
+		$cols = ['video_id', 'youtube_id', 'schema', 'block', 'views'];
 		for ($l = 10; $l < 100; $l += 10)
 		{
 			$cols[] = "perc-$l";
