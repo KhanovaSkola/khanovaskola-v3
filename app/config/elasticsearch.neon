@@ -26,7 +26,6 @@ settings:
 				type: mapping
 				mappings:
 					- ": => \\u0020" # space
-					- "- => \\u0020"
 			cs_math:
 				type: mapping
 				mappings:
@@ -38,7 +37,7 @@ settings:
 			cs_math_multiplication:
 				type: pattern_replace
 				pattern: "\\b(\\d+)\\s*(x|X)(\\b|\\d+)\\b"
-				replacement: "$1 krát $3" # intentional appended space
+				replacement: "$1 krát $3 " # intentional appended space
 			remove_doubles: # nn => n etc.
 				type: pattern_replace
 				pattern: "([a-zA-Z])\\1+"
