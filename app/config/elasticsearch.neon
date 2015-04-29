@@ -37,8 +37,8 @@ settings:
 					# / deleno, nebo
 			cs_math_multiplication:
 				type: pattern_replace
-				pattern: "(\\d)\\s*(x|X)"
-				replacement: "$1 krát " # intentional appended space
+				pattern: "\\b(\\d+)\\s*(x|X)(\\b|\\d+)\\b"
+				replacement: "$1 krát $3" # intentional appended space
 			remove_doubles: # nn => n etc.
 				type: pattern_replace
 				pattern: "([a-zA-Z])\\1+"
