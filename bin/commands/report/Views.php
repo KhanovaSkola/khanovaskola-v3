@@ -36,7 +36,7 @@ class Views extends Command
 				LEFT JOIN [blocks] [b] ON [b.id] = [cbb.block_id]
 				LEFT JOIN [block_schema_bridges] [bsb] ON [bsb.block_id] = [b.id]
 				LEFT JOIN [schemas] [s] ON [bsb.schema_id] = [s.id]
-				GROUP BY [v.id], [v.youtube_id], [vv.percent], [b.title], [s.title]
+				WHERE [s.id] IS NOT NULL
 			)
 			SELECT [video_id], Count(*) [views], [youtube_id], [block], [schema],
 				' . implode(',', $percentiles) . '
