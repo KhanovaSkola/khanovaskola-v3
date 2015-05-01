@@ -368,6 +368,9 @@ acl:
     blueprint:
       title: "Nepovoleno."
       message: "Přístup na editor cvičení nemáte povolený. Pokud je to chyba, napište na fórum."
+    blackboard:
+      title: "Nepovoleno."
+      message: "Přístup na nahrávání nemáte povolený. Pokud je to chyba, napište na fórum."
 
 subjectForm:
   title:
