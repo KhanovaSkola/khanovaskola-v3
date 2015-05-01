@@ -19,6 +19,7 @@ class CachingJsonResponse extends JsonResponse
 	 */
 	public function send(Http\IRequest $httpRequest, Http\IResponse $httpResponse)
 	{
+		$httpResponse->setContentType($this->contentType);
 		echo Json::encode($this->payload);
 	}
 
