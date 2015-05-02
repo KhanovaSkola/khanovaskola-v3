@@ -25,4 +25,9 @@ final class Homepage extends Presenter
 		$this->redirectUrl('http://srazy.info/khanova-skola-prekladatelsky-maraton/5351');
 	}
 
+	public function actionPreklad()
+	{
+		$this->redirectUrl('https://forum.khanovaskola.cz/t/pro-nove-korektory-navrh/701');
+	}
+
 }

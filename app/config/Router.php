@@ -28,6 +28,7 @@ class Router extends RouteList
 		$this[] = new StaticRouter([
 			'Homepage:default' => '',
 			'Homepage:marathon' => 'maraton',
+			'Homepage:preklad' => 'preklad',
 			'Profile:default' => 'profil',
 			'Auth:in' => 'prihlaseni',
 			'Auth:out' => 'odhlaseni',
