@@ -57,17 +57,11 @@ settings:
 			cs_typo: # should be applied last
 				type: mapping
 				mappings:
-					- "z => s" # gymnazium vs gymnasium, but also ztrata vs strata
-					- "Z => S"
-					- "ž => š"
-					- "Ž => Š"
+					- "vz => vs"
+					- "VZ => VS"
 					- "i => y" # glykolyza vs glikoliza
-					- "I => Y" # glykolyza vs glikoliza
-					- "í => ý" # glykolyza vs glikoliza
-					- "c => k" # kalvinův vs calvinův
-					- "C => K"
-					- "č => k"
-					- "Č => K"
+					- "I => Y"
+					- "í => ý"
 					- "ie => ě" # hey, do not judge
 
 		filter:
