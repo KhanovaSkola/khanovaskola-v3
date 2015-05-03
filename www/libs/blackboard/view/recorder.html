@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>rec ksvector</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div>
+			<button id="toggle">toggle</button>
+			<button id="save">save</button>
+			<span id="time"></span>
+			<span id="onair"></span>
+		</div>
+		<div id="wave"></div>
+		<div id="canvas"></div>
+		<div id="colors">
+			<input type="button" value="red" data-color="[255, 0, 0]">
+			<input type="button" value="green" data-color="[0, 255, 0]">
+			<input type="button" value="blue" data-color="[0, 0, 255]">
+			<input type="button" value="yellow" data-color="[255, 255, 120]">
+			<input type="button" value="cyan" data-color="[0, 255, 255]">
+		</div>
+
+		<!--[if IE]>
+			<object id='wtPlugin' classid='CLSID:092dfa86-5807-5a94-bf3b-5a53ba9e5308'>
+			</object>
+		<![endif]--><!--[if !IE]><-->
+			<object id="wtPlugin" type="application/x-wacomtabletplugin">
+				<param name="onload" value="pluginLoaded" />
+			</object>
+		<!--><![endif]-->
+
+		<script src="../build/recorder.js"></script>
+	</body>
+</html>

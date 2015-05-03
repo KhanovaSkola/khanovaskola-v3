@@ -4,6 +4,8 @@
 		baseUrl: `${basePath}/build/js`,
 		paths: {
 			'lib/babel': `${basePath}/libs/babel/browser-polyfill`,
+			'lib/blackboard/player': `${basePath}/libs/blackboard/build/player`,
+			'lib/blackboard/recorder': `${basePath}/libs/blackboard/build/recorder`,
 			'lib/chosen': `${basePath}/libs/chosen/chosen.jquery.min`,
 			'lib/codemirror': `${basePath}/libs/codemirror/lib/codemirror`,
 			'lib/codemirror-xml': `${basePath}/libs/codemirror/mode/xml/xml`,
