@@ -4,9 +4,11 @@ define([
 	const $rec = document.querySelector('[data-recording]');
 	const recording = JSON.parse($rec.dataset.recording);
 
-	const player = new Player({
+	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+	new Player({
 		recording: recording,
-		size: {width: 800, height: 360},
+		size: {width: width, height: 480},
 		$wave: document.getElementById('wave'),
 		$toggle: document.getElementById('toggle'),
 		$canvas: document.getElementById('canvas'),

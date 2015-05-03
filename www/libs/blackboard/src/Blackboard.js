@@ -33,6 +33,7 @@ export class Blackboard extends Track {
 
         this.redraw = false;
         this.offset = {x: 0, y: 0};
+		this.offsetCenter = null;
 
         this.time = 0;
 		this.since = 0;
@@ -101,6 +102,13 @@ export class Blackboard extends Track {
 	requestFrame() {
 		this.redraw = true;
 
+		if (this.offsetCenter === null) {
+			this.offsetCenter = {
+				x: this.ratio * ((this.scr.canvas.width / this.ratio - this.recording.size.width) / 2),
+				y: this.ratio * ((this.scr.canvas.height / this.ratio - this.recording.size.height) / 2),
+			};
+		}
+
 		this.ctx.clearAll();
 		requestAnimationFrame(timestamp => {
 			this.frame(timestamp);
@@ -134,6 +142,7 @@ export class Blackboard extends Track {
 			this.cur.clearAll();
 			this.cur.beginPath();
 			const size = 4;
+
 			this.cur.moveTo(this.ratio * (stroke.loc.x - size), this.ratio * (stroke.loc.y - size));
 			this.cur.lineTo(this.ratio * (stroke.loc.x + size), this.ratio * (stroke.loc.y + size));
 			this.cur.moveTo(this.ratio * (stroke.loc.x + size), this.ratio * (stroke.loc.y - size));
@@ -183,16 +192,16 @@ export class Blackboard extends Track {
 		this.scr.clearAll();
 		const can = this.ctx.canvas;
 		this.scr.drawImage(can,
-			this.offset.x, this.offset.y,
+			this.offset.x - this.offsetCenter.x, this.offset.y - this.offsetCenter.y,
 			can.width, can.height,
 			0, 0,
 			can.width, can.height
 		);
 
-		// TODO measure performance of this vs another duble buffer
+		// TODO measure performance of this vs another double buffer
 		const curcan = this.cur.canvas;
 		this.scr.drawImage(curcan,
-			this.offset.x, this.offset.y,
+			this.offset.x - this.offsetCenter.x, this.offset.y - this.offsetCenter.y,
 			curcan.width, curcan.height,
 			0, 0,
 			curcan.width, curcan.height
