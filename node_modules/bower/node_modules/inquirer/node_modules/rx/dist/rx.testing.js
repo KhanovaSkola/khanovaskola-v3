@@ -1,57 +1,50 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 ;(function (factory) {
-    var objectTypes = {
-        'boolean': false,
-        'function': true,
-        'object': true,
-        'number': false,
-        'string': false,
-        'undefined': false
-    };
+  var objectTypes = {
+    'boolean': false,
+    'function': true,
+    'object': true,
+    'number': false,
+    'string': false,
+    'undefined': false
+  };
 
-    var root = (objectTypes[typeof window] && window) || this,
-        freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports,
-        freeModule = objectTypes[typeof module] && module && !module.nodeType && module,
-        moduleExports = freeModule && freeModule.exports === freeExports && freeExports,
-        freeGlobal = objectTypes[typeof global] && global;
+  var root = (objectTypes[typeof window] && window) || this,
+      freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports,
+      freeModule = objectTypes[typeof module] && module && !module.nodeType && module,
+      moduleExports = freeModule && freeModule.exports === freeExports && freeExports,
+      freeGlobal = objectTypes[typeof global] && global;
 
-    if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
-        root = freeGlobal;
-    }
+  if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
+    root = freeGlobal;
+  }
 
-    // Because of build optimizers
-    if (typeof define === 'function' && define.amd) {
-        define(['rx.virtualtime', 'exports'], function (Rx, exports) {
-            root.Rx = factory(root, exports, Rx);
-            return root.Rx;
-        });
-    } else if (typeof module === 'object' && module && module.exports === freeExports) {
-        module.exports = factory(root, module.exports, require('./rx.all'));
-    } else {
-        root.Rx = factory(root, {}, root.Rx);
-    }
+  // Because of build optimizers
+  if (typeof define === 'function' && define.amd) {
+    define(['rx.virtualtime', 'exports'], function (Rx, exports) {
+      root.Rx = factory(root, exports, Rx);
+      return root.Rx;
+    });
+  } else if (typeof module === 'object' && module && module.exports === freeExports) {
+    module.exports = factory(root, module.exports, require('./rx'));
+  } else {
+    root.Rx = factory(root, {}, root.Rx);
+  }
 }.call(this, function (root, exp, Rx, undefined) {
 
-    // Defaults
-    var Observer = Rx.Observer,
-        Observable = Rx.Observable,
-        Notification = Rx.Notification,
-        VirtualTimeScheduler = Rx.VirtualTimeScheduler,
-        Disposable = Rx.Disposable,
-        disposableEmpty = Disposable.empty,
-        disposableCreate = Disposable.create,
-        CompositeDisposable = Rx.CompositeDisposable,
-        SingleAssignmentDisposable = Rx.SingleAssignmentDisposable,
-        slice = Array.prototype.slice,
-        inherits = Rx.internals.inherits,
-        defaultComparer = Rx.internals.isEqual;
-
-    function argsOrArray(args, idx) {
-        return args.length === 1 && Array.isArray(args[idx]) ?
-            args[idx] :
-            slice.call(args);
-    }
+  // Defaults
+  var Observer = Rx.Observer,
+    Observable = Rx.Observable,
+    Notification = Rx.Notification,
+    VirtualTimeScheduler = Rx.VirtualTimeScheduler,
+    Disposable = Rx.Disposable,
+    disposableEmpty = Disposable.empty,
+    disposableCreate = Disposable.create,
+    CompositeDisposable = Rx.CompositeDisposable,
+    SingleAssignmentDisposable = Rx.SingleAssignmentDisposable,
+    inherits = Rx.internals.inherits,
+    defaultComparer = Rx.internals.isEqual;
 
 function OnNextPredicate(predicate) {
     this.predicate = predicate;
@@ -196,20 +189,15 @@ var ReactiveTest = Rx.ReactiveTest = {
     return '(' + this.subscribe + ', ' + (this.unsubscribe === Number.MAX_VALUE ? 'Infinite' : this.unsubscribe) + ')';
   };
 
-    /** @private */
-    var MockDisposable = Rx.MockDisposable = function (scheduler) {
-        this.scheduler = scheduler;
-        this.disposes = [];
-        this.disposes.push(this.scheduler.clock);
-    };
+  var MockDisposable = Rx.MockDisposable = function (scheduler) {
+    this.scheduler = scheduler;
+    this.disposes = [];
+    this.disposes.push(this.scheduler.clock);
+  };
 
-    /*
-     * @memberOf MockDisposable#
-     * @prviate
-     */
-    MockDisposable.prototype.dispose = function () {
-        this.disposes.push(this.scheduler.clock);
-    };
+  MockDisposable.prototype.dispose = function () {
+    this.disposes.push(this.scheduler.clock);
+  };
 
   var MockObserver = (function (__super__) {
     inherits(MockObserver, __super__);
@@ -238,17 +226,17 @@ var ReactiveTest = Rx.ReactiveTest = {
   })(Observer);
 
   function MockPromise(scheduler, messages) {
-    var message, notification, observable = this;
+    var self = this;
     this.scheduler = scheduler;
     this.messages = messages;
     this.subscriptions = [];
     this.observers = [];
     for (var i = 0, len = this.messages.length; i < len; i++) {
-      message = this.messages[i];
-      notification = message.value;
+      var message = this.messages[i],
+          notification = message.value;
       (function (innerNotification) {
         scheduler.scheduleAbsoluteWithState(null, message.time, function () {
-          var obs = observable.observers.slice(0);
+          var obs = self.observers.slice(0);
 
           for (var j = 0, jLen = obs.length; j < jLen; j++) {
             innerNotification.accept(obs[j]);
@@ -262,22 +250,35 @@ var ReactiveTest = Rx.ReactiveTest = {
   MockPromise.prototype.then = function (onResolved, onRejected) {
     var self = this;
 
+    this.subscriptions.push(new Subscription(this.scheduler.clock));
+    var index = this.subscriptions.length - 1;
+
+    var newPromise;
+
     var observer = Rx.Observer.create(
       function (x) {
-        onResolved(x);
+        var retValue = onResolved(x);
+        if (retValue && typeof retValue.then === 'function') {
+          newPromise = retValue;
+        } else {
+          var ticks = self.scheduler.clock;
+          newPromise = new MockPromise(self.scheduler, [Rx.ReactiveTest.onNext(ticks, undefined), Rx.ReactiveTest.onCompleted(ticks)]);
+        }
         var idx = self.observers.indexOf(observer);
         self.observers.splice(idx, 1);
+        self.subscriptions[index] = new Subscription(self.subscriptions[index].subscribe, self.scheduler.clock);
       },
       function (err) {
         onRejected(err);
         var idx = self.observers.indexOf(observer);
         self.observers.splice(idx, 1);
+        self.subscriptions[index] = new Subscription(self.subscriptions[index].subscribe, self.scheduler.clock);
       }
     );
     this.observers.push(observer);
 
-    return new MockPromise(this.scheduler, []);
-  }
+    return newPromise || new MockPromise(this.scheduler, this.messages);
+  };
 
   var HotObservable = (function (__super__) {
 
@@ -468,8 +469,14 @@ var ReactiveTest = Rx.ReactiveTest = {
      * @return Hot observable sequence that can be used to assert the timing of subscriptions and notifications.
      */
     TestScheduler.prototype.createHotObservable = function () {
-        var messages = argsOrArray(arguments, 0);
-        return new HotObservable(this, messages);
+      var len = arguments.length, args;
+      if (Array.isArray(arguments[0])) {
+        args = arguments[0];
+      } else {
+        args = new Array(len);
+        for (var i = 0; i < len; i++) { args[i] = arguments[i]; }
+      }
+      return new HotObservable(this, args);
     };
 
     /**
@@ -478,8 +485,14 @@ var ReactiveTest = Rx.ReactiveTest = {
      * @return Cold observable sequence that can be used to assert the timing of subscriptions and notifications.
      */
     TestScheduler.prototype.createColdObservable = function () {
-        var messages = argsOrArray(arguments, 0);
-        return new ColdObservable(this, messages);
+      var len = arguments.length, args;
+      if (Array.isArray(arguments[0])) {
+        args = arguments[0];
+      } else {
+        args = new Array(len);
+        for (var i = 0; i < len; i++) { args[i] = arguments[i]; }
+      }
+      return new ColdObservable(this, args);
     };
 
     /**

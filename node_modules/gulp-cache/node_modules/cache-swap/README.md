@@ -1,9 +1,13 @@
-cache-swap
-==========
+# cache-swap
+
+[![NPM version](http://img.shields.io/npm/v/cache-swap.svg)](https://www.npmjs.com/package/cache-swap)
+[![Build status](https://ci.appveyor.com/api/projects/status/98uvrob6ogl7noey?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/cache-swap)
+[![Dependency Status](https://img.shields.io/david/jgable/cache-swap.svg?label=deps)](https://david-dm.org/jgable/cache-swap)
+[![devDependency Status](https://img.shields.io/david/dev/jgable/cache-swap.svg?label=devDeps)](https://david-dm.org/jgable/cache-swap#info=devDependencies)
 
 A lightweight file swap cache backed by temp files.
 
-### Example
+## Example
 
 ```javascript
 var swap = new CacheSwap({
@@ -53,6 +57,6 @@ var swap = new CacheSwap({
   };
 ```
 
-### License
+## License
 
 Licensed under the MIT License, Copyright 2013-2015 Jacob Gable
