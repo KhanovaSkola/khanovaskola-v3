@@ -24,5 +24,7 @@ define('lib/blackboard/player', function() {
 			controller.play();
 		});
 		controller.init();
+
+		return controller;
 	};
 });

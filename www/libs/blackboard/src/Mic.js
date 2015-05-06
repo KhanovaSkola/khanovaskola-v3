@@ -1,7 +1,7 @@
 import {Recorderjs} from "../vendor/Recorder";
 
 export class Mic {
-	constructor() {
+	constructor(workerPath) {
 		const nav = window.navigator;
 		nav.getUserMedia = (
 			nav.getUserMedia ||
@@ -21,7 +21,7 @@ export class Mic {
 
 			var mediaStreamSource = this.context.createMediaStreamSource(localMediaStream);
 			this.rec = new Recorderjs(mediaStreamSource, {
-				workerPath: '../vendor/recorderWorker.js'
+				workerPath: workerPath,
 			});
 
 		}, err => {
