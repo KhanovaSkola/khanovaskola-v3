@@ -50,6 +50,7 @@ class Router extends RouteList
 		$this[] = new Route('blok/[<action \D+>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
 		$this[] = new Route('video/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]?zacatek=<startAtTime \d+>', 'Video:default');
 		$this[] = new Route('cviceni/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blueprintId \d+>[-<slug>]', 'Blueprint:default');
+		$this[] = new Route('tabule/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blackboardId \d+>[-<slug>]', 'Blackboard:default');
 
 		// old links
 		$this[] = new Route('video/<youtubeId>', 'Video:youtube');
