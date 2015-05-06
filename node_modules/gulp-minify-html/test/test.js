@@ -7,7 +7,7 @@ var	gulp = require('gulp')
 
 describe('gulp-minify-html', function() {
 	var filename = __dirname + '/fixture/index.html';
-	it('should minify my files when given options', function(done) {
+	it('should minify my files when not given options', function(done) {
 		gulp.src(filename)
 		.pipe(minifyHTML())
 		.pipe(through.obj(function(file, encoding, callback){
@@ -23,7 +23,7 @@ describe('gulp-minify-html', function() {
 		}));
 	});
 
-	it('should minify my files when not given options', function(done) {
+	it('should minify my files when given options', function(done) {
 		var opt = {comments:true,spare:true};
 		gulp.src(filename)
 		.pipe(minifyHTML(opt))
