@@ -2,8 +2,7 @@ import {Coords} from './Coords';
 import {Mic} from './Mic';
 
 export class Recorder {
-	constructor(recording, penApi, colors) {
-		const $container = document.getElementById('canvas');
+	constructor($container, $time, $onair, recording, penApi, colors, workerPath) {
 		this.size = {width: 800, height: 380};
 
 		this.ctx = this.createCanvas(this.size.width * 10, this.size.height * 10);
@@ -11,15 +10,15 @@ export class Recorder {
 		this.scr = this.createCanvas(this.size.width, this.size.height);
         $container.appendChild(this.scr.canvas);
 
-		this.$time = document.getElementById('time');
-		this.$onair = document.getElementById('onair');
+		this.$time = $time;
+		this.$onair = $onair;
 		this.penApi = penApi;
 		this.time = 0;
 		this.paused = true;
 		this.firstDrawEvent = true;
 		this.lastCursor = null;
 		this.color = {r: 255, g: 100, b: 150};
-		this.mic = new Mic();
+		this.mic = new Mic(workerPath);
 		this.coords = new Coords(this.ratio, $container.getBoundingClientRect());
 
 		this.recording = recording;
