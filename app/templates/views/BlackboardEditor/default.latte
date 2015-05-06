@@ -7,22 +7,26 @@
 	 *}
 
 	<div class="course-blackboard">
-        <div>
-		    <button id="toggle">toggle</button>
-		    <button id="save">save</button>
-		    <span id="time"></span>
-		    <span id="onair"></span>
-		</div>
-		<div class="felt">
+		<div class="recorder-controls">
+	        <div id="colors" class="colors">
+	            <input type="button" value="red" data-color="[255, 0, 0]">
+	            <input type="button" value="green" data-color="[0, 255, 0]">
+	            <input type="button" value="blue" data-color="[0, 0, 255]">
+	            <input type="button" value="yellow" data-color="[255, 255, 120]">
+	            <input type="button" value="cyan" data-color="[0, 255, 255]">
+	        </div>
+	        <div class="controls">
+	            <button id="toggle">toggle</button>
+	            <button id="save">save</button>
+	            <span id="time"></span>
+	            <span id="onair"></span>
+	        </div>
+	        <div class="clearfix">
+        </div>
+        <div class="felt">
 			<div id="canvas"></div>
 		</div>
-        <div id="colors">
-		    <input type="button" value="red" data-color="[255, 0, 0]">
-		    <input type="button" value="green" data-color="[0, 255, 0]">
-		    <input type="button" value="blue" data-color="[0, 0, 255]">
-		    <input type="button" value="yellow" data-color="[255, 255, 120]">
-		    <input type="button" value="cyan" data-color="[0, 255, 255]">
-		</div>
+
 
 		{include _wacom.latte}
 	</div>
