@@ -28,6 +28,7 @@ class ContentsRepository extends Repository
 	public static function getClasses()
 	{
 		return [
+			'blackboard' => Blackboard::class,
 			'blueprint' => Blueprint::class,
 			'video' => Video::class,
 		];
