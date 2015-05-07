@@ -19,7 +19,7 @@ export class Recorder {
 		this.lastCursor = null;
 		this.color = {r: 255, g: 100, b: 150};
 		this.mic = new Mic(workerPath);
-		this.coords = new Coords(this.ratio, $container.getBoundingClientRect());
+		this.coords = new Coords(this.ratio, this.scr.canvas.getBoundingClientRect());
 
 		this.recording = recording;
 		this.recording.translate(this.time, this.coords.offset.screen);
