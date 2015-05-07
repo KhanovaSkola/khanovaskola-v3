@@ -24,8 +24,11 @@ class Blackboard extends EditorForm
 	{
 		$v = $this->getValues();
 
-		$blackboard = new Rme\Blackboard();
-		$this->orm->contents->attach($blackboard);
+		$blackboard = $this->presenter->blackboard;
+		if (!$blackboard)
+		{
+			$this->presenter->redirect('recorder');
+		}
 
 		$blackboard->title = $v->title;
 		$blackboard->description = $v->description;
@@ -33,7 +36,7 @@ class Blackboard extends EditorForm
 
 		$this->orm->flush();
 
-		$this->presenter->flashSuccess('editor.add.blackboard');
+		$this->presenter->flashSuccess('editor.edited.blackboard');
 
 		$block = $this->presenter->block;
 		$schema = $this->presenter->schema;

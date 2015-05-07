@@ -74,8 +74,8 @@ final class BlackboardEditor extends Content
 
 		$blackboard = new Rme\Blackboard();
 		$this->orm->contents->attach($blackboard);
-		$blackboard->title = "Nová nahrávka";
-		$blackboard->description = "popisek";
+		$blackboard->title = 'Nová nahrávka';
+		$blackboard->description = 'popisek'; // TODO
 		$blackboard->hidden = FALSE;
 		$this->orm->flush();
 
@@ -83,9 +83,11 @@ final class BlackboardEditor extends Content
 		$json->move("$base.json");
 		$audio->move("$base.wav");
 
-		$this->redirect('BlackboardEditor:default', [
+		$link = $this->link('BlackboardEditor:default', [
 			'blackboardId' => $blackboard->id,
 		]);
+
+		$this->sendJson(['redirect' => $link]);
 	}
 
 	public function renderDefault()
@@ -97,10 +99,9 @@ final class BlackboardEditor extends Content
 		if ($this->blackboard)
 		{
 			/** @var self|TextInput[] $this */
-//			$this['videoForm-form-title']->setDefaultValue($this->video->title);
-//			$this['videoForm-form-description']->setDefaultValue($this->video->description);
-//			$this['videoForm-form-youtubeId']->setDefaultValue($this->video->youtubeId);
-//			$this['videoForm-form-visible']->setDefaultValue(!$this->video->hidden);
+			$this['blackboardForm-form-title']->setDefaultValue($this->blackboard->title);
+			$this['blackboardForm-form-description']->setDefaultValue($this->blackboard->description);
+			$this['blackboardForm-form-visible']->setDefaultValue(!$this->blackboard->hidden);
 		}
 	}
 

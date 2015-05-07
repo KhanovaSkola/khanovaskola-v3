@@ -117,6 +117,11 @@ trait ControlTrait
 				$idKey = 'blueprintId';
 				$presenter = 'Blueprint:';
 			}
+			else if ($destination instanceof Rme\Blackboard)
+			{
+				$idKey = 'blackboardId';
+				$presenter = 'Blackboard:';
+			}
 			else
 			{
 				throw new NotImplementedException;

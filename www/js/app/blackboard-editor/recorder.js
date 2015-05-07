@@ -11,6 +11,13 @@ define([
 
 		var request = new XMLHttpRequest();
 		request.open('POST', '/blackboard-editor/'); // TODO
+		request.onreadystatechange = function() {
+			if (request.readyState !== 4 || request.status !== 200) {
+				return;
+			}
+			const data = JSON.parse(request.responseText);
+			window.location.replace(data.redirect);
+		};
 		request.send(formData);
 	};
 

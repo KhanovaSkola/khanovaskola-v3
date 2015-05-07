@@ -285,6 +285,9 @@ editor:
     video:
       title: "Video přidáno."
       message: ""
+    blackboard:
+      title: "Tabule přidána."
+      message: ""
   edited:
     block:
       title: "Blok upraven."
@@ -294,6 +297,9 @@ editor:
       message: ""
     video:
       title: "Video upraveno."
+      message: ""
+    blackboard:
+      title: "Tabule upravena."
       message: ""
 
 
@@ -332,6 +338,13 @@ videoForm:
     missing: "Vyplňte popis videa"
   youtubeId:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
+  visible: "Zobrazit ve vyhledávání"
+
+blackboardForm:
+  title:
+    missing: "Vyplňte název tabule"
+  description:
+    missing: "Vyplňte popis tabule"
   visible: "Zobrazit ve vyhledávání"
 
 blockForm:
