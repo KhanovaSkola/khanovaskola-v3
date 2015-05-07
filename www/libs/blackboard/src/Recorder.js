@@ -46,7 +46,18 @@ export class Recorder {
 		const $save = document.getElementById('save');
 		const that = this;
 		$save.addEventListener('click', event => {
-			const data = JSON.stringify(that.recording.getData());
+			const rec = {
+				data: that.recording.getData(),
+				size: that.size,
+				duration: that.time,
+				meta: {
+					pointerType: that.penApi ? that.penApi.pointerType : "unknown",
+					tabletModel: that.penApi ? that.penApi.tabletModel : "unknown",
+					agent: navigator.userAgent,
+				}
+			};
+
+			const data = JSON.stringify(rec);
 			this.mic.stop(audio => {
 				that.onSave(data, audio);
 			});
