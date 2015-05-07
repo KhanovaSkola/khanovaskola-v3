@@ -311,17 +311,21 @@ search:
     many: "%1 videí"
   count:
     video:
-        one: "jedno video"
-        few: "%1 videa"
-        many: "%1 videí"
+      one: "jedno video"
+      few: "%1 videa"
+      many: "%1 videí"
     blueprint:
-        one: "jedno cvičení"
-        few: "%1 cvičení"
-        many: "%1 cvičení"
+      one: "jedno cvičení"
+      few: "%1 cvičení"
+      many: "%1 cvičení"
     block:
-        one: "jeden blok"
-        few: "%1 bloky"
-        many: "%1 bloků"
+      one: "jeden blok"
+      few: "%1 bloky"
+      many: "%1 bloků"
+    blackboard:
+      one: "jedna tabule"
+      few: "%1 tabule"
+      many: "%1 tabulí"
 
 schemaForm:
   title:

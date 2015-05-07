@@ -76,7 +76,7 @@ final class BlackboardEditor extends Content
 		$this->orm->contents->attach($blackboard);
 		$blackboard->title = 'Nová nahrávka';
 		$blackboard->description = 'popisek'; // TODO
-		$blackboard->hidden = FALSE;
+		$blackboard->hidden = TRUE;
 		$this->orm->flush();
 
 		$base = $this->paths->getBlackboards() . "/$blackboard->id";
