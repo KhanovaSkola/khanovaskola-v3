@@ -16,7 +16,7 @@ define([
 		recording.soundPath = file.replace(/\.json$/, '.wav');
 		new Player({
 			recording: recording,
-			size: {width: width, height: 480},
+			size: {width: width, height: 450},
 			$wave: document.getElementById('wave'),
 			$toggle: document.getElementById('toggle'),
 			$canvas: document.getElementById('canvas'),

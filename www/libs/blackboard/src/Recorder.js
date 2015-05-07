@@ -3,7 +3,7 @@ import {Mic} from './Mic';
 
 export class Recorder {
 	constructor($container, $time, $onair, recording, penApi, colors, workerPath, onSave) {
-		this.size = {width: 800, height: 380};
+		this.size = {width: 800, height: 450}; //1920/1080 ratio
 
 		this.ctx = this.createCanvas(this.size.width * 10, this.size.height * 10);
 		this.offsetMax = {x: this.size.width * 9, y: this.size.height * 9};
