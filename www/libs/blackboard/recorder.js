@@ -5,8 +5,8 @@ define('lib/blackboard/recorder', function() {
 	return function(opts) {
 		const penApi = document.getElementById('wtPlugin').penAPI;
 
-		console.log('pointer type:', penApi ? penApi.pointerType : "unknown");
-		console.log('tablet model:', penApi ? penApi.tabletModel : "unknown");
+		//console.log('pointer type:', penApi ? penApi.pointerType : "unknown");
+		//console.log('tablet model:', penApi ? penApi.tabletModel : "unknown");
 
 		const colors = opts.colors;
 
@@ -17,6 +17,6 @@ define('lib/blackboard/recorder', function() {
 
 		const recording = new EditedRecording();
 		return new Recorder(opts.$canvas, opts.$time, opts.$onair,
-			recording, penApi, colors, opts.workerPath);
+			recording, penApi, colors, opts.workerPath, opts.onSave);
 	};
 });

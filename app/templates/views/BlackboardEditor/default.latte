@@ -1,30 +1,24 @@
-{var $pageName = 'course-page'}
+{var $pageName = 'course-page blackboard-editor'}
 {var $headerBorder = TRUE}
-{var $title = "Nahrávání"}
+{var $title = 'Editor'}
+{block headerBack}
+	<div class="header-goback">
+		<a n:href="$blackboard, $block, $schema">
+			<i class="icon icon-circle-back"></i>
+			<span>Zpět na tabuli</span>
+		</a>
+	</div>
+{/block}
 {block content}
 	{**
-	 * @param string $basePath web base path
+	 * @param UserEntity $userEntity
+	 * @param App\Models\Rme\Schema $schema
+	 * @param App\Models\Rme\Block $block
+	 * @param App\Models\Rme\Blackboard $blackboard
 	 *}
 
-	<div class="course-blackboard">
-		<div class="recorder-controls">
-	        <div id="colors" class="colors">
-	            <input type="button" value="red" data-color="[255, 0, 0]">
-	            <input type="button" value="green" data-color="[0, 255, 0]">
-	            <input type="button" value="blue" data-color="[0, 0, 255]">
-	            <input type="button" value="yellow" data-color="[255, 255, 120]">
-	            <input type="button" value="cyan" data-color="[0, 255, 255]">
-	        </div>
-	        <div class="controls">
-	            <button id="toggle">toggle</button>
-	            <button id="save">save</button>
-	            <span id="time"></span>
-	            <span id="onair"></span>
-	        </div>
-	        <div class="clearfix">
-        </div>
-		<div id="canvas" class="felt recorder"></div>
-
-
-		{include _wacom.latte}
+	<div class="container">
+		<div class="col-md-12">
+			{control blackboardForm}
+		</div>
 	</div>

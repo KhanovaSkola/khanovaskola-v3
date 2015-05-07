@@ -37,14 +37,14 @@ export class Mic {
 		this.rec.stop();
 	}
 
-	stop() {
+	stop(cb) {
 		this.pause();
 
 		this.mediaStream.stop();
 		this.rec.exportWAV(e => {
-			console.log(e);
 			this.rec.clear();
-			Recorderjs.forceDownload(e, "filename.wav");
+			cb(e);
+			// Recorderjs.forceDownload(e, "filename.wav");
 		});
 	}
 }
