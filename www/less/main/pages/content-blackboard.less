@@ -8,11 +8,22 @@
 	}
 
 	.recorder-controls {
+		text-align: center;
 		.colors {
-			float: left;
+			display: inline-block;
+			input {
+				border: none;
+				width: 3em;
+				outline: none;
+			}
+			.active {
+				border-bottom: 3px solid black;
+			}
 		}
 		.controls {
-			float: right;
+			position: absolute;
+			margin-left: 3em;
+			display: inline-block;
 		}
 	}
 	.recorder.felt {

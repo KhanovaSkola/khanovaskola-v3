@@ -33,6 +33,8 @@ export class Recorder {
         this.scr.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
         this.scr.canvas.addEventListener('contextmenu', this.onMouseDown.bind(this), false);
 
+		this.changeColor(colors[0]);
+
         this.registerControlButtons(colors);
 		this.registerKeys();
 		this.registerFileDrop(this.scr.canvas);
@@ -194,13 +196,17 @@ export class Recorder {
 	}
 
 	onColorClick(event) {
-		const arr = JSON.parse(event.target.dataset.color);
+		this.changeColor(event.target);
+	}
+
+	changeColor(target) {
+		const arr = JSON.parse(target.dataset.color);
 		this.color = {r: arr[0], g: arr[1], b: arr[2]};
 		if (this.lastColor) {
 			this.lastColor.classList.remove('active');
 		}
-		event.target.classList.add('active');
-		this.lastColor = event.target;
+		target.classList.add('active');
+		this.lastColor = target;
 	}
 
 	mouseButton(event) {
