@@ -4,8 +4,12 @@ namespace App\Presenters;
 
 use App\Models\Rme;
 use App\Models\Services\Acl;
+use App\Models\Services\Paths;
 use App\Presenters\Parameters;
+use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
+use Nette\Forms\Controls\UploadControl;
+use Nette\Http\FileUpload;
 
 
 final class BlackboardEditor extends Content
@@ -14,6 +18,12 @@ final class BlackboardEditor extends Content
 	use Parameters\Blackboard;
 	use Parameters\Block;
 	use Parameters\Schema;
+
+	/**
+	 * @var Paths
+	 * @inject
+	 */
+	public $paths;
 
 	public function startup()
 	{
@@ -42,6 +52,40 @@ final class BlackboardEditor extends Content
 			$this->flashError('acl.denied.blackboard');
 			$this->redirect('Homepage:default');
 		}
+	}
+
+	public function createComponentUpload()
+	{
+		$form = new Form();
+		$form->addUpload('json');
+		$form->addUpload('audio');
+		$form->addSubmit('save');
+		$form->onSuccess[] = [$this, 'onUpload'];
+		return $form;
+	}
+
+	public function onUpload(Form $form)
+	{
+		/** @var UploadControl[] $form */
+		/** @var FileUpload $json */
+		/** @var FileUpload $audio */
+		$json = $form['json']->getValue();
+		$audio = $form['audio']->getValue();
+
+		$blackboard = new Rme\Blackboard();
+		$this->orm->contents->attach($blackboard);
+		$blackboard->title = "Nová nahrávka";
+		$blackboard->description = "popisek";
+		$blackboard->hidden = FALSE;
+		$this->orm->flush();
+
+		$base = $this->paths->getBlackboards() . "/$blackboard->id";
+		$json->move("$base.json");
+		$audio->move("$base.wav");
+
+		$this->redirect('BlackboardEditor:default', [
+			'blackboardId' => $blackboard->id,
+		]);
 	}
 
 	public function renderDefault()

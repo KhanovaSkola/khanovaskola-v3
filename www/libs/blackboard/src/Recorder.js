@@ -2,7 +2,7 @@ import {Coords} from './Coords';
 import {Mic} from './Mic';
 
 export class Recorder {
-	constructor($container, $time, $onair, recording, penApi, colors, workerPath) {
+	constructor($container, $time, $onair, recording, penApi, colors, workerPath, onSave) {
 		this.size = {width: 800, height: 380};
 
 		this.ctx = this.createCanvas(this.size.width * 10, this.size.height * 10);
@@ -20,6 +20,7 @@ export class Recorder {
 		this.color = {r: 255, g: 100, b: 150};
 		this.mic = new Mic(workerPath);
 		this.coords = new Coords(this.ratio, this.scr.canvas.getBoundingClientRect());
+		this.onSave = onSave;
 
 		this.recording = recording;
 		this.recording.translate(this.time, this.coords.offset.screen);
@@ -43,9 +44,12 @@ export class Recorder {
         }
 
 		const $save = document.getElementById('save');
+		const that = this;
 		$save.addEventListener('click', event => {
-			console.debug(JSON.stringify(r.getData()));
-			this.mic.stop();
+			const data = JSON.stringify(that.recording.getData());
+			this.mic.stop(audio => {
+				that.onSave(data, audio);
+			});
 		});
 	}
 
@@ -82,13 +86,13 @@ export class Recorder {
 				that.redraw();
 			};
 			reader.readAsDataURL(file);
-		}
+		};
 
 		const handleDragOver = function(event) {
 			event.stopPropagation();
 			event.preventDefault();
 		    event.dataTransfer.dropEffect = 'copy';
-		}
+		};
 
 		$el.addEventListener('dragover', handleDragOver.bind(this), false);
 		$el.addEventListener('drop', handleFileSelect.bind(this), false);
@@ -236,7 +240,7 @@ export class Recorder {
 			const offset = {
 				x: Math.min(this.offsetMax.x, Math.max(0, this.translationBase.x - event.pageX)),
 				y: Math.min(this.offsetMax.y, Math.max(0, this.translationBase.y - event.pageY)),
-			}
+			};
 			this.coords.offset.screen = offset;
 			this.recording.translate(this.time, offset);
 

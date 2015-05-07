@@ -5,10 +5,6 @@ namespace App\Models\Rme;
 use Orm;
 
 
-/**
- * @property string $audioFile
- * @property string $dataFile
- */
 class Blackboard extends Content
 {
 
