@@ -17,15 +17,18 @@ export class Coords {
 	constructor(ratio, layerOffset) {
 		this.ratio = ratio;
 		this.offset = {
-			layer: layerOffset,
+			layer: {
+				x: layerOffset.left + window.scrollX,
+				y: layerOffset.top + window.scrollY,
+			},
 			screen: {x: 0, y: 0},
 		};
 	}
 
 	eventToLayer(event) {
 		return {
-			x: event.pageX - this.offset.layer.left + this.offset.screen.x,
-			y: event.pageY - this.offset.layer.top + this.offset.screen.y,
+			x: event.pageX - this.offset.layer.x + this.offset.screen.x,
+			y: event.pageY - this.offset.layer.y + this.offset.screen.y,
 		}
 	}
 
