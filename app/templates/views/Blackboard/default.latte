@@ -49,7 +49,6 @@
                             <meta itemprop="thumbnail" content="{$blackboard->preview}" />
                             <div class="felt">
                                 <div id="canvas" data-blackboard-file="{$dataFile}"></div>
-                                <div id="wave"></div>
                             </div>
                             <div class="video-preview">
                                 <img src="{$blackboard->preview}" alt="video">
@@ -65,7 +64,7 @@
 		            <div class="course-progress">
 		                <div class="progress-inner"></div>
 		                <div class="progress-label label-left">{$startAtTime|duration}</div>
-		                <div class="progress-label label-right">{$blackboard->duration|duration}</div>
+		                <div class="progress-label label-right">{$blackboard->duration/1000|duration}</div>
 		            </div>
 		        </div>
 	            <div class="course-header-footer">
