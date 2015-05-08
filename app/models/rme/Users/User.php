@@ -40,6 +40,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|Comment[]          $comments               {1:m comments $author}
  * @property OtM|CompletedBlock[]   $completedBlocks        {1:m completedBlocks $user}
  * @property OtM|CompletedContent[] $completedContents      {1:m completedContents $user}
+ * @property NULL|OtM|Content[]     $contents               {1:m contents $author}
  * @property OtM|Schema[]           $schemasAuthored        {1:m schemas $author}
  * @property OtM|StudentInvite[]    $studentInvitesSent     {1:m studentInvites $sender}
  * @property OtM|StudentInvite[]    $studentInvitesReceived {1:m studentInvites $student}

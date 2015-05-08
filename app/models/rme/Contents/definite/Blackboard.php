@@ -3,6 +3,10 @@
 namespace App\Models\Rme;
 
 
+/**
+ * @property NULL|int     $duration  seconds
+ * @property NULL|string  $preview   absolute url
+ */
 class Blackboard extends Content
 {
 

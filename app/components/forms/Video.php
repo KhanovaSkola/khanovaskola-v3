@@ -41,6 +41,7 @@ class Video extends EditorForm
 		if (!$video)
 		{
 			$video = new Rme\Video();
+			$video->author = $this->presenter->userEntity;
 			$this->orm->contents->attach($video);
 			$mode = 'added';
 		}
