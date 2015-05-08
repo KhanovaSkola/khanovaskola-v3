@@ -66,7 +66,6 @@ define([
 			const update = function(time) {
 				const percent = time / player.timeline.getDuration();
 				$inner.style.width = percent * 100 + '%';
-				console.log('update', time, percent);
 				$container.querySelector('.label-left').textContent = filters.duration(time);
 			};
 			update($container.dataset.initial);
