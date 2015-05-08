@@ -21,7 +21,7 @@ define('lib/blackboard/player', function() {
 			]
 		});
 		controller.on('ready', event => {
-			controller.play();
+			//controller.play();
 		});
 		controller.init();
 

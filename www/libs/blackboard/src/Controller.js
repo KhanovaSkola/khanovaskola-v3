@@ -122,4 +122,8 @@ export class Controller extends Emitter {
 		}
 	}
 
+	getPercent() {
+		return this.timeline.getCurrentTime() / this.timeline.duration;
+	}
+
 }

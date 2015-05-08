@@ -2,9 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Models\Services\Acl;
-use App\Models\Services\Paths;
-
 
 class Blackboard extends Presenter
 {
@@ -15,10 +12,10 @@ class Blackboard extends Presenter
 	use Parameters\Slug;
 
 	/**
-	 * @var Paths
-	 * @inject
+	 * @var int
+	 * @persistent
 	 */
-	public $paths;
+	public $startAtTime = 0;
 
 	public function startup()
 	{
@@ -59,17 +56,18 @@ class Blackboard extends Presenter
 
 	public function renderDefault()
 	{
+		list($nextContent, $nextBlock, $nextSchema) = $this->orm->contents->getNext($this->blackboard, $this->block, $this->schema);
+
 		$id = $this->blackboardId;
 		$this->template->dataFile = "/data/blackboard/$id.json";
-	}
-
-	public function actionRecorder()
-	{
-		if (! $this->user->isAllowed(Acl::ADD_CONTENT))
-		{
-			$this->flashError('acl.denied.blackboard');
-			$this->redirect('Homepage:default');
-		}
+		$this->template->blackboard = $this->blackboard;
+		$this->template->block = $this->block;
+		$this->template->schema = $this->schema;
+		$this->template->nextContent = $nextContent;
+		$this->template->nextBlock = $nextBlock;
+		$this->template->nextSchema = $nextSchema;
+		$this->template->position = $this->block ? $this->block->getPositionOf($this->blackboard) : NULL;
+		$this->template->startAtTime = $this->startAtTime;
 	}
 
 }
