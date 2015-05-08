@@ -4,8 +4,8 @@ namespace App\Models\Rme;
 
 
 /**
- * @property NULL|int     $duration  seconds
- * @property NULL|string  $preview   absolute url
+ * @property int     $duration  seconds
+ * @property string  $preview   absolute url
  */
 class Blackboard extends Content
 {
@@ -30,8 +30,7 @@ class Blackboard extends Content
 	 */
 	public function getDuration()
 	{
-		// TODO
-		return 1;
+		return $this->getValue('duration') ?: 20 * 60;
 	}
 
 }

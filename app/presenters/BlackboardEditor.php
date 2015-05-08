@@ -10,6 +10,7 @@ use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Controls\UploadControl;
 use Nette\Http\FileUpload;
+use Nette\Utils\Json;
 
 
 final class BlackboardEditor extends Content
@@ -72,11 +73,16 @@ final class BlackboardEditor extends Content
 		$json = $form['json']->getValue();
 		$audio = $form['audio']->getValue();
 
+		$data = Json::decode($json->getContents(), Json::FORCE_ARRAY);
+
 		$blackboard = new Rme\Blackboard();
 		$this->orm->contents->attach($blackboard);
 		$blackboard->title = 'Nová nahrávka';
-		$blackboard->description = 'popisek'; // TODO
+		$blackboard->description = ' ';
 		$blackboard->hidden = TRUE;
+		$blackboard->duration = $data['duration'];
+		$blackboard->preview = 'http://lorempixel.com/800/450/abstract/'; // TODO
+		$blackboard->author = $this->userEntity;
 		$this->orm->flush();
 
 		$base = $this->paths->getBlackboards() . "/$blackboard->id";
