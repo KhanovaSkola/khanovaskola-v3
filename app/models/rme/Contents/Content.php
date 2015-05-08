@@ -16,6 +16,7 @@ use Orm\OneToMany as OtM;
  * @property OtM|Comment[]            $comments            {1:m comments $content}
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $content}
  * @property OtM|CompletedContent[]   $completions         {1:m completedContents $content}
+ * @property NULL|User                $author              {m:1 users $contents}
  *
  * @property-read Block[]             $blocks              {ignore}
  */

@@ -105,6 +105,7 @@ class Blueprint extends EntityForm
 	public function onAdd()
 	{
 		$blueprint = $this->updateBlueprint($this->values, new Rme\Blueprint);
+		$blueprint->author = $this->presenter->userEntity;
 
 		$this->repos->contents->persist($blueprint);
 		$this->repos->flush();
