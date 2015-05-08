@@ -1,25 +1,31 @@
 import {Track} from "./Track";
 
 export class Sound extends Track {
-	constructor(wavesurfer) {
+	constructor(soundFile) {
 		super();
-		this.wavesurfer = wavesurfer;
+
+		this.audio = new Audio(soundFile);
+		this.audio.autoplay = false;
 	}
 
 	init() {
-		this.wavesurfer.on('ready', this.ready.bind(this));
-		this.wavesurfer.loadPredefined();
+		if (this.audio.readyState === this.audio.HAVE_ENOUGH_DATA) {
+			this.ready();
+			return;
+		}
+
+		this.audio.addEventListener('canplay', this.ready.bind(this));
 	}
 
 	play() {
-		this.wavesurfer.play();
+		this.audio.play();
 	}
 
 	pause() {
-		this.wavesurfer.pause();
+		this.audio.pause();
 	}
 
 	seek(percent) {
-		this.wavesurfer.seekTo(percent);
+		this.audio.currentTime = percent * this.audio.duration;
 	}
 }

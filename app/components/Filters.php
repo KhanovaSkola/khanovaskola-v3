@@ -49,7 +49,7 @@ class Filters
 	public function duration($seconds)
 	{
 		$m = floor($seconds / 60);
-		$s = $seconds - 60 * $m;
+		$s = round($seconds - 60 * $m);
 
 		return $m . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
 	}

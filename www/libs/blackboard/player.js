@@ -3,20 +3,21 @@ import {Controller} from "./src/Controller";
 import {RandomRecording} from "./src/RandomRecording";
 import {HardcodedRecording} from "./src/HardcodedRecording";
 import {Sound} from "./src/Sound";
+import {Timeline} from "./src/Timeline";
 import {WaveSurferFactory} from "./src/WaveSurferFactory";
 
 define('lib/blackboard/player', function() {
-	// recording, size (width, height), $wave, $toggle, $canvas
+	// recording, size (width, height), $toggle, $canvas, $timeline
 	return function(opts) {
 		const size = {width: opts.size.width, height: opts.size.height};
-		const wavesurfer = WaveSurferFactory.create(opts.$wave, opts.recording.soundPath);
 
+		const sound = new Sound(opts.recording.soundPath);
 		const controller = new Controller({
 			$toggle: opts.$toggle,
 			recording: opts.recording,
-			timeline: wavesurfer,
+			timeline: new Timeline(opts.$timeline, sound),
 			tracks: [
-				new Sound(wavesurfer),
+				sound,
 				new Blackboard(opts.$canvas, size),
 			]
 		});
