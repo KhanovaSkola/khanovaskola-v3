@@ -190,21 +190,20 @@ export class Blackboard extends Track {
 		}
 
 		this.scr.clearAll();
-		const can = this.ctx.canvas;
-		this.scr.drawImage(can,
+		const scrcan = this.scr.canvas;
+		this.scr.drawImage(this.ctx.canvas,
 			this.offset.x - this.offsetCenter.x, this.offset.y - this.offsetCenter.y,
-			can.width, can.height,
+			scrcan.width, scrcan.height,
 			0, 0,
-			can.width, can.height
+			scrcan.width, scrcan.height
 		);
 
 		// TODO measure performance of this vs another double buffer
-		const curcan = this.cur.canvas;
-		this.scr.drawImage(curcan,
+		this.scr.drawImage(this.cur.canvas,
 			this.offset.x - this.offsetCenter.x, this.offset.y - this.offsetCenter.y,
-			curcan.width, curcan.height,
+			scrcan.width, scrcan.height,
 			0, 0,
-			curcan.width, curcan.height
+			scrcan.width, scrcan.height
 		);
 
 		if (this.drawNext

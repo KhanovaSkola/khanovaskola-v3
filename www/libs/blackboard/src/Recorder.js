@@ -266,7 +266,6 @@ export class Recorder {
 			if (this.firstDrawEvent) {
 				this.firstDrawEvent = false;
 				this.recording.beginStroke(this.time, cursor);
-
 				this.ctx.moveTo(onscreen.x, onscreen.y);
 
 			} else {
@@ -297,12 +296,13 @@ export class Recorder {
 	redraw() {
 		this.scr.clearAll();
 		const can = this.ctx.canvas;
+		const scrcan = this.scr.canvas;
 		const offset = this.coords.layerToCanvas(this.coords.offset.screen);
 		this.scr.drawImage(can,
 			offset.x, offset.y,
-			can.width, can.height,
+			scrcan.width, scrcan.height,
 			0, 0,
-			can.width, can.height
+			scrcan.width, scrcan.height
 		);
 	}
 
