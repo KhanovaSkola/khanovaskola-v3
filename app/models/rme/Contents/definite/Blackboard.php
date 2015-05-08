@@ -2,8 +2,6 @@
 
 namespace App\Models\Rme;
 
-use Orm;
-
 
 class Blackboard extends Content
 {
@@ -12,6 +10,15 @@ class Blackboard extends Content
 	{
 		parent::__construct();
 		$this->type = 'blackboard';
+	}
+
+	public function getIndexData()
+	{
+		$data = parent::getIndexData();
+		// This is intentionally set to video so search
+		// does not differentiate those recordings
+		$data['bucket'] = 'video';
+		return $data;
 	}
 
 	/**
