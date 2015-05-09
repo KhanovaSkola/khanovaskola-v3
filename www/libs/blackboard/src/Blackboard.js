@@ -26,12 +26,10 @@ export class Blackboard extends Track {
 
 	constructor($container, size) {
 		super();
-        this.ctx = this.createCanvas(size.width * 2, size.height * 3);
-        this.cur = this.createCanvas(size.width, size.height);
-        this.scr = this.createCanvas(size.width, size.height);
-        $container.appendChild(this.scr.canvas);
+		this.$container = $container;
+		this.createCanvases(size);
 
-        this.redraw = false;
+		this.redraw = false;
         this.offset = {x: 0, y: 0};
 		this.offsetCenter = null;
 
@@ -45,11 +43,28 @@ export class Blackboard extends Track {
         	this.onBoardMouseUp.bind(this));
 	}
 
+	createCanvases(size) {
+		this.ctx = this.createCanvas(size.width * 2, size.height * 3);
+		this.cur = this.createCanvas(size.width, size.height);
+		this.scr = this.createCanvas(size.width, size.height);
+		this.$container.appendChild(this.scr.canvas);
+	}
+
+	resize(size) {
+		this.ctx.canvas.remove();
+		this.cur.canvas.remove();
+		this.scr.canvas.remove();
+		this.createCanvases(size);
+
+		this.redraw = true;
+		this.recomputeCenter();
+		this.redrawFrameIfPaused();
+	}
+
 	createCanvas(width, height) {
 		const $canvas = document.createElement('canvas');
 		$canvas.width = width;
         $canvas.height = height;
-
         if (!this.ratio) {
         	this.ratio = this.getRatio($canvas);
         }
@@ -99,14 +114,18 @@ export class Blackboard extends Track {
 		this.requestFrame();
 	}
 
+	recomputeCenter() {
+		this.offsetCenter = {
+			x: this.ratio * ((this.scr.canvas.width / this.ratio - this.recording.size.width) / 2),
+			y: this.ratio * ((this.scr.canvas.height / this.ratio - this.recording.size.height) / 2),
+		};
+	}
+
 	requestFrame() {
 		this.redraw = true;
 
 		if (this.offsetCenter === null) {
-			this.offsetCenter = {
-				x: this.ratio * ((this.scr.canvas.width / this.ratio - this.recording.size.width) / 2),
-				y: this.ratio * ((this.scr.canvas.height / this.ratio - this.recording.size.height) / 2),
-			};
+			this.recomputeCenter();
 		}
 
 		this.ctx.clearAll();

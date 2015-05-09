@@ -134,6 +134,11 @@ define([
 					rfs.call($course);
 					$course.classList.add('fullscreen');
 				}
+
+				player.resize({
+					width: Math.max(document.documentElement.clientWidth, window.innerWidth || 400),
+					height: Math.max(document.documentElement.clientHeight, window.innerHeight || 250),
+				});
 			};
 
 			const changeHandler = function() {
@@ -159,7 +164,7 @@ define([
 
 
 	const $data = document.querySelector('[data-blackboard-file]');
-	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 400);
 	const file = $data.dataset.blackboardFile;
 
 	const client = new XMLHttpRequest();
