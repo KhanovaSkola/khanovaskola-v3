@@ -34,7 +34,6 @@ export class Recorder {
 		this.recording = recording;
 		this.recording.translate(this.time, this.coords.offset.screen);
 
-
         this.scr.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
         this.scr.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
         this.scr.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));

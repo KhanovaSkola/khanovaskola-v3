@@ -162,7 +162,10 @@ export class Blackboard extends Track {
 			}
 
 			if (stroke.type === "translate") {
-				this.offset = stroke.loc;
+				this.offset = {
+					x: this.ratio * stroke.loc.x,
+					y: this.ratio * stroke.loc.y,
+				};
 
 			} else if (stroke.type === "svg") {
 				const img = new Image();
