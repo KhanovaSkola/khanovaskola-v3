@@ -122,9 +122,19 @@ define([
 					|| document.webkitFullscreenElement
 					|| document.msFullscreenElement;
 			};
+			const resize = function(isFullscreen) {
+				setTimeout(function() {
+					player.resize({
+						width: Math.max(document.documentElement.clientWidth, window.innerWidth || 400),
+						height: isFullscreen
+							? Math.max(document.documentElement.clientHeight, window.innerHeight || 250)
+							: 450,
+					});
+				}, 250);
+			};
 			const toggleFs = function() {
-				const fullscreen = isFullscreen();
-				if (fullscreen) {
+				const isFs = isFullscreen();
+				if (isFs) {
 					const exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
 					exit.call(document);
 					$course.classList.remove('fullscreen');
@@ -134,20 +144,17 @@ define([
 					rfs.call($course);
 					$course.classList.add('fullscreen');
 				}
-
-				player.resize({
-					width: Math.max(document.documentElement.clientWidth, window.innerWidth || 400),
-					height: Math.max(document.documentElement.clientHeight, window.innerHeight || 250),
-				});
 			};
 
 			const changeHandler = function() {
 				if (isFullscreen()) {
 					$course.classList.add('fullscreen');
 					$progressBar.classList.add('active-fs');
+					resize(true);
 				} else {
 					$course.classList.remove('fullscreen');
 					$progressBar.classList.remove('active-fs');
+					resize(false);
 				}
 			};
 
