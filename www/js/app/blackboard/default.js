@@ -110,6 +110,51 @@ define([
 
 			$container.addEventListener('mousedown', handleOn);
 		}
+
+		// fullscreen
+		{
+			const $fsButton = document.querySelector('.video-fullscreen');
+			const $course = document.querySelector('.course-video');
+			const $progressBar = document.querySelector('.course-progress');
+			const isFullscreen = function() {
+				return document.fullscreenElement
+					|| document.mozFullScreenElement
+					|| document.webkitFullscreenElement
+					|| document.msFullscreenElement;
+			};
+			const toggleFs = function() {
+				const fullscreen = isFullscreen();
+				if (fullscreen) {
+					const exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+					exit.call(document);
+					$course.classList.remove('fullscreen');
+
+				} else {
+					const rfs = $course.requestFullScreen || $course.webkitRequestFullScreen || $course.mozRequestFullScreen || $course.msRequestFullscreen;
+					rfs.call($course);
+					$course.classList.add('fullscreen');
+				}
+			};
+
+			const changeHandler = function() {
+				if (isFullscreen()) {
+					$course.classList.add('fullscreen');
+					$progressBar.classList.add('active-fs');
+				} else {
+					$course.classList.remove('fullscreen');
+					$progressBar.classList.remove('active-fs');
+				}
+			};
+
+			document.addEventListener('fullscreenchange', changeHandler);
+			document.addEventListener('webkitfullscreenchange', changeHandler);
+			document.addEventListener('mozfullscreenchange', changeHandler);
+			document.addEventListener('msfullscreenchange', changeHandler);
+
+			$fsButton.addEventListener('click', event => {
+				toggleFs();
+			});
+		}
 	};
 
 
