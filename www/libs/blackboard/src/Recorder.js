@@ -81,27 +81,29 @@ export class Recorder {
 				return false;
 			}
 			const file = files[0];
-			if (file.type !== "image/svg+xml") {
-				return false;
-			}
 
 			const dropPosition = this.coords.eventToLayer(event);
 			const reader = new FileReader();
 			const that = this;
 			reader.onload = function(e) {
-				const img = new Image();
-				img.src = e.target.result;
+				try {
+					const img = new Image();
+					img.src = e.target.result;
 
-				const movedDrop = {
-					// img sizes are also both multiplied and divided by ratio here
-					x: dropPosition.x - img.width / 2,
-					y: dropPosition.y - img.height / 2,
-				};
-				const coords = that.coords.layerToCanvas(movedDrop);
-				that.ctx.drawImage(img, coords.x, coords.y,
-					img.width * that.ratio, img.height * that.ratio);
-				that.recording.placeSvg(that.time, movedDrop, img.src);
-				that.redraw();
+					const movedDrop = {
+						// img sizes are also both multiplied and divided by ratio here
+						x: dropPosition.x - img.width / 2,
+						y: dropPosition.y - img.height / 2,
+					};
+					const coords = that.coords.layerToCanvas(movedDrop);
+					that.ctx.drawImage(img, coords.x, coords.y,
+						img.width * that.ratio, img.height * that.ratio);
+					that.recording.placeSvg(that.time, movedDrop, img.src);
+					that.redraw();
+
+				} catch (e) {
+					// supplied file was probably not a supported image
+				}
 			};
 			reader.readAsDataURL(file);
 		};
