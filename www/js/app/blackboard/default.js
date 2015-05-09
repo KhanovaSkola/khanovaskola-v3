@@ -2,7 +2,7 @@ define([
 	'lib/blackboard/player',
 	'services/filters'
 ], function(Player, filters) {
-	const fullscreen = {toggle: function() {}}; // TODO
+	const fullscreen = {toggle: function() {}}; // set in fullscreen setup below
 
 	const onPlayerReady = function(player, recording) {
 		const $left = document.querySelector('.course-header-content .left');
@@ -22,6 +22,7 @@ define([
 			player.toggle();
 		};
 
+		// click catcher
 		{
 			const $clickCatcher = document.querySelector('.video-click-catcher');
 
@@ -110,11 +111,68 @@ define([
 
 			$container.addEventListener('mousedown', handleOn);
 		}
+
+		// fullscreen
+		{
+			const $fsButton = document.querySelector('.video-fullscreen');
+			const $course = document.querySelector('.course-video');
+			const $progressBar = document.querySelector('.course-progress');
+			const isFullscreen = function() {
+				return document.fullscreenElement
+					|| document.mozFullScreenElement
+					|| document.webkitFullscreenElement
+					|| document.msFullscreenElement;
+			};
+			const resize = function(isFullscreen) {
+				setTimeout(function() {
+					player.resize({
+						width: Math.max(document.documentElement.clientWidth, window.innerWidth || 400),
+						height: isFullscreen
+							? Math.max(document.documentElement.clientHeight, window.innerHeight || 250)
+							: 450,
+					});
+				}, 250);
+			};
+			fullscreen.toggle = function() {
+				const isFs = isFullscreen();
+				if (isFs) {
+					const exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+					exit.call(document);
+					$course.classList.remove('fullscreen');
+
+				} else {
+					const rfs = $course.requestFullScreen || $course.webkitRequestFullScreen || $course.mozRequestFullScreen || $course.msRequestFullscreen;
+					rfs.call($course);
+					$course.classList.add('fullscreen');
+				}
+			};
+
+			const changeHandler = function() {
+				if (isFullscreen()) {
+					$course.classList.add('fullscreen');
+					$progressBar.classList.add('active-fs');
+					resize(true);
+				} else {
+					$course.classList.remove('fullscreen');
+					$progressBar.classList.remove('active-fs');
+					resize(false);
+				}
+			};
+
+			document.addEventListener('fullscreenchange', changeHandler);
+			document.addEventListener('webkitfullscreenchange', changeHandler);
+			document.addEventListener('mozfullscreenchange', changeHandler);
+			document.addEventListener('msfullscreenchange', changeHandler);
+
+			$fsButton.addEventListener('click', event => {
+				fullscreen.toggle();
+			});
+		}
 	};
 
 
 	const $data = document.querySelector('[data-blackboard-file]');
-	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 400);
 	const file = $data.dataset.blackboardFile;
 
 	const client = new XMLHttpRequest();

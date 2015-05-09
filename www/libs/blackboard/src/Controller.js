@@ -126,4 +126,10 @@ export class Controller extends Emitter {
 		return this.timeline.getCurrentTime() / this.timeline.duration;
 	}
 
+	resize(size) {
+		for (var track of this.tracks) {
+			track.resize(size);
+		}
+	}
+
 }
