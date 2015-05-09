@@ -201,9 +201,9 @@ export class Blackboard extends Track {
 		// TODO measure performance of this vs another double buffer
 		this.scr.drawImage(this.cur.canvas,
 			this.offset.x - this.offsetCenter.x, this.offset.y - this.offsetCenter.y,
-			csrcan.width, csrcan.height,
+			scrcan.width, scrcan.height,
 			0, 0,
-			csrcan.width, csrcan.height
+			scrcan.width, scrcan.height
 		);
 
 		if (this.drawNext
