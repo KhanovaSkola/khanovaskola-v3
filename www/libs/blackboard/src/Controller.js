@@ -10,7 +10,6 @@ import {Sound} from './Sound';
 export class Controller extends Emitter {
 	/**
 	 * args: {
-	 *   $toggle: element
 	 *   tracks: Track[]
 	 *   timeline: WaveSurfer
 	 * }
@@ -31,9 +30,6 @@ export class Controller extends Emitter {
 				}
 			}
 		});
-
-		this.$toggle = args.$toggle;
-		this.$toggle.addEventListener('click', this.toggle.bind(this));
 
 		for (var track of this.tracks) {
 			track.recording = this.recording;

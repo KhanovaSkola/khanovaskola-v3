@@ -58,6 +58,24 @@ define([
 			});
 		}
 
+		// small play button
+		{
+			const $toggle = document.querySelector('.video-play .toggle');
+			$toggle.addEventListener('click', event => {
+				toggleStatus();
+
+				const list = $toggle.querySelector('i').classList;
+				if (player.playing) {
+					list.add('icon-video-pause');
+					list.remove('icon-video-play');
+				} else {
+					list.add('icon-video-play');
+					list.remove('icon-video-pause');
+				}
+				event.preventDefault();
+			});
+		}
+
 		{
 			const $controls = document.querySelector('.video-controls');
 			const $container = document.querySelector('.course-progress-container');
@@ -166,6 +184,7 @@ define([
 
 			$fsButton.addEventListener('click', event => {
 				fullscreen.toggle();
+				event.preventDefault();
 			});
 		}
 	};
@@ -187,7 +206,6 @@ define([
 		const player = new Player({
 			recording: recording,
 			size: {width: width, height: 450},
-			$toggle: document.querySelector('.video-controls .toggle'),
 			$canvas: document.getElementById('canvas'),
 			$timeline: document.getElementById('course-progress-container'),
 		});
