@@ -10,7 +10,7 @@ define([
 		formData.append('do', 'upload-submit');
 
 		var request = new XMLHttpRequest();
-		request.open('POST', '/blackboard-editor/'); // TODO
+		request.open('POST', '/blackboard-editor/recorder'); // TODO
 		request.onreadystatechange = function() {
 			if (request.readyState !== 4 || request.status !== 200) {
 				return;
