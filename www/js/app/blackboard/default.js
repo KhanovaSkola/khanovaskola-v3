@@ -2,7 +2,7 @@ define([
 	'lib/blackboard/player',
 	'services/filters'
 ], function(Player, filters) {
-	const fullscreen = {toggle: function() {}}; // TODO
+	const fullscreen = {toggle: function() {}}; // set in fullscreen setup below
 
 	const onPlayerReady = function(player, recording) {
 		const $left = document.querySelector('.course-header-content .left');
@@ -22,6 +22,7 @@ define([
 			player.toggle();
 		};
 
+		// click catcher
 		{
 			const $clickCatcher = document.querySelector('.video-click-catcher');
 
@@ -132,7 +133,7 @@ define([
 					});
 				}, 250);
 			};
-			const toggleFs = function() {
+			fullscreen.toggle = function() {
 				const isFs = isFullscreen();
 				if (isFs) {
 					const exit = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
@@ -164,7 +165,7 @@ define([
 			document.addEventListener('msfullscreenchange', changeHandler);
 
 			$fsButton.addEventListener('click', event => {
-				toggleFs();
+				fullscreen.toggle();
 			});
 		}
 	};
