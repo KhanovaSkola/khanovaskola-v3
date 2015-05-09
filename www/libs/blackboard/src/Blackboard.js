@@ -26,7 +26,7 @@ export class Blackboard extends Track {
 
 	constructor($container, size) {
 		super();
-        this.ctx = this.createCanvas(size.width * 10, size.height * 10);
+        this.ctx = this.createCanvas(size.width * 2, size.height * 3);
         this.cur = this.createCanvas(size.width, size.height);
         this.scr = this.createCanvas(size.width, size.height);
         $container.appendChild(this.scr.canvas);
@@ -206,8 +206,7 @@ export class Blackboard extends Track {
 			scrcan.width, scrcan.height
 		);
 
-		if (this.drawNext
-		&& this.time < 34109) { // TODO replace with duration
+		if (this.drawNext && this.time < this.recording.duration) {
 			const last = timestamp;
 			requestAnimationFrame(timestamp => {
 				const delta = timestamp - last;
