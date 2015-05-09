@@ -9,6 +9,7 @@ define([
 		const $shadow = document.querySelector('.course-header-content .right .right-inner');
 		const $preview = document.querySelector('.video-preview');
 		const $playButton = document.querySelector('.video-play');
+		const $toggle = document.querySelector('.video-play .toggle');
 		let removeOverlay = true;
 		const toggleStatus = function() {
 			if (removeOverlay) {
@@ -18,9 +19,55 @@ define([
 				removeOverlay = false;
 			}
 
-			$playButton.classList.toggle('hidden');
 			player.toggle();
+
+			const list = $toggle.querySelector('i').classList;
+			if (player.playing) {
+				list.add('icon-video-pause');
+				list.remove('icon-video-play');
+			} else {
+				list.add('icon-video-play');
+				list.remove('icon-video-pause');
+			}
+
+			$playButton.classList.toggle('hidden');
 		};
+
+		// keyboard
+		{
+			const registerKey = function(code, cb) {
+				document.addEventListener('keydown', event => {
+					if (event.target.tagName === 'INPUT') {
+						return;
+					}
+					if (event.keyCode !== code) {
+						return;
+					}
+
+					cb(event);
+					event.preventDefault();
+				});
+			};
+
+			// space
+			registerKey(32, toggleStatus);
+
+			// arrow left
+			registerKey(37, event => {
+				const duration = player.timeline.getDuration();
+				const now = player.timeline.getCurrentTime();
+				const percent = Math.max(0, now - 5) / duration;
+				player.seek(percent);
+			});
+			// arrow right
+			registerKey(39, event => {
+				const duration = player.timeline.getDuration();
+				const now = player.timeline.getCurrentTime();
+				const percent = Math.min(duration, now + 5) / duration;
+				player.seek(percent);
+			});
+
+		}
 
 		// click catcher
 		{
@@ -60,18 +107,8 @@ define([
 
 		// small play button
 		{
-			const $toggle = document.querySelector('.video-play .toggle');
 			$toggle.addEventListener('click', event => {
 				toggleStatus();
-
-				const list = $toggle.querySelector('i').classList;
-				if (player.playing) {
-					list.add('icon-video-pause');
-					list.remove('icon-video-play');
-				} else {
-					list.add('icon-video-play');
-					list.remove('icon-video-pause');
-				}
 				event.preventDefault();
 			});
 		}

@@ -41,43 +41,6 @@ export class Controller extends Emitter {
 		}
 	}
 
-	registerKey(code, cb) {
-		document.addEventListener('keydown', event => {
-			if (event.target.tagName === 'INPUT') {
-				return;
-			}
-			if (event.keyCode !== code) {
-				return;
-			}
-
-			cb(event);
-			event.preventDefault();
-		});
-	}
-
-	registerKeys() {
-		// space
-		this.registerKey(32, this.toggle.bind(this));
-
-
-		const duration = this.timeline.duration;
-
-		// arrow left
-		this.registerKey(37, event => {
-			const now = this.timeline.getCurrentTime();
-			const percent = Math.max(0, now - 5) / duration;
-			this.seek(percent);
-		});
-		// arrow right
-		this.registerKey(39, event => {
-			const now = this.timeline.getCurrentTime();
-			// max intentionally lowered because when seek is max,
-			// it starts playing from beginning
-			const percent = Math.min(duration - 0.1, now + 5) / duration;
-			this.seek(percent);
-		});
-	}
-
 	init() {
 		for (var track of this.tracks) {
 			track.init();
@@ -85,7 +48,6 @@ export class Controller extends Emitter {
 	}
 
 	allTracksReady() {
-		this.registerKeys();
 		this.emit('ready');
 	}
 
