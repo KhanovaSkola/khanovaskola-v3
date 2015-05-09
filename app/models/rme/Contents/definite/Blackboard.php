@@ -19,6 +19,11 @@ class Blackboard extends Content
 	public function getIndexData()
 	{
 		$data = parent::getIndexData();
+		if (!$data)
+		{
+			return $data;
+		}
+
 		// This is intentionally set to video so search
 		// does not differentiate those recordings
 		$data['bucket'] = 'video';
