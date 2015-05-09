@@ -26,12 +26,14 @@ export class Recorder {
 		this.mic = new Mic(workerPath);
 		this.coords = new Coords(this.ratio, this.scr.canvas.getBoundingClientRect());
 		this.onSave = onSave;
+		this.coords.offset.screen = {
+			x: this.size.width / 2, // intentionally not 0 leaving a little bit author to slide
+			y: this.size.height / 2,
+		};
 
 		this.recording = recording;
 		this.recording.translate(this.time, this.coords.offset.screen);
 
-		const box = this.scr.canvas.getBoundingClientRect();
-        this.offset = {x: box.left, y: box.top};
 
         this.scr.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
         this.scr.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
