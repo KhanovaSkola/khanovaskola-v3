@@ -5,8 +5,13 @@ export class Recorder {
 	constructor($container, $time, $onair, recording, penApi, colors, workerPath, onSave) {
 		this.size = {width: 800, height: 450}; //1920/1080 ratio
 
-		this.ctx = this.createCanvas(this.size.width * 10, this.size.height * 10);
-		this.offsetMax = {x: this.size.width * 9, y: this.size.height * 9};
+		const expands = {width: 2, height: 3};
+
+		this.ctx = this.createCanvas(this.size.width * expands.width, this.size.height * expands.height);
+		this.offsetMax = {
+			x: this.size.width * (expands.width - 1),
+			y: this.size.height * (expands.height - 1),
+		};
 		this.scr = this.createCanvas(this.size.width, this.size.height);
         $container.appendChild(this.scr.canvas);
 
