@@ -81,7 +81,7 @@ final class BlackboardEditor extends Content
 		$blackboard->description = ' ';
 		$blackboard->hidden = TRUE;
 		$blackboard->duration = $data['duration'];
-		$blackboard->preview = 'http://lorempixel.com/800/450/abstract/'; // TODO
+		$blackboard->preview = 'https://placeimg.com/400/225/nature/sepia'; // TODO
 		$blackboard->author = $this->userEntity;
 		$this->orm->flush();
 

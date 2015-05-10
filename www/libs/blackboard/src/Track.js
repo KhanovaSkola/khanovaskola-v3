@@ -22,7 +22,7 @@ export class Track extends Emitter {
 
 	play() {};
 	pause() {};
-	seek(percent) {};
+	seek(time) {};
 	resize(size) {};
 
 	init() {
