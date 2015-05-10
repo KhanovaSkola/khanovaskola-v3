@@ -25,7 +25,7 @@ export class Sound extends Track {
 		this.audio.pause();
 	}
 
-	seek(percent) {
-		this.audio.currentTime = percent * this.audio.duration;
+	seek(time) {
+		this.audio.currentTime = time;
 	}
 }

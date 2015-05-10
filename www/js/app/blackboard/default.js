@@ -54,17 +54,15 @@ define([
 
 			// arrow left
 			registerKey(37, event => {
-				const duration = player.timeline.getDuration();
 				const now = player.timeline.getCurrentTime();
-				const percent = Math.max(0, now - 5) / duration;
-				player.seek(percent);
+				const time = Math.max(0, now - 5);
+				player.seek(time);
 			});
 			// arrow right
 			registerKey(39, event => {
-				const duration = player.timeline.getDuration();
 				const now = player.timeline.getCurrentTime();
-				const percent = Math.min(duration, now + 5) / duration;
-				player.seek(percent);
+				const time = Math.min(player.timeline.getDuration(), now + 5);
+				player.seek(time);
 			});
 
 		}
@@ -84,7 +82,7 @@ define([
 				var now = window.performance ? window.performance.now() : (new Date).getTime();
 				doClick = setTimeout(() => {
 					toggleStatus();
-					seekBackOnDoubleClick = player.getPercent();
+					seekBackOnDoubleClick = player.timeline.getCurrentTime();
 				}, clickDelta);
 				setTimeout(() => {
 					seekBackOnDoubleClick = false;
@@ -113,6 +111,7 @@ define([
 			});
 		}
 
+		// progress
 		{
 			const $controls = document.querySelector('.video-controls');
 			const $container = document.querySelector('.course-progress-container');
@@ -125,6 +124,7 @@ define([
 				$container.querySelector('.label-left').textContent = filters.duration(time);
 			};
 			update($container.dataset.initial);
+			player.seek($container.dataset.initial);
 			player.timeline.on('tick', event => {
 				update(player.timeline.getCurrentTime());
 			});
@@ -145,11 +145,11 @@ define([
 			const seekFromEvent = function(event) {
 				const current = event.clientX || event.pageX;
 				const width = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-				const time = recording.duration * current / width;
-				player.seek(time / recording.duration);
+				const time = player.timeline.getDuration() * (current / width);
+				player.seek(time);
 			};
 
-			const handleOn = function(event) {
+			$container.addEventListener('mousedown', event => {
 				if (event.which != 1) {
 					// not left mouse button
 					return;
@@ -162,9 +162,7 @@ define([
 				};
 				document.addEventListener('mousemove', seekFromEvent);
 				document.addEventListener('mouseup', reset);
-			};
-
-			$container.addEventListener('mousedown', handleOn);
+			});
 		}
 
 		// fullscreen

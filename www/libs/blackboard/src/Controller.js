@@ -74,14 +74,10 @@ export class Controller extends Emitter {
 		}
 	}
 
-	seek(percent) {
+	seek(time) {
 		for (var track of this.tracks) {
-			track.seek(percent);
+			track.seek(time);
 		}
-	}
-
-	getPercent() {
-		return this.timeline.getCurrentTime() / this.timeline.duration;
 	}
 
 	resize(size) {

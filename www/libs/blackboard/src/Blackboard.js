@@ -239,13 +239,11 @@ export class Blackboard extends Track {
 		}
 	}
 
-	seek(percent) {
+	seek(time) {
 		this.ctx.clearAll();
 		this.cur.clearAll();
 		this.redraw = true;
-
-		this.time = percent * this.recording.duration;
-
+		this.time = time * 1000;
 		this.redrawFrameIfPaused();
 	}
 
