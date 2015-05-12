@@ -14,8 +14,8 @@ class Blackboard extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
-		//$this->addCheckbox('visible')
-		//	->setDefaultValue(TRUE);
+		$this->addCheckbox('visible')
+			->setDefaultValue(TRUE);
 
 		$this->addSubmit();
 	}
