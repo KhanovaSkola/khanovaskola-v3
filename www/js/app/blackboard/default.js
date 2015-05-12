@@ -221,6 +221,11 @@ define([
 				fullscreen.toggle();
 				event.preventDefault();
 			});
+
+
+			window.addEventListener('resize', event => {
+				resize(isFullscreen());
+			});
 		}
 	};
 
