@@ -26,6 +26,14 @@ export class Sound extends Track {
 	}
 
 	seek(time) {
-		this.audio.currentTime = time;
+		if (this.audio.readyState === this.audio.HAVE_ENOUGH_DATA) {
+			this.audio.currentTime = time;
+			return;
+		}
+
+		const audio = this.audio;
+		this.audio.addEventListener('canplay', event => {
+			audio.currentTime = time;
+		});
 	}
 }
