@@ -32,7 +32,7 @@ class Blackboard extends EditorForm
 
 		$blackboard->title = $v->title;
 		$blackboard->description = $v->description;
-		$blackboard->hidden = !$v->visible;
+		$blackboard->hidden = TRUE; //!$v->visible;
 
 		$this->orm->flush();
 
