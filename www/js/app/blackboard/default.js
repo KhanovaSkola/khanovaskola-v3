@@ -8,6 +8,7 @@ define([
 		const $left = document.querySelector('.course-header-content .left');
 		const $shadow = document.querySelector('.course-header-content .right .right-inner');
 		const $preview = document.querySelector('.video-preview');
+		const $felt = document.querySelector('.felt');
 		const $playButton = document.querySelector('.video-play');
 		const $toggle = document.querySelector('.video-play .toggle');
 		let removeOverlay = true;
@@ -16,6 +17,7 @@ define([
 				$preview.classList.add('hidden');
 				$left.classList.add('hidden');
 				$shadow.classList.add('video-playmode');
+				$felt.classList.remove('canvas-hidden');
 				removeOverlay = false;
 			}
 
