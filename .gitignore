@@ -15,7 +15,7 @@ elasticsearch.log
 /www/_index.php
 /www/build/*
 !/www/build/.gitkeep
-/www/data/blackboard/
+/www/data/blackboard/*
 !/www/data/blackboard/.gitkeep
 /temp/btfj.dat
 /temp/cachegrind*
