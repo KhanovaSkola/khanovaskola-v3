@@ -89,18 +89,19 @@ export class Recorder {
 			reader.onload = function(e) {
 				try {
 					const img = new Image();
-					img.src = e.target.result;
-
-					const movedDrop = {
-						// img sizes are also both multiplied and divided by ratio here
-						x: dropPosition.x - img.width / 2,
-						y: dropPosition.y - img.height / 2,
+					img.onload = event => {
+						const movedDrop = {
+							// img sizes are also both multiplied and divided by ratio here
+							x: dropPosition.x - img.width / 2,
+							y: dropPosition.y - img.height / 2,
+						};
+						const coords = that.coords.layerToCanvas(movedDrop);
+						that.ctx.drawImage(img, coords.x, coords.y,
+							img.naturalWidth * that.ratio, img.naturalHeight * that.ratio);
+						that.recording.placeSvg(that.time, movedDrop, img.src);
+						that.redraw();
 					};
-					const coords = that.coords.layerToCanvas(movedDrop);
-					that.ctx.drawImage(img, coords.x, coords.y,
-						img.width * that.ratio, img.height * that.ratio);
-					that.recording.placeSvg(that.time, movedDrop, img.src);
-					that.redraw();
+					img.src = e.target.result;
 
 				} catch (e) {
 					// supplied file was probably not a supported image
