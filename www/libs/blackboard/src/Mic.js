@@ -42,8 +42,8 @@ export class Mic {
 
 		this.mediaStream.stop();
 		this.rec.exportWAV(e => {
-			this.rec.clear();
 			cb(e);
+			//this.rec.clear();
 			// Recorderjs.forceDownload(e, "filename.wav");
 		});
 	}
