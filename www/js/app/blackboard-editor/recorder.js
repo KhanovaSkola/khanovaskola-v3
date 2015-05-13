@@ -9,12 +9,22 @@ define([
 		formData.append('audio', audioBlob);
 		formData.append('do', 'upload-submit');
 
+		const $button = document.getElementById('save');
+
 		var request = new XMLHttpRequest();
 		request.open('POST', '/blackboard-editor/recorder'); // TODO
+		request.upload.addEventListener("progress", event => {
+			const percent = Math.round(event.loaded / event.total * 100);
+			$button.innerHTML = `Uploading ${percent}%`;
+			$button.disabled = true;
+		});
 		request.onreadystatechange = function() {
 			if (request.readyState !== 4 || request.status !== 200) {
 				return;
 			}
+			$button.innerHTML = 'save';
+			$button.disabled = false;
+
 			const data = JSON.parse(request.responseText);
 			window.location.replace(data.redirect);
 		};
