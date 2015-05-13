@@ -188,9 +188,11 @@ export class Blackboard extends Track {
 
 			} else if (stroke.type === "svg") {
 				const img = new Image();
+				img.onload = event => {
+					this.ctx.drawImage(img, this.ratio * stroke.loc.x, this.ratio * stroke.loc.y,
+						this.ratio * img.naturalWidth, this.ratio * img.naturalHeight);
+				};
 				img.src = stroke.data;
-				this.ctx.drawImage(img, this.ratio * stroke.loc.x, this.ratio * stroke.loc.y,
-					this.ratio * img.width, this.ratio * img.height);
 
 			} else if (ignoreJoin || stroke.type === "beginStroke") {
 				ignoreJoin = false;
