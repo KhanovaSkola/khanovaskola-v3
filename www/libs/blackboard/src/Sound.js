@@ -14,7 +14,11 @@ export class Sound extends Track {
 			return;
 		}
 
-		this.audio.addEventListener('canplay', this.ready.bind(this));
+		const onReady = function() {
+			this.audio.removeEventListener('canplay', onReady);
+			this.ready();
+		}.bind(this);
+		this.audio.addEventListener('canplay', onReady);
 	}
 
 	play() {
@@ -31,9 +35,10 @@ export class Sound extends Track {
 			return;
 		}
 
-		const audio = this.audio;
-		this.audio.addEventListener('canplay', event => {
-			audio.currentTime = time;
-		});
+		const onReady = (function() {
+			this.audio.removeEventListener('canplay', onReady);
+			this.audio.currentTime = time;
+		}).bind(this);
+		this.audio.addEventListener('canplay', onReady);
 	}
 }
