@@ -45,7 +45,7 @@ export class Blackboard extends Track {
 
 	createCanvases(size) {
 		this.ctx = this.createCanvas(size.width * 2, size.height * 3);
-		this.cur = this.createCanvas(size.width, size.height);
+		this.cur = this.createCanvas(size.width * 2, size.height * 3);
 		this.scr = this.createCanvas(size.width, size.height);
 		this.$container.appendChild(this.scr.canvas);
 	}
