@@ -6,6 +6,8 @@ namespace App\Models\Services;
 class Srt
 {
 
+	const CHAR_END = '~[.?!]$~u';
+
 	public function parse($plaintext)
 	{
 		$parsed = [];
@@ -26,6 +28,10 @@ class Srt
 	{
 		$srt = $this->parse($plaintext);
 
+		$missingSentenceEnds = count(array_filter($srt, function($row) {
+			return preg_match(self::CHAR_END, $row[2]);
+		})) < count($srt) / 6;
+
 		$result = [];
 		$sentence = NULL;
 		$time = NULL;
@@ -45,7 +51,7 @@ class Srt
 				$time = $start;
 			}
 
-			if ($lastCharEndedSentence && $startsWithUppercase)
+			if (($lastCharEndedSentence || $missingSentenceEnds) && $startsWithUppercase)
 			{
 				$result[] = ['time' => $time, 'sentence' => $sentence];
 				$time = NULL;
@@ -53,7 +59,7 @@ class Srt
 			}
 
 			$sentence = trim("$sentence $text", ' ');
-			$lastCharEndedSentence = (bool) preg_match('~[.?!]$~u', $text);
+			$lastCharEndedSentence = (bool) preg_match(self::CHAR_END, $text);
 		}
 		if ($sentence)
 		{
