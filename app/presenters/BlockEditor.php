@@ -58,7 +58,7 @@ class BlockEditor extends Presenter
 				$allowed = $this->user->isAllowed($schema);
 			}
 			$form['editors']->setEditable($allowed);
-			$form['editors']->setDefaultValue($this->block->editors->get()->fetchPairs('id', 'id'));
+			$form['editors']->setDefaultValue($this->block->editors->get()->fetchAll());
 			$form['editors']->setEntity($this->block);
 		}
 		else

@@ -1,6 +1,5 @@
 define([
-	'lib/sortable',
-	'logic/editorSelector'
+	'lib/sortable'
 ], function(Sortable) {
 	const $content = document.getElementById('content-editor');
 	const $remove = document.getElementById('content-editor-remove');

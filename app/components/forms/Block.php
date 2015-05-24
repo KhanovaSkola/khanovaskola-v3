@@ -42,8 +42,8 @@ class Block extends EditorForm
 		/** @var self|EditorSelector[] $this */
 		if ($this['editors']->isEditable())
 		{
-			$block->editors = array_filter($v->editors, function($id) use ($block) {
-				return $id !== $block->author->id;
+			$block->editors = array_filter($v->editors, function($editor) use ($block) {
+				return $editor->id !== $block->author->id;
 			});
 		}
 

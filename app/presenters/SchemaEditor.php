@@ -61,7 +61,7 @@ class SchemaEditor extends Presenter
 				$this->schema->author->id === $this->userEntity->id ||
 				$this->user->isAllowed($this->schema->subject)
 			);
-			$form['editors']->setDefaultValue($this->schema->editors->get()->fetchPairs('id', 'id'));
+			$form['editors']->setDefaultValue($this->schema->editors->get()->fetchAll());
 			$form['editors']->setEntity($this->schema);
 
 			$layout = $this->schema->layout;

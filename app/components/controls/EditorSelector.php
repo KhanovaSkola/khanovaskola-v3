@@ -9,7 +9,7 @@ use Latte\Engine;
 use Nette\Forms;
 
 
-class EditorSelector extends Forms\Controls\MultiSelectBox
+class EditorSelector extends Forms\Controls\TextInput
 {
 
 	/**
@@ -35,8 +35,7 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 	{
 		$this->orm = $orm;
 
-		$users = $this->orm->users->findRegistered()->fetchPairs('id', 'email');
-		parent::__construct(NULL, $users);
+		parent::__construct(NULL);
 
 		$this->setTranslator(NULL);
 		$this->editable = $editable;
@@ -68,12 +67,70 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 		$latte = new Engine();
 		$params = [
 			'editable' => $this->editable,
+			'control' => $this,
 			'input' => parent::getControl(),
-			'emails' => $this->getItems(),
-			'picked' => $this->getValue(),
+			'editors' => $this->getValue(),
 			'entity' => $this->entity,
+			'cascaded' => $this->getCascadedAllows(),
 		];
 		return $latte->renderToString(__DIR__ . '/../../templates/controls/editorSelector.latte', $params);
+	}
+
+	public function getValue()
+	{
+		$emails = preg_split('~\s*,\s*~', parent::getValue());
+		$res = [];
+		foreach ($emails as $email)
+		{
+			$user = $this->orm->users->getByEmail($email);
+			if ($user)
+			{
+				$res[$user->id] = $user;
+			}
+		}
+		return $res;
+	}
+
+	public function validate()
+	{
+		if ($this->isDisabled())
+		{
+			return;
+		}
+
+		$this->cleanErrors();
+		$this->rules->validate();
+
+		$emails = preg_split('~\s*,\s*~', parent::getValue());
+		foreach ($emails as $email)
+		{
+			$email = trim($email);
+			if (!$email)
+			{
+				continue;
+			}
+
+			$user = $this->orm->users->getByEmail($email);
+			if (!$user)
+			{
+				$this->addError("Email '$email' not registered.");
+			}
+		}
+	}
+
+	public function setValue($editors)
+	{
+		$emails = [];
+		if (is_array($editors))
+		{
+			foreach ($editors as $editor)
+			{
+				$emails[] = $editor->email;
+			}
+			$editors = implode(', ', $emails);
+		}
+
+		return parent::setValue($editors);
 	}
 
 	/**
@@ -98,6 +155,55 @@ class EditorSelector extends Forms\Controls\MultiSelectBox
 	public function setEntity($entity)
 	{
 		$this->entity = $entity;
+	}
+
+	/**
+	 * @return array [reasons, entities]
+	 */
+	public function getCascadedAllows()
+	{
+		$subjects = [];
+		$allowed = [];
+		$entities = [];
+
+		if ($this->entity instanceof Rme\Schema && $this->entity->subject)
+		{
+			$subjects[$this->entity->subject->id] = $this->entity->subject;
+		}
+
+		if ($this->entity instanceof Rme\Block)
+		{
+			foreach ($this->entity->schemas as $schema)
+			{
+				if ($schema->subject)
+				{
+					$subjects[$schema->subject->id] = $schema->subject;
+				}
+
+				foreach ($schema->editors as $editor)
+				{
+					$allowed[$editor->id][] = "schéma $schema->title";
+					$entities[$editor->id] = $editor;
+				}
+
+				$allowed[$schema->author->id][] = "autor schématu {$schema->title}";
+				$entities[$schema->author->id] = $schema->author;
+			}
+		}
+
+		foreach ($subjects as $subject)
+		{
+			foreach ($subject->editors as $editor)
+			{
+				$allowed[$editor->id][] = "předmět $subject->title";
+				$entities[$editor->id] = $editor;
+			}
+		}
+
+		return (object) [
+			'allowed' => $allowed,
+			'entities' => $entities
+		];
 	}
 
 }

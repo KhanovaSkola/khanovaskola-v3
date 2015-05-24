@@ -1,3 +1,3 @@
-define(['logic/editorSelector'], function() {
+define([], function() {
 	require(['app/schema-editor/to-refactor']);
 });

@@ -1,34 +1,25 @@
 {if $editable}
-	{php $input->addAttributes(array('data-editors' => TRUE))}
+	<span n:if="$control->errors" class="help-block">
+        {foreach $control->errors as $error}
+            {$error}
+        {/foreach}
+    </span>
+    {php $input->addAttributes(array('data-editors' => TRUE))}
 	{$input}
 {else}
 	<div>
-		{foreach $picked as $id}
-			{$emails[$id]}{sep}, {/sep}
+		{foreach $editors as $editor}
+			{$editor->name} <span class="small">({$editor->email})</span>{sep}, {/sep}
 		{/foreach}
 	</div>
 {/if}
 
 <ul class="list-unstyled">
-	{var $subjects = []}
-	{if $entity instanceof App\Models\Rme\Block}
-		{foreach $entity->schemas as $schema}
-			{if $schema->subject}
-				{php $subjects[$schema->subject->id] = $schema->subject}
-			{/if}
-			{foreach $schema->editors as $editor}
-				<li>{$editor->email} <span class="small">(schéma {$schema->title})</span></li>
-			{/foreach}
-			<li>{$schema->author->email} <span class="small">(autor schématu {$schema->title})</span></li>
-		{/foreach}
-		{block subjects}
-			{foreach $subjects as $subject}
-				{foreach $subject->editors as $editor}
-					<li>{$editor->email} <span class="small">(předmět {$subject->title})</span></li>
-				{/foreach}
-			{/foreach}
-		{/block}
-	{elseif $entity instanceof App\Models\Rme\Schema && $entity->subject}
-		{include subjects, subjects => [$entity->subject]}
-	{/if}
+	<li n:foreach="$cascaded->allowed as $id => $reasons">
+		{var $author = $cascaded->entities[$id]}
+		{$author->name} <span class="small">({$author->email})</span>
+		<ul>
+			<li n:foreach="$reasons as $reason">{$reason}</li>
+		</ul>
+	</li>
 </ul>
