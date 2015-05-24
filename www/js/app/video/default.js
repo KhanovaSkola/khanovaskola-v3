@@ -16,6 +16,24 @@ define([
 	const $videoReal = document.querySelector('.video-real');
 	const $overlayPlayButton = document.querySelector('.video-wrapper .video-play');
 
+	const $reportButton = document.querySelector('[data-report-button]');
+	$reportButton.addEventListener('click', event => {
+		event.preventDefault();
+
+		const message = window.prompt('Díky. Zde nám prosím napište, co přesně je špatně:');
+		if (message === null) {
+			return;
+		}
+
+		const url = $reportButton.href
+			.replace('{time}', encodeURIComponent(player.getCurrentTime()))
+			.replace('{message}', encodeURIComponent(message));
+		const req = new XMLHttpRequest();
+		req.open('GET', url, true);
+		req.send(null);
+		alert('Mockrát děkujeme! Zkontrolujeme a co nejdřív to opravíme.');
+	});
+
 	let secondsWatched = 0;
 	let furthest = 0;
 	let watched = false;

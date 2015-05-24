@@ -119,6 +119,11 @@
         </div>
         <div id="dotazy" />
 
+        {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
+        <div class="container report-error">
+            <a href="{$link|noescape|templateLink}" rel="nofollow" data-report-button>Nahlásit chybu</a>
+        </div>
+
         {if $reason = $user->isAllowed($video)}
             <div class="container editor-bar">
                 <div class="alert alert-info">

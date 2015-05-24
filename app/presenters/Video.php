@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\Controls\Comments;
+use App\Components\Filters;
 use App\Models\Rme;
 use App\Presenters\Parameters;
 
@@ -92,6 +93,51 @@ final class Video extends Content
 	public function createComponentComments()
 	{
 		return $this->buildComponent(Comments::class, [$this->video]);
+	}
+
+	public function handleReportError($time, $message)
+	{
+		$filters = new Filters();
+
+		$name = $this->video->title;
+		$link = $this->link('//this', ['startAtTime' => (int)$time]);
+		$ftime = $filters->duration($time);
+		$user = $this->userEntity->name . ' (id ' . $this->userEntity->id . ')';
+
+		$mentions = [];
+		$schema = $this->schema->title;
+		foreach ($this->schema->editors as $editor)
+		{
+			$mentions[] = '@' . $editor->discourseUsername;
+		}
+		$mention = implode(', ', $mentions);
+
+		$url = 'https://forum.khanovaskola.cz/posts?' . http_build_query([
+			'api_key' => 'a7d7a2da4aadbc9acd5875bd0a7b1967141622c34a7b3bd42dc74f46910727c8',
+			'api_username' => 'system',
+			'topic_id' => 755,
+			'raw' => <<<EOF
+$mention
+
+$schema: [**$name**]($link) v čase $ftime
+
+> $message
+
+*reportoval $user*
+EOF
+		]);
+
+		$context = stream_context_create([
+			'http' => [
+				'method' => 'POST',
+				'header' => implode("\r\n", [
+					'Accept-language: en',
+				])
+			]
+		]);
+		file_get_contents($url, NULL, $context);
+
+		$this->sendJson(['status' => 'success']);
 	}
 
 }
