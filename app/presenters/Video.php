@@ -101,8 +101,28 @@ final class Video extends Content
 
 		$name = $this->video->title;
 		$link = $this->link('//this', ['startAtTime' => (int)$time]);
+		$linkDiff = 'https://report.khanovaskola.cz/diff/youtube-id?youtubeId=' . urlencode($this->video->youtubeId);
 		$ftime = $filters->duration($time);
 		$user = $this->userEntity->name . ' (id ' . $this->userEntity->id . ')';
+
+		$sentences = $this->video->getTimedSentences();
+		$key = NULL;
+		foreach ($sentences as $i => $node)
+		{
+			if ($node['time'] > $time)
+			{
+				break;
+			}
+			$key = $i;
+		}
+
+		$context = '';
+		for ($i = max($key - 1, 0); $i <= min($key + 1, count($sentences)); ++$i)
+		{
+			$node = $sentences[$i];
+			$at = $filters->duration($node['time']);
+			$context .= "> [$at] $node[sentence]\n";
+		}
 
 		$mentions = [];
 		$schema = $this->schema->title;
@@ -119,9 +139,11 @@ final class Video extends Content
 			'raw' => <<<EOF
 $mention
 
-$schema: [**$name**]($link) v čase $ftime
+$schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
 
-> $message
+    $message
+
+$context
 
 *reportoval $user*
 EOF
