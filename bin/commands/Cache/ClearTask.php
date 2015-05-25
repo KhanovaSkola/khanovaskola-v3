@@ -2,7 +2,6 @@
 
 namespace Bin\Commands\Cache;
 
-
 use App\Models\Services\Paths;
 use Bin\Commands\Command;
 

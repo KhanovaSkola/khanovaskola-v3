@@ -5,7 +5,9 @@ namespace App\Presenters;
 use App\Models\Rme;
 use App\Models\Services\Acl;
 use App\Models\Services\Paths;
+use App\Models\Structs\EntityPointer;
 use App\Presenters\Parameters;
+use Kdyby\RabbitMq\Connection;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Controls\UploadControl;
@@ -25,6 +27,12 @@ final class BlackboardEditor extends Content
 	 * @inject
 	 */
 	public $paths;
+
+	/**
+	 * @var Connection
+	 * @inject
+	 */
+	public $queue;
 
 	public function startup()
 	{
@@ -81,13 +89,18 @@ final class BlackboardEditor extends Content
 		$blackboard->description = ' ';
 		$blackboard->hidden = TRUE;
 		$blackboard->duration = $data['duration'];
-		$blackboard->preview = 'https://placeimg.com/400/225/nature/sepia'; // TODO
+		$blackboard->preview = 'https://placehold.it/480x320&text=...';
 		$blackboard->author = $this->userEntity;
 		$this->orm->flush();
 
 		$base = $this->paths->getBlackboards() . "/$blackboard->id";
 		$json->move("$base.json");
 		$audio->move("$base.wav");
+
+		$producer = $this->queue->getProducer('blackboardPreview');
+		$producer->publish(serialize([
+			'blackboard' => new EntityPointer($blackboard),
+		]));
 
 		$link = $this->link('BlackboardEditor:default', [
 			'blackboardId' => $blackboard->id,

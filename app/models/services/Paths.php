@@ -93,6 +93,11 @@ class Paths
 		return "{$this->www}/data/blackboard";
 	}
 
+	public function getPreviews()
+	{
+		return "{$this->www}/data/preview";
+	}
+
 	public function getTemplate($presenter, $view)
 	{
 		return "{$this->app}/templates/views/" . ucFirst($presenter) . "/{$view}.latte";

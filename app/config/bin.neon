@@ -10,6 +10,7 @@ console:
 		- Bin\Commands\Backup\Create
 		- Bin\Commands\Backup\ListAll
 		- Bin\Commands\Backup\Restore
+		- Bin\Commands\Blackboard\Preview
 		- Bin\Commands\Data\DeleteOld
 		- Bin\Commands\Data\Drop
 		- Bin\Commands\Data\Fake

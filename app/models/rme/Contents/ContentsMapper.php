@@ -19,6 +19,14 @@ class ContentsMapper extends ElasticSearchMapper
 	}
 
 	/**
+	 * @return DibiCollection|Blackboard[]
+	 */
+	public function findAllBlackboards()
+	{
+		return $this->findBy(['type' => 'blackboard']);
+	}
+
+	/**
 	 * @return DibiCollection|Blueprint[]
 	 */
 	public function findAllBlueprints()
