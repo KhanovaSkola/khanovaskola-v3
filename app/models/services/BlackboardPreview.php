@@ -51,7 +51,13 @@ class BlackboardPreview
 			($max['width'] - $min['width']) * $ratio,
 			($max['height'] - $min['height']) * $ratio
 		);
-		imageantialias($canvas, TRUE);
+
+		if (function_exists('imageantialias'))
+		{
+			// this function is not in php5-gd and requires recompiling php
+			imageantialias($canvas, TRUE);
+		}
+
 		$last = NULL;
 		foreach ($data['data'] as $row)
 		{
