@@ -24,6 +24,7 @@ use Nette;
 use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
 use stdClass;
+use Tracy\Debugger;
 
 
 /**
@@ -227,6 +228,7 @@ final class Auth extends Presenter
 		}
 		catch (Google_Exception $e)
 		{
+			Debugger::log($e, 'google');
 			$this->log->addAlert('Google login request failed', [
 				'error' => $e->getMessage(),
 			]);
