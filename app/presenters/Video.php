@@ -138,8 +138,13 @@ final class Video extends Content
 		}
 
 		$context = '';
-		for ($i = max($key - 1, 0); $i <= min($key + 1, count($sentences)); ++$i)
+		for ($i = $key - 1; $i <= $key + 1; ++$i)
 		{
+			if (!isset($sentences[$i]))
+			{
+				continue;
+			}
+
 			$node = $sentences[$i];
 			$at = $filters->duration($node['time']);
 			$context .= "> [$at] $node[sentence]\n";
