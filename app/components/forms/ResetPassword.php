@@ -56,7 +56,7 @@ class ResetPassword extends Form
 		{
 			$this->iLog('form.resetPassword.fail', ['email' => $v->email]);
 			$this->presenter->flashError('/auth.reset.notFound');
-			$this->addError('/auth.reset.notFound');
+			$this->addError('/auth.reset.notFound.title');
 			return;
 		}
 
