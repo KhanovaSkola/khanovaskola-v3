@@ -319,7 +319,8 @@
 	}
 
 	.report-error {
-		padding-bottom: 12px;
+		color: @khan-blue-light;
+		margin-left: -3em;
 	}
 
 	@media (max-width: @screen-sm) {
@@ -347,15 +348,20 @@
 						display: none;
 					}
 				}
-				.center {
-					display: none;
-				}
 				.right {
 					width: auto;
 					.icon-content-next {
 						display: none;
 					}
 				}
+			}
+		}
+	}
+
+	@media (max-width: 685px) {
+		.course-header-footer {
+			.center {
+				display: none;
 			}
 		}
 	}

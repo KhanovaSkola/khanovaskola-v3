@@ -98,6 +98,8 @@
 	                    </div>
 	                </div>
 	                <div class="center">
+	                    {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
+                        <a href="{$link|noescape|templateLink}" rel="nofollow" class="report-error" data-report-button>Nahlásit chybu</a>
 	                    {*
 	                    <i class="icon icon-comments"></i>
 	                    <span n:syntax="off">
@@ -118,11 +120,6 @@
             </div>
         </div>
         <div id="dotazy" />
-
-        {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
-        <div class="container report-error">
-            <a href="{$link|noescape|templateLink}" rel="nofollow" data-report-button>Nahlásit chybu</a>
-        </div>
 
         {if $reason = $user->isAllowed($video)}
             <div class="container editor-bar">
