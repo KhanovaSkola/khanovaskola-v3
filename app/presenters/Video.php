@@ -105,6 +105,27 @@ final class Video extends Content
 		$ftime = $filters->duration($time);
 		$user = $this->userEntity->name . ' (id ' . $this->userEntity->id . ')';
 
+
+		$traps = 0;
+		if (!trim($message))
+		{
+			$traps++;
+		}
+		if ($time < 5)
+		{
+			$traps++;
+		}
+		if ($this->user->isEphemeralGuest())
+		{
+			$traps++;
+		}
+
+		if ($traps >= 2)
+		{
+			$this->sendJson(['status' => 'ignored']);
+		}
+
+
 		$sentences = $this->video->getTimedSentences();
 		$key = NULL;
 		foreach ($sentences as $i => $node)
