@@ -6,6 +6,7 @@ use App\Models\Orm\Mappers;
 use App\Models\Services\Inflection;
 use App\Models\Structs\Gender;
 use Nette\Utils\DateTime;
+use Nette\Utils\Strings;
 use Orm\DibiCollection;
 use Orm\DibiManyToManyMapper;
 use Orm\IRepository;
@@ -37,6 +38,8 @@ class UsersMapper extends Mappers\Mapper
 
 	public function getByEmail($email)
 	{
+		$email = Strings::lower($email);
+
 		$res = $this->getBy(['email' => $email]);
 		if ($res)
 		{

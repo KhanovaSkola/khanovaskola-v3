@@ -23,6 +23,7 @@ use Kdyby\RabbitMq\Connection;
 use Nette;
 use Nette\Forms\Controls\TextInput;
 use Nette\Security\Identity;
+use Nette\Utils\Strings;
 use stdClass;
 
 
@@ -259,7 +260,7 @@ final class Auth extends Presenter
 			$userEntity = new User();
 			$this->orm->users->attach($userEntity);
 
-			$userEntity->email = $me->email;
+			$userEntity->email = Strings::lower($me->email);
 		}
 
 		$isGoogle = $me instanceof ProfileInfo;
