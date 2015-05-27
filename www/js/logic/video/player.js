@@ -1,7 +1,7 @@
 define(function() {
 	const delta = {
 		short: 100,
-		long: 1200 // inactive chrome tab does not allow more
+		long: 8000 // inactive chrome tab does not allow more (min ~1200)
 	};
 
 	let player; // YT.Player
