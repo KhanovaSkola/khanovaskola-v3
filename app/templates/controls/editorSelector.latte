@@ -7,11 +7,11 @@
     {php $input->addAttributes(array('data-editors' => TRUE))}
 	{$input}
 {else}
-	<div>
-		{foreach $editors as $editor}
-			{$editor->name} <span class="small">({$editor->email})</span>{sep}, {/sep}
-		{/foreach}
-	</div>
+	<ul class="list-unstyled">
+		<li n:foreach="$editors as $editor">
+			{$editor->name} <span class="small">({$editor->email})</span>
+		</li>
+	</ul>
 {/if}
 
 <ul class="list-unstyled">
