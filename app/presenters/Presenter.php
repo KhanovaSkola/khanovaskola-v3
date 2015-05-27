@@ -81,6 +81,12 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	public $paths;
 
+	/**
+	 * AdWords Tracking code
+	 * @persistent
+	 */
+	public $gclid;
+
 	public function startup()
 	{
 		parent::startup();
