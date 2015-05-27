@@ -19,6 +19,8 @@ elasticsearch.log
 !/www/data/blackboard/.gitkeep
 /www/data/preview/*
 !/www/data/preview/.gitkeep
+/www/data/videoCharts/*
+!/www/data/videoCharts/.gitkeep
 /temp/btfj.dat
 /temp/cachegrind*
 pubring.gpg~

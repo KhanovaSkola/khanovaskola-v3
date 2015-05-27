@@ -81,6 +81,9 @@ rabbitmq:
 		blackboardPreview:
 			connection: default
 			exchange: {name: 'blackboard-preview', type: direct}
+		updateVideoChart:
+			connection: default
+			exchange: {name: 'update-video-chart', type: direct}
 
 	consumers:
 		mail:
@@ -108,6 +111,11 @@ rabbitmq:
 			exchange: {name: 'blackboard-preview', type: direct}
 			queue: {name: 'blackboard-preview'}
 			callback: [@App\Models\Services\Consumers\BlackboardPreview, process]
+		updateVideoChart:
+			connection: default
+			exchange: {name: 'update-video-chart', type: direct}
+			queue: {name: 'update-video-chart'}
+			callback: [@App\Models\Services\Consumers\UpdateVideoChart, process]
 
 services:
 	- App\Models\Rme\UsersRepository
@@ -122,6 +130,7 @@ services:
 	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema
 	- App\Models\Services\Consumers\UpdateVideo
+	- App\Models\Services\Consumers\UpdateVideoChart
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
 	- App\Models\Services\Gravatar

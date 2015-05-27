@@ -308,6 +308,21 @@
 					}
 				}
 			}
+			.view-chart img {
+				position: absolute;
+				image-rendering: -moz-crisp-edges;
+				image-rendering: -o-crisp-edges;
+				image-rendering: -webkit-optimize-contrast;
+				-ms-interpolation-mode: nearest-neighbor;
+				image-rendering: pixelated;
+				height: 10px;
+				margin-top: -17px;
+				z-index: 10;
+				border-bottom: 1px solid @header-border;
+				.fullscreen & {
+					display: none;
+				}
+			}
 			.course-header-footer {
 				background-color: @white;
 				height: 71px;

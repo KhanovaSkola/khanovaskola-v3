@@ -98,6 +98,11 @@ class Paths
 		return "{$this->www}/data/preview";
 	}
 
+	public function getVideoCharts()
+	{
+		return "{$this->www}/data/videoCharts";
+	}
+
 	public function getTemplate($presenter, $view)
 	{
 		return "{$this->app}/templates/views/" . ucFirst($presenter) . "/{$view}.latte";

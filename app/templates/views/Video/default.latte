@@ -82,6 +82,13 @@
 		                <div class="progress-label label-right">{$video->duration|duration}</div>
 		            </div>
 		        </div>
+		        {*
+		        {if $user->isAllowed($video)}
+		            <div class="view-chart">
+                        <img src="{$basePath}/data/videoCharts/{$video->id}.png">
+                    </div>
+                {/if}
+                *}
 	            <div class="course-header-footer">
 	                <div class="left">
 	                    <div class="clearfix">
