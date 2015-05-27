@@ -158,6 +158,9 @@ final class Video extends Content
 		}
 		$mention = implode(', ', $mentions);
 
+		$key = md5($this->videoId . '_' . microtime());
+		$backlink = urlencode('https://forum.khanovaskola.cz/t/nahlasene-chyby/755'); // TODO link to correct post
+
 		$url = 'https://forum.khanovaskola.cz/posts?' . http_build_query([
 			'api_key' => 'a7d7a2da4aadbc9acd5875bd0a7b1967141622c34a7b3bd42dc74f46910727c8',
 			'api_username' => 'system',
@@ -172,6 +175,8 @@ $schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
 $context
 
 *reportoval $user*
+
+<a href="https://report.khanovaskola.cz/check.php?key=$key&do=toggle&redirect=$backlink"><img src="https://report.khanovaskola.cz/check.php?key=$key" width="14" height="14"> vyřešeno</a>
 EOF
 		]);
 
