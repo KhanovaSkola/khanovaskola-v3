@@ -4,6 +4,8 @@ body.course-page .course-header.course-blackboard .course-header-content {
 }
 
 .course-page .course-blackboard {
+	min-height: 900px;
+
 	.felt {
 		position: absolute;
 		width: 100%;
@@ -23,7 +25,6 @@ body.course-page .course-header.course-blackboard .course-header-content {
 
 	.recorder-controls {
 		text-align: center;
-		height: 900px;
 		.colors {
 			display: inline-block;
 			input {
@@ -44,10 +45,18 @@ body.course-page .course-header.course-blackboard .course-header-content {
 	.recorder.felt {
 		background: white none;
 		text-align: center;
+		position: relative;
 		canvas {
 			vertical-align: middle;
 			background-color: black;
 		}
+	}
+	.help-box {
+		margin-top: 2ex;
+	}
+	#wtPlugin {
+		position: absolute;
+		top: -200px;
 	}
 	#onair {
 		color: red;

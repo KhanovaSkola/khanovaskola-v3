@@ -14,6 +14,10 @@ define([
 		var request = new XMLHttpRequest();
 		request.open('POST', '/blackboard-editor/recorder'); // TODO
 		request.upload.addEventListener("progress", event => {
+			if (!$button.dataset.label) {
+				$button.dataset.label = $button.innerHTML;
+			}
+
 			const percent = Math.round(event.loaded / event.total * 100);
 			$button.innerHTML = `Uploading ${percent}%`;
 			$button.disabled = true;
@@ -22,7 +26,7 @@ define([
 			if (request.readyState !== 4 || request.status !== 200) {
 				return;
 			}
-			$button.innerHTML = 'save';
+			$button.innerHTML = $button.dataset.label;
 			$button.disabled = false;
 
 			const data = JSON.parse(request.responseText);
