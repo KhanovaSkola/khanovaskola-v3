@@ -194,6 +194,15 @@ export class Blackboard extends Track {
 				};
 				img.src = stroke.data;
 
+			} else if (stroke.type === "erase") {
+				const canvas = this.ctx.canvas;
+				this.ctx.save();
+				this.ctx.beginPath();
+				this.ctx.arc(this.ratio * stroke.loc.x, this.ratio * stroke.loc.y, stroke.radius, 0, Math.PI*2, true);
+				this.ctx.clip();
+				this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+				this.ctx.restore();
+
 			} else if (ignoreJoin || stroke.type === "beginStroke") {
 				ignoreJoin = false;
 				this.moveTo = stroke.loc;

@@ -37,6 +37,7 @@ define([
 
 	const recorder = new Recorder({
 		colors: document.getElementById('colors').querySelectorAll('input'),
+		$eraser: document.getElementById('eraser'),
 		$canvas: document.getElementById('canvas'),
 		$time: document.getElementById('time'),
 		$onair: document.getElementById('onair'),

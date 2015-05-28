@@ -13,6 +13,6 @@ define('lib/blackboard/recorder', function() {
 
 		const recording = new EditedRecording();
 		return new Recorder(opts.$canvas, opts.$time, opts.$onair,
-			recording, penApi, colors, opts.workerPath, opts.onSave);
+			recording, penApi, colors, opts.workerPath, opts.onSave, opts.$eraser);
 	};
 });

@@ -28,9 +28,17 @@ body.course-page .course-header.course-blackboard .course-header-content {
 		.colors {
 			display: inline-block;
 			input {
+				font-size: 80%;
 				border: none;
-				width: 3em;
+				width: 55px;
 				outline: none;
+			}
+			label {
+				position: relative;
+				margin-left: -53px;
+				margin-top: 3px;
+				cursor: pointer;
+				height: 0;
 			}
 			.active {
 				border-bottom: 3px solid black;
@@ -49,6 +57,10 @@ body.course-page .course-header.course-blackboard .course-header-content {
 		canvas {
 			vertical-align: middle;
 			background-color: black;
+			cursor: crosshair;
+			&.eraser {
+				cursor: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0aD0iMjJweCIgaGVpZ2h0PSIyMnB4IiB2aWV3Qm94PSIwIDAgMjIgMjIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIyIDIyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBmaWxsPSIjQkNCRUMwIiBkPSJNMTEuMDA0LDEuMzc1YzUuMzEsMCw5LjYyOSw0LjMxNCw5LjYyOSw5LjYxOHMtNC4zMTksOS42MTgtOS42MjksOS42MThzLTkuNjI5LTQuMzE0LTkuNjI5LTkuNjE4CgkJUzUuNjk0LDEuMzc1LDExLjAwNCwxLjM3NSBNMTEuMDA0LDBDNC45MjcsMCwwLDQuOTIyLDAsMTAuOTkzYzAsNi4wNzIsNC45MjcsMTAuOTkzLDExLjAwNCwxMC45OTMKCQljNi4wNzgsMCwxMS4wMDQtNC45MjEsMTEuMDA0LTEwLjk5M0MyMi4wMDgsNC45MjIsMTcuMDgyLDAsMTEuMDA0LDBMMTEuMDA0LDB6Ii8+CjwvZz4KPC9zdmc+Cg==') 11 11, default;
+			}
 		}
 	}
 	.help-box {

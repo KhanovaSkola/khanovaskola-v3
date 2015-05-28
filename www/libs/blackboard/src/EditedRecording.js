@@ -17,6 +17,15 @@ export class EditedRecording extends Recording {
 		});
 	}
 
+	erase(time, coords, radius) {
+		this.data.push({
+			time: time,
+			type: 'erase',
+			loc: coords,
+			radius: radius,
+		});
+	}
+
 	beginStroke(time, coords) {
 		this.data.push({
 			time: time,

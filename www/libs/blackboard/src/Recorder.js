@@ -2,7 +2,7 @@ import {Coords} from './Coords';
 import {Mic} from './Mic';
 
 export class Recorder {
-	constructor($container, $time, $onair, recording, penApi, colors, workerPath, onSave) {
+	constructor($container, $time, $onair, recording, penApi, colors, workerPath, onSave, $eraser) {
 		this.size = {width: 800, height: 450}; //1920/1080 ratio
 
 		const expands = {width: 2, height: 3};
@@ -26,6 +26,7 @@ export class Recorder {
 		this.mic = new Mic(workerPath);
 		this.coords = new Coords(this.ratio, this.scr.canvas.getBoundingClientRect());
 		this.onSave = onSave;
+		this.eraserMode = false;
 		this.coords.offset.screen = {
 			x: this.size.width / 2, // intentionally not 0 leaving a little bit author to slide
 			y: this.size.height / 2,
@@ -41,9 +42,18 @@ export class Recorder {
 
 		this.changeColor(colors[0]);
 
-        this.registerControlButtons(colors);
+		this.registerEraser($eraser);
+		this.registerControlButtons(colors);
 		this.registerKeys();
 		this.registerFileDrop(this.scr.canvas);
+	}
+
+	registerEraser($eraser) {
+		const cb = function(event) {
+			this.eraserMode = true;
+			this.scr.canvas.classList.add('eraser');
+		};
+		$eraser.addEventListener('click', cb.bind(this));
 	}
 
 	registerControlButtons(colors) {
@@ -205,12 +215,21 @@ export class Recorder {
 	}
 
 	onColorClick(event) {
+		if (event.target.id !== 'eraser') {
+			this.eraserMode = false;
+			this.scr.canvas.classList.remove('eraser');
+		}
+
 		this.changeColor(event.target);
 	}
 
 	changeColor(target) {
 		const arr = JSON.parse(target.dataset.color);
-		this.color = {r: arr[0], g: arr[1], b: arr[2]};
+
+		if (event.target.id !== 'eraser') {
+			this.color = {r: arr[0], g: arr[1], b: arr[2]};
+		}
+
 		if (this.lastColor) {
 			this.lastColor.classList.remove('active');
 		}
@@ -272,7 +291,19 @@ export class Recorder {
 
 		} else if (button == 1) {
 			const onscreen = this.coords.layerToCanvas(cursor);
-			if (this.firstDrawEvent) {
+			if (this.eraserMode) {
+				const radius = 11 * this.ratio;
+				this.recording.erase(this.time, cursor, radius);
+
+				const canvas = this.ctx.canvas;
+				this.ctx.save();
+				this.ctx.beginPath();
+				this.ctx.arc(onscreen.x, onscreen.y, radius, 0, Math.PI*2, true);
+				this.ctx.clip();
+				this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+				this.ctx.restore();
+
+			} else if (this.firstDrawEvent) {
 				this.firstDrawEvent = false;
 				this.recording.beginStroke(this.time, cursor);
 				this.ctx.moveTo(onscreen.x, onscreen.y);

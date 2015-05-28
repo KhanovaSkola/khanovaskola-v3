@@ -64,9 +64,8 @@ class BlackboardPreview
 			if ($row['type'] === 'beginStroke')
 			{
 				$last = $row['loc'];
-				continue;
 			}
-			if ($row['type'] === 'strokeTo')
+			else if ($row['type'] === 'strokeTo')
 			{
 				$c = $row['color'];
 				$color = imagecolorallocate($canvas, $c['r'], $c['g'], $c['b']);
@@ -78,6 +77,14 @@ class BlackboardPreview
 					$color, 3
 				);
 				$last = $row['loc'];
+			}
+			else if ($row['type'] === 'erase')
+			{
+				$color = imagecolorallocate($canvas, 0, 0, 0);
+				$radius = 11 * $ratio;
+				$x = ($row['loc']['x'] - $min['width']) * $ratio;
+				$y = ($row['loc']['y'] - $min['height']) * $ratio;
+				imagefilledarc($canvas, $x, $y, $radius, $radius, 0, 360, $color, IMG_ARC_PIE);
 			}
 		}
 		imagepng($canvas, $outfile, 9);
