@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cd /srv/sites/production.khanovaskola.cz
+cd /srv/khanovaskola.cz/production/
 
 php www/index.php backup:create
 
 FILE=$(ls backups/*.gz | tail -n 1)
-mv "$FILE" /srv/backups/production.khanovaskola.cz
+mv "$FILE" /srv/khanovaskola.cz/backups/

@@ -8,7 +8,7 @@
 # handle the INT signal and we must kill it manually.
 
 
-cd /srv/sites/production.khanovaskola.cz
+cd /srv/khanovaskola.cz/production
 
 timeout --signal=INT 58 php www/index.php ra:con mail &
 timeout --signal=INT 58 php www/index.php ra:con updateAvatar &

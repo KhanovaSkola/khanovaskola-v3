@@ -1,3 +1,9 @@
-* * * * * www-data bash /srv/sites/production.khanovaskola.cz/production/worker.sh
-0 1,8,12,15,18,19,20,23 * * * root bash /srv/sites/production.khanovaskola.cz/production/backup.sh
-30 1 * * * php bash /srv/sites/production.khanovaskola.cz/www/index.php data:delete-old
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DEPLOY=/srv/khanovaskola.cz/production
+
+# m h dom mon dow user command
+ *  *   * * *   www-data   bash    $DEPLOY/production/worker.sh
+
+ 0  1   * * *   root       php     $DEPLOY/www/index.php data:delete-old
+ 0  2   * * *   root       bash    $DEPLOY/production/backup.sh
