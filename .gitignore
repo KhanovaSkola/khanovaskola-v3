@@ -8,6 +8,7 @@ elasticsearch.log
 /.idea
 /.vagrant
 /app/config/config.local.neon
+/app/config/stages/production.neon
 /keys
 /notes.txt
 /todo

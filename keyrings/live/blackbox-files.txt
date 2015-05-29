@@ -1,1 +1,1 @@
-production/config.local.neon
+app/config/stages/production.neon

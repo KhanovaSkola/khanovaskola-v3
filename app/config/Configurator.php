@@ -53,7 +53,7 @@ class Configurator extends Nette\Configurator
 
 		$root = __DIR__ . '/../..';
 
-		VersionExtension::$samplePath = '%appDir%/config/config.local.example-dev.neon';
+		VersionExtension::$samplePath = '%appDir%/config/stages/dev.neon';
 
 		$this->setTempDirectory(realpath("$root/temp"));
 
@@ -234,7 +234,7 @@ class MissingLocalConfigException extends RuntimeException
 	 */
 	public function __construct(FileNotFoundException $e)
 	{
-		parent::__construct("Local config files not found. Copy 'config.local.example.neon' to 'config.local.neon' and enter your local credentials.", NULL, $e);
+		parent::__construct("Local config files not found. Copy 'stages/*.neon' to 'config.local.neon' and update your local credentials.", NULL, $e);
 	}
 
 }
