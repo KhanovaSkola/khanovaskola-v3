@@ -100,11 +100,16 @@ final class Video extends Content
 		$filters = new Filters();
 
 		$name = $this->video->title;
-		$link = $this->link('//this', ['startAtTime' => (int)$time]);
+		$link = $this->link('//this', ['startAtTime' => max(0, (int) $time - 3)]);
 		$linkDiff = 'https://report.khanovaskola.cz/diff/youtube-id?youtubeId=' . urlencode($this->video->youtubeId);
 		$ftime = $filters->duration($time);
 		$user = $this->userEntity->name . ' (id ' . $this->userEntity->id . ')';
 
+		if ($time === '{time}' && $message === '{message}')
+		{
+			$time = 0;
+			$message = '';
+		}
 
 		$traps = 0;
 		if (!trim($message))

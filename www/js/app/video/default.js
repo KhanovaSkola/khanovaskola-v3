@@ -25,9 +25,10 @@ define([
 			return;
 		}
 
-		const url = $reportButton.href
-			.replace('{time}', encodeURIComponent(player.getCurrentTime()))
-			.replace('{message}', encodeURIComponent(message));
+		let url = $reportButton.href;
+		url = url.replace('{message}', encodeURIComponent(message));
+		url = url.replace('{time}', encodeURIComponent(player.getCurrentTime()));
+
 		const req = new XMLHttpRequest();
 		req.open('GET', url, true);
 		req.send(null);
