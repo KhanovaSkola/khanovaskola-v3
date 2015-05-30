@@ -14,3 +14,5 @@ timeout --signal=INT 58 php www/index.php ra:con mail &
 timeout --signal=INT 58 php www/index.php ra:con updateAvatar &
 timeout --signal=INT 58 php www/index.php ra:con updateSchema &
 timeout --signal=INT 58 php www/index.php ra:con updateVideo &
+timeout --signal=INT 58 php www/index.php ra:con blackboardPreview &
+# timeout --signal=INT 58 php www/index.php ra:con updateVideoChart &
