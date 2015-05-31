@@ -57,7 +57,7 @@ class RemoteSubtitles extends Object implements ISubtitleFetcher
 	public function getSubtitles($youtubeId)
 	{
 		return $this->cache->load($youtubeId, function() use ($youtubeId) {
-			return $this->fetchSubtitles($youtubeId, FALSE) ?: ''; // NULL does not cache
+			return $this->fetchSubtitles($youtubeId, FALSE); // NULL does not cache
 		});
 	}
 
