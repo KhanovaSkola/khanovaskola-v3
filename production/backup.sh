@@ -13,5 +13,5 @@ mv "$FILE" "$ROOT/backups/"
 backup "$ROOT/backups"
 
 rm -rf data.tgz 2>/dev/null
-tar cvjf data.tgz data >/dev/null
+tar cvjf data.tgz "$ROOT/data" >/dev/null
 backup "$ROOT/data.tgz"
