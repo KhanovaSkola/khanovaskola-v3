@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 use App\Models\Rme\User;
+use App\Models\Structs\LazyEntity;
 use Nette\Object;
 
 
@@ -32,6 +33,14 @@ class Sso extends Object
 		$query = [];
 		parse_str(base64_decode($payload), $query);
 		return $query['nonce'];
+	}
+
+	/**
+	 * @param User|LazyEntity $user
+	 */
+	public function onLogin($user)
+	{
+
 	}
 
 	public function getLoginUrl($payload, User $user)

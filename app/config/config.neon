@@ -131,6 +131,7 @@ services:
 	- App\Models\Services\Consumers\UpdateSchema
 	- App\Models\Services\Consumers\UpdateVideo
 	- App\Models\Services\Consumers\UpdateVideoChart
+	- App\Models\Services\Discourse(%discourse.api.key%, %discourse.api.username%)
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
 	- App\Models\Services\Gravatar
@@ -147,7 +148,7 @@ services:
 
 	user: App\Models\Services\UserState
 
-	discourseSso: App\Models\Services\Sso(%discourse.secret%, %discourse.redirect%)
+	discourseSso: App\Models\Services\DiscourseSso(%discourse.secret%, %discourse.redirect%)
 	reportSso: App\Models\Services\Sso(%report.secret%, %report.redirect%)
 	-
 		class: App\Models\Services\SsoContainer
