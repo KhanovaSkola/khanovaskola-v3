@@ -25,6 +25,7 @@ class Compiler extends Object
 	const T_INFLECT = 'INFLECT';
 	const T_IMG = 'IMG';
 	const T_NUMBER = 'NUMBER';
+	const T_BOX = 'BOX';
 
 	const S_COMPLETE = 'complete';
 	const S_INNER = 'cdata';
@@ -347,6 +348,9 @@ class Compiler extends Object
 					array_pop($this->buffers);
 					return $out;
 				}
+
+			case self::T_BOX:
+				return '<span class="fillin-box"></span>';
 
 			default:
 				throw new NotImplementedException("Unknown tag '$node[tag]' in '$this->errorContext'");

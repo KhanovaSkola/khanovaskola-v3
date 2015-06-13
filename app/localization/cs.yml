@@ -110,6 +110,7 @@ blueprintEditor:
     scalar: "skalár (enum povolený)"
     select: "výběr jednoho z možností (očekává json pole stringů, enum povolený v hodnotách)"
     dragToBox: "přetáhnutí obrázků do boxu"
+    fillIn: "fill-in (doplňování do prázdných míst)"
 
 columnChart:
   blueprint:
