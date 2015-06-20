@@ -27,7 +27,7 @@ class UpdateVideo extends Consumer
 		$video = $args['video'];
 
 		$video->preview = $this->youtube->getImageUrlFor($video->youtubeId);
-		$video->duration = $this->youtube->getMeta($video->youtubeId)->data->duration;
+		$video->duration = $this->youtube->getDuration($video->youtubeId);
 
 		$this->orm->flush();
 	}

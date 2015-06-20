@@ -57,7 +57,7 @@ class Update extends Command
 		/** @var Video $video */
 		foreach ($videos as $video)
 		{
-			$video->duration = $youtube->getMeta($video->youtubeId)->data->duration;
+			$video->duration = $youtube->getDuration($video->youtubeId);
 			$progress->advance();
 			$count++;
 		}
