@@ -226,7 +226,7 @@ export class Recorder {
 	changeColor(target) {
 		const arr = JSON.parse(target.dataset.color);
 
-		if (event.target.id !== 'eraser') {
+		if (target.id !== 'eraser') {
 			this.color = {r: arr[0], g: arr[1], b: arr[2]};
 		}
 
