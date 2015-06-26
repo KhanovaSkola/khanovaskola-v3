@@ -1,4 +1,4 @@
-define(['lib/sortable', 'lib/handsontable', 'lib/jquery'], function(Sortable) {
+define(['lib/sortable', 'services/code', 'lib/handsontable', 'lib/jquery'], function(Sortable, code) {
 	var $form = $('[data-blueprint-editor]');
 
 	var Renderer = {};
@@ -139,15 +139,15 @@ define(['lib/sortable', 'lib/handsontable', 'lib/jquery'], function(Sortable) {
 
 	$form.find('[data-add-hint]').on('click', function() {
 		var partial = $(this).parents('[data-partial]').data('partial');
-		var id = $(this).parent().find('input').length;
-		var $input = $('<input type="text" name="partials[' + partial + '][hints][' + id + '][hint]" class="form-control">');
-		$input.on('change keyup', function() {
-			highlight($(this));
-		});
+		var id = $(this).parent().find('textarea').length;
+		var $textarea = $('<textarea name="partials[' + partial + '][hints][' + id + '][hint]" class="form-control" />');
 
 		var $hint = $('<div/>').addClass('hint');
-		$hint.append($input);
+		$hint.append($textarea);
 		$(this).before($hint);
+
+		code.renderCode($textarea[0]);
+
 		return false;
 	});
 
