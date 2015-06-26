@@ -43,6 +43,9 @@
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="author" type="text/plain" href="humans.txt">
 
+	{if $user->isRegisteredUser()}
+		<script type="text/javascript">window._trackJs = { userId: {$userEntity->id} };</script>
+	{/if}
 	<script type="text/javascript">window._trackJs = { token: 'c33fb09a6272434397d359c80e092020' };</script>
 	<script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script>
 	{block head}{/block}
