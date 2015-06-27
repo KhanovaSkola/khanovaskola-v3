@@ -1,0 +1,11 @@
+ALTER TABLE "video_views" ALTER COLUMN "user_id" DROP NOT NULL;
+
+BEGIN;
+ALTER TABLE "video_views"
+DROP CONSTRAINT "fk_user",
+ADD CONSTRAINT "fk_user"
+FOREIGN KEY ("user_id")
+REFERENCES "users"("id")
+ON DELETE SET NULL ON UPDATE CASCADE;
+
+COMMIT;
