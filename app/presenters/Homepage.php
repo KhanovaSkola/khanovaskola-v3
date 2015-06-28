@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Rme;
+use App\Models\Services\Discourse;
 
 
 final class Homepage extends Presenter

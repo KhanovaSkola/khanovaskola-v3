@@ -35,6 +35,7 @@ class Router extends RouteList
 			'Auth:registration' => 'registrace',
 			'Auth:resetPassword' => 'heslo',
 			'Text:about' => 'o-skole',
+			'Text:team' => 'o-skole/tym',
 			'Subjects:default' => 'predmety',
 			'File:opensearch' => 'opensearch.xml',
 			'File:robots' => 'robots.txt',

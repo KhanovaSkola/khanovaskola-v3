@@ -1,0 +1,48 @@
+{var $pageName = 'about-page'}
+{var $title = 'Tým Khanovy školy'}
+{var $headerBorder = FALSE}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 *}
+
+	<main class="content team">
+		<div class="hero">
+			<div class="hero-content">
+				<div class="hero-content-inner">
+					<h1>Khanova škola</h1>
+					<small>český komunitní neziskový projekt</small>
+				</div>
+			</div>
+			<div class="hero-bg">
+				<img src="{$basePath}/img/about-page-bg.jpg">
+			</div>
+		</div>
+		<div class="container">
+			<div class="content-inner">
+				<p class="lead">
+                    Kdo se stará o Khanovu školu?
+                </p>
+                <p>
+                    Všichni jsme dobrovolníci. Každý z nás má zodpovídá za jednu z nezbytných částí webu:
+                    od korektur, správy sociálních sítí až po programování.
+                </p>
+                <p class="call-to-action">
+                    <a href="https://forum.khanovaskola.cz/t/jak-mohu-pomoci/482" class="btn">Chci se také přidat!</a>
+                </p>
+                {foreach $users as $i => $user}
+					<div class="person{if $iterator->isEven()} person-even{/if}">
+						<img class="team-photo" src="{$user->avatar}" title="{$user->name}">
+						<div class="name">
+							<a href="{$user->forumUrl}">{$user->name}</a>
+							<span class="title">{$user->title}</span>
+						</div>
+						<div class="bio">
+							{$user->bio|noescape}
+						</div>
+						<div class="clearfix" />
+					</div>
+				{/foreach}
+			</div>
+		</div>
+	</main>

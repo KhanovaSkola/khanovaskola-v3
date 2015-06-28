@@ -132,6 +132,7 @@ services:
 	- App\Models\Services\Consumers\UpdateVideo
 	- App\Models\Services\Consumers\UpdateVideoChart
 	- App\Models\Services\Discourse(%discourse.api.key%, %discourse.api.username%)
+	- App\Models\Services\DiscoursePurifier
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
 	- App\Models\Services\Gravatar

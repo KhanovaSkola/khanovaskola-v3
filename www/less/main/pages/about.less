@@ -165,4 +165,54 @@
 		margin-bottom: 5em;
 		display: block;
 	}
+	.team {
+		margin-bottom: 10ex;
+		.call-to-action {
+			margin-top: -3ex;
+			padding-bottom: 3ex;
+		}
+		.person {
+			margin-bottom: 5ex;
+			.team-photo {
+				float: left;
+				border-radius: 100%;
+				width: 120px;
+				margin-left: -2ex;
+				margin-right: 3ex;
+
+				-webkit-shape-outside:circle();
+				shape-outside:circle();
+			}
+			.name {
+				padding-top: 1.2ex;
+				a {
+					font-family: @font-family-bold;
+					margin-right: 0.4em;
+				}
+				.title {
+					color: @khan-blue-light;
+				}
+			}
+			.bio {
+				&, p {
+					text-align: justify;
+					margin: 0;
+				}
+				p+p {
+					margin-top: .7ex;
+				}
+			}
+
+			&.person-even {
+				.team-photo {
+					float: right;
+					margin-right: -2ex;
+					margin-left: 3ex;
+				}
+				.name {
+					text-align: right;
+				}
+			}
+		}
+	}
 }
