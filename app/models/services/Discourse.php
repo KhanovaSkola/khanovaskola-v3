@@ -52,7 +52,7 @@ class Discourse
 		return $this->cache->load("username|$username", function(&$deps) use ($username) {
 			$data = $this->request('/users/' . urlencode($username) . '.json');
 
-			$deps[Cache::EXPIRE] = '12 hours';
+			$deps[Cache::EXPIRE] = '20 hours';
 
 			return $data['user'];
 		});
@@ -80,7 +80,7 @@ class Discourse
 	{
 		return $this->cache->load("group|$groupId", function(&$deps) use ($groupId) {
 			$data = $this->request('/groups/' . urlencode($groupId) . '/members.json');
-			$deps[Cache::EXPIRE] = '1 day';
+			$deps[Cache::EXPIRE] = '20 hours';
 			return $data['members'];
 		});
 	}

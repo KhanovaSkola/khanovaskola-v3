@@ -3,7 +3,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DEPLOY=/srv/khanovaskola.cz/production
 
 # m h dom mon dow user command
- *  *   * * *   www-data   bash    $DEPLOY/production/worker.sh
+ *  *   * * *   www-data   bash $DEPLOY/production/worker.sh
 
- 0  1   * * *   root       php     $DEPLOY/www/index.php data:delete-old
- 0  2   * * *   root       bash    $DEPLOY/production/backup.sh
+ 0  1   * * *   root       php $DEPLOY/www/index.php data:delete-old
+ 0  2   * * *   root       bash $DEPLOY/production/backup.sh
+ 0  3   * * *   mikulas    curl https://khanovaskola.cz/o-skole/tym >/dev/null 2>&1 # warm cache
