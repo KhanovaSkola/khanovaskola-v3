@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c57fafbff0097c848a7e785f3a2ebe7c",
+    "hash": "d771a5fbbf4d7116c8448b2cc8097383",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -1415,6 +1415,41 @@
                 "issues": "https://github.com/Mikulas/morphodita-php/issues"
             },
             "time": "2015-06-28 10:46:24"
+        },
+        {
+            "name": "mikulas/vlna",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mikulas/vlna.git",
+                "reference": "3388b3be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mikulas/vlna/zipball/3388b3bea3e403dac5282f90949241f0a8291056",
+                "reference": "3388b3be",
+                "shasum": ""
+            },
+            "require-dev": {
+                "nette/tester": "^1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite",
+                    "email": "mikulas@dite.pro"
+                }
+            ],
+            "time": "2015-06-26 15:12:49"
         },
         {
             "name": "monolog/monolog",
@@ -3730,6 +3765,7 @@
         "kdyby/google": 20,
         "kdyby/rabbitmq": 20,
         "mikulas/morphodita": 20,
+        "mikulas/vlna": 20,
         "nextras/tracy-query-panel": 20
     },
     "prefer-stable": true,

@@ -1,0 +1,19 @@
+{
+    "name": "mikulas/vlna",
+    "type": "library",
+    "require-dev": {
+        "nette/tester": "^1.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mikulas Dite",
+            "email": "mikulas@dite.pro"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src"]
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}

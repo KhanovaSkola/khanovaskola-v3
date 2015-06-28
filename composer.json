@@ -35,7 +35,8 @@
 		"tackk/cartographer": "~1.0.2",
 		"nextras/static-router": "~1.0",
 		"khanovaskola/cislo": "~1.4",
-	  	"mikulas/morphodita": "dev-master#6f6223b1"
+	  	"mikulas/morphodita": "dev-master#6f6223b1",
+		"mikulas/vlna": "dev-master#3388b3be"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",

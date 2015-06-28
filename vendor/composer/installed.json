@@ -3822,5 +3822,42 @@
             "source": "https://github.com/Mikulas/morphodita-php/tree/master",
             "issues": "https://github.com/Mikulas/morphodita-php/issues"
         }
+    },
+    {
+        "name": "mikulas/vlna",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/vlna.git",
+            "reference": "3388b3be"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/vlna/zipball/3388b3bea3e403dac5282f90949241f0a8291056",
+            "reference": "3388b3be",
+            "shasum": ""
+        },
+        "require-dev": {
+            "nette/tester": "^1.4"
+        },
+        "time": "2015-06-26 15:12:49",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ]
     }
 ]

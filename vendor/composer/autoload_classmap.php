@@ -3486,6 +3486,7 @@ return array(
     'Mikulas\\LatteCS\\Rules\\Rule' => $vendorDir . '/mikulas/lattecs/src/Mikulas/LatteCS/Rules/Rule.php',
     'Mikulas\\LatteCS\\Runner' => $vendorDir . '/mikulas/lattecs/src/Mikulas/LatteCS/Runner.php',
     'Mikulas\\Morphodita\\Client' => $vendorDir . '/mikulas/morphodita/src/Mikulas/Morphodita/Client.php',
+    'Mikulas\\Vlna' => $vendorDir . '/mikulas/vlna/src/Mikulas/Vlna.php',
     'Monolog\\ErrorHandler' => $vendorDir . '/monolog/monolog/src/Monolog/ErrorHandler.php',
     'Monolog\\Formatter\\ChromePHPFormatter' => $vendorDir . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
     'Monolog\\Formatter\\ElasticaFormatter' => $vendorDir . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
