@@ -30,6 +30,15 @@
                     <div class="content-wrapper">
                         <h2>{$block->title}</h2>
                         <p>{$block->description}</p>
+                        <p n:if="$schema">
+                            {var $editorCount = $schema->editors->count()}
+                            <div n:if="$editorCount" class="schema-editors">
+                                {_'block.editors', $editorCount}
+                                {foreach $schema->editors as $editor}{*
+                                    *}<a href="https://forum.khanovaskola.cz/users/{$editor->discourseUsername}/activity">{$editor->name}</a>{sep}, {/sep}{*
+                                *}{/foreach}.
+                            </div>
+                        </p>
                         <div class="time">
                             <i class="icon icon-time"></i>
                             <span>

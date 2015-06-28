@@ -272,6 +272,10 @@ block:
       many: "%1 minut"
   continue:
     info: "Pokračuj od poslední látky"
+  editors:
+    one: "Tento obsah spravuje"
+    few: "Tento obsah spravují"
+    many: "Tento obsah spravují"
 
 editor:
   form:
