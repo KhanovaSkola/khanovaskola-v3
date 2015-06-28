@@ -9,6 +9,7 @@ use App\Models\Rme;
 use App\NotImplementedException;
 use App\Presenters\Presenter;
 use Kdyby\Events\EventArgsList;
+use Mikulas\Vlna;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\DI\Container;
@@ -27,6 +28,13 @@ trait ControlTrait
 
 
 	/**
+	 * @var Filters
+	 * @inject
+	 */
+	public $filters;
+
+
+	/**
 	 * Does not flush automatically!
 	 * @param $event
 	 * @param array $args
@@ -42,10 +50,7 @@ trait ControlTrait
 	 */
 	protected function registerFilters($template)
 	{
-		/** @var self|Presenter $this */
-		/** @var Presenter $presenter */
-		$presenter = $this->getPresenter();
-		(new Filters())->register($template, $presenter->inflection);
+		$this->filters->register($template);
 	}
 
 	public function absoluteLink(Entity $entity)

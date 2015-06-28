@@ -36,8 +36,8 @@
                     <div class="content-wrapper">
                         <small n:if="$block">{$block->title} ({$position}/{$block->countContents()}) · {$video->duration|duration}</small>
                         <h1>
-                            <span>{$video->title}</span>
-                            <small>{$video->description|truncate:300, '…'}</small>
+                            <span>{$video->title|vlna}</span>
+                            <small>{$video->description|vlna|truncate:300, '…'}</small>
                         </h1>
                         {include '../_dependsOn.latte', block => $block, link => FALSE}
                     </div>

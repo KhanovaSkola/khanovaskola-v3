@@ -4,6 +4,7 @@ namespace App\Components;
 
 use App\Models\Services\Highlight;
 use App\Models\Services\Inflection;
+use Mikulas\Vlna;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Utils\DateTime;
 
@@ -11,10 +12,27 @@ use Nette\Utils\DateTime;
 class Filters
 {
 
-	public function register(Template $template, Inflection $inflection)
+	/**
+	 * @var Vlna
+	 */
+	private $vlna;
+
+	/**
+	 * @var Inflection
+	 */
+	private $inflection;
+
+	public function __construct(Vlna $vlna, Inflection $inflection)
+	{
+		$this->vlna = $vlna;
+		$this->inflection = $inflection;
+	}
+
+	public function register(Template $template)
 	{
 		foreach ([
-			'timeAgo', 'duration', 'hours', 'minutes', 'templateLink', 'lcFirst', 'subjectColor', 'subjectIcon', 'highlight'
+			'timeAgo', 'duration', 'hours', 'minutes', 'templateLink',
+	         'lcFirst', 'subjectColor', 'subjectIcon', 'highlight', 'vlna',
 		] as $filter)
 		{
 			$template->addFilter($filter, [$this, $filter]);
@@ -31,8 +49,8 @@ class Filters
 		];
 		foreach ($cases as $name => $case)
 		{
-			$template->addFilter($name, function($phrase) use ($case, $inflection) {
-				return $inflection->inflect($phrase, $case);
+			$template->addFilter($name, function($phrase) use ($case) {
+				return $this->inflection->inflect($phrase, $case);
 			});
 		}
 	}
@@ -87,6 +105,16 @@ class Filters
 	public function highlight($phrase)
 	{
 		return Highlight::process($phrase);
+	}
+
+	/**
+	 * @param string $content
+	 * @return string
+	 */
+	public function vlna($content)
+	{
+		$v = $this->vlna;
+		return $v($content);
 	}
 
 }

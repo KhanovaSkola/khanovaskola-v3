@@ -41,7 +41,7 @@
                                                 skupina {_'search.blockContains', $block->countContents()}
                                             </small>
                                         </span>
-                                        <p>{$block->highlight('description')|noescape}</p>
+                                        <p>{$block->highlight('description')|vlna|noescape}</p>
                                     </div>
                                 {else}
                                     {var $content = $hit}
@@ -55,11 +55,11 @@
                                         <span class="title">
                                             <a n:href="$content, $block, $schema">{$content->highlight('title')|noescape}</a>
                                         </span>
-                                        <p>{$content->highlight('description')|noescape}</p>
+                                        <p>{$content->highlight('description')|vlna|noescape}</p>
                                         <p class="transcript" n:ifset="$content->highlights['subtitles']">
                                             {foreach $content->highlights['subtitles'] as $row}
                                                 <a n:href="$content, startAtTime => $row->time" class="jump-to-time">{$row->time|duration}</a>
-                                                {$row->sentence|highlight|noescape}
+                                                {$row->sentence|highlight|vlna|noescape}
                                             {/foreach}
                                         </p>
                                     </div>

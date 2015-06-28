@@ -118,6 +118,10 @@ rabbitmq:
 			callback: [@App\Models\Services\Consumers\UpdateVideoChart, process]
 
 services:
+	- Mikulas\Morphodita\Client
+	- Mikulas\Vlna
+
+	- App\Components\Filters
 	- App\Models\Rme\UsersRepository
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
@@ -146,7 +150,6 @@ services:
 	- App\Models\Services\Translator(%appDir%/localization)
 	- App\Models\Services\UserMerger
 	- App\Models\Services\Youtube
-	- Mikulas\Morphodita\Client
 
 	user: App\Models\Services\UserState
 

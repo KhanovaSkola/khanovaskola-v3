@@ -28,8 +28,8 @@
                         <i class="icon icon-{$schema|subjectIcon}"></i>
                     </div>
                     <div class="content-wrapper">
-                        <h2>{$block->title}</h2>
-                        <p>{$block->description}</p>
+                        <h2>{$block->title|vlna}</h2>
+                        <p>{$block->description|vlna}</p>
                         <p n:if="$schema">
                             {var $editorCount = $schema->editors->count()}
                             <div n:if="$editorCount" class="schema-editors">
@@ -101,7 +101,7 @@
                                             <span n:if="$content instanceof App\Models\Rme\Blueprint" class="content-exercise">
                                                 Cvičení &mdash;
                                             </span>
-	                                        {$content->description}
+	                                        {$content->description|vlna}
 	                                    </p>
 	                                </div>
 	                            </div>
