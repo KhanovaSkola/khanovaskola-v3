@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5dc7261eb2746afb4efca2eeab8275d9",
+    "hash": "c57fafbff0097c848a7e785f3a2ebe7c",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -158,12 +158,12 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/elasticsearch/elasticsearch-php.git",
+                "url": "https://github.com/elastic/elasticsearch-php.git",
                 "reference": "638f550ed33f38820eaaf5816dc180c3cffe99cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/638f550ed33f38820eaaf5816dc180c3cffe99cc",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/638f550ed33f38820eaaf5816dc180c3cffe99cc",
                 "reference": "638f550ed33f38820eaaf5816dc180c3cffe99cc",
                 "shasum": ""
             },
@@ -303,12 +303,12 @@
             "target-dir": "Guzzle/Common",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/common.git",
+                "url": "https://github.com/Guzzle3/common.git",
                 "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/common/zipball/2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
+                "url": "https://api.github.com/repos/Guzzle3/common/zipball/2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
                 "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
                 "shasum": ""
             },
@@ -347,12 +347,12 @@
             "target-dir": "Guzzle/Http",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/http.git",
+                "url": "https://github.com/Guzzle3/http.git",
                 "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/http/zipball/1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
+                "url": "https://api.github.com/repos/Guzzle3/http/zipball/1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
                 "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
                 "shasum": ""
             },
@@ -404,12 +404,12 @@
             "target-dir": "Guzzle/Parser",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/parser.git",
+                "url": "https://github.com/Guzzle3/parser.git",
                 "reference": "6874d171318a8e93eb6d224cf85e4678490b625c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/parser/zipball/6874d171318a8e93eb6d224cf85e4678490b625c",
+                "url": "https://api.github.com/repos/Guzzle3/parser/zipball/6874d171318a8e93eb6d224cf85e4678490b625c",
                 "reference": "6874d171318a8e93eb6d224cf85e4678490b625c",
                 "shasum": ""
             },
@@ -448,12 +448,12 @@
             "target-dir": "Guzzle/Stream",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/stream.git",
+                "url": "https://github.com/Guzzle3/stream.git",
                 "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/stream/zipball/60c7fed02e98d2c518dae8f97874c8f4622100f0",
+                "url": "https://api.github.com/repos/Guzzle3/stream/zipball/60c7fed02e98d2c518dae8f97874c8f4622100f0",
                 "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0",
                 "shasum": ""
             },
@@ -811,7 +811,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/b99ff4089ec288e45c554f1ae5b06f391b3a0119",
+                "url": "https://api.github.com/repos/Kdyby/Replicator/zipball/a8e37efe715d913800cdc530e126874ff166681a",
                 "reference": "d10ec08a",
                 "shasum": ""
             },
@@ -888,7 +888,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Google/zipball/16cb87a2e37d9983d821728b1312624ed1a751c2",
+                "url": "https://api.github.com/repos/Kdyby/Google/zipball/1c43b74659a1bb2380679668adea526886878030",
                 "reference": "9acc49db",
                 "shasum": ""
             },
@@ -1045,7 +1045,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/cc3890feb4e5422f0a6a2bc37ed4f18f57750979",
+                "url": "https://api.github.com/repos/Mikulas/RabbitMq/zipball/4a7edf4f0ac3ca581859e04c2bca17f67c5c908b",
                 "reference": "4a7edf4f",
                 "shasum": ""
             },
@@ -1373,6 +1373,48 @@
                 "sftp"
             ],
             "time": "2014-05-13 19:56:59"
+        },
+        {
+            "name": "mikulas/morphodita",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mikulas/morphodita-php.git",
+                "reference": "6f6223b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mikulas/morphodita-php/zipball/6f6223b171a52e0e72c2d8584b5b7905b827ebeb",
+                "reference": "6f6223b1",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^2.3"
+            },
+            "require-dev": {
+                "nette/tester": "^1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite",
+                    "email": "mikulas@dite.pro"
+                }
+            ],
+            "description": "Api wrapper for mff cuni morphodita api",
+            "support": {
+                "source": "https://github.com/Mikulas/morphodita-php/tree/master",
+                "issues": "https://github.com/Mikulas/morphodita-php/issues"
+            },
+            "time": "2015-06-28 10:46:24"
         },
         {
             "name": "monolog/monolog",
@@ -2760,12 +2802,12 @@
             "version": "v2.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Pimple.git",
+                "url": "https://github.com/silexphp/Pimple.git",
                 "reference": "ea22fb2880faf7b7b0e17c9809c6fe25b071fd76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/ea22fb2880faf7b7b0e17c9809c6fe25b071fd76",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/ea22fb2880faf7b7b0e17c9809c6fe25b071fd76",
                 "reference": "ea22fb2880faf7b7b0e17c9809c6fe25b071fd76",
                 "shasum": ""
             },
@@ -3451,7 +3493,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/357e479e905a387f4b51106ad298a6d97f5f00b0",
+                "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/a7137ec93bd800410cf318fb33d0dca4bd715c6e",
                 "reference": "a7137ec",
                 "shasum": ""
             },
@@ -3687,6 +3729,7 @@
         "kdyby/forms-replicator": 20,
         "kdyby/google": 20,
         "kdyby/rabbitmq": 20,
+        "mikulas/morphodita": 20,
         "nextras/tracy-query-panel": 20
     },
     "prefer-stable": true,

@@ -34,7 +34,8 @@
 		"bjeavons/zxcvbn-php": "~0.1",
 		"tackk/cartographer": "~1.0.2",
 		"nextras/static-router": "~1.0",
-		"khanovaskola/cislo": "~1.4"
+		"khanovaskola/cislo": "~1.4",
+	  	"mikulas/morphodita": "dev-master#6f6223b1"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
@@ -58,11 +59,15 @@
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Mikulas/Facebook.git"
+			"url": "https://github.com/Mikulas/Facebook.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Mikulas/RabbitMq.git"
+			"url": "https://github.com/Mikulas/RabbitMq.git"
+		},
+		{
+		  	"type": "vcs",
+		  	"url": "https://github.com/Mikulas/morphodita-php.git"
 		}
 	],
 	"scripts": {
