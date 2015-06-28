@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 use App\Models\Structs\Gender;
+use Mikulas\Morphodita\Client;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 
@@ -23,9 +24,15 @@ class Inflection
 	 */
 	private $cache;
 
-	public function __construct(IStorage $storage)
+	/**
+	 * @var Client
+	 */
+	private $morph;
+
+	public function __construct(IStorage $storage, Client $morph)
 	{
 		$this->cache = new Cache($storage, 'inflection');
+		$this->morph = $morph;
 	}
 
 	/**
@@ -35,40 +42,47 @@ class Inflection
 	 */
 	public function inflect($phrase, $case)
 	{
-		$out = [];
-		foreach (preg_split('~\s*(:)\s*~', $phrase, -1, PREG_SPLIT_DELIM_CAPTURE) as $coherent)
-		{
-			if ($coherent === ':')
-			{
-				$out[] = ': ';
-				continue;
-			}
+		$tagged = $this->morph->tag($phrase);
+		$words = $this->flatten($tagged);
 
-			$out[] = $this->inflectCoherentPhrase($coherent, $case);
+		$lemmas = [];
+		foreach ($words as $word)
+		{
+			$lemmas[] = [
+				$word['lemma'],
+				$this->changeTagCase($word['tag'], 1, $case)
+			];
 		}
-		return implode('', $out);
+
+		$generated = $this->morph->generate($lemmas);
+
+		$output = '';
+		foreach ($words as $i => $word)
+		{
+			$output .= isset($generated[$i]['form']) ? $generated[$i]['form'] : $word['token'];
+			if (isset($word['space']))
+			{
+				$output .= $word['space'];
+			}
+		}
+
+		return $this->fixCapitalization($output, $phrase);
 	}
 
-	protected function inflectCoherentPhrase($phrase, $case)
+	private function changeTagCase($tag, $from, $to)
 	{
-		return $this->cache->load("$phrase|$case", function() use ($phrase, $case) {
-			if (!trim($phrase))
-			{
-				return $phrase;
-			}
-
-			$template = 'https://words.khanovaskola.cz/inflect/%s/%s';
-			$raw = file_get_contents(sprintf($template, urlencode($case), urlencode($phrase)));
-			$response = json_decode($raw, TRUE);
-			return $this->fixCapitalization($response['result'], $phrase);
-		});
+		if ($tag[4] == $from)
+		{
+			$tag[4] = $to;
+		}
+		return $tag;
 	}
 
 	private function fixCapitalization($phrase, $template)
 	{
 		$split = '~(\s+|\.)~u';
 		$phraseParts = preg_split($split, $phrase, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-		$templateParts = preg_split($split, $phrase, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		$templateParts = preg_split($split, $template, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		if (count($phraseParts) !== count($templateParts))
 		{
 			// template has different words than phrase
@@ -93,22 +107,57 @@ class Inflection
 		return implode('', $phraseParts);
 	}
 
+	private function flatten(array $sentences)
+	{
+		$words = [];
+		foreach ($sentences as $sentence)
+		{
+			foreach ($sentence as $word)
+			{
+				$words[] = $word;
+			}
+		}
+
+		return $words;
+	}
+
 	/**
 	 * @param string $phrase
 	 * @return string gender
 	 */
 	public function gender($phrase)
 	{
-		return $this->cache->load("$phrase", function() use ($phrase) {
+		return $this->cache->load($phrase, function() use ($phrase) {
 			if (!trim($phrase))
 			{
 				return Gender::MALE;
 			}
 
-			$template = 'https://words.khanovaskola.cz/gender/%s';
-			$raw = file_get_contents(sprintf($template, urlencode($phrase)));
-			$response = json_decode($raw, TRUE);
-			return $response['result'];
+			$tagged = $this->flatten($this->morph->tag($phrase));
+
+			$points = [
+				'male' => 0,
+				'female' => 0,
+			];
+
+			foreach ($tagged as $word)
+			{
+				switch ($word['tag'][2]) {
+					case 'F': // femininum (ženský rod)
+					case 'H': // femininum nebo neutrum (tedy nikoli maskulinum)
+					case 'Q': // femininum singuláru nebo neutrum plurálu
+						$points['female']++;
+						continue;
+					case 'I': // maskulinum inanimatum (rod mužský neživotný)
+					case 'M': // maskulinum animatum (rod mužský životný)
+					case 'Y': // masculinum (animatum nebo inanimatum)
+					case 'Z': // nikoli femininum
+						$points['male']++;
+						continue;
+				}
+			}
+
+			return $points['female'] >= $points['male'] ? Gender::FEMALE : Gender::MALE;
 		});
 	}
 
