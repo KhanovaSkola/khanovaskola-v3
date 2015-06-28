@@ -18,6 +18,7 @@ var lessDir = './www/less';
 var lessBootstrapFiles = [
 	path.join(bsDir, 'variables.less'),
 	path.join(lessDir, 'variables.less'),
+	path.join(lessDir, 'fonts.less'),
 
 	path.join(bsDir, 'mixins.less'),
 	path.join(bsDir, 'normalize.less'),
