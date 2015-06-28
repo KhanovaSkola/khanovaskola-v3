@@ -97,7 +97,8 @@ class Inflection
 				continue;
 			}
 
-			$upperFirst = $templateParts[$i][0] == mb_convert_case($templateParts[$i][0], MB_CASE_UPPER);
+			$first = mb_substr($templateParts[$i], 0, 1);
+			$upperFirst = $first == mb_convert_case($first, MB_CASE_UPPER);
 			if ($upperFirst)
 			{
 				$part = mb_convert_case($part, MB_CASE_TITLE); // hopefully will work like ucFirst
