@@ -117,6 +117,10 @@ define(function() {
 		}
 	};
 
+	const pause = function() {
+		player.pauseVideo();
+	};
+
 	on.play.push(() => {
 		player.unloadModule("captions");
 		player.unloadModule("cc");
@@ -129,6 +133,7 @@ define(function() {
 		video: video,
 		seek: seek,
 		togglePlay: togglePlay,
+		pause: pause,
 
 		onInit: on.init,
 		onPlay: on.play,

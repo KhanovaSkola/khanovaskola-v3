@@ -106,7 +106,7 @@
 	                </div>
 	                <div class="center">
 	                    {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
-                        <a href="{$link|noescape|templateLink}" rel="nofollow" class="report-error" data-report-button>Nahlásit chybu</a>
+                        <a href="#" class="report-error" data-toggle="error-modal" data-target="#errorModal">Nahlásit chybu</a>
 	                    {*
 	                    <i class="icon icon-comments"></i>
 	                    <span n:syntax="off">
@@ -138,6 +138,33 @@
                 </div>
             </div>
         {/if}
+
+		<div class="modal modal-error fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body form">
+                        <h2 class="text-center">Nahlášení chyby</h2>
+                        <a href="#" class="close" data-dismiss="modal">
+                            <i class="icon icon-circle-close"></i>
+                        </a>
+                        <div data-error-target="{$link|noescape|templateLink}">
+							{control errorReportForm}
+                        </div>
+                    </div>
+                    <div class="modal-body thanks hidden">
+                        <h2 class="text-center">Mockrát děkujeme!</h2>
+                        <a href="#" class="close" data-dismiss="modal">
+                            <i class="icon icon-circle-close"></i>
+                        </a>
+                        <p>
+                            Někdo z <a n:href="Text:team">nás</a> se na to zkusí co
+                            nejdřív kouknout a vyřešit to.
+                        </p>
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Zavřít</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 		{* {control comments} *}
 	</main>

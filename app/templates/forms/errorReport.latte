@@ -1,0 +1,10 @@
+{includeblock _error.latte}
+
+<form n:name="form">
+	<p>Napište nám, jaký je problém nebo pokud to jde, rovnou titulky opravte:</p>
+	<div class="form-group{if $form['text']->errors} has-error{/if}">
+		<textarea n:name="text" data-error-input type="text" class="form-control" placeholder="Text" />
+		{include error, control => $form['text']}
+	</div>
+	<input n:name="save" value="Odeslat" class="btn btn-default" data-report-button>
+</form>

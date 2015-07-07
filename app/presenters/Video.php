@@ -182,7 +182,11 @@ $mention
 
 $schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
 
+Navrhovaná změna / popis chyby:
+
     $message
+
+Originál:
 
 $context
 

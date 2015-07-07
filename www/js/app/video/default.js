@@ -6,7 +6,8 @@ define([
 	'logic/video/subtitles',
 	'services/timer',
 	'logic/video/clickCatcher',
-	'logic/video/controls'
+	'logic/video/controls',
+	'logic/video/report'
 ], function(fullscreen, player, progress, remote, subtitles, timer) {
 	const $wrapper = document.querySelector('.video-wrapper');
 
@@ -15,25 +16,6 @@ define([
 	const $shadow = document.querySelector('.course-header-content .right .right-inner');
 	const $videoReal = document.querySelector('.video-real');
 	const $overlayPlayButton = document.querySelector('.video-wrapper .video-play');
-
-	const $reportButton = document.querySelector('[data-report-button]');
-	$reportButton.addEventListener('click', event => {
-		event.preventDefault();
-
-		const message = window.prompt('Díky. Zde nám prosím napište, co přesně je špatně:');
-		if (message === null) {
-			return;
-		}
-
-		let url = $reportButton.href;
-		url = url.replace('{message}', encodeURIComponent(message));
-		url = url.replace('{time}', encodeURIComponent(player.getCurrentTime()));
-
-		const req = new XMLHttpRequest();
-		req.open('GET', url, true);
-		req.send(null);
-		alert('Mockrát děkujeme! Zkontrolujeme a co nejdřív to opravíme.');
-	});
 
 	let secondsWatched = 0;
 	let furthest = 0;
