@@ -22,6 +22,12 @@ final class Video extends Content
 	 */
 	public $startAtTime = 0;
 
+	/**
+	 * @var Filters
+	 * @inject
+	 */
+	public $filters;
+
 	public function startup()
 	{
 		parent::startup();
@@ -97,12 +103,10 @@ final class Video extends Content
 
 	public function handleReportError($time, $message)
 	{
-		$filters = new Filters();
-
 		$name = $this->video->title;
 		$link = $this->link('//this', ['startAtTime' => max(0, (int) $time - 3)]);
 		$linkDiff = 'https://report.khanovaskola.cz/diff/youtube-id?youtubeId=' . urlencode($this->video->youtubeId);
-		$ftime = $filters->duration($time);
+		$ftime = $this->filters->duration($time);
 		$user = $this->userEntity->name . ' (id ' . $this->userEntity->id . ')';
 
 		if ($time === '{time}' && $message === '{message}')
@@ -151,7 +155,7 @@ final class Video extends Content
 			}
 
 			$node = $sentences[$i];
-			$at = $filters->duration($node['time']);
+			$at = $this->filters->duration($node['time']);
 			$context .= "> [$at] $node[sentence]\n";
 		}
 
