@@ -167,6 +167,8 @@ final class Video extends Content
 		}
 		$mention = implode(', ', $mentions);
 
+		$prefixedMessage = "> $message";
+
 		$key = md5($this->videoId . '_' . microtime());
 		$backlink = urlencode('https://forum.khanovaskola.cz/t/nahlasene-chyby/755'); // TODO link to correct post
 		$checkbox = <<<CB
@@ -184,7 +186,7 @@ $schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
 
 Navrhovaná změna / popis chyby:
 
-    $message
+$prefixedMessage
 
 Originál:
 
