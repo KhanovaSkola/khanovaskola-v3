@@ -31,7 +31,8 @@ define(['logic/video/player', 'logic/video/fullscreen'], function(player, fullsc
 
 	// Play/pause on spacebar
 	document.addEventListener('keydown', event => {
-		if (event.target.tagName.toLowerCase() === 'input') {
+		if (event.target.tagName.toLowerCase() === 'input'
+		 || event.target.tagName.toLowerCase() === 'textarea') {
 			return;
 		}
 		if (event.keyCode == 32) {
