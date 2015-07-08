@@ -417,3 +417,7 @@ schema:
     one: "Toto schéma spravuje"
     few: "Toto schéma spravují"
     many: "Toto schéma spravují"
+
+errorReportForm:
+  text:
+    missing: "Napište nám prosím, co je ve videu nebo titulkách špatně."

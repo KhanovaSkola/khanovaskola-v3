@@ -9,8 +9,7 @@ class ErrorReport extends Form
 	public function setup()
 	{
 		$this->addTextArea('text')
-			->addRule($this::FILLED, 'text.missing')
-			->addRule($this::MIN_LENGTH, 'text.short', 15);
+			->addRule($this::FILLED, 'text.missing');
 
 		$this->addSubmit();
 	}
