@@ -42,7 +42,17 @@ class Inflection
 	 */
 	public function inflect($phrase, $case)
 	{
+		if (!trim($phrase))
+		{
+			return $phrase;
+		}
+
 		$tagged = $this->morph->tag($phrase);
+		if (!$tagged || !is_array($tagged))
+		{
+			return $phrase;
+		}
+
 		$words = $this->flatten($tagged);
 
 		$lemmas = [];
@@ -131,10 +141,16 @@ class Inflection
 		return $this->cache->load($phrase, function() use ($phrase) {
 			if (!trim($phrase))
 			{
-				return Gender::MALE;
+				return Gender::FEMALE;
 			}
 
-			$tagged = $this->flatten($this->morph->tag($phrase));
+			$tag = $this->morph->tag($phrase);
+			if (!$tag || !is_array($tag))
+			{
+				return Gender::FEMALE;
+			}
+
+			$tagged = $this->flatten($tag);
 
 			$points = [
 				'male' => 0,
