@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Models\Rme;
 use App\Models\Structs\EntityPointer;
 use App\Models\Tasks;
+use DateTime;
 use Kdyby\RabbitMq\Connection;
 use Nette\Forms\Controls\BaseControl;
 
@@ -28,6 +29,8 @@ class Video extends EditorForm
 			->setRequired('youtubeId.missing');
 		$this->addCheckbox('visible')
 			->setDefaultValue(TRUE);
+		$this->addCheckbox('removed')
+			->setDefaultValue(FALSE);
 
 		$this->addSubmit();
 	}
@@ -57,7 +60,13 @@ class Video extends EditorForm
 		$video->title = $v->title;
 		$video->description = $v->description;
 		$video->youtubeId = $v->youtubeId;
-		$video->hidden = !$v->visible;
+		$video->hidden = $v->removed || !$v->visible;
+
+		if ($v->removed && !$video->removedAt) {
+			$video->removedAt = new DateTime();
+		} elseif (!$v->removed && $video->removedAt) {
+			$video->removedAt = NULL;
+		}
 
 		$this->orm->flush();
 

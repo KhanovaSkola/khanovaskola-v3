@@ -11,8 +11,8 @@ parameters:
 	baseUrl: "http://ks/"
 	aesKey: "generate-24-random-chars"
 	database:
-		username: postgres
-		password: root
+		username: mikulas
+		password:
 		database: khanovaskola
 	discourse:
 		# not needed on dev machine

@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
 use App\Models\Services\Highlight;
+use DateTime;
 use Nette\Utils\Strings;
 use Orm\OneToMany as OtM;
 
@@ -12,6 +13,7 @@ use Orm\OneToMany as OtM;
 /**
  * @property string                   $type                {enum \App\Models\Rme\ContentsRepository::getClasses()}
  * @property bool                     $hidden              {default TRUE}
+ * @property NULL|DateTime            $removedAt
  *
  * @property OtM|Comment[]            $comments            {1:m comments $content}
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $content}

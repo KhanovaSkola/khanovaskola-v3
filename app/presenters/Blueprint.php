@@ -8,6 +8,7 @@ use App\Models\Services\Blueprints\Compiler;
 use App\Models\Structs\Exercises\ScalarExercise;
 use App\Presenters\Parameters;
 use Nette\Forms\Controls\TextInput;
+use Nette\Http\IResponse;
 
 
 final class Blueprint extends Content
@@ -61,6 +62,10 @@ final class Blueprint extends Content
 		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
 			$this->redirectToEntity($this->blueprint);
+		}
+
+		if ($this->blueprint->removedAt) {
+			$this->error('Exercise removed', IResponse::S410_GONE);
 		}
 
 		$this->checkSlug($this->blueprint);

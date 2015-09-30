@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\BlueprintCompilerException;
 use App\Models\Rme;
 use App\Models\Services\Blueprints\Compiler;
+use DateTime;
 use Nette\Forms\Container;
 use Nette\Forms\Controls\TextInput;
 use Nette\Utils\Json;
@@ -30,6 +31,7 @@ class Blueprint extends EntityForm
 			$container->addText('definition');
 		});
 		$this->addCheckbox('visible');
+		$this->addCheckbox('removed');
 
 		$this->addDynamic('partials', function(Container $container) {
 			$container->addTextArea('question')
@@ -67,6 +69,7 @@ class Blueprint extends EntityForm
 			'title' => $blueprint->title,
 			'description' => $blueprint->description,
 			'visible' => !$blueprint->hidden,
+			'removed' => (bool) $blueprint->removedAt,
 		]);
 
 		foreach ($blueprint->partials as $partial)
@@ -146,7 +149,13 @@ class Blueprint extends EntityForm
 	{
 		$blueprint->title = $v->title;
 		$blueprint->description = $v->description;
-		$blueprint->hidden = !$v->visible;
+		$blueprint->hidden = $v->removed || !$v->visible;
+
+		if ($v->removed && !$blueprint->removedAt) {
+			$blueprint->removedAt = new DateTime();
+		} elseif (!$v->removed && $blueprint->removedAt) {
+			$blueprint->removedAt = NULL;
+		}
 
 		$vars = [];
 		foreach ($v->vars as $row)

@@ -24,6 +24,7 @@ elasticsearch.log
 !/www/data/videoCharts/.gitkeep
 /temp/btfj.dat
 /temp/cachegrind*
+/temp/cache
 pubring.gpg~
 secring.gpg
 production/config.local.neon

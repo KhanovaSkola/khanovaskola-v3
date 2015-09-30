@@ -6,6 +6,7 @@ use App\Components\Controls\Comments;
 use App\Components\Filters;
 use App\Models\Rme;
 use App\Presenters\Parameters;
+use Nette\Http\IResponse;
 
 
 final class Video extends Content
@@ -65,6 +66,10 @@ final class Video extends Content
 		if ($this->block && $this->schema && !$this->schema->contains($this->block))
 		{
 			$this->redirectToEntity($this->video);
+		}
+
+		if ($this->video->removedAt) {
+			$this->error('Video removed', IResponse::S410_GONE);
 		}
 
 		$this->checkSlug($this->video);

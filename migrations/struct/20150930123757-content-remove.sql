@@ -1,0 +1,1 @@
+ALTER TABLE "contents" ADD "removed_at" TIMESTAMP WITHOUT TIME ZONE NULL;

@@ -75,6 +75,7 @@ blueprintEditor:
   description: "Popisek"
   question: "Otázka"
   visible: "Zobrazit ve vyhledávání"
+  removed: "Odstranit cvičení (používat velmi obezřetně pouze po diskuzi na fóru)"
   answer: "Odpověď"
   data: "Data"
   vars: "Proměnné"
@@ -348,6 +349,7 @@ videoForm:
   youtubeId:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
   visible: "Zobrazit ve vyhledávání"
+  removed: "Odstranit video (používat pouze pokud video bylo smazáno a neexistuje žádné alternativní video)"
 
 blackboardForm:
   title:

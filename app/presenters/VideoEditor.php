@@ -57,6 +57,7 @@ final class VideoEditor extends Content
 			$this['videoForm-form-description']->setDefaultValue($this->video->description);
 			$this['videoForm-form-youtubeId']->setDefaultValue($this->video->youtubeId);
 			$this['videoForm-form-visible']->setDefaultValue(!$this->video->hidden);
+			$this['videoForm-form-removed']->setDefaultValue((bool) $this->video->removedAt);
 		}
 	}
 
