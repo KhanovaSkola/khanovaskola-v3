@@ -11,7 +11,8 @@
 		{block headerBack}
 			{include headerLogo}
 		{/block}
-		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : ''}">
+		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : ''}"
+			style="width: 70%">
 			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
 					<div class="dropdown dropdown-big" data-subjects-dropdown>
@@ -82,9 +83,16 @@
 					</div>
 				</div>
 			</div>
+			{ifCurrent Homepage:}
+				<div class="pull-right" style="margin-top: 20px">
+					<a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
+		                <img src="{$basePath}/img/bakalari.svg" width="" height="45">
+		            </a>
+				</div>
+			{/ifCurrent}
 		</div>
 		<div class="header-userarea clearfix">
-			{include headerUser}
+            {include headerUser}
 		</div>
 		<a href="#" class="burger">
             <i class="icon icon-burger" alt="Oveřít menu"></i>
