@@ -29,10 +29,19 @@ class Inflection
 	 */
 	private $morph;
 
+	/** @var string[] word => inflected */
+	private $words;
+
 	public function __construct(IStorage $storage, Client $morph)
 	{
 		$this->cache = new Cache($storage, 'inflection');
 		$this->morph = $morph;
+
+		$lines = explode("\n", file_get_contents('/srv/khanovaskola.cz/dict.txt'),-1);
+		foreach ($lines as $line) {
+			list($k, $v) = explode("\t", $line);
+			$this->words[$k] = $v;
+		}
 	}
 
 	/**
@@ -46,6 +55,23 @@ class Inflection
 		{
 			return $phrase;
 		}
+
+
+$inflected = '';
+foreach (explode(' ', $phrase) as $word) {
+	if (isset($this->words[$word])) {
+		$inflected .= ' ' . $this->words[$word];
+		
+	} else {
+		$inflected .= " $word";
+		// file_put_contents('/tmp/phrases', "$word\n", FILE_APPEND);
+	}
+}
+return ltrim($inflected);
+
+
+
+
 
 		$tagged = $this->morph->tag($phrase);
 		if (!$tagged || !is_array($tagged))
