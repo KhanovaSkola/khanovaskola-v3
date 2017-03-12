@@ -23,7 +23,7 @@ final class Homepage extends Presenter
 
 	public function actionMarathon()
 	{
-		$this->redirectUrl('http://srazy.info/khanova-skola-prekladatelsky-maraton/5351');
+		$this->redirectUrl('http://srazy.info/maratonks/');
 	}
 
 	public function actionPreklad()
