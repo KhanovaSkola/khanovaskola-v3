@@ -6,6 +6,7 @@ use App\Components\Controls\Comments;
 use App\Components\Filters;
 use App\Models\Rme;
 use App\Presenters\Parameters;
+use App\Models\Services\Discourse;
 use Nette\Http\IResponse;
 
 
@@ -16,6 +17,11 @@ final class Video extends Content
 	use Parameters\Schema;
 	use Parameters\Slug;
 	use Parameters\Video;
+	/**
+	 * @var Discourse
+	 * @inject
+	 */
+	public $discourse;
 
 	/**
 	 * @var int
@@ -180,11 +186,7 @@ final class Video extends Content
 <a href="https://report.khanovaskola.cz/check.php?key=$key&do=toggle&redirect=$backlink"><img src="https://report.khanovaskola.cz/check.php?key=$key" width="14" height="14"> vyřešeno</a>
 CB;
 
-	$url = 'https://forum.khanovaskola.cz/posts?' . http_build_query([
-			'api_key' => 'a7d7a2da4aadbc9acd5875bd0a7b1967141622c34a7b3bd42dc74f46910727c8',
-			'api_username' => 'system',
-			'topic_id' => 755,
-			'raw' => <<<EOF
+$message = <<<EOF
 $mention
 
 $schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
@@ -198,18 +200,10 @@ Originál:
 $context
 
 *reportoval $user*
-EOF
-		]);
+EOF;
 
-		$context = stream_context_create([
-			'http' => [
-				'method' => 'POST',
-				'header' => implode("\r\n", [
-					'Accept-language: en',
-				])
-			]
-		]);
-		file_get_contents($url, NULL, $context);
+                //DH new way of sending, playing nice with Discourse API key
+		$response = $this->discourse->sendReportError($message);
 
 		$this->sendJson(['status' => 'success']);
 	}

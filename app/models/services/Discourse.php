@@ -102,4 +102,31 @@ class Discourse
 		return array_keys($usernames);
 	}
 
+
+        // called from Video.php::ReportErrorHandler
+        public function sendReportError($message) {
+
+               $topic_id = 755; // "Nahlášené chyby"
+
+	       $url = 'https://forum.khanovaskola.cz/posts?' . http_build_query([
+			'api_key' => $this->apiKey,
+			'api_username' => $this->apiUsername,
+			'topic_id' => $topic_id,
+			'raw' => $message
+	       ]);
+                
+	       $context = stream_context_create([
+			'http' => [
+				'method' => 'POST',
+				'header' => implode("\r\n", [
+					'Accept-language: en',
+				])
+			]
+	       ]);
+
+               $response = file_get_contents($url, NULL, $context);
+
+               return $response;
+        }
+
 }
