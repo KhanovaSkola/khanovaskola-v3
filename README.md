@@ -45,13 +45,6 @@ All required dependencies are avaiable for both both Unix and Windows OSes.
 - bc
 - redis (optional)
 
-<img src="http://www.jasoncavett.com/wp-content/uploads/2014/08/postgresql_logo.png" width="160">
-<img width="20">
-<img src="http://blog.trifork.com/wp-content/uploads/2013/04/elasticsearch-logo.png" width="160">
-<img width="20">
-<img src="http://gordondickens.com/wordpress/wp-content/uploads/2012/01/rabbitmq_logo_strap.png" width="160">
-<img width="20">
-<img src="http://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/467px-Redis_Logo.svg.png" width="135">
 
 *Dev / tests:*
 
