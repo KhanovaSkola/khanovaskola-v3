@@ -10,7 +10,8 @@
   	"prefer-stable": true,
 	"config": {
 		"preferred-install": "dist",
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"secure-http": false
 	},
 	"require": {
 		"php": ">= 5.5.0",
