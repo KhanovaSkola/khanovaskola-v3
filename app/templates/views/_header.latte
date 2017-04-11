@@ -55,9 +55,12 @@
                                                 <span class="blocks">
                                                 	{var $blocks = $schema->blocks}
                                                 	{var $limit = 8}
+                                                        {if $subject->title === "Matematika"}
+                                                	   {var $limit = 4}
+                                                    	{/if}
                                                     {foreach $blocks as $block}
                                                     	{if $limit <= 0}
-                                                    		<a n:href="$schema">a další &hellip;</a>
+                                                    		<a n:href="$schema">a&nbsp;další &hellip;</a>
                                                     		{php break}
                                                     	{/if}
                                                         <a n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
