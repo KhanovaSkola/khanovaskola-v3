@@ -1,9 +1,9 @@
 define(['logic/video/player'], function(player) {
 	const $course = document.querySelector('.course-video');
+	const $subs = document.querySelector('.subtitles-content');
 	const $progressBar = document.querySelector('.course-progress');
 
 	let onChange = [];
-
 
 	const isFullscreen = function() {
 		return document.fullscreenElement
@@ -24,12 +24,14 @@ define(['logic/video/player'], function(player) {
 		}
 
 		$course.classList.toggle('fullscreen', fullscreen);
+		$subs.classList.toggle('fullscreen', fullscreen);
 	};
 
 	const changeHandler = function() {
 		const fullscreen = isFullscreen();
 
 		$course.classList.toggle('fullscreen', fullscreen);
+		$subs.classList.toggle('fullscreen', fullscreen);
 		$progressBar.classList.toggle('active-fs', fullscreen);
 
 		for (let cb of onChange) {

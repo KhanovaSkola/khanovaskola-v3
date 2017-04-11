@@ -197,6 +197,13 @@
 									text-align: center;
 									span {
 										max-width: 490px;
+                                                                                // TODO: try to adjust size for fullscreen based on screen size
+	                                                                        @media (min-width: @screen-xs-max) {
+			                                                            &.fullscreen { // DHmod: increase for better visibility in classrooms
+                                                                                       font-size: 25pt;
+										       max-width: 620px;
+                                                                                    }
+                                                                                }
 										display: inline-block;
 										vertical-align: middle;
 										line-height: 1.2;
