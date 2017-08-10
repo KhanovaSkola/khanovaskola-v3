@@ -186,7 +186,7 @@ final class Auth extends Presenter
 					$this->flashError('auth.flash.fb.denied');
 					$this->redirect('Auth:in');
 				}
-				$me = $fb->api('/me');
+				$me = $fb->api('/me?fields=id,name,first_name,last_name,picture,email');
 				$this->registerOrLogin($me, function($id) {
 					return $this->orm->users->getByFacebookId($id);
 				}, function(User $user, $me) use ($fb) {
