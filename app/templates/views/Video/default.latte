@@ -1,4 +1,4 @@
-{if $block->hidden}
+{if $video->hidden}
   {var $robots = noindex}
 {/if}
 {var $pageName = 'course-page'}
@@ -59,7 +59,9 @@
 
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
-                            <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
+                           {if ! $video->hidden && $schema}
+                               <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
+                           {/if}
                             <div class="video-real hidden-video">
                                 <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&rel=0&controls=0&showinfo=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
                             </div>
