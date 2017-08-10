@@ -1,3 +1,6 @@
+{if $block->hidden}
+  {var $robots = noindex}
+{/if}
 {var $pageName = 'course-page'}
 {var $headerBorder = FALSE}
 {var $title = $video->title}
@@ -58,7 +61,7 @@
                             <meta itemprop="thumbnail" content="{$video->preview}" />
                             <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
                             <div class="video-real hidden-video">
-                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&rel=0&hl=cs&controls=0&showinfo=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&rel=0&controls=0&showinfo=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
                             </div>
                             <div class="video-subtitles">
                                 <div class="subtitles-inner">
