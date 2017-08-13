@@ -1,3 +1,6 @@
+{if is_null($schema->position)}
+  {var $robots = noindex}
+{/if}
 {var $pageName = 'schema-page'}
 {var $headerBorder = FALSE}
 {var $title = $schema->title}
