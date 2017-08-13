@@ -44,7 +44,7 @@ abstract class Content extends TitledEntity implements IIndexable
 	 */
 	public function getIndexData()
 	{
-		if ($this->hidden)
+		if ($this->hidden || ! is_null($this->removedAt))
 		{
 			return FALSE;
 		}
