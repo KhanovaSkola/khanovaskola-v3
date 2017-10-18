@@ -21,7 +21,12 @@
 		<div class="container">
 			<div class="content-inner">
 				<p class="lead">
+                {* An example of how one can modify content based on locale *}
+                {if $language === 'cs'}
                     Kdo se stará o Khanovu školu?
+                {else}
+                    Who's in the team?
+                {/if}
                 </p>
                 <p>
                     Všichni jsme dobrovolníci. Každý z nás má zodpovídá za jednu z nezbytných částí webu:

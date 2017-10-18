@@ -25,6 +25,9 @@ class Text extends Presenter
 	{
 		$usernames = $this->discourse->getPromotedUsers();
 
+                // Only example of how one can determine current language
+//              $language = $this->translator->getLanguage();
+
 		$users = [];
 		foreach ($usernames as $username)
 		{

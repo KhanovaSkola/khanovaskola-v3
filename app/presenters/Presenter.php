@@ -87,10 +87,17 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	public $gclid;
 
+        /** 
+         * Persistent locale, not really used here
+         * @persistent
+         */
+        public $language;
+
 	public function startup()
 	{
 		parent::startup();
-		$this->translator->setLanguage('cs');
+                $language = 'cs';
+		$this->translator->setLanguage($language);
 		$this->eventManager->addEventSubscriber($this);
 	}
 
@@ -120,6 +127,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		parent::beforeRender();
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
+                $this->template->language = $this->translator->getLanguage();
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());

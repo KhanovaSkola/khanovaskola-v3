@@ -91,6 +91,11 @@ class Translator implements Nette\Localization\ITranslator
 		$this->source = $this->getSource("$this->dir/$language.yml", $language);
 	}
 
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+
 	protected function getSource($file, $language)
 	{
 		$cache = new Nette\Caching\Cache($this->storage, __CLASS__);
