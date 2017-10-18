@@ -5,7 +5,7 @@
 	<div class="header-goback">
 		<a n:href="SubjectsEditor:default">
 			<i class="icon icon-circle-back"></i>
-			<span>Editor předmětů</span>
+			<span>Subject Editor</span>
 		</a>
 	</div>
 {/block}
@@ -17,7 +17,7 @@
 
 	<div class="container">
 		<div class="col-md-8">
-			Přerovnejte pořadi:
+			Reorder schemas:
 			<ul id="content-editor" class="schema-list drag">
 				{var $ignore = []}
 				{foreach $subject->schemas as $schema}
@@ -28,11 +28,11 @@
 				{/foreach}
 			</ul>
 
-			Odstranit schéma z předmětu
+			Remove schema from subject
             <ul id="content-editor-remove" class="drag">
             </ul>
 
-            Přidat schéma
+            Add schema
             <ul id="content-editor-add" class="drag">
                 {foreach $schemas as $schema}
                     {if !isset($ignore[$schema->id])}

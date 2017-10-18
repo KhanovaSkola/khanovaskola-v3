@@ -67,7 +67,7 @@
                                 {* all content seen *}
                             {else}
                                 <a n:href="continue" class="btn" rel="nofollow">
-                                    Začít od prvního videa
+                                    {_'block.continue.first'}
                                 </a>
                             {/if}
                         </div>
@@ -78,9 +78,9 @@
 						{if $reason = $user->isAllowed($block)}
                             <div class="editor-bar">
                                 <div class="alert alert-info">
-                                    <a n:href="BlockEditor:default, blockId => $block->id, schemaId => $schema ? $schema->id : NULL">Editovat blok</a>
+                                    <a n:href="BlockEditor:default, blockId => $block->id, schemaId => $schema ? $schema->id : NULL">{_'admin.block.edit'}</a>
                                     <small class="pull-right">
-                                        Možnost úpravy máš, protože jsi {$reason->toString($block)}.
+                                       {_'admin.reason.generic'} {$reason->toString($block)}.
                                     </small>
                                 </div>
                             </div>

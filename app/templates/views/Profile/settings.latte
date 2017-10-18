@@ -16,13 +16,13 @@
 				{if !$userEntity->facebookId}
 					<a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
 		                <i class="icon icon-s-facebook"></i>
-		                <span>přes Facebook</span>
+                                <span>{_'auth.login.via.fb'}</span>
 		            </a>
 				{/if}
 				{if !$userEntity->googleId}
 					<a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
 	                    <i class="icon icon-s-google"></i>
-	                    <span>přes Google</span>
+                            <span>{_'auth.login.via.google'}</span>
 	                </a>
 				{/if}
 			</div>

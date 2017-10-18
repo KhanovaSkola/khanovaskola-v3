@@ -13,13 +13,13 @@
 	{if $reason = $user->isAllowed($schema)}
 		<div class="container editor-bar">
 	        <div class="alert alert-info">
-	            <a n:href="SchemaEditor:default, schemaId => $schema->id">Editovat schéma</a>
+	            <a n:href="SchemaEditor:default, schemaId => $schema->id">{_'admin.schema.edit'}</a>
 	            <small class="pull-right">
-					Možnost úpravy máš, protože jsi {$reason->toString($schema)}.
+					{_'admin.reason.generic'} {$reason->toString($schema)}.
 	            </small>
 	        </div>
 	    </div>
-    {/if}
+        {/if}
 
 	<main class="content">
 		<div class="content-inner">
@@ -56,7 +56,7 @@
 		                    </div>
 	                    {else}
 	                        <a n:href="continue" class="btn" rel="nofollow">
-	                            Začít od prvního videa
+                                    {_'schema.continue.first'}
 	                        </a>
 		                {/if}
 	                </div>

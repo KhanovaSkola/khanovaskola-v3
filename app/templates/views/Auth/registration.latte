@@ -10,7 +10,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2 class="text-center" n:block=title>Vytvoření účtu na Khanově škole</h2>
+                    <h2 class="text-center" n:block=title>{_'auth.registration.title'}</h2>
                     <div>
                         {control registrationForm}
                     </div>
@@ -18,11 +18,11 @@
                 <div class="modal-footer" data-buttons-disable-onclick>
                     <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
                         <i class="icon icon-facebook"></i>
-                        <span>přes Facebook</span>
+                        <span>{_'auth.login.via.fb'}</span>
                     </a>
                     <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
                         <i class="icon icon-google-plus"></i>
-                        <span>přes Google</span>
+                        <span>{_'auth.login.via.google'}</span>
                     </a>
                 </div>
             </div>

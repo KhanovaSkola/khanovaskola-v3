@@ -1,6 +1,6 @@
 {var $pageName = 'auth-in'}
 {var $headerBorder = FALSE}
-{var $title = "Přihlášení"}
+{var $title = $template->translate('pagetitles.auth-in')}
 {block content}
 	{**
 	 * @param User $userEntity
@@ -21,7 +21,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2 class="text-center" n:block=title>Přihlášení</h2>
+                    <h2 class="text-center" n:block=title>{_'auth.login.title'}</h2>
                     <div>
                         {control loginForm}
                     </div>
@@ -29,11 +29,11 @@
                 <div class="modal-footer">
                     <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
                         <i class="icon icon-s-facebook"></i>
-                        <span>přes Facebook</span>
+                        <span>{_'auth.login.via.fb'}</span>
                     </a>
                     <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
                         <i class="icon icon-s-google"></i>
-                        <span>přes Google</span>
+                        <span>{_'auth.login.via.google'}</span>
                     </a>
                 </div>
             </div>

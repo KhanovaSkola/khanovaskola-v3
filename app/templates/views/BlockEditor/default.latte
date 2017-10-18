@@ -6,7 +6,7 @@
 		<div class="header-goback">
 			<a n:href="$block, $schema">
 				<i class="icon icon-circle-back"></i>
-				<span>Zpět na blok</span>
+				<span>{_'editor.back.block'}</span>
 			</a>
 		</div>
 	{else}
@@ -22,7 +22,7 @@
 
 	<div class="container">
 		<div class="col-md-8">
-			Obsah bloku
+			{_'editor.content.block'}
 			<ul id="content-editor" class="drag">
 				{if $block}
 					{foreach $block->contents as $content}
@@ -32,12 +32,12 @@
 					{/foreach}
 				{/if}
 			</ul>
-			Odstranit obsah z bloku
+			{_'editor.remove.block'}
 			<ul id="content-editor-remove" class="drag">
 			</ul>
 
-			Přidat obsah
-			<input type="text" id="filter" placeholder="Vyhledat…">
+			{_'editor.add.block'}
+			<input type="text" id="filter" placeholder="{_'editor.search.block'}">
 			<ul id="content-editor-add" class="drag">
 			</ul>
 		</div>

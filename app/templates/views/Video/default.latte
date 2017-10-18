@@ -87,13 +87,13 @@
 		                <div class="progress-label label-right">{$video->duration|duration}</div>
 		            </div>
 		        </div>
-		        {*
+                     {*
 		        {if $user->isAllowed($video)}
 		            <div class="view-chart">
-                        <img src="{$basePath}/data/videoCharts/{$video->id}.png">
-                    </div>
-                {/if}
-                *}
+                           <img src="{$basePath}/data/videoCharts/{$video->id}.png">
+                           </div>
+                        {/if}
+                     *}
 	            <div class="course-header-footer">
 	                <div class="left">
 	                    <div class="clearfix">
@@ -136,9 +136,9 @@
         {if $reason = $user->isAllowed($video)}
             <div class="container editor-bar">
                 <div class="alert alert-info">
-                    <a n:href="VideoEditor:default, videoId => $video->id, blockId => $block ? $block->id, schemaId => $schema ? $schema->id">Editovat video</a>
+                    <a n:href="VideoEditor:default, videoId => $video->id, blockId => $block ? $block->id, schemaId => $schema ? $schema->id">{_'admin.video.edit'}</a>
                     <small class="pull-right">
-                        Možnost úpravy máš, protože jsi {$reason->toString($video)}.
+                        {_'admin.reason.generic'} {$reason->toString($video)}.
                     </small>
                 </div>
             </div>
@@ -171,10 +171,4 @@
             </div>
         </div>
 
-		{* {control comments} *}
 	</main>
-
-	{*
-	{includeblock ../_similar.latte}
-	{include similarContent}
-	*}

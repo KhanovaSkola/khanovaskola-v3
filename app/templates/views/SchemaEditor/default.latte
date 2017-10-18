@@ -5,7 +5,7 @@
 	<div class="header-goback">
 		<a n:href="$schema">
 			<i class="icon icon-circle-back"></i>
-			<span>Zpět na schéma</span>
+			<span>{_'editor.back.schema'}</span>
 		</a>
 	</div>
 {/block}
@@ -63,7 +63,7 @@
 	        </div>
 
 			<h3>blocks:</h3>
-			<input type="text" id="filter" placeholder="Filter">
+			<input type="text" id="filter" placeholder="{_'editor.search.schema'}">
 			<ul class="list-unstyled block-picker">
 				{foreach $blocks as $block}
 					<li data-id="{$block->id}">{$block->title}</li>
