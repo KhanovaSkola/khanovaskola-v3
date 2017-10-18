@@ -1,5 +1,10 @@
 {var $pageName = 'about-page'}
+{* This works, but does not escape the variable
+   But is it needed? *}
+{var $title = $template->translate('pagetitles.about-page')}
+{*
 {var $title = 'O Khanově škole'}
+*}
 {var $headerBorder = FALSE}
 {block content}
 	{**
@@ -10,8 +15,10 @@
         <div class="hero">
             <div class="hero-content">
                 <div class="hero-content-inner">
-                    <h1>Khanova škola</h1>
-                    <small>český komunitní neziskový projekt</small>
+                   {* <h1>Khanova škola</h1>
+                    <small>český komunitní neziskový projekt</small> *}
+                    <h1>{_'about.ks.title'}</h1>
+                    <small>{_'about.ks.message'}</small>
                 </div>
             </div>
             <div class="hero-bg">
@@ -50,7 +57,7 @@
                 </div>
                 <p>
                     {block|vlna}
-                        Ve školním roce 2016/17 náš web zlepšujeme za podpory společnosti Bakaláři Software. Těšíme se, že budeme studentům, žákům, rodičům i učitelům blíž.
+                        Ve školním roce 2017/18 náš web zlepšujeme za podpory společnosti Bakaláři Software. Těšíme se, že budeme studentům, žákům, rodičům i učitelům blíž.
                     {/block}
                 </p>
                 <div class="media">
@@ -66,8 +73,12 @@
                 </div>
                 <p>
                     {block|vlna}
-                        Budeme rádi, pokud se zapojíte. Společně můžeme vytvořit lepší budoucnost otevřených výukových materiálů. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory. Aktuální informace naleznete <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na fóru</a>.
-                    {/block}
+{*                        Budeme rádi, pokud se zapojíte. Společně můžeme vytvořit lepší budoucnost otevřených výukových materiálů. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory. Aktuální informace naleznete <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na fóru</a>.   *}
+                        Budeme rádi, pokud se zapojíte. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory.
+                  {/block} 
+                  {block} {*block with vlna screws up the links!!*}
+                  Napište nám na <a href="mailto:marketa@khanovaskola.cz">marketa@khanovaskola.cz</a>! Také se můžete zeptat přímo <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na našem fóru</a>. Pro novinky sledujte náš <a href="https://blog.khanovaskola.cz">blog</a>.
+                  {/block}
                 </p>
                 <p class="org">
                     Khanova škola, z.s.<br>
