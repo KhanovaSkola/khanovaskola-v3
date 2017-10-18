@@ -1,0 +1,55 @@
+{var $pageName = 'about-page'}
+{var $title = 'Pro učitele'}
+{var $headerBorder = FALSE}
+{*TODO: remove noindex when finished!*}
+{var $robots = 'noindex'}
+{block content}
+	{**
+	 * @param UserEntity $userEntity
+	 *}
+
+    <main class="content">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-content-inner">
+                    <h1>Pro učitele</h1>
+                    <small> (: Stránka ve vývoji. :) </small>
+                </div>
+            </div>
+            <div class="hero-bg">
+                <img src="{$basePath}/img/about-page-bg.jpg">
+            </div>
+        </div>
+       <div class="content-inner">
+         <h3>Co najdete na Khanově škole</h3>
+         <p>
+             {block|vlna}
+               Připravujeme sérii článků, které budou popisovat obsah videí na Khanově škole.
+             {/block}
+         </p>
+         <h3>Webinář o tvorbě videí na portálu RVP</h3>
+         <p>
+             {block}
+                V září 2017 jsme se zúčastnili webináře pro učitele. Mluvili jsme o Khanově škole a také o tvorbě videí. <a href="https://digifolio.rvp.cz/view/view.php?id=13477" target="_blank" rel="nofollow">Záznam webináře</a> je dostupný na portálu RVP a samotná prezentace je ke stáhnutí <a href="/ks_rvp_webinar_2017.pdf">v PDF formátu</a>.
+             {/block}
+         </p>
+         <h3>Khan Academy a její vize</h3>
+         <p>
+             {block}
+               V tomto <a href="https://khanovaskola.cz/blok/443-khan-academy-a-jeji-mise">bloku videí</a> se dozvíte podrobnější informace o Khan Academy a jejích vizích, včetně optimálního využití ve třídě.
+             {/block}
+         </p>
+         <h3>Kurz o Blended Learning</h3>
+         <p>
+             {block}
+               Metody tzv. <i>blended learning</i> (v češtině se občas využívá termín kombinovaná či hybridní výuka) si kladou za úkol spojení digitálních technologií a klasických výukových metod. V <a href="https://khanovaskola.cz/schema/47-blended-learning">tomto kurzu</a> z portálu Coursera se dozvíte vše o ruzných typech  <i>blended learning</i>, jak je implementovat i konkrétní případové studie z amerických škol.
+             {/block}
+         </p>
+         <h3>Metoda převrácené třídy - FAQ</h3>
+         <p>
+             {block}
+               Metoda převrácené třídy je jedním z modelů <i>blended learning</i>. V této <a href="https://khanovaskola.cz/blok/442-prevracena-trida-faq">sérii krátkých videí</a> se dozvíte praktické rady jak tuto metodu implementovat a jak řešit běžné počáteční problémy. 
+             {/block}
+         </p>
+      </div>
+    </main>
