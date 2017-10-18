@@ -10,7 +10,7 @@ use DibiConnection;
 class Views extends Command
 {
 
-	const DELIM = ',';
+	const DELIM = ';';
 
 	protected function configure()
 	{
@@ -28,8 +28,8 @@ class Views extends Command
 		}
 
 		$rows = $db->query('
-			WITH t([video_id], [youtube_id], [percent], [block], [schema]) AS (
-				SELECT [v.id], [v.youtube_id], [vv.percent], [b.title], [s.title]
+			WITH t([video_id],[video_title], [youtube_id], [percent], [block], [schema]) AS (
+				SELECT [v.id],[v.title], [v.youtube_id], [vv.percent], [b.title], [s.title]
 				FROM [video_views] [vv]
 				LEFT JOIN [contents] [v] ON [vv.video_id] = [v.id]
 				LEFT JOIN [content_block_bridges] [cbb] ON [cbb.content_id] = [v.id]
@@ -38,15 +38,15 @@ class Views extends Command
 				LEFT JOIN [schemas] [s] ON [bsb.schema_id] = [s.id]
 				WHERE [s.id] IS NOT NULL
 			)
-			SELECT [video_id], Count(*) [views], [youtube_id], [block], [schema],
+			SELECT [video_id], Count(*) [views], [youtube_id], [video_title], [block], [schema],
 				' . implode(',', $percentiles) . '
 			FROM [t]
-			GROUP BY [video_id], [youtube_id], [block], [schema]
+			GROUP BY [video_id], [youtube_id],[video_title], [block], [schema]
 			HAVING Count(*) >= 10
 			ORDER BY Count(*) DESC
 		')->fetchAll();
 
-		$cols = ['video_id', 'youtube_id', 'schema', 'block', 'views'];
+		$cols = ['video_id', 'youtube_id', 'schema', 'block','video_title', 'views'];
 		for ($l = 10; $l < 100; $l += 10)
 		{
 			$cols[] = "perc-$l";
