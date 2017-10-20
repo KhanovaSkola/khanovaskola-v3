@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e # exit on first error
+#set -e # exit on first error
 
 block() {
 	php -r "echo \"\n\e[1;30;44m$1\e[21m\n\";"
@@ -10,9 +10,15 @@ block "Setting hostname"
 sudo hostname travis
 
 block "Installing ElasticSearch ICU plugin"
-elastic_plugin=$(locate elasticsearch/bin/plugin)
-echo "$elastic_plugin"
-sudo $elastic_plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
+#elastic_plugin=$(locate elasticsearch/bin/plugin)
+elastic_bin=$(which elasticsearch)
+elastic_plugin="/usr/share/elasticsearch/bin/plugin"
+
+echo "Elastic path: $elastic_bin"
+sharedir=$(ls /usr/share/)
+echo "Content of /usr/share"
+echo $sharedir
+#sudo $elastic_plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
 block "Installing bc"

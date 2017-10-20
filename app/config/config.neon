@@ -45,8 +45,8 @@ monolog:
 	name: main-site
 
 facebook:
-	permissions: [email, user_interests, user_likes, user_education_history]
-	graphVersion: v2.5
+	permissions: [email, public_profile]
+	graphVersion: v2.9
 	tls: %tls%
 
 google:
