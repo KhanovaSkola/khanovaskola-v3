@@ -53,7 +53,15 @@ class Video extends Content
 
 	public function getTextFromSubtitles()
 	{
-		return $this->getSubtitleService()->getTextFromSubtitles($this->youtubeId);
+           //DH:  For dubbed videos use subtitles from original English video,
+           //     but just for a hidden transcript for better SEO.
+                if (empty($this->youtubeIdOriginal)) {
+                   //return $this->youtubeIdOriginal;
+		  return $this->getSubtitleService()->getTextFromSubtitles($this->youtubeId);
+                } else {
+		  return $this->getSubtitleService()->getTextFromSubtitles($this->youtubeIdOriginal);
+                }
+                   
 	}
 
 	/**
