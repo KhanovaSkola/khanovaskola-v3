@@ -46,11 +46,20 @@ then
 	sudo php -S localhost:8000 -t www/ &
 	sleep 1
 fi
+php vendor/bin/tester -c /etc/php5/cgi/php.ini tests/unit/
+
+ 
 
 block "Provisioning"
-sudo cat /var/log/postgresql/postgresql-9.3-main.log 
+function cat_log {
+   sudo cat /var/log/postgresql/postgresql-9.3-main.log 
+}
+
+cat_log
+
 psql -c 'create database khanovaskola;' -U postgres
-sudo cat /var/log/postgresql/postgresql-9.3-main.log 
+
+trap cat_log 254
 
 php www/index.php m:m -i
 php www/index.php m:m
