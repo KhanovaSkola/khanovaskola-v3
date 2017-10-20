@@ -35,7 +35,7 @@ class Router extends RouteList
 			'Auth:registration' => 'registrace',
 			'Auth:resetPassword' => 'heslo',
 			'Text:about' => 'o-skole',
-			'Text:teacher_resources' => 'pro-ucitele',
+			'Text:forTeachers' => 'pro-ucitele',
 			'Text:team' => 'o-skole/tym',
 			'Subjects:default' => 'predmety',
 			'File:opensearch' => 'opensearch.xml',
@@ -56,11 +56,11 @@ class Router extends RouteList
 
 		// old links
 		$this[] = new Route('video/<youtubeId>', 'Video:youtube');
-		$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
-		$this[] = new Redirect('dobrovolnici/preklad', 'https://wiki.khanovaskola.cz/doku.php?id=jaknato');
-		$this[] = new Redirect('dobrovolnici/pravidla-prekladu', 'https://wiki.khanovaskola.cz/doku.php?id=pravidla');
-		$this[] = new Redirect('o-skole/projekty', 'https://wiki.khanovaskola.cz/doku.php?id=start');
-		$this[] = new Redirect('kontakt', 'https://wiki.khanovaskola.cz/doku.php?id=tym');
+	//	$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
+	//	$this[] = new Redirect('dobrovolnici/preklad', 'https://wiki.khanovaskola.cz/doku.php?id=jaknato');
+	//	$this[] = new Redirect('dobrovolnici/pravidla-prekladu', 'https://wiki.khanovaskola.cz/doku.php?id=pravidla');
+	//	$this[] = new Redirect('o-skole/projekty', 'https://wiki.khanovaskola.cz/doku.php?id=start');
+	//	$this[] = new Redirect('kontakt', 'https://wiki.khanovaskola.cz/doku.php?id=tym');
 		$this[] = $context->createInstance(Routers\OldVideo::class);
 		$this[] = $context->createInstance(Routers\OldCategory::class);
 		$this[] = $context->createInstance(Routers\OldBlog::class);
