@@ -15,9 +15,19 @@ elastic_bin=$(which elasticsearch)
 elastic_plugin="/usr/share/elasticsearch/bin/plugin"
 
 echo "Elastic path: $elastic_bin"
-sharedir=$(ls /usr/share/)
-echo "Content of /usr/share"
+
+sharedir=$(ls /usr/share/elasticsearch/)
+echo "Content of /usr/share/elasticsearch/"
 echo $sharedir
+
+sharedir=$(ls /usr/share/elasticsearch/bin)
+echo "Content of /usr/share/elasticsearch/bin/"
+echo $sharedir
+
+
+bindir=$(ls /usr/local/bin/)
+echo "Content of /usr/local/bin/"
+echo $bindir
 #sudo $elastic_plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
