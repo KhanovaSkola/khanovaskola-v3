@@ -5,7 +5,7 @@
 	{elseif $isGuest || !$userEntity->registered}
 		{if $isGuest}
 			<a href="#" data-toggle="modal" data-target="#loginModal">
-                Přihlásit se
+                {_'header.user.login'}
             </a>
             <div class="dropdown no-image" style="display:inline-block">
                 <a href="#" class="dropdown-toggle">
@@ -15,7 +15,7 @@
                     <li>
                         <a n:href="Auth:registration">
                             <i class="icon icon-user-add"></i>
-                            <span>Vytvořit si účet</span>
+                            <span>{_'header.user.openAccount'}</span>
                         </a>
                     </li>
                 </ul>
@@ -23,7 +23,7 @@
         {else}
             <div class="pull-right">
                 <a n:href="Auth:registration" class="btn btn-primary">
-                    Vytvoř si účet
+                    {_'header.user.openAccountDirect'}
                 </a>
             </div>
 	        <div class="pull-right">
@@ -38,13 +38,13 @@
 	                    <li>
 	                        <a n:href="Auth:registration">
 	                            <i class="icon icon-user"></i>
-	                            <span>Vytvořit si účet</span>
+	                            <span>{_'header.user.openAccount'}</span>
 	                        </a>
 	                    </li>
 	                    <li>
 	                        <a href="#" data-toggle="modal" data-target="#loginModal">
 	                            <i class="icon icon-auth-in"></i>
-	                            <span>Přihlásit se</span>
+	                            <span>{_'header.user.login'}</span>
 	                        </a>
 	                    </li>
 	                </ul>
@@ -56,7 +56,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h2 class="text-center">Přihlásit se</h2>
+                        <h2 class="text-center">{_'header.user.login'}</h2>
                         <a href="#" class="close" data-dismiss="modal">
                             <i class="icon icon-circle-close"></i>
                         </a>
@@ -67,12 +67,12 @@
                     <div class="modal-footer" data-buttons-disable-onclick>
                         <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
                             <i class="icon icon-s-facebook"></i>
-                            <span>přes Facebook</span>
+                            <span>{_'auth.login.via.fb'}</span>
                         </a>
                         <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
                             <i class="icon icon-s-google"></i>
-                            <span>přes Google</span>
-                        </a>
+                            <span>{_'auth.login.via.google'}</span>
+                        <a>
                     </div>
                 </div>
             </div>
@@ -93,19 +93,19 @@
                 <li>
                     <a n:href="Profile:default">
                         <i class="icon icon-home"></i>
-                        <span>Přehled</span>
+                        <span>{_'header.user.profile'}</span>
                     </a>
                 </li>
                 <li>
                     <a n:href="Profile:settings">
                         <i class="icon icon-settings"></i>
-                        <span>Nastavení</span>
+                        <span>{_'header.user.settings'}</span>
                     </a>
                 </li>
                 <li>
                     <a n:href="Auth:out" class="text-success">
                         <i class="icon icon-circle-close"></i>
-                        <span>Odhlásit se</span>
+                        <span>{_'header.user.logout'}</span>
                     </a>
                 </li>
             </ul>

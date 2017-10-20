@@ -1,6 +1,6 @@
 {var $pageName = 'signout-page'}
 {var $headerBorder = FALSE}
-{var $title = "Zatím…"}
+{var $title = $template->translate('pagetitles.auth-out')}
 {block content}
 	{**
 	 * @param User $userEntity
@@ -15,18 +15,18 @@
 	            <div class="box">
 	                <h1>
 	                    {if $name}
-	                        Měj se moc hezky,<br>
+	                        {_'auth.signout.niceDay'}<br>
 	                        {$name|vocative}!
 	                    {else}
-	                        Mějte se moc hezky.
+	                        {_'auth.signout.niceDayPolite'}
 	                    {/if}
-	                    <small>A zase někdy na viděnou.</small>
+	                    <small>{_'auth.signout.seeYa'}</small>
 	                </h1>
 	            </div>
 	            <div class="text-center">
 	                <a n:href="Homepage:" class="back-to">
 	                    <i class="icon icon-content-previous"></i>
-	                    <span>vrátit se na úvodní stránku</span>
+	                    <span>{_'auth.signout.backToHome'}</span>
 	                </a>
 	            </div>
 	        </div>

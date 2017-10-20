@@ -2,7 +2,7 @@
 {define headerLogo}
 	<div class="header-logo">
         <a n:href="Homepage:" class="logo">
-            <img src="{$basePath}/img/logo.svg" width="40" height="36" alt="Khanova škola">
+            <img src="{$basePath}/img/logo.svg" width="40" height="36" alt={_'header.general.siteName'}>
         </a>
     </div>
 {/define}
@@ -17,7 +17,7 @@
 				<div class="pull-left">
 					<div class="dropdown dropdown-big" data-subjects-dropdown>
 						<a href="#" class="dropdown-toggle span-link">
-							<span>Předmět</span>
+							<span>{_'header.general.subject'}</span>
 							<i class="icon icon-dropdown-caret"></i>
 						</a>
 						<div class="dropdown-menu">
@@ -38,7 +38,7 @@
                                     </li>
 									<li>
 										<a n:href="Homepage:randomContent" rel="nofollow">
-											<span>Zkusím štěstí</span>
+											<span>{_'header.general.feelLucky'}</span>
 											<i class="icon icon-globe"></i>
 										</a>
 									</li>
@@ -50,20 +50,38 @@
 										{foreach $subject->getMenuItems() as $schema}
 											<div class="row">
                                                 <span class="title">
+{* Title of schemas in subject color... 
+                                                    <a n:href="$schema" class="text-{$subject->color}">{$schema->title}</a> &mdash;
+ *}
                                                     <a n:href="$schema">{$schema->title}</a> &mdash;
                                                 </span>
                                                 <span class="blocks">
                                                 	{var $blocks = $schema->blocks}
                                                 	{var $limit = 8}
+                                                        {*The following ugliness is the menu optimization*}
                                                         {if $subject->title === "Matematika"}
                                                 	   {var $limit = 4}
                                                     	{/if}
+                                                        {if $schema->title === "Rovnice a nerovnice"}
+                                                	   {var $limit = 2}
+                                                {*        {elseif $schema->title === "Funkce"}
+                                                	   {var $limit = 3}
+                                                *}
+                                                        {elseif $schema->title === "Pravděpodobnost a statistika"}
+                                                	   {var $limit = 3}
+                                                        {elseif $schema->title === "Výrazy a jejich úpravy"}
+                                                	   {var $limit = 2}
+                                                    	{/if}
                                                     {foreach $blocks as $block}
                                                     	{if $limit <= 0}
-                                                    		<a n:href="$schema">a&nbsp;další &hellip;</a>
+                                                    		<a n:href="$schema">a&nbsp;další&nbsp;&hellip;</a>
                                                     		{php break}
                                                     	{/if}
-                                                        <a n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                    	{if $limit & 1}
+                                                            <a data-altcolor="1" n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                    	{else}
+                                                            <a n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                    	{/if}
                                                         {php $limit--}
                                                     {/foreach}
                                                 </span>
@@ -98,7 +116,7 @@
             {include headerUser}
 		</div>
 		<a href="#" class="burger">
-            <i class="icon icon-burger" alt="Oveřít menu"></i>
+            <i class="icon icon-burger" alt="{_'header.general.userMenuOpen'}"></i>
         </a>
 	</header>
 {/define}

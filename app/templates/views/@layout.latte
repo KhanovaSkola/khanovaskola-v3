@@ -15,9 +15,9 @@
 	<link rel="canonical" href="{$canonicalUrl}" />
 
 	<meta property="fb:app_id" content="{$fbAppId}"/>
-	<meta property="og:site_name" content="Khanova škola"/>
+	<meta property="og:site_name" content="{_'pagetitles.landing-page'}"/>
 	<meta property="og:url" content="{$canonicalUrl}"/>
-	<meta property="og:title" content="{if $title}{$title}{else}Khanova škola{/if}" />
+	<meta property="og:title" content="{if $title}{$title}{else}{_'pagetitles.landing-page'}{/if}" />
 	<meta property="og:description" n:ifset="$description" content="{$description}" />
 	{block graphtags}
 		<meta property="og:image" content="{$baseUrl}/img/icon/apple-touch-icon-180x180.png" />
@@ -32,9 +32,9 @@
 	<link href="{$basePath}/img/icon/icon-hires.png" rel="icon" sizes="192x192" />
 	<link href="{$basePath}/img/icon/icon-normal.png" rel="icon" sizes="128x128" />
 
-	<link rel="search" type="application/opensearchdescription+xml" title="Khanova škola" n:href="//File:opensearch" />
+	<link rel="search" type="application/opensearchdescription+xml" title="{_'pagetitles.landing-page'}" n:href="//File:opensearch" />
 
-	<title>{block title|striptags}{if $title}{$title} &ndash; {/if}Khanova škola{/block}</title>
+	<title>{block title|striptags}{if $title}{$title} &ndash; {/if}{_'pagetitles.landing-page'}{/block}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}

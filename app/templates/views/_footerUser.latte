@@ -6,7 +6,7 @@
                 <a n:href="Auth:in" class="text-black">
                     <span>
                         <i class="icon icon-auth-in"></i>
-                        Přihlásit se
+                        {_'footer.user.login'}
                     </span>
                 </a>
             </div>
@@ -14,7 +14,7 @@
                 <a n:href="Auth:registration" class="text-black">
                     <span>
                         <i class="icon icon-user"></i>
-                        Registrace
+                        {_'footer.user.registration'}
                     </span>
                 </a>
             </div>
@@ -40,27 +40,21 @@
                     <li>
                         <a n:href="Profile:default" class="text-black">
                             <i class="icon icon-home"></i>
-                            <span>Přehled</span>
+                            <span>{_'footer.user.profile'}</span>
                         </a>
                     </li>
                     <li>
                         <a n:href="Profile:settings" class="text-black">
                             <i class="icon icon-settings"></i>
-                            <span>Nastavení</span>
+                            <span>{_'footer.user.settings'}</span>
                         </a>
                     </li>
                     <li>
                         <a n:href="Auth:out" class="text-black">
                             <i class="icon icon-auth-out"></i>
-                            <span>Odhlásit se</span>
+                            <span>{_'footer.user.logout'}</span>
                         </a>
                     </li>
-                    {*<li>*}
-                        {*<a href="#"  class="text-green">*}
-                            {*<i class="icon icon-user-add"></i>*}
-                            {*<span>Přidat žáky / děti</span>*}
-                        {*</a>*}
-                    {*</li>*}
                 </ul>
             </div>
         </section>

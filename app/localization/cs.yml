@@ -1,65 +1,37 @@
-homepage:
-  title:
-    zero: "Homepage nula"
-    one: "Homepage jedna"
-    few: "Homepage %1 few"
-    many: "Homepage %1 many"
+footer:
+  mobile:
+    subjects: "Předměty"
+    siteName: "Khanova škola"
+    siteDescription1: "Více než "
+    siteDescription2: "výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd."
+    about: "O nás"
+  user:
+    login: "Příhlásit se"
+    registration: "Registrace"
+    profile: "Přehled"
+    settings: "Nastavení"
+    logout: "Odhlásit se"
+
+header:
+  general:
+    siteName: "Khanova škola"
+    subject: "Předmět"
+    feelLucky: "Zkusím štěstí"
+    userMenuOpen: "Otevřít menu"
+  user:
+    login: "Příhlásit se"
+    registration: "Registrace"
+    profile: "Přehled"
+    settings: "Nastavení"
+    openAccount: "Vytvořit si účet"
+    openAccountDirect: "Vytvoř si účet"
+    profile: "Přehled"
+    settings: "Nastavení"
+    logout: "Odhlásit se"
 
 layout:
   log:
     out: "Odhlásit se"
-
-profile:
-  linkStudents: "Přiřadit studenty"
-
-mentor:
-  linkStudent:
-    awaitApprovalOne:
-      title: "Pozvánka odeslána."
-      message: "Nyní prosím počkejte, než student pozvánku potvrdí."
-    awaitApproval:
-      title: "Pozvánky odeslány."
-      message: "Nyní prosím počkejte, než studenti pozvánku potvrdí."
-    failOne:
-      title: "Pozvánka neodeslána."
-      message: "Uživatel s emailem %email se odhlásil z emailů Khanovy školy. Požádejte jej, ať si emaily znovu povolí a pozvánku mu zašlete znovu."
-    failAll:
-      title: "Žádné pozvánky neodeslány."
-      message: "Uživatelé s emaily %emails se odhlásili z emailů Khanovy školy. Požádejte je, ať si emaily znovu povolí a pozvánku jim znovu zašlete."
-    failPartial:
-      title: "Některé pozvánky neodeslány."
-      message: "Uživatelé s emaily %emails se odhlásili z emailů Khanovy školy. Požádejte je, ať si emaily znovu povolí a pozvánku jim znovu zašlete. Ostatní pozvánky byli odeslány v pořádku – u nich počkejte, než je studenti potvrdí."
-    failPartialOne:
-      title: "Jedna pozvánka neodeslána."
-      message: "Uživatel s emailem %emails se odhlásil z emailů Khanovy školy. Požádejte jej, ať si emaily znovu povolí a pozvánku mu znovu zašlete. Ostatní pozvánky byli odeslány v pořádku – u nich počkejte, než je studenti potvrdí."
-    alreadySent:
-      title: "Pozvánky odeslány už dřív."
-      message: "Uživatele s emaily %emails jste již pozvali. Počkejte, než pozvánky studenti potvrdí."
-    alreadySentOne:
-      title: "Pozvánka odeslána už dřív."
-      message: "Uživatele s emailem %emails jste již pozvali. Počkejte, než pozvánku student potvrdí."
-
-test: #TODO remove
-  flash:
-    success:
-      title: "Skvěle."
-      message: "Něco co jste chtěli jsme udělali bezchybně."
-    info:
-      title: "Téměř hotovo…"
-      message: "Než budete moct pokračovat dál, raději to překontrolujte."
-    error:
-      title: "Všecko špatně!"
-      message: "Tohle se nedá opravit a doporučuju smazat appku."
-
-comments:
-  added:
-    title: "Komentář přidán." # TODO if contains ? "Otázka přidána"
-    message: ""
-
-commentForm:
-  text:
-    missing: ""
-    short: ""
 
 token:
   alreadyUsed:
@@ -129,6 +101,7 @@ auth:
     facebook: "Přihlásit se přes Facebook"
     google: "Přihlásit se přes Google"
   reset:
+    desc: "Změna hesla (první krok)"
     success:
       title: "Email odeslán."
       message: "Pro další instrukce se koukněte do svého mailu." #TODO link to user email by domain
@@ -136,9 +109,22 @@ auth:
       title: "Email není registrován."
       message: "Buď nejste na Khanova škole zaregistrovaní, nebo jste napsali emailovou adresu špatně." #TODO link to user email by domain
   changePassword:
+    desc: "Změna hesla (poslední krok)"  
     success:
       title: "Heslo změněno."
       message: "Na webu Khanovy školy se teď přihlašujete pouze tímto novým heslem."
+  login:
+    title: "Přihlásit se"
+    via:
+      fb: "přes Facebook"
+      google: "přes Google"
+  registration:
+    title: "Vytvoření účtu na Khanově škole"
+  signout:
+    backToHome: "vrátit se na úvodní stránku"
+    seeYa: "A zase někdy na viděnou."
+    niceDay: "Měj se moc hezky,"
+    niceDayPolite: "Mějte se moc hezky."
   flash:
     fb:
       denied:
@@ -188,24 +174,6 @@ auth:
         title: "Na report nemáte přístup."
         message: "Pokud se jedná o omyl, napište na fórum."
 
-badges:
-  awarded:
-    title: "Nový odznak:"
-    message: "%badge"
-  video:
-    watched:
-      title: "Shlédnuté video"
-      description: "%video"
-  user:
-    old:
-      week:
-        title: "Nový uživatel" #TODO
-        description: "Na Khanovu školu jste zapsán[|a] od %date"
-  exercise:
-    mastery:
-      title: "Mistrovství v %exercise"
-      description: "" #TODO
-
 exercise:
   showHint: "Zobrazit nápovědu"
   correct:
@@ -241,10 +209,6 @@ registrationForm:
   password:
     missing: "Zadejte heslo"
 
-linkStudentsForm:
-  email:
-    wrong: "Zadejte správný email"
-
 resetPasswordForm:
   email:
     missing: "Zadejte email"
@@ -272,6 +236,7 @@ block:
       few: "%1 minuty"
       many: "%1 minut"
   continue:
+    first: "Začít od prvního videa"
     info: "Pokračuj od poslední látky"
   editors:
     one: "Tento obsah spravuje"
@@ -307,9 +272,20 @@ editor:
     blackboard:
       title: "Tabule upravena."
       message: ""
-
-
-
+  back:
+    block: "Zpět na blok"
+    schema: "Zpět na schéma"
+    video: "Zpět na video"
+  content:
+    block: "Obsah bloku"
+  remove:
+    block: "Odstranit obsah z bloku"
+  add:
+    block: "Přidat obsah"
+  search:
+    block: "vyhledat"
+    schema: "filter"
+     
 search:
   blockContains:
     one: "jedno video"
@@ -337,7 +313,7 @@ schemaForm:
   title:
     missing: "Vyplňte název schématu"
   description:
-    missing: "Vyplňte pospis schématu"
+    missing: "Vyplňte popis schématu"
   subject:
     missing: "Vyberte předmět, do kterého se má schéma zařadit"
 
@@ -402,17 +378,9 @@ subjectForm:
   description:
     missing: "Vyplňte popis předmětu"
 
-subjects:
-  notYet:
-    parent:
-      title: "Chystáme."
-      message: "Brzy pro Vás budeme mít rodičovské funkce pro dohled nad studiem Vašich dětí. Už teď si ale můžete kouknout na libovolný obsah."
-    teacher:
-      title: "Chystáme."
-      message: "Brzy pro Vás budeme mít učitelské funkce pro dohled nad studiem Vašich žáků. Už teď jim ale můžete nabídnout cokoliv z našeho obsahu."
-
 schema:
   continue:
+    first: "Začít od prvního videa"
     info: "Na poslední studovanou látku navazuje"
     block: "z bloku"
   editors:
@@ -423,3 +391,31 @@ schema:
 errorReportForm:
   text:
     missing: "Napište nám prosím, co je ve videu nebo titulkách špatně."
+
+about:
+  ks:
+    title: "Khanova škola"
+    message: "český komunitní neziskový projekt"
+
+admin:
+  reason:
+    generic: "Možnost úpravy máš, protože jsi "
+  block:
+    edit: "Editovat blok"
+  schema:
+    edit: "Editovat schéma"
+  video:
+    edit: "Editovat video"
+
+pagetitles:
+  landing-page: "Khanova škola"
+  about-page: "O Khanově škole"
+  team-page: "Tým"
+  auth-in: "Přihlášení"
+  auth-out: "Zatím..."
+  registration: "Registrace"
+  password: "Heslo"
+  setting-page: "Nastavení"
+  editor: "Editor"
+
+

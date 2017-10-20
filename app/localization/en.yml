@@ -1,0 +1,337 @@
+footer:
+  mobile:
+    subjects: "Subjects"
+    siteName: "KA local curricula"
+    siteDescription1: "More than "
+    siteDescription2: "educational videos, exercises, for free, forever."
+    about: "About us"
+  user:
+    login: "Login"
+    registration: "Registration"
+    profile: "Profile"
+    settings: "Settings"
+    logout: "Logout"
+
+header:
+  general:
+    siteName: "KA local curricula"
+    subject: "Subject"
+    feelLucky: "Feeling lucky"
+    userMenuOpen: "Open menu"
+  user:
+    login: "Login"
+    registration: "Registration"
+    profile: "Profile"
+    settings: "Settings"
+    openAccount: "Open account"
+    openAccountDirect: "Open account"
+    profile: "Profile"
+    settings: "Settings"
+    logout: "Logout"
+
+layout:
+  log:
+    out: "Sign out"
+
+token:
+  alreadyUsed:
+    title: "Token cannot be reused."
+    message: "This link is expired."
+
+unsubscribe:
+  title: "Unsubscribed."
+  message: "You won't be receiving any more emails from us. If you change your mind, you can sign up again in setting."
+
+auth:
+  reason:
+    generic:
+      title: "" #TODO
+      message: "To see the page you have to login."
+    inactivity:
+      title: "You have been signed out." #TODO
+      message: "To see the page you have to login."
+  loginLink:
+    facebook: "Sign in via Facebook"
+    google: "Sign in via Google"
+  reset:
+    desc: "Password change (first step)"
+    success:
+      title: "Email sent."
+      message: "Look into your mailbox for further instructions." #TODO link to user email by domain
+    notFound:
+      title: "Email not registered."
+      message: "You are not registered or you did not write the correct email address." #TODO link to user email by domain
+  changePassword:
+    desc: "Password change (last step)"  
+    success:
+      title: "Password changed."
+      message: "You should not use your new password."
+  login:
+    title: "Login"
+    via:
+      fb: "via Facebook"
+      google: "via Google"
+  registration:
+    title: "Create account"
+  signout:
+    backToHome: "back to homepage"
+    seeYa: "See you soon!"
+    niceDay: "Take care,"
+    niceDayPolite: "Take care."
+  flash:
+    fb:
+      denied:
+        title: "Login denied"
+        message: "Don't you want to sign-up? We will not misuse your personal data."
+      error:
+        title: "Login via Facebook failed."
+        message: "Please, try again."
+    google:
+      error:
+        title: "Login via Google failed."
+        message: "Please, try again."
+    password:
+      wrongUsername:
+        title: "Unknown email."
+        message: "Are you sure you are registered?"
+      wrongPassword:
+        title: "Wrong password."
+        message: "If you forgotten your password, you can create a new one."
+    login:
+      newUser:
+        title: "Welcome, %name(5)."
+        message: "" #TODO
+      returning:
+        title: "Welcome back, %name(5)!"
+        message: "" #TODO
+    logout:
+      title: "Take care."
+      message: "Let's learn more next time."
+    wrongUsername:
+      title: "You are not registered."
+      message: "Sign in via Facebook or Google or continue to registration."
+    notSet:
+      title: "You do not have a password."
+      message: "Sign in via Facebook or Google, or press „Forgotten password“ to obtain a new one."
+    wrongPassword:
+      title: "Wrong password."
+      message: "If you forgot your password, you can change set up a new one."
+    alreadyRegistered:
+      title: "You are already registered."
+      message: "It is not necessary to register twice."
+    report: # This part is relevant only to Czech
+      loggedOut:
+        title: "Sign in to Khanova škola first."
+        message: "Then click Login at report.khanovaskola.cz."
+      notAllowed:
+        title: "You do not have access to report.khanovaskola.cz."
+        message: "If you think you should have, send us an email."
+
+
+errors: #TODO
+  403:
+    title: "Access denied"
+    text: ""
+  404:
+    title: "Page not found"
+    text: ""
+  410:
+    title: "Page removed"
+    text: ""
+
+registrationForm:
+  duplicate: "Username already exists." #TODO link to login
+  email:
+    missing: "Fill in email"
+    wrong: "Fill in correct email"
+  name:
+    missing: "Fill in your name"
+  gender:
+    missing: "Choose"
+  password:
+    missing: "Choose a password"
+
+resetPasswordForm:
+  email:
+    missing: "Fill in email"
+    wrong: "Fill in correct email"
+
+changePasswordForm:
+  password:
+    missing: "Choose password"
+
+loginForm:
+  email:
+    missing: "Fill in your email"
+    wrong: "Fill in your email"
+  password:
+    missing: "Fill in your password"
+
+block: # Probably relevant only to Czech site
+  duration:
+    hours:
+      one: "1 hour"
+      few: "%1 hours"
+      many: "%1 hours"
+    minutes:
+      one: "1 minute"
+      few: "%1 minutes"
+      many: "%1 minutes"
+  continue:
+    first: "Start from first item"
+    info: "Continue from last item"
+  editors:
+    one: "This content is moderated by"
+    few: "This content is moderated by"
+    many: "This content is moderated by"
+
+editor: # Only for admins, low priority
+  form:
+    error: "Error: %1"
+  added:
+    block:
+      title: "Block added."
+      message: ""
+    schema:
+      title: "Schema added."
+      message: ""
+    video:
+      title: "Video added."
+      message: ""
+  edited:
+    block:
+      title: "Block modified."
+      message: ""
+    schema:
+      title: "Schema modified."
+      message: ""
+    video:
+      title: "Video modified."
+      message: ""
+  back:
+    block: "Back to block"
+    schema: "Back schema"
+    video: "Back to video"
+  content:
+    block: "Block content"
+  remove:
+    block: "Remove content from block"
+  add:
+    block: "Add content"
+  search:
+    block: "search"
+    schema: "filter"
+     
+search:
+  blockContains:
+    one: "one video"
+    few: "%1 videos"
+    many: "%1 videos"
+  count:
+    video:
+      one: "one video"
+      few: "%1 videos"
+      many: "%1 videos"
+    blueprint:
+      one: "one exercise"
+      few: "%1 exercises"
+      many: "%1 exercises"
+    block:
+      one: "one block"
+      few: "%1 blocks"
+      many: "%1 blocks"
+
+schemaForm:
+  title:
+    missing: "Fill in schema title"
+  description:
+    missing: "Fill in schema description"
+  subject:
+    missing: "Choose a subject of the schema"
+
+videoForm:
+  title:
+    missing: "Fill in video title."
+  description:
+    missing: "Fill in video description."
+  youtubeId:
+    missing: "Fill in video youtubeId (e.g. AuX7nPBqDts)"
+  visible: "Show in search"
+  removed: "Remove video (use only if delete from YT without replacement)"
+
+blockForm:
+  title:
+    missing: "Fill in block title."
+  description:
+    missing: "Fill in block description"
+  visible: "Show in search"
+
+profileForm:
+  success:
+    title: ""
+    message: "Saved."
+  name:
+    missing: "Fill in your name or login via Facebook or Google"
+
+acl:
+  denied:
+    block:
+      title: "Denied."
+      message: "You don't have access to block editor."
+    schema:
+      title: "Denied."
+      message: "You don't have access to schema editor."
+    subject:
+      title: "Denied."
+      message: "You don't have access to subject editor."
+    subjects:
+      title: "Denied."
+      message: "You don't have access to subjects' editor."
+    video:
+      title: "Denied."
+      message: "You don't have access to video editor."
+
+subjectForm:
+  title:
+    missing: "Fill in subject title"
+  description:
+    missing: "Fill in subject description"
+
+schema:
+  continue:
+    first: "Start from first content item"
+  editors:
+    one: "This schema is moderated by"
+    few: "This schema is moderated by"
+    many: "This schema is moderated by"
+
+errorReportForm:
+  text:
+    missing: "Please, tell us what is wrong with the video or subtitles."
+
+about:
+  ks:
+    title: "Title of your organisation"
+    message: "short snappy description"
+
+admin:
+  reason:
+    generic: "You can edit this because you are "
+  block:
+    edit: "Edit block"
+  schema:
+    edit: "Edit schema"
+  video:
+    edit: "Edit video"
+
+pagetitles:
+  landing-page: "KA local curriculum"
+  about-page: "About us"
+  team-page: "Team"
+  auth-in: "Login"
+  auth-out: "Good bye!"
+  registration: "Registration"
+  password: "Password"
+  setting-page: "Settings"
+  editor: "Editor"
+

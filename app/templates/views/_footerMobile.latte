@@ -1,7 +1,7 @@
 {define footerMobile}
 	<div class="container footer-mobile-container">
 		<div class="footer-mobile">
-	        <strong>Předměty</strong>
+	        <strong>{_'footer.mobile.subjects'}</strong>
 	        <div class="subjects" id="mobile-nav-subjects">
 	            {foreach $subjects as $subject}
                     <a href="#" class="subject text-{$subject->color}" data-subject-open="{$subject->id}">
@@ -17,23 +17,14 @@
                     </ul>
                 {/foreach}
 	        </div>
-	        <strong>Khanova škola</strong>
+	        <strong>{_'footer.mobile.siteName'}</strong>
 	        <div class="about">
 	            <p>
-		            Více než {$getRoundedContentCount()} výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd.
+		            {_'footer.mobile.siteDescription1'} {$getRoundedContentCount()} {_'footer.mobile.siteDescription2'}
 		        </p>
-	            <a n:href="Text:about">O nás</a>
-	            {*<a href="#">Kontakt</a>*}
-	            {*<a href="#">Transparentní účet</a>*}
+	            <a n:href="Text:about">{_'footer.mobile.about'}</a>
 	        </div>
 
-	        {*<strong>Kamarádi a Sponzoři</strong>*}
-	        {*<div class="sponsors">*}
-	            {*<a href="#">Matýskova matematika</a>*}
-	            {*<a href="#">Scio.cz</a>*}
-	            {*<a href="#">Google ČR</a>*}
-	            {*<a href="#">Microsoft ČR</a>*}
-	        {*</div>*}
 	    </div>
 
 	    <div class="copyright">
