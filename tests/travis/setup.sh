@@ -10,19 +10,13 @@ block "Setting hostname"
 sudo hostname travis
 
 block "Installing ElasticSearch ICU plugin"
-#elastic_plugin=$(locate elasticsearch/bin/plugin)
 elastic_bin=$(which elasticsearch)
 elastic_plugin="/usr/share/elasticsearch/bin/elasticsearch-plugin"
 
 echo "Elastic path: $elastic_bin"
 echo "Elastic path: $elastic_plugin"
-ls /usr/share/elasticsearch/bin/elasticsearch-plugin
 
-sharedir=$(ls /usr/share/elasticsearch/bin)
-echo "Content of /usr/share/elasticsearch/bin/"
-echo $sharedir
-
-sudo $elastic_plugin -install elasticsearch/elasticsearch-analysis-icu/2.1.0
+sudo $elastic_plugin install elasticsearch/elasticsearch-analysis-icu/2.1.0
 sudo service elasticsearch restart
 
 block "Installing bc"
