@@ -16,7 +16,7 @@ elastic_plugin="/usr/share/elasticsearch/bin/elasticsearch-plugin"
 echo "Elastic path: $elastic_bin"
 echo "Elastic path: $elastic_plugin"
 
-sudo $elastic_plugin install elasticsearch/analysis-icu/
+sudo $elastic_plugin install analysis-icu
 sudo service elasticsearch restart
 
 block "Installing bc"
@@ -48,9 +48,9 @@ then
 fi
 
 block "Provisioning"
-cat /var/log/postgresql/*log
+sudo cat /var/log/postgresql/postgresql-9.3-main.log 
 psql -c 'create database khanovaskola;' -U postgres
-cat /var/log/postgresql/*log
+sudo cat /var/log/postgresql/postgresql-9.3-main.log 
 
 php www/index.php m:m -i
 php www/index.php m:m
