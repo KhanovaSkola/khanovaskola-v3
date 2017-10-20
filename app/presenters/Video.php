@@ -130,6 +130,8 @@ final class Video extends Content
 		if (!trim($message))
 		{
 			$traps++;
+                        // DH ignore blank messages
+			$this->sendJson(['status' => 'ignored']);
 		}
 		if ($time < 5)
 		{
