@@ -6,7 +6,7 @@ footer:
     siteDescription2: "výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd."
     about: "O nás"
   user:
-    login: "Příhlásit se"
+    login: "Přihlásit se"
     registration: "Registrace"
     profile: "Přehled"
     settings: "Nastavení"
@@ -19,15 +19,13 @@ header:
     feelLucky: "Zkusím štěstí"
     userMenuOpen: "Otevřít menu"
   user:
-    login: "Příhlásit se"
+    login: "Přihlásit se"
     registration: "Registrace"
     profile: "Přehled"
     settings: "Nastavení"
+    logout: "Odhlásit se"
     openAccount: "Vytvořit si účet"
     openAccountDirect: "Vytvoř si účet"
-    profile: "Přehled"
-    settings: "Nastavení"
-    logout: "Odhlásit se"
 
 layout:
   log:

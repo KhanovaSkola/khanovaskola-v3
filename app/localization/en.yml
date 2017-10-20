@@ -23,11 +23,9 @@ header:
     registration: "Registration"
     profile: "Profile"
     settings: "Settings"
+    logout: "Logout"
     openAccount: "Open account"
     openAccountDirect: "Open account"
-    profile: "Profile"
-    settings: "Settings"
-    logout: "Logout"
 
 layout:
   log:
