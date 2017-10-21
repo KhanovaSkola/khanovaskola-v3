@@ -92,17 +92,12 @@ git commit --no-verify
 
 run unit tests:
 ```sh
-php vendor/bin/tester -c /etc/php5/cgi/php.ini tests/unit/
+php vendor/bin/tester -c /etc/php5/fpm/php.ini tests/unit/ -p php
 ```
 
 run acceptance tests with debug on:
 ```sh
 casperjs test --config=tests/cept/config.json --log-level=debug --includes=tests/cept/bootstrap.js tests/cept/cases --verbose
-```
-
-run coding style (cs) tests:
-```sh
-sh tests/cs/run.sh
 ```
 
 invoke console:
@@ -127,5 +122,6 @@ php www/index.php migrations:migrate
 
 build frontend:
 ```sh
-gulp
+gulp production
 ```
+

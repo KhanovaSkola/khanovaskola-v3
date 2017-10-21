@@ -6,6 +6,10 @@ block() {
 	php -r "echo \"\n\e[1;30;44m$1\e[21m\n\";"
 }
 
+cat_log() {
+   sudo cat /var/log/postgresql/postgresql-9.3-main.log 
+}
+
 block "Setting hostname"
 sudo hostname travis
 
@@ -48,16 +52,13 @@ then
 fi
 php vendor/bin/tester -c /etc/php5/cgi/php.ini tests/unit/
 
- 
-
 block "Provisioning"
-function cat_log {
-   sudo cat /var/log/postgresql/postgresql-9.3-main.log 
-}
 
 cat_log
 
 psql -c 'create database khanovaskola;' -U postgres
+
+echo "Created database?"
 
 trap cat_log 254
 
