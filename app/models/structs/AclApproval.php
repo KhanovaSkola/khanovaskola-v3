@@ -61,12 +61,12 @@ class AclApproval extends Object
 	{
 		if ($this->reason === self::PRIVILEGE)
 		{
-			return 'administrátor';
+			return 'admin';
 		}
 
 		if ($this->reason === self::AUTHOR)
 		{
-			$role = 'autor';
+			$role = 'author';
 		}
 		else if ($this->reason === self::EDITOR)
 		{
@@ -76,19 +76,19 @@ class AclApproval extends Object
 		$name = $this->entity->title;
 		if ($this->entity instanceof Subject)
 		{
-			$type = 'předmětu';
+			$type = 'subject';
 		}
 		else if ($this->entity instanceof Schema)
 		{
-			$type = 'schématu';
+			$type = 'schema';
 		}
 		else if ($this->entity instanceof Block)
 		{
-			$type = 'bloku';
+			$type = 'block';
 		}
 		else if ($this->entity instanceof Content)
 		{
-			$type = 'bloku'; // intentional, lowest Acl is on block
+			$type = 'block'; // intentional, lowest Acl is on block
 		}
 		else
 		{
@@ -97,7 +97,7 @@ class AclApproval extends Object
 
 		if ($for === $this->entity)
 		{
-			return "$role tohoto $type";
+			return "$role of this $type";
 		}
 		return "$role $type $name";
 	}
