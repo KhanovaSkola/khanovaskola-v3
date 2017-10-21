@@ -3,15 +3,15 @@
 		<div class="footer-mobile">
 	        <strong>{_'footer.mobile.subjects'}</strong>
 	        <div class="subjects" id="mobile-nav-subjects">
-	            {foreach $subjects as $subject}
-                    <a href="#" class="subject text-{$subject->color}" data-subject-open="{$subject->id}">
-                        <span>{$subject->title}</span>
-                        <i class="icon icon-{$subject->icon}"></i>
+	            {foreach $subjects as $subj}
+                    <a href="#" class="subject text-{$subj->color}" data-subj-open="{$subj->id}">
+                        <span>{$subj->title}</span>
+                        <i class="icon icon-{$subj->icon}"></i>
                     </a>
-                    <ul class="schemas list-unstyled hidden" data-subject="{$subject->id}">
-                        <li n:foreach="$subject->schemas as $schema">
-                            <a n:href="$schema" class="schema text-{$subject->color}">
-                                <span>{$schema->title}</span>
+                    <ul class="schemas list-unstyled hidden" data-subject="{$subj->id}">
+                        <li n:foreach="$subj->schemas as $sch">
+                            <a n:href="$sch" class="schema text-{$subj->color}">
+                                <span>{$sch->title}</span>
                             </a>
                         </li>
                     </ul>
