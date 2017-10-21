@@ -1,20 +1,17 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Iterators;
 
-use Nette,
-	Nette\Utils\ObjectMixin;
+use Nette;
 
 
 /**
  * Smarter caching iterator.
- *
- * @author     David Grudl
  *
  * @property-read bool $first
  * @property-read bool $last
@@ -24,12 +21,11 @@ use Nette,
  * @property-read int $counter
  * @property-read mixed $nextKey
  * @property-read mixed $nextValue
- * @property-read $innerIterator
- * @property   $flags
- * @property-read $cache
  */
 class CachingIterator extends \CachingIterator implements \Countable
 {
+	use Nette\SmartObject;
+
 	/** @var int */
 	private $counter = 0;
 
@@ -61,7 +57,7 @@ class CachingIterator extends \CachingIterator implements \Countable
 	 * @param  int  grid width
 	 * @return bool
 	 */
-	public function isFirst($width = NULL)
+	public function isFirst($width = null)
 	{
 		return $this->counter === 1 || ($width && $this->counter !== 0 && (($this->counter - 1) % $width) === 0);
 	}
@@ -72,7 +68,7 @@ class CachingIterator extends \CachingIterator implements \Countable
 	 * @param  int  grid width
 	 * @return bool
 	 */
-	public function isLast($width = NULL)
+	public function isLast($width = null)
 	{
 		return !$this->hasNext() || ($width && ($this->counter % $width) === 0);
 	}
@@ -176,70 +172,4 @@ class CachingIterator extends \CachingIterator implements \Countable
 	{
 		return $this->getInnerIterator()->current();
 	}
-
-
-	/********************* Nette\Object behaviour ****************d*g**/
-
-
-	/**
-	 * Call to undefined method.
-	 * @param  string  method name
-	 * @param  array   arguments
-	 * @return mixed
-	 * @throws Nette\MemberAccessException
-	 */
-	public function __call($name, $args)
-	{
-		return ObjectMixin::call($this, $name, $args);
-	}
-
-
-	/**
-	 * Returns property value. Do not call directly.
-	 * @param  string  property name
-	 * @return mixed   property value
-	 * @throws Nette\MemberAccessException if the property is not defined.
-	 */
-	public function &__get($name)
-	{
-		return ObjectMixin::get($this, $name);
-	}
-
-
-	/**
-	 * Sets value of a property. Do not call directly.
-	 * @param  string  property name
-	 * @param  mixed   property value
-	 * @return void
-	 * @throws Nette\MemberAccessException if the property is not defined or is read-only
-	 */
-	public function __set($name, $value)
-	{
-		ObjectMixin::set($this, $name, $value);
-	}
-
-
-	/**
-	 * Is property defined?
-	 * @param  string  property name
-	 * @return bool
-	 */
-	public function __isset($name)
-	{
-		return ObjectMixin::has($this, $name);
-	}
-
-
-	/**
-	 * Access to undeclared property.
-	 * @param  string  property name
-	 * @return void
-	 * @throws Nette\MemberAccessException
-	 */
-	public function __unset($name)
-	{
-		ObjectMixin::remove($this, $name);
-	}
-
-
 }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Application;
@@ -13,19 +13,21 @@ use Nette;
 /**
  * Link generator.
  */
-class LinkGenerator extends Nette\Object
+class LinkGenerator
 {
+	use Nette\SmartObject;
+
 	/** @var IRouter */
 	private $router;
 
 	/** @var Nette\Http\Url */
 	private $refUrl;
 
-	/** @var IPresenterFactory|NULL */
+	/** @var IPresenterFactory|null */
 	private $presenterFactory;
 
 
-	public function __construct(IRouter $router, Nette\Http\Url $refUrl, IPresenterFactory $presenterFactory = NULL)
+	public function __construct(IRouter $router, Nette\Http\Url $refUrl, IPresenterFactory $presenterFactory = null)
 	{
 		$this->router = $router;
 		$this->refUrl = $refUrl;
@@ -37,9 +39,9 @@ class LinkGenerator extends Nette\Object
 	 * Generates URL to presenter.
 	 * @param  string   destination in format "[[[module:]presenter:]action] [#fragment]"
 	 * @return string
-	 * @throws InvalidLinkException
+	 * @throws UI\InvalidLinkException
 	 */
-	public function link($dest, array $params = array())
+	public function link($dest, array $params = [])
 	{
 		if (!preg_match('~^([\w:]+):(\w*+)(#.*)?()\z~', $dest, $m)) {
 			throw new UI\InvalidLinkException("Invalid link destination '$dest'.");
@@ -47,19 +49,26 @@ class LinkGenerator extends Nette\Object
 		list(, $presenter, $action, $frag) = $m;
 
 		try {
-			$class = $this->presenterFactory ? $this->presenterFactory->getPresenterClass($presenter) : NULL;
-		} catch (Application\InvalidPresenterException $e) {
-			throw new UI\InvalidLinkException($e->getMessage(), NULL, $e);
+			$class = $this->presenterFactory ? $this->presenterFactory->getPresenterClass($presenter) : null;
+		} catch (InvalidPresenterException $e) {
+			throw new UI\InvalidLinkException($e->getMessage(), 0, $e);
 		}
 
-		if (is_subclass_of($class, 'Nette\Application\UI\Presenter')) {
+		if (is_subclass_of($class, UI\Presenter::class)) {
 			if ($action === '') {
 				$action = UI\Presenter::DEFAULT_ACTION;
 			}
-			if ($params && (method_exists($class, $method = $class::formatActionMethod($action))
-				|| method_exists($class, $method = $class::formatRenderMethod($action)))
+			if (method_exists($class, $method = $class::formatActionMethod($action))
+				|| method_exists($class, $method = $class::formatRenderMethod($action))
 			) {
-				UI\Presenter::argsToParams($class, $method, $params);
+				UI\Presenter::argsToParams($class, $method, $params, [], $missing);
+				if ($missing) {
+					$rp = $missing[0];
+					throw new UI\InvalidLinkException("Missing parameter \${$rp->getName()} required by {$rp->getDeclaringClass()->getName()}::{$rp->getDeclaringFunction()->getName()}()");
+				}
+
+			} elseif (array_key_exists(0, $params)) {
+				throw new UI\InvalidLinkException("Unable to pass parameters to action '$presenter:$action', missing corresponding method.");
 			}
 		}
 
@@ -67,13 +76,12 @@ class LinkGenerator extends Nette\Object
 			$params[UI\Presenter::ACTION_KEY] = $action;
 		}
 
-		$url = $this->router->constructUrl(new Request($presenter, NULL, $params), $this->refUrl);
-		if ($url === NULL) {
+		$url = $this->router->constructUrl(new Request($presenter, null, $params), $this->refUrl);
+		if ($url === null) {
 			unset($params[UI\Presenter::ACTION_KEY]);
-			$params = urldecode(http_build_query($params, NULL, ', '));
+			$params = urldecode(http_build_query($params, null, ', '));
 			throw new UI\InvalidLinkException("No route for $dest($params)");
 		}
 		return $url . $frag;
 	}
-
 }

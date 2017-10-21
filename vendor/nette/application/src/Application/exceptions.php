@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Application;
 
-use Nette;
+use Nette\Http;
 
 
 /**
@@ -41,14 +41,22 @@ class InvalidPresenterException extends \Exception
 class BadRequestException extends \Exception
 {
 	/** @var int */
-	protected $code = 404;
+	protected $code = Http\IResponse::S404_NOT_FOUND;
 
 
-	public function __construct($message = '', $code = 0, \Exception $previous = NULL)
+	public function __construct($message = '', $httpCode = 0, \Exception $previous = null)
 	{
-		parent::__construct($message, $code < 200 || $code > 504 ? $this->code : $code, $previous);
+		parent::__construct($message, $httpCode ?: $this->code, $previous);
 	}
 
+
+	/**
+	 * @return int
+	 */
+	public function getHttpCode()
+	{
+		return $this->code;
+	}
 }
 
 
@@ -58,6 +66,5 @@ class BadRequestException extends \Exception
 class ForbiddenRequestException extends BadRequestException
 {
 	/** @var int */
-	protected $code = 403;
-
+	protected $code = Http\IResponse::S403_FORBIDDEN;
 }

@@ -20,6 +20,7 @@ use Nette\Utils\ArrayHash;
  *
  * @property ArrayHash $details
  * @property string $pictureUrl
+ * @property array $permissions
  */
 class Profile extends Nette\Object
 {
@@ -78,7 +79,7 @@ class Profile extends Nette\Object
 				$this->details = $this->facebook->api('/' . $this->profileId);
 
 			} catch (FacebookApiException $e) {
-				$this->details = array();
+				$this->details = [];
 			}
 		}
 
@@ -109,9 +110,9 @@ class Profile extends Nette\Object
 	 * @param array $params
 	 * @return null
 	 */
-	public function getPictureUrl(array $params = array())
+	public function getPictureUrl(array $params = [])
 	{
-		$params = array_merge($params, array('redirect' => false));
+		$params = array_merge($params, ['redirect' => false]);
 
 		try {
 			return $this->facebook->api("/{$this->profileId}/picture", NULL, $params)->data->url;
@@ -127,14 +128,24 @@ class Profile extends Nette\Object
 	 * @param array $params
 	 * @return NULL|ArrayHash
 	 */
-	public function getPermissions(array $params = array())
+	public function getPermissions(array $params = [])
 	{
-		$params = array_merge($params, array('access_token' => $this->facebook->getAccessToken()));
+		$params = array_merge($params, ['access_token' => $this->facebook->getAccessToken()]);
 
 		try {
 			$response = $this->facebook->api("/{$this->profileId}/permissions", 'GET', $params);
-			if ($response && !empty($response->data[0])) {
-				return ArrayHash::from($response->data[0]);
+			if ($response && !empty($response->data)) {
+				$items = [];
+				if (isset($response->data[0]['permission'])) {
+					foreach ($response->data as $permissionsItem) {
+						$items[$permissionsItem->permission] = $permissionsItem->status === 'granted';
+					}
+
+				} elseif (isset($response->data[0])) {
+					$items = (array) $response->data[0];
+				}
+
+				return ArrayHash::from($items);
 			}
 
 		} catch (FacebookApiException $e) {

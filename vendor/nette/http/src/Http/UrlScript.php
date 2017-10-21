@@ -1,13 +1,11 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Http;
-
-use Nette;
 
 
 /**
@@ -23,21 +21,26 @@ use Nette;
  * - scriptPath:  /admin/script.php (or simply /admin/ when script is directory index)
  * - pathInfo:    /pathinfo/ (additional path information)
  *
- * @author     David Grudl
- *
  * @property   string $scriptPath
  * @property-read string $pathInfo
  */
 class UrlScript extends Url
 {
 	/** @var string */
-	private $scriptPath = '/';
+	private $scriptPath;
+
+
+	public function __construct($url = null, $scriptPath = '')
+	{
+		parent::__construct($url);
+		$this->setScriptPath($scriptPath);
+	}
 
 
 	/**
 	 * Sets the script-path part of URI.
 	 * @param  string
-	 * @return self
+	 * @return static
 	 */
 	public function setScriptPath($value)
 	{
@@ -52,7 +55,7 @@ class UrlScript extends Url
 	 */
 	public function getScriptPath()
 	{
-		return $this->scriptPath;
+		return $this->scriptPath ?: $this->path;
 	}
 
 
@@ -62,8 +65,8 @@ class UrlScript extends Url
 	 */
 	public function getBasePath()
 	{
-		$pos = strrpos($this->scriptPath, '/');
-		return $pos === FALSE ? '' : substr($this->getPath(), 0, $pos + 1);
+		$pos = strrpos($this->getScriptPath(), '/');
+		return $pos === false ? '' : substr($this->getPath(), 0, $pos + 1);
 	}
 
 
@@ -73,7 +76,6 @@ class UrlScript extends Url
 	 */
 	public function getPathInfo()
 	{
-		return (string) substr($this->getPath(), strlen($this->scriptPath));
+		return (string) substr($this->getPath(), strlen($this->getScriptPath()));
 	}
-
 }

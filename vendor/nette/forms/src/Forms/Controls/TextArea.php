@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Forms\Controls;
@@ -12,19 +12,18 @@ use Nette;
 
 /**
  * Multiline text input control.
- *
- * @author     David Grudl
  */
 class TextArea extends TextBase
 {
 
 	/**
-	 * @param  string  label
+	 * @param  string|object
 	 */
-	public function __construct($label = NULL)
+	public function __construct($label = null)
 	{
 		parent::__construct($label);
 		$this->control->setName('textarea');
+		$this->setOption('type', 'textarea');
 	}
 
 
@@ -34,12 +33,7 @@ class TextArea extends TextBase
 	 */
 	public function getControl()
 	{
-		$value = $this->getValue();
-		if ($value === '') {
-			$value = $this->translate($this->emptyValue);
-		}
 		return parent::getControl()
-			->setText($value);
+			->setText($this->getRenderedValue());
 	}
-
 }

@@ -42,7 +42,7 @@ class Container extends Nette\Forms\Container
 	private $submittedBy = FALSE;
 
 	/** @var array */
-	private $created = array();
+	private $created = [];
 
 	/** @var \Nette\Http\IRequest */
 	private $httpRequest;
@@ -63,6 +63,7 @@ class Container extends Nette\Forms\Container
 	{
 		parent::__construct();
 		$this->monitor('Nette\Application\UI\Presenter');
+		$this->monitor('Nette\Forms\Form');
 
 		try {
 			$this->factoryCallback = Callback::closure($factory);
@@ -98,7 +99,11 @@ class Container extends Nette\Forms\Container
 	{
 		parent::attached($obj);
 
-		if (!$obj instanceof Nette\Application\UI\Presenter) {
+		if (
+			!$obj instanceof Nette\Application\UI\Presenter
+			&&
+			$this->form instanceof Nette\Application\UI\Form
+		) {
 			return;
 		}
 
@@ -369,7 +374,7 @@ class Container extends Nette\Forms\Container
 		$controlsProperty->setAccessible(TRUE);
 
 		// walk groups and clean then from removed components
-		$affected = array();
+		$affected = [];
 		foreach ($this->getForm()->getGroups() as $group) {
 			/** @var \SplObjectStorage $groupControls */
 			$groupControls = $controlsProperty->getValue($group);
@@ -411,7 +416,7 @@ class Container extends Nette\Forms\Container
 	 * @param array $subComponents
 	 * @return int
 	 */
-	public function countFilledWithout(array $components = array(), array $subComponents = array())
+	public function countFilledWithout(array $components = [], array $subComponents = [])
 	{
 		$httpData = array_diff_key((array)$this->getHttpData(), array_flip($components));
 
@@ -419,7 +424,7 @@ class Container extends Nette\Forms\Container
 			return 0;
 		}
 
-		$rows = array();
+		$rows = [];
 		$subComponents = array_flip($subComponents);
 		foreach ($httpData as $item) {
 			$filter = function ($value) use (&$filter) {
@@ -440,9 +445,9 @@ class Container extends Nette\Forms\Container
 	 * @param array $exceptChildren
 	 * @return bool
 	 */
-	public function isAllFilled(array $exceptChildren = array())
+	public function isAllFilled(array $exceptChildren = [])
 	{
-		$components = array();
+		$components = [];
 		foreach ($this->getComponents(FALSE, 'Nette\Forms\IControl') as $control) {
 			/** @var \Nette\Forms\Controls\BaseControl $control */
 			$components[] = $control->getName();
@@ -501,12 +506,12 @@ class Container extends Nette\Forms\Container
 	public static function register($methodName = 'addDynamic')
 	{
 		if (self::$registered) {
-			Nette\Forms\Container::extensionMethod(self::$registered, function () {
+			Nette\Utils\ObjectMixin::setExtensionMethod(Nette\Forms\Container::class, self::$registered, function () {
 				throw new Nette\MemberAccessException;
 			});
 		}
 
-		Nette\Forms\Container::extensionMethod($methodName, function (Nette\Forms\Container $_this, $name, $factory, $createDefault = 0, $forceDefault = FALSE) {
+		Nette\Utils\ObjectMixin::setExtensionMethod(Nette\Forms\Container::class, $methodName, function (Nette\Forms\Container $_this, $name, $factory, $createDefault = 0, $forceDefault = FALSE) {
 			$control = new Container($factory, $createDefault, $forceDefault);
 			$control->currentGroup = $_this->currentGroup;
 			return $_this[$name] = $control;
@@ -516,7 +521,7 @@ class Container extends Nette\Forms\Container
 			return;
 		}
 
-		SubmitButton::extensionMethod('addRemoveOnClick', function (SubmitButton $_this, $callback = NULL) {
+		Nette\Utils\ObjectMixin::setExtensionMethod(SubmitButton::class, 'addRemoveOnClick', function (SubmitButton $_this, $callback = NULL) {
 			$_this->setValidationScope(FALSE);
 			$_this->onClick[] = function (SubmitButton $button) use ($callback) {
 				$replicator = $button->lookup(__NAMESPACE__ . '\Container');
@@ -525,14 +530,14 @@ class Container extends Nette\Forms\Container
 					Callback::invoke($callback, $replicator, $button->parent);
 				}
 				if ($form = $button->getForm(FALSE)) {
-					$form->onSuccess = array();
+					$form->onSuccess = [];
 				}
 				$replicator->remove($button->parent);
 			};
 			return $_this;
 		});
 
-		SubmitButton::extensionMethod('addCreateOnClick', function (SubmitButton $_this, $allowEmpty = FALSE, $callback = NULL) {
+		Nette\Utils\ObjectMixin::setExtensionMethod(SubmitButton::class, 'addCreateOnClick', function (SubmitButton $_this, $allowEmpty = FALSE, $callback = NULL) {
 			$_this->onClick[] = function (SubmitButton $button) use ($allowEmpty, $callback) {
 				$replicator = $button->lookup(__NAMESPACE__ . '\Container');
 				/** @var Container $replicator */
@@ -546,7 +551,7 @@ class Container extends Nette\Forms\Container
 						Callback::invoke($callback, $replicator, $newContainer);
 					}
 				}
-				$button->getForm()->onSuccess = array();
+				$button->getForm()->onSuccess = [];
 			};
 			return $_this;
 		});

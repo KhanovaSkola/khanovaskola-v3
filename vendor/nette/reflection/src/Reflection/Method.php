@@ -1,20 +1,17 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Reflection;
 
-use Nette,
-	Nette\Utils\ObjectMixin;
+use Nette;
 
 
 /**
  * Reports information about a method.
- *
- * @author     David Grudl
  * @property-read array $defaultParameters
  * @property-read ClassType $declaringClass
  * @property-read Method $prototype
@@ -50,11 +47,12 @@ use Nette,
  */
 class Method extends \ReflectionMethod
 {
+	use Nette\SmartObject;
 
 	/**
 	 * @param  string|object
 	 * @param  string
-	 * @return Method
+	 * @return static
 	 */
 	public static function from($class, $method)
 	{
@@ -77,14 +75,6 @@ class Method extends \ReflectionMethod
 	}
 
 
-	public function getClosure($object = NULL)
-	{
-		return PHP_VERSION_ID < 50400
-			? Nette\Utils\Callback::closure($object ?: parent::getDeclaringClass()->getName(), $this->getName())
-			: parent::getClosure($object);
-	}
-
-
 	/********************* Reflection layer ****************d*g**/
 
 
@@ -98,12 +88,12 @@ class Method extends \ReflectionMethod
 
 
 	/**
-	 * @return Method
+	 * @return static
 	 */
 	public function getPrototype()
 	{
 		$prototype = parent::getPrototype();
-		return new Method($prototype->getDeclaringClass()->getName(), $prototype->getName());
+		return new static($prototype->getDeclaringClass()->getName(), $prototype->getName());
 	}
 
 
@@ -112,7 +102,7 @@ class Method extends \ReflectionMethod
 	 */
 	public function getExtension()
 	{
-		return ($name = $this->getExtensionName()) ? new Extension($name) : NULL;
+		return ($name = $this->getExtensionName()) ? new Extension($name) : null;
 	}
 
 
@@ -121,7 +111,7 @@ class Method extends \ReflectionMethod
 	 */
 	public function getParameters()
 	{
-		$me = array(parent::getDeclaringClass()->getName(), $this->getName());
+		$me = [parent::getDeclaringClass()->getName(), $this->getName()];
 		foreach ($res = parent::getParameters() as $key => $val) {
 			$res[$key] = new Parameter($me, $val->getName());
 		}
@@ -152,7 +142,7 @@ class Method extends \ReflectionMethod
 	public function getAnnotation($name)
 	{
 		$res = AnnotationsParser::getAll($this);
-		return isset($res[$name]) ? end($res[$name]) : NULL;
+		return isset($res[$name]) ? end($res[$name]) : null;
 	}
 
 
@@ -174,38 +164,4 @@ class Method extends \ReflectionMethod
 	{
 		return $this->getAnnotation('description');
 	}
-
-
-	/********************* Nette\Object behaviour ****************d*g**/
-
-
-	public function __call($name, $args)
-	{
-		return ObjectMixin::call($this, $name, $args);
-	}
-
-
-	public function &__get($name)
-	{
-		return ObjectMixin::get($this, $name);
-	}
-
-
-	public function __set($name, $value)
-	{
-		ObjectMixin::set($this, $name, $value);
-	}
-
-
-	public function __isset($name)
-	{
-		return ObjectMixin::has($this, $name);
-	}
-
-
-	public function __unset($name)
-	{
-		ObjectMixin::remove($this, $name);
-	}
-
 }

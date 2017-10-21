@@ -18,13 +18,12 @@ parameters:
 php:
 	date.timezone: Europe/Prague
 
-nette:
-	application:
-		errorPresenter: Error
-		mapping:
-			*: App\Presenters\*\*
-	session:
-		expiration: 5 years
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\Presenters\*\*
+session:
+	expiration: 5 years
 
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
@@ -32,14 +31,8 @@ extensions:
 	facebook: Kdyby\Facebook\DI\FacebookExtension
 	google: Kdyby\Google\DI\GoogleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
-	queryPanel: Nextras\TracyQueryPanel\DI\QueryPanelExtension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
 	replicator: Kdyby\Replicator\DI\ReplicatorExtension
-	version: Clevis\Version\DI\VersionExtension
-
-queryPanel:
-	- Nextras\TracyQueryPanel\Handlers\DibiHandler
-	- App\Dev\Handlers\ElasticsearchHandler
 
 monolog:
 	name: main-site
@@ -78,9 +71,6 @@ rabbitmq:
 		updateVideo:
 			connection: default
 			exchange: {name: 'update-video', type: direct}
-		blackboardPreview:
-			connection: default
-			exchange: {name: 'blackboard-preview', type: direct}
 		updateVideoChart:
 			connection: default
 			exchange: {name: 'update-video-chart', type: direct}
@@ -106,11 +96,6 @@ rabbitmq:
 			exchange: {name: 'update-video', type: direct}
 			queue: {name: 'update-video'}
 			callback: [@App\Models\Services\Consumers\UpdateVideo, process]
-		blackboardPreview:
-			connection: default
-			exchange: {name: 'blackboard-preview', type: direct}
-			queue: {name: 'blackboard-preview'}
-			callback: [@App\Models\Services\Consumers\BlackboardPreview, process]
 		updateVideoChart:
 			connection: default
 			exchange: {name: 'update-video-chart', type: direct}
@@ -126,10 +111,8 @@ services:
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
-	- App\Models\Services\BlackboardPreview
 	- App\Models\Services\BlueprintPurifier
 	- App\Models\Services\Blueprints\Compiler
-	- App\Models\Services\Consumers\BlackboardPreview
 	- App\Models\Services\Consumers\Mail
 	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema

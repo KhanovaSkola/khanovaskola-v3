@@ -1,47 +1,60 @@
 <?php
-
 namespace PhpAmqpLib\Wire\IO;
 
 use PhpAmqpLib\Exception\AMQPIOException;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
+use PhpAmqpLib\Helper\MiscHelper;
+use PhpAmqpLib\Wire\AMQPWriter;
 
 class SocketIO extends AbstractIO
 {
-
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $host;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $port;
 
-    /**
-     * @var int
-     */
-    protected $timeout;
+    /** @var float */
+    protected $send_timeout;
 
-    /**
-     * @var resource
-     */
+    /** @var float */
+    protected $read_timeout;
+
+    /** @var int */
+    protected $heartbeat;
+
+    /** @var float */
+    protected $last_read;
+
+    /** @var float */
+    protected $last_write;
+
+    /** @var resource */
     private $sock;
 
+    /** @var bool */
+    private $keepalive;
 
-
-    public function __construct($host, $port, $timeout, $keepalive = false)
+    /**
+     * @param string $host
+     * @param int $port
+     * @param float $read_timeout
+     * @param bool $keepalive
+     * @param float|null $write_timeout if null defaults to read timeout
+     * @param int $heartbeat how often to send heartbeat. 0 means off
+     */
+    public function __construct($host, $port, $read_timeout, $keepalive = false, $write_timeout = null, $heartbeat = 0)
     {
         $this->host = $host;
         $this->port = $port;
-        $this->timeout = $timeout;
+        $this->read_timeout = $read_timeout;
+        $this->send_timeout = $write_timeout ?: $read_timeout;
+        $this->heartbeat = $heartbeat;
         $this->keepalive = $keepalive;
     }
 
-
-
     /**
-     * Setup the socket connection
+     * Sets up the socket connection
      *
      * @throws \Exception
      */
@@ -49,13 +62,19 @@ class SocketIO extends AbstractIO
     {
         $this->sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-        socket_set_option($this->sock, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $this->timeout, 'usec' => 0));
-        socket_set_option($this->sock, SOL_SOCKET, SO_SNDTIMEO, array('sec' => $this->timeout, 'usec' => 0));
+        list($sec, $uSec) = MiscHelper::splitSecondsMicroseconds($this->send_timeout);
+        socket_set_option($this->sock, SOL_SOCKET, SO_SNDTIMEO, array('sec' => $sec, 'usec' => $uSec));
+        list($sec, $uSec) = MiscHelper::splitSecondsMicroseconds($this->read_timeout);
+        socket_set_option($this->sock, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $sec, 'usec' => $uSec));
 
         if (!socket_connect($this->sock, $this->host, $this->port)) {
             $errno = socket_last_error($this->sock);
             $errstr = socket_strerror($errno);
-            throw new AMQPIOException("Error Connecting to server($errno): $errstr ", $errno);
+            throw new AMQPIOException(sprintf(
+                'Error Connecting to server (%s): %s',
+                $errno,
+                $errstr
+            ), $errno);
         }
 
         socket_set_block($this->sock);
@@ -66,10 +85,16 @@ class SocketIO extends AbstractIO
         }
     }
 
-
+    /**
+     * @return resource
+     */
+    public function getSocket()
+    {
+        return $this->sock;
+    }
 
     /**
-     * Reconnect the socket
+     * Reconnects the socket
      */
     public function reconnect()
     {
@@ -77,20 +102,25 @@ class SocketIO extends AbstractIO
         $this->connect();
     }
 
-
-
+    /**
+     * @param int $n
+     * @return mixed|string
+     * @throws \PhpAmqpLib\Exception\AMQPIOException
+     * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
+     */
     public function read($n)
     {
+        if (is_null($this->sock)) {
+            throw new AMQPRuntimeException(sprintf(
+                'Socket was null! Last SocketError was: %s',
+                socket_strerror(socket_last_error())
+            ));
+        }
         $res = '';
         $read = 0;
-
         $buf = socket_read($this->sock, $n);
         while ($read < $n && $buf !== '' && $buf !== false) {
-            // Null sockets are invalid, throw exception
-            if (is_null($this->sock)) {
-                throw new AMQPRuntimeException("Socket was null! Last SocketError was: "
-                    . socket_strerror(socket_last_error()));
-            }
+            $this->check_heartbeat();
 
             $read += mb_strlen($buf, 'ASCII');
             $res .= $buf;
@@ -98,15 +128,25 @@ class SocketIO extends AbstractIO
         }
 
         if (mb_strlen($res, 'ASCII') != $n) {
-            throw new AMQPIOException("Error reading data. Received " .
-                mb_strlen($res, 'ASCII') . " instead of expected $n bytes");
+            throw new AMQPIOException(sprintf(
+                'Error reading data. Received %s instead of expected %s bytes',
+                mb_strlen($res, 'ASCII'),
+                $n
+            ));
         }
+
+        $this->last_read = microtime(true);
 
         return $res;
     }
 
-
-
+    /**
+     * @param string $data
+     * @return void
+     *
+     * @throws \PhpAmqpLib\Exception\AMQPIOException
+     * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
+     */
     public function write($data)
     {
         $len = mb_strlen($data, 'ASCII');
@@ -114,14 +154,18 @@ class SocketIO extends AbstractIO
         while (true) {
             // Null sockets are invalid, throw exception
             if (is_null($this->sock)) {
-                throw new AMQPRuntimeException("Socket was null! Last SocketError was: "
-                    . socket_strerror(socket_last_error()));
+                throw new AMQPRuntimeException(sprintf(
+                    'Socket was null! Last SocketError was: %s',
+                    socket_strerror(socket_last_error())
+                ));
             }
 
             $sent = socket_write($this->sock, $data, $len);
             if ($sent === false) {
-                throw new AMQPIOException ("Error sending data. Last SocketError: "
-                    . socket_strerror(socket_last_error()));
+                throw new AMQPIOException(sprintf(
+                    'Error sending data. Last SocketError: %s',
+                    socket_strerror(socket_last_error())
+                ));
             }
 
             // Check if the entire message has been sent
@@ -135,9 +179,9 @@ class SocketIO extends AbstractIO
                 break;
             }
         }
+
+        $this->last_write = microtime(true);
     }
-
-
 
     public function close()
     {
@@ -145,25 +189,69 @@ class SocketIO extends AbstractIO
             socket_close($this->sock);
         }
         $this->sock = null;
+        $this->last_read = null;
+        $this->last_write = null;
     }
 
-
-
+    /**
+     * @param int $sec
+     * @param int $usec
+     * @return int|mixed
+     */
     public function select($sec, $usec)
     {
         $read = array($this->sock);
         $write = null;
         $except = null;
+
         return socket_select($read, $write, $except, $sec, $usec);
     }
 
+    /**
+     * @throws \PhpAmqpLib\Exception\AMQPIOException
+     */
     protected function enable_keepalive()
     {
         if (!defined('SOL_SOCKET') || !defined('SO_KEEPALIVE')) {
-            throw new AMQPIOException("Can not enable keepalive: SOL_SOCKET or SO_KEEPALIVE is not defined");
+            throw new AMQPIOException('Can not enable keepalive: SOL_SOCKET or SO_KEEPALIVE is not defined');
         }
 
         socket_set_option($this->sock, SOL_SOCKET, SO_KEEPALIVE, 1);
     }
 
+    /**
+     * Heartbeat logic: check connection health here
+     */
+    protected function check_heartbeat()
+    {
+        // ignore unless heartbeat interval is set
+        if ($this->heartbeat !== 0 && $this->last_read && $this->last_write) {
+            $t = microtime(true);
+            $t_read = round($t - $this->last_read);
+            $t_write = round($t - $this->last_write);
+
+            // server has gone away
+            if (($this->heartbeat * 2) < $t_read) {
+                $this->reconnect();
+            }
+
+            // time for client to send a heartbeat
+            if (($this->heartbeat / 2) < $t_write) {
+                $this->write_heartbeat();
+            }
+        }
+    }
+
+    /**
+     * Sends a heartbeat message
+     */
+    protected function write_heartbeat()
+    {
+        $pkt = new AMQPWriter();
+        $pkt->write_octet(8);
+        $pkt->write_short(0);
+        $pkt->write_long(0);
+        $pkt->write_octet(0xCE);
+        $this->write($pkt->getvalue());
+    }
 }

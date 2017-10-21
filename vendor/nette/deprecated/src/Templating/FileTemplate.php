@@ -1,15 +1,16 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Templating;
 
-use Nette,
-	Nette\Caching,
-	Latte;
+use Latte;
+use Latte\CompileException;
+use Nette;
+use Nette\Caching;
 
 
 /**
@@ -25,10 +26,10 @@ class FileTemplate extends Template implements IFileTemplate
 	 * Constructor.
 	 * @param  string  template file path
 	 */
-	public function __construct($file = NULL)
+	public function __construct($file = null)
 	{
-		//trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
-		if ($file !== NULL) {
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
+		if ($file !== null) {
 			$this->setFile($file);
 		}
 	}
@@ -37,7 +38,7 @@ class FileTemplate extends Template implements IFileTemplate
 	/**
 	 * Sets the path to the template file.
 	 * @param  string  template file path
-	 * @return self
+	 * @return static
 	 */
 	public function setFile($file)
 	{
@@ -78,7 +79,7 @@ class FileTemplate extends Template implements IFileTemplate
 	 */
 	public function render()
 	{
-		if ($this->file == NULL) { // intentionally ==
+		if ($this->file == null) { // intentionally ==
 			throw new Nette\InvalidStateException('Template file name was not specified.');
 		}
 
@@ -96,11 +97,11 @@ class FileTemplate extends Template implements IFileTemplate
 		}
 		$cached = $compiled = $cache->load($this->file);
 
-		if ($compiled === NULL) {
+		if ($compiled === null) {
 			try {
 				$compiled = "<?php\n\n// source file: $this->file\n\n?>" . $this->compile();
 
-			} catch (FilterException $e) {
+			} catch (CompileException $e) {
 				throw $e->setSource(file_get_contents($this->file), $e->sourceLine, $this->file);
 			}
 
@@ -111,8 +112,7 @@ class FileTemplate extends Template implements IFileTemplate
 			$cached = $cache->load($this->file);
 		}
 
-		$isFile = $cached !== NULL && $storage instanceof Caching\Storages\PhpFileStorage;
+		$isFile = $cached !== null && $storage instanceof Caching\Storages\PhpFileStorage;
 		self::load($isFile ? $cached['file'] : $compiled, $this->getParameters(), $isFile);
 	}
-
 }

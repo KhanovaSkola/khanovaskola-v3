@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\ComponentModel;
@@ -15,13 +15,13 @@ use Nette;
  *
  * Components are objects implementing IComponent. They has parent component and own name.
  *
- * @author     David Grudl
- *
  * @property-read string $name
- * @property-read IContainer|NULL $parent
+ * @property-read IContainer|null $parent
  */
-abstract class Component extends Nette\Object implements IComponent
+abstract class Component implements IComponent
 {
+	use Nette\SmartObject;
+
 	/** @var IContainer */
 	private $parent;
 
@@ -29,12 +29,13 @@ abstract class Component extends Nette\Object implements IComponent
 	private $name;
 
 	/** @var array of [type => [obj, depth, path, is_monitored?]] */
-	private $monitors = array();
+	private $monitors = [];
 
 
-	public function __construct(IContainer $parent = NULL, $name = NULL)
+	public function __construct()
 	{
-		if ($parent !== NULL) {
+		list($parent, $name) = func_get_args() + [null, null];
+		if ($parent !== null) {
 			$parent->addComponent($this, $name);
 
 		} elseif (is_string($name)) {
@@ -45,38 +46,38 @@ abstract class Component extends Nette\Object implements IComponent
 
 	/**
 	 * Lookup hierarchy for component specified by class or interface name.
-	 * @param  string class/interface type
-	 * @param  bool   throw exception if component doesn't exist?
-	 * @return IComponent
+	 * @param  string|null
+	 * @param  bool
+	 * @return IComponent|null
 	 */
-	public function lookup($type, $need = TRUE)
+	public function lookup($type, $throw = true)
 	{
 		if (!isset($this->monitors[$type])) { // not monitored or not processed yet
 			$obj = $this->parent;
 			$path = self::NAME_SEPARATOR . $this->name;
 			$depth = 1;
-			while ($obj !== NULL) {
+			while ($obj !== null) {
 				$parent = $obj->getParent();
-				if ($type ? $obj instanceof $type : $parent === NULL) {
+				if ($type ? $obj instanceof $type : $parent === null) {
 					break;
 				}
 				$path = self::NAME_SEPARATOR . $obj->getName() . $path;
 				$depth++;
 				$obj = $parent; // IComponent::getParent()
 				if ($obj === $this) {
-					$obj = NULL; // prevent cycling
+					$obj = null; // prevent cycling
 				}
 			}
 
 			if ($obj) {
-				$this->monitors[$type] = array($obj, $depth, substr($path, 1), FALSE);
+				$this->monitors[$type] = [$obj, $depth, substr($path, 1), false];
 
 			} else {
-				$this->monitors[$type] = array(NULL, NULL, NULL, FALSE); // not found
+				$this->monitors[$type] = [null, null, null, false]; // not found
 			}
 		}
 
-		if ($need && $this->monitors[$type][0] === NULL) {
+		if ($throw && $this->monitors[$type][0] === null) {
 			throw new Nette\InvalidStateException("Component '$this->name' is not attached to '$type'.");
 		}
 
@@ -87,36 +88,36 @@ abstract class Component extends Nette\Object implements IComponent
 	/**
 	 * Lookup for component specified by class or interface name. Returns backtrace path.
 	 * A path is the concatenation of component names separated by self::NAME_SEPARATOR.
-	 * @param  string class/interface type
-	 * @param  bool   throw exception if component doesn't exist?
-	 * @return string
+	 * @param  string|null
+	 * @param  bool
+	 * @return string|null
 	 */
-	public function lookupPath($type = NULL, $need = TRUE)
+	public function lookupPath($type = null, $throw = true)
 	{
-		$this->lookup($type, $need);
+		$this->lookup($type, $throw);
 		return $this->monitors[$type][2];
 	}
 
 
 	/**
 	 * Starts monitoring.
-	 * @param  string class/interface type
+	 * @param  string
 	 * @return void
 	 */
 	public function monitor($type)
 	{
 		if (empty($this->monitors[$type][3])) {
-			if ($obj = $this->lookup($type, FALSE)) {
+			if ($obj = $this->lookup($type, false)) {
 				$this->attached($obj);
 			}
-			$this->monitors[$type][3] = TRUE; // mark as monitored
+			$this->monitors[$type][3] = true; // mark as monitored
 		}
 	}
 
 
 	/**
 	 * Stops monitoring.
-	 * @param  string class/interface type
+	 * @param  string
 	 * @return void
 	 */
 	public function unmonitor($type)
@@ -151,7 +152,7 @@ abstract class Component extends Nette\Object implements IComponent
 
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getName()
 	{
@@ -161,7 +162,7 @@ abstract class Component extends Nette\Object implements IComponent
 
 	/**
 	 * Returns the container if any.
-	 * @return IContainer|NULL
+	 * @return IContainer|null
 	 */
 	public function getParent()
 	{
@@ -170,42 +171,42 @@ abstract class Component extends Nette\Object implements IComponent
 
 
 	/**
-	 * Sets the parent of this component. This method is managed by containers and should
+	 * Sets or removes the parent of this component. This method is managed by containers and should
 	 * not be called by applications
-	 * @param  IContainer  New parent or null if this component is being removed from a parent
+	 * @param  IContainer
 	 * @param  string
-	 * @return self
+	 * @return static
 	 * @throws Nette\InvalidStateException
 	 * @internal
 	 */
-	public function setParent(IContainer $parent = NULL, $name = NULL)
+	public function setParent(IContainer $parent = null, $name = null)
 	{
-		if ($parent === NULL && $this->parent === NULL && $name !== NULL) {
+		if ($parent === null && $this->parent === null && $name !== null) {
 			$this->name = $name; // just rename
 			return $this;
 
-		} elseif ($parent === $this->parent && $name === NULL) {
+		} elseif ($parent === $this->parent && $name === null) {
 			return $this; // nothing to do
 		}
 
 		// A component cannot be given a parent if it already has a parent.
-		if ($this->parent !== NULL && $parent !== NULL) {
+		if ($this->parent !== null && $parent !== null) {
 			throw new Nette\InvalidStateException("Component '$this->name' already has a parent.");
 		}
 
 		// remove from parent?
-		if ($parent === NULL) {
+		if ($parent === null) {
 			$this->refreshMonitors(0);
-			$this->parent = NULL;
+			$this->parent = null;
 
 		} else { // add to parent
 			$this->validateParent($parent);
 			$this->parent = $parent;
-			if ($name !== NULL) {
+			if ($name !== null) {
 				$this->name = $name;
 			}
 
-			$tmp = array();
+			$tmp = [];
 			$this->refreshMonitors(0, $tmp);
 		}
 		return $this;
@@ -226,26 +227,26 @@ abstract class Component extends Nette\Object implements IComponent
 	/**
 	 * Refreshes monitors.
 	 * @param  int
-	 * @param  array|NULL (array = attaching, NULL = detaching)
+	 * @param  array|null (array = attaching, null = detaching)
 	 * @param  array
 	 * @return void
 	 */
-	private function refreshMonitors($depth, & $missing = NULL, & $listeners = array())
+	private function refreshMonitors($depth, &$missing = null, &$listeners = [])
 	{
 		if ($this instanceof IContainer) {
 			foreach ($this->getComponents() as $component) {
-				if ($component instanceof Component) {
+				if ($component instanceof self) {
 					$component->refreshMonitors($depth + 1, $missing, $listeners);
 				}
 			}
 		}
 
-		if ($missing === NULL) { // detaching
+		if ($missing === null) { // detaching
 			foreach ($this->monitors as $type => $rec) {
 				if (isset($rec[1]) && $rec[1] > $depth) {
 					if ($rec[3]) { // monitored
-						$this->monitors[$type] = array(NULL, NULL, NULL, TRUE);
-						$listeners[] = array($this, $rec[0]);
+						$this->monitors[$type] = [null, null, null, true];
+						$listeners[] = [$this, $rec[0]];
 					} else { // not monitored, just randomly cached
 						unset($this->monitors[$type]);
 					}
@@ -261,24 +262,28 @@ abstract class Component extends Nette\Object implements IComponent
 					unset($this->monitors[$type]);
 
 				} elseif (isset($missing[$type])) { // known from previous lookup
-					$this->monitors[$type] = array(NULL, NULL, NULL, TRUE);
+					$this->monitors[$type] = [null, null, null, true];
 
 				} else {
-					$this->monitors[$type] = NULL; // forces re-lookup
-					if ($obj = $this->lookup($type, FALSE)) {
-						$listeners[] = array($this, $obj);
+					$this->monitors[$type] = null; // forces re-lookup
+					if ($obj = $this->lookup($type, false)) {
+						$listeners[] = [$this, $obj];
 					} else {
-						$missing[$type] = TRUE;
+						$missing[$type] = true;
 					}
-					$this->monitors[$type][3] = TRUE; // mark as monitored
+					$this->monitors[$type][3] = true; // mark as monitored
 				}
 			}
 		}
 
 		if ($depth === 0) { // call listeners
-			$method = $missing === NULL ? 'detached' : 'attached';
+			$method = $missing === null ? 'detached' : 'attached';
+			$prev = [];
 			foreach ($listeners as $item) {
-				$item[0]->$method($item[1]);
+				if (!in_array($item, $prev, true)) {
+					$item[0]->$method($item[1]);
+					$prev[] = $item;
+				}
 			}
 		}
 	}
@@ -292,17 +297,17 @@ abstract class Component extends Nette\Object implements IComponent
 	 */
 	public function __clone()
 	{
-		if ($this->parent === NULL) {
+		if ($this->parent === null) {
 			return;
 
 		} elseif ($this->parent instanceof Container) {
 			$this->parent = $this->parent->_isCloning();
-			if ($this->parent === NULL) { // not cloning
+			if ($this->parent === null) { // not cloning
 				$this->refreshMonitors(0);
 			}
 
 		} else {
-			$this->parent = NULL;
+			$this->parent = null;
 			$this->refreshMonitors(0);
 		}
 	}
@@ -324,5 +329,4 @@ abstract class Component extends Nette\Object implements IComponent
 	{
 		throw new Nette\NotImplementedException('Object unserialization is not supported by class ' . get_class($this));
 	}
-
 }

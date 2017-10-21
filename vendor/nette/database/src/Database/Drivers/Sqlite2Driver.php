@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database\Drivers;
@@ -12,8 +12,6 @@ use Nette;
 
 /**
  * Supplemental SQLite2 database driver.
- *
- * @author     David Grudl
  */
 class Sqlite2Driver extends SqliteDriver
 {
@@ -42,5 +40,4 @@ class Sqlite2Driver extends SqliteDriver
 	public function getColumnTypes(\PDOStatement $statement)
 	{
 	}
-
 }

@@ -1,20 +1,17 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Reflection;
 
-use Nette,
-	Nette\Utils\ObjectMixin;
+use Nette;
 
 
 /**
  * Reports information about a function.
- *
- * @author     David Grudl
  * @property-read array $defaultParameters
  * @property-read bool $closure
  * @property-read Extension $extension
@@ -37,7 +34,9 @@ use Nette,
  */
 class GlobalFunction extends \ReflectionFunction
 {
-	/** @var string|Closure */
+	use Nette\SmartObject;
+
+	/** @var string|\Closure */
 	private $value;
 
 
@@ -62,14 +61,6 @@ class GlobalFunction extends \ReflectionFunction
 	}
 
 
-	public function getClosure()
-	{
-		return PHP_VERSION_ID < 50400
-			? Nette\Utils\Callback::closure($this->value)
-			: parent::getClosure();
-	}
-
-
 	/********************* Reflection layer ****************d*g**/
 
 
@@ -78,7 +69,7 @@ class GlobalFunction extends \ReflectionFunction
 	 */
 	public function getExtension()
 	{
-		return ($name = $this->getExtensionName()) ? new Extension($name) : NULL;
+		return ($name = $this->getExtensionName()) ? new Extension($name) : null;
 	}
 
 
@@ -117,7 +108,7 @@ class GlobalFunction extends \ReflectionFunction
 	public function getAnnotation($name)
 	{
 		$res = AnnotationsParser::getAll($this);
-		return isset($res[$name]) ? end($res[$name]) : NULL;
+		return isset($res[$name]) ? end($res[$name]) : null;
 	}
 
 
@@ -139,38 +130,4 @@ class GlobalFunction extends \ReflectionFunction
 	{
 		return $this->getAnnotation('description');
 	}
-
-
-	/********************* Nette\Object behaviour ****************d*g**/
-
-
-	public function __call($name, $args)
-	{
-		return ObjectMixin::call($this, $name, $args);
-	}
-
-
-	public function &__get($name)
-	{
-		return ObjectMixin::get($this, $name);
-	}
-
-
-	public function __set($name, $value)
-	{
-		ObjectMixin::set($this, $name, $value);
-	}
-
-
-	public function __isset($name)
-	{
-		return ObjectMixin::has($this, $name);
-	}
-
-
-	public function __unset($name)
-	{
-		ObjectMixin::remove($this, $name);
-	}
-
 }

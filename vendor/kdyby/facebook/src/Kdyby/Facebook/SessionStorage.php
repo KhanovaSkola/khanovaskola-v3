@@ -40,7 +40,7 @@ class SessionStorage extends Nette\Object
 	/**
 	 * @var array
 	 */
-	protected static $supportedKeys = array('state', 'code', 'access_token', 'user_id');
+	protected static $supportedKeys = ['state', 'code', 'access_token', 'user_id'];
 
 
 

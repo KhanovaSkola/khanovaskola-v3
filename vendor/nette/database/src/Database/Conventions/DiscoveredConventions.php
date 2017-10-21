@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database\Conventions;
@@ -13,8 +13,6 @@ use Nette\Database\IStructure;
 
 /**
  * Conventions based on database structure.
- *
- * @author     Jan Skrasek
  */
 class DiscoveredConventions implements IConventions
 {
@@ -36,25 +34,25 @@ class DiscoveredConventions implements IConventions
 
 	public function getHasManyReference($nsTable, $key)
 	{
-		$candidates = $columnCandidates = array();
+		$candidates = $columnCandidates = [];
 		$targets = $this->structure->getHasManyReference($nsTable);
 		$table = preg_replace('#^(.*\.)?(.*)$#', '$2', $nsTable);
 
 		foreach ($targets as $targetNsTable => $targetColumns) {
 			$targetTable = preg_replace('#^(.*\.)?(.*)$#', '$2', $targetNsTable);
-			if (stripos($targetNsTable, $key) === FALSE) {
+			if (stripos($targetNsTable, $key) === false) {
 				continue;
 			}
 
 			foreach ($targetColumns as $targetColumn) {
-				if (stripos($targetColumn, $table) !== FALSE) {
-					$columnCandidates[] = $candidate = array($targetNsTable, $targetColumn);
+				if (stripos($targetColumn, $table) !== false) {
+					$columnCandidates[] = $candidate = [$targetNsTable, $targetColumn];
 					if (strcmp($targetTable, $key) === 0 || strcmp($targetNsTable, $key) === 0) {
 						return $candidate;
 					}
 				}
 
-				$candidates[] = array($targetTable, array($targetNsTable, $targetColumn));
+				$candidates[] = [$targetTable, [$targetNsTable, $targetColumn]];
 			}
 		}
 
@@ -75,7 +73,7 @@ class DiscoveredConventions implements IConventions
 		}
 
 		if ($this->structure->isRebuilt()) {
-			return NULL;
+			return null;
 		}
 
 		$this->structure->rebuild();
@@ -88,17 +86,16 @@ class DiscoveredConventions implements IConventions
 		$tableColumns = $this->structure->getBelongsToReference($table);
 
 		foreach ($tableColumns as $column => $targetTable) {
-			if (stripos($column, $key) !== FALSE) {
-				return array($targetTable, $column);
+			if (stripos($column, $key) !== false) {
+				return [$targetTable, $column];
 			}
 		}
 
 		if ($this->structure->isRebuilt()) {
-			return NULL;
+			return null;
 		}
 
 		$this->structure->rebuild();
 		return $this->getBelongsToReference($table, $key);
 	}
-
 }

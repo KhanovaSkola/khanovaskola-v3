@@ -1,23 +1,22 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Bridges\HttpTracy;
 
-use Nette,
-	Tracy;
+use Nette;
+use Tracy;
 
 
 /**
  * Session panel for Debugger Bar.
- *
- * @author     David Grudl
  */
-class SessionPanel extends Nette\Object implements Tracy\IBarPanel
+class SessionPanel implements Tracy\IBarPanel
 {
+	use Nette\SmartObject;
 
 	/**
 	 * Renders tab.
@@ -25,7 +24,7 @@ class SessionPanel extends Nette\Object implements Tracy\IBarPanel
 	 */
 	public function getTab()
 	{
-		ob_start();
+		ob_start(function () {});
 		require __DIR__ . '/templates/SessionPanel.tab.phtml';
 		return ob_get_clean();
 	}
@@ -37,9 +36,8 @@ class SessionPanel extends Nette\Object implements Tracy\IBarPanel
 	 */
 	public function getPanel()
 	{
-		ob_start();
+		ob_start(function () {});
 		require __DIR__ . '/templates/SessionPanel.panel.phtml';
 		return ob_get_clean();
 	}
-
 }

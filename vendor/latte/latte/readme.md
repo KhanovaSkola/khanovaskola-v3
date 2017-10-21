@@ -1,8 +1,12 @@
-[Latte](http://latte.nette.org): amazing template engine for PHP
+[Latte](https://latte.nette.org): amazing template engine for PHP
 ================================================================
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/latte/latte.svg)](https://packagist.org/packages/latte/latte)
 [![Build Status](https://travis-ci.org/nette/latte.svg?branch=master)](https://travis-ci.org/nette/latte)
+[![Coverage Status](https://coveralls.io/repos/github/nette/latte/badge.svg?branch=master)](https://coveralls.io/github/nette/latte?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/latte/latte/v/stable)](https://github.com/nette/latte/releases)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/latte/blob/master/license.md)
+[![Join the chat at https://gitter.im/nette/latte](https://badges.gitter.im/nette/latte.svg)](https://gitter.im/nette/latte)
 
 Latte is a template engine for PHP which eases your work and
 ensures the output is protected against vulnerabilities, such as XSS.
@@ -49,13 +53,7 @@ As you can see there are two types of macros:
 - **macro** in braces, for example `{foreach …}`
 - **n:macro**, for example `n:if="…"`
 
-How to render template? Just install Latte (it requires PHP 5.3.1 or later) by [downloading the latest package](https://github.com/nette/latte/releases) or using Composer:
-
-```
-php composer.phar require latte/latte
-```
-
-and run this code:
+How to render template? Just install Latte (see below) and run this code:
 
 ```php
 $latte = new Latte\Engine;
@@ -65,10 +63,22 @@ $latte->render('template.latte', $parameters);
 ```
 
 
+Installation
+============
+
+The best way how to install Latte is to [download a latest package](https://github.com/nette/latte/releases) or use a Composer:
+
+```bash
+composer require latte/latte
+```
+
+The Latte requires PHP version 5.4.4 or newer (is compatible with PHP 7.0 and 7.1).
+
+
 Macros
 ======
 
-You can find detailed description of all the default macros on the [extra page](http://doc.nette.org/en/default-macros). Furthermore, you can make your own macros.
+You can find detailed description of all the default macros on the [extra page](https://doc.nette.org/en/default-macros). Furthermore, you can make your own macros.
 
 Each pair macro, such as `{if} … {/if}`, operating upon single HTML element can be written in `n:macro` notation. So, it is possible to write the `{foreach}` macro in the same manner:
 
@@ -158,11 +168,11 @@ Depending on the value of `$url` variable this will print:
 // when $url is empty
 <p>Title</p>
 
-// when $url equals 'http://nette.org'
-<p><a href="http://nette.org">Title</a></p>
+// when $url equals 'https://nette.org'
+<p><a href="https://nette.org">Title</a></p>
 ```
 
-However, n:macros are not only a shortcut for pair macros, there are some pure n:macros as well, for example the coder's best friend [n:class](http://doc.nette.org/en/default-macros#toc-n-class) macro.
+However, n:macros are not only a shortcut for pair macros, there are some pure n:macros as well, for example the coder's best friend [n:class](https://doc.nette.org/en/default-macros#toc-n-class) macro.
 
 
 Filters
@@ -186,7 +196,7 @@ Parameters are put after the filter name separated by colon or comma:
 <h1>{$heading|truncate:20,''}</h1>
 ```
 
-See the summary of [standard filters](http://doc.nette.org/en/default-filters) and how to make user-defined filters.
+See the summary of [standard filters](https://doc.nette.org/en/default-filters) and how to make user-defined filters.
 
 
 In templates we can use functions which change or format the data to a form we want. They are called *filters*. See the [summary of the default filters|default filters].
@@ -244,7 +254,7 @@ Usability
 
 Latte syntax wasn't invented by engineers but came up from webdesigner's practical requests. We were looking for the friendliest syntax with which you can write even the most problematic constructions comfortably enough. You will be surprised how much help Latte can be.
 
-You can find macros for advanced [layout](http://doc.nette.org/en/default-macros#toc-template-expanding-inheritance) managing, for **template inheritance**, nested blocks and so on. Syntax comes from PHP itself so you don't have to learn anything new and you can leverage your know-how.
+You can find macros for advanced [layout](https://doc.nette.org/en/default-macros#toc-template-expanding-inheritance) managing, for **template inheritance**, nested blocks and so on. Syntax comes from PHP itself so you don't have to learn anything new and you can leverage your know-how.
 
 
 
@@ -278,6 +288,18 @@ If `$movie` variable stores `'Amarcord & 8 1/2'` string it generates the followi
 
 Thanks to Context-Aware Escaping the template is simple and your application perfectly secured against Cross Site Scripting. You can use PHP variables natively inside the JavaScript!
 
+
+JavaScript
+----------
+
+Strings in JavaScript are escaped including quotes. If you want to put variable into another string, simply concatenate them:
+
+```html
+<script>
+	alert('Hello ' + {$name} + '!');  # good
+	alert('Hello {$name} !');  # bad
+</script>
+```
 
 
 A pretty output

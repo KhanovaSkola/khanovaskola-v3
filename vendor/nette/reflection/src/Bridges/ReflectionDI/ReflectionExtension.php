@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Bridges\ReflectionDI;
@@ -12,8 +12,6 @@ use Nette;
 
 /**
  * Extension for Nette DI.
- *
- * @author     David Grudl
  */
 class ReflectionExtension extends Nette\DI\CompilerExtension
 {
@@ -21,7 +19,7 @@ class ReflectionExtension extends Nette\DI\CompilerExtension
 	private $debugMode;
 
 
-	public function __construct($debugMode = FALSE)
+	public function __construct($debugMode = false)
 	{
 		$this->debugMode = $debugMode;
 	}
@@ -29,9 +27,8 @@ class ReflectionExtension extends Nette\DI\CompilerExtension
 
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
-		$initialize = $class->methods['initialize'];
-		$initialize->addBody('Nette\Reflection\AnnotationsParser::setCacheStorage($this->getByType("Nette\Caching\IStorage"));');
-		$initialize->addBody('Nette\Reflection\AnnotationsParser::$autoRefresh = ?;', array($this->debugMode));
+		$class->getMethod('initialize')
+			->addBody('Nette\Reflection\AnnotationsParser::setCacheStorage($this->getByType(Nette\Caching\IStorage::class));')
+			->addBody('Nette\Reflection\AnnotationsParser::$autoRefresh = ?;', [$this->debugMode]);
 	}
-
 }

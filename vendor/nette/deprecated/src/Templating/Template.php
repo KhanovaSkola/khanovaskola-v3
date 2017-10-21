@@ -1,16 +1,16 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Templating;
 
-use Nette,
-	Nette\Caching,
-	Nette\Utils\Callback,
-	Latte;
+use Latte;
+use Nette;
+use Nette\Caching;
+use Nette\Utils\Callback;
 
 
 /**
@@ -18,7 +18,7 @@ use Nette,
  */
 class Template extends Nette\Object implements ITemplate
 {
-	/** @var array of function(Template $sender); Occurs before a template is compiled - implement to customize the filters */
+	/** @var array of function (Template $sender); Occurs before a template is compiled - implement to customize the filters */
 	public $onPrepareFilters = array();
 
 	/** @var string */
@@ -43,10 +43,16 @@ class Template extends Nette\Object implements ITemplate
 	private $cacheStorage;
 
 
+	public function __construct()
+	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
+	}
+
+
 	/**
 	 * Sets template source code.
 	 * @param  string
-	 * @return self
+	 * @return static
 	 */
 	public function setSource($source)
 	{
@@ -57,7 +63,7 @@ class Template extends Nette\Object implements ITemplate
 
 	/**
 	 * Returns template source code.
-	 * @return source
+	 * @return string
 	 */
 	public function getSource()
 	{
@@ -84,26 +90,28 @@ class Template extends Nette\Object implements ITemplate
 		$cache = new Caching\Cache($storage = $this->getCacheStorage(), 'Nette.Template');
 		$cached = $compiled = $cache->load($this->source);
 
-		if ($compiled === NULL) {
+		if ($compiled === null) {
 			$compiled = $this->compile();
 			$cache->save($this->source, $compiled, array(Caching\Cache::CONSTS => 'Nette\Framework::REVISION'));
 			$cached = $cache->load($this->source);
 		}
 
-		$isFile = $cached !== NULL && $storage instanceof Caching\Storages\PhpFileStorage;
+		$isFile = $cached !== null && $storage instanceof Caching\Storages\PhpFileStorage;
 		self::load($isFile ? $cached['file'] : $compiled, $this->getParameters(), $isFile);
 	}
 
 
 	protected static function load(/*$code, $params, $isFile*/)
 	{
-		foreach (func_get_arg(1) as $__k => $__v) $$__k = $__v;
+		foreach (func_get_arg(1) as $__k => $__v) {
+			$$__k = $__v;
+		}
 		unset($__k, $__v);
 		if (func_get_arg(2)) {
 			include func_get_arg(0);
 		} else {
 			$res = eval('?>' . func_get_arg(0));
-			if ($res === FALSE && ($error = error_get_last()) && $error['type'] === E_PARSE) {
+			if ($res === false && ($error = error_get_last()) && $error['type'] === E_PARSE) {
 				throw new \ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
 			}
 		}
@@ -117,7 +125,7 @@ class Template extends Nette\Object implements ITemplate
 	 */
 	public function save($file)
 	{
-		if (file_put_contents($file, $this->__toString(TRUE)) === FALSE) {
+		if (file_put_contents($file, $this->__toString(true)) === false) {
 			throw new Nette\IOException("Unable to save file '$file'.");
 		}
 	}
@@ -185,7 +193,7 @@ class Template extends Nette\Object implements ITemplate
 	public function getLatte()
 	{
 		if (!$this->latte) {
-			return NULL;
+			return null;
 		}
 		$latte = $this->latte instanceof Latte\Engine ? $this->latte : new Nette\Latte\Engine;
 
@@ -194,7 +202,7 @@ class Template extends Nette\Object implements ITemplate
 		}
 
 		foreach ($this->helperLoaders as $callback) {
-			$latte->addFilter(NULL, function($name) use ($callback, $latte) {
+			$latte->addFilter(null, function ($name) use ($callback, $latte) {
 				if ($res = call_user_func($callback, $name)) {
 					$latte->addFilter($name, $res);
 				}
@@ -212,7 +220,7 @@ class Template extends Nette\Object implements ITemplate
 	/**
 	 * Registers callback as template compile-time filter.
 	 * @param  callable
-	 * @return self
+	 * @return static
 	 */
 	public function registerFilter($callback)
 	{
@@ -220,8 +228,8 @@ class Template extends Nette\Object implements ITemplate
 			$this->latte = $callback;
 		} elseif (is_array($callback) && $callback[0] instanceof Latte\Engine) {
 			$this->latte = $callback[0];
-		} elseif (strpos(Callback::toString($callback), 'Latte\Engine') !== FALSE) {
-			$this->latte = TRUE;
+		} elseif (strpos(Callback::toString($callback), 'Latte\Engine') !== false) {
+			$this->latte = true;
 		} elseif ($this->latte) {
 			throw new Nette\DeprecatedException('Adding filters after Latte is not possible.');
 		} else {
@@ -245,7 +253,7 @@ class Template extends Nette\Object implements ITemplate
 	 * Registers callback as template run-time helper.
 	 * @param  string
 	 * @param  callable
-	 * @return self
+	 * @return static
 	 */
 	public function registerHelper($name, $callback)
 	{
@@ -257,7 +265,7 @@ class Template extends Nette\Object implements ITemplate
 	/**
 	 * Registers callback as template run-time helpers loader.
 	 * @param  callable
-	 * @return self
+	 * @return static
 	 */
 	public function registerHelperLoader($callback)
 	{
@@ -312,11 +320,11 @@ class Template extends Nette\Object implements ITemplate
 
 	/**
 	 * Sets translate adapter.
-	 * @return self
+	 * @return static
 	 */
-	public function setTranslator(Nette\Localization\ITranslator $translator = NULL)
+	public function setTranslator(Nette\Localization\ITranslator $translator = null)
 	{
-		$this->registerHelper('translate', $translator === NULL ? NULL : array($translator, 'translate'));
+		$this->registerHelper('translate', $translator === null ? null : array($translator, 'translate'));
 		return $this;
 	}
 
@@ -326,7 +334,7 @@ class Template extends Nette\Object implements ITemplate
 
 	/**
 	 * Adds new template parameter.
-	 * @return self
+	 * @return static
 	 */
 	public function add($name, $value)
 	{
@@ -342,7 +350,7 @@ class Template extends Nette\Object implements ITemplate
 	/**
 	 * Sets all parameters.
 	 * @param  array
-	 * @return self
+	 * @return static
 	 */
 	public function setParameters(array $params)
 	{
@@ -412,7 +420,7 @@ class Template extends Nette\Object implements ITemplate
 
 	/**
 	 * Set cache storage.
-	 * @return self
+	 * @return static
 	 */
 	public function setCacheStorage(Caching\IStorage $storage)
 	{
@@ -426,7 +434,7 @@ class Template extends Nette\Object implements ITemplate
 	 */
 	public function getCacheStorage()
 	{
-		if ($this->cacheStorage === NULL) {
+		if ($this->cacheStorage === null) {
 			return new Caching\Storages\DevNullStorage;
 		}
 		return $this->cacheStorage;
@@ -442,7 +450,7 @@ class Template extends Nette\Object implements ITemplate
 	 * @param  array
 	 * @return string
 	 */
-	private static function extractPhp($source, & $blocks)
+	private static function extractPhp($source, &$blocks)
 	{
 		$res = '';
 		$blocks = array();
@@ -460,13 +468,13 @@ class Template extends Nette\Object implements ITemplate
 					$res .= $token[1];
 					continue;
 
-				} elseif ($token[0] === T_OPEN_TAG && $token[1] === '<?' && isset($tokens[$n+1][1]) && $tokens[$n+1][1] === 'xml') {
-					$php = & $res;
+				} elseif ($token[0] === T_OPEN_TAG && $token[1] === '<?' && isset($tokens[$n + 1][1]) && $tokens[$n + 1][1] === 'xml') {
+					$php = &$res;
 					$token[1] = '<<?php ?>?';
 
 				} elseif ($token[0] === T_OPEN_TAG || $token[0] === T_OPEN_TAG_WITH_ECHO) {
-					$res .= $id = "<@php:p" . count($blocks) . "@";
-					$php = & $blocks[$id];
+					$res .= $id = '<@php:p' . count($blocks) . '@';
+					$php = &$blocks[$id];
 				}
 				$php .= $token[1];
 
@@ -476,5 +484,4 @@ class Template extends Nette\Object implements ITemplate
 		}
 		return $res;
 	}
-
 }

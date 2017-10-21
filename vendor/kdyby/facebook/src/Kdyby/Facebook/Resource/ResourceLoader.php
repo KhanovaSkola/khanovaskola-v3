@@ -42,7 +42,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	/**
 	 * @var array
 	 */
-	private $params = array();
+	private $params = [];
 
 	/**
 	 * @var ArrayHash|NULL
@@ -59,7 +59,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	 * @param string|NULL $method
 	 * @param array $params
 	 */
-	public function __construct(Facebook $facebook, $pathOrParams, $method = NULL, array $params = array())
+	public function __construct(Facebook $facebook, $pathOrParams, $method = NULL, array $params = [])
 	{
 		$this->facebook = $facebook;
 		$this->pathOrParams = $pathOrParams;
@@ -75,10 +75,10 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	 * @param string[] $fields
 	 * @return \Kdyby\Facebook\Resource\ResourceLoader
 	 */
-	public function setFields(array $fields = array())
+	public function setFields(array $fields = [])
 	{
 		if (empty($this->params["fields"])) {
-			$this->params["fields"] = array();
+			$this->params["fields"] = [];
 		}
 		$this->params["fields"] = $fields;
 		if (empty($this->params["fields"])) {
@@ -99,7 +99,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	public function addField($field)
 	{
 		if (empty($this->params["fields"])) {
-			$this->params["fields"] = array();
+			$this->params["fields"] = [];
 		}
 		if (!in_array($field, $this->params["fields"])) {
 			$this->params["fields"][] = $field;
@@ -116,7 +116,7 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	public function getFields()
 	{
 		if (empty($this->params["fields"])) {
-			$this->params["fields"] = array();
+			$this->params["fields"] = [];
 		}
 
 		return $this->params["fields"];
@@ -152,20 +152,6 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 
 
 	/**
-	 * Loads first data source.
-	 */
-	private function load()
-	{
-		if ($this->lastResult === NULL) {
-			$this->lastResult = $this->facebook->api($this->pathOrParams, $this->method, $this->params);
-		} elseif ($this->hasNextPage()) {
-			$this->lastResult = $this->facebook->api($this->getNextPath());
-		}
-	}
-
-
-
-	/**
 	 * Checks if list has next page.
 	 *
 	 * @return bool
@@ -196,9 +182,17 @@ class ResourceLoader extends Object implements IteratorAggregate, IResourceLoade
 	 */
 	public function getNextPage()
 	{
-		$this->load();
+		if ($this->lastResult === NULL) {
+			$this->lastResult = $this->facebook->api($this->pathOrParams, $this->method, $this->params);
 
-		return $this->lastResult ? $this->lastResult->data : ArrayHash::from(array());
+		} elseif ($this->hasNextPage()) {
+			$this->lastResult = $this->facebook->api($this->getNextPath());
+
+		} else {
+			$this->lastResult = ArrayHash::from(['data' => []]);
+		}
+
+		return $this->lastResult ? $this->lastResult->data : ArrayHash::from(['data' => []]);
 	}
 
 

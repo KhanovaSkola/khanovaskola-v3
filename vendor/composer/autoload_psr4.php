@@ -6,12 +6,24 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ZxcvbnPhp\\' => array($vendorDir . '/bjeavons/zxcvbn-php/src'),
     'Tackk\\Cartographer\\' => array($vendorDir . '/tackk/cartographer/src'),
-    'Nextras\\TracyQueryPanel\\Handlers\\' => array($vendorDir . '/nextras/tracy-query-panel/src/handlers'),
-    'Nextras\\TracyQueryPanel\\' => array($vendorDir . '/nextras/tracy-query-panel/src/TracyQueryPanel'),
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
+    'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
+    'Symfony\\Component\\Debug\\' => array($vendorDir . '/symfony/debug'),
+    'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'PhpAmqpLib\\' => array($vendorDir . '/videlalvaro/php-amqplib/PhpAmqpLib'),
     'Nextras\\Routing\\' => array($vendorDir . '/nextras/static-router/src'),
     'Nextras\\Migrations\\' => array($vendorDir . '/nextras/migrations/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'KhanovaSkola\\' => array($vendorDir . '/khanovaskola/cislo/src'),
+    'Kdyby\\Monolog\\' => array($vendorDir . '/kdyby/monolog/src'),
+    'Kdyby\\Console\\' => array($vendorDir . '/kdyby/console/src'),
+    'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
+    'Elasticsearch\\' => array($vendorDir . '/elasticsearch/elasticsearch/src/Elasticsearch'),
+    'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );

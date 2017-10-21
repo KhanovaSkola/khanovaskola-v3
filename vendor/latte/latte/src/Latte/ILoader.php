@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Latte (https://latte.nette.org)
+ * Copyright (c) 2008 David Grudl (https://davidgrudl.com)
  */
 
 namespace Latte;
@@ -27,9 +27,14 @@ interface ILoader
 	function isExpired($name, $time);
 
 	/**
-	 * Returns fully qualified template name.
+	 * Returns referred template name.
 	 * @return string
 	 */
-	function getChildName($name, $parent = NULL);
+	function getReferredName($name, $referringName);
 
+	/**
+	 * Returns unique identifier for caching.
+	 * @return string
+	 */
+	function getUniqueId($name);
 }

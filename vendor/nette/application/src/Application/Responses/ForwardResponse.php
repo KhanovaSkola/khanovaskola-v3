@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Application\Responses;
@@ -12,13 +12,11 @@ use Nette;
 
 /**
  * Forwards to new request.
- *
- * @author     David Grudl
- *
- * @property-read Nette\Application\Request $request
  */
-class ForwardResponse extends Nette\Object implements Nette\Application\IResponse
+class ForwardResponse implements Nette\Application\IResponse
 {
+	use Nette\SmartObject;
+
 	/** @var Nette\Application\Request */
 	private $request;
 
@@ -45,5 +43,4 @@ class ForwardResponse extends Nette\Object implements Nette\Application\IRespons
 	public function send(Nette\Http\IRequest $httpRequest, Nette\Http\IResponse $httpResponse)
 	{
 	}
-
 }

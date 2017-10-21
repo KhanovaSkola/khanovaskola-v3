@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Loaders;
@@ -12,6 +12,7 @@ use Nette;
 
 /**
  * Nette auto loader is responsible for loading Nette classes and interfaces.
+ * @deprecated
  */
 class NetteLoader
 {
@@ -69,11 +70,11 @@ class NetteLoader
 
 	/**
 	 * Returns singleton instance with lazy instantiation.
-	 * @return NetteLoader
+	 * @return static
 	 */
 	public static function getInstance()
 	{
-		if (self::$instance === NULL) {
+		if (self::$instance === null) {
 			self::$instance = new static;
 		}
 		return self::$instance;
@@ -85,9 +86,9 @@ class NetteLoader
 	 * @param  bool  prepend autoloader?
 	 * @return void
 	 */
-	public function register($prepend = FALSE)
+	public function register($prepend = false)
 	{
-		spl_autoload_register(array($this, 'tryLoad'), TRUE, (bool) $prepend);
+		spl_autoload_register(array($this, 'tryLoad'), true, (bool) $prepend);
 	}
 
 
@@ -110,5 +111,4 @@ class NetteLoader
 			require $file;
 		}
 	}
-
 }

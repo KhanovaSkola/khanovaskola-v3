@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Caching;
@@ -12,11 +12,11 @@ use Nette;
 
 /**
  * Output caching helper.
- *
- * @author     David Grudl
  */
-class OutputHelper extends Nette\Object
+class OutputHelper
 {
+	use Nette\SmartObject;
+
 	/** @var array */
 	public $dependencies;
 
@@ -37,16 +37,14 @@ class OutputHelper extends Nette\Object
 
 	/**
 	 * Stops and saves the cache.
-	 * @param  array  dependencies
 	 * @return void
 	 */
-	public function end(array $dependencies = NULL)
+	public function end(array $dependencies = null)
 	{
-		if ($this->cache === NULL) {
+		if ($this->cache === null) {
 			throw new Nette\InvalidStateException('Output cache has already been saved.');
 		}
 		$this->cache->save($this->key, ob_get_flush(), (array) $dependencies + (array) $this->dependencies);
-		$this->cache = NULL;
+		$this->cache = null;
 	}
-
 }

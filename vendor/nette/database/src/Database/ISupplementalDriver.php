@@ -1,19 +1,15 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database;
 
-use Nette;
-
 
 /**
  * Supplemental PDO database driver.
- *
- * @author     David Grudl
  */
 interface ISupplementalDriver
 {
@@ -39,7 +35,7 @@ interface ISupplementalDriver
 	/**
 	 * Formats boolean for use in a SQL statement.
 	 * @param  bool
-	 * @return mixed
+	 * @return string
 	 */
 	function formatBool($value);
 
@@ -48,6 +44,12 @@ interface ISupplementalDriver
 	 * @return string
 	 */
 	function formatDateTime(/*\DateTimeInterface*/ $value);
+
+	/**
+	 * Formats date-time interval for use in a SQL statement.
+	 * @return string
+	 */
+	//function formatDateInterval(\DateInterval $value);
 
 	/**
 	 * Encodes string for use in a LIKE statement.
@@ -60,11 +62,11 @@ interface ISupplementalDriver
 	/**
 	 * Injects LIMIT/OFFSET to the SQL query.
 	 * @param  string  SQL query that will be modified.
-	 * @param  int
-	 * @param  int
+	 * @param  int|null
+	 * @param  int|null
 	 * @return void
 	 */
-	function applyLimit(& $sql, $limit, $offset);
+	function applyLimit(&$sql, $limit, $offset);
 
 	/**
 	 * Normalizes result row.
@@ -73,9 +75,7 @@ interface ISupplementalDriver
 	 */
 	function normalizeRow($row);
 
-
 	/********************* reflection ****************d*g**/
-
 
 	/**
 	 * Returns list of tables.
@@ -117,5 +117,4 @@ interface ISupplementalDriver
 	 * @return bool
 	 */
 	function isSupported($item);
-
 }

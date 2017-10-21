@@ -6,7 +6,6 @@ use App\Components\Controls\EditorSelector;
 use App\Models\Orm\Entity;
 use App\Models\Services\ElasticSearch;
 use Bin\Support\VariadicArgvInput;
-use Clevis\Version\DI\VersionExtension;
 use DibiConnection;
 use Mikulas\Tracy\QueryPanel\DibiQuery;
 use Mikulas\Tracy\QueryPanel\ElasticSearchQuery;
@@ -52,8 +51,6 @@ class Configurator extends Nette\Configurator
 		parent::__construct();
 
 		$root = __DIR__ . '/../..';
-
-		VersionExtension::$samplePath = '%appDir%/config/stages/dev.neon';
 
 		$this->setTempDirectory(realpath("$root/temp"));
 
@@ -121,7 +118,6 @@ class Configurator extends Nette\Configurator
 	{
 		$params = $this->getParameters();
 		foreach ([
-			'badges.neon',
 			'bin.neon',
 			'config.neon',
 			'config.local.neon'

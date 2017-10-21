@@ -10,7 +10,7 @@
 
 namespace Kdyby\Facebook\Api;
 
-use Kdyby\CurlCaBundle\CertificateHelper;
+use Composer\CaBundle\CaBundle;
 use Kdyby\Facebook;
 use Nette;
 use Tracy\Debugger;
@@ -38,37 +38,37 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 	 * Default options for curl.
 	 * @var array
 	 */
-	public static $defaultCurlOptions = array(
+	public static $defaultCurlOptions = [
 		CURLOPT_CONNECTTIMEOUT => 10,
 		CURLOPT_TIMEOUT => 60,
-		CURLOPT_HTTPHEADER => array(
+		CURLOPT_HTTPHEADER => [
 			'User-Agent: kdyby-facebook-1.1',
-		),
+		],
 		CURLINFO_HEADER_OUT => TRUE,
 		CURLOPT_HEADER => TRUE,
 		CURLOPT_RETURNTRANSFER => TRUE,
-	);
+	];
 
 	/**
 	 * Options for curl.
 	 * @var array
 	 */
-	public $curlOptions = array();
+	public $curlOptions = [];
 
 	/**
 	 * @var array of function($url, $params)
 	 */
-	public $onRequest = array();
+	public $onRequest = [];
 
 	/**
 	 * @var array of function(Facebook\Exception $e, array $info)
 	 */
-	public $onError = array();
+	public $onError = [];
 
 	/**
 	 * @var array of function(array $result, array $info)
 	 */
-	public $onSuccess = array();
+	public $onSuccess = [];
 
 	/**
 	 * @var Facebook\Facebook
@@ -78,13 +78,27 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 	/**
 	 * @var array
 	 */
-	private $cache = array();
+	private $cache = [];
 
 
 
 	public function __construct()
 	{
 		$this->curlOptions = self::$defaultCurlOptions;
+	}
+
+
+
+	public function disableCache()
+	{
+		$this->cache = FALSE;
+	}
+
+
+
+	public function enableCache()
+	{
+		$this->cache = [];
 	}
 
 
@@ -133,12 +147,19 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 	 * @throws Facebook\FacebookApiException
 	 * @return mixed The decoded response object
 	 */
-	public function graph($path, $method = NULL, array $params = array())
+	public function graph($path, $method = NULL, array $params = [])
 	{
 		if (is_array($method) && empty($params)) {
 			$params = $method;
 			$method = NULL;
 		}
+
+		if (($i = strpos($path, '?')) !== FALSE) {
+			parse_str(substr($path, $i + 1), $tmp);
+			$params += $tmp;
+			$path = substr($path, 0, $i);
+		}
+
 		$params['method'] = $method ?: 'GET'; // method override as we always do a POST
 		$domainKey = Facebook\Helpers::isVideoPost($path, $method) ? 'graph_video' : 'graph';
 
@@ -159,9 +180,9 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 			$result = Json::decode($response = $this->oauth($url, $params), Json::FORCE_ARRAY);
 
 		} catch (Nette\Utils\JsonException $e) {
-			throw $this->resolveAPIException(array(
+			throw $this->resolveAPIException([
 				'error_description' => $e->getMessage() . (isset($response) ? "\n\n" . $response : '')
-			));
+			]);
 		}
 
 		// results are returned, errors are thrown
@@ -193,7 +214,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 			$params['appsecret_proof'] = $this->fb->config->getAppSecretProof($params['access_token']);
 		}
 
-		if ($params['appsecret_proof'] === false) {
+		if (isset($params['appsecret_proof']) && $params['appsecret_proof'] === false) {
 			unset($params['appsecret_proof']);
 		}
 
@@ -231,7 +252,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 	 */
 	protected function makeRequest($url, array $params, $ch = NULL)
 	{
-		if (isset($this->cache[$cacheKey = md5(serialize(array($url, $params)))])) {
+		if (is_array($this->cache) && isset($this->cache[$cacheKey = md5(serialize([$url, $params]))])) {
 			return $this->cache[$cacheKey];
 		}
 
@@ -249,7 +270,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 
 			if ($method === 'GET') {
 				$url->appendQuery($params);
-				$params = array();
+				$params = [];
 			}
 
 			if ($method === 'DELETE' || $method === 'PUT') {
@@ -279,8 +300,8 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 		// provide certificate if needed
 		if (curl_errno($ch) == CURLE_SSL_CACERT || curl_errno($ch) === CURLE_SSL_CACERT_BADFILE) {
 			Debugger::log('Invalid or no certificate authority found, using bundled information', 'facebook');
-			$this->curlOptions[CURLOPT_CAINFO] = CertificateHelper::getCaInfoFile();
-			curl_setopt($ch, CURLOPT_CAINFO, CertificateHelper::getCaInfoFile());
+			$this->curlOptions[CURLOPT_CAINFO] = CaBundle::getBundledCaBundlePath();
+			curl_setopt($ch, CURLOPT_CAINFO, CaBundle::getBundledCaBundlePath());
 			$result = curl_exec($ch);
 		}
 
@@ -290,7 +311,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 		// fall back to IPv6 and the error EHOSTUNREACH is returned by the
 		// operating system.
 		if ($result === FALSE && empty($opts[CURLOPT_IPRESOLVE])) {
-			$matches = array();
+			$matches = [];
 			if (preg_match('/Failed to connect to ([^:].*): Network is unreachable/', curl_error($ch), $matches)) {
 				if (strlen(@inet_pton($matches[1])) === 16) {
 					Debugger::log('Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.', 'facebook');
@@ -308,17 +329,17 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 		$info['method'] = $method;
 
 		if ($result === FALSE) {
-			$e = new Facebook\FacebookApiException(array(
+			$e = new Facebook\FacebookApiException([
 				'error_code' => curl_errno($ch),
-				'error' => array('message' => curl_error($ch), 'type' => 'CurlException')
-			));
+				'error' => ['message' => curl_error($ch), 'type' => 'CurlException']
+			]);
 			curl_close($ch);
 			$this->onError($e, $info);
 			throw $e;
 		}
 
 		if (!$result && isset($info['redirect_url'])) {
-			$result = Json::encode(array('url' => $info['redirect_url']));
+			$result = Json::encode(['url' => $info['redirect_url']]);
 		}
 
 		$info['headers'] = self::parseHeaders(substr($result, 0, $info['header_size']));
@@ -326,7 +347,12 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 
 		$this->onSuccess($result, $info);
 		curl_close($ch);
-		return $this->cache[$cacheKey] = $result;
+
+		if (is_array($this->cache)) {
+			$this->cache[$cacheKey] = $result;
+		}
+
+		return $result;
 	}
 
 
@@ -372,7 +398,7 @@ class CurlClient extends Nette\Object implements Facebook\ApiClient
 
 	private static function parseHeaders($raw)
 	{
-		$headers = array();
+		$headers = [];
 
 		// Split the string on every "double" new line.
 		foreach (explode("\r\n\r\n", $raw) as $index => $block) {

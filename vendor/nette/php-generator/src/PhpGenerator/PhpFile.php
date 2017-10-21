@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\PhpGenerator;
 
-use Nette\Object;
+use Nette;
 use Nette\Utils\Strings;
 
 
@@ -18,47 +18,14 @@ use Nette\Utils\Strings;
  * - opening tag (<?php)
  * - doc comments
  * - one or more namespaces
- *
- * @author Jakub Kulhan <jakub.kulhan@gmail.com>
  */
-class PhpFile extends Object
+class PhpFile
 {
-	/** @var string[] */
-	private $documents;
+	use Nette\SmartObject;
+	use Traits\CommentAware;
 
 	/** @var PhpNamespace[] */
-	private $namespaces = array();
-
-
-	/**
-	 * @return string[]
-	 */
-	public function getDocuments()
-	{
-		return $this->documents;
-	}
-
-
-	/**
-	 * @param  string[]
-	 * @return self
-	 */
-	public function setDocuments(array $documents)
-	{
-		$this->documents = $documents;
-		return $this;
-	}
-
-
-	/**
-	 * @param  string
-	 * @return self
-	 */
-	public function addDocument($document)
-	{
-		$this->documents[] = $document;
-		return $this;
-	}
+	private $namespaces = [];
 
 
 	/**
@@ -98,7 +65,7 @@ class PhpFile extends Object
 
 
 	/**
-	 * @param  string NULL means global namespace
+	 * @param  string null means global namespace
 	 * @return PhpNamespace
 	 */
 	public function addNamespace($name)
@@ -116,14 +83,13 @@ class PhpFile extends Object
 	public function __toString()
 	{
 		foreach ($this->namespaces as $namespace) {
-			$namespace->setBracketedSyntax(isset($this->namespaces[NULL]));
+			$namespace->setBracketedSyntax(count($this->namespaces) > 1 && isset($this->namespaces[null]));
 		}
 
 		return Strings::normalize(
 			"<?php\n"
-			. ($this->documents ? "\n" . str_replace("\n", "\n * ", "/**\n" . implode("\n", (array) $this->documents)) . "\n */\n\n" : '')
+			. ($this->comment ? "\n" . Helpers::formatDocComment($this->comment . "\n") . "\n" : '')
 			. implode("\n\n", $this->namespaces)
 		) . "\n";
 	}
-
 }
