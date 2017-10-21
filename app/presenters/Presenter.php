@@ -91,13 +91,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
          * Persistent locale, not really used here
          * @persistent
          */
-        public $language;
+        public $locale;
 
 	public function startup()
 	{
 		parent::startup();
-                $language = 'cs';
-		$this->translator->setLanguage($language);
+                //TODO: write dedicated service for this
+                $this->locale = 'en';
+		$this->translator->setLanguage($this->locale);
 		$this->eventManager->addEventSubscriber($this);
 	}
 
@@ -127,6 +128,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		parent::beforeRender();
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
+                // Setting language variable for Latte
                 $this->template->language = $this->translator->getLanguage();
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
@@ -186,10 +188,15 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	public function formatTemplateFiles()
 	{
 		$name = $this->getName();
+                $locale = $this->locale;
+              //  $locale = 'en';
+                //$this->error("Language is ".$language,403);
 		$presenter = substr($name, strrpos(':' . $name, ':'));
 		$dir = dirname($this->getReflection()->getFileName());
 		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);
 		return [
+			"$dir/templates/views/$presenter/$this->view.$locale.latte",
+			"$dir/templates/views/$presenter.$this->view.$locale.latte",
 			"$dir/templates/views/$presenter/$this->view.latte",
 			"$dir/templates/views/$presenter.$this->view.latte",
 		];

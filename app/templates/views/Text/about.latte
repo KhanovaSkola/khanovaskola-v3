@@ -1,10 +1,5 @@
 {var $pageName = 'about-page'}
-{* This works, but does not escape the variable
-   But is it needed? *}
 {var $title = $template->translate('pagetitles.about-page')}
-{*
-{var $title = 'O Khanově škole'}
-*}
 {var $headerBorder = FALSE}
 {block content}
 	{**
@@ -15,8 +10,6 @@
         <div class="hero">
             <div class="hero-content">
                 <div class="hero-content-inner">
-                   {* <h1>Khanova škola</h1>
-                    <small>český komunitní neziskový projekt</small> *}
                     <h1>{_'about.ks.title'}</h1>
                     <small>{_'about.ks.message'}</small>
                 </div>
@@ -28,90 +21,9 @@
         <div class="container">
             <div class="content-inner">
                 <p class="lead">
-                    {block|vlna}
-                        Jsme komunita lidí, která chce zlepšit možnosti vzdělávání, a nebojíme se pro to něco udělat.
+                    {block}
+                       This is only a stub. This page should contain basic info about the organization behind the KA localization efforts.
                     {/block}
-                </p>
-                <p>
-                    {block|vlna}
-	                    Khanova škola je vzdělávací portál pro děti i dospělé. Jádro tvoří výuková videa, která skládáme do promyšlených návazností tak, abyste si mohli užít souvislou výuku od úplných základů až po komplexní oborové znalosti. Vše zdarma a z pohodlí vašich domovů.
-                    {/block}
-                </p>
-                <p>
-                    <a n:href="team">Seznam nás, kdo se staráme o Khanovu školu</a>
-                </p>
-                <div class="media">
-                    <img src="{$basePath}/img/about/about1.jpg">
-                    <img src="{$basePath}/img/about/about2.jpg" class="visible-md-inline visible-lg-inline">
-                    <img src="{$basePath}/img/about/about3.jpg" class="visible-md-inline visible-lg-inline">
-
-                    <img src="{$basePath}/img/about/about4.jpg" class="image-vertical-large visible-md-inline visible-lg-inline">
-                    <img src="{$basePath}/img/about/about5.jpg" class="visible-md-inline visible-lg-inline">
-                    <img src="{$basePath}/img/about/about6.jpg" class="visible-md-inline visible-lg-inline">
-                    <img src="{$basePath}/img/about/about7.jpg">
-                    <img src="{$basePath}/img/about/about8.jpg" class="visible-md-inline visible-lg-inline">
-                    <img src="{$basePath}/img/about/about9.jpg" class="visible-md-inline visible-lg-inline">
-
-                    <div class="clearfix"></div>
-                    <em>My a jeden z našich překladatelských maratonů (ČVUT FIT).</em>
-                </div>
-                <p>
-                    {block|vlna}
-                        Ve školním roce 2017/18 náš web zlepšujeme za podpory společnosti Bakaláři Software. Těšíme se, že budeme studentům, žákům, rodičům i učitelům blíž.
-                    {/block}
-                </p>
-                <div class="media">
-                    <a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
-                        <img src="{$basePath}/img/bakalari.svg" width="" height="51">
-                    </a>
-                </div>
-                <div class="media">
-                    <iframe class="video" width="720" height="320" src="https://www.youtube.com/embed/ACbJt6GGY7U" frameborder="0" allowfullscreen></iframe>
-
-                    <div class="clearfix"></div>
-                    <em>Popis: Definice blended learning podle Clayton Christensen Institute</em>
-                </div>
-                <p>
-                    {block|vlna}
-{*                        Budeme rádi, pokud se zapojíte. Společně můžeme vytvořit lepší budoucnost otevřených výukových materiálů. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory. Aktuální informace naleznete <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na fóru</a>.   *}
-                        Budeme rádi, pokud se zapojíte. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory.
-                  {/block} 
-                  {block} {*block with vlna screws up the links!!*}
-                  Napište nám na <a href="mailto:marketa@khanovaskola.cz">marketa@khanovaskola.cz</a>! Také se můžete zeptat přímo <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na našem fóru</a>. Pro novinky sledujte náš <a href="https://blog.khanovaskola.cz">blog</a>.
-                  {/block}
-                </p>
-                <p class="org">
-                    Khanova škola, z.s.<br>
-                    IČ <code>22708022</code><br>
-                    <a href="https://www.fio.cz/ib2/transparent?a=2800321231" rel="nofollow">transparentní účet</a> <code>2800321231/2010</code><br>
-                    <a href="mailto:marketa@khanovaskola.cz">marketa@khanovaskola.cz</a><br>
-                </p>
-                <p>
-                    <a href="/tos.pdf">Podmínky poskytování služeb</a> [151 KiB, PDF]
-                </p>
-                <p>
-                    Děkujeme za podporu Nadaci Karla Janečka, bez níž by tento web nevznikl.
-                </p>
-                <p style="text-align: center; margin: 4ex">
-                    <a href="http://www.nadacekj.cz/cs/" target="_blank" rel="nofollow">
-                        <img src="{$basePath}/img/nkj.svg" width="" height="80">
-                    </a>
-                </p>
-                <div class="text">
-                    <span>„Rádi jsme pomohli.“</span>
-                        <div class="ents">
-                            <a href="http://greenwoodents.com/" target="_blank">
-                                ENTI
-                            </a>
-                        </div>
-                    </div>
-                    <div class="logo">
-                        <a href="http://greenwoodents.com/" target="_blank">
-                            <img src="{$basePath}/img/ents.svg" alt="Navrhli a nakódovali Ents" width="32" height="34">
-                        </a>
-                    </div>
-                <p>
-                     Také děkujeme za dlouhodobou podporu společnosti <a href="https://www.scio.cz/" rel="nofollow">Scio</a>.
                 </p>
             </div>
         </div>
