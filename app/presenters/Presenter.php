@@ -12,6 +12,7 @@ use App\Models\Services\Translator;
 use App\Models\Services\UserState;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
+use App\Models\Services\Locale;
 use Kdyby\Events\EventManager;
 use Kdyby\Events\Subscriber;
 use Kdyby\Facebook\Facebook;
@@ -88,17 +89,15 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	public $gclid;
 
         /** 
-         * Persistent locale, not really used here
-         * @persistent
+         * @var Locale 
+         * @inject
          */
         public $locale;
 
 	public function startup()
 	{
 		parent::startup();
-                //TODO: write dedicated service for this
-                $this->locale = 'en';
-		$this->translator->setLanguage($this->locale);
+		$this->translator->setLanguage($this->locale->getLocale());
 		$this->eventManager->addEventSubscriber($this);
 	}
 
@@ -129,7 +128,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
                 // Setting language variable for Latte
-                $this->template->language = $this->translator->getLanguage();
+                // Maybe we should rename it to locale, makes more sense
+                $this->template->language = $this->locale->getLocale();
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());
@@ -188,9 +188,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	public function formatTemplateFiles()
 	{
 		$name = $this->getName();
-                $locale = $this->locale;
-              //  $locale = 'en';
-                //$this->error("Language is ".$language,403);
+                $locale = $this->locale->getLocale();
+                //$this->error("Language is ".$locale,403);
 		$presenter = substr($name, strrpos(':' . $name, ':'));
 		$dir = dirname($this->getReflection()->getFileName());
 		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);

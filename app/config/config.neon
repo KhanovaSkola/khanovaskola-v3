@@ -106,6 +106,7 @@ services:
 	- Mikulas\Morphodita\Client
 	- Mikulas\Vlna
 
+	- App\Models\Services\Locale( %locale% )
 	- App\Components\Filters
 	- App\Models\Rme\UsersRepository
 	- App\Models\Services\Acl
