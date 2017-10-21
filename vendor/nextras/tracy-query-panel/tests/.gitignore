@@ -1,4 +1,0 @@
-*.actual
-*.expected
-/databases.ini
-/php.ini

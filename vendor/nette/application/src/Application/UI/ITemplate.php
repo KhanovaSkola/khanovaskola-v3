@@ -1,13 +1,11 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Application\UI;
-
-use Nette;
 
 
 /**
@@ -24,14 +22,14 @@ interface ITemplate
 
 	/**
 	 * Sets the path to the template file.
-	 * @return void
+	 * @param  string
+	 * @return static
 	 */
 	function setFile($file);
 
 	/**
 	 * Returns the path to the template file.
-	 * @return string
+	 * @return string|null
 	 */
 	function getFile();
-
 }

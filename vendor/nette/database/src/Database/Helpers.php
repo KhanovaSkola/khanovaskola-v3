@@ -1,38 +1,37 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database;
 
-use Nette,
-	Tracy;
+use Nette;
+use Tracy;
 
 
 /**
  * Database helpers.
- *
- * @author     David Grudl
  */
 class Helpers
 {
+	use Nette\StaticClass;
+
 	/** @var int maximum SQL length */
-	static public $maxLength = 100;
+	public static $maxLength = 100;
 
 	/** @var array */
-	public static $typePatterns = array(
+	public static $typePatterns = [
 		'^_' => IStructure::FIELD_TEXT, // PostgreSQL arrays
-		'BYTEA|BLOB|BIN' => IStructure::FIELD_BINARY,
-		'TEXT|CHAR|POINT|INTERVAL' => IStructure::FIELD_TEXT,
-		'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT|^TINY$' => IStructure::FIELD_INTEGER,
-		'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => IStructure::FIELD_FLOAT,
-		'^TIME$' => IStructure::FIELD_TIME,
-		'TIME' => IStructure::FIELD_DATETIME, // DATETIME, TIMESTAMP
+		'(TINY|SMALL|SHORT|MEDIUM|BIG|LONG)(INT)?|INT(EGER|\d+| IDENTITY)?|(SMALL|BIG|)SERIAL\d*|COUNTER|YEAR|BYTE|LONGLONG|UNSIGNED BIG INT' => IStructure::FIELD_INTEGER,
+		'(NEW)?DEC(IMAL)?(\(.*)?|NUMERIC|REAL|DOUBLE( PRECISION)?|FLOAT\d*|(SMALL)?MONEY|CURRENCY|NUMBER' => IStructure::FIELD_FLOAT,
+		'BOOL(EAN)?' => IStructure::FIELD_BOOL,
+		'TIME' => IStructure::FIELD_TIME,
 		'DATE' => IStructure::FIELD_DATE,
-		'BOOL' => IStructure::FIELD_BOOL,
-	);
+		'(SMALL)?DATETIME(OFFSET)?\d*|TIME(STAMP)?' => IStructure::FIELD_DATETIME,
+		'BYTEA|(TINY|MEDIUM|LONG|)BLOB|(LONG )?(VAR)?BINARY|IMAGE' => IStructure::FIELD_BINARY,
+	];
 
 
 	/**
@@ -41,7 +40,7 @@ class Helpers
 	 */
 	public static function dumpResult(ResultSet $result)
 	{
-		echo "\n<table class=\"dump\">\n<caption>" . htmlSpecialChars($result->getQueryString(), ENT_IGNORE, 'UTF-8') . "</caption>\n";
+		echo "\n<table class=\"dump\">\n<caption>" . htmlspecialchars($result->getQueryString(), ENT_IGNORE, 'UTF-8') . "</caption>\n";
 		if (!$result->getColumnCount()) {
 			echo "\t<tr>\n\t\t<th>Affected rows:</th>\n\t\t<td>", $result->getRowCount(), "</td>\n\t</tr>\n</table>\n";
 			return;
@@ -51,13 +50,13 @@ class Helpers
 			if ($i === 0) {
 				echo "<thead>\n\t<tr>\n\t\t<th>#row</th>\n";
 				foreach ($row as $col => $foo) {
-					echo "\t\t<th>" . htmlSpecialChars($col, ENT_NOQUOTES, 'UTF-8') . "</th>\n";
+					echo "\t\t<th>" . htmlspecialchars($col, ENT_NOQUOTES, 'UTF-8') . "</th>\n";
 				}
 				echo "\t</tr>\n</thead>\n<tbody>\n";
 			}
 			echo "\t<tr>\n\t\t<th>", $i, "</th>\n";
 			foreach ($row as $col) {
-				echo "\t\t<td>", htmlSpecialChars($col, ENT_NOQUOTES, 'UTF-8'), "</td>\n";
+				echo "\t\t<td>", htmlspecialchars($col, ENT_NOQUOTES, 'UTF-8'), "</td>\n";
 			}
 			echo "\t</tr>\n";
 			$i++;
@@ -76,7 +75,7 @@ class Helpers
 	 * @param  string
 	 * @return string
 	 */
-	public static function dumpSql($sql, array $params = NULL, Connection $connection = NULL)
+	public static function dumpSql($sql, array $params = null, Connection $connection = null)
 	{
 		static $keywords1 = 'SELECT|(?:ON\s+DUPLICATE\s+KEY)?UPDATE|INSERT(?:\s+INTO)?|REPLACE(?:\s+INTO)?|DELETE|CALL|UNION|FROM|WHERE|HAVING|GROUP\s+BY|ORDER\s+BY|LIMIT|OFFSET|SET|VALUES|LEFT\s+JOIN|INNER\s+JOIN|TRUNCATE';
 		static $keywords2 = 'ALL|DISTINCT|DISTINCTROW|IGNORE|AS|USING|ON|AND|OR|IN|IS|NOT|NULL|[RI]?LIKE|REGEXP|TRUE|FALSE';
@@ -92,8 +91,8 @@ class Helpers
 		$sql = preg_replace('#([ \t]*\r?\n){2,}#', "\n", $sql);
 
 		// syntax highlight
-		$sql = htmlSpecialChars($sql, ENT_IGNORE, 'UTF-8');
-		$sql = preg_replace_callback("#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])($keywords1)(?=[\\s,)])|(?<=[\\s,(=])($keywords2)(?=[\\s,)=])#is", function($matches) {
+		$sql = htmlspecialchars($sql, ENT_IGNORE, 'UTF-8');
+		$sql = preg_replace_callback("#(/\\*.+?\\*/)|(\\*\\*.+?\\*\\*)|(?<=[\\s,(])($keywords1)(?=[\\s,)])|(?<=[\\s,(=])($keywords2)(?=[\\s,)=])#is", function ($matches) {
 			if (!empty($matches[1])) { // comment
 				return '<em style="color:gray">' . $matches[1] . '</em>';
 
@@ -109,7 +108,7 @@ class Helpers
 		}, $sql);
 
 		// parameters
-		$sql = preg_replace_callback('#\?#', function() use ($params, $connection) {
+		$sql = preg_replace_callback('#\?#', function () use ($params, $connection) {
 			static $i = 0;
 			if (!isset($params[$i])) {
 				return '?';
@@ -120,7 +119,7 @@ class Helpers
 
 			} elseif (is_string($param)) {
 				$length = Nette\Utils\Strings::length($param);
-				$truncated = Nette\Utils\Strings::truncate($param, Helpers::$maxLength);
+				$truncated = Nette\Utils\Strings::truncate($param, self::$maxLength);
 				$text = htmlspecialchars($connection ? $connection->quote($truncated) : '\'' . $truncated . '\'', ENT_NOQUOTES, 'UTF-8');
 				return '<span title="Length ' . $length . ' characters">' . $text . '</span>';
 
@@ -129,8 +128,8 @@ class Helpers
 				if ($type === 'stream') {
 					$info = stream_get_meta_data($param);
 				}
-				return '<i' . (isset($info['uri']) ? ' title="' . htmlspecialchars($info['uri'], ENT_NOQUOTES, 'UTF-8') . '"' : NULL)
-					. '>&lt;' . htmlSpecialChars($type, ENT_NOQUOTES, 'UTF-8') . ' resource&gt;</i> ';
+				return '<i' . (isset($info['uri']) ? ' title="' . htmlspecialchars($info['uri'], ENT_NOQUOTES, 'UTF-8') . '"' : null)
+					. '>&lt;' . htmlspecialchars($type, ENT_NOQUOTES, 'UTF-8') . ' resource&gt;</i> ';
 
 			} else {
 				return htmlspecialchars($param, ENT_NOQUOTES, 'UTF-8');
@@ -147,7 +146,7 @@ class Helpers
 	 */
 	public static function detectTypes(\PDOStatement $statement)
 	{
-		$types = array();
+		$types = [];
 		$count = $statement->columnCount(); // driver must be meta-aware, see PHP bugs #53782, #54695
 		for ($col = 0; $col < $count; $col++) {
 			$meta = $statement->getColumnMeta($col);
@@ -171,7 +170,7 @@ class Helpers
 		if (!isset($cache[$type])) {
 			$cache[$type] = 'string';
 			foreach (self::$typePatterns as $s => $val) {
-				if (preg_match("#$s#i", $type)) {
+				if (preg_match("#^($s)$#i", $type)) {
 					return $cache[$type] = $val;
 				}
 			}
@@ -186,9 +185,9 @@ class Helpers
 	 */
 	public static function loadFromFile(Connection $connection, $file)
 	{
-		@set_time_limit(0); // intentionally @
+		@set_time_limit(0); // @ function may be disabled
 
-		$handle = @fopen($file, 'r'); // intentionally @
+		$handle = @fopen($file, 'r'); // @ is escalated to exception
 		if (!$handle) {
 			throw new Nette\FileNotFoundException("Cannot open file '$file'.");
 		}
@@ -196,6 +195,7 @@ class Helpers
 		$count = 0;
 		$delimiter = ';';
 		$sql = '';
+		$pdo = $connection->getPdo(); // native query without logging
 		while (!feof($handle)) {
 			$s = rtrim(fgets($handle));
 			if (!strncasecmp($s, 'DELIMITER ', 10)) {
@@ -203,7 +203,7 @@ class Helpers
 
 			} elseif (substr($s, -strlen($delimiter)) === $delimiter) {
 				$sql .= substr($s, 0, -strlen($delimiter));
-				$connection->query($sql); // native query without logging
+				$pdo->exec($sql);
 				$sql = '';
 				$count++;
 
@@ -212,7 +212,7 @@ class Helpers
 			}
 		}
 		if (trim($sql) !== '') {
-			$connection->query($sql);
+			$pdo->exec($sql);
 			$count++;
 		}
 		fclose($handle);
@@ -220,7 +220,7 @@ class Helpers
 	}
 
 
-	public static function createDebugPanel($connection, $explain = TRUE, $name = NULL)
+	public static function createDebugPanel($connection, $explain = true, $name = null)
 	{
 		$panel = new Nette\Bridges\DatabaseTracy\ConnectionPanel($connection);
 		$panel->explain = $explain;
@@ -234,17 +234,17 @@ class Helpers
 	 * Reformat source to key -> value pairs.
 	 * @return array
 	 */
-	public static function toPairs(array $rows, $key = NULL, $value = NULL)
+	public static function toPairs(array $rows, $key = null, $value = null)
 	{
 		if (!$rows) {
-			return array();
+			return [];
 		}
 
 		$keys = array_keys((array) reset($rows));
 		if (!count($keys)) {
 			throw new \LogicException('Result set does not contain any column.');
 
-		} elseif ($key === NULL && $value === NULL) {
+		} elseif ($key === null && $value === null) {
 			if (count($keys) === 1) {
 				list($value) = $keys;
 			} else {
@@ -252,18 +252,40 @@ class Helpers
 			}
 		}
 
-		$return = array();
-		if ($key === NULL) {
+		$return = [];
+		if ($key === null) {
 			foreach ($rows as $row) {
-				$return[] = ($value === NULL ? $row : $row[$value]);
+				$return[] = ($value === null ? $row : $row[$value]);
 			}
 		} else {
 			foreach ($rows as $row) {
-				$return[is_object($row[$key]) ? (string) $row[$key] : $row[$key]] = ($value === NULL ? $row : $row[$value]);
+				$return[(string) $row[$key]] = ($value === null ? $row : $row[$value]);
 			}
 		}
 
 		return $return;
 	}
 
+
+	/**
+	 * Finds duplicate columns in select statement
+	 * @param  \PDOStatement
+	 * @return string
+	 */
+	public static function findDuplicates(\PDOStatement $statement)
+	{
+		$cols = [];
+		for ($i = 0; $i < $statement->columnCount(); $i++) {
+			$meta = $statement->getColumnMeta($i);
+			$cols[$meta['name']][] = isset($meta['table']) ? $meta['table'] : '';
+		}
+		$duplicates = [];
+		foreach ($cols as $name => $tables) {
+			if (count($tables) > 1) {
+				$tables = array_filter(array_unique($tables));
+				$duplicates[] = "'$name'" . ($tables ? ' (from ' . implode(', ', $tables) . ')' : '');
+			}
+		}
+		return implode(', ', $duplicates);
+	}
 }

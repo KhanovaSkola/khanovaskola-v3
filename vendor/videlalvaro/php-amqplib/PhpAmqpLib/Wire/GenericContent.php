@@ -1,75 +1,64 @@
 <?php
-
 namespace PhpAmqpLib\Wire;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 
 /**
  * Abstract base class for AMQP content.  Subclasses should override
- * the PROPERTIES attribute.
+ * the propertyDefinitions attribute.
  */
 abstract class GenericContent
 {
-
-    /**
-     * @var array|AMQPChannel[]
-     */
+    /** @var array */
     public $delivery_info = array();
 
-    /**
-     * @var array
-     */
+    /** @var array Final property definitions */
     protected $prop_types;
 
-    /**
-     * @var array
-     */
+    /** @var array Properties content */
     private $properties = array();
 
-    /**
-     * @var null
-     */
-    private $serialized_properties = null;
+    /** @var string Compiled properties */
+    private $serialized_properties;
 
     /**
      * @var array
      */
-    protected static $PROPERTIES = array(
-        "dummy" => "shortstr"
+    protected static $propertyDefinitions = array(
+        'dummy' => 'shortstr'
     );
 
-
-
-    public function __construct($props, $prop_types = null)
+    /**
+     * @param array $properties Message property content
+     * @param array $propertyTypes Message property definitions
+     */
+    public function __construct($properties, $propertyTypes = null)
     {
-        if ($prop_types) {
-            $this->prop_types = $prop_types;
-        } else {
-            $this->prop_types = self::$PROPERTIES;
-        }
+        $this->prop_types = !empty($propertyTypes) ? $propertyTypes : self::$propertyDefinitions;
 
-        if ($props) {
-            $this->properties = array_intersect_key($props, $this->prop_types);
+        if (!empty($properties)) {
+            $this->properties = array_intersect_key($properties, $this->prop_types);
         }
     }
-
-
 
     /**
      * Check whether a property exists in the 'properties' dictionary
      * or if present - in the 'delivery_info' dictionary.
+     *
+     * @param string $name
+     * @return bool
      */
     public function has($name)
     {
         return isset($this->properties[$name]) || isset($this->delivery_info[$name]);
     }
 
-
-
     /**
      * Look for additional properties in the 'properties' dictionary,
      * and if present - the 'delivery_info' dictionary.
      *
+     * @param string $name
+     * @throws \OutOfBoundsException
      * @return mixed|AMQPChannel
      */
     public function get($name)
@@ -77,38 +66,45 @@ abstract class GenericContent
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
         }
+
         if (isset($this->delivery_info[$name])) {
             return $this->delivery_info[$name];
         }
 
-        throw new \OutOfBoundsException("No '$name' property");
+        throw new \OutOfBoundsException(sprintf(
+            'No "%s" property',
+            $name
+        ));
     }
 
-
-
     /**
-     * just return the $this::properties array.
+     * Returns the properties content
+     *
+     * @return array
      */
     public function get_properties()
     {
         return $this->properties;
     }
 
-
-
     /**
-     * allows to set the property after creation of the object
+     * Sets a property value
+     *
+     * @param string $name The property name (one of the property definition)
+     * @param mixed $value The property value
+     * @throws \OutOfBoundsException
      */
     public function set($name, $value)
     {
         if (!array_key_exists($name, $this->prop_types)) {
-            throw new \OutOfBoundsException("No '$name' property");
+            throw new \OutOfBoundsException(sprintf(
+                'No "%s" property',
+                $name
+            ));
         }
 
         $this->properties[$name] = $value;
     }
-
-
 
     /**
      * Given the raw bytes containing the property-flags and
@@ -116,46 +112,56 @@ abstract class GenericContent
      * into a dictionary stored in this object as an attribute named
      * 'properties'.
      *
-     * @param AMQPReader $r
-     * NOTE: do not mutate $r
+     * @param AMQPReader $reader
+     * NOTE: do not mutate $reader
+     * @return $this
      */
-    public function load_properties($r)
+    public function load_properties(AMQPReader $reader)
     {
         // Read 16-bit shorts until we get one with a low bit set to zero
         $flags = array();
+
         while (true) {
-            $flag_bits = $r->read_short();
+            $flag_bits = $reader->read_short();
             $flags[] = $flag_bits;
-            if (($flag_bits & 1) == 0) {
+
+            if (($flag_bits & 1) === 0) {
                 break;
             }
         }
 
         $shift = 0;
-        $d = array();
+        $data = array();
+
         foreach ($this->prop_types as $key => $proptype) {
-            if ($shift == 0) {
+            if ($shift === 0) {
                 if (!$flags) {
                     break;
                 }
                 $flag_bits = array_shift($flags);
                 $shift = 15;
             }
+
             if ($flag_bits & (1 << $shift)) {
-                $d[$key] = $r->{'read_' . $proptype}();
+                $data[$key] = $reader->{'read_' . $proptype}();
             }
 
             $shift -= 1;
         }
-        $this->properties = $d;
+
+        $this->properties = $data;
+
+        return $this;
     }
 
 
-
     /**
-     * serialize the 'properties' attribute (a dictionary) into the
+     * Serializes the 'properties' attribute (a dictionary) into the
      * raw bytes making up a set of property flags and a property
      * list, suitable for putting into a content frame header.
+     *
+     * @return string
+     * @todo Inject the AMQPWriter to make the method easier to test
      */
     public function serialize_properties()
     {
@@ -171,6 +177,8 @@ abstract class GenericContent
         foreach ($this->prop_types as $key => $prototype) {
             $val = isset($this->properties[$key]) ? $this->properties[$key] : null;
 
+            // Very important: PHP type eval is weak, use the === to test the
+            // value content. Zero or false value should not be removed
             if ($val === null) {
                 $shift -= 1;
                 continue;

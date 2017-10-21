@@ -1,19 +1,15 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\ComponentModel;
 
-use Nette;
-
 
 /**
  * Containers are objects that logically contain zero or more IComponent components.
- *
- * @author     David Grudl
  */
 interface IContainer extends IComponent
 {
@@ -21,8 +17,8 @@ interface IContainer extends IComponent
 	/**
 	 * Adds the specified component to the IContainer.
 	 * @param  IComponent
-	 * @param  string
-	 * @return void
+	 * @param  string|int
+	 * @return static
 	 */
 	function addComponent(IComponent $component, $name);
 
@@ -35,17 +31,16 @@ interface IContainer extends IComponent
 
 	/**
 	 * Returns single component.
-	 * @param  string
-	 * @return IComponent|NULL
+	 * @param  string|int
+	 * @return IComponent|null
 	 */
 	function getComponent($name);
 
 	/**
 	 * Iterates over a components.
-	 * @param  bool    recursive?
-	 * @param  string  class types filter
+	 * @param  bool
+	 * @param  string
 	 * @return \Iterator
 	 */
-	function getComponents($deep = FALSE, $filterType = NULL);
-
+	function getComponents($deep = false, $filterType = null);
 }

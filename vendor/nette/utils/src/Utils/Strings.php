@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Utils;
@@ -12,19 +12,12 @@ use Nette;
 
 /**
  * String tools library.
- *
- * @author     David Grudl
  */
 class Strings
 {
+	use Nette\StaticClass;
 
-	/**
-	 * Static class - cannot be instantiated.
-	 */
-	final public function __construct()
-	{
-		throw new Nette\StaticClassException;
-	}
+	const TRIM_CHARACTERS = " \t\n\r\0\x0B\xC2\xA0";
 
 
 	/**
@@ -46,11 +39,7 @@ class Strings
 	public static function fixEncoding($s)
 	{
 		// removes xD800-xDFFF, x110000 and higher
-		if (PHP_VERSION_ID < 50400) {
-			return @iconv('UTF-16', 'UTF-8//IGNORE', iconv('UTF-8', 'UTF-16//IGNORE', $s)); // intentionally @
-		} else {
-			return htmlspecialchars_decode(htmlspecialchars($s, ENT_NOQUOTES | ENT_IGNORE, 'UTF-8'), ENT_NOQUOTES);
-		}
+		return htmlspecialchars_decode(htmlspecialchars($s, ENT_NOQUOTES | ENT_IGNORE, 'UTF-8'), ENT_NOQUOTES);
 	}
 
 
@@ -101,7 +90,7 @@ class Strings
 	 */
 	public static function contains($haystack, $needle)
 	{
-		return strpos($haystack, $needle) !== FALSE;
+		return strpos($haystack, $needle) !== false;
 	}
 
 
@@ -112,14 +101,11 @@ class Strings
 	 * @param  int in characters (code points)
 	 * @return string
 	 */
-	public static function substring($s, $start, $length = NULL)
+	public static function substring($s, $start, $length = null)
 	{
 		if (function_exists('mb_substr')) {
-			if ($length === NULL && PHP_VERSION_ID < 50408) {
-				$length = self::length($s);
-			}
 			return mb_substr($s, $start, $length, 'UTF-8'); // MB is much faster
-		} elseif ($length === NULL) {
+		} elseif ($length === null) {
 			$length = self::length($s);
 		} elseif ($start < 0 && $length < 0) {
 			$start += self::length($s); // unifies iconv_substr behavior with mb_substr
@@ -157,7 +143,7 @@ class Strings
 	 */
 	public static function normalizeNewLines($s)
 	{
-		return str_replace(array("\r\n", "\r"), "\n", $s);
+		return str_replace(["\r\n", "\r"], "\n", $s);
 	}
 
 
@@ -168,32 +154,37 @@ class Strings
 	 */
 	public static function toAscii($s)
 	{
+		static $transliterator = null;
+		if ($transliterator === null && class_exists('Transliterator', false)) {
+			$transliterator = \Transliterator::create('Any-Latin; Latin-ASCII');
+		}
+
 		$s = preg_replace('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{2FF}\x{370}-\x{10FFFF}]#u', '', $s);
 		$s = strtr($s, '`\'"^~?', "\x01\x02\x03\x04\x05\x06");
 		$s = str_replace(
-			array("\xE2\x80\x9E", "\xE2\x80\x9C", "\xE2\x80\x9D", "\xE2\x80\x9A", "\xE2\x80\x98", "\xE2\x80\x99", "\xC2\xB0"),
-			array("\x03", "\x03", "\x03", "\x02", "\x02", "\x02", "\x04"), $s
+			["\xE2\x80\x9E", "\xE2\x80\x9C", "\xE2\x80\x9D", "\xE2\x80\x9A", "\xE2\x80\x98", "\xE2\x80\x99", "\xC2\xB0"],
+			["\x03", "\x03", "\x03", "\x02", "\x02", "\x02", "\x04"], $s
 		);
-		if (class_exists('Transliterator') && $transliterator = \Transliterator::create('Any-Latin; Latin-ASCII')) {
+		if ($transliterator !== null) {
 			$s = $transliterator->transliterate($s);
 		}
 		if (ICONV_IMPL === 'glibc') {
 			$s = str_replace(
-				array("\xC2\xBB", "\xC2\xAB", "\xE2\x80\xA6", "\xE2\x84\xA2", "\xC2\xA9", "\xC2\xAE"),
-				array('>>', '<<', '...', 'TM', '(c)', '(R)'), $s
+				["\xC2\xBB", "\xC2\xAB", "\xE2\x80\xA6", "\xE2\x84\xA2", "\xC2\xA9", "\xC2\xAE"],
+				['>>', '<<', '...', 'TM', '(c)', '(R)'], $s
 			);
-			$s = @iconv('UTF-8', 'WINDOWS-1250//TRANSLIT', $s); // intentionally @
+			$s = iconv('UTF-8', 'WINDOWS-1250//TRANSLIT//IGNORE', $s);
 			$s = strtr($s, "\xa5\xa3\xbc\x8c\xa7\x8a\xaa\x8d\x8f\x8e\xaf\xb9\xb3\xbe\x9c\x9a\xba\x9d\x9f\x9e"
 				. "\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3"
 				. "\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8"
 				. "\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf8\xf9\xfa\xfb\xfc\xfd\xfe"
 				. "\x96\xa0\x8b\x97\x9b\xa6\xad\xb7",
-				"ALLSSSSTZZZallssstzzzRAAAALCCCEEEEIIDDNNOOOOxRUUUUYTsraaaalccceeeeiiddnnooooruuuuyt- <->|-.");
+				'ALLSSSSTZZZallssstzzzRAAAALCCCEEEEIIDDNNOOOOxRUUUUYTsraaaalccceeeeiiddnnooooruuuuyt- <->|-.');
 			$s = preg_replace('#[^\x00-\x7F]++#', '', $s);
 		} else {
-			$s = @iconv('UTF-8', 'ASCII//TRANSLIT', $s); // intentionally @
+			$s = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s);
 		}
-		$s = str_replace(array('`', "'", '"', '^', '~', '?'), '', $s);
+		$s = str_replace(['`', "'", '"', '^', '~', '?'], '', $s);
 		return strtr($s, "\x01\x02\x03\x04\x05\x06", '`\'"^~?');
 	}
 
@@ -205,13 +196,13 @@ class Strings
 	 * @param  bool
 	 * @return string
 	 */
-	public static function webalize($s, $charlist = NULL, $lower = TRUE)
+	public static function webalize($s, $charlist = null, $lower = true)
 	{
 		$s = self::toAscii($s);
 		if ($lower) {
 			$s = strtolower($s);
 		}
-		$s = preg_replace('#[^a-z0-9' . preg_quote($charlist, '#') . ']+#i', '-', $s);
+		$s = preg_replace('#[^a-z0-9' . ($charlist !== null ? preg_quote($charlist, '#') : '') . ']+#i', '-', $s);
 		$s = trim($s, '-');
 		return $s;
 	}
@@ -231,7 +222,7 @@ class Strings
 			if ($maxLen < 1) {
 				return $append;
 
-			} elseif ($matches = self::match($s, '#^.{1,'.$maxLen.'}(?=[\s\x00-/:-@\[-`{-~])#us')) {
+			} elseif ($matches = self::match($s, '#^.{1,' . $maxLen . '}(?=[\s\x00-/:-@\[-`{-~])#us')) {
 				return $matches[0] . $append;
 
 			} else {
@@ -320,12 +311,12 @@ class Strings
 	 * @param  int
 	 * @return bool
 	 */
-	public static function compare($left, $right, $len = NULL)
+	public static function compare($left, $right, $len = null)
 	{
 		if ($len < 0) {
 			$left = self::substring($left, $len, -$len);
 			$right = self::substring($right, $len, -$len);
-		} elseif ($len !== NULL) {
+		} elseif ($len !== null) {
 			$left = self::substring($left, 0, $len);
 			$right = self::substring($right, 0, $len);
 		}
@@ -338,16 +329,16 @@ class Strings
 	 * @param  string|array
 	 * @return string
 	 */
-	public static function findPrefix($strings)
+	public static function findPrefix(...$strings)
 	{
-		if (!is_array($strings)) {
-			$strings = func_get_args();
+		if (is_array($strings[0])) {
+			$strings = $strings[0];
 		}
 		$first = array_shift($strings);
 		for ($i = 0; $i < strlen($first); $i++) {
 			foreach ($strings as $s) {
 				if (!isset($s[$i]) || $first[$i] !== $s[$i]) {
-					while ($i && $first[$i-1] >= "\x80" && $first[$i] >= "\x80" && $first[$i] < "\xC0") {
+					while ($i && $first[$i - 1] >= "\x80" && $first[$i] >= "\x80" && $first[$i] < "\xC0") {
 						$i--;
 					}
 					return substr($first, 0, $i);
@@ -376,10 +367,10 @@ class Strings
 	 * @param  string
 	 * @return string
 	 */
-	public static function trim($s, $charlist = " \t\n\r\0\x0B\xC2\xA0")
+	public static function trim($s, $charlist = self::TRIM_CHARACTERS)
 	{
 		$charlist = preg_quote($charlist, '#');
-		return self::replace($s, '#^['.$charlist.']+|['.$charlist.']+\z#u', '');
+		return self::replace($s, '#^[' . $charlist . ']+|[' . $charlist . ']+\z#u', '');
 	}
 
 
@@ -394,7 +385,7 @@ class Strings
 	{
 		$length = max(0, $length - self::length($s));
 		$padLen = self::length($pad);
-		return str_repeat($pad, $length / $padLen) . self::substring($pad, 0, $length % $padLen) . $s;
+		return str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen) . $s;
 	}
 
 
@@ -409,7 +400,7 @@ class Strings
 	{
 		$length = max(0, $length - self::length($s));
 		$padLen = self::length($pad);
-		return $s . str_repeat($pad, $length / $padLen) . self::substring($pad, 0, $length % $padLen);
+		return $s . str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen);
 	}
 
 
@@ -420,7 +411,7 @@ class Strings
 	 */
 	public static function reverse($s)
 	{
-		return @iconv('UTF-32LE', 'UTF-8', strrev(@iconv('UTF-8', 'UTF-32BE', $s)));
+		return iconv('UTF-32LE', 'UTF-8', strrev(iconv('UTF-8', 'UTF-32BE', $s)));
 	}
 
 
@@ -430,7 +421,86 @@ class Strings
 	 */
 	public static function random($length = 10, $charlist = '0-9a-z')
 	{
+		trigger_error(__METHOD__ . '() is deprecated, use Nette\Utils\Random::generate()', E_USER_DEPRECATED);
 		return Random::generate($length, $charlist);
+	}
+
+
+	/**
+	 * Returns part of $haystack before $nth occurence of $needle.
+	 * @param  string
+	 * @param  string
+	 * @param  int  negative value means searching from the end
+	 * @return string|false  returns false if the needle was not found
+	 */
+	public static function before($haystack, $needle, $nth = 1)
+	{
+		$pos = self::pos($haystack, $needle, $nth);
+		return $pos === false
+			? false
+			: substr($haystack, 0, $pos);
+	}
+
+
+	/**
+	 * Returns part of $haystack after $nth occurence of $needle.
+	 * @param  string
+	 * @param  string
+	 * @param  int  negative value means searching from the end
+	 * @return string|false  returns false if the needle was not found
+	 */
+	public static function after($haystack, $needle, $nth = 1)
+	{
+		$pos = self::pos($haystack, $needle, $nth);
+		return $pos === false
+			? false
+			: (string) substr($haystack, $pos + strlen($needle));
+	}
+
+
+	/**
+	 * Returns position of $nth occurence of $needle in $haystack.
+	 * @param  string
+	 * @param  string
+	 * @param  int  negative value means searching from the end
+	 * @return int|false  offset in characters or false if the needle was not found
+	 */
+	public static function indexOf($haystack, $needle, $nth = 1)
+	{
+		$pos = self::pos($haystack, $needle, $nth);
+		return $pos === false
+			? false
+			: self::length(substr($haystack, 0, $pos));
+	}
+
+
+	/**
+	 * Returns position of $nth occurence of $needle in $haystack.
+	 * @return int|false  offset in bytes or false if the needle was not found
+	 */
+	private static function pos($haystack, $needle, $nth = 1)
+	{
+		if (!$nth) {
+			return false;
+		} elseif ($nth > 0) {
+			if (strlen($needle) === 0) {
+				return 0;
+			}
+			$pos = 0;
+			while (($pos = strpos($haystack, $needle, $pos)) !== false && --$nth) {
+				$pos++;
+			}
+		} else {
+			$len = strlen($haystack);
+			if (strlen($needle) === 0) {
+				return $len;
+			}
+			$pos = $len - 1;
+			while (($pos = strrpos($haystack, $needle, $pos - $len)) !== false && ++$nth) {
+				$pos--;
+			}
+		}
+		return $pos;
 	}
 
 
@@ -443,7 +513,7 @@ class Strings
 	 */
 	public static function split($subject, $pattern, $flags = 0)
 	{
-		return self::pcre('preg_split', array($pattern, $subject, -1, $flags | PREG_SPLIT_DELIM_CAPTURE));
+		return self::pcre('preg_split', [$pattern, $subject, -1, $flags | PREG_SPLIT_DELIM_CAPTURE]);
 	}
 
 
@@ -458,11 +528,11 @@ class Strings
 	public static function match($subject, $pattern, $flags = 0, $offset = 0)
 	{
 		if ($offset > strlen($subject)) {
-			return NULL;
+			return null;
 		}
-		return self::pcre('preg_match', array($pattern, $subject, & $m, $flags, $offset))
+		return self::pcre('preg_match', [$pattern, $subject, &$m, $flags, $offset])
 			? $m
-			: NULL;
+			: null;
 	}
 
 
@@ -477,13 +547,13 @@ class Strings
 	public static function matchAll($subject, $pattern, $flags = 0, $offset = 0)
 	{
 		if ($offset > strlen($subject)) {
-			return array();
+			return [];
 		}
-		self::pcre('preg_match_all', array(
-			$pattern, $subject, & $m,
+		self::pcre('preg_match_all', [
+			$pattern, $subject, &$m,
 			($flags & PREG_PATTERN_ORDER) ? $flags : ($flags | PREG_SET_ORDER),
-			$offset
-		));
+			$offset,
+		]);
 		return $m;
 	}
 
@@ -496,57 +566,50 @@ class Strings
 	 * @param  int
 	 * @return string
 	 */
-	public static function replace($subject, $pattern, $replacement = NULL, $limit = -1)
+	public static function replace($subject, $pattern, $replacement = null, $limit = -1)
 	{
 		if (is_object($replacement) || is_array($replacement)) {
 			if ($replacement instanceof Nette\Callback) {
+				trigger_error('Nette\Callback is deprecated, use PHP callback.', E_USER_DEPRECATED);
 				$replacement = $replacement->getNative();
 			}
-			if (!is_callable($replacement, FALSE, $textual)) {
+			if (!is_callable($replacement, false, $textual)) {
 				throw new Nette\InvalidStateException("Callback '$textual' is not callable.");
 			}
 
-			return self::pcre('preg_replace_callback', array($pattern, $replacement, $subject, $limit));
+			return self::pcre('preg_replace_callback', [$pattern, $replacement, $subject, $limit]);
 
-		} elseif ($replacement === NULL && is_array($pattern)) {
+		} elseif ($replacement === null && is_array($pattern)) {
 			$replacement = array_values($pattern);
 			$pattern = array_keys($pattern);
 		}
 
-		return self::pcre('preg_replace', array($pattern, $replacement, $subject, $limit));
+		return self::pcre('preg_replace', [$pattern, $replacement, $subject, $limit]);
 	}
 
 
 	/** @internal */
 	public static function pcre($func, $args)
 	{
-		static $messages = array(
+		static $messages = [
 			PREG_INTERNAL_ERROR => 'Internal error',
 			PREG_BACKTRACK_LIMIT_ERROR => 'Backtrack limit was exhausted',
 			PREG_RECURSION_LIMIT_ERROR => 'Recursion limit was exhausted',
 			PREG_BAD_UTF8_ERROR => 'Malformed UTF-8 data',
-			5 => 'Offset didn\'t correspond to the begin of a valid UTF-8 code point', // PREG_BAD_UTF8_OFFSET_ERROR
-		);
-		$res = Callback::invokeSafe($func, $args, function($message) use ($args) {
+			PREG_BAD_UTF8_OFFSET_ERROR => 'Offset didn\'t correspond to the begin of a valid UTF-8 code point',
+			6 => 'Failed due to limited JIT stack space', // PREG_JIT_STACKLIMIT_ERROR
+		];
+		$res = Callback::invokeSafe($func, $args, function ($message) use ($args) {
 			// compile-time error, not detectable by preg_last_error
 			throw new RegexpException($message . ' in pattern: ' . implode(' or ', (array) $args[0]));
 		});
 
 		if (($code = preg_last_error()) // run-time error, but preg_last_error & return code are liars
-			&& ($res === NULL || !in_array($func, array('preg_filter', 'preg_replace_callback', 'preg_replace')))
+			&& ($res === null || !in_array($func, ['preg_filter', 'preg_replace_callback', 'preg_replace'], true))
 		) {
 			throw new RegexpException((isset($messages[$code]) ? $messages[$code] : 'Unknown error')
 				. ' (pattern: ' . implode(' or ', (array) $args[0]) . ')', $code);
 		}
 		return $res;
 	}
-
-}
-
-
-/**
- * The exception that indicates error of the last Regexp execution.
- */
-class RegexpException extends \Exception
-{
 }

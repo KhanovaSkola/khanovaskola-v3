@@ -36,7 +36,7 @@ interface ApiClient
 	 * @throws \Kdyby\Facebook\FacebookApiException
 	 * @return mixed The decoded response object
 	 */
-	function graph($path, $method = 'GET', array $params = array());
+	function graph($path, $method = 'GET', array $params = []);
 
 	/**
 	 * Make a OAuth Request.

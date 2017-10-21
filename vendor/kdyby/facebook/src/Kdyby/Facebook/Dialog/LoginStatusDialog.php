@@ -28,17 +28,17 @@ class LoginStatusDialog extends Facebook\Dialog\AbstractDialog
 	/**
 	 * @var array of function(LoginStatusDialog $dialog)
 	 */
-	public $onNoSession = array();
+	public $onNoSession = [];
 
 	/**
 	 * @var array of function(LoginStatusDialog $dialog)
 	 */
-	public $onNoUser = array();
+	public $onNoUser = [];
 
 	/**
 	 * @var array of function(LoginStatusDialog $dialog)
 	 */
-	public $onOkSession = array();
+	public $onOkSession = [];
 
 
 
@@ -79,13 +79,13 @@ class LoginStatusDialog extends Facebook\Dialog\AbstractDialog
 	 */
 	public function getQueryParams()
 	{
-		return array(
+		return [
 			'api_key' => $this->facebook->config->appId,
 			'no_session' => $this->link('//noSession!'),
 			'no_user' => $this->link('//noUser!'),
 			'ok_session' => $this->link('//okSession!'),
 			'session_version' => 3,
-		);
+		];
 	}
 
 

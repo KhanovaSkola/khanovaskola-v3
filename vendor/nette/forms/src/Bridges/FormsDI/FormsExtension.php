@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Bridges\FormsDI;
@@ -12,15 +12,12 @@ use Nette;
 
 /**
  * Forms extension for Nette DI.
- *
- * @author David Grudl
- * @author Miroslav Paulík
  */
 class FormsExtension extends Nette\DI\CompilerExtension
 {
-	public $defaults = array(
-		'messages' => array()
-	);
+	public $defaults = [
+		'messages' => [],
+	];
 
 
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
@@ -30,13 +27,12 @@ class FormsExtension extends Nette\DI\CompilerExtension
 
 		foreach ((array) $config['messages'] as $name => $text) {
 			if (defined('Nette\Forms\Form::' . $name)) {
-				$initialize->addBody('Nette\Forms\Validator::$messages[Nette\Forms\Form::?] = ?;', array($name, $text));
+				$initialize->addBody('Nette\Forms\Validator::$messages[Nette\Forms\Form::?] = ?;', [$name, $text]);
 			} elseif (defined($name)) {
-				$initialize->addBody('Nette\Forms\Validator::$messages[' . $name . '] = ?;', array($text));
+				$initialize->addBody('Nette\Forms\Validator::$messages[' . $name . '] = ?;', [$text]);
 			} else {
 				throw new Nette\InvalidArgumentException('Constant Nette\Forms\Form::' . $name . ' or constant ' . $name . ' does not exist.');
 			}
 		}
 	}
-
 }

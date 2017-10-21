@@ -85,12 +85,12 @@ class LoginDialog extends Facebook\Dialog\AbstractDialog
 		$this->facebook->session->establishCSRFTokenState();
 
 		// basic params
-		$params = array(
+		$params = [
 			'state' => $this->facebook->session->state,
 			'client_id' => $this->facebook->config->appId,
 			'redirect_uri' => (string)$this->currentUrl,
 			'cancel_url' => (string)$this->currentUrl,
-		);
+		];
 
 		// scope of rights
 		if ($this->scope) {

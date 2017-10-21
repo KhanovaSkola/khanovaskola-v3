@@ -37,7 +37,7 @@ class Panel extends Nette\Object implements IBarPanel
 	/**
 	 * @var array
 	 */
-	private $calls = array();
+	private $calls = [];
 
 	/**
 	 * @var \stdClass
@@ -51,16 +51,21 @@ class Panel extends Nette\Object implements IBarPanel
 	 */
 	public function getTab()
 	{
-		$img = Html::el('img')->src('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABW0lEQVR42qWS3ytDYRjH9z+R2SEucCFxYdkOo6HQkanphCtFlvy4XTtna360WjaUcJy5Ie1iKaVQftVakXaxaEmp2fl633dxDsu52VOfm+f9fs77PG/HUlHVdcspgkbAX2y8BGtXADUEjpc0mtVFXSqjQ4jAu6BAXDxE28gGk3WxXCABGa1D6zg4ucV3TS4n2M2mos0pwSXGUSgUcXHzjJVwEnZPlPbNxfqeINzT26AVV69Q1ekHVzr7X2zoDSF5nsFTNs/E/NsH0o8vGJ3dg9URMBFdQSSS93jI5JiYe33H5V0WwzO7qKWi+agy3FOlUXeOruludPzfo3LsFSUj7MsuMcbELbJjtd1fOjOKLYNrcE7EwBtweDchLqlMVMnY9vEoy5CsLrYLEc3jU2BkbF6BTz5F4bOI47M0hLl91qfZH7GxL5RqHljVCDBAfwC6J7utqZ/1NJq1VFJfEBZqgX+geF0AAAAASUVORK5CYII=');
-		$tab = Html::el('span')->title('Facebook')->add($img);
-		$title = Html::el()->setText('Facebook');
+		$logo = Html::el()->setHtml(file_get_contents(__DIR__ . '/logo.svg'));
+		$tab = Html::el()->addHtml($logo);
+		$title = Html::el('span', ['class' => 'tracy-label'])->title('Facebook');
+
 		if ($this->calls) {
 			$title->setText(
 				count($this->calls) . ' call' . (count($this->calls) > 1 ? 's' : '') .
 				' / ' . sprintf('%0.2f', $this->totalTime) . ' s'
 			);
+
+		} else {
+			$title->setText('Facebook');
 		}
-		return (string)$tab->add($title);
+
+		return (string)$tab->addHtml($title);
 	}
 
 
@@ -75,10 +80,15 @@ class Panel extends Nette\Object implements IBarPanel
 		}
 
 		ob_start();
-		$esc = callback('Nette\Templating\Helpers::escapeHtml');
+		if (class_exists('Latte\Runtime\Filters')) {
+			$esc = Nette\Utils\Callback::closure('Latte\Runtime\Filters::escapeHtml');
+		} else {
+			$esc = 'Nette\Templating\Helpers::escapeHtml';
+		}
+
 		$click = class_exists('\Tracy\Dumper')
-			? function ($o, $c = FALSE) { return \Tracy\Dumper::toHtml($o, array('collapse' => $c)); }
-			: callback('\Tracy\Helpers::clickableDump');
+			? function ($o, $c = FALSE) { return \Tracy\Dumper::toHtml($o, ['collapse' => $c]); }
+			: '\Tracy\Helpers::clickableDump';
 		$totalTime = $this->totalTime ? sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : 'none';
 
 		require __DIR__ . '/panel.phtml';
@@ -94,14 +104,14 @@ class Panel extends Nette\Object implements IBarPanel
 	public function begin($url, array $params)
 	{
 		if ($this->current) return;
-		$this->calls[] = $this->current = (object)array(
+		$this->calls[] = $this->current = (object)[
 			'url' => $url,
 			'params' => $params,
 			'result' => NULL,
 			'exception' => NULL,
-			'info' => array(),
+			'info' => [],
 			'time' => 0,
-		);
+		];
 	}
 
 

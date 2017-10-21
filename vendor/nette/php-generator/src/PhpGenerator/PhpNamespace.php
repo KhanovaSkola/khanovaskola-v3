@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\PhpGenerator;
 
+use Nette;
 use Nette\InvalidStateException;
-use Nette\Object;
 use Nette\Utils\Strings;
 
 
@@ -19,46 +19,66 @@ use Nette\Utils\Strings;
  * - namespace statement
  * - variable amount of use statements
  * - one or more class declarations
- *
- * @author Jakub Kulhan <jakub.kulhan@gmail.com>
  */
-class PhpNamespace extends Object
+class PhpNamespace
 {
+	use Nette\SmartObject;
+
+	private static $keywords = [
+		'string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1,
+		'callable' => 1, 'iterable' => 1, 'void' => 1, 'self' => 1, 'parent' => 1,
+	];
+
 	/** @var string */
 	private $name;
 
 	/** @var bool */
-	private $bracketedSyntax = FALSE;
+	private $bracketedSyntax = false;
 
 	/** @var string[] */
-	private $uses = array();
+	private $uses = [];
 
 	/** @var ClassType[] */
-	private $classes = array();
+	private $classes = [];
 
 
-	public function __construct($name = NULL)
+	/**
+	 * @param  string|null
+	 */
+	public function __construct($name = null)
 	{
-		$this->name = $name;
+		if ($name && !Helpers::isNamespaceIdentifier($name)) {
+			throw new Nette\InvalidArgumentException("Value '$name' is not valid name.");
+		}
+		$this->name = (string) $name;
+	}
+
+
+	/** @deprecated */
+	public function setName($name)
+	{
+		$this->__construct($name);
+		return $this;
 	}
 
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getName()
 	{
-		return $this->name;
+		return $this->name ?: null;
 	}
 
 
 	/**
-	 * @param  string
-	 * @return self
+	 * @param  bool
+	 * @return static
+	 * @internal
 	 */
-	public function setName($name)
+	public function setBracketedSyntax($state = true)
 	{
-		$this->name = $name;
+		$this->bracketedSyntax = (bool) $state;
 		return $this;
 	}
 
@@ -73,42 +93,21 @@ class PhpNamespace extends Object
 
 
 	/**
-	 * @param  bool
-	 * @return self
-	 * @internal
-	 */
-	public function setBracketedSyntax($state = TRUE)
-	{
-		$this->bracketedSyntax = (bool) $state;
-		return $this;
-	}
-
-
-	/**
-	 * @return string[]
-	 */
-	public function getUses()
-	{
-		return $this->uses;
-	}
-
-
-	/**
 	 * @param  string
 	 * @param  string
 	 * @param  string
 	 * @throws InvalidStateException
-	 * @return self
+	 * @return static
 	 */
-	public function addUse($name, $alias = NULL, &$aliasOut = NULL)
+	public function addUse($name, $alias = null, &$aliasOut = null)
 	{
 		$name = ltrim($name, '\\');
-		if ($alias === NULL && $this->name === Helpers::extractNamespace($name)) {
+		if ($alias === null && $this->name === Helpers::extractNamespace($name)) {
 			$alias = Helpers::extractShortName($name);
 		}
-		if ($alias === NULL) {
+		if ($alias === null) {
 			$path = explode('\\', $name);
-			$counter = NULL;
+			$counter = null;
 			do {
 				if (empty($path)) {
 					$counter++;
@@ -131,13 +130,25 @@ class PhpNamespace extends Object
 
 
 	/**
+	 * @return string[]
+	 */
+	public function getUses()
+	{
+		return $this->uses;
+	}
+
+
+	/**
 	 * @param  string
 	 * @return string
 	 */
 	public function unresolveName($name)
 	{
+		if (isset(self::$keywords[strtolower($name)]) || $name === '') {
+			return $name;
+		}
 		$name = ltrim($name, '\\');
-		$res = NULL;
+		$res = null;
 		$lower = strtolower($name);
 		foreach ($this->uses as $alias => $for) {
 			if (Strings::startsWith($lower . '\\', strtolower($for) . '\\')) {
@@ -151,17 +162,8 @@ class PhpNamespace extends Object
 		if (!$res && Strings::startsWith($lower, strtolower($this->name) . '\\')) {
 			return substr($name, strlen($this->name) + 1);
 		} else {
-			return $res ?: '\\' . $name;
+			return $res ?: ($this->name ? '\\' : '') . $name;
 		}
-	}
-
-
-	/**
-	 * @return ClassType[]
-	 */
-	public function getClasses()
-	{
-		return $this->classes;
 	}
 
 
@@ -200,11 +202,20 @@ class PhpNamespace extends Object
 
 
 	/**
+	 * @return ClassType[]
+	 */
+	public function getClasses()
+	{
+		return $this->classes;
+	}
+
+
+	/**
 	 * @return string PHP code
 	 */
 	public function __toString()
 	{
-		$uses = array();
+		$uses = [];
 		asort($this->uses);
 		foreach ($this->uses as $alias => $name) {
 			$useNamespace = Helpers::extractNamespace($name);
@@ -231,5 +242,4 @@ class PhpNamespace extends Object
 				. $body;
 		}
 	}
-
 }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database\Drivers;
@@ -12,11 +12,11 @@ use Nette;
 
 /**
  * Supplemental MySQL database driver.
- *
- * @author     David Grudl
  */
-class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDriver
+class MySqlDriver implements Nette\Database\ISupplementalDriver
 {
+	use Nette\SmartObject;
+
 	const ERROR_ACCESS_DENIED = 1045;
 	const ERROR_DUPLICATE_ENTRY = 1062;
 	const ERROR_DATA_TRUNCATED = 1265;
@@ -50,17 +50,17 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function convertException(\PDOException $e)
 	{
-		$code = isset($e->errorInfo[1]) ? $e->errorInfo[1] : NULL;
-		if (in_array($code, array(1216, 1217, 1451, 1452, 1701), TRUE)) {
+		$code = isset($e->errorInfo[1]) ? $e->errorInfo[1] : null;
+		if (in_array($code, [1216, 1217, 1451, 1452, 1701], true)) {
 			return Nette\Database\ForeignKeyConstraintViolationException::from($e);
 
-		} elseif (in_array($code, array(1062, 1557, 1569, 1586), TRUE)) {
+		} elseif (in_array($code, [1062, 1557, 1569, 1586], true)) {
 			return Nette\Database\UniqueConstraintViolationException::from($e);
 
 		} elseif ($code >= 2001 && $code <= 2028) {
 			return Nette\Database\ConnectionException::from($e);
 
-		} elseif (in_array($code, array(1048, 1121, 1138, 1171, 1252, 1263, 1566), TRUE)) {
+		} elseif (in_array($code, [1048, 1121, 1138, 1171, 1252, 1263, 1566], true)) {
 			return Nette\Database\NotNullConstraintViolationException::from($e);
 
 		} else {
@@ -101,11 +101,21 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 
 
 	/**
+	 * Formats date-time interval for use in a SQL statement.
+	 */
+	public function formatDateInterval(\DateInterval $value)
+	{
+		return $value->format("'%r%h:%I:%S'");
+	}
+
+
+	/**
 	 * Encodes string for use in a LIKE statement.
 	 */
 	public function formatLike($value, $pos)
 	{
-		$value = addcslashes(str_replace('\\', '\\\\', $value), "\x00\n\r\\'%_");
+		$value = str_replace('\\', '\\\\', $value);
+		$value = addcslashes(substr($this->connection->quote($value), 1, -1), '%_');
 		return ($pos <= 0 ? "'%" : "'") . $value . ($pos >= 0 ? "%'" : "'");
 	}
 
@@ -113,12 +123,15 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	/**
 	 * Injects LIMIT/OFFSET to the SQL query.
 	 */
-	public function applyLimit(& $sql, $limit, $offset)
+	public function applyLimit(&$sql, $limit, $offset)
 	{
-		if ($limit >= 0 || $offset > 0) {
+		if ($limit < 0 || $offset < 0) {
+			throw new Nette\InvalidArgumentException('Negative offset or limit.');
+
+		} elseif ($limit !== null || $offset) {
 			// see http://dev.mysql.com/doc/refman/5.0/en/select.html
-			$sql .= ' LIMIT ' . ($limit < 0 ? '18446744073709551615' : (int) $limit)
-				. ($offset > 0 ? ' OFFSET ' . (int) $offset : '');
+			$sql .= ' LIMIT ' . ($limit === null ? '18446744073709551615' : (int) $limit)
+				. ($offset ? ' OFFSET ' . (int) $offset : '');
 		}
 	}
 
@@ -140,12 +153,12 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function getTables()
 	{
-		$tables = array();
+		$tables = [];
 		foreach ($this->connection->query('SHOW FULL TABLES') as $row) {
-			$tables[] = array(
+			$tables[] = [
 				'name' => $row[0],
 				'view' => isset($row[1]) && $row[1] === 'VIEW',
-			);
+			];
 		}
 		return $tables;
 	}
@@ -156,21 +169,21 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function getColumns($table)
 	{
-		$columns = array();
+		$columns = [];
 		foreach ($this->connection->query('SHOW FULL COLUMNS FROM ' . $this->delimite($table)) as $row) {
 			$type = explode('(', $row['Type']);
-			$columns[] = array(
+			$columns[] = [
 				'name' => $row['Field'],
 				'table' => $table,
 				'nativetype' => strtoupper($type[0]),
-				'size' => isset($type[1]) ? (int) $type[1] : NULL,
+				'size' => isset($type[1]) ? (int) $type[1] : null,
 				'unsigned' => (bool) strstr($row['Type'], 'unsigned'),
 				'nullable' => $row['Null'] === 'YES',
 				'default' => $row['Default'],
 				'autoincrement' => $row['Extra'] === 'auto_increment',
 				'primary' => $row['Key'] === 'PRI',
 				'vendor' => (array) $row,
-			);
+			];
 		}
 		return $columns;
 	}
@@ -181,7 +194,7 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function getIndexes($table)
 	{
-		$indexes = array();
+		$indexes = [];
 		foreach ($this->connection->query('SHOW INDEX FROM ' . $this->delimite($table)) as $row) {
 			$indexes[$row['Key_name']]['name'] = $row['Key_name'];
 			$indexes[$row['Key_name']]['unique'] = !$row['Non_unique'];
@@ -197,7 +210,7 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function getForeignKeys($table)
 	{
-		$keys = array();
+		$keys = [];
 		$query = 'SELECT CONSTRAINT_NAME, COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM information_schema.KEY_COLUMN_USAGE '
 			. 'WHERE TABLE_SCHEMA = DATABASE() AND REFERENCED_TABLE_NAME IS NOT NULL AND TABLE_NAME = ' . $this->connection->quote($table);
 
@@ -217,7 +230,7 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 	 */
 	public function getColumnTypes(\PDOStatement $statement)
 	{
-		$types = array();
+		$types = [];
 		$count = $statement->columnCount();
 		for ($col = 0; $col < $count; $col++) {
 			$meta = $statement->getColumnMeta($col);
@@ -244,5 +257,4 @@ class MySqlDriver extends Nette\Object implements Nette\Database\ISupplementalDr
 		// and more.
 		return $item === self::SUPPORT_SELECT_UNGROUPED_COLUMNS || $item === self::SUPPORT_MULTI_COLUMN_AS_OR_COND;
 	}
-
 }

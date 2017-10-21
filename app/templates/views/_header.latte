@@ -15,72 +15,68 @@
 			style="width: 70%">
 			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
-					<div class="dropdown dropdown-big" data-subjects-dropdown>
-						<a href="#" class="dropdown-toggle span-link">
-							<span>{_'header.general.subject'}</span>
-							<i class="icon icon-dropdown-caret"></i>
-						</a>
-						<div class="dropdown-menu">
-							<div class="subjects-list">
-								<ul class="ul-tab" role="tablist">
-									<li n:foreach="$subjects as $i => $subject"{first} data-default-label{/first}>
-										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
-		                                    <span>{$subject->title}</span>
-		                                    <i class="icon icon-{$subject->icon}"></i>
-		                                </a>
-									</li>
-									<li class="divider"></li>
-									<li n:foreach="$oldSubjects as $j => $subject">
-                                        <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subject->color}" data-subject-id="{$subject->id}">
-                                            <span>{$subject->title}</span>
-                                            <i class="icon icon-{$subject->icon}"></i>
-                                        </a>
-                                    </li>
-									<li>
-										<a n:href="Homepage:randomContent" rel="nofollow">
-											<span>{_'header.general.feelLucky'}</span>
-											<i class="icon icon-globe"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="subject-detail tab-content">
-								<div n:foreach="$subjects as $i => $subject" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subject->id}">
+				       <div class="dropdown dropdown-big" data-subjects-dropdown>
+					     <a href="#" class="dropdown-toggle span-link">
+						   <span>{_'header.general.subject'}</span>
+						   <i class="icon icon-dropdown-caret"></i>
+					     </a>
+					     <div class="dropdown-menu">
+						   <div class="subjects-list">
+							 <ul class="ul-tab" role="tablist">
+							    <li n:foreach="$subjects as $i => $subj"{first} data-default-label{/first}>
+							    <a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+		                                            <span>{$subj->title}</span>
+		                                            <i class="icon icon-{$subj->icon}"></i>
+		                                            </a>
+							    </li>
+							    <li class="divider"></li>
+                                                            {if $language === 'cs'}
+							       <li n:foreach="$oldSubjects as $j => $subj">
+                                                               <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+                                                               <span>{$subj->title}</span>
+                                                               <i class="icon icon-{$subj->icon}"></i>
+                                                               </a>
+                                                               </li>
+                                                            {/if}
+							    <li>
+							    <a n:href="Homepage:randomContent" rel="nofollow">
+							    <span>{_'header.general.feelLucky'}</span>
+							    <i class="icon icon-globe"></i>
+						            </a>
+						            </li>
+						         </ul>
+						   </div>
+					     <div class="subject-detail tab-content">
+					<div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
 									{block subjectDetail}
-										{foreach $subject->getMenuItems() as $schema}
+										{foreach $subj->getMenuItems() as $sch}
 											<div class="row">
                                                 <span class="title">
-{* Title of schemas in subject color... 
-                                                    <a n:href="$schema" class="text-{$subject->color}">{$schema->title}</a> &mdash;
- *}
-                                                    <a n:href="$schema">{$schema->title}</a> &mdash;
+                                                    <a n:href="$sch">{$sch->title}</a> &mdash;
                                                 </span>
                                                 <span class="blocks">
-                                                	{var $blocks = $schema->blocks}
+                                                	{var $blocks = $sch->blocks}
                                                 	{var $limit = 8}
                                                         {*The following ugliness is the menu optimization*}
-                                                        {if $subject->title === "Matematika"}
+                                                        {if $subj->title === "Matematika"}
                                                 	   {var $limit = 4}
                                                     	{/if}
-                                                        {if $schema->title === "Rovnice a nerovnice"}
+                                                        {if $sch->title === "Rovnice a nerovnice"}
                                                 	   {var $limit = 2}
-                                                {*        {elseif $schema->title === "Funkce"}
+                                                        {elseif $sch->title === "Pravděpodobnost a statistika"}
                                                 	   {var $limit = 3}
-                                                *}
-                                                        {elseif $schema->title === "Pravděpodobnost a statistika"}
-                                                	   {var $limit = 3}
-                                                        {elseif $schema->title === "Výrazy a jejich úpravy"}
+                                                        {elseif $sch->title === "Výrazy a jejich úpravy"}
                                                 	   {var $limit = 2}
                                                     	{/if}
-                                                    {foreach $blocks as $block}
+                                                    {foreach $blocks as $bl}
                                                     	{if $limit <= 0}
-                                                    		<a n:href="$schema">a&nbsp;další&nbsp;&hellip;</a>
+                                                    		<a n:href="$sch">a&nbsp;další&nbsp;&hellip;</a>
                                                     		{php break}
                                                     	{/if}
                                                     	{if $limit & 1}
-                                                            <a data-altcolor="1" n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                            <a data-altcolor="1" n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
                                                     	{else}
-                                                            <a n:href="$block, $schema">{$block->title}</a>{sep}, {/sep}
+                                                            <a n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
                                                     	{/if}
                                                         {php $limit--}
                                                     {/foreach}
@@ -89,7 +85,7 @@
 										{/foreach}
 									{/block}
 								</div>
-								<div n:foreach="$oldSubjects as $j => $subject" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subject->id}">
+								<div n:foreach="$oldSubjects as $j => $subj" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subj->id}">
 									{include subjectDetail}
 								</div>
 							</div>
@@ -105,11 +101,13 @@
 				</div>
 			</div>
 			{ifCurrent Homepage:}
+                           {if $language === 'cs'}
 				<div class="pull-right" style="margin-top: 20px">
-					<a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
-		                <img src="{$basePath}/img/bakalari.svg" width="" height="45">
-		            </a>
+                                    <a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
+		                    <img src="{$basePath}/img/bakalari.svg" width="" height="45">
+		                    </a>
 				</div>
+			   {/if}
 			{/ifCurrent}
 		</div>
 		<div class="header-userarea clearfix">

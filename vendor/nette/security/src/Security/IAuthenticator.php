@@ -1,28 +1,26 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Security;
 
-use Nette;
-
 
 /**
  * Performs authentication.
- *
- * @author     David Grudl
  */
 interface IAuthenticator
 {
 	/** Credential key */
-	const USERNAME = 0,
+	const
+		USERNAME = 0,
 		PASSWORD = 1;
 
 	/** Exception error code */
-	const IDENTITY_NOT_FOUND = 1,
+	const
+		IDENTITY_NOT_FOUND = 1,
 		INVALID_CREDENTIAL = 2,
 		FAILURE = 3,
 		NOT_APPROVED = 4;
@@ -34,5 +32,4 @@ interface IAuthenticator
 	 * @throws AuthenticationException
 	 */
 	function authenticate(array $credentials);
-
 }

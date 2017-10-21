@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\PhpGenerator;
@@ -12,81 +12,44 @@ use Nette;
 
 /**
  * Method parameter description.
- *
- * @author     David Grudl
  */
-class Parameter extends Nette\Object
+class Parameter
 {
-	/** @var string */
-	private $name;
-
-	/** @var bool */
-	private $reference = FALSE;
-
-	/** @var string */
-	private $typeHint;
-
-	/** @var bool */
-	private $optional = FALSE;
+	use Nette\SmartObject;
+	use Traits\NameAware;
 
 	/** @var mixed */
 	public $defaultValue;
 
+	/** @var bool */
+	private $reference = false;
+
+	/** @var string|null */
+	private $typeHint;
+
+	/** @var bool */
+	private $nullable = false;
+
+	/** @var bool */
+	private $hasDefaultValue = false;
+
 
 	/**
-	 * @return self
+	 * @deprecated
+	 * @return static
 	 */
 	public static function from(\ReflectionParameter $from)
 	{
-		$param = new static;
-		$param->name = $from->getName();
-		$param->reference = $from->isPassedByReference();
-		try {
-			$param->typeHint = $from->isArray() ? 'array' : ($from->getClass() ? '\\' . $from->getClass()->getName() : '');
-		} catch (\ReflectionException $e) {
-			if (preg_match('#Class (.+) does not exist#', $e->getMessage(), $m)) {
-				$param->typeHint = '\\' . $m[1];
-			} else {
-				throw $e;
-			}
-		}
-		$param->optional = PHP_VERSION_ID < 50407 ? $from->isOptional() || ($param->typeHint && $from->allowsNull()) : $from->isDefaultValueAvailable();
-		$param->defaultValue = (PHP_VERSION_ID === 50316 ? $from->isOptional() : $from->isDefaultValueAvailable()) ? $from->getDefaultValue() : NULL;
-
-		$namespace = $from->getDeclaringClass()->getNamespaceName();
-		$namespace = $namespace ? "\\$namespace\\" : "\\";
-		if (Nette\Utils\Strings::startsWith($param->typeHint, $namespace)) {
-			$param->typeHint = substr($param->typeHint, strlen($namespace));
-		}
-		return $param;
-	}
-
-
-	/**
-	 * @param  string  without $
-	 * @return self
-	 */
-	public function setName($name)
-	{
-		$this->name = (string) $name;
-		return $this;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
+		trigger_error(__METHOD__ . '() is deprecated, use Nette\PhpGenerator\Factory.', E_USER_DEPRECATED);
+		return (new Factory)->fromParameterReflection($from);
 	}
 
 
 	/**
 	 * @param  bool
-	 * @return self
+	 * @return static
 	 */
-	public function setReference($state = TRUE)
+	public function setReference($state = true)
 	{
 		$this->reference = (bool) $state;
 		return $this;
@@ -103,18 +66,18 @@ class Parameter extends Nette\Object
 
 
 	/**
-	 * @param  string
-	 * @return self
+	 * @param  string|null
+	 * @return static
 	 */
 	public function setTypeHint($hint)
 	{
-		$this->typeHint = (string) $hint;
+		$this->typeHint = $hint ? (string) $hint : null;
 		return $this;
 	}
 
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getTypeHint()
 	{
@@ -124,11 +87,32 @@ class Parameter extends Nette\Object
 
 	/**
 	 * @param  bool
-	 * @return self
+	 * @return static
 	 */
-	public function setOptional($state = TRUE)
+	public function setOptional($state = true)
 	{
-		$this->optional = (bool) $state;
+		$this->hasDefaultValue = (bool) $state;
+		return $this;
+	}
+
+
+	/**
+	 * @deprecated  use hasDefaultValue()
+	 * @return bool
+	 */
+	public function isOptional()
+	{
+		return $this->hasDefaultValue;
+	}
+
+
+	/**
+	 * @param  bool
+	 * @return static
+	 */
+	public function setNullable($state = true)
+	{
+		$this->nullable = (bool) $state;
 		return $this;
 	}
 
@@ -136,14 +120,14 @@ class Parameter extends Nette\Object
 	/**
 	 * @return bool
 	 */
-	public function isOptional()
+	public function isNullable()
 	{
-		return $this->optional;
+		return $this->nullable;
 	}
 
 
 	/**
-	 * @return self
+	 * @return static
 	 */
 	public function setDefaultValue($val)
 	{
@@ -160,4 +144,12 @@ class Parameter extends Nette\Object
 		return $this->defaultValue;
 	}
 
+
+	/**
+	 * @return bool
+	 */
+	public function hasDefaultValue()
+	{
+		return $this->hasDefaultValue;
+	}
 }

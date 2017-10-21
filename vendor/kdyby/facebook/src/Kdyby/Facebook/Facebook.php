@@ -85,12 +85,12 @@ class Facebook extends Nette\Object
 	/**
 	 * @var array
 	 */
-	public static $dialogs = array(
+	public static $dialogs = [
 		'login' => 'Kdyby\Facebook\Dialog\LoginDialog',
 		'loginStatus' => 'Kdyby\Facebook\Dialog\LoginStatusDialog',
 		'status' => 'Kdyby\Facebook\Dialog\LoginStatusDialog',
 		'logout' => 'Kdyby\Facebook\Dialog\LogoutDialog',
-	);
+	];
 
 
 
@@ -164,7 +164,7 @@ class Facebook extends Nette\Object
 	 * @throws \Kdyby\Facebook\FacebookApiException
 	 * @return ArrayHash|bool|NULL The decoded response
 	 */
-	public function api($pathOrParams, $method = NULL, array $params = array())
+	public function api($pathOrParams, $method = NULL, array $params = [])
 	{
 		if (is_array($pathOrParams) && empty($this->config->graphVersion)) {
 			$response = $this->apiClient->restServer($pathOrParams); // params
@@ -187,7 +187,7 @@ class Facebook extends Nette\Object
 	 * @throws \Kdyby\Facebook\FacebookApiException
 	 * @return \Kdyby\Facebook\Resource\ResourceLoader
 	 */
-	public function iterate($pathOrParams, $method = NULL, array $params = array())
+	public function iterate($pathOrParams, $method = NULL, array $params = [])
 	{
 		return new Resource\ResourceLoader($this, $pathOrParams, $method, $params);
 	}
@@ -197,7 +197,7 @@ class Facebook extends Nette\Object
 	/**
 	 * Get the UID of the connected user, or 0 if the Facebook user is not connected.
 	 *
-	 * @return string the UID if available.
+	 * @return string|integer the UID if available.
 	 */
 	public function getUser()
 	{
@@ -255,27 +255,28 @@ class Facebook extends Nette\Object
 			// directly, since response isn't JSON format.
 			$response = $this->apiClient->oauth(
 				$this->config->createUrl('graph', '/oauth/access_token'),
-				array(
+				[
 					'client_id' => $this->config->appId,
 					'client_secret' => $this->config->appSecret,
 					'grant_type' => 'fb_exchange_token',
 					'fb_exchange_token' => $this->getAccessToken(),
-				)
+				]
 			);
 
 			if (empty($response)) {
 				return FALSE;
 			}
 
-			parse_str($response, $params);
-			if (!isset($params['access_token'])) {
-				return FALSE;
-			}
+			$params = $this->decodeAccessToken($response);
 
 			$this->destroySession();
 			$this->session->access_token = $params['access_token'];
 
 			return TRUE;
+
+		} catch (InvalidArgumentException $e) {
+			// the token cannot be parsed
+			return FALSE;
 
 		} catch (FacebookApiException $e) {
 			// most likely that user very recently revoked authorization.
@@ -509,12 +510,12 @@ class Facebook extends Nette\Object
 			// directly, since response isn't JSON format.
 			$accessToken = $this->apiClient->oauth(
 				$this->config->createUrl('graph', '/oauth/access_token'),
-				array(
+				[
 					'client_id' => $this->config->appId,
 					'client_secret' => $this->config->appSecret,
 					'redirect_uri' => $redirectUri,
 					'code' => $code
-				)
+				]
 			);
 
 			if (empty($accessToken)) {
@@ -527,13 +528,13 @@ class Facebook extends Nette\Object
 			return FALSE;
 		}
 
-		$params = array();
-		parse_str($accessToken, $params);
-		if (!isset($params['access_token'])) {
+		try {
+			$params = $this->decodeAccessToken($accessToken);
+			return $params['access_token'];
+
+		} catch (InvalidArgumentException $e) {
 			return FALSE;
 		}
-
-		return $params['access_token'];
 	}
 
 
@@ -615,7 +616,7 @@ class Facebook extends Nette\Object
 
 		// The cookie value can be wrapped in "-characters so remove them
 		if (!$cookieValue = trim($this->httpRequest->getCookie($cookieName), '"')) {
-			return array();
+			return [];
 		}
 
 		parse_str($cookieValue, $metadata);
@@ -645,6 +646,29 @@ class Facebook extends Nette\Object
 		}
 
 		return $default;
+	}
+
+
+
+	/**
+	 * @param string $raw
+	 * @return array
+	 */
+	protected function decodeAccessToken($raw)
+	{
+		$params = [];
+		try {
+			$params = Nette\Utils\Json::decode($raw, Nette\Utils\Json::FORCE_ARRAY);
+
+		} catch (Nette\Utils\JsonException $e) {
+			parse_str($raw, $params);
+		}
+
+		if (!is_array($params) || !array_key_exists('access_token', $params)) {
+			throw new InvalidArgumentException("Given token $raw cannot be parsed");
+		}
+
+		return $params;
 	}
 
 }

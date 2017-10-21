@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -30,7 +28,7 @@
  */
 class Google_Service_AndroidPublisher extends Google_Service
 {
-  /** View and manage your Google Play Android Developer account. */
+  /** View and manage your Google Play Developer account. */
   const ANDROIDPUBLISHER =
       "https://www.googleapis.com/auth/androidpublisher";
 
@@ -43,6 +41,7 @@ class Google_Service_AndroidPublisher extends Google_Service
   public $edits_listings;
   public $edits_testers;
   public $edits_tracks;
+  public $entitlements;
   public $inappproducts;
   public $purchases_products;
   public $purchases_subscriptions;
@@ -56,6 +55,7 @@ class Google_Service_AndroidPublisher extends Google_Service
   public function __construct(Google_Client $client)
   {
     parent::__construct($client);
+    $this->rootUrl = 'https://www.googleapis.com/';
     $this->servicePath = 'androidpublisher/v2/applications/';
     $this->version = 'v2';
     $this->serviceName = 'androidpublisher';
@@ -296,7 +296,22 @@ class Google_Service_AndroidPublisher extends Google_Service
         'apks',
         array(
           'methods' => array(
-            'list' => array(
+            'addexternallyhosted' => array(
+              'path' => '{packageName}/edits/{editId}/apks/externallyHosted',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'packageName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'editId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
               'path' => '{packageName}/edits/{editId}/apks',
               'httpMethod' => 'GET',
               'parameters' => array(
@@ -885,6 +900,42 @@ class Google_Service_AndroidPublisher extends Google_Service
           )
         )
     );
+    $this->entitlements = new Google_Service_AndroidPublisher_Entitlements_Resource(
+        $this,
+        $this->serviceName,
+        'entitlements',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => '{packageName}/entitlements',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'packageName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'productId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'startIndex' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'token' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->inappproducts = new Google_Service_AndroidPublisher_Inappproducts_Resource(
         $this,
         $this->serviceName,
@@ -948,17 +999,17 @@ class Google_Service_AndroidPublisher extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'token' => array(
+                'maxResults' => array(
                   'location' => 'query',
-                  'type' => 'string',
+                  'type' => 'integer',
                 ),
                 'startIndex' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'maxResults' => array(
+                'token' => array(
                   'location' => 'query',
-                  'type' => 'integer',
+                  'type' => 'string',
                 ),
               ),
             ),'patch' => array(
@@ -1390,6 +1441,26 @@ class Google_Service_AndroidPublisher_EditsApklistings_Resource extends Google_S
  */
 class Google_Service_AndroidPublisher_EditsApks_Resource extends Google_Service_Resource
 {
+
+  /**
+   * Creates a new APK without uploading the APK itself to Google Play, instead
+   * hosting the APK at a specified URL. This function is only available to
+   * enterprises using Google Play for Work whose application is configured to
+   * restrict distribution to the enterprise domain. (apks.addexternallyhosted)
+   *
+   * @param string $packageName Unique identifier for the Android app that is
+   * being updated; for example, "com.spiffygame".
+   * @param string $editId Unique identifier for this edit.
+   * @param Google_ApksAddExternallyHostedRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse
+   */
+  public function addexternallyhosted($packageName, $editId, Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest $postBody, $optParams = array())
+  {
+    $params = array('packageName' => $packageName, 'editId' => $editId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('addexternallyhosted', array($params), "Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse");
+  }
 
   /**
    * (apks.listEditsApks)
@@ -1907,8 +1978,10 @@ class Google_Service_AndroidPublisher_EditsTracks_Resource extends Google_Servic
   }
 
   /**
-   * Updates the track configuration for the specified track type. This method
-   * supports patch semantics. (tracks.patch)
+   * Updates the track configuration for the specified track type. When halted,
+   * the rollout track cannot be updated without adding new APKs, and adding new
+   * APKs will cause it to resume. This method supports patch semantics.
+   * (tracks.patch)
    *
    * @param string $packageName Unique identifier for the Android app that is
    * being updated; for example, "com.spiffygame".
@@ -1926,7 +1999,9 @@ class Google_Service_AndroidPublisher_EditsTracks_Resource extends Google_Servic
   }
 
   /**
-   * Updates the track configuration for the specified track type. (tracks.update)
+   * Updates the track configuration for the specified track type. When halted,
+   * the rollout track cannot be updated without adding new APKs, and adding new
+   * APKs will cause it to resume. (tracks.update)
    *
    * @param string $packageName Unique identifier for the Android app that is
    * being updated; for example, "com.spiffygame".
@@ -1941,6 +2016,40 @@ class Google_Service_AndroidPublisher_EditsTracks_Resource extends Google_Servic
     $params = array('packageName' => $packageName, 'editId' => $editId, 'track' => $track, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('update', array($params), "Google_Service_AndroidPublisher_Track");
+  }
+}
+
+/**
+ * The "entitlements" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $androidpublisherService = new Google_Service_AndroidPublisher(...);
+ *   $entitlements = $androidpublisherService->entitlements;
+ *  </code>
+ */
+class Google_Service_AndroidPublisher_Entitlements_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Lists the user's current inapp item or subscription entitlements
+   * (entitlements.listEntitlements)
+   *
+   * @param string $packageName The package name of the application the inapp
+   * product was sold in (for example, 'com.some.thing').
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string maxResults
+   * @opt_param string productId The product id of the inapp product (for example,
+   * 'sku1'). This can be used to restrict the result set.
+   * @opt_param string startIndex
+   * @opt_param string token
+   * @return Google_Service_AndroidPublisher_EntitlementsListResponse
+   */
+  public function listEntitlements($packageName, $optParams = array())
+  {
+    $params = array('packageName' => $packageName);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_AndroidPublisher_EntitlementsListResponse");
   }
 }
 
@@ -2028,9 +2137,9 @@ class Google_Service_AndroidPublisher_Inappproducts_Resource extends Google_Serv
    * products; for example, "com.spiffygame".
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string token
-   * @opt_param string startIndex
    * @opt_param string maxResults
+   * @opt_param string startIndex
+   * @opt_param string token
    * @return Google_Service_AndroidPublisher_InappproductsListResponse
    */
   public function listInappproducts($packageName, $optParams = array())
@@ -2341,6 +2450,42 @@ class Google_Service_AndroidPublisher_ApkListingsListResponse extends Google_Col
   }
 }
 
+class Google_Service_AndroidPublisher_ApksAddExternallyHostedRequest extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $externallyHostedApkType = 'Google_Service_AndroidPublisher_ExternallyHostedApk';
+  protected $externallyHostedApkDataType = '';
+
+
+  public function setExternallyHostedApk(Google_Service_AndroidPublisher_ExternallyHostedApk $externallyHostedApk)
+  {
+    $this->externallyHostedApk = $externallyHostedApk;
+  }
+  public function getExternallyHostedApk()
+  {
+    return $this->externallyHostedApk;
+  }
+}
+
+class Google_Service_AndroidPublisher_ApksAddExternallyHostedResponse extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $externallyHostedApkType = 'Google_Service_AndroidPublisher_ExternallyHostedApk';
+  protected $externallyHostedApkDataType = '';
+
+
+  public function setExternallyHostedApk(Google_Service_AndroidPublisher_ExternallyHostedApk $externallyHostedApk)
+  {
+    $this->externallyHostedApk = $externallyHostedApk;
+  }
+  public function getExternallyHostedApk()
+  {
+    return $this->externallyHostedApk;
+  }
+}
+
 class Google_Service_AndroidPublisher_ApksListResponse extends Google_Collection
 {
   protected $collection_key = 'apks';
@@ -2439,6 +2584,89 @@ class Google_Service_AndroidPublisher_AppEdit extends Google_Model
   }
 }
 
+class Google_Service_AndroidPublisher_Entitlement extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $kind;
+  public $productId;
+  public $productType;
+  public $token;
+
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+  public function getKind()
+  {
+    return $this->kind;
+  }
+  public function setProductId($productId)
+  {
+    $this->productId = $productId;
+  }
+  public function getProductId()
+  {
+    return $this->productId;
+  }
+  public function setProductType($productType)
+  {
+    $this->productType = $productType;
+  }
+  public function getProductType()
+  {
+    return $this->productType;
+  }
+  public function setToken($token)
+  {
+    $this->token = $token;
+  }
+  public function getToken()
+  {
+    return $this->token;
+  }
+}
+
+class Google_Service_AndroidPublisher_EntitlementsListResponse extends Google_Collection
+{
+  protected $collection_key = 'resources';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $pageInfoType = 'Google_Service_AndroidPublisher_PageInfo';
+  protected $pageInfoDataType = '';
+  protected $resourcesType = 'Google_Service_AndroidPublisher_Entitlement';
+  protected $resourcesDataType = 'array';
+  protected $tokenPaginationType = 'Google_Service_AndroidPublisher_TokenPagination';
+  protected $tokenPaginationDataType = '';
+
+
+  public function setPageInfo(Google_Service_AndroidPublisher_PageInfo $pageInfo)
+  {
+    $this->pageInfo = $pageInfo;
+  }
+  public function getPageInfo()
+  {
+    return $this->pageInfo;
+  }
+  public function setResources($resources)
+  {
+    $this->resources = $resources;
+  }
+  public function getResources()
+  {
+    return $this->resources;
+  }
+  public function setTokenPagination(Google_Service_AndroidPublisher_TokenPagination $tokenPagination)
+  {
+    $this->tokenPagination = $tokenPagination;
+  }
+  public function getTokenPagination()
+  {
+    return $this->tokenPagination;
+  }
+}
+
 class Google_Service_AndroidPublisher_ExpansionFile extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -2480,6 +2708,177 @@ class Google_Service_AndroidPublisher_ExpansionFilesUploadResponse extends Googl
   public function getExpansionFile()
   {
     return $this->expansionFile;
+  }
+}
+
+class Google_Service_AndroidPublisher_ExternallyHostedApk extends Google_Collection
+{
+  protected $collection_key = 'usesPermissions';
+  protected $internal_gapi_mappings = array(
+  );
+  public $applicationLabel;
+  public $certificateBase64s;
+  public $externallyHostedUrl;
+  public $fileSha1Base64;
+  public $fileSha256Base64;
+  public $fileSize;
+  public $iconBase64;
+  public $maximumSdk;
+  public $minimumSdk;
+  public $nativeCodes;
+  public $packageName;
+  public $usesFeatures;
+  protected $usesPermissionsType = 'Google_Service_AndroidPublisher_ExternallyHostedApkUsesPermission';
+  protected $usesPermissionsDataType = 'array';
+  public $versionCode;
+  public $versionName;
+
+
+  public function setApplicationLabel($applicationLabel)
+  {
+    $this->applicationLabel = $applicationLabel;
+  }
+  public function getApplicationLabel()
+  {
+    return $this->applicationLabel;
+  }
+  public function setCertificateBase64s($certificateBase64s)
+  {
+    $this->certificateBase64s = $certificateBase64s;
+  }
+  public function getCertificateBase64s()
+  {
+    return $this->certificateBase64s;
+  }
+  public function setExternallyHostedUrl($externallyHostedUrl)
+  {
+    $this->externallyHostedUrl = $externallyHostedUrl;
+  }
+  public function getExternallyHostedUrl()
+  {
+    return $this->externallyHostedUrl;
+  }
+  public function setFileSha1Base64($fileSha1Base64)
+  {
+    $this->fileSha1Base64 = $fileSha1Base64;
+  }
+  public function getFileSha1Base64()
+  {
+    return $this->fileSha1Base64;
+  }
+  public function setFileSha256Base64($fileSha256Base64)
+  {
+    $this->fileSha256Base64 = $fileSha256Base64;
+  }
+  public function getFileSha256Base64()
+  {
+    return $this->fileSha256Base64;
+  }
+  public function setFileSize($fileSize)
+  {
+    $this->fileSize = $fileSize;
+  }
+  public function getFileSize()
+  {
+    return $this->fileSize;
+  }
+  public function setIconBase64($iconBase64)
+  {
+    $this->iconBase64 = $iconBase64;
+  }
+  public function getIconBase64()
+  {
+    return $this->iconBase64;
+  }
+  public function setMaximumSdk($maximumSdk)
+  {
+    $this->maximumSdk = $maximumSdk;
+  }
+  public function getMaximumSdk()
+  {
+    return $this->maximumSdk;
+  }
+  public function setMinimumSdk($minimumSdk)
+  {
+    $this->minimumSdk = $minimumSdk;
+  }
+  public function getMinimumSdk()
+  {
+    return $this->minimumSdk;
+  }
+  public function setNativeCodes($nativeCodes)
+  {
+    $this->nativeCodes = $nativeCodes;
+  }
+  public function getNativeCodes()
+  {
+    return $this->nativeCodes;
+  }
+  public function setPackageName($packageName)
+  {
+    $this->packageName = $packageName;
+  }
+  public function getPackageName()
+  {
+    return $this->packageName;
+  }
+  public function setUsesFeatures($usesFeatures)
+  {
+    $this->usesFeatures = $usesFeatures;
+  }
+  public function getUsesFeatures()
+  {
+    return $this->usesFeatures;
+  }
+  public function setUsesPermissions($usesPermissions)
+  {
+    $this->usesPermissions = $usesPermissions;
+  }
+  public function getUsesPermissions()
+  {
+    return $this->usesPermissions;
+  }
+  public function setVersionCode($versionCode)
+  {
+    $this->versionCode = $versionCode;
+  }
+  public function getVersionCode()
+  {
+    return $this->versionCode;
+  }
+  public function setVersionName($versionName)
+  {
+    $this->versionName = $versionName;
+  }
+  public function getVersionName()
+  {
+    return $this->versionName;
+  }
+}
+
+class Google_Service_AndroidPublisher_ExternallyHostedApkUsesPermission extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $maxSdkVersion;
+  public $name;
+
+
+  public function setMaxSdkVersion($maxSdkVersion)
+  {
+    $this->maxSdkVersion = $maxSdkVersion;
+  }
+  public function getMaxSdkVersion()
+  {
+    return $this->maxSdkVersion;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
   }
 }
 
@@ -2709,14 +3108,6 @@ class Google_Service_AndroidPublisher_InAppProductListing extends Google_Model
   {
     return $this->title;
   }
-}
-
-class Google_Service_AndroidPublisher_InAppProductListings extends Google_Model
-{
-}
-
-class Google_Service_AndroidPublisher_InAppProductPrices extends Google_Model
-{
 }
 
 class Google_Service_AndroidPublisher_InappproductsBatchRequest extends Google_Collection
@@ -3190,12 +3581,43 @@ class Google_Service_AndroidPublisher_ProductPurchase extends Google_Model
   }
 }
 
-class Google_Service_AndroidPublisher_Season extends Google_Model
+class Google_Service_AndroidPublisher_Prorate extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
+  protected $defaultPriceType = 'Google_Service_AndroidPublisher_Price';
+  protected $defaultPriceDataType = '';
+  protected $startType = 'Google_Service_AndroidPublisher_MonthDay';
+  protected $startDataType = '';
+
+
+  public function setDefaultPrice(Google_Service_AndroidPublisher_Price $defaultPrice)
+  {
+    $this->defaultPrice = $defaultPrice;
+  }
+  public function getDefaultPrice()
+  {
+    return $this->defaultPrice;
+  }
+  public function setStart(Google_Service_AndroidPublisher_MonthDay $start)
+  {
+    $this->start = $start;
+  }
+  public function getStart()
+  {
+    return $this->start;
+  }
+}
+
+class Google_Service_AndroidPublisher_Season extends Google_Collection
+{
+  protected $collection_key = 'prorations';
   protected $internal_gapi_mappings = array(
   );
   protected $endType = 'Google_Service_AndroidPublisher_MonthDay';
   protected $endDataType = '';
+  protected $prorationsType = 'Google_Service_AndroidPublisher_Prorate';
+  protected $prorationsDataType = 'array';
   protected $startType = 'Google_Service_AndroidPublisher_MonthDay';
   protected $startDataType = '';
 
@@ -3207,6 +3629,14 @@ class Google_Service_AndroidPublisher_Season extends Google_Model
   public function getEnd()
   {
     return $this->end;
+  }
+  public function setProrations($prorations)
+  {
+    $this->prorations = $prorations;
+  }
+  public function getProrations()
+  {
+    return $this->prorations;
   }
   public function setStart(Google_Service_AndroidPublisher_MonthDay $start)
   {

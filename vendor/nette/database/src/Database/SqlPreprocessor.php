@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database;
@@ -12,11 +12,11 @@ use Nette;
 
 /**
  * SQL preprocessor.
- *
- * @author     David Grudl
  */
-class SqlPreprocessor extends Nette\Object
+class SqlPreprocessor
 {
+	use Nette\SmartObject;
+
 	/** @var Connection */
 	private $connection;
 
@@ -50,32 +50,33 @@ class SqlPreprocessor extends Nette\Object
 	public function process($params)
 	{
 		$this->params = $params;
-		$this->counter = 0; $prev = -1;
-		$this->remaining = array();
-		$this->arrayMode = NULL;
-		$res = array();
+		$this->counter = 0;
+		$prev = -1;
+		$this->remaining = [];
+		$this->arrayMode = null;
+		$res = [];
 
 		while ($this->counter < count($params)) {
 			$param = $params[$this->counter++];
 
 			if (($this->counter === 2 && count($params) === 2) || !is_scalar($param)) {
 				$res[] = $this->formatValue($param, 'auto');
-				$this->arrayMode = NULL;
+				$this->arrayMode = null;
 
 			} elseif (is_string($param) && $this->counter > $prev + 1) {
 				$prev = $this->counter;
-				$this->arrayMode = NULL;
+				$this->arrayMode = null;
 				$res[] = Nette\Utils\Strings::replace(
 					$param,
-					'~\'[^\']*+\'|"[^"]*+"|\?[a-z]*|^\s*+(?:INSERT|REPLACE)\b|\b(?:SET|WHERE|HAVING|ORDER BY|GROUP BY|KEY UPDATE)(?=[\s?]*+\z)|/\*.*?\*/|--[^\n]*~si',
-					array($this, 'callback')
+					'~\'[^\']*+\'|"[^"]*+"|\?[a-z]*|^\s*+(?:INSERT|REPLACE)\b|\b(?:SET|WHERE|HAVING|ORDER BY|GROUP BY|KEY UPDATE)(?=\s*\z|\s*\?)|/\*.*?\*/|--[^\n]*~si',
+					[$this, 'callback']
 				);
 			} else {
 				throw new Nette\InvalidArgumentException('There are more parameters than placeholders.');
 			}
 		}
 
-		return array(implode(' ', $res), $this->remaining);
+		return [implode(' ', $res), $this->remaining];
 	}
 
 
@@ -93,7 +94,7 @@ class SqlPreprocessor extends Nette\Object
 			return $m;
 
 		} else { // command
-			static $modes = array(
+			static $modes = [
 				'INSERT' => 'values',
 				'REPLACE' => 'values',
 				'KEY UPDATE' => 'set',
@@ -102,18 +103,18 @@ class SqlPreprocessor extends Nette\Object
 				'HAVING' => 'and',
 				'ORDER BY' => 'order',
 				'GROUP BY' => 'order',
-			);
+			];
 			$this->arrayMode = $modes[ltrim(strtoupper($m))];
 			return $m;
 		}
 	}
 
 
-	private function formatValue($value, $mode = NULL)
+	private function formatValue($value, $mode = null)
 	{
 		if (!$mode || $mode === 'auto') {
 			if (is_string($value)) {
-				if (strlen($value) > 20) {
+				if (strlen($value) > 20 || strpos($value, '\\') !== false) {
 					$this->remaining[] = $value;
 					return '?';
 
@@ -130,20 +131,23 @@ class SqlPreprocessor extends Nette\Object
 			} elseif (is_bool($value)) {
 				return $this->driver->formatBool($value);
 
-			} elseif ($value === NULL) {
+			} elseif ($value === null) {
 				return 'NULL';
 
 			} elseif ($value instanceof Table\IRow) {
-				return $value->getPrimary();
-
-			} elseif ($value instanceof \DateTime || $value instanceof \DateTimeInterface) {
-				return $this->driver->formatDateTime($value);
+				return $this->formatValue($value->getPrimary());
 
 			} elseif ($value instanceof SqlLiteral) {
 				$prep = clone $this;
-				list($res, $params) = $prep->process(array_merge(array($value->__toString()), $value->getParameters()));
+				list($res, $params) = $prep->process(array_merge([$value->__toString()], $value->getParameters()));
 				$this->remaining = array_merge($this->remaining, $params);
 				return $res;
+
+			} elseif ($value instanceof \DateTimeInterface) {
+				return $this->driver->formatDateTime($value);
+
+			} elseif ($value instanceof \DateInterval) {
+				return $this->driver->formatDateInterval($value);
 
 			} elseif (is_object($value) && method_exists($value, '__toString')) {
 				return $this->formatValue((string) $value);
@@ -166,7 +170,7 @@ class SqlPreprocessor extends Nette\Object
 		}
 
 		if (is_array($value)) {
-			$vx = $kx = array();
+			$vx = $kx = [];
 			if ($mode === 'auto') {
 				$mode = $this->arrayMode;
 			}
@@ -177,8 +181,8 @@ class SqlPreprocessor extends Nette\Object
 						$kx[] = $this->delimite($k);
 					}
 					foreach ($value as $val) {
-						$vx2 = array();
-							foreach ($val as $v) {
+						$vx2 = [];
+						foreach ($val as $v) {
 							$vx2[] = $this->formatValue($v);
 						}
 						$vx[] = implode(', ', $vx2);
@@ -194,14 +198,14 @@ class SqlPreprocessor extends Nette\Object
 				}
 				return '(' . implode(', ', $kx) . ') VALUES (' . implode(', ', $vx) . ')';
 
-			} elseif (!$mode || $mode === 'set') { // key=value, key=value, ...
+			} elseif (!$mode || $mode === 'set') {
 				foreach ($value as $k => $v) {
 					if (is_int($k)) { // value, value, ... OR (1, 2), (3, 4)
 						$vx[] = is_array($v) ? '(' . $this->formatValue($v) . ')' : $this->formatValue($v);
-					} elseif (substr($k, -1) === '=') {
+					} elseif (substr($k, -1) === '=') { // key+=value, key-=value, ...
 						$k2 = $this->delimite(substr($k, 0, -2));
 						$vx[] = $k2 . '=' . $k2 . ' ' . substr($k, -2, 1) . ' ' . $this->formatValue($v);
-					} else {
+					} else { // key=value, key=value, ...
 						$vx[] = $this->delimite($k) . '=' . $this->formatValue($v);
 					}
 				}
@@ -239,7 +243,7 @@ class SqlPreprocessor extends Nette\Object
 				throw new Nette\InvalidArgumentException("Unknown placeholder ?$mode.");
 			}
 
-		} elseif (in_array($mode, array('and', 'or', 'set', 'values', 'order'), TRUE)) {
+		} elseif (in_array($mode, ['and', 'or', 'set', 'values', 'order'], true)) {
 			$type = gettype($value);
 			throw new Nette\InvalidArgumentException("Placeholder ?$mode expects array or Traversable object, $type given.");
 
@@ -254,7 +258,6 @@ class SqlPreprocessor extends Nette\Object
 
 	private function delimite($name)
 	{
-		return implode('.', array_map(array($this->driver, 'delimite'), explode('.', $name)));
+		return implode('.', array_map([$this->driver, 'delimite'], explode('.', $name)));
 	}
-
 }

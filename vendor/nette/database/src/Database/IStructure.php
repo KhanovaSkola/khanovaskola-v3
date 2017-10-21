@@ -1,13 +1,11 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Database;
-
-use Nette;
 
 
 /**
@@ -43,14 +41,21 @@ interface IStructure
 	/**
 	 * Returns table primary key.
 	 * @param  string
-	 * @return string|array|NULL
+	 * @return string|array|null
 	 */
 	function getPrimaryKey($table);
 
 	/**
+	 * Returns autoincrement primary key name.
+	 * @param  string
+	 * @return string|null
+	 */
+	//function getPrimaryAutoincrementKey($table);
+
+	/**
 	 * Returns table primary key sequence.
 	 * @param  string
-	 * @return string|NULL
+	 * @return string|null
 	 */
 	function getPrimaryKeySequence($table);
 
@@ -58,23 +63,23 @@ interface IStructure
 	 * Returns hasMany reference.
 	 * If a targetTable is not provided, returns references for all tables.
 	 * @param  string
-	 * @param  string|NULL
-	 * @return mixed
+	 * @param  string|null
+	 * @return array|null
 	 */
-	function getHasManyReference($table, $targetTable = NULL);
+	function getHasManyReference($table, $targetTable = null);
 
 	/**
 	 * Returns belongsTo reference.
 	 * If a column is not provided, returns references for all columns.
 	 * @param  string
-	 * @param  string|NULL
-	 * @return mixed
+	 * @param  string|null
+	 * @return array|null
 	 */
-	function getBelongsToReference($table, $column = NULL);
+	function getBelongsToReference($table, $column = null);
 
 	/**
 	 * Rebuilds database structure cache.
-	 * @return mixed
+	 * @return void
 	 */
 	function rebuild();
 
@@ -83,5 +88,4 @@ interface IStructure
 	 * @return bool
 	 */
 	function isRebuilt();
-
 }

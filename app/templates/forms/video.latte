@@ -3,12 +3,12 @@
 <form n:name="form" class="form-horizontal">
 	{include formError, form => $form}
 	<div class="form-group{if $form['title']->errors} has-error{/if}">
-		<label n:name="title">Název</label>
+		<label n:name="title">{_'title.caption'}</label>
 		<input n:name="title" type="text" class="form-control">
 		{include error, control => $form['title']}
 	</div>
 	<div class="form-group{if $form['description']->errors} has-error{/if}">
-        <label n:name="description">Detailní popis (15-20 slov)</label>
+        <label n:name="description">{_'description.caption'}</label>
         <input n:name="description" type="text" class="form-control">
         {include error, control => $form['description']}
     </div>

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Caching\Storages;
@@ -12,29 +12,29 @@ use Nette;
 
 /**
  * Memory cache storage.
- *
- * @author     David Grudl
  */
-class MemoryStorage extends Nette\Object implements Nette\Caching\IStorage
+class MemoryStorage implements Nette\Caching\IStorage
 {
+	use Nette\SmartObject;
+
 	/** @var array */
-	private $data = array();
+	private $data = [];
 
 
 	/**
 	 * Read from cache.
-	 * @param  string key
-	 * @return mixed|NULL
+	 * @param  string
+	 * @return mixed
 	 */
 	public function read($key)
 	{
-		return isset($this->data[$key]) ? $this->data[$key] : NULL;
+		return isset($this->data[$key]) ? $this->data[$key] : null;
 	}
 
 
 	/**
 	 * Prevents item reading and writing. Lock is released by write() or remove().
-	 * @param  string key
+	 * @param  string
 	 * @return void
 	 */
 	public function lock($key)
@@ -44,9 +44,8 @@ class MemoryStorage extends Nette\Object implements Nette\Caching\IStorage
 
 	/**
 	 * Writes item into the cache.
-	 * @param  string key
-	 * @param  mixed  data
-	 * @param  array  dependencies
+	 * @param  string
+	 * @param  mixed
 	 * @return void
 	 */
 	public function write($key, $data, array $dependencies)
@@ -57,7 +56,7 @@ class MemoryStorage extends Nette\Object implements Nette\Caching\IStorage
 
 	/**
 	 * Removes item from the cache.
-	 * @param  string key
+	 * @param  string
 	 * @return void
 	 */
 	public function remove($key)
@@ -74,8 +73,7 @@ class MemoryStorage extends Nette\Object implements Nette\Caching\IStorage
 	public function clean(array $conditions)
 	{
 		if (!empty($conditions[Nette\Caching\Cache::ALL])) {
-			$this->data = array();
+			$this->data = [];
 		}
 	}
-
 }

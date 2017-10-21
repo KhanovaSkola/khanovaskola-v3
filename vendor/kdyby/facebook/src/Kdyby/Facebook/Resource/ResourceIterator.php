@@ -54,9 +54,7 @@ class ResourceIterator extends Object implements Iterator
 	 */
 	public function current()
 	{
-		$this->load();
-
-		return $this->pageIterator->current();
+		return $this->getPageIterator()->current();
 	}
 
 
@@ -66,10 +64,12 @@ class ResourceIterator extends Object implements Iterator
 	 */
 	public function next()
 	{
+		$this->getPageIterator()->next();
 		$this->load();
 
-		$this->pageIterator->next();
-		$this->counter++;
+		if ($this->getPageIterator()->valid()) {
+			$this->counter++;
+		}
 	}
 
 
@@ -81,8 +81,6 @@ class ResourceIterator extends Object implements Iterator
 	 */
 	public function key()
 	{
-		$this->load();
-
 		return $this->counter;
 	}
 
@@ -95,9 +93,7 @@ class ResourceIterator extends Object implements Iterator
 	 */
 	public function valid()
 	{
-		$this->load();
-
-		return $this->pageIterator->valid();
+		return $this->getPageIterator()->valid();
 	}
 
 
@@ -109,6 +105,21 @@ class ResourceIterator extends Object implements Iterator
 	{
 		$this->resourceLoader->reset();
 		$this->counter = 0;
+		$this->pageIterator = NULL;
+	}
+
+
+
+	/**
+	 * @return Iterator|NULL
+	 */
+	private function getPageIterator()
+	{
+		if ($this->pageIterator === NULL) {
+			$this->load();
+		}
+
+		return $this->pageIterator;
 	}
 
 
@@ -118,12 +129,14 @@ class ResourceIterator extends Object implements Iterator
 	 */
 	private function load()
 	{
-		if ($this->pageIterator === NULL || !$this->pageIterator->valid()) {
-			$this->pageIterator = new IteratorIterator($this->resourceLoader->getNextPage());
-			$this->pageIterator->rewind();
-			if (!$this->pageIterator->valid()) {
-				$this->counter = NULL;
-			}
+		if ($this->pageIterator !== NULL && $this->pageIterator->valid()) {
+			return;
+		}
+
+		$this->pageIterator = new IteratorIterator($this->resourceLoader->getNextPage());
+		$this->pageIterator->rewind();
+		if (!$this->pageIterator->valid()) {
+			$this->counter = NULL;
 		}
 	}
 

@@ -9,7 +9,7 @@ Kdyby/Redis
 Requirements
 ------------
 
-Kdyby/Redis requires PHP 5.3.2 or higher.
+Kdyby/Redis requires PHP 5.4 or higher.
 
 - [Nette Framework](https://github.com/nette/nette)
 - [Redis database](http://redis.io)
@@ -24,7 +24,7 @@ Installation
 * Install Kdyby/Redis to your project is using  [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require kdyby/redis:~3.1
+$ composer require kdyby/redis
 ```
 
 

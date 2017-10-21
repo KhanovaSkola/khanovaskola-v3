@@ -1,12 +1,10 @@
 <?php
-
 namespace PhpAmqpLib\Connection;
 
-class AMQPLazyConnection extends AMQPConnection
+class AMQPLazyConnection extends AMQPStreamConnection
 {
-
     /**
-     * get socket from current connection
+     * Gets socket from current connection
      *
      * @deprecated
      */
@@ -14,13 +12,11 @@ class AMQPLazyConnection extends AMQPConnection
     {
         $this->connect();
 
-        return $this->sock;
+        return parent::getSocket();
     }
 
-
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function channel($channel_id = null)
     {
@@ -29,29 +25,25 @@ class AMQPLazyConnection extends AMQPConnection
         return parent::channel($channel_id);
     }
 
-
-
     /**
      * @return null|\PhpAmqpLib\Wire\IO\AbstractIO
      */
     protected function getIO()
     {
-        if (!$this->io) {
+        if (empty($this->io)) {
             $this->connect();
         }
 
         return $this->io;
     }
 
-
-
     /**
      * Should the connection be attempted during construction?
+     *
      * @return bool
      */
     public function connectOnConstruct()
     {
         return false;
     }
-
 }

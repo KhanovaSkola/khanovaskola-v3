@@ -1,48 +1,31 @@
 <?php
-
 namespace PhpAmqpLib\Channel;
 
 use PhpAmqpLib\Exception\AMQPBasicCancelException;
 use PhpAmqpLib\Exception\AMQPProtocolChannelException;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
-use PhpAmqpLib\Helper\MiscHelper;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire\AMQPReader;
 use PhpAmqpLib\Wire\AMQPWriter;
 
 class AMQPChannel extends AbstractChannel
 {
-
-    /**
-     * @var array
-     */
+    /** @var array */
     public $callbacks = array();
 
-    /**
-     * Whether or not the channel has been "opened" or not
-     *
-     * @var bool
-     */
+    /** @var bool Whether or not the channel has been "opened" */
     protected $is_open = false;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $default_ticket;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $active;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $alerts;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $auto_decode;
 
     /**
@@ -55,14 +38,9 @@ class AMQPChannel extends AbstractChannel
      *
      * @var callable
      */
-    protected $basic_return_callback = null;
+    protected $basic_return_callback;
 
-    /**
-     *
-     * @var array
-     * used to keep track of the messages that are going
-     * to be batch published.
-     */
+    /** @var array Used to keep track of the messages that are going to be batch published. */
     protected $batch_messages = array();
 
     /**
@@ -73,24 +51,19 @@ class AMQPChannel extends AbstractChannel
      */
     private $published_messages = array();
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $next_delivery_tag = 0;
 
-    /**
-     * @var callable
-     */
-    private $ack_handler = null;
+    /** @var callable */
+    private $ack_handler;
 
-    /**
-     * @var callable
-     */
-    private $nack_handler = null;
+    /** @var callable */
+    private $nack_handler;
 
     /**
      * Circular buffer to speed up both basic_publish() and publish_batch().
      * Max size limited by $publish_cache_max_size.
+     *
      * @var array
      * @see basic_publish()
      * @see publish_batch()
@@ -98,12 +71,18 @@ class AMQPChannel extends AbstractChannel
     private $publish_cache;
 
     /**
-     * Maximal size of $publish_cache.
+     * Maximal size of $publish_cache
+     *
      * @var int
      */
     private $publish_cache_max_size;
 
-
+    /**
+     * @param \PhpAmqpLib\Connection\AbstractConnection $connection
+     * @param null $channel_id
+     * @param bool $auto_decode
+     * @throws \Exception
+     */
     public function __construct($connection, $channel_id = null, $auto_decode = true)
     {
         if ($channel_id == null) {
@@ -115,9 +94,7 @@ class AMQPChannel extends AbstractChannel
         $this->publish_cache = array();
         $this->publish_cache_max_size = 100;
 
-        if ($this->debug) {
-            MiscHelper::debug_msg("using channel_id: " . $channel_id);
-        }
+        $this->debug->debug_msg('using channel_id: ' . $channel_id);
 
         $this->default_ticket = 0;
         $this->is_open = false;
@@ -134,15 +111,6 @@ class AMQPChannel extends AbstractChannel
         }
     }
 
-
-
-    public function __destruct()
-    {
-        $this->close();
-    }
-
-
-
     /**
      * Tear down this object, after we've agreed to close with the server.
      */
@@ -155,8 +123,6 @@ class AMQPChannel extends AbstractChannel
         $this->is_open = false;
     }
 
-
-
     /**
      * Only for AMQP0.8.0
      * This method allows the server to send a non-fatal warning to
@@ -166,29 +132,31 @@ class AMQPChannel extends AbstractChannel
      * errors are handled as channel or connection exceptions; non-
      * fatal errors are sent through this method.
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function channel_alert($args)
+    protected function channel_alert($reader)
     {
-        $reply_code = $args->read_short();
-        $reply_text = $args->read_shortstr();
-        $details = $args->read_table();
-
+        $reply_code = $reader->read_short();
+        $reply_text = $reader->read_shortstr();
+        $details = $reader->read_table();
         array_push($this->alerts, array($reply_code, $reply_text, $details));
     }
 
-
-
     /**
-     * request a channel close
+     * Request a channel close
+     *
+     * @param int $reply_code
+     * @param string $reply_text
+     * @param array $method_sig
+     * @return mixed
      */
-    public function close($reply_code = 0, $reply_text = "", $method_sig = array(0, 0))
+    public function close($reply_code = 0, $reply_text = '', $method_sig = array(0, 0))
     {
-        if ($this->is_open !== true || null === $this->connection) {
+        if ($this->is_open === false || $this->connection === null) {
             $this->do_close();
-            return; // already closed
-        }
 
+            return null; // already closed
+        }
         list($class_id, $method_id, $args) = $this->protocolWriter->channelClose(
             $reply_code,
             $reply_text,
@@ -203,18 +171,16 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @throws \PhpAmqpLib\Exception\AMQPProtocolChannelException
      */
-    protected function channel_close($args)
+    protected function channel_close($reader)
     {
-        $reply_code = $args->read_short();
-        $reply_text = $args->read_shortstr();
-        $class_id = $args->read_short();
-        $method_id = $args->read_short();
+        $reply_code = $reader->read_short();
+        $reply_text = $reader->read_shortstr();
+        $class_id = $reader->read_short();
+        $method_id = $reader->read_short();
 
         $this->send_method_frame(array(20, 41));
         $this->do_close();
@@ -222,21 +188,19 @@ class AMQPChannel extends AbstractChannel
         throw new AMQPProtocolChannelException($reply_code, $reply_text, array($class_id, $method_id));
     }
 
-
-
     /**
-     * confirm a channel close
-     * @param AMQPReader $args
+     * Confirm a channel close
+     * Alias of AMQPChannel::do_close()
+     *
+     * @param AMQPReader $reader
      */
-    protected function channel_close_ok($args)
+    protected function channel_close_ok($reader)
     {
         $this->do_close();
     }
 
-
-
     /**
-     * enable/disable flow from peer
+     * Enables/disables flow from peer
      *
      * @param $active
      * @return mixed
@@ -251,46 +215,41 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function channel_flow($args)
+    protected function channel_flow($reader)
     {
-        $this->active = $args->read_bit();
+        $this->active = $reader->read_bit();
         $this->x_flow_ok($this->active);
     }
 
-
-
+    /**
+     * @param bool $active
+     */
     protected function x_flow_ok($active)
     {
         list($class_id, $method_id, $args) = $this->protocolWriter->channelFlow($active);
         $this->send_method_frame(array($class_id, $method_id), $args);
     }
 
-
-
     /**
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @return bool
      */
-    protected function channel_flow_ok($args)
+    protected function channel_flow_ok($reader)
     {
-        return $args->read_bit();
+        return $reader->read_bit();
     }
-
-
 
     /**
      * @param string $out_of_band
      * @return mixed
      */
-    protected function x_open($out_of_band = "")
+    protected function x_open($out_of_band = '')
     {
         if ($this->is_open) {
-            return NULL;
+            return null;
         }
 
         list($class_id, $method_id, $args) = $this->protocolWriter->channelOpen($out_of_band);
@@ -301,23 +260,19 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function channel_open_ok($args)
+    protected function channel_open_ok($reader)
     {
         $this->is_open = true;
-        if ($this->debug) {
-            MiscHelper::debug_msg("Channel open");
-        }
+
+        $this->debug->debug_msg('Channel open');
     }
 
-
-
     /**
-     * request an access ticket
+     * Requests an access ticket
+     *
      * @param string $realm
      * @param bool $exclusive
      * @param bool $passive
@@ -350,24 +305,22 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * grant access to server resources
-     * @param AMQPReader $args
+     * Grants access to server resources
+     *
+     * @param AMQPReader $reader
      * @return string
      */
-    protected function access_request_ok($args)
+    protected function access_request_ok($reader)
     {
-        $this->default_ticket = $args->read_short();
+        $this->default_ticket = $reader->read_short();
 
         return $this->default_ticket;
     }
 
-
-
     /**
-     * declare exchange, create if needed
+     * Declares exchange
+     *
      * @param string $exchange
      * @param string $type
      * @param bool $passive
@@ -375,9 +328,9 @@ class AMQPChannel extends AbstractChannel
      * @param bool $auto_delete
      * @param bool $internal
      * @param bool $nowait
-     * @param null $arguments
-     * @param null $ticket
-     * @return mixed
+     * @param array $arguments
+     * @param int $ticket
+     * @return mixed|null
      */
     public function exchange_declare(
         $exchange,
@@ -390,7 +343,6 @@ class AMQPChannel extends AbstractChannel
         $arguments = null,
         $ticket = null
     ) {
-
         $arguments = $this->getArguments($arguments);
         $ticket = $this->getTicket($ticket);
 
@@ -409,7 +361,7 @@ class AMQPChannel extends AbstractChannel
         $this->send_method_frame(array($class_id, $method_id), $args);
 
         if ($nowait) {
-            return NULL;
+            return null;
         }
 
         return $this->wait(array(
@@ -417,26 +369,22 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirms an exchange declaration
-     *
-     * @param AMQPReader $args
+     * Confirms an exchange declaration
+     * @param AMQPReader $reader
      */
-    protected function exchange_declare_ok($args)
+    protected function exchange_declare_ok($reader)
     {
     }
 
-
-
     /**
-     * delete an exchange
+     * Deletes an exchange
+     *
      * @param string $exchange
      * @param bool $if_unused
      * @param bool $nowait
      * @param null $ticket
-     * @return mixed
+     * @return mixed|null
      */
     public function exchange_delete(
         $exchange,
@@ -463,33 +411,30 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm deletion of an exchange
+     * Confirms deletion of an exchange
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function exchange_delete_ok($args)
+    protected function exchange_delete_ok($reader)
     {
     }
 
-
-
     /**
-     * bind dest exchange to source exchange
+     * Binds dest exchange to source exchange
+     *
      * @param string $destination
      * @param string $source
      * @param string $routing_key
      * @param bool $nowait
-     * @param null $arguments
-     * @param null $ticket
-     * @return mixed
+     * @param array $arguments
+     * @param int $ticket
+     * @return mixed|null
      */
     public function exchange_bind(
         $destination,
         $source,
-        $routing_key = "",
+        $routing_key = '',
         $nowait = false,
         $arguments = null,
         $ticket = null
@@ -517,29 +462,26 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm bind successful
-     *
-     * @param AMQPReader $args
+     * Confirms bind successful
+     * @param AMQPReader $reader
      */
-    protected function exchange_bind_ok($args)
+    protected function exchange_bind_ok($reader)
     {
     }
 
-
-
     /**
-     * unbind dest exchange from source exchange
+     * Unbinds dest exchange from source exchange
+     *
      * @param string $destination
      * @param string $source
      * @param string $routing_key
-     * @param null $arguments
-     * @param null $ticket
+     * @param bool $nowait
+     * @param array $arguments
+     * @param int $ticket
      * @return mixed
      */
-    public function exchange_unbind($destination, $source, $routing_key = "", $arguments = null, $ticket = null)
+    public function exchange_unbind($destination, $source, $routing_key = '', $nowait = false, $arguments = null, $ticket = null)
     {
         $arguments = $this->getArguments($arguments);
         $ticket = $this->getTicket($ticket);
@@ -549,6 +491,7 @@ class AMQPChannel extends AbstractChannel
             $destination,
             $source,
             $routing_key,
+            $nowait,
             $arguments
         );
 
@@ -559,30 +502,27 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm unbind successful
+     * Confirms unbind successful
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function exchange_unbind_ok($args)
+    protected function exchange_unbind_ok($reader)
     {
     }
 
-
-
     /**
-     * bind queue to an exchange
+     * Binds queue to an exchange
+     *
      * @param string $queue
      * @param string $exchange
      * @param string $routing_key
      * @param bool $nowait
-     * @param null $arguments
-     * @param null $ticket
-     * @return mixed
+     * @param array $arguments
+     * @param int $ticket
+     * @return mixed|null
      */
-    public function queue_bind($queue, $exchange, $routing_key = "", $nowait = false, $arguments = null, $ticket = null)
+    public function queue_bind($queue, $exchange, $routing_key = '', $nowait = false, $arguments = null, $ticket = null)
     {
         $arguments = $this->getArguments($arguments);
         $ticket = $this->getTicket($ticket);
@@ -607,29 +547,26 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm bind successful
+     * Confirms bind successful
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function queue_bind_ok($args)
+    protected function queue_bind_ok($reader)
     {
     }
 
-
-
     /**
-     * unbind queue from an exchange
+     * Unbind queue from an exchange
+     *
      * @param string $queue
      * @param string $exchange
      * @param string $routing_key
-     * @param null $arguments
-     * @param null $ticket
+     * @param array $arguments
+     * @param int $ticket
      * @return mixed
      */
-    public function queue_unbind($queue, $exchange, $routing_key = "", $arguments = null, $ticket = null)
+    public function queue_unbind($queue, $exchange, $routing_key = '', $arguments = null, $ticket = null)
     {
         $arguments = $this->getArguments($arguments);
         $ticket = $this->getTicket($ticket);
@@ -649,21 +586,17 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm unbind successful
-     *
-     * @param AMQPReader $args
+     * Confirms unbind successful
+     * @param AMQPReader $reader
      */
-    protected function queue_unbind_ok($args)
+    protected function queue_unbind_ok($reader)
     {
     }
 
-
-
     /**
-     * declare queue, create if needed
+     * Declares queue, creates if needed
+     *
      * @param string $queue
      * @param bool $passive
      * @param bool $durable
@@ -672,10 +605,10 @@ class AMQPChannel extends AbstractChannel
      * @param bool $nowait
      * @param array $arguments
      * @param int $ticket
-     * @return mixed
+     * @return mixed|null
      */
     public function queue_declare(
-        $queue = "",
+        $queue = '',
         $passive = false,
         $durable = false,
         $exclusive = false,
@@ -709,29 +642,32 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirms a queue definition
+     * Confirms a queue definition
      *
-     * @param AMQPReader $args
-     * @return array
+     * @param AMQPReader $reader
+     * @return string[]
      */
-    protected function queue_declare_ok($args)
+    protected function queue_declare_ok($reader)
     {
-        $queue = $args->read_shortstr();
-        $message_count = $args->read_long();
-        $consumer_count = $args->read_long();
+        $queue = $reader->read_shortstr();
+        $message_count = $reader->read_long();
+        $consumer_count = $reader->read_long();
 
         return array($queue, $message_count, $consumer_count);
     }
 
-
-
     /**
-     * delete a queue
+     * Deletes a queue
+     *
+     * @param string $queue
+     * @param bool $if_unused
+     * @param bool $if_empty
+     * @param bool $nowait
+     * @param int $ticket
+     * @return mixed|null
      */
-    public function queue_delete($queue = "", $if_unused = false, $if_empty = false, $nowait = false, $ticket = null)
+    public function queue_delete($queue = '', $if_unused = false, $if_empty = false, $nowait = false, $ticket = null)
     {
         $ticket = $this->getTicket($ticket);
 
@@ -754,29 +690,26 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm deletion of a queue
+     * Confirms deletion of a queue
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @return string
      */
-    protected function queue_delete_ok($args)
+    protected function queue_delete_ok($reader)
     {
-        return $args->read_long();
+        return $reader->read_long();
     }
 
-
-
     /**
-     * purge a queue
+     * Purges a queue
+     *
      * @param string $queue
      * @param bool $nowait
-     * @param null $ticket
-     * @return mixed
+     * @param int $ticket
+     * @return mixed|null
      */
-    public function queue_purge($queue = "", $nowait = false, $ticket = null)
+    public function queue_purge($queue = '', $nowait = false, $ticket = null)
     {
         $ticket = $this->getTicket($ticket);
         list($class_id, $method_id, $args) = $this->protocolWriter->queuePurge($ticket, $queue, $nowait);
@@ -792,23 +725,22 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirms a queue purge
+     * Confirms a queue purge
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @return string
      */
-    protected function queue_purge_ok($args)
+    protected function queue_purge_ok($reader)
     {
-        return $args->read_long();
+        return $reader->read_long();
     }
 
-
-
     /**
-     * acknowledge one or more messages
+     * Acknowledges one or more messages
+     *
+     * @param string $delivery_tag
+     * @param bool $multiple
      */
     public function basic_ack($delivery_tag, $multiple = false)
     {
@@ -816,62 +748,54 @@ class AMQPChannel extends AbstractChannel
         $this->send_method_frame(array($class_id, $method_id), $args);
     }
 
-
-
     /**
      * Called when the server sends a basic.ack
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @throws AMQPRuntimeException
      */
-    protected function basic_ack_from_server(AMQPReader $args)
+    protected function basic_ack_from_server(AMQPReader $reader)
     {
-        $delivery_tag = $args->read_longlong();
-        $multiple = (bool) $args->read_bit();
+        $delivery_tag = $reader->read_longlong();
+        $multiple = (bool) $reader->read_bit();
 
-        if (false === isset($this->published_messages[$delivery_tag])) {
+        if (!isset($this->published_messages[$delivery_tag])) {
             throw new AMQPRuntimeException(sprintf(
-                    'Server ack\'ed unknown delivery_tag %s',
-                    $delivery_tag
-                )
-            );
+                'Server ack\'ed unknown delivery_tag "%s"',
+                $delivery_tag
+            ));
         }
 
         $this->internal_ack_handler($delivery_tag, $multiple, $this->ack_handler);
     }
 
-
-
     /**
      * Called when the server sends a basic.nack
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @throws AMQPRuntimeException
      */
-    protected function basic_nack_from_server($args)
+    protected function basic_nack_from_server($reader)
     {
-        $delivery_tag = $args->read_longlong();
-        $multiple = (bool) $args->read_bit();
+        $delivery_tag = $reader->read_longlong();
+        $multiple = (bool) $reader->read_bit();
 
-        if (false === isset($this->published_messages[$delivery_tag])) {
+        if (!isset($this->published_messages[$delivery_tag])) {
             throw new AMQPRuntimeException(sprintf(
-                    'Server nack\'ed unknown delivery_tag %s',
-                    $delivery_tag
-                )
-            );
+                'Server nack\'ed unknown delivery_tag "%s"',
+                $delivery_tag
+            ));
         }
 
         $this->internal_ack_handler($delivery_tag, $multiple, $this->nack_handler);
     }
 
-
-
     /**
      * Handles the deletion of messages from this->publishedMessages and dispatches them to the $handler
      *
-     * @param $delivery_tag
-     * @param $multiple
-     * @param $handler
+     * @param string $delivery_tag
+     * @param bool $multiple
+     * @param callable $handler
      */
     protected function internal_ack_handler($delivery_tag, $multiple, $handler)
     {
@@ -884,18 +808,26 @@ class AMQPChannel extends AbstractChannel
 
         } else {
             $message = $this->get_and_unset_message($delivery_tag);
+            $message->delivery_info['delivery_tag'] = $delivery_tag;
             $this->dispatch_to_handler($handler, array($message));
         }
     }
 
-
-
-    protected function get_keys_less_or_equal(array $array, $value)
+    /**
+     * @param AMQPMessage[] $messages
+     * @param string $value
+     * @return mixed
+     */
+    protected function get_keys_less_or_equal(array $messages, $value)
     {
         $keys = array_reduce(
-            array_keys($array),
+            array_keys($messages),
+
+            /**
+             * @param string $key
+             */
             function ($keys, $key) use ($value) {
-                if (bccomp($key, $value) <= 0) {
+                if (bccomp($key, $value, 0) <= 0) {
                     $keys[] = $key;
                 }
 
@@ -907,10 +839,12 @@ class AMQPChannel extends AbstractChannel
         return $keys;
     }
 
-
-
     /**
-     * reject one or several received messages.
+     * Rejects one or several received messages
+     *
+     * @param string $delivery_tag
+     * @param bool $multiple
+     * @param bool $requeue
      */
     public function basic_nack($delivery_tag, $multiple = false, $requeue = false)
     {
@@ -918,68 +852,69 @@ class AMQPChannel extends AbstractChannel
         $this->send_method_frame(array($class_id, $method_id), $args);
     }
 
-
-
     /**
-     * end a queue consumer
+     * Ends a queue consumer
+     *
      * @param string $consumer_tag
      * @param bool $nowait
+     * @param bool $noreturn
      * @return mixed
      */
-    public function basic_cancel($consumer_tag, $nowait = false)
+    public function basic_cancel($consumer_tag, $nowait = false, $noreturn = false)
     {
         list($class_id, $method_id, $args) = $this->protocolWriter->basicCancel($consumer_tag, $nowait);
         $this->send_method_frame(array($class_id, $method_id), $args);
+
+        if ($nowait || $noreturn) {
+            unset($this->callbacks[$consumer_tag]);
+            return $consumer_tag;
+        }
 
         return $this->wait(array(
             $this->waitHelper->get_wait('basic.cancel_ok')
         ));
     }
 
-
-
     /**
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @throws \PhpAmqpLib\Exception\AMQPBasicCancelException
      */
-    protected function basic_cancel_from_server(AMQPReader $args)
+    protected function basic_cancel_from_server(AMQPReader $reader)
     {
-        $consumerTag = $args->read_shortstr();
-
-        throw new AMQPBasicCancelException($consumerTag);
+        throw new AMQPBasicCancelException($reader->read_shortstr());
     }
 
-
-
     /**
-     * confirm a cancelled consumer
+     * Confirm a cancelled consumer
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
+     * @return string
      */
-    protected function basic_cancel_ok($args)
+    protected function basic_cancel_ok($reader)
     {
-        $consumer_tag = $args->read_shortstr();
-        unset($this->callbacks[$consumer_tag]);
+        $consumerTag = $reader->read_shortstr();
+        unset($this->callbacks[$consumerTag]);
+
+        return $consumerTag;
     }
 
-
-
     /**
-     * start a queue consumer
+     * Starts a queue consumer
+     *
      * @param string $queue
      * @param string $consumer_tag
      * @param bool $no_local
      * @param bool $no_ack
      * @param bool $exclusive
      * @param bool $nowait
-     * @param null $callback
-     * @param null $ticket
+     * @param callback|null $callback
+     * @param int|null $ticket
      * @param array $arguments
-     * @return mixed
+     * @return mixed|string
      */
     public function basic_consume(
-        $queue = "",
-        $consumer_tag = "",
+        $queue = '',
+        $consumer_tag = '',
         $no_local = false,
         $no_ack = false,
         $exclusive = false,
@@ -1013,65 +948,54 @@ class AMQPChannel extends AbstractChannel
         return $consumer_tag;
     }
 
-
-
     /**
-     * confirm a new consumer
+     * Confirms a new consumer
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      * @return string
      */
-    protected function basic_consume_ok($args)
+    protected function basic_consume_ok($reader)
     {
-        return $args->read_shortstr();
+        return $reader->read_shortstr();
     }
 
-
-
     /**
-     * notify the client of a consumer message
-     * @param AMQPReader $args
-     * @param AMQPMessage $msg
+     * Notifies the client of a consumer message
+     *
+     * @param AMQPReader $reader
+     * @param AMQPMessage $message
      */
-    protected function basic_deliver($args, $msg)
+    protected function basic_deliver($reader, $message)
     {
-        $consumer_tag = $args->read_shortstr();
-        $delivery_tag = $args->read_longlong();
-        $redelivered = $args->read_bit();
-        $exchange = $args->read_shortstr();
-        $routing_key = $args->read_shortstr();
+        $consumer_tag = $reader->read_shortstr();
+        $delivery_tag = $reader->read_longlong();
+        $redelivered = $reader->read_bit();
+        $exchange = $reader->read_shortstr();
+        $routing_key = $reader->read_shortstr();
 
-        $msg->delivery_info = array(
-            "channel" => $this,
-            "consumer_tag" => $consumer_tag,
-            "delivery_tag" => $delivery_tag,
-            "redelivered" => $redelivered,
-            "exchange" => $exchange,
-            "routing_key" => $routing_key
+        $message->delivery_info = array(
+            'channel' => $this,
+            'consumer_tag' => $consumer_tag,
+            'delivery_tag' => $delivery_tag,
+            'redelivered' => $redelivered,
+            'exchange' => $exchange,
+            'routing_key' => $routing_key
         );
 
         if (isset($this->callbacks[$consumer_tag])) {
-            $func = $this->callbacks[$consumer_tag];
-        } else {
-            $func = null;
-        }
-
-        if ($func != null) {
-            call_user_func($func, $msg);
+            call_user_func($this->callbacks[$consumer_tag], $message);
         }
     }
 
-
-
     /**
-     * direct access to a queue
-     * if no message was available in the queue, return null
+     * Direct access to a queue if no message was available in the queue, return null
+     *
      * @param string $queue
      * @param bool $no_ack
-     * @param null $ticket
-     * @return null|AMQPMessage
+     * @param int $ticket
+     * @return mixed
      */
-    public function basic_get($queue = "", $no_ack = false, $ticket = null)
+    public function basic_get($queue = '', $no_ack = false, $ticket = null)
     {
         $ticket = $this->getTicket($ticket);
         list($class_id, $method_id, $args) = $this->protocolWriter->basicGet($ticket, $queue, $no_ack);
@@ -1084,51 +1008,59 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * indicate no messages available
+     * Indicates no messages available
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function basic_get_empty($args)
+    protected function basic_get_empty($reader)
     {
-        $cluster_id = $args->read_shortstr();
     }
 
-
-
     /**
-     * provide client with a message
+     * Provides client with a message
      *
-     * @param AMQPReader $args
-     * @param AMQPMessage $msg
+     * @param AMQPReader $reader
+     * @param AMQPMessage $message
      * @return AMQPMessage
      */
-    protected function basic_get_ok($args, $msg)
+    protected function basic_get_ok($reader, $message)
     {
-        $delivery_tag = $args->read_longlong();
-        $redelivered = $args->read_bit();
-        $exchange = $args->read_shortstr();
-        $routing_key = $args->read_shortstr();
-        $message_count = $args->read_long();
+        $delivery_tag = $reader->read_longlong();
+        $redelivered = $reader->read_bit();
+        $exchange = $reader->read_shortstr();
+        $routing_key = $reader->read_shortstr();
+        $message_count = $reader->read_long();
 
-        $msg->delivery_info = array(
-            "delivery_tag" => $delivery_tag,
-            "redelivered" => $redelivered,
-            "exchange" => $exchange,
-            "routing_key" => $routing_key,
-            "message_count" => $message_count
+        $message->delivery_info = array(
+            'delivery_tag' => $delivery_tag,
+            'redelivered' => $redelivered,
+            'exchange' => $exchange,
+            'routing_key' => $routing_key,
+            'message_count' => $message_count
         );
 
-        return $msg;
+        return $message;
     }
 
-
-
+    /**
+     * @param string $exchange
+     * @param string $routing_key
+     * @param $mandatory
+     * @param $immediate
+     * @param int $ticket
+     * @return mixed
+     */
     private function pre_publish($exchange, $routing_key, $mandatory, $immediate, $ticket)
     {
-        $cache_key = "$exchange|$routing_key|$mandatory|$immediate|$ticket";
+        $cache_key = sprintf(
+            '%s|%s|%s|%s|%s',
+            $exchange,
+            $routing_key,
+            $mandatory,
+            $immediate,
+            $ticket
+        );
         if (false === isset($this->publish_cache[$cache_key])) {
             $ticket = $this->getTicket($ticket);
             list($class_id, $method_id, $args) = $this->protocolWriter->basicPublish(
@@ -1151,22 +1083,20 @@ class AMQPChannel extends AbstractChannel
         return $this->publish_cache[$cache_key];
     }
 
-
-
     /**
-     * publish a message
+     * Publishes a message
      *
      * @param AMQPMessage $msg
      * @param string $exchange
      * @param string $routing_key
      * @param bool $mandatory
      * @param bool $immediate
-     * @param null $ticket
+     * @param int $ticket
      */
     public function basic_publish(
         $msg,
-        $exchange = "",
-        $routing_key = "",
+        $exchange = '',
+        $routing_key = '',
         $mandatory = false,
         $immediate = false,
         $ticket = null
@@ -1186,11 +1116,9 @@ class AMQPChannel extends AbstractChannel
 
         if ($this->next_delivery_tag > 0) {
             $this->published_messages[$this->next_delivery_tag] = $msg;
-            $this->next_delivery_tag = bcadd($this->next_delivery_tag, '1');
+            $this->next_delivery_tag = bcadd($this->next_delivery_tag, '1', 0);
         }
     }
-
-
 
     /**
      * @param AMQPMessage $msg
@@ -1198,12 +1126,12 @@ class AMQPChannel extends AbstractChannel
      * @param string $routing_key
      * @param bool $mandatory
      * @param bool $immediate
-     * @param null $ticket
+     * @param int $ticket
      */
     public function batch_basic_publish(
         $msg,
-        $exchange = "",
-        $routing_key = "",
+        $exchange = '',
+        $routing_key = '',
         $mandatory = false,
         $immediate = false,
         $ticket = null
@@ -1211,22 +1139,26 @@ class AMQPChannel extends AbstractChannel
         $this->batch_messages[] = func_get_args();
     }
 
-
-
+    /**
+     * Publish batch
+     *
+     * @return void
+     */
     public function publish_batch()
     {
         if (empty($this->batch_messages)) {
-            return;
+            return null;
         }
 
+        /** @var AMQPWriter $pkt */
         $pkt = new AMQPWriter();
 
         /** @var AMQPMessage $msg */
         foreach ($this->batch_messages as $m) {
             $msg = $m[0];
 
-            $exchange = isset($m[1]) ? $m[1] : "";
-            $routing_key = isset($m[2]) ? $m[2] : "";
+            $exchange = isset($m[1]) ? $m[1] : '';
+            $routing_key = isset($m[2]) ? $m[2] : '';
             $mandatory = isset($m[3]) ? $m[3] : false;
             $immediate = isset($m[4]) ? $m[4] : false;
             $ticket = isset($m[5]) ? $m[5] : null;
@@ -1244,7 +1176,7 @@ class AMQPChannel extends AbstractChannel
 
             if ($this->next_delivery_tag > 0) {
                 $this->published_messages[$this->next_delivery_tag] = $msg;
-                $this->next_delivery_tag = bcadd($this->next_delivery_tag, '1');
+                $this->next_delivery_tag = bcadd($this->next_delivery_tag, '1', 0);
             }
         }
 
@@ -1253,13 +1185,12 @@ class AMQPChannel extends AbstractChannel
         $this->batch_messages = array();
     }
 
-
-
     /**
-     * specify quality of service
-     * @param integer $prefetch_size
-     * @param integer $prefetch_count
-     * @param boolean $a_global
+     * Specifies QoS
+     *
+     * @param int $prefetch_size
+     * @param int $prefetch_count
+     * @param bool $a_global
      * @return mixed
      */
     public function basic_qos($prefetch_size, $prefetch_count, $a_global)
@@ -1277,21 +1208,17 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm the requested qos
-     *
-     * @param AMQPReader $args
+     * Confirms QoS request
+     * @param AMQPReader $reader
      */
-    protected function basic_qos_ok($args)
+    protected function basic_qos_ok($reader)
     {
     }
 
-
-
     /**
-     * redeliver unacknowledged messages
+     * Redelivers unacknowledged messages
+     *
      * @param bool $requeue
      * @return mixed
      */
@@ -1305,21 +1232,19 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm the requested recover
-     *
-     * @param AMQPReader $args
+     * Confirm the requested recover
+     * @param AMQPReader $reader
      */
-    protected function basic_recover_ok($args)
+    protected function basic_recover_ok($reader)
     {
     }
 
-
-
     /**
-     * reject an incoming message
+     * Rejects an incoming message
+     *
+     * @param string $delivery_tag
+     * @param bool $requeue
      */
     public function basic_reject($delivery_tag, $requeue)
     {
@@ -1327,36 +1252,34 @@ class AMQPChannel extends AbstractChannel
         $this->send_method_frame(array($class_id, $method_id), $args);
     }
 
-
-
     /**
-     * return a failed message
+     * Returns a failed message
      *
-     * @param AMQPReader $args
-     * @param AMQPMessage $msg
+     * @param AMQPReader $reader
+     * @param AMQPMessage $message
+     * @return null
      */
-    protected function basic_return($args, $msg)
+    protected function basic_return($reader, $message)
     {
-        $reply_code = $args->read_short();
-        $reply_text = $args->read_shortstr();
-        $exchange = $args->read_shortstr();
-        $routing_key = $args->read_shortstr();
-
-        if (null !== ($this->basic_return_callback)) {
-            call_user_func_array($this->basic_return_callback, array(
-                $reply_code,
-                $reply_text,
-                $exchange,
-                $routing_key,
-                $msg,
-            ));
-
-        } elseif ($this->debug) {
-            MiscHelper::debug_msg("Skipping unhandled basic_return message");
+        $callback = $this->basic_return_callback;
+        if (!is_callable($callback)) {
+            $this->debug->debug_msg('Skipping unhandled basic_return message');
+            return null;
         }
+
+        $reply_code = $reader->read_short();
+        $reply_text = $reader->read_shortstr();
+        $exchange = $reader->read_shortstr();
+        $routing_key = $reader->read_shortstr();
+
+        call_user_func_array($callback, array(
+            $reply_code,
+            $reply_text,
+            $exchange,
+            $routing_key,
+            $message,
+        ));
     }
-
-
 
     /**
      * @return mixed
@@ -1370,21 +1293,17 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm a successful commit
-     *
-     * @param AMQPReader $args
+     * Confirms a successful commit
+     * @param AMQPReader $reader
      */
-    protected function tx_commit_ok($args)
+    protected function tx_commit_ok($reader)
     {
     }
 
-
-
     /**
-     * abandon the current transaction
+     * Rollbacks the current transaction
+     *
      * @return mixed
      */
     public function tx_rollback()
@@ -1396,25 +1315,21 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm a successful rollback
+     * Confirms a successful rollback
      *
-     * @param AMQPReader $args
+     * @param AMQPReader $reader
      */
-    protected function tx_rollback_ok($args)
+    protected function tx_rollback_ok($reader)
     {
     }
 
-
-
     /**
-     * Puts the channel into confirm mode. Beware that only non-transactional channels may be put into confirm mode
-     * and vice versa
+     * Puts the channel into confirm mode
+     * Beware that only non-transactional channels may be put into confirm mode and vice versa
      *
-     * @param bool $nowait if nowait is true the method will not wait for an answer of the server
-     *                     and return immediately. defaults to false
+     * @param bool $nowait
+     * @return null
      */
     public function confirm_select($nowait = false)
     {
@@ -1423,25 +1338,27 @@ class AMQPChannel extends AbstractChannel
         $this->send_method_frame(array($class_id, $method_id), $args);
 
         if ($nowait) {
-            return NULL;
+            return null;
         }
 
         $this->wait(array($this->waitHelper->get_wait('confirm.select_ok')));
         $this->next_delivery_tag = 1;
     }
 
-
-
-    public function confirm_select_ok()
+    /**
+     * Confirms a selection
+     *
+     * @param AMQPReader $reader
+     */
+    public function confirm_select_ok($reader)
     {
     }
 
-
-
     /**
-     * Waits for pending acks and nacks from the server. If there are no pending acks, the method returns immediately.
+     * Waits for pending acks and nacks from the server.
+     * If there are no pending acks, the method returns immediately
      *
-     * @param int $timeout If set to value > 0 the method will wait at most $timeout seconds for pending acks.
+     * @param int $timeout Waits until $timeout value is reached
      */
     public function wait_for_pending_acks($timeout = 0)
     {
@@ -1459,10 +1376,31 @@ class AMQPChannel extends AbstractChannel
         }
     }
 
+    /**
+     * Waits for pending acks, nacks and returns from the server. If there are no pending acks, the method returns immediately.
+     *
+     * @param int $timeout If set to value > 0 the method will wait at most $timeout seconds for pending acks.
+     */
+    public function wait_for_pending_acks_returns($timeout = 0)
+    {
+        $functions = array(
+            $this->waitHelper->get_wait('basic.ack'),
+            $this->waitHelper->get_wait('basic.nack'),
+            $this->waitHelper->get_wait('basic.return'),
+        );
 
+        while (count($this->published_messages) !== 0) {
+            if ($timeout > 0) {
+                $this->wait($functions, true, $timeout);
+            } else {
+                $this->wait($functions);
+            }
+        }
+    }
 
     /**
-     * select standard transaction mode
+     * Selects standard transaction mode
+     *
      * @return mixed
      */
     public function tx_select()
@@ -1474,37 +1412,36 @@ class AMQPChannel extends AbstractChannel
         ));
     }
 
-
-
     /**
-     * confirm transaction mode
-     *
-     * @param AMQPReader $args
+     * Confirms transaction mode
+     * @param AMQPReader $reader
      */
-    protected function tx_select_ok($args)
+    protected function tx_select_ok($reader)
     {
     }
 
-
-
+    /**
+     * @param array $arguments
+     * @return array
+     */
     protected function getArguments($arguments)
     {
         return (null === $arguments) ? array() : $arguments;
     }
 
-
-
+    /**
+     * @param int $ticket
+     * @return int
+     */
     protected function getTicket($ticket)
     {
         return (null === $ticket) ? $this->default_ticket : $ticket;
     }
 
-
-
     /**
      * Helper method to get a particular method from $this->publishedMessages, removes it from the array and returns it.
      *
-     * @param $index
+     * @param int $index
      * @return AMQPMessage
      */
     protected function get_and_unset_message($index)
@@ -1515,49 +1452,60 @@ class AMQPChannel extends AbstractChannel
         return $message;
     }
 
-
-
     /**
-     * set callback for basic_return
+     * Sets callback for basic_return
+     *
      * @param  callable $callback
      * @throws \InvalidArgumentException if $callback is not callable
      */
     public function set_return_listener($callback)
     {
-        if (false === is_callable($callback)) {
-            throw new \InvalidArgumentException("$callback should be callable.");
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Given callback "%s" should be callable. %s type was given.',
+                $callback,
+                gettype($callback)
+            ));
         }
+
         $this->basic_return_callback = $callback;
     }
-
-
 
     /**
      * Sets a handler which called for any message nack'ed by the server, with the AMQPMessage as first argument.
      *
      * @param callable $callback
+     * @throws \InvalidArgumentException
      */
     public function set_nack_handler($callback)
     {
-        if (false === is_callable($callback)) {
-            throw new \InvalidArgumentException("$callback should be callable.");
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Given callback "%s" should be callable. %s type was given.',
+                $callback,
+                gettype($callback)
+            ));
         }
+
         $this->nack_handler = $callback;
     }
-
-
 
     /**
      * Sets a handler which called for any message ack'ed by the server, with the AMQPMessage as first argument.
      *
      * @param callable $callback
+     * @throws \InvalidArgumentException
      */
     public function set_ack_handler($callback)
     {
-        if (false === is_callable($callback)) {
-            throw new \InvalidArgumentException("$callback should be callable.");
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Given callback "%s" should be callable. %s type was given.',
+                $callback,
+                gettype($callback)
+            ));
         }
+
         $this->ack_handler = $callback;
     }
-
 }

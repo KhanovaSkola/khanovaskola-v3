@@ -25,20 +25,20 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 	/**
 	 * @var array
 	 */
-	public $defaults = array(
+	public $defaults = [
 		'appId' => NULL,
 		'appSecret' => NULL,
 		'verifyApiCalls' => TRUE,
 		'fileUploadSupport' => FALSE,
 		'trustForwarded' => FALSE,
 		'clearAllWithLogout' => TRUE,
-		'domains' => array(),
-		'permissions' => array(),
+		'domains' => [],
+		'permissions' => [],
 		'canvasBaseUrl' => NULL,
 		'graphVersion' => '',
-		'curlOptions' => array(),
+		'curlOptions' => [],
 		'debugger' => '%debugMode%',
-	);
+	];
 
 
 
@@ -65,17 +65,17 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 
 		$configurator = $builder->addDefinition($this->prefix('config'))
 			->setClass('Kdyby\Facebook\Configuration')
-			->setArguments(array($config['appId'], $config['appSecret']))
-			->addSetup('$verifyApiCalls', array($config['verifyApiCalls']))
-			->addSetup('$fileUploadSupport', array($config['fileUploadSupport']))
-			->addSetup('$trustForwarded', array($config['trustForwarded']))
-			->addSetup('$permissions', array($config['permissions']))
-			->addSetup('$canvasBaseUrl', array($config['canvasBaseUrl']))
-			->addSetup('$graphVersion', array($config['graphVersion']))
+			->setArguments([$config['appId'], $config['appSecret']])
+			->addSetup('$verifyApiCalls', [$config['verifyApiCalls']])
+			->addSetup('$fileUploadSupport', [$config['fileUploadSupport']])
+			->addSetup('$trustForwarded', [$config['trustForwarded']])
+			->addSetup('$permissions', [$config['permissions']])
+			->addSetup('$canvasBaseUrl', [$config['canvasBaseUrl']])
+			->addSetup('$graphVersion', [$config['graphVersion']])
 			->setInject(FALSE);
 
 		if ($config['domains']) {
-			$configurator->addSetup('$service->domains = ? + $service->domains', array($config['domains']));
+			$configurator->addSetup('$service->domains = ? + $service->domains', [$config['domains']]);
 		}
 
 		$builder->addDefinition($this->prefix('session'))
@@ -92,7 +92,7 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 		$apiClient = $builder->addDefinition($this->prefix('apiClient'))
 			->setFactory('Kdyby\Facebook\Api\CurlClient')
 			->setClass('Kdyby\Facebook\ApiClient')
-			->addSetup('$service->curlOptions = ?;', array($config['curlOptions']))
+			->addSetup('$service->curlOptions = ?;', [$config['curlOptions']])
 			->setInject(FALSE);
 
 		if ($config['debugger']) {
@@ -100,7 +100,7 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 				->setClass('Kdyby\Facebook\Diagnostics\Panel')
 				->setInject(FALSE);
 
-			$apiClient->addSetup($this->prefix('@panel') . '::register', array('@self'));
+			$apiClient->addSetup($this->prefix('@panel') . '::register', ['@self']);
 		}
 
 		$builder->addDefinition($this->prefix('client'))
@@ -109,9 +109,9 @@ class FacebookExtension extends Nette\DI\CompilerExtension
 
 		if ($config['clearAllWithLogout']) {
 			$builder->getDefinition('user')
-				->addSetup('$sl = ?; ?->onLoggedOut[] = function () use ($sl) { $sl->getService(?)->clearAll(); }', array(
+				->addSetup('$sl = ?; ?->onLoggedOut[] = function () use ($sl) { $sl->getService(?)->clearAll(); }', [
 					'@container', '@self', $this->prefix('session')
-				));
+				]);
 		}
 	}
 

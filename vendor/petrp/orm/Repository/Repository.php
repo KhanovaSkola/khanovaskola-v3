@@ -536,6 +536,8 @@ abstract class Repository extends Object implements IRepository
 	 */
 	protected function createPerformanceHelper()
 	{
+           //DH DEBUG
+		return NULL;
 		if (PerformanceHelper::$keyCallback)
 		{
 			$context = $this->model->getContext();

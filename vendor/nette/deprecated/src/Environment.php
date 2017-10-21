@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette;
@@ -49,6 +49,7 @@ class Environment
 	 */
 	public static function isConsole()
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		return PHP_SAPI === 'cli';
 	}
 
@@ -59,7 +60,8 @@ class Environment
 	 */
 	public static function isProduction()
 	{
-		if (self::$productionMode === NULL) {
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
+		if (self::$productionMode === null) {
 			self::$productionMode = !Nette\Configurator::detectDebugMode();
 		}
 		return self::$productionMode;
@@ -71,8 +73,9 @@ class Environment
 	 * @param  bool
 	 * @return void
 	 */
-	public static function setProductionMode($value = TRUE)
+	public static function setProductionMode($value = true)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		self::$productionMode = (bool) $value;
 	}
 
@@ -87,8 +90,9 @@ class Environment
 	 * @param  bool
 	 * @return void
 	 */
-	public static function setVariable($name, $value, $expand = TRUE)
+	public static function setVariable($name, $value, $expand = true)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		if ($expand && is_string($value)) {
 			$value = self::getContext()->expand($value);
 		}
@@ -103,8 +107,9 @@ class Environment
 	 * @return mixed
 	 * @throws InvalidStateException
 	 */
-	public static function getVariable($name, $default = NULL)
+	public static function getVariable($name, $default = null)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		if (isset(self::getContext()->parameters[$name])) {
 			return self::getContext()->parameters[$name];
 		} elseif (func_num_args() > 1) {
@@ -121,6 +126,7 @@ class Environment
 	 */
 	public static function getVariables()
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		return self::getContext()->parameters;
 	}
 
@@ -133,6 +139,7 @@ class Environment
 	 */
 	public static function expand($s)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		return self::getContext()->expand($s);
 	}
 
@@ -155,11 +162,12 @@ class Environment
 
 	/**
 	 * Get initial instance of context.
-	 * @return \SystemContainer|Nette\DI\Container
+	 * @return Nette\DI\Container
 	 */
 	public static function getContext()
 	{
-		if (self::$context === NULL) {
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
+		if (self::$context === null) {
 			self::loadConfig();
 		}
 		return self::$context;
@@ -265,9 +273,9 @@ class Environment
 	 * @param  string
 	 * @return Nette\Http\Session
 	 */
-	public static function getSession($namespace = NULL)
+	public static function getSession($namespace = null)
 	{
-		return $namespace === NULL
+		return $namespace === null
 			? self::getContext()->getByType('Nette\Http\Session')
 			: self::getContext()->getByType('Nette\Http\Session')->getSection($namespace);
 	}
@@ -282,8 +290,9 @@ class Environment
 	 * @param  string
 	 * @return Nette\Utils\ArrayHash
 	 */
-	public static function loadConfig($file = NULL, $section = NULL)
+	public static function loadConfig($file = null, $section = null)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		if (self::$createdAt) {
 			throw new Nette\InvalidStateException('Nette\Configurator has already been created automatically by Nette\Environment at ' . self::$createdAt);
 		} elseif (!defined('TEMP_DIR')) {
@@ -300,7 +309,7 @@ class Environment
 		self::$context = $configurator->createContainer();
 
 		self::$createdAt = '?';
-		foreach (debug_backtrace(FALSE) as $row) {
+		foreach (debug_backtrace(false) as $row) {
 			if (isset($row['file']) && $row['file'] !== __FILE__ && is_file($row['file'])) {
 				self::$createdAt = "$row[file]:$row[line]";
 				break;
@@ -316,8 +325,9 @@ class Environment
 	 * @param  mixed  default value
 	 * @return mixed
 	 */
-	public static function getConfig($key = NULL, $default = NULL)
+	public static function getConfig($key = null, $default = null)
 	{
+		trigger_error(__CLASS__ . ' is deprecated.', E_USER_DEPRECATED);
 		$params = Nette\Utils\ArrayHash::from(self::getContext()->parameters);
 		if (func_num_args()) {
 			return isset($params[$key]) ? $params[$key] : $default;
@@ -325,5 +335,4 @@ class Environment
 			return $params;
 		}
 	}
-
 }

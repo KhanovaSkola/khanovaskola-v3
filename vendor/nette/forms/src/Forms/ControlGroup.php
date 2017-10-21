@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Forms;
@@ -12,19 +12,16 @@ use Nette;
 
 /**
  * A user group of form controls.
- *
- * @author     David Grudl
- *
- * @property-read array $controls
- * @property-read array $options
  */
-class ControlGroup extends Nette\Object
+class ControlGroup
 {
+	use Nette\SmartObject;
+
 	/** @var \SplObjectStorage */
 	protected $controls;
 
 	/** @var array user options */
-	private $options = array();
+	private $options = [];
 
 
 	public function __construct()
@@ -34,21 +31,24 @@ class ControlGroup extends Nette\Object
 
 
 	/**
-	 * @return self
+	 * @return static
 	 */
-	public function add()
+	public function add(...$items)
 	{
-		foreach (func_get_args() as $num => $item) {
+		foreach ($items as $item) {
 			if ($item instanceof IControl) {
 				$this->controls->attach($item);
 
-			} elseif ($item instanceof \Traversable || is_array($item)) {
-				foreach ($item as $control) {
-					$this->controls->attach($control);
+			} elseif ($item instanceof Container) {
+				foreach ($item->getComponents() as $component) {
+					$this->add($component);
 				}
+			} elseif ($item instanceof \Traversable || is_array($item)) {
+				$this->add(...$item);
 
 			} else {
-				throw new Nette\InvalidArgumentException("Only IFormControl items are allowed, the #$num parameter is invalid.");
+				$type = is_object($item) ? get_class($item) : gettype($item);
+				throw new Nette\InvalidArgumentException("IControl or Container items expected, $type given.");
 			}
 		}
 		return $this;
@@ -56,7 +56,29 @@ class ControlGroup extends Nette\Object
 
 
 	/**
-	 * @return array IFormControl
+	 * @return void
+	 */
+	public function remove(IControl $control)
+	{
+		$this->controls->detach($control);
+	}
+
+
+	/**
+	 * @return void
+	 */
+	public function removeOrphans()
+	{
+		foreach ($this->controls as $control) {
+			if (!$control->getForm(false)) {
+				$this->controls->detach($control);
+			}
+		}
+	}
+
+
+	/**
+	 * @return IControl[]
 	 */
 	public function getControls()
 	{
@@ -67,19 +89,19 @@ class ControlGroup extends Nette\Object
 	/**
 	 * Sets user-specific option.
 	 * Options recognized by DefaultFormRenderer
-	 * - 'label' - textual or Html object label
+	 * - 'label' - textual or IHtmlString object label
 	 * - 'visual' - indicates visual group
 	 * - 'container' - container as Html object
-	 * - 'description' - textual or Html object description
+	 * - 'description' - textual or IHtmlString object description
 	 * - 'embedNext' - describes how render next group
 	 *
-	 * @param  string key
-	 * @param  mixed  value
-	 * @return self
+	 * @param  string
+	 * @param  mixed
+	 * @return static
 	 */
 	public function setOption($key, $value)
 	{
-		if ($value === NULL) {
+		if ($value === null) {
 			unset($this->options[$key]);
 
 		} else {
@@ -91,11 +113,11 @@ class ControlGroup extends Nette\Object
 
 	/**
 	 * Returns user-specific option.
-	 * @param  string key
-	 * @param  mixed  default value
+	 * @param  string
+	 * @param  mixed
 	 * @return mixed
 	 */
-	public function getOption($key, $default = NULL)
+	public function getOption($key, $default = null)
 	{
 		return isset($this->options[$key]) ? $this->options[$key] : $default;
 	}
@@ -109,5 +131,4 @@ class ControlGroup extends Nette\Object
 	{
 		return $this->options;
 	}
-
 }

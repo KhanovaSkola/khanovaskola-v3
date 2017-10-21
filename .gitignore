@@ -25,6 +25,7 @@ elasticsearch.log
 /temp/btfj.dat
 /temp/cachegrind*
 /temp/cache
+/temp/sessions
 pubring.gpg~
 secring.gpg
 production/config.local.neon

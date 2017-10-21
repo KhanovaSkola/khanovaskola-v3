@@ -29,10 +29,10 @@ class LogoutDialog extends Facebook\Dialog\AbstractDialog
 		$accessToken = $this->facebook->getUser()
 			? $this->facebook->getAccessToken() : NULL;
 
-		return array(
+		return [
 			'next' => (string)$this->currentUrl,
 			'access_token' => $accessToken,
-		);
+		];
 	}
 
 

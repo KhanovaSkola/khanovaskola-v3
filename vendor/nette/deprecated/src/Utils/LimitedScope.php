@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Utils;
@@ -33,15 +33,17 @@ class LimitedScope
 	 * @param  array   local variables
 	 * @return mixed   the return value of the evaluated code
 	 */
-	public static function evaluate(/*$code, array $vars = NULL*/)
+	public static function evaluate(/*$code, array $vars = null*/)
 	{
 		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
 		if (func_num_args() > 1) {
-			foreach (func_get_arg(1) as $__k => $__v) $$__k = $__v;
+			foreach (func_get_arg(1) as $__k => $__v) {
+				$$__k = $__v;
+			}
 			unset($__k, $__v);
 		}
 		$res = eval('?>' . func_get_arg(0));
-		if ($res === FALSE && ($error = error_get_last()) && $error['type'] === E_PARSE) {
+		if ($res === false && ($error = error_get_last()) && $error['type'] === E_PARSE) {
 			throw new \ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
 		}
 		return $res;
@@ -54,14 +56,15 @@ class LimitedScope
 	 * @param  array   local variables
 	 * @return mixed   the return value of the included file
 	 */
-	public static function load(/*$file, array $vars = NULL*/)
+	public static function load(/*$file, array $vars = null*/)
 	{
 		trigger_error(__METHOD__ . '() is deprecated.', E_USER_DEPRECATED);
 		if (func_num_args() > 1 && is_array(func_get_arg(1))) {
-			foreach (func_get_arg(1) as $__k => $__v) $$__k = $__v;
+			foreach (func_get_arg(1) as $__k => $__v) {
+				$$__k = $__v;
+			}
 			unset($__k, $__v);
 		}
 		return include func_get_arg(0);
 	}
-
 }

@@ -9,15 +9,15 @@
         <main class="content">
             <div class="content-inner">
                 <h1>
-                    Chyba aplikace
+                    {_'errors.500.title'}</br>
                     <small>
-                        Tohle je asi naprogramované špatně. Můžete to zkusit znovu, nebo se vrátit.
+                        {_'errors.500.text'}
                     </small>
                 </h1>
                 <img src="/img/error-page-arrow.svg" alt="arrow down">
                 <form class="clearfix" action="/vyhledavani" method="get" id="frm-search-form">
                     <div class="pull-left search-input">
-                        <input type="text" class="form-control" placeholder="Hledat" name="hledat" id="frm-search-form-query">
+                        <input type="text" class="form-control" placeholder="{_'search.placeholder'}" name="hledat" id="frm-search-form-query">
                     </div>
                     <div class="pull-left">
                         <button class="btn btn-search" type="submit" name="search" id="frm-search-form-search">

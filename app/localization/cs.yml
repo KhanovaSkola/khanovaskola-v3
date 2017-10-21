@@ -306,38 +306,63 @@ search:
       one: "jedna tabule"
       few: "%1 tabule"
       many: "%1 tabulí"
+  placeholder: "Hledat"
+  results:
+    noContent: "Nechtěli jste hledat "
+    suggestSearch: "Nechtěli jste hledat "
+    showMore: "Zobrazit další"
+    whichSearch: "Hledáte:" # TODO
+    found: "Nalezeno:"
+    showAll: "zobrazit vše"
+    blockOf: "skupina" # e.g. a block of 5 videos
 
 schemaForm:
   title:
+    caption: "Název"
     missing: "Vyplňte název schématu"
   description:
+    caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis schématu"
   subject:
     missing: "Vyberte předmět, do kterého se má schéma zařadit"
+  button:
+    save: "Uložit"
 
 videoForm:
   title:
+    caption: "Název"
     missing: "Vyplňte název videa"
   description:
+    caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis videa"
   youtubeId:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
   visible: "Zobrazit ve vyhledávání"
   removed: "Odstranit video (používat pouze pokud video bylo smazáno a neexistuje žádné alternativní video)"
+  button:
+    save: "Uložit"
 
 blackboardForm:
   title:
+    caption: "Název"
     missing: "Vyplňte název tabule"
   description:
+    caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis tabule"
   visible: "Zobrazit ve vyhledávání"
+  button:
+    save: "Uložit"
 
 blockForm:
   title:
+    caption: "Název"
     missing: "Vyplňte název bloku"
   description:
+    caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis bloku"
   visible: "Zobrazit ve vyhledávání"
+  button:
+    save: "Uložit"
 
 profileForm:
   success:
@@ -415,5 +440,55 @@ pagetitles:
   password: "Heslo"
   setting-page: "Nastavení"
   editor: "Editor"
+
+homepage:
+  footer:
+    blogLink: "Blog"
+    forumLink: "Pojďte se zeptat na fórum"
+    aboutLink: "Co je Khanova škola?"
+    text: "Nevíte jak začít nebo máte připomínky?"
+  button:
+    startNow: "Začít hned teď"
+  text:
+    moreThan: 
+      one: "Právě jedno"
+      few: "Více než %1"
+      many: "Více než %1"
+    contentTypes:
+      one: "video "
+      few: "videa "
+      many: "videolekcí "
+    motto: "zadarmo a pro všeechny."
+  mobile:
+    learnAnything: "Nauč se cokoliv."
+    reasonToLearn: "Do školy i na jindy."
+  subjectList:
+    separator: "i"
+    moreover: "A také"
+    action: "Naučím tě "
+
+profile:
+  empty:
+    youWillSee: "Zde uvidíte rozkoukaná témata"
+    interestingTopic: "Nějaké zajímavé téma"
+    startHere: "Začít můžete třeba tady:"
+    explore: "Prozkoumat"
+    learn: "Naučit se"
+    learnMore: "Dozvědět se více"
+    study: "Studovat"
+    try: "Zkusit"
+  default:
+    continue: "Pokračovat"
+    olderContinue: "Starší rozpracované"
+    adminSubjects: "Spravované předměty"
+    adminSchemas: "Spravovaná schémata"
+    adminBlocks: "Spravované bloky"
+  settings:
+    linkProfile: "Provázat přihlášení přes:"
+    avatarAll: "Fotku si můžete nahrát přihlášením přes Facebook nebo Google a nebo registrací na "
+    avatarFb: "Fotku si můžete změnit na Facebooku."
+    avatarGoogle: "Fotku si můžete změnit na svém Google účtu."
+    onGravatar: "Gravataru"
+    changePassword: "Změnit heslo"
 
 

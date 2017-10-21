@@ -1,19 +1,15 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Localization;
 
-use Nette;
-
 
 /**
  * Translator adapter.
- *
- * @author     David Grudl
  */
 interface ITranslator
 {
@@ -24,6 +20,5 @@ interface ITranslator
 	 * @param  int      plural count
 	 * @return string
 	 */
-	function translate($message, $count = NULL);
-
+	function translate($message, $count = null);
 }

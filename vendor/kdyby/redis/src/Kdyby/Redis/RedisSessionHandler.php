@@ -11,7 +11,6 @@
 namespace Kdyby\Redis;
 
 use Kdyby;
-use Nette\Diagnostics\Debugger;
 use Nette;
 
 
@@ -25,7 +24,7 @@ use Nette;
  *
  * @author Filip Procházka <filip@prochazka.su>
  */
-class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionStorage
+class RedisSessionHandler extends Nette\Object implements \SessionHandlerInterface
 {
 
 	/** @internal cache structure */
@@ -41,6 +40,16 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 	 */
 	private $client;
 
+	/**
+	 * @var Nette\Http\Session
+	 */
+	private $session;
+
+	/**
+	 * @var integer
+	 */
+	private $ttl;
+
 
 
 	/**
@@ -54,9 +63,52 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 
 
 	/**
-	 * @param $savePath
-	 * @param $sessionName
-	 *
+	 * @internal
+	 * @param Nette\Http\Session $session
+	 * @return RedisSessionHandler
+	 */
+	public function bind(Nette\Http\Session $session)
+	{
+		$this->session = $session;
+		$session->setHandler($this);
+		return $this;
+	}
+
+
+
+	/**
+	 * @return int|string
+	 */
+	protected function getTtl()
+	{
+		if ($this->ttl === NULL) {
+			if ($this->session !== NULL) {
+				$options = $this->session->getOptions();
+				$this->ttl = min($options['cookie_lifetime'], $options['gc_maxlifetime']);
+
+			} else {
+				$this->ttl = ini_get("session.gc_maxlifetime");
+			}
+		}
+
+		return $this->ttl;
+	}
+
+
+
+	/**
+	 * @param int $ttl
+	 */
+	public function setTtl($ttl)
+	{
+		$this->ttl = max($ttl, 0);
+	}
+
+
+
+	/**
+	 * @param string $savePath
+	 * @param string $sessionName
 	 * @return bool
 	 */
 	public function open($savePath, $sessionName)
@@ -68,20 +120,12 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 
 	/**
 	 * @param string $id
-	 *
+	 * @throws SessionHandlerException
 	 * @return string
 	 */
 	public function read($id)
 	{
-		try {
-			$key = $this->formatKey($id);
-			$this->ssIds[$key] = $this->client->lock($key);
-			return (string) $this->client->get($key);
-
-		} catch (Exception $e) {
-			Debugger::log($e, 'redis-session');
-			return FALSE;
-		}
+		return (string) $this->client->get($this->lock($id));
 	}
 
 
@@ -89,21 +133,15 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 	/**
 	 * @param string $id
 	 * @param string $data
-	 *
 	 * @return bool
 	 */
 	public function write($id, $data)
 	{
-		try {
-			$key = $this->formatKey($id);
-			$this->ssIds[$key] = $this->client->lock($key);
-			$this->client->setex($key, ini_get("session.gc_maxlifetime"), $data);
-			return TRUE;
-
-		} catch (Exception $e) {
-			Debugger::log($e, 'redis-session');
+		if (!isset($this->ssIds[$id])) {
 			return FALSE;
 		}
+
+		return $this->client->setex($this->formatKey($id), $this->getTtl(), $data);
 	}
 
 
@@ -113,33 +151,19 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 	 *
 	 * @return bool
 	 */
-	public function remove($id)
+	public function destroy($id)
 	{
-		try {
-			$key = $this->formatKey($id);
-			$this->client->multi(function (RedisClient $client) use ($key) {
-				$client->del($key);
-				$client->unlock($key);
-			});
-			unset($this->ssIds[$key]);
-			return TRUE;
-
-		} catch (Exception $e) {
-			Debugger::log($e, 'redis-session');
+		if (!isset($this->ssIds[$id])) {
 			return FALSE;
 		}
-	}
 
+		$key = $this->formatKey($id);
+		$this->client->multi(function (RedisClient $client) use ($key) {
+			$client->del($key);
+			$client->unlock($key);
+		});
 
-
-	/**
-	 * @param string $id
-	 *
-	 * @return string
-	 */
-	private function formatKey($id)
-	{
-		return self::NS_NETTE . $id;
+		return TRUE;
 	}
 
 
@@ -149,7 +173,7 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 	 */
 	public function close()
 	{
-		foreach ($this->ssIds as $key => $yes) {
+		foreach ($this->ssIds as $id => $key) {
 			$this->client->unlock($key);
 		}
 		$this->ssIds = array();
@@ -164,9 +188,41 @@ class RedisSessionHandler extends Nette\Object implements Nette\Http\ISessionSto
 	 *
 	 * @return bool
 	 */
-	public function clean($maxLifeTime)
+	public function gc($maxLifeTime)
 	{
 		return TRUE;
+	}
+
+
+
+	/**
+	 * @param string $id
+	 * @return string
+	 */
+	protected function lock($id)
+	{
+		try {
+			$key = $this->formatKey($id);
+			$this->client->lock($key);
+			$this->ssIds[$id] = $key;
+
+			return $key;
+
+		} catch (LockException $e) {
+			throw new SessionHandlerException(sprintf('Cannot work with non-locked session id %s: %s', $id, $e->getMessage()), 0, $e);
+		}
+	}
+
+
+
+	/**
+	 * @param string $id
+	 *
+	 * @return string
+	 */
+	private function formatKey($id)
+	{
+		return self::NS_NETTE . $id;
 	}
 
 

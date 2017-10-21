@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -16,7 +14,7 @@
  */
 
 /**
- * Service definition for Pagespeedonline (v1).
+ * Service definition for Pagespeedonline (v2).
  *
  * <p>
  * Lets you analyze the performance of a web page and get tailored suggestions
@@ -24,7 +22,7 @@
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/speed/docs/insights/v1/getting_started" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/speed/docs/insights/v2/getting-started" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -44,8 +42,9 @@ class Google_Service_Pagespeedonline extends Google_Service
   public function __construct(Google_Client $client)
   {
     parent::__construct($client);
-    $this->servicePath = 'pagespeedonline/v1/';
-    $this->version = 'v1';
+    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->servicePath = 'pagespeedonline/v2/';
+    $this->version = 'v2';
     $this->serviceName = 'pagespeedonline';
 
     $this->pagespeedapi = new Google_Service_Pagespeedonline_Pagespeedapi_Resource(
@@ -63,7 +62,7 @@ class Google_Service_Pagespeedonline extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'screenshot' => array(
+                'filter_third_party_resources' => array(
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
@@ -76,13 +75,13 @@ class Google_Service_Pagespeedonline extends Google_Service
                   'type' => 'string',
                   'repeated' => true,
                 ),
+                'screenshot' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
                 'strategy' => array(
                   'location' => 'query',
                   'type' => 'string',
-                ),
-                'filter_third_party_resources' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ),
               ),
             ),
@@ -105,21 +104,21 @@ class Google_Service_Pagespeedonline_Pagespeedapi_Resource extends Google_Servic
 {
 
   /**
-   * Runs Page Speed analysis on the page at the specified URL, and returns a Page
-   * Speed score, a list of suggestions to make that page faster, and other
+   * Runs PageSpeed analysis on the page at the specified URL, and returns
+   * PageSpeed scores, a list of suggestions to make that page faster, and other
    * information. (pagespeedapi.runpagespeed)
    *
    * @param string $url The URL to fetch and analyze
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool screenshot Indicates if binary data containing a screenshot
-   * should be included
-   * @opt_param string locale The locale used to localize formatted results
-   * @opt_param string rule A Page Speed rule to run; if none are given, all rules
-   * are run
-   * @opt_param string strategy The analysis strategy to use
    * @opt_param bool filter_third_party_resources Indicates if third party
    * resources should be filtered out before PageSpeed analysis.
+   * @opt_param string locale The locale used to localize formatted results
+   * @opt_param string rule A PageSpeed rule to run; if none are given, all rules
+   * are run
+   * @opt_param bool screenshot Indicates if binary data containing a screenshot
+   * should be included
+   * @opt_param string strategy The analysis strategy to use
    * @return Google_Service_Pagespeedonline_Result
    */
   public function runpagespeed($url, $optParams = array())
@@ -132,6 +131,288 @@ class Google_Service_Pagespeedonline_Pagespeedapi_Resource extends Google_Servic
 
 
 
+
+class Google_Service_Pagespeedonline_PagespeedApiFormatStringV2 extends Google_Collection
+{
+  protected $collection_key = 'args';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $argsType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2Args';
+  protected $argsDataType = 'array';
+  public $format;
+
+
+  public function setArgs($args)
+  {
+    $this->args = $args;
+  }
+  public function getArgs()
+  {
+    return $this->args;
+  }
+  public function setFormat($format)
+  {
+    $this->format = $format;
+  }
+  public function getFormat()
+  {
+    return $this->format;
+  }
+}
+
+class Google_Service_Pagespeedonline_PagespeedApiFormatStringV2Args extends Google_Collection
+{
+  protected $collection_key = 'secondary_rects';
+  protected $internal_gapi_mappings = array(
+        "secondaryRects" => "secondary_rects",
+  );
+  public $key;
+  protected $rectsType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2ArgsRects';
+  protected $rectsDataType = 'array';
+  protected $secondaryRectsType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2ArgsSecondaryRects';
+  protected $secondaryRectsDataType = 'array';
+  public $type;
+  public $value;
+
+
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setRects($rects)
+  {
+    $this->rects = $rects;
+  }
+  public function getRects()
+  {
+    return $this->rects;
+  }
+  public function setSecondaryRects($secondaryRects)
+  {
+    $this->secondaryRects = $secondaryRects;
+  }
+  public function getSecondaryRects()
+  {
+    return $this->secondaryRects;
+  }
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  public function getType()
+  {
+    return $this->type;
+  }
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+  public function getValue()
+  {
+    return $this->value;
+  }
+}
+
+class Google_Service_Pagespeedonline_PagespeedApiFormatStringV2ArgsRects extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $height;
+  public $left;
+  public $top;
+  public $width;
+
+
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setLeft($left)
+  {
+    $this->left = $left;
+  }
+  public function getLeft()
+  {
+    return $this->left;
+  }
+  public function setTop($top)
+  {
+    $this->top = $top;
+  }
+  public function getTop()
+  {
+    return $this->top;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
+}
+
+class Google_Service_Pagespeedonline_PagespeedApiFormatStringV2ArgsSecondaryRects extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $height;
+  public $left;
+  public $top;
+  public $width;
+
+
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setLeft($left)
+  {
+    $this->left = $left;
+  }
+  public function getLeft()
+  {
+    return $this->left;
+  }
+  public function setTop($top)
+  {
+    $this->top = $top;
+  }
+  public function getTop()
+  {
+    return $this->top;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
+}
+
+class Google_Service_Pagespeedonline_PagespeedApiImageV2 extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+        "mimeType" => "mime_type",
+        "pageRect" => "page_rect",
+  );
+  public $data;
+  public $height;
+  public $key;
+  public $mimeType;
+  protected $pageRectType = 'Google_Service_Pagespeedonline_PagespeedApiImageV2PageRect';
+  protected $pageRectDataType = '';
+  public $width;
+
+
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+  public function getData()
+  {
+    return $this->data;
+  }
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+  public function getKey()
+  {
+    return $this->key;
+  }
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  public function getMimeType()
+  {
+    return $this->mimeType;
+  }
+  public function setPageRect(Google_Service_Pagespeedonline_PagespeedApiImageV2PageRect $pageRect)
+  {
+    $this->pageRect = $pageRect;
+  }
+  public function getPageRect()
+  {
+    return $this->pageRect;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
+}
+
+class Google_Service_Pagespeedonline_PagespeedApiImageV2PageRect extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $height;
+  public $left;
+  public $top;
+  public $width;
+
+
+  public function setHeight($height)
+  {
+    $this->height = $height;
+  }
+  public function getHeight()
+  {
+    return $this->height;
+  }
+  public function setLeft($left)
+  {
+    $this->left = $left;
+  }
+  public function getLeft()
+  {
+    return $this->left;
+  }
+  public function setTop($top)
+  {
+    $this->top = $top;
+  }
+  public function getTop()
+  {
+    return $this->top;
+  }
+  public function setWidth($width)
+  {
+    $this->width = $width;
+  }
+  public function getWidth()
+  {
+    return $this->width;
+  }
+}
 
 class Google_Service_Pagespeedonline_Result extends Google_Collection
 {
@@ -146,8 +427,9 @@ class Google_Service_Pagespeedonline_Result extends Google_Collection
   protected $pageStatsType = 'Google_Service_Pagespeedonline_ResultPageStats';
   protected $pageStatsDataType = '';
   public $responseCode;
-  public $score;
-  protected $screenshotType = 'Google_Service_Pagespeedonline_ResultScreenshot';
+  protected $ruleGroupsType = 'Google_Service_Pagespeedonline_ResultRuleGroupsElement';
+  protected $ruleGroupsDataType = 'map';
+  protected $screenshotType = 'Google_Service_Pagespeedonline_PagespeedApiImageV2';
   protected $screenshotDataType = '';
   public $title;
   protected $versionType = 'Google_Service_Pagespeedonline_ResultVersion';
@@ -202,15 +484,15 @@ class Google_Service_Pagespeedonline_Result extends Google_Collection
   {
     return $this->responseCode;
   }
-  public function setScore($score)
+  public function setRuleGroups($ruleGroups)
   {
-    $this->score = $score;
+    $this->ruleGroups = $ruleGroups;
   }
-  public function getScore()
+  public function getRuleGroups()
   {
-    return $this->score;
+    return $this->ruleGroups;
   }
-  public function setScreenshot(Google_Service_Pagespeedonline_ResultScreenshot $screenshot)
+  public function setScreenshot(Google_Service_Pagespeedonline_PagespeedApiImageV2 $screenshot)
   {
     $this->screenshot = $screenshot;
   }
@@ -263,21 +545,28 @@ class Google_Service_Pagespeedonline_ResultFormattedResults extends Google_Model
   }
 }
 
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResults extends Google_Model
-{
-}
-
 class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElement extends Google_Collection
 {
   protected $collection_key = 'urlBlocks';
   protected $internal_gapi_mappings = array(
   );
+  public $groups;
   public $localizedRuleName;
   public $ruleImpact;
+  protected $summaryType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2';
+  protected $summaryDataType = '';
   protected $urlBlocksType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocks';
   protected $urlBlocksDataType = 'array';
 
 
+  public function setGroups($groups)
+  {
+    $this->groups = $groups;
+  }
+  public function getGroups()
+  {
+    return $this->groups;
+  }
   public function setLocalizedRuleName($localizedRuleName)
   {
     $this->localizedRuleName = $localizedRuleName;
@@ -294,6 +583,14 @@ class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElement ex
   {
     return $this->ruleImpact;
   }
+  public function setSummary(Google_Service_Pagespeedonline_PagespeedApiFormatStringV2 $summary)
+  {
+    $this->summary = $summary;
+  }
+  public function getSummary()
+  {
+    return $this->summary;
+  }
   public function setUrlBlocks($urlBlocks)
   {
     $this->urlBlocks = $urlBlocks;
@@ -309,13 +606,13 @@ class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrl
   protected $collection_key = 'urls';
   protected $internal_gapi_mappings = array(
   );
-  protected $headerType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksHeader';
+  protected $headerType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2';
   protected $headerDataType = '';
   protected $urlsType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrls';
   protected $urlsDataType = 'array';
 
 
-  public function setHeader(Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksHeader $header)
+  public function setHeader(Google_Service_Pagespeedonline_PagespeedApiFormatStringV2 $header)
   {
     $this->header = $header;
   }
@@ -333,68 +630,14 @@ class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrl
   }
 }
 
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksHeader extends Google_Collection
-{
-  protected $collection_key = 'args';
-  protected $internal_gapi_mappings = array(
-  );
-  protected $argsType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksHeaderArgs';
-  protected $argsDataType = 'array';
-  public $format;
-
-
-  public function setArgs($args)
-  {
-    $this->args = $args;
-  }
-  public function getArgs()
-  {
-    return $this->args;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-}
-
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksHeaderArgs extends Google_Model
-{
-  protected $internal_gapi_mappings = array(
-  );
-  public $type;
-  public $value;
-
-
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
-}
-
 class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrls extends Google_Collection
 {
   protected $collection_key = 'details';
   protected $internal_gapi_mappings = array(
   );
-  protected $detailsType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsDetails';
+  protected $detailsType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2';
   protected $detailsDataType = 'array';
-  protected $resultType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsResult';
+  protected $resultType = 'Google_Service_Pagespeedonline_PagespeedApiFormatStringV2';
   protected $resultDataType = '';
 
 
@@ -406,121 +649,13 @@ class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrl
   {
     return $this->details;
   }
-  public function setResult(Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsResult $result)
+  public function setResult(Google_Service_Pagespeedonline_PagespeedApiFormatStringV2 $result)
   {
     $this->result = $result;
   }
   public function getResult()
   {
     return $this->result;
-  }
-}
-
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsDetails extends Google_Collection
-{
-  protected $collection_key = 'args';
-  protected $internal_gapi_mappings = array(
-  );
-  protected $argsType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsDetailsArgs';
-  protected $argsDataType = 'array';
-  public $format;
-
-
-  public function setArgs($args)
-  {
-    $this->args = $args;
-  }
-  public function getArgs()
-  {
-    return $this->args;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-}
-
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsDetailsArgs extends Google_Model
-{
-  protected $internal_gapi_mappings = array(
-  );
-  public $type;
-  public $value;
-
-
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
-  }
-}
-
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsResult extends Google_Collection
-{
-  protected $collection_key = 'args';
-  protected $internal_gapi_mappings = array(
-  );
-  protected $argsType = 'Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsResultArgs';
-  protected $argsDataType = 'array';
-  public $format;
-
-
-  public function setArgs($args)
-  {
-    $this->args = $args;
-  }
-  public function getArgs()
-  {
-    return $this->args;
-  }
-  public function setFormat($format)
-  {
-    $this->format = $format;
-  }
-  public function getFormat()
-  {
-    return $this->format;
-  }
-}
-
-class Google_Service_Pagespeedonline_ResultFormattedResultsRuleResultsElementUrlBlocksUrlsResultArgs extends Google_Model
-{
-  protected $internal_gapi_mappings = array(
-  );
-  public $type;
-  public $value;
-
-
-  public function setType($type)
-  {
-    $this->type = $type;
-  }
-  public function getType()
-  {
-    return $this->type;
-  }
-  public function setValue($value)
-  {
-    $this->value = $value;
-  }
-  public function getValue()
-  {
-    return $this->value;
   }
 }
 
@@ -649,48 +784,20 @@ class Google_Service_Pagespeedonline_ResultPageStats extends Google_Model
   }
 }
 
-class Google_Service_Pagespeedonline_ResultScreenshot extends Google_Model
+class Google_Service_Pagespeedonline_ResultRuleGroupsElement extends Google_Model
 {
   protected $internal_gapi_mappings = array(
-        "mimeType" => "mime_type",
   );
-  public $data;
-  public $height;
-  public $mimeType;
-  public $width;
+  public $score;
 
 
-  public function setData($data)
+  public function setScore($score)
   {
-    $this->data = $data;
+    $this->score = $score;
   }
-  public function getData()
+  public function getScore()
   {
-    return $this->data;
-  }
-  public function setHeight($height)
-  {
-    $this->height = $height;
-  }
-  public function getHeight()
-  {
-    return $this->height;
-  }
-  public function setMimeType($mimeType)
-  {
-    $this->mimeType = $mimeType;
-  }
-  public function getMimeType()
-  {
-    return $this->mimeType;
-  }
-  public function setWidth($width)
-  {
-    $this->width = $width;
-  }
-  public function getWidth()
-  {
-    return $this->width;
+    return $this->score;
   }
 }
 

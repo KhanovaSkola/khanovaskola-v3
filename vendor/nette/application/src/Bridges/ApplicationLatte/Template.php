@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Bridges\ApplicationLatte;
 
-use Nette,
-	Latte;
+use Latte;
+use Nette;
 
 
 /**
  * Latte powered template.
- *
- * @author     David Grudl
  */
-class Template extends Nette\Object implements Nette\Application\UI\ITemplate
+class Template implements Nette\Application\UI\ITemplate
 {
+	use Nette\SmartObject;
+
 	/** @var Latte\Engine */
 	private $latte;
 
@@ -25,7 +25,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	private $file;
 
 	/** @var array */
-	private $params = array();
+	private $params = [];
 
 
 	public function __construct(Latte\Engine $latte)
@@ -47,7 +47,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	 * Renders template to output.
 	 * @return void
 	 */
-	public function render($file = NULL, array $params = array())
+	public function render($file = null, array $params = [])
 	{
 		$this->latte->render($file ?: $this->file, $params + $this->params);
 	}
@@ -60,17 +60,16 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	 */
 	public function __toString()
 	{
-		ob_start();
 		try {
-			$this->render();
-			return ob_get_clean();
-
+			return $this->latte->renderToString($this->file, $this->params);
 		} catch (\Exception $e) {
-			ob_end_clean();
+		} catch (\Throwable $e) {
+		}
+		if (isset($e)) {
 			if (func_num_args()) {
 				throw $e;
 			}
-			trigger_error("Exception in " . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
+			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
 		}
 	}
 
@@ -80,13 +79,14 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 
 	/**
 	 * Registers run-time filter.
-	 * @param  string|NULL
+	 * @param  string|null
 	 * @param  callable
-	 * @return self
+	 * @return static
 	 */
 	public function addFilter($name, $callback)
 	{
-		return $this->latte->addFilter($name, $callback);
+		$this->latte->addFilter($name, $callback);
+		return $this;
 	}
 
 
@@ -96,45 +96,21 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	 */
 	public function registerHelper($name, $callback)
 	{
-		//trigger_error(__METHOD__ . '() is deprecated, use getLatte()->addFilter().', E_USER_DEPRECATED);
+		trigger_error(__METHOD__ . '() is deprecated, use getLatte()->addFilter().', E_USER_DEPRECATED);
 		return $this->latte->addFilter($name, $callback);
 	}
 
 
 	/**
-	 * Alias for addFilterLoader()
-	 * @deprecated
+	 * Sets translate adapter.
+	 * @return static
 	 */
-	public function registerHelperLoader($loader)
+	public function setTranslator(Nette\Localization\ITranslator $translator = null)
 	{
-		trigger_error(__METHOD__ . '() is deprecated, use dynamic getLatte()->addFilter().', E_USER_DEPRECATED);
-		$latte = $this->latte;
-		$this->latte->addFilter(NULL, function($name) use ($loader, $latte) {
-			if ($callback = call_user_func($loader, $name)) {
-				$latte->addFilter($name, $callback);
-			}
+		$this->latte->addFilter('translate', $translator === null ? null : function (Latte\Runtime\FilterInfo $fi, ...$args) use ($translator) {
+			return $translator->translate(...$args);
 		});
 		return $this;
-	}
-
-
-	/**
-	 * Sets translate adapter.
-	 * @return self
-	 */
-	public function setTranslator(Nette\Localization\ITranslator $translator = NULL)
-	{
-		$this->latte->addFilter('translate', $translator === NULL ? NULL : array($translator, 'translate'));
-		return $this;
-	}
-
-
-	/**
-	 * @deprecated
-	 */
-	public function registerFilter($callback)
-	{
-		throw new Nette\DeprecatedException(__METHOD__ . '() is deprecated.');
 	}
 
 
@@ -144,7 +120,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	/**
 	 * Sets the path to the template file.
 	 * @param  string
-	 * @return self
+	 * @return static
 	 */
 	public function setFile($file)
 	{
@@ -154,7 +130,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getFile()
 	{
@@ -164,7 +140,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 
 	/**
 	 * Adds new template parameter.
-	 * @return self
+	 * @return static
 	 */
 	public function add($name, $value)
 	{
@@ -179,7 +155,7 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	/**
 	 * Sets all parameters.
 	 * @param  array
-	 * @return self
+	 * @return static
 	 */
 	public function setParameters(array $params)
 	{
@@ -251,5 +227,4 @@ class Template extends Nette\Object implements Nette\Application\UI\ITemplate
 	{
 		unset($this->params[$name]);
 	}
-
 }

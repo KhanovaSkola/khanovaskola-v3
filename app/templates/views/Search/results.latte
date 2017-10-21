@@ -11,16 +11,17 @@
         <main class="content">
             <div class="content-inner">
                 <section class="search-form">
+                     {* TODO: translate label*}
                     {control searchResultsForm, label => 'Hledáte'}
                     <ul n:if="$search->results" class="list-unstyled result-count">
-                        Nalezeno: {foreach $search->aggregations as $ag}{*
+                        {_'search.results.found'} {foreach $search->aggregations as $ag}{*
                             *}<a n:href="this, filter => $ag['key']">{*
                                 *}<strong n:tag-if="$ag['key'] === $filter">
                                     {_"search.count.{$ag['key']}", $ag['doc_count']}{*
                                 *}</strong>{*
                             *}</a>{sep}, {/sep}{*
                         *}{/foreach}
-                        <a n:if="$filter" n:href="this, filter => NULL">(zobrazit vše)</a>
+                        <a n:if="$filter" n:href="this, filter => NULL">({_'search.results.showAll'})</a>
                     </ul>
                 </section>
                 <section class="search-result" data-url-more="{plink this, query => $query, page => '{page}'|templateLink}">
@@ -38,7 +39,7 @@
                                         <span class="title">
                                             <a n:href="$block, $schema">{$block->highlight('title')|noescape}</a>
                                             <small>
-                                                skupina {_'search.blockContains', $block->countContents()}
+                                                {_'search.results.blockOf'} {_'search.blockContains', $block->countContents()}
                                             </small>
                                         </span>
                                         <p>{$block->highlight('description')|vlna|noescape}</p>
@@ -71,12 +72,12 @@
 
                 <div class="text-center">
                     {if $search->total > count($search->results)}
-	                    <a href="#" data-show-more>Zobrazit další</a>
+	                    <a href="#" data-show-more>{_'search.results.showMore'}</a>
 	                {elseif !$search->results}
-	                    Takový obsah tady nemáme&hellip;<br>
+	                    {_'search.results.noContent'}&hellip;<br>
 	                    {var $q = $search->getDidYouMean()}
                         {if $q}
-	                        Nechtěli jste hledat <a n:href="this, query => $q">{$q}</a>?
+	                        {_search.results.suggestSearch} <a n:href="this, query => $q">{$q}</a>?
 	                    {/if}
 	                {/if}
                 </div>

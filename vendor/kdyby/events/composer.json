@@ -17,17 +17,16 @@
 		"issues": "https://github.com/kdyby/events/issues"
 	},
 	"require": {
-		"nette/di": "~2.2@dev",
-		"nette/utils": "~2.2@dev"
+		"nette/di": "~2.3@dev",
+		"nette/utils": "~2.3@dev"
 	},
 	"require-dev": {
-		"nette/nette": "~2.3@dev",
 		"nette/application": "~2.3@dev",
 		"nette/bootstrap": "~2.3@dev",
 		"nette/caching": "~2.3@dev",
 		"nette/component-model": "~2.2@dev",
 		"nette/database": "~2.3@dev",
-		"nette/deprecated": "@dev",
+		"nette/deprecated": "~2.3@dev",
 		"nette/di": "~2.3@dev",
 		"nette/finder": "~2.3@dev",
 		"nette/forms": "~2.3@dev",
@@ -44,10 +43,9 @@
 		"tracy/tracy": "~2.3@dev",
 		"nette/utils": "~2.3@dev",
 
-		"symfony/event-dispatcher": "~2.5",
+		"symfony/event-dispatcher": "~2.3",
 
-		"nette/tester": "@dev",
-		"jakub-onderka/php-parallel-lint": "~0.7"
+		"nette/tester": "~1.4"
 	},
 	"autoload": {
 		"psr-0": {
@@ -62,7 +60,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.3-dev"
+			"dev-master": "2.4-dev"
 		}
 	}
 }

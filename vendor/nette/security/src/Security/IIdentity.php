@@ -1,19 +1,15 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\Security;
 
-use Nette;
-
 
 /**
  * Represents the user of application.
- *
- * @author     David Grudl
  */
 interface IIdentity
 {
@@ -29,5 +25,4 @@ interface IIdentity
 	 * @return array
 	 */
 	function getRoles();
-
 }

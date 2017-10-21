@@ -1,19 +1,15 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\ComponentModel;
 
-use Nette;
-
 
 /**
  * Provides functionality required by all components.
- *
- * @author     David Grudl
  */
 interface IComponent
 {
@@ -21,13 +17,13 @@ interface IComponent
 	const NAME_SEPARATOR = '-';
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	function getName();
 
 	/**
 	 * Returns the container if any.
-	 * @return IContainer|NULL
+	 * @return IContainer|null
 	 */
 	function getParent();
 
@@ -35,8 +31,7 @@ interface IComponent
 	 * Sets the parent of this component.
 	 * @param  IContainer
 	 * @param  string
-	 * @return void
+	 * @return static
 	 */
-	function setParent(IContainer $parent = NULL, $name = NULL);
-
+	function setParent(IContainer $parent = null, $name = null);
 }

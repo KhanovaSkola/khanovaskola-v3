@@ -11,14 +11,14 @@
             <div class="inprogress-box">
                 <div class="title">
                     <div class="title-inner">
-                        <span>Zde uvidíte rozkoukaná témata</span>
+                        <span>{_'profile.empty.youWillSee'}</span>
                     </div>
                 </div>
                 <div class="inprogress-border">
                     <div class="subject">
                         <h2>
                             <i class="icon icon-subject-history text-blue"></i>
-                            <span>Nějaké zajímavé téma</span>
+                            <span>{_'profile.empty.interestingTopic'}</span>
                         </h2>
                         <div class="progress-wrapper">
                             <div class="progress">
@@ -34,19 +34,15 @@
         <div class="other-subjects">
             <div class="inner">
                 <h1>
-                    Začít můžete třeba tady:
+                  {_'profile.empty.startHere'}
                 </h1>
                 <div class="subjects">
                     {var $phrases = [
-                        'Naučit se',
-                        'Zkouknout',
-                        'Prozkoumat',
-                        'Dozvědět se víc',
-                        'Studovat',
-                        'Prostudovat',
-                        'Poznat',
-                        'Zkusit',
-                        'Vyzkoušet',
+                        '{_'profile.empty.explore'}',
+                        '{_'profile.empty.learn'}',
+                        '{_'profile.empty.learnMore'}',
+                        '{_'profile.empty.study'}',
+                        '{_'profile.empty.try'}',
                     ]}
                     {php shuffle($phrases)}
 

@@ -226,29 +226,29 @@ class Configuration extends Nette\Object
 	 * Maps aliases to Facebook domains.
 	 * @var array
 	 */
-	public $domains = array(
+	public $domains = [
 		'api' => 'https://api.facebook.com/',
 		'api_video' => 'https://api-video.facebook.com/',
 		'api_read' => 'https://api-read.facebook.com/',
 		'graph' => 'https://graph.facebook.com/',
 		'graph_video' => 'https://graph-video.facebook.com/',
 		'www' => 'https://www.facebook.com/',
-	);
+	];
 
 	/**
 	 * List of query parameters that get automatically dropped when rebuilding the current URL.
 	 * @var array
 	 */
-	public $dropQueryParams = array(
+	public $dropQueryParams = [
 		'code',
 		'state',
 		'signed_request',
-	);
+	];
 
 	/**
 	 * @var array
 	 */
-	public $readOnlyCalls = array(
+	public $readOnlyCalls = [
 		'admin.getallocation' => 1,
 		'admin.getappproperties' => 1,
 		'admin.getbannedusers' => 1,
@@ -309,7 +309,7 @@ class Configuration extends Nette\Object
 		'users.isappuser' => 1,
 		'users.isverified' => 1,
 		'video.getuploadlimits' => 1
-	);
+	];
 
 
 
@@ -382,7 +382,7 @@ class Configuration extends Nette\Object
 	 *
 	 * @return UrlScript The URL for the given parameters
 	 */
-	public function createUrl($name, $path = NULL, $params = array())
+	public function createUrl($name, $path = NULL, $params = [])
 	{
 		if (preg_match('~^https?://[^.]+\\.facebook\\.com/~', trim($path))) {
 			$url = new UrlScript($path);
