@@ -2,6 +2,8 @@
 {var $headerBorder = FALSE}
 {var $title = NULL}
 {var $titleVideoCount = $getRoundedContentCount()}
+
+{*We could perhaps pass this variable based on locale...*}
 {var $description = "Více než $titleVideoCount výukových videí a cvičení česky a zdarma; nejen z matematiky, fyziky či humanitních věd."}
 
 {block content}
@@ -13,21 +15,22 @@
 	<div class="container" id="TEST">
 	    <main class="content">
 	        <div class="content-inner">
+                     {*TODO: Move subject selector to separate latte file *}
 	            <hgroup>
 	                {var $tab = 0}
 	                <h2 n:if="$firstSubject">
-	                    Naučím tě <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->title|accusative} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
+	                    {_'homepage.subjectList.action'} <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->title|accusative} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
 	                </h2>
 	                <h3>
 	                    {foreach $secondThirdSubject as $subject}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>
-	                        {sep} i {/sep}
+	                        {sep} {_'homepage.subjectList.separator'} {/sep}
 	                        {last}.{/last}
 	                    {/foreach}
 	                </h3>
 	                <h4>
 	                    {foreach $moreSubjects as $subject}
-	                        {first}A také{/first}
+	                        {first}{_'homepage.subjectList.moreover'}{/first}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>{sep}, {/sep}
 	                        {last}A <a href="#tab-{$tab++}" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
 	                    {/foreach}
@@ -36,15 +39,21 @@
 
 				<div class="hgroup-mobile">
                 	<h1>
-                		<span>Nauč se cokoliv.</span>
-                		<small>Do školy i na jindy.</small>
+                		<span>{_'homepage.mobile.learnAnything'}</span>
+                		<small>{_'homepage.mobile.reasonToLearn'}</small>
                 	</h1>
                 </div>
 
 	            <div class="join">
-	                <a href="#" class="btn" data-begin>Začít hned teď</a>
+	                <a href="#" class="btn" data-begin>{_'homepage.button.startNow'}</a>
 	                <br>
-	                <a n:href="Text:about" class="text">Přes {$videoCount} videolekcí zadarmo a pro všechny.</a>
+	                <a n:href="Text:about" class="text">
+                        {if $videoCount > 1}
+                           {_'homepage.text.moreThan', $videoCount} 
+                           {_'homepage.text.contentTypes', $videoCount}
+                        {/if}
+                        {_'homepage.text.motto'}
+                        </a>
 	            </div>
 
 				<div class="login">
@@ -60,20 +69,20 @@
 	</div>
 	<footer class="landing-footer">
 		<div>
-	        <strong>Nevíte jak začít nebo máte připomínky?</strong>
+	        <strong>{_'homepage.footer.text'}</strong>
 	        <a href="https://forum.khanovaskola.cz/" class="text-blue">
 	            <i class="icon icon-arrow-next"></i>
-	            <span>Pojďte se zeptat na fórum</span>
+	            <span>{_'homepage.footer.forumLink'}</span>
 	            <i class="icon icon-content-previous"></i>
 	        </a>
 	        <a href="https://blog.khanovaskola.cz/" class="text-red">
 	            <i class="icon icon-arrow-next"></i>
-	            <span>Blog</span>
+	            <span>{_'homepage.footer.blogLink'}</span>
 	            <i class="icon icon-content-previous"></i>
 	        </a>
 	        <a n:href="Text:about" class="text-green">
 	            <i class="icon icon-arrow-next"></i>
-	            <span>Co je Khanova škola?</span>
+	            <span>{_'homepage.footer.aboutLink'}</span>
 	            <i class="icon icon-content-previous"></i>
 	        </a>
         </div>

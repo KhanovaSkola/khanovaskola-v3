@@ -15,37 +15,39 @@
 			style="width: 70%">
 			{cache expire => '20 minutes', tags => ['header']}
 				<div class="pull-left">
-					<div class="dropdown dropdown-big" data-subjects-dropdown>
-						<a href="#" class="dropdown-toggle span-link">
-							<span>{_'header.general.subject'}</span>
-							<i class="icon icon-dropdown-caret"></i>
-						</a>
-						<div class="dropdown-menu">
-							<div class="subjects-list">
-								<ul class="ul-tab" role="tablist">
-									<li n:foreach="$subjects as $i => $subj"{first} data-default-label{/first}>
-										<a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
-		                                    <span>{$subj->title}</span>
-		                                    <i class="icon icon-{$subj->icon}"></i>
-		                                </a>
-									</li>
-									<li class="divider"></li>
-									<li n:foreach="$oldSubjects as $j => $subj">
-                                        <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
-                                            <span>{$subj->title}</span>
-                                            <i class="icon icon-{$subj->icon}"></i>
-                                        </a>
-                                    </li>
-									<li>
-										<a n:href="Homepage:randomContent" rel="nofollow">
-											<span>{_'header.general.feelLucky'}</span>
-											<i class="icon icon-globe"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="subject-detail tab-content">
-								<div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
+				       <div class="dropdown dropdown-big" data-subjects-dropdown>
+					     <a href="#" class="dropdown-toggle span-link">
+						   <span>{_'header.general.subject'}</span>
+						   <i class="icon icon-dropdown-caret"></i>
+					     </a>
+					     <div class="dropdown-menu">
+						   <div class="subjects-list">
+							 <ul class="ul-tab" role="tablist">
+							    <li n:foreach="$subjects as $i => $subj"{first} data-default-label{/first}>
+							    <a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+		                                            <span>{$subj->title}</span>
+		                                            <i class="icon icon-{$subj->icon}"></i>
+		                                            </a>
+							    </li>
+							    <li class="divider"></li>
+                                                            {if $language === 'cs'}
+							       <li n:foreach="$oldSubjects as $j => $subj">
+                                                               <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+                                                               <span>{$subj->title}</span>
+                                                               <i class="icon icon-{$subj->icon}"></i>
+                                                               </a>
+                                                               </li>
+                                                            {/if}
+							    <li>
+							    <a n:href="Homepage:randomContent" rel="nofollow">
+							    <span>{_'header.general.feelLucky'}</span>
+							    <i class="icon icon-globe"></i>
+						            </a>
+						            </li>
+						         </ul>
+						   </div>
+					     <div class="subject-detail tab-content">
+					<div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
 									{block subjectDetail}
 										{foreach $subj->getMenuItems() as $sch}
 											<div class="row">
@@ -99,11 +101,13 @@
 				</div>
 			</div>
 			{ifCurrent Homepage:}
+                           {if $language === 'cs'}
 				<div class="pull-right" style="margin-top: 20px">
-					<a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
-		                <img src="{$basePath}/img/bakalari.svg" width="" height="45">
-		            </a>
+                                    <a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
+		                    <img src="{$basePath}/img/bakalari.svg" width="" height="45">
+		                    </a>
 				</div>
+			   {/if}
 			{/ifCurrent}
 		</div>
 		<div class="header-userarea clearfix">

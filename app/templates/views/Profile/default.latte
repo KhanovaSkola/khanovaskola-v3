@@ -26,7 +26,7 @@
 	                <span>{$percent|number}&thinsp;%</span>
 	            </div>
 	            <a n:href="Schema:continue, schemaId => $lastSchema->id" class="btn">
-	                Pokračovat
+	                {_'profile.default.continue'}
 	            </a>
             {/if}
 
@@ -34,7 +34,7 @@
                 <div class="title">
                     <div class="title-inner">
                         <i class="icon icon-video-play2"></i>
-                        <span>Starší rozpracované</span>
+                        <span> {_'profile.default.olderContinue'}</span>
                     </div>
                 </div>
                 <div class="inprogress-border">
@@ -60,51 +60,14 @@
 		                    </div>
 		                </div>
 		            {/foreach}
-			        {*
-			        <div class="inprogress-footer">
-	                    <a href="#">
-	                        <i class="icon icon-list"></i>
-	                        <span>Zobrazit více</span>
-	                    </a>
-	                </div>
-	                *}
                 </div>
             </div>
         </div>
     </main>
-    {*
-    <div class="other-subjects">
-        <div class="inner">
-            <h1>
-                Tohle tě bude taky zajímat!
-            </h1>
-            <div class="subjects">
-                <div class="subject">
-                    <i class="icon icon-math text-blue"></i>
-                    <h2>Kardinální číslo</h2>
-                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
-                    <a href="#" class="btn">Zjistit</a>
-                </div>
-                <div class="subject">
-                    <i class="icon icon-it text-purple"></i>
-                    <h2>Kardinální číslo</h2>
-                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
-                    <a href="#" class="btn">Zjistit</a>
-                </div>
-                <div class="subject">
-                    <i class="icon icon-history text-red"></i>
-                    <h2>Kardinální číslo</h2>
-                    <p>V matematice se pojem kardinální číslo, někdy též kardinál, pojí s čísly používanými pro popis…</p>
-                    <a href="#" class="btn">Zjistit</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    *}
 
     <div class="container" n:if="$profile->hasCacheBurstingPrivileges()">
         <div class="col-md-4">
-            <h2>Spravované předměty</h2>
+            <h2>{_'profile.default.adminSubjects'}</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->subjectsEdited as $subject">
                     <a n:href="SubjectEditor:default, subjectId => $subject->id">{$subject->title}</a>
@@ -112,7 +75,7 @@
             </ul>
         </div>
         <div class="col-md-4">
-            <h2>Spravovaná schémata</h2>
+            <h2>{_'profile.default.adminSchemas'}</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->schemasAuthored as $schema">
                     <a n:href="SchemaEditor:default, schemaId => $schema->id">{$schema->title}</a>
@@ -123,7 +86,7 @@
             </ul>
         </div>
         <div class="col-md-4">
-            <h2>Spravované bloky</h2>
+            <h2>{_'profile.default.adminBlocks'}</h2>
             <ul class="list list-unstyled">
                 <li n:foreach="$profile->blocksAuthored as $block">
                     <a n:href="BlockEditor:default, blockId => $block->id">{$block->title}</a>

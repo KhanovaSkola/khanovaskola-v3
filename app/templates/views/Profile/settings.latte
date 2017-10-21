@@ -1,6 +1,6 @@
 {var $pageName = 'setting-page'}
 {var $headerBorder = FALSE}
-{var $title = 'Nastavení'}
+{var $title = $template->translate('pagetitles.setting-page')}
 {block content}
 	{**
 	 * @param App\Models\Rme\User $profile
@@ -12,7 +12,7 @@
             {control profileForm}
 
 			<div n:if="!$userEntity->facebookId || !$userEntity->googleId">
-				Provázat přihlášení přes:
+                                {_'profile.settings.linkProfile'}
 				{if !$userEntity->facebookId}
 					<a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
 		                <i class="icon icon-s-facebook"></i>
@@ -27,16 +27,18 @@
 				{/if}
 			</div>
 
-			<a n:href="Auth:changePassword">Změnit heslo</a>
+			<a n:href="Auth:changePassword">{_'profile.settings.changePassword'}</a>
 
 			<div>
 				{if !$userEntity->avatar}
-					Fotku si můžete nahrát přihlášením přes Facebook nebo Google a nebo
-					registrací na <a href="https://cs.gravatar.com/">Gravataru</a>.
+                                    {_'profile.settings.avatarAll'}
+				    <a href="https://cs.gravatar.com/">
+                                    {_'profile.settings.onGravatar'}
+                                    </a>.
 				{elseif $userEntity->facebookId}
-					Fotku si můžete změnit na Facebooku.
+                                    {_'profile.settings.avatarFb'}
 				{elseif $userEntity->googleId}
-					Fotku si můžete změnit na svém Google účtu.
+                                    {_'profile.settings.avatarGoogle'}
 				{/if}
 			</div>
         </div>

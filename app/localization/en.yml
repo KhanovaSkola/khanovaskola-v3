@@ -129,13 +129,16 @@ auth:
 errors: #TODO
   403:
     title: "Access denied"
-    text: ""
+    text: "Maybe you are not supposed to be here?"
   404:
     title: "Page not found"
-    text: ""
+    text: "We are sorry, but we could not find this page."
   410:
     title: "Page removed"
-    text: ""
+    text: "Whoops. This is embarassing. Something was here but not anymore."
+  500:
+    title: "Application error"
+    text: "This is probably on us. :-( You can try again or go back."
 
 registrationForm:
   duplicate: "Username already exists." #TODO link to login
@@ -211,7 +214,7 @@ editor: # Only for admins, low priority
     schema: "Back to schema"
     video: "Back to video"
   content:
-    block: "Block content"
+    block: "Reorder block content"
   remove:
     block: "Remove content from block"
   add:
@@ -219,8 +222,10 @@ editor: # Only for admins, low priority
   search:
     block: "search"
     schema: "filter"
+  description:
      
 search:
+  placeholder: "Search"
   blockContains:
     one: "one video"
     few: "%1 videos"
@@ -238,31 +243,59 @@ search:
       one: "one block"
       few: "%1 blocks"
       many: "%1 blocks"
+  results:
+    noContent: "Sorry, we could not find any matching results."
+    suggestSearch: "Didn't you want to look for "
+    showMore: "Show more results"
+    whichSearch: "You are searching for:" # TODO
+    found: "Found"
+    showAll: "Show everything"
+    blockOf: "block of " # e.g. a block of 5 videos
 
 schemaForm:
   title:
+    caption: "Schema title"
     missing: "Fill in schema title"
   description:
     missing: "Fill in schema description"
-  subject:
-    missing: "Choose a subject of the schema"
+    caption: "Detailed description (15-20 words)"
+  button:
+    save: "Save"
+
+subjectForm:
+  title:
+    caption: "Subject title"
+    missing: "Fill in subject title"
+  description:
+    caption: "Description (not really needed)"
+    missing: "Fill in subject description"
+  button:
+    save: "Save"
 
 videoForm:
   title:
+    caption: "Video title"
     missing: "Fill in video title."
   description:
+    caption: "Detailed description (15-20 words)"
     missing: "Fill in video description."
   youtubeId:
     missing: "Fill in video youtubeId (e.g. AuX7nPBqDts)"
-  visible: "Show in search"
+  visible: "Visible"
   removed: "Remove video (use only if delete from YT without replacement)"
+  button:
+    save: "Save"
 
 blockForm:
   title:
+    caption: "Block title"
     missing: "Fill in block title."
   description:
+    caption: "Detailed description (15-20 words)"
     missing: "Fill in block description"
-  visible: "Show in search"
+  visible: "Visible"
+  button:
+    save: "Save"
 
 profileForm:
   success:
@@ -289,11 +322,6 @@ acl:
       title: "Denied."
       message: "You don't have access to video editor."
 
-subjectForm:
-  title:
-    missing: "Fill in subject title"
-  description:
-    missing: "Fill in subject description"
 
 schema:
   continue:
@@ -332,4 +360,55 @@ pagetitles:
   password: "Password"
   setting-page: "Settings"
   editor: "Editor"
+
+
+homepage:
+  footer:
+    blogLink: "Blog"
+    forumLink: "Ask on our forum"
+    aboutLink: "About us"
+    text: "Do you have questions?"
+  button:
+    startNow: "Start here"
+  text:
+    moreThan: 
+      one: ""
+      few: "More than %1"
+      many: "More than %1"
+    contentTypes:
+      one: ""
+      few: "videos, exercises and articles, "
+      many: "videos, exercises and articles, "
+    motto: "for everyone, for free."
+  mobile:
+    learnAnything: "Learn anything."
+    reasonToLearn: "For school or just for fun."
+  subjectList:
+    separator: "and"
+    moreover: "And also"
+    action: "I will teach you "
+
+profile:
+  empty:
+    youWillSee: "Here you will see your active topics"
+    interestingTopic: "Some interesting topic"
+    startHere: "You can start here:"
+    explore: "Explore"
+    learn: "Learn"
+    learnMore: "Learn more"
+    study: "Study"
+    try: "Try"
+  default:
+    continue: "Continue"
+    olderContinue: "Continue with older topics"
+    adminSubjects: "Your subjects"
+    adminSchemas: "Your schemas"
+    adminBlocks: "Your blocks"
+  settings:
+    linkProfile: "Link account via:"
+    avatarAll: "You can change your profile pic via your Google or Facebook account or register on "
+    avatarFb: "You can change your profile pic via your Facebook account."
+    avatarGoogle: "You can change your profile pic via your Google account."
+    onGravatar: "Gravatar" # full phrase is "..change picture on Gravatar" 
+    changePassword: "Change password"
 

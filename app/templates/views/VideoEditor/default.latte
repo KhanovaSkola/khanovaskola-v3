@@ -5,7 +5,7 @@
 	<div class="header-goback">
 		<a n:href="$video, $block, $schema">
 			<i class="icon icon-circle-back"></i>
-			<span>Zpět na video</span>
+			<span>{_'editor.back.video'}</span>
 		</a>
 	</div>
 {/block}
@@ -19,9 +19,11 @@
 
 	<div class="container">
 		<div class="col-md-12">
-			{control videoForm}
-			<p class="report-link">
-	            <a n:href="report">Zobrazit poslední revizi na reportu</a>
+                     {control videoForm}
+                     <p class="report-link">
+                     {if $language === 'cs'}
+	                <a n:href="report">Zobrazit poslední revizi na reportu</a>
+                     {/if}
 	        </p>
 		</div>
 	</div>
