@@ -463,9 +463,10 @@ homepage:
     learnAnything: "Nauč se cokoliv."
     reasonToLearn: "Do školy i na jindy."
   subjectList:
-    separator: "i"
-    moreover: "A také"
     action: "Naučím tě "
+    firstSeparator: "i"
+    moreover: "A také"
+    and: "A"
 
 profile:
   empty:

@@ -384,9 +384,10 @@ homepage:
     learnAnything: "Learn anything."
     reasonToLearn: "For school or just for fun."
   subjectList:
-    separator: "and"
-    moreover: "And also"
     action: "I will teach you "
+    firstSeparator: "or"
+    moreover: "And also"
+    and: "and"
 
 profile:
   empty:

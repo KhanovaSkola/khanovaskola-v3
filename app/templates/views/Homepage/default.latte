@@ -24,7 +24,7 @@
 	                <h3>
 	                    {foreach $secondThirdSubject as $subject}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>
-	                        {sep} {_'homepage.subjectList.separator'} {/sep}
+	                        {sep} {_'homepage.subjectList.firstSeparator'} {/sep}
 	                        {last}.{/last}
 	                    {/foreach}
 	                </h3>
@@ -32,7 +32,7 @@
 	                    {foreach $moreSubjects as $subject}
 	                        {first}{_'homepage.subjectList.moreover'}{/first}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>{sep}, {/sep}
-	                        {last}A <a href="#tab-{$tab++}" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
+	                        {last}{_'homepage.subjectList.and'} <a href="#tab-{$tab++}" class="text-blue">další <i class="icon icon-content-next"></i></a>{/last}
 	                    {/foreach}
 	                </h4>
 	            </hgroup>
