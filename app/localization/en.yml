@@ -72,7 +72,7 @@ auth:
   registration:
     title: "Create account"
   signout:
-    backToHome: "back to homepage"
+    backToHome: "Back to homepage"
     seeYa: "See you soon!"
     niceDay: "Take care,"
     niceDayPolite: "Take care."
@@ -208,7 +208,7 @@ editor: # Only for admins, low priority
       message: ""
   back:
     block: "Back to block"
-    schema: "Back schema"
+    schema: "Back to schema"
     video: "Back to video"
   content:
     block: "Block content"

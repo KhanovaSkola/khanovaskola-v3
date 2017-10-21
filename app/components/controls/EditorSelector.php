@@ -125,7 +125,11 @@ class EditorSelector extends Forms\Controls\TextInput
 		{
 			foreach ($editors as $editor)
 			{
+                           // DH: The if is a hack to prevent warning:
+                           // "Trying to get property of non-object"
+                           if(is_object($editor)) {
 				$emails[] = $editor->email;
+                           }
 			}
 			$editors = implode(', ', $emails);
 		}

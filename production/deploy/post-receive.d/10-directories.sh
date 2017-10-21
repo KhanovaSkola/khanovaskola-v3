@@ -2,4 +2,4 @@
 
 out "Creating directories"
 mkdir -p "$TARGET/log"
-mkdir -p "$TARGET/tmp/cache"
+mkdir -p "$TARGET/temp/cache"
