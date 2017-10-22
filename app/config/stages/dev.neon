@@ -1,15 +1,11 @@
 #
-# After adding new keys, bump version key and
-# don't forget to update tests/travis/config.local.neon
-#
 # Passwords in this file are unsafe. We know they are public.
 #
-
-version: [11]
 
 parameters:
 	baseUrl: "http://ks/"
 	aesKey: "generate-24-random-chars"
+	locale: "cs"   # en is also available
 	database:
 		username: mikulas
 		password:
