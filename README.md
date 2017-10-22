@@ -37,7 +37,7 @@ All required dependencies are avaiable for both both Unix and Windows OSes.
 
 *Server:*
 
-- php 5.5
+- php 5.6 (tested with 7.0 as well)
 - postgres 9.3.5
 - elasticsearch 1.2
 - elasticsearch/elasticsearch-analysis-icu/2.2.0
@@ -52,6 +52,10 @@ All required dependencies are avaiable for both both Unix and Windows OSes.
 - casperjs
 - nodejs
 - gulp
+
+Installation
+------------
+See [INSTALL.md](INSTALL.md)
 
 Setup
 -----
