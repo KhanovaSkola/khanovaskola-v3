@@ -6,11 +6,11 @@ use App\Models\Structs\Gender;
 use Mikulas\Morphodita\Client;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
+use App\Models\Services\Locale;
 
 
 class Inflection
 {
-
 	const NOMINATIVE = 1;
 	const GENITIVE = 2;
 	const DATIVE = 3;
@@ -29,19 +29,43 @@ class Inflection
 	 */
 	private $morph;
 
+        /** 
+         * @var Locale 
+         */
+        private $locale;
+
+
 	/** @var string[] word => inflected */
 	private $words;
 
-	public function __construct(IStorage $storage, Client $morph)
+	public function __construct(IStorage $storage, Client $morph, Locale $locale)
 	{
 		$this->cache = new Cache($storage, 'inflection');
 		$this->morph = $morph;
+                $this->locale = $locale;
+                $lc = $this->locale->getLocale();
 
-		$lines = explode("\n", file_get_contents('/srv/khanovaskola.cz/dict.txt'),-1);
-		foreach ($lines as $line) {
-			list($k, $v) = explode("\t", $line);
-			$this->words[$k] = $v;
-		}
+                $dict_file = __DIR__."/../../dict.$lc.txt";
+
+                if ( file_exists($dict_file) ) {
+
+		  $lines = explode("\n", file_get_contents($dict_file),-1);
+
+		  foreach ($lines as $line) {
+
+                     //skip lines starting with #
+                     if ( strpos(trim($line),"#") != 0 ) {
+                           
+                        // Words must be separated by TABS!
+                        // Expecting two columns
+                        $parts = array_map('trim', explode("\t", $line));
+                        if ( count($parts) == 2 ) {
+			   $this->words[$parts[0]] = $parts[1];
+                        }
+
+                     }
+                  }
+                }
 	}
 
 	/**
@@ -57,20 +81,17 @@ class Inflection
 		}
 
 
-$inflected = '';
-foreach (explode(' ', $phrase) as $word) {
-	if (isset($this->words[$word])) {
-		$inflected .= ' ' . $this->words[$word];
+               $inflected = '';
+               foreach (explode(' ', $phrase) as $word) {
+	          if (isset($this->words[$word])) {
+		     $inflected .= ' ' . $this->words[$word];
 		
-	} else {
-		$inflected .= " $word";
-		// file_put_contents('/tmp/phrases', "$word\n", FILE_APPEND);
-	}
-}
-return ltrim($inflected);
-
-
-
+	          } else {
+		     $inflected .= " $word";
+		     // file_put_contents('/tmp/phrases', "$word\n", FILE_APPEND);
+	          }
+               }
+               return ltrim($inflected);
 
 
 		$tagged = $this->morph->tag($phrase);

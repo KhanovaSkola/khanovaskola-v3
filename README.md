@@ -55,7 +55,7 @@ All required dependencies are avaiable for both both Unix and Windows OSes.
 
 Setup
 -----
-
+(maybe obsolete)
 install git hooks:
 ```sh
 sh bin/install-hooks

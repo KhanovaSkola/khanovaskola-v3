@@ -1,0 +1,9 @@
+# This file is originally for additional czech inflections
+# 4th inflection (accusative) of certain nouns, used in Search and in Homepage
+# to inflect names of subjects correctly
+
+# Comments here must be preceded by # as a first character!
+# The words must be separated by tabs!!!
+Matematika	Matematiku
+BiologieBiologii
+Ekonomie	Ekonomii
