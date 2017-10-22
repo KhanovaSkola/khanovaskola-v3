@@ -123,7 +123,7 @@ class Configurator extends Nette\Configurator
 			'config.local.neon'
 		] as $file)
 		{
-			$this->addConfig($params['appDir'] . "/config/$file", FALSE);
+			$this->addConfig($params['appDir'] . "/config/$file");
 		}
 	}
 
