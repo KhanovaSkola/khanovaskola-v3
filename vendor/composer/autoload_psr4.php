@@ -22,6 +22,7 @@ return array(
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'KhanovaSkola\\' => array($vendorDir . '/khanovaskola/cislo/src'),
     'Kdyby\\Monolog\\' => array($vendorDir . '/kdyby/monolog/src'),
+    'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src/Events'),
     'Kdyby\\Console\\' => array($vendorDir . '/kdyby/console/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Elasticsearch\\' => array($vendorDir . '/elasticsearch/elasticsearch/src/Elasticsearch'),

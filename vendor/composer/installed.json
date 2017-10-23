@@ -1492,89 +1492,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "kdyby/events",
-        "version": "v2.4.1",
-        "version_normalized": "2.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Kdyby/Events.git",
-            "reference": "d8a0e8a64a59f501996f8f9591aa3f950208f091"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Events/zipball/d8a0e8a64a59f501996f8f9591aa3f950208f091",
-            "reference": "d8a0e8a64a59f501996f8f9591aa3f950208f091",
-            "shasum": ""
-        },
-        "require": {
-            "nette/di": "~2.3@dev",
-            "nette/utils": "~2.3@dev"
-        },
-        "require-dev": {
-            "latte/latte": "~2.3@dev",
-            "nette/application": "~2.3@dev",
-            "nette/bootstrap": "~2.3@dev",
-            "nette/caching": "~2.3@dev",
-            "nette/component-model": "~2.2@dev",
-            "nette/database": "~2.3@dev",
-            "nette/deprecated": "~2.3@dev",
-            "nette/di": "~2.3@dev",
-            "nette/finder": "~2.3@dev",
-            "nette/forms": "~2.3@dev",
-            "nette/http": "~2.3@dev",
-            "nette/mail": "~2.3@dev",
-            "nette/neon": "~2.3@dev",
-            "nette/php-generator": "~2.3@dev",
-            "nette/reflection": "~2.3@dev",
-            "nette/robot-loader": "~2.3@dev",
-            "nette/safe-stream": "~2.3@dev",
-            "nette/security": "~2.3@dev",
-            "nette/tester": "~1.4",
-            "nette/tokenizer": "~2.2@dev",
-            "nette/utils": "~2.3@dev",
-            "symfony/event-dispatcher": "~2.3",
-            "tracy/tracy": "~2.3@dev"
-        },
-        "time": "2016-04-19T11:19:31+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Kdyby\\Events\\": "src/"
-            },
-            "classmap": [
-                "src/Kdyby/Events/exceptions.php"
-            ],
-            "files": [
-                "src/Doctrine/compatibility.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            }
-        ],
-        "description": "Events for Nette Framework",
-        "homepage": "http://kdyby.org",
-        "keywords": [
-            "kdyby",
-            "nette"
-        ]
-    },
-    {
         "name": "kdyby/redis",
         "version": "v3.3.0",
         "version_normalized": "3.3.0.0",
@@ -3964,5 +3881,73 @@
         ],
         "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
         "homepage": "https://github.com/PetrP/Access"
+    },
+    {
+        "name": "kdyby/events",
+        "version": "v3.1.0",
+        "version_normalized": "3.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Events.git",
+            "reference": "f63b92eaf75df33d0a449af80de8e9f1d85dd6f6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Events/zipball/f63b92eaf75df33d0a449af80de8e9f1d85dd6f6",
+            "reference": "f63b92eaf75df33d0a449af80de8e9f1d85dd6f6",
+            "shasum": ""
+        },
+        "require": {
+            "nette/di": "^2.4@dev",
+            "nette/reflection": "^2.4@dev",
+            "nette/utils": "^2.4@dev"
+        },
+        "require-dev": {
+            "nette/application": "^2.4@dev",
+            "nette/bootstrap": "^2.4@dev",
+            "nette/http": "^2.4@dev",
+            "nette/security": "^2.4@dev",
+            "nette/tester": "~1.7",
+            "symfony/event-dispatcher": "^3.0",
+            "tracy/tracy": "^2.4@dev"
+        },
+        "time": "2017-05-13T16:08:06+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Kdyby\\Events\\": "src/Events"
+            },
+            "classmap": [
+                "src/Events/exceptions.php"
+            ],
+            "files": [
+                "src/Doctrine/compatibility.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Events for Nette Framework",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "kdyby",
+            "nette"
+        ]
     }
 ]

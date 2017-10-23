@@ -12,7 +12,6 @@ return array(
     'Kdyby\\RabbitMq\\' => array($vendorDir . '/kdyby/rabbitmq/src'),
     'Kdyby\\Google\\' => array($vendorDir . '/kdyby/google/src'),
     'Kdyby\\Facebook\\' => array($vendorDir . '/kdyby/facebook/src'),
-    'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src'),
     'Inflect' => array($vendorDir . '/oodle/inflect/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),

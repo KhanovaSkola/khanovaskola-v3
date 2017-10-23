@@ -12,7 +12,6 @@ namespace Kdyby\Events;
 
 use Doctrine;
 use Doctrine\Common\EventSubscriber;
-use Kdyby;
 use Nette;
 
 
@@ -59,7 +58,6 @@ class LazyEventManager extends EventManager
 
 	/**
 	 * @param string $eventName
-	 * @param bool $asCallbacks
 	 * @return \Doctrine\Common\EventSubscriber[]
 	 */
 	public function getListeners($eventName = NULL)
@@ -81,12 +79,14 @@ class LazyEventManager extends EventManager
 
 	/**
 	 * @param array|string $unsubscribe
-	 * @param Doctrine\Common\EventSubscriber|array $subscriber
+	 * @param Doctrine\Common\EventSubscriber|array|callable $subscriber
 	 */
 	public function removeEventListener($unsubscribe, $subscriber = NULL)
 	{
 		if ($unsubscribe instanceof EventSubscriber) {
 			list($unsubscribe, $subscriber) = $this->extractSubscriber($unsubscribe);
+		} elseif ($unsubscribe instanceof \Closure) {
+			list($unsubscribe, $subscriber) = $this->extractCallable($unsubscribe);
 		}
 
 		foreach ((array) $unsubscribe as $eventName) {
@@ -106,10 +106,12 @@ class LazyEventManager extends EventManager
 	private function initializeListener($eventName)
 	{
 		foreach ($this->listenerIds[$eventName] as $serviceName) {
-			$subscriber = $this->container->getService($serviceName);
-			/** @var Doctrine\Common\EventSubscriber $subscriber */
-
-			$this->addEventSubscriber($subscriber);
+			$listener = $this->container->getService($serviceName);
+			if ($listener instanceof \Closure) {
+				$this->addEventListener($eventName, $listener);
+			} elseif ($listener instanceof EventSubscriber) {
+				$this->addEventSubscriber($listener);
+			}
 		}
 
 		unset($this->listenerIds[$eventName]);

@@ -10,40 +10,14 @@
 
 namespace Kdyby\Events;
 
-use Kdyby;
-use Nette;
+use Doctrine;
 
 
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class EventArgsList extends EventArgs
+abstract class EventArgs extends Doctrine\Common\EventArgs
 {
-
-	/**
-	 * @var array
-	 */
-	private $args;
-
-
-
-	/**
-	 * @param array $args
-	 */
-	public function __construct(array $args)
-	{
-		$this->args = $args;
-	}
-
-
-
-	/**
-	 * @return array
-	 */
-	public function getArgs()
-	{
-		return $this->args;
-	}
 
 }

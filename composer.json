@@ -19,7 +19,7 @@
 		"elasticsearch/elasticsearch": "~1.1",
 		"ezyang/htmlpurifier": "~4.6.0",
 		"kdyby/console": "~2.3",
-		"kdyby/events": "~2.1",
+		"kdyby/events": ">=2.4",
 		"kdyby/facebook": "~2.1",
 		"kdyby/forms-replicator": "dev-master",
 		"kdyby/google": "dev-master#9acc49db as 0.1.999",

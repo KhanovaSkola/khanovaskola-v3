@@ -1,0 +1,10 @@
+need to make sure that hidden blocks and schemas do not appear anywhere.
+Even though it breaks the dependencies between content, is is probably better.
+
+Add visible checkbox for schemas
+
+Adapt search not to show inivisible or removed stuff (maybe already works)
+
+Do not show hidden or removed blocks in schemaEditor
+and hidden or removed schemas in subject editor
+

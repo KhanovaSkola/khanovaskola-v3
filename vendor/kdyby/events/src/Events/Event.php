@@ -11,7 +11,6 @@
 namespace Kdyby\Events;
 
 use Doctrine;
-use Kdyby;
 use Nette;
 use Nette\Utils\Callback;
 
@@ -24,9 +23,18 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 {
 
 	/**
+	 * Changes the order of listeners being invoked,
+	 * The default is that the closures and listeners registered directly are first,
+	 * but this property can change that, so the global is first.
+	 *
+	 * @var bool
+	 */
+	public $globalDispatchFirst = FALSE;
+
+	/**
 	 * @var callable[]
 	 */
-	private $listeners = array();
+	private $listeners = [];
 
 	/**
 	 * @var string
@@ -60,7 +68,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	 * @param array $defaults
 	 * @param string $argsClass
 	 */
-	public function __construct($name, $defaults = array(), $argsClass = NULL)
+	public function __construct($name, $defaults = [], $argsClass = NULL)
 	{
 		list($this->namespace, $this->name) = self::parseName($name);
 		$this->argsClass = $argsClass;
@@ -112,7 +120,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 	 *
 	 * @param array $args
 	 */
-	public function dispatch($args = array())
+	public function dispatch($args = [])
 	{
 		if (!is_array($args)) {
 			$args = func_get_args();
@@ -172,7 +180,7 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 		$name = $this->getName();
 		$evm = $this->eventManager;
 		$argsClass = $this->argsClass;
-		$listeners[] = function () use ($name, $evm, $argsClass) {
+		$globalDispatch = function () use ($name, $evm, $argsClass) {
 			if ($argsClass === NULL) {
 				$args = new EventArgsList(func_get_args());
 
@@ -182,6 +190,13 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 
 			$evm->dispatchEvent($name, $args);
 		};
+
+		if ($this->globalDispatchFirst) {
+			array_unshift($listeners, $globalDispatch);
+
+		} else {
+			$listeners[] = $globalDispatch;
+		}
 
 		return $listeners;
 	}
@@ -210,13 +225,13 @@ class Event implements \ArrayAccess, \IteratorAggregate, \Countable
 
 		if (preg_match('~^([^\w]?(?P<namespace>.*\w+)(?P<separator>[^\w]{1,2}))?(?P<name>[a-z]\w+)$~i', $name, $m)) {
 			$name = ($m['namespace'] ? $m['namespace'] . $m['separator'] : '') . $m['name'];
-			return array($m['namespace'] ?: NULL, $m['name'], $m['separator'] ?: NULL);
+			return [$m['namespace'] ?: NULL, $m['name'], $m['separator'] ?: NULL];
 
 		} else {
 			$name = ltrim($name, '\\');
 		}
 
-		return array(NULL, $name, NULL);
+		return [NULL, $name, NULL];
 	}
 
 

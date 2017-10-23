@@ -10,7 +10,6 @@
 
 namespace Kdyby\Events;
 
-use Kdyby;
 use Nette;
 use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -46,7 +45,7 @@ class SymfonyDispatcher extends Nette\Object implements EventDispatcherInterface
 
 	public function dispatch($eventName, SymfonyEvent $event = null)
 	{
-		$this->evm->dispatchEvent($eventName, new EventArgsList(array($event)));
+		$this->evm->dispatchEvent($eventName, new EventArgsList([$event]));
 	}
 
 
@@ -73,6 +72,13 @@ class SymfonyDispatcher extends Nette\Object implements EventDispatcherInterface
 
 
 	public function removeSubscriber(EventSubscriberInterface $subscriber)
+	{
+		throw new NotSupportedException();
+	}
+
+
+
+	public function getListenerPriority($eventName, $listener)
 	{
 		throw new NotSupportedException();
 	}

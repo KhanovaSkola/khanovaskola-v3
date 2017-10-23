@@ -35,51 +35,62 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	/**
 	 * @var array
 	 */
-	public $defaults = array(
-		'subscribers' => array(),
+	public $defaults = [
+		'subscribers' => [],
 		'validate' => TRUE,
 		'autowire' => TRUE,
 		'optimize' => TRUE,
 		'debugger' => '%debugMode%',
 		'exceptionHandler' => NULL,
-	);
+		'globalDispatchFirst' => FALSE,
+	];
 
 	/**
 	 * @var array
 	 */
-	private $listeners = array();
+	private $loadedConfig;
 
 	/**
 	 * @var array
 	 */
-	private $allowedManagerSetup = array();
+	private $listeners = [];
+
+	/**
+	 * @var array
+	 */
+	private $allowedManagerSetup = [];
 
 
 
 	public function loadConfiguration()
 	{
-		$this->listeners = array();
-		$this->allowedManagerSetup = array();
+		$this->listeners = [];
+		$this->allowedManagerSetup = [];
 
 		$builder = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
 
 		$userConfig = $this->getConfig();
-		if (!isset($userConfig['debugger']) && !$config['debugger']) {
-			$config['debugger'] = self::PANEL_COUNT_MODE;
+		if (!array_key_exists('debugger', $userConfig)) {
+			if (in_array(php_sapi_name(), ['cli', 'phpdbg'], TRUE)) {
+				$config['debugger'] = FALSE; // disable by default in CLI
+
+			} elseif (!$config['debugger']) {
+				$config['debugger'] = self::PANEL_COUNT_MODE;
+			}
 		}
 
 		$evm = $builder->addDefinition($this->prefix('manager'))
 			->setClass('Kdyby\Events\EventManager');
 		if ($config['debugger']) {
-			$defaults = array('dispatchTree' => FALSE, 'dispatchLog' => TRUE, 'events' => TRUE, 'listeners' => FALSE);
+			$defaults = ['dispatchTree' => FALSE, 'dispatchLog' => TRUE, 'events' => TRUE, 'listeners' => FALSE];
 			if (is_array($config['debugger'])) {
 				$config['debugger'] = Nette\DI\Config\Helpers::merge($config['debugger'], $defaults);
 			} else {
 				$config['debugger'] = $config['debugger'] !== self::PANEL_COUNT_MODE;
 			}
 
-			$evm->addSetup('Kdyby\Events\Diagnostics\Panel::register(?, ?)->renderPanel = ?', array('@self', '@container', $config['debugger']));
+			$evm->addSetup('Kdyby\Events\Diagnostics\Panel::register(?, ?)->renderPanel = ?', ['@self', '@container', $config['debugger']]);
 		}
 
 		if ($config['exceptionHandler'] !== NULL) {
@@ -87,11 +98,12 @@ class EventsExtension extends Nette\DI\CompilerExtension
 		}
 
 		Nette\Utils\Validators::assertField($config, 'subscribers', 'array');
-		foreach ($config['subscribers'] as $subscriber) {
-			$def = $builder->addDefinition($this->prefix('subscriber.' . md5(Nette\Utils\Json::encode($subscriber))));
-			$def->setFactory(Nette\DI\Compiler::filterArguments(array(
+		foreach ($config['subscribers'] as $i => $subscriber) {
+			$def = $builder->addDefinition($this->prefix('subscriber.' . $i));
+
+			$def->setFactory(Nette\DI\Compiler::filterArguments([
 				is_string($subscriber) ? new Nette\DI\Statement($subscriber) : $subscriber
-			))[0]);
+			])[0]);
 
 			list($subscriberClass) = (array) $builder->normalizeEntity($def->getEntity());
 			if (class_exists($subscriberClass)) {
@@ -107,6 +119,8 @@ class EventsExtension extends Nette\DI\CompilerExtension
 				->setClass('Symfony\Component\EventDispatcher\EventDispatcherInterface')
 				->setFactory('Kdyby\Events\SymfonyDispatcher');
 		}
+
+		$this->loadedConfig = $config;
 	}
 
 
@@ -114,11 +128,11 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	public function beforeCompile()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->loadedConfig;
 
 		$manager = $builder->getDefinition($this->prefix('manager'));
 		foreach (array_keys($builder->findByTag(self::SUBSCRIBER_TAG)) as $serviceName) {
-			$manager->addSetup('addEventSubscriber', array('@' . $serviceName));
+			$manager->addSetup('addEventSubscriber', ['@' . $serviceName]);
 		}
 
 		Nette\Utils\Validators::assertField($config, 'validate', 'bool');
@@ -128,6 +142,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 
 		Nette\Utils\Validators::assertField($config, 'autowire', 'bool');
 		if ($config['autowire']) {
+			Nette\Utils\Validators::assertField($config, 'globalDispatchFirst', 'bool');
 			$this->autowireEvents($builder);
 		}
 
@@ -158,7 +173,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 				$init->addBody(Code\Helpers::format(
 					'$this->getService(?)->createEvent(?)->dispatch($this);',
 					$this->prefix('manager'),
-					array('Nette\\DI\\Container', 'onInitialize')
+					['Nette\\DI\\Container', 'onInitialize']
 				));
 
 				$foundNetteInitEnd = TRUE;
@@ -177,7 +192,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 			$init->addBody(Code\Helpers::format(
 				'$this->getService(?)->createEvent(?)->dispatch($this);',
 				$this->prefix('manager'),
-				array('Nette\\DI\\Container', 'onInitialize')
+				['Nette\\DI\\Container', 'onInitialize']
 			));
 		}
 	}
@@ -227,7 +242,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 				throw new AssertionException("Subscriber '$serviceName' doesn't implement Kdyby\\Events\\Subscriber.");
 			}
 
-			$eventNames = array();
+			$eventNames = [];
 			$listenerInst = self::createInstanceWithoutConstructor($def->getClass());
 			foreach ($listenerInst->getSubscribedEvents() as $eventName => $params) {
 				if (is_numeric($eventName) && is_string($params)) { // [EventName, ...]
@@ -281,6 +296,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	 */
 	private function autowireEvents(Nette\DI\ContainerBuilder $builder)
 	{
+		$newApi = defined('Nette\DI\ServiceDefinition::IMPLEMENT_MODE_GET'); //new in Nette 2.4
 		foreach ($builder->getDefinitions() as $def) {
 			/** @var Nette\DI\ServiceDefinition $def */
 			if ($this->isAlias($def)) {
@@ -298,7 +314,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 					continue;
 				}
 			}
-			if ($def->getImplementType() === 'get') {
+			if ($newApi ? $def->getImplementMode() === $def::IMPLEMENT_MODE_GET : $def->getImplementType() === 'get') {
 				continue;
 			}
 
@@ -319,12 +335,16 @@ class EventsExtension extends Nette\DI\CompilerExtension
 				continue;
 			}
 
-			$def->addSetup('$' . $name, array(
-				new Nette\DI\Statement($this->prefix('@manager') . '::createEvent', array(
-					array($class->getName(), $name),
-					new Code\PhpLiteral('$service->' . $name)
-				))
-			));
+			$def->addSetup('$' . $name, [
+				new Nette\DI\Statement($this->prefix('@manager') . '::createEvent', [
+					[$class->getName(), $name],
+					new Code\PhpLiteral('$service->' . $name),
+					NULL,
+					$property->hasAnnotation('globalDispatchFirst')
+						? (bool) $property->getAnnotation('globalDispatchFirst')
+						: $this->loadedConfig['globalDispatchFirst'],
+				])
+			]);
 		}
 	}
 
@@ -335,7 +355,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	 */
 	private function optimizeListeners(Nette\DI\ContainerBuilder $builder)
 	{
-		$listeners = array();
+		$listeners = [];
 		foreach ($this->listeners as $serviceName => $eventNames) {
 			foreach ($eventNames as $eventName) {
 				list($namespace, $event) = Kdyby\Events\Event::parseName($eventName);
@@ -363,7 +383,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 		}
 
 		$builder->getDefinition($this->prefix('manager'))
-			->setClass('Kdyby\Events\LazyEventManager', array($listeners))
+			->setClass('Kdyby\Events\LazyEventManager', [$listeners])
 			->setSetup($this->allowedManagerSetup);
 	}
 
@@ -375,7 +395,7 @@ class EventsExtension extends Nette\DI\CompilerExtension
 	 */
 	private function filterArgs($statement)
 	{
-		return Nette\DI\Compiler::filterArguments(array(is_string($statement) ? new Nette\DI\Statement($statement) : $statement));
+		return Nette\DI\Compiler::filterArguments([is_string($statement) ? new Nette\DI\Statement($statement) : $statement]);
 	}
 
 

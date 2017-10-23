@@ -60,6 +60,7 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         array (
             'KhanovaSkola\\' => 13,
             'Kdyby\\Monolog\\' => 14,
+            'Kdyby\\Events\\' => 13,
             'Kdyby\\Console\\' => 14,
         ),
         'F' => 
@@ -141,6 +142,10 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         array (
             0 => __DIR__ . '/..' . '/kdyby/monolog/src',
         ),
+        'Kdyby\\Events\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kdyby/events/src/Events',
+        ),
         'Kdyby\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/kdyby/console/src',
@@ -188,10 +193,6 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
             'Kdyby\\Facebook\\' => 
             array (
                 0 => __DIR__ . '/..' . '/kdyby/facebook/src',
-            ),
-            'Kdyby\\Events\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/kdyby/events/src',
             ),
         ),
         'I' => 
@@ -1583,25 +1584,26 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         'Kdyby\\Console\\InvalidStateException' => __DIR__ . '/..' . '/kdyby/console/src/exceptions.php',
         'Kdyby\\Console\\StringOutput' => __DIR__ . '/..' . '/kdyby/console/src/StringOutput.php',
         'Kdyby\\Console\\UnknownCommandException' => __DIR__ . '/..' . '/kdyby/console/src/exceptions.php',
-        'Kdyby\\Events\\DI\\EventsExtension' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/DI/EventsExtension.php',
-        'Kdyby\\Events\\Diagnostics\\Panel' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/Diagnostics/Panel.php',
-        'Kdyby\\Events\\Event' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/Event.php',
-        'Kdyby\\Events\\EventArgs' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/EventArgs.php',
-        'Kdyby\\Events\\EventArgsList' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/EventArgsList.php',
-        'Kdyby\\Events\\EventManager' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/EventManager.php',
-        'Kdyby\\Events\\Exception' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\IExceptionHandler' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/IExceptionHandler.php',
-        'Kdyby\\Events\\InvalidArgumentException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\InvalidListenerException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\InvalidStateException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\LazyEventManager' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/LazyEventManager.php',
-        'Kdyby\\Events\\LifeCycleEvent' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/LifeCycleEvent.php',
-        'Kdyby\\Events\\MemberAccessException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\NamespacedEventManager' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/NamespacedEventManager.php',
-        'Kdyby\\Events\\NotSupportedException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\OutOfRangeException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
-        'Kdyby\\Events\\Subscriber' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/Subscriber.php',
-        'Kdyby\\Events\\SymfonyDispatcher' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/SymfonyDispatcher.php',
+        'Kdyby\\Events\\CallableSubscriber' => __DIR__ . '/..' . '/kdyby/events/src/Events/CallableSubscriber.php',
+        'Kdyby\\Events\\DI\\EventsExtension' => __DIR__ . '/..' . '/kdyby/events/src/Events/DI/EventsExtension.php',
+        'Kdyby\\Events\\Diagnostics\\Panel' => __DIR__ . '/..' . '/kdyby/events/src/Events/Diagnostics/Panel.php',
+        'Kdyby\\Events\\Event' => __DIR__ . '/..' . '/kdyby/events/src/Events/Event.php',
+        'Kdyby\\Events\\EventArgs' => __DIR__ . '/..' . '/kdyby/events/src/Events/EventArgs.php',
+        'Kdyby\\Events\\EventArgsList' => __DIR__ . '/..' . '/kdyby/events/src/Events/EventArgsList.php',
+        'Kdyby\\Events\\EventManager' => __DIR__ . '/..' . '/kdyby/events/src/Events/EventManager.php',
+        'Kdyby\\Events\\Exception' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\IExceptionHandler' => __DIR__ . '/..' . '/kdyby/events/src/Events/IExceptionHandler.php',
+        'Kdyby\\Events\\InvalidArgumentException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\InvalidListenerException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\InvalidStateException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\LazyEventManager' => __DIR__ . '/..' . '/kdyby/events/src/Events/LazyEventManager.php',
+        'Kdyby\\Events\\LifeCycleEvent' => __DIR__ . '/..' . '/kdyby/events/src/Events/LifeCycleEvent.php',
+        'Kdyby\\Events\\MemberAccessException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\NamespacedEventManager' => __DIR__ . '/..' . '/kdyby/events/src/Events/NamespacedEventManager.php',
+        'Kdyby\\Events\\NotSupportedException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\OutOfRangeException' => __DIR__ . '/..' . '/kdyby/events/src/Events/exceptions.php',
+        'Kdyby\\Events\\Subscriber' => __DIR__ . '/..' . '/kdyby/events/src/Events/Subscriber.php',
+        'Kdyby\\Events\\SymfonyDispatcher' => __DIR__ . '/..' . '/kdyby/events/src/Events/SymfonyDispatcher.php',
         'Kdyby\\Facebook\\ApiClient' => __DIR__ . '/..' . '/kdyby/facebook/src/Kdyby/Facebook/ApiClient.php',
         'Kdyby\\Facebook\\Api\\CurlClient' => __DIR__ . '/..' . '/kdyby/facebook/src/Kdyby/Facebook/Api/CurlClient.php',
         'Kdyby\\Facebook\\Configuration' => __DIR__ . '/..' . '/kdyby/facebook/src/Kdyby/Facebook/Configuration.php',

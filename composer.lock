@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0977fee4351d3461f81230a2baf118fb",
+    "content-hash": "4368cef524e72d669a9d631dd36c2c86",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -501,59 +501,44 @@
         },
         {
             "name": "kdyby/events",
-            "version": "v2.4.1",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Events.git",
-                "reference": "d8a0e8a64a59f501996f8f9591aa3f950208f091"
+                "reference": "f63b92eaf75df33d0a449af80de8e9f1d85dd6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Events/zipball/d8a0e8a64a59f501996f8f9591aa3f950208f091",
-                "reference": "d8a0e8a64a59f501996f8f9591aa3f950208f091",
+                "url": "https://api.github.com/repos/Kdyby/Events/zipball/f63b92eaf75df33d0a449af80de8e9f1d85dd6f6",
+                "reference": "f63b92eaf75df33d0a449af80de8e9f1d85dd6f6",
                 "shasum": ""
             },
             "require": {
-                "nette/di": "~2.3@dev",
-                "nette/utils": "~2.3@dev"
+                "nette/di": "^2.4@dev",
+                "nette/reflection": "^2.4@dev",
+                "nette/utils": "^2.4@dev"
             },
             "require-dev": {
-                "latte/latte": "~2.3@dev",
-                "nette/application": "~2.3@dev",
-                "nette/bootstrap": "~2.3@dev",
-                "nette/caching": "~2.3@dev",
-                "nette/component-model": "~2.2@dev",
-                "nette/database": "~2.3@dev",
-                "nette/deprecated": "~2.3@dev",
-                "nette/di": "~2.3@dev",
-                "nette/finder": "~2.3@dev",
-                "nette/forms": "~2.3@dev",
-                "nette/http": "~2.3@dev",
-                "nette/mail": "~2.3@dev",
-                "nette/neon": "~2.3@dev",
-                "nette/php-generator": "~2.3@dev",
-                "nette/reflection": "~2.3@dev",
-                "nette/robot-loader": "~2.3@dev",
-                "nette/safe-stream": "~2.3@dev",
-                "nette/security": "~2.3@dev",
-                "nette/tester": "~1.4",
-                "nette/tokenizer": "~2.2@dev",
-                "nette/utils": "~2.3@dev",
-                "symfony/event-dispatcher": "~2.3",
-                "tracy/tracy": "~2.3@dev"
+                "nette/application": "^2.4@dev",
+                "nette/bootstrap": "^2.4@dev",
+                "nette/http": "^2.4@dev",
+                "nette/security": "^2.4@dev",
+                "nette/tester": "~1.7",
+                "symfony/event-dispatcher": "^3.0",
+                "tracy/tracy": "^2.4@dev"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Kdyby\\Events\\": "src/"
+                "psr-4": {
+                    "Kdyby\\Events\\": "src/Events"
                 },
                 "classmap": [
-                    "src/Kdyby/Events/exceptions.php"
+                    "src/Events/exceptions.php"
                 ],
                 "files": [
                     "src/Doctrine/compatibility.php"
@@ -578,7 +563,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2016-04-19T11:19:31+00:00"
+            "time": "2017-05-13T16:08:06+00:00"
         },
         {
             "name": "kdyby/facebook",
