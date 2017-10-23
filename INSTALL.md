@@ -42,6 +42,7 @@ php www/index.php list
 ```
 
 3. **Configure Postgre**
+
   [According to a guide for Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
 ```sh
 sudo -u postgres createuser --superuser $USER
@@ -73,7 +74,7 @@ Note: the database parameters must match what you did in step 3.
 
 
 5. **Creating initial database inside PSQL**
- - Use (migrations)[https://github.com/nextras/migrations]
+ - Use [migrations](https://github.com/nextras/migrations)
 
  ```sh
 php www/index.php migrations:migrate --init
@@ -91,7 +92,7 @@ php index.php  backup:restore TIMESTAMP  (first number form previous command)
 ```sh
 php www/index.php data:drop
 ```
-To understand the database schema, look into (SQL.md)[SQL.md]
+To understand the database schema, look into [SQL.md](SQL.md)
 
 6. **Setting up NGINX**
 
@@ -117,7 +118,11 @@ To understand the database schema, look into (SQL.md)[SQL.md]
  - `sudo nginx`
 
 
+
+
 7. **TODO: How to setup elasticsearch server**
+
+
 
 
 8. **Setting up workers via cron jobs for async tasks**
