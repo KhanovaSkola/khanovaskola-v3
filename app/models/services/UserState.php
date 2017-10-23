@@ -50,7 +50,7 @@ class UserState extends Security\User
 
 		if (!$userEntity)
 		{
-			$storage = $this->storage;
+			$storage = $this->getStorage();
 
 			$userEntity = new LazyEntity(function() use ($storage) {
 				$user = new User();
@@ -91,7 +91,7 @@ class UserState extends Security\User
 	 */
 	public function isPersistedGuest()
 	{
-		return $this->getId() && !$this->storage->isAuthenticated();
+		return $this->getId() && !$this->getStorage()->isAuthenticated();
 	}
 
 	/**
@@ -99,7 +99,7 @@ class UserState extends Security\User
 	 */
 	public function isRegisteredUser()
 	{
-		return $this->storage->isAuthenticated();
+		return $this->getStorage()->isAuthenticated();
 	}
 
 	/**

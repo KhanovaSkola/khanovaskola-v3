@@ -20,7 +20,8 @@ class Router extends RouteList
 		$secured = NULL;
 		if ($context->getParameters()['tls'])
 		{
-			Route::$defaultFlags |= Route::SECURED;
+                        // Deprecated in Nette 2.4
+			// Route::$defaultFlags |= Route::SECURED;
 			$secured = Route::SECURED;
 		}
 
