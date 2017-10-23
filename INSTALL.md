@@ -73,7 +73,16 @@ Note: the database parameters must match what you did in step 3.
 
 
 5. **Creating initial database inside PSQL**
- - The most straightforward way seems to be importing the backup
+ - Use (migrations)[https://github.com/nextras/migrations]
+
+ ```sh
+php www/index.php migrations:migrate --init
+php www/index.php migrations:migrate
+ ```
+
+
+
+ - Alternatively, import previous backup
 ```sh
 php index.php  backup:list
 php index.php  backup:restore TIMESTAMP  (first number form previous command)
