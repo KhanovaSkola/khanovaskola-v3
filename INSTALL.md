@@ -28,7 +28,7 @@ sudo npm install ---global gulp
 sudo apt-get install rabbitmq-server
 ```
 
-2. Enable Tracy debugger
+2. **Enable Tracy debugger**
 
 To really see what is going wrong, it is **VERY helpful** to setup debugging environment *Tracy*. It should suffice to:
 ```sh
@@ -41,8 +41,8 @@ To see available commands in the app:
 php www/index.php list
 ```
 
-3. Configure Postgre
-[According to a guide for Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
+3. **Configure Postgre**
+  [According to a guide for Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
 ```sh
 sudo -u postgres createuser --superuser $USER
 sudo -u postgres psql
@@ -62,7 +62,8 @@ createdb khanovaskola
 GRANT ALL PRIVILEGES ON DATABASE khanovaskola to khanovaskola;
 ```
 
-4. Configure app/config/config.local.neon
+
+4. **Configure app/config/config.local.neon**
 Tip: Get the template from:
 
 ```sh
@@ -70,7 +71,8 @@ cp app/config/stages/dev.neon app/config/config.local.neon
 ```
 Note: the database parameters must match what you did in step 3.
 
-5. Creating initial database inside PSQL
+
+5. **Creating initial database inside PSQL**
  - The most straightforward way seems to be importing the backup
 ```sh
 php index.php  backup:list
@@ -80,8 +82,9 @@ php index.php  backup:restore TIMESTAMP  (first number form previous command)
 ```sh
 php www/index.php data:drop
 ```
+To understand the database schema, look into (SQL.md)[SQL.md]
 
-6. Setting up NGINX
+6. **Setting up NGINX**
 
   - Setting up file permissions according to [20-chmod.sh] (production/deploy/post-receive.d/20-chmod.sh)
    (you may need to execute this for git to ignore these changes:)
@@ -98,22 +101,22 @@ php www/index.php data:drop
  - Make sure that user www-data is in the group that you previously used for the repo
 
  - Modify /etc/hosts , include e.g.
-   ```
-  127.0.0.1 ks.cz 
-   ```
+```
+127.0.0.1 ks.cz 
+```
 
  - `sudo nginx`
 
 
-7. TODO: How to setup elasticsearch server
+7. **TODO: How to setup elasticsearch server**
 
 
-8. Setting up workers via cron jobs for async tasks
-(this is supremely important for production servers)
+8. **Setting up workers via cron jobs for async tasks**
+  (this is supremely important for production servers)
  - See [README for async tasks](doc/async-task.md)
  - Modify and put production/crontab into Cron jobs
   ```sh
-  sudo cp production/crontab /etc/cron.d/KA
+sudo cp production/crontab /etc/cron.d/KA
   ```
 
 DEBUGGING
@@ -130,6 +133,7 @@ DEBUGGING
 
 *Problem:*
   Missing parameter ‘locale’
+
 *Solution:*
   add parameter locale: “en” in app/config/config.local.neon (watch out, must be escaped with a TAB)
 
