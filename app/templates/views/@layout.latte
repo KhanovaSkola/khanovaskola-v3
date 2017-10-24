@@ -10,6 +10,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta n:ifset="$description" name="description" content="{$description}">
+	<meta n:ifset="$keywords" name="keywords" content="{$keywords}">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 	{capture $canonicalUrl}{link //this, slug => $slug, startAtTime => NULL, gclid => NULL, seed => NULL}{/capture}
 	<link rel="canonical" href="{$canonicalUrl}" />
