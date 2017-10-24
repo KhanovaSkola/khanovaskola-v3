@@ -1,6 +1,6 @@
 {var $pageName = 'auth-in'}
 {var $headerBorder = FALSE}
-{var $title = $template->translate('pagetitles.auth-in')}
+{capture $title}{_'pagetitles.auth-in'}{/capture}
 {block content}
 	{**
 	 * @param User $userEntity

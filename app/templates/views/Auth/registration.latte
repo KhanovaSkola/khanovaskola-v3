@@ -1,6 +1,6 @@
 {var $pageName = NULL}
 {var $headerBorder = FALSE}
-{var $title = $template->translate('pagetitles.registration')}
+{capture $title}{_'pagetitles.registration'}{/capture}
 {block content}
 	{**
 	 * @param User $userEntity

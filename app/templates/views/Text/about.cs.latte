@@ -1,10 +1,5 @@
 {var $pageName = 'about-page'}
-{* This works, but does not escape the variable
-   But is it needed? *}
-{var $title = $template->translate('pagetitles.about-page')}
-{*
-{var $title = 'O Khanově škole'}
-*}
+{capture $title}{_'pagetitles.about-page'}{/capture}
 {var $headerBorder = FALSE}
 {block content}
 	{**

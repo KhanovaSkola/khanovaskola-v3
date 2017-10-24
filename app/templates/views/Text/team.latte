@@ -1,6 +1,6 @@
 {var $pageName = 'about-page'}
 {var $headerBorder = FALSE}
-{var $title = $template->translate('pagetitles.team-page')}
+{capture $title}{_'pagetitles.team-page'}{/capture}
 {block content}
 	{**
 	 * @param UserEntity $userEntity

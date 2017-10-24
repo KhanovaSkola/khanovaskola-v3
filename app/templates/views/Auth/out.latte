@@ -1,6 +1,6 @@
 {var $pageName = 'signout-page'}
 {var $headerBorder = FALSE}
-{var $title = $template->translate('pagetitles.auth-out')}
+{capture $title}{_'pagetitles.auth-out'}{/capture}
 {block content}
 	{**
 	 * @param User $userEntity
