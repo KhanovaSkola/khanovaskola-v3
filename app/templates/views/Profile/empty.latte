@@ -1,6 +1,11 @@
 {var $pageName = 'dashboard-page'}
 {var $headerBorder = FALSE}
 {var $title = $profile->name}
+{capture $explore}{_'profile.empty.explore'}{/capture}
+{capture $learn}{_'profile.empty.learn'}{/capture}
+{capture $learnMore}{_'profile.empty.learnMore'}{/capture}
+{capture $study}{_'profile.empty.study'}{/capture}
+{capture $try}{_'profile.empty.try'}{/capture}
 {block content}
 	{**
 	 * @param App\Models\Rme\User             $profile
@@ -38,11 +43,11 @@
                 </h1>
                 <div class="subjects">
                     {var $phrases = [
-                        '{_'profile.empty.explore'}',
-                        '{_'profile.empty.learn'}',
-                        '{_'profile.empty.learnMore'}',
-                        '{_'profile.empty.study'}',
-                        '{_'profile.empty.try'}',
+                        $explore,
+                        $learn,
+                        $learnMore,
+                        $study,
+                        $try,
                     ]}
                     {php shuffle($phrases)}
 
