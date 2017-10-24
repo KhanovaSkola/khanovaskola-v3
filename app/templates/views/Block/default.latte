@@ -46,9 +46,9 @@
                             <i class="icon icon-time"></i>
                             <span>
 	                            {if $block->duration >= 60 * 90}
-	                                {_'block.duration.hours', $template->hours($block->duration)}
+	                                {_'block.duration.hours', $block_duration_hours}
 	                            {else}
-	                                {_'block.duration.minutes', $template->minutes($block->duration)}
+	                                {_'block.duration.minutes', $block_duration_minutes}
 	                            {/if}
                             </span>
                         </div>

@@ -39,6 +39,10 @@ class Block extends Presenter
 	{
 		$this->template->add('block', $this->block);
 		$this->template->add('schema', $this->schema);
+                // Total video seconds in block
+                //$this->template->add('block_duration',$this->block->duration);
+                $this->template->add('block_duration_hours',$this->template->getLatte()->invokeFilter('hours',[$this->block->duration]));
+                $this->template->add('block_duration_minutes',$this->template->getLatte()->invokeFilter('minutes',[$this->block->duration]));
 
 		$this->template->continueTo = NULL;
 		if (!$this->user->isEphemeralGuest())
