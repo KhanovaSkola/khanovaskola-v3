@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4368cef524e72d669a9d631dd36c2c86",
+    "content-hash": "f4667d01663bb0436a02b551b1db0d4f",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -735,12 +735,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Google.git",
-                "reference": "9acc49db"
+                "reference": "4823f65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Google/zipball/9acc49db",
-                "reference": "9acc49db",
+                "url": "https://api.github.com/repos/Kdyby/Google/zipball/4823f65",
+                "reference": "4823f65",
                 "shasum": ""
             },
             "require": {
@@ -797,7 +797,7 @@
                 "login",
                 "nette"
             ],
-            "time": "2014-11-23T12:48:34+00:00"
+            "time": "2016-08-20T16:49:26+00:00"
         },
         {
             "name": "kdyby/monolog",
