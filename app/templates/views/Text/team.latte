@@ -10,8 +10,8 @@
 		<div class="hero">
 			<div class="hero-content">
 				<div class="hero-content-inner">
-					<h1>Khanova škola</h1>
-					<small>český komunitní neziskový projekt</small>
+					<h1>Your organization</h1>
+					<small>sub-title</small>
 				</div>
 			</div>
 			<div class="hero-bg">
@@ -21,33 +21,17 @@
 		<div class="container">
 			<div class="content-inner">
 				<p class="lead">
-                {* An example of how one can modify content based on locale *}
-                {if $language === 'cs'}
-                    Kdo se stará o Khanovu školu?
-                {else}
-                    Who's in the team?
-                {/if}
+                    Who's in on your team?</br> 
+                    (on <a href="https://khanovaskola.cz/o-skole/tym">Czech website</a>, the content on this page is filled automatically from Discourse forum)
+{*If you have Discourse forum and want to use it, modify
+app/presenters/Text.php
+*}
                 </p>
                 <p>
-                    Všichni jsme dobrovolníci. Každý z nás má zodpovídá za jednu z nezbytných částí webu:
-                    od korektur, správy sociálních sítí až po programování.
+                     We are all volunteers. The following button should point a user to a place where he can sign up for volunteering in your organization.
                 </p>
                 <p class="call-to-action">
-                    <a href="https://forum.khanovaskola.cz/t/jak-mohu-pomoci/482" class="btn">Chci se také zapojit!</a>
+                    <a href="https://forum.khanovaskola.cz/t/jak-mohu-pomoci/482" class="btn">I want to volunteer!</a>
                 </p>
-                {foreach $users as $i => $user}
-					<div class="person{if $iterator->isEven()} person-even{/if}">
-						<img class="team-photo" src="{$user->avatar}" title="{$user->name}">
-						<div class="name">
-							<a href="{$user->forumUrl}">{$user->name}</a>
-							<span class="title">{$user->title}</span>
-						</div>
-						<div class="bio">
-							{$user->bio|vlna|noescape}
-						</div>
-						<div class="clearfix" />
-					</div>
-				{/foreach}
-			</div>
 		</div>
 	</main>

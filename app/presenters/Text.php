@@ -23,10 +23,11 @@ class Text extends Presenter
 
 	public function renderTeam()
 	{
-		$usernames = $this->discourse->getPromotedUsers();
+           if ($this->locale->getLocale() != 'cs') {
+              return;
+           }
 
-                // Only example of how one can determine current language
-//              $language = $this->translator->getLanguage();
+		$usernames = $this->discourse->getPromotedUsers();
 
 		$users = [];
 		foreach ($usernames as $username)
