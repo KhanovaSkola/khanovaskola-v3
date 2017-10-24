@@ -49,12 +49,13 @@ class Inflection
 
                 if ( file_exists($dict_file) ) {
 
+
 		  $lines = explode("\n", file_get_contents($dict_file),-1);
 
 		  foreach ($lines as $line) {
 
                      //skip lines starting with #
-                     if ( strpos(trim($line),"#") != 0 ) {
+                     if ( ! strpos(trim($line),"#" ) ) {
                            
                         // Words must be separated by TABS!
                         // Expecting two columns

@@ -5,5 +5,5 @@
 # Comments here must be preceded by # as a first character!
 # The words must be separated by tabs!!!
 Matematika	Matematiku
-BiologieBiologii
+Biologie	Biologii
 Ekonomie	Ekonomii
