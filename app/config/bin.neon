@@ -30,6 +30,7 @@ console:
 		- Bin\Commands\Tests\Run
 		- Bin\Commands\Video\Update
 		- Bin\Commands\Video\UpdateChart
+		- Bin\Commands\Ka\SyncAll
 
 database:
     dsn: 'pgsql:host=127.0.0.1;port=%database.port%;dbname=%database.database%'
