@@ -11,7 +11,7 @@ Table of contents
 - [Badges](badges.md)
 - [Data](data.md) handling
 - [Passwords](password.md)
-- [Search](Search.md]
+- [Search](Search.md)
 
 Important in-code documentation
 -------------------------------
