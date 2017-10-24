@@ -31,6 +31,7 @@ class Search extends Control
 		$form->addText('query');
 
 		$form->addSubmit('search');
+
                 // Deprecated in Nette, see:
                 // https://forum.nette.org/cs/27483-accessing-methods-as-properties-via-obj-isemailavailable-is-deprecated
                 // $form->onSuccess[] = $this->onSuccess;
