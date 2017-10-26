@@ -48,10 +48,10 @@ class SyncAll extends Command
       $lc = $locale->getLocale();
       $file = "ka_tree.$lc.raw";
 
-      //$raw = file_get_contents('http://khanacademy.com/api/v1/topictree');
       if (! $this->in->getOption('debug'))
       {
-         $raw = file_get_contents("http://$lc.khanacademy.org/api/v1/topictree");
+         //$raw = file_get_contents('http://khanacademy.com/api/v1/topictree');
+         $raw = file_get_contents("https://$lc.khanacademy.org/api/v2/topics/topictree");
          file_put_contents($file, $raw);
          $this->out->writeln("Downloaded topic tree...");
       } 
@@ -118,20 +118,28 @@ class SyncAll extends Command
 		continue;
 	    }
 
-            $PLACEHOLDER = '.'; // e.g. when description is missing
+            $PLACEHOLDER = '\t'; // e.g. when description is missing
 
-            $title = $node['title'];
-            $youtubeId = $node['youtube_id'];
             $type = 'ka_video';
+            $title = $node['translated_title'];
+            $youtubeId = $node['translated_youtube_id']; 
             $description = $node['description'];
             $dur = $node['duration'];
+            $keywords = $node['keywords'];
+            $originalYoutubeId = $node['youtube_id']; // Maybe to the English version, but api seems unreliable in this
+            $ka_url = $node['ka_url'];;
             if ($description == NULL ) {
                $description = $PLACEHOLDER;
             }
-            $db->query('INSERT INTO contents (`type`, `title`,`description`,`duration`,`youtube_id`,`created_at`) 
-               VALUES (?, ?, ?, ?, ?, ?)', 
-            $type, $title, $description, $dur, $youtubeId,
-            date('Y-m-d H:i:s', strToTime($node['date_added'])));
+            if ($ka_url == NULL ) {
+               continue;
+            }
+            //add URL and keywords
+            $db->query('INSERT INTO contents (`type`, `title`,`description`,`duration`,`youtube_id`,
+               `youtube_id_original`,`ka_keywords` , `ka_url`, `created_at`) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            $type, $title, $description, $dur, $youtubeId, $originalYoutubeId,
+            $keywords, $ka_url, date('Y-m-d H:i:s', strToTime($node['date_added'])));
 
             $done++;
             if ($done % 50 === 0)
