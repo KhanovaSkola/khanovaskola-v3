@@ -19,6 +19,13 @@ class ContentsMapper extends ElasticSearchMapper
 	}
 
 	/**
+	 * @return DibiCollection|KaVideo[]
+	 */
+	public function findAllKaVideos()
+	{
+		return $this->findBy(['type' => 'ka_video']);
+	}
+	/**
 	 * @return DibiCollection|Blackboard[]
 	 */
 	public function findAllBlackboards()
@@ -49,9 +56,30 @@ class ContentsMapper extends ElasticSearchMapper
 		return $this->getBy(['type' => 'video', 'id' => $id]);
 	}
 
+	public function getKaVideoById($id)
+	{
+		return $this->getBy(['type' => 'ka_video', 'id' => $id]);
+	}
+
 	public function getVideoByYoutubeId($youtubeId)
 	{
-		return $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
+            
+            $video = $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
+
+            if (!$video) { // Try also search among original english videos
+
+                return $this->getBy(['type' => 'video', 'youtube_id_original' => $youtubeId]);
+
+            } else {
+
+               return $video;
+
+            }
+	}
+
+	public function getKaVideoByYoutubeId($youtubeId)
+	{
+		return $this->getBy(['type' => 'ka_video', 'youtube_id' => $youtubeId]);
 	}
 
 	public function getBlueprintById($id)
@@ -245,7 +273,7 @@ class ContentsMapper extends ElasticSearchMapper
 	{
 		return $this->dataSource("
 			SELECT * FROM [contents]
-			WHERE [type] = 'video'
+			WHERE ([type] = 'video' OR [type] = 'ka_video')
 				AND ([duration] IS NULL OR [duration] = 1200)
 		");
 	}

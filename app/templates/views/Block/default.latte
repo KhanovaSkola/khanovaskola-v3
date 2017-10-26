@@ -94,7 +94,11 @@
 	                                </div>
 	                                <div class="timeline-content">
 	                                    <h3>
-	                                        <a n:href="$content, $block, $schema">{$content->title}</a>
+                                                {if $content->type == "ka_video"}
+	                                           <a href="{$content->kaUrl}">{$content->title}</a>
+                                                {else}
+	                                           <a n:href="$content, $block, $schema">{$content->title}</a>
+                                                {/if}
 	                                        <small>
 	                                            <i class="icon icon-time"></i>
 	                                            <span>{$content->duration|minutes}&thinsp;m</span>

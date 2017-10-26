@@ -223,6 +223,9 @@ editor: # Only for admins, low priority
     block: "search"
     schema: "filter"
   description:
+
+searchResultsForm:
+  placeholder: "Search"
      
 search:
   placeholder: "Search"
@@ -247,7 +250,7 @@ search:
     noContent: "Sorry, we could not find any matching results."
     suggestSearch: "Didn't you want to look for "
     showMore: "Show more results"
-    whichSearch: "You are searching for:" # TODO
+    searchingFor: "You are searching for:" # TODO
     found: "Found"
     showAll: "Show everything"
     blockOf: "block of " # e.g. a block of 5 videos

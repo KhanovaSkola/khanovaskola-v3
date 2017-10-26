@@ -32,6 +32,7 @@ class ContentsRepository extends Repository
 			'blackboard' => Blackboard::class,
 			'blueprint' => Blueprint::class,
 			'video' => Video::class,
+			'ka_video' => KaVideo::class,
 		];
 	}
 

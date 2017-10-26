@@ -94,6 +94,7 @@ class Video extends Content
 		return $index + [
 			'subtitles' => $this->getTextFromSubtitles(),
 			'youtube_id' => $this->youtubeId,
+			'youtube_id_original' => $this->youtubeIdOriginal,
 		];
 	}
 

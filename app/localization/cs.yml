@@ -283,6 +283,9 @@ editor:
   search:
     block: "vyhledat"
     schema: "filter"
+
+searchResultsForm:
+  placeholder: "hledat"
      
 search:
   blockContains:
@@ -311,7 +314,7 @@ search:
     noContent: "Nechtěli jste hledat "
     suggestSearch: "Nechtěli jste hledat "
     showMore: "Zobrazit další"
-    whichSearch: "Hledáte:" # TODO
+    searchingFor: "Hledáte:" # TODO
     found: "Nalezeno:"
     showAll: "zobrazit vše"
     blockOf: "skupina" # e.g. a block of 5 videos

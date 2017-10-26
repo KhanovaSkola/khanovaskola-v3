@@ -117,6 +117,11 @@ trait ControlTrait
 				$idKey = 'videoId';
 				$presenter = 'Video:';
 			}
+			if ($destination instanceof Rme\KaVideo)
+			{
+				$idKey = 'videoId';
+				$presenter = 'Video:';
+			}
 			else if ($destination instanceof Rme\Blueprint)
 			{
 				$idKey = 'blueprintId';

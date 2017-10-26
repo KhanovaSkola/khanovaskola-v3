@@ -30,7 +30,8 @@ define(function() {
 								{"match": {"title": query}},
 								{"match": {"description": query}},
 								{"match_phrase": {"subtitles": query}},
-								{"term": {"youtube_id": query}}
+								{"term": {"youtube_id": query}},
+								{"term": {"youtube_id_original": query}}
 							]
 						}
 					},
