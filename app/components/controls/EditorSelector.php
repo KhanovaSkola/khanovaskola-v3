@@ -99,7 +99,7 @@ class EditorSelector extends Forms\Controls\TextInput
 		}
 
 		$this->cleanErrors();
-		$this->rules->validate();
+		$this->getRules()->validate();
 
 		$emails = preg_split('~\s*,\s*~', parent::getValue());
 		foreach ($emails as $email)

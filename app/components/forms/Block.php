@@ -28,7 +28,7 @@ class Block extends EditorForm
 		$v = $this->getValues();
 
 		/** @var Rme\Block $block */
-		$block = $this->presenter->block;
+		$block = $this->presenter->getBlock();
 		$mode = 'edited';
 		if (!$block)
 		{
@@ -74,7 +74,7 @@ class Block extends EditorForm
 		}
 
 		$this->presenter->flashSuccess("editor.$mode.block");
-		$schema = $this->presenter->schema;
+		$schema = $this->presenter->getSchema();
 		$this->presenter->redirect('Block:default', [
 			'blockId' => $block->id,
 			'schemaId' => $schema ? $schema->id : NULL,

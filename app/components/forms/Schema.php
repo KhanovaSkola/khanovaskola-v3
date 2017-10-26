@@ -52,7 +52,7 @@ class Schema extends EditorForm
 		$parsed = Json::decode($v->layout);
 		$parsed = $this->schemaLayout->normalize($parsed);
 
-		$schema = $this->presenter->schema;
+		$schema = $this->presenter->getSchema();
 		$mode = 'edited';
 		if (!$schema)
 		{

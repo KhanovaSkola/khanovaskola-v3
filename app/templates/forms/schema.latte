@@ -15,7 +15,7 @@
     <div class="form-group{if $form['editors']->errors} has-error{/if}">
         <label n:name="editors">
             Editors
-            {if !$form['editors']->editable}
+            {if !$form['editors']->isEditable()}
                (can be changed in subject-editor)
             {/if}
         </label>

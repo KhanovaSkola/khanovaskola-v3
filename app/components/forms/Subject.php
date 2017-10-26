@@ -36,7 +36,7 @@ class Subject extends EditorForm
 		$v = $this->getValues();
 
 		/** @var Rme\Subject $subject */
-		$subject = $this->presenter->subject;
+		$subject = $this->presenter->getSubject();
 
 		$subject->title = $v->title;
 		$subject->description = $v->description;
