@@ -29,21 +29,21 @@
 		                                            <i class="icon icon-{$subj->icon}"></i>
 		                                            </a>
 							    </li>
-							    <li class="divider"></li>
                                                             {if $language === 'cs'}
+							    <li class="divider"></li>
 							       <li n:foreach="$oldSubjects as $j => $subj">
                                                                <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
                                                                <span>{$subj->title}</span>
                                                                <i class="icon icon-{$subj->icon}"></i>
                                                                </a>
                                                                </li>
-                                                            {/if}
 							    <li>
 							    <a n:href="Homepage:randomContent" rel="nofollow">
 							    <span>{_'header.general.feelLucky'}</span>
 							    <i class="icon icon-globe"></i>
 						            </a>
 						            </li>
+                                                            {/if}
 						         </ul>
 						   </div>
 					     <div class="subject-detail tab-content">
