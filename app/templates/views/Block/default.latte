@@ -54,6 +54,7 @@
                         </div>
                         {include '../_dependsOn.latte', block => $block}
 
+                     {if $language == 'cs'}
                         <div class="continue">
                             {if $continueTo}
                                 <div class="continue-pre">
@@ -70,6 +71,7 @@
                                     {_'block.continue.first'}
                                 </a>
                             {/if}
+                     {/if}
                         </div>
                     </div>
                 </div>
