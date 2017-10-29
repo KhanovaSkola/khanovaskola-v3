@@ -98,9 +98,9 @@ class Exercise extends Form
 				if ($completed)
 				{
 					$completion = new Rme\CompletedContent();
-					$completion->schema = $presenter->schema;
-					$completion->block = $presenter->block;
-					$completion->content = $presenter->blueprint;
+					$completion->schema = $presenter->getSchema();
+					$completion->block = $presenter->getBlock();
+					$completion->content = $presenter->getBlueprint();
 					$completion->user = $presenter->userEntity;
 					$presenter->orm->completedContents->attach($completion);
 					$presenter->orm->flush();

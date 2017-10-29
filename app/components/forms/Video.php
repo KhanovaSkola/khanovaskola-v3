@@ -40,7 +40,7 @@ class Video extends EditorForm
 	{
 		$v = $this->getValues();
 
-		$video = $this->presenter->video;
+		$video = $this->presenter->getVideo();
 		$mode = 'edited';
 		if (!$video)
 		{
@@ -79,8 +79,8 @@ class Video extends EditorForm
 
 		$this->presenter->flashSuccess("editor.$mode.video");
 
-		$block = $this->presenter->block;
-		$schema = $this->presenter->schema;
+		$block = $this->presenter->getBlock();
+		$schema = $this->presenter->getSchema();
 		$this->presenter->redirect('Video:default', [
 			'videoId' => $video->id,
 			'blockId' => $block ? $block->id : NULL,

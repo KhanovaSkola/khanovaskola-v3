@@ -117,7 +117,7 @@ trait ControlTrait
 				$idKey = 'videoId';
 				$presenter = 'Video:';
 			}
-			if ($destination instanceof Rme\KaVideo)
+                        else if ($destination instanceof Rme\KaVideo)
 			{
 				$idKey = 'videoId';
 				$presenter = 'Video:';

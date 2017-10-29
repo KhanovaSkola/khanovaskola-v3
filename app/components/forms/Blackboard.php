@@ -24,7 +24,7 @@ class Blackboard extends EditorForm
 	{
 		$v = $this->getValues();
 
-		$blackboard = $this->presenter->blackboard;
+		$blackboard = $this->presenter->getBlackboard();
 		if (!$blackboard)
 		{
 			$this->presenter->redirect('recorder');
@@ -38,8 +38,8 @@ class Blackboard extends EditorForm
 
 		$this->presenter->flashSuccess('editor.edited.blackboard');
 
-		$block = $this->presenter->block;
-		$schema = $this->presenter->schema;
+		$block = $this->presenter->getBlock();
+		$schema = $this->presenter->getSchema();
 		$this->presenter->redirect('Blackboard:default', [
 			'blackboardId' => $blackboard->id,
 			'blockId' => $block ? $block->id : NULL,
