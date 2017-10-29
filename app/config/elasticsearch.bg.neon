@@ -1,0 +1,66 @@
+settings:
+	number_of_shards: 1
+	number_of_replicas: 0
+	analysis:
+		analyzer:
+			youtube_id:
+				type: pattern
+				pattern: \s+
+				lowercase: false
+
+		filter:
+			letters:
+				type: pattern_replace
+				pattern: '[^A-Za-z0-9]'
+				replacement: ''
+			remove_duplicities:
+				type: unique
+				only_on_same_position: true
+
+mappings:
+	content:
+		index_analyzer: bulgarian
+		search_analyzer: bulgarian
+		properties:
+			title:
+				type: string
+				store: true
+				boost: 6
+			bucket:
+				type: string
+				index_analyzer: simple
+				search_analyzer: simple
+			description:
+				type: string
+				store: true
+				boost: 4
+			subtitles:
+				type: string
+				store: true
+				index_options: offsets
+			youtube_id:
+				type: string
+				index_analyzer: youtube_id
+				search_analyzer: youtube_id
+			youtube_id_original:
+				type: string
+				index_analyzer: youtube_id
+				search_analyzer: youtube_id
+			block_count:
+				type: integer
+			schema_count:
+				type: integer
+			position:
+				type: integer
+	block:
+		index_analyzer: bulgarian
+		search_analyzer: bulgarian
+		properties:
+			title:
+				type: string
+				store: true
+				boost: 6
+			description:
+				type: string
+				store: true
+				boost: 4

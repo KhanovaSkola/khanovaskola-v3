@@ -4,6 +4,7 @@ namespace App\Models\Services;
 
 use App\DeprecatedException;
 use App\ElasticsearchException;
+use App\Models\Services\Locale;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
@@ -35,7 +36,12 @@ class ElasticSearch extends Client
 	 */
 	public $onEvent;
 
-	public function __construct(array $params, $appDir)
+        /** 
+         * @var Locale 
+         */
+        private $locale;
+
+	public function __construct(array $params, $appDir, Locale $locale)
 	{
 		$this->index = $params['index'];
 		unset($params['index']);
@@ -49,6 +55,7 @@ class ElasticSearch extends Client
 		{
 			$log->injectElasticSearch($this);
 		}
+                $this->locale = $locale;
 	}
 
 	/**
@@ -150,13 +157,18 @@ class ElasticSearch extends Client
 	 */
 	public function setupIndices()
 	{
-		$conf = file_get_contents($this->appDir . '/config/elasticsearch.neon');
+                $loc = $this->locale->getLocale();
+
+		$conf = file_get_contents($this->appDir . "/config/elasticsearch.$loc.neon");
 		$args = Neon::decode($conf);
 
-		$confSynonyms = file_get_contents($this->appDir . '/config/synonyms.compiled.neon');
-		$synonyms = Neon::decode($confSynonyms);
+		$synonyms_file = $this->appDir . "/config/synonyms.compiled.$loc.neon";
 
-		$args['settings']['analysis']['filter']['synonyms']['synonyms'] = $synonyms;
+                if (file_exists($synonyms_file)) {
+		  $confSynonyms = file_get_contents($this->appDir . "/config/synonyms.compiled.$loc.neon");
+		  $synonyms = Neon::decode($confSynonyms);
+		  $args['settings']['analysis']['filter']['synonyms']['synonyms'] = $synonyms;
+                }
 
 		try
 		{
