@@ -91,21 +91,19 @@ class ContentsMapper extends ElasticSearchMapper
 	public function getVideoByYoutubeId($youtubeId)
 	{
             
-            $video = $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
-            return $video;
-
-            /*
+            //$video = $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
+            $video = $this->getBy(['youtube_id' => $youtubeId]);
 
             if (!$video) { // Try also search among original english videos
 
-                return $this->getBy(['type' => 'video', 'youtube_id_original' => $youtubeId]);
+              //  return $this->getBy(['type' => 'video', 'youtube_id_original' => $youtubeId]);
+                return $this->getBy(['youtube_id_original' => $youtubeId]);
 
             } else {
 
                return $video;
 
             }
-             */
 	}
 
   /*
