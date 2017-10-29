@@ -238,6 +238,10 @@ search:
       one: "one video"
       few: "%1 videos"
       many: "%1 videos"
+    ka:
+      one: "one Khan Academy video"
+      few: "%1 Khan Academy videos"
+      many: "%1 Khan Academy videos"
     blueprint:
       one: "one exercise"
       few: "%1 exercises"

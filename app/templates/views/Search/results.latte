@@ -45,6 +45,20 @@
                                         </span>
                                         <p>{$block->highlight('description')|vlna|noescape}</p>
                                     </div>
+                                {elseif $hit instanceof App\Models\Rme\KaVideo}
+                                    {var $content = $hit}
+                                    {var $block = $content->getRandomParent()}
+                                    {var $schema = $block ? $block->getRandomParent() : NULL}
+                                    {var $subject = $schema ? $schema->subject : $presenter->orm->subjects->getById(1)}
+                                    <div class="left text-{$subject ? $subject->color : 'blue'}">
+                                        <i class="icon icon-{$subject ? $subject->icon : 'subject-history'}"></i>
+                                    </div>
+                                    <div class="right">
+                                        <span class="title">
+                                            <a href="{$content->kaUrl}" target="_blank" rel="external">{$content->highlight('title')|noescape}</a>
+                                        </span>
+                                        <p>{$content->highlight('description')|vlna|noescape}</p>
+                                    </div>
                                 {else}
                                     {var $content = $hit}
                                     {var $block = $content->getRandomParent()}
@@ -78,7 +92,7 @@
 	                    {_'search.results.noContent'}&hellip;<br>
 	                    {var $q = $search->getDidYouMean()}
                         {if $q}
-	                        {_search.results.suggestSearch} <a n:href="this, query => $q">{$q}</a>?
+	                        {_'search.results.suggestSearch'} <a n:href="this, query => $q">{$q}</a>?
 	                    {/if}
 	                {/if}
                 </div>
