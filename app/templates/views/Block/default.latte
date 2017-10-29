@@ -96,7 +96,7 @@
 	                                </div>
 	                                <div class="timeline-content">
 	                                    <h3>
-                                                {if $content->type == "ka_video"}
+                                                {if $content->type == "ka_video" || $content->type == "ka_articles" || $content->type == "ka_exercise" }
 	                                           <a href="{$content->kaUrl}" rel="external" target="_blank">{$content->title}</a>
                                                 {else}
 	                                           <a n:href="$content, $block, $schema">{$content->title}</a>

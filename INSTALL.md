@@ -81,6 +81,8 @@ php www/index.php migrations:migrate --init
 php www/index.php migrations:migrate
  ```
 
+*LOKI:* After this step you can import data from KA. 
+See production/crontab to see how.
 
 
  - Alternatively, import previous backup
@@ -121,7 +123,7 @@ To understand the database schema, look into [SQL.md](SQL.md)
 
 
 7. **TODO: How to setup elasticsearch server**
-
+ - See [README for search](doc/search.md)
 
 
 

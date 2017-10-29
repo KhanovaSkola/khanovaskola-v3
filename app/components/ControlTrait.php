@@ -117,7 +117,17 @@ trait ControlTrait
 				$idKey = 'videoId';
 				$presenter = 'Video:';
 			}
-                        else if ($destination instanceof Rme\KaVideo)
+      else if ($destination instanceof Rme\KaVideo)
+			{
+				$idKey = 'videoId';
+				$presenter = 'Video:';
+			}
+      else if ($destination instanceof Rme\KaExercise)
+			{
+				$idKey = 'videoId';
+				$presenter = 'Video:';
+			}
+      else if ($destination instanceof Rme\KaArticle)
 			{
 				$idKey = 'videoId';
 				$presenter = 'Video:';

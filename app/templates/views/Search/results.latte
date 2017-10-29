@@ -14,13 +14,14 @@
                 <section class="search-form">
                     {control searchResultsForm, label => $searchingFor}
                     <ul n:if="$search->results" class="list-unstyled result-count">
-                        {_'search.results.found'} {foreach $search->aggregations as $ag}{*
-                            *}<a n:href="this, filter => $ag['key']">{*
+                        {_'search.results.found'} 
+                        {foreach $search->aggregations as $ag}
+                            <a n:href="this, filter => $ag['key']">{*
                                 *}<strong n:tag-if="$ag['key'] === $filter">
                                     {_"search.count.{$ag['key']}", $ag['doc_count']}{*
                                 *}</strong>{*
-                            *}</a>{sep}, {/sep}{*
-                        *}{/foreach}
+                            *}</a>{sep}, {/sep}
+                        {/foreach}
                         <a n:if="$filter" n:href="this, filter => NULL">({_'search.results.showAll'})</a>
                     </ul>
                 </section>
@@ -45,7 +46,7 @@
                                         </span>
                                         <p>{$block->highlight('description')|vlna|noescape}</p>
                                     </div>
-                                {elseif $hit instanceof App\Models\Rme\KaVideo}
+                                {elseif $hit instanceof App\Models\Rme\KaVideo ||  $hit instanceof App\Models\Rme\KaExercise ||  $hit instanceof App\Models\Rme\KaArticle}
                                     {var $content = $hit}
                                     {var $block = $content->getRandomParent()}
                                     {var $schema = $block ? $block->getRandomParent() : NULL}

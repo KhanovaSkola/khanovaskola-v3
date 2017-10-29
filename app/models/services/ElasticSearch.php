@@ -157,7 +157,7 @@ class ElasticSearch extends Client
 	 */
 	public function setupIndices()
 	{
-                $loc = $this->locale->getLocale();
+    $loc = $this->locale->getLocale();
 
 		$conf = file_get_contents($this->appDir . "/config/elasticsearch.$loc.neon");
 		$args = Neon::decode($conf);

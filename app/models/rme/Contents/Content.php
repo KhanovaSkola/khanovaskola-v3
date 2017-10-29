@@ -5,6 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Orm\IIndexable;
 use App\Models\Orm\TitledEntity;
 use App\Models\Services\Highlight;
+use App\NotImplementedException;
 use DateTime;
 use Nette\Utils\Strings;
 use Orm\OneToMany as OtM;
@@ -103,7 +104,9 @@ abstract class Content extends TitledEntity implements IIndexable
 	/**
 	 * @return int seconds
 	 */
-	abstract public function getDuration();
+  public function getDuration() {
+		throw new NotImplementedException;
+  }
 
 	/**
 	 * @return Block[]

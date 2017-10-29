@@ -298,9 +298,17 @@ search:
       few: "%1 videa"
       many: "%1 videí"
     ka:
-      one: "jedno video na Khanově akademii"
+      one: "1 video na Khanově akademii"
       few: "%1 videa na Khanově akademii"
       many: "%1 videí na Khanově akademii"
+    exercise:
+      one: "1 cvičení na Khanově akademii"
+      few: "%1 cvičení na Khanově akademii"
+      many: "%1 cvičení na Khanově akademii"
+    article:
+      one: "1 článek na Khanově akademii"
+      few: "%1 článek na Khanově akademii"
+      many: "%1 článků na Khanově akademii"
     blueprint:
       one: "jedno cvičení"
       few: "%1 cvičení"

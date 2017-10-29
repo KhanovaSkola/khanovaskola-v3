@@ -19,12 +19,29 @@ class ContentsMapper extends ElasticSearchMapper
 	}
 
 	/**
+	 * @return DibiCollection|KaExercise[]
+	 */
+	public function findAllKaExercises()
+	{
+		return $this->findBy(['type' => 'ka_exercise']);
+	}
+
+	/**
+	 * @return DibiCollection|KaArticles[]
+	 */
+	public function findAllKaArticles()
+	{
+		return $this->findBy(['type' => 'ka_article']);
+	}
+
+	/**
 	 * @return DibiCollection|KaVideo[]
 	 */
 	public function findAllKaVideos()
 	{
 		return $this->findBy(['type' => 'ka_video']);
 	}
+
 	/**
 	 * @return DibiCollection|Blackboard[]
 	 */
@@ -56,6 +73,16 @@ class ContentsMapper extends ElasticSearchMapper
 		return $this->getBy(['type' => 'video', 'id' => $id]);
 	}
 
+	public function getKaArticleById($id)
+	{
+		return $this->getBy(['type' => 'ka_article', 'id' => $id]);
+	}
+
+	public function getKaExerciseById($id)
+	{
+		return $this->getBy(['type' => 'ka_exercise', 'id' => $id]);
+	}
+
 	public function getKaVideoById($id)
 	{
 		return $this->getBy(['type' => 'ka_video', 'id' => $id]);
@@ -65,6 +92,9 @@ class ContentsMapper extends ElasticSearchMapper
 	{
             
             $video = $this->getBy(['type' => 'video', 'youtube_id' => $youtubeId]);
+            return $video;
+
+            /*
 
             if (!$video) { // Try also search among original english videos
 
@@ -75,12 +105,15 @@ class ContentsMapper extends ElasticSearchMapper
                return $video;
 
             }
+             */
 	}
 
+  /*
 	public function getKaVideoByYoutubeId($youtubeId)
 	{
 		return $this->getBy(['type' => 'ka_video', 'youtube_id' => $youtubeId]);
-	}
+  }
+   */
 
 	public function getBlueprintById($id)
 	{
@@ -199,6 +232,7 @@ class ContentsMapper extends ElasticSearchMapper
 									['match' => ['description' => $query]],
 									['match_phrase' => ['subtitles' => $query]],
 									['term' => ['youtube_id' => $query]],
+									['term' => ['youtube_original_id' => $query]],
 								]
 							]
 						],
@@ -273,7 +307,7 @@ class ContentsMapper extends ElasticSearchMapper
 	{
 		return $this->dataSource("
 			SELECT * FROM [contents]
-			WHERE ([type] = 'video' OR [type] = 'ka_video')
+			WHERE ([type] = 'video')
 				AND ([duration] IS NULL OR [duration] = 1200)
 		");
 	}

@@ -8,3 +8,11 @@ DEPLOY=/srv/khanovaskola.cz/production
  0  1   * * *   root       php $DEPLOY/www/index.php data:delete-old
  0  2   * * *   root       bash $DEPLOY/production/backup.sh
  0  3   * * *   mikulas    curl https://khanovaskola.cz/o-skole/tym >/dev/null 2>&1 # warm cache
+
+# LOKI (not tested)
+# Sync KA articles
+ 0  3   * * 0   root       php $DEPLOY/www/index.php ka:sync -a
+# Sync KA exercise
+ 0  4   * * 0   root       php $DEPLOY/www/index.php ka:sync -e
+# Sync KA videos
+ 0  5   * * 0   root       php $DEPLOY/www/index.php ka:sync -v
