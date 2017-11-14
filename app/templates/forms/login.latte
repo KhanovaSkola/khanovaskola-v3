@@ -7,8 +7,8 @@
                 <img src="{$avatarUrl}" alt="avatar" class="avatar">
             </div>
             <div class="pull-left has-addend floating-placeholder">
-                <label n:name="email">Email</label>
-                <input n:name="email" type="text" class="form-control input-mail" placeholder="Email">
+                <label n:name="email">{_'email.label'}</label>
+                <input n:name="email" type="text" class="form-control input-mail" placeholder="{_'email.label'}">
                 <div class="addend-icon">
                     <i class="icon icon-mail"></i>
                 </div>
@@ -17,26 +17,26 @@
     </div>
     <div class="form-group clearfix" data-password-group>
         <div class="pull-left floating-placeholder">
-            <label n:name="password">Heslo</label>
-            <input n:name="password" type="password" class="form-control input-password" placeholder="Heslo">
+            <label n:name="password">{_'password.label'}</label>
+            <input n:name="password" type="password" class="form-control input-password" placeholder="{_'password.label'}">
         </div>
         <div class="pull-left">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" class="toggle-password">
                     <span></span>
-                    ukázat
+                    {_'showPassword'}
                 </label>
             </div>
         </div>
     </div>
     <div class="form-group text-center">
         <input type="hidden" name="do" value="loginForm-form-submit">
-        <input n:name="save" type="submit" class="btn btn-submit" value="Přihlásit">
+        <input n:name="save" type="submit" class="btn btn-submit" value="{_'loginButton'}">
     </div>
     <div class="form-group text-center">
         <a href="{plink Auth:resetPassword, email => $form['email']->getValue()}" data-reset-password data-url-template="{plink Auth:resetPassword, email => '{email}'|templateLink}">
-            Zapomněl jsi heslo?
+            {_'forgottenPassword'}
         </a>
     </div>
 </form>

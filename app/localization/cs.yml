@@ -198,14 +198,24 @@ errors: #TODO
 registrationForm:
   duplicate: "Uživatel s tímto emailem už je zaregistrovaný." #TODO link to login
   email:
+    label: "Email"
     missing: "Zadejte email"
     wrong: "Zadejte spravny email"
+    suggestion: "Nemáte na mysli spíš "
   name:
+    label: "Jméno"
     missing: "Zadejte vaše jméno"
   gender:
+    male: "muž"
+    female: "žena"
+    other: "jiné"
     missing: "Vyberte"
   password:
+    label: "Heslo"
+    show: "Ukázat"
     missing: "Zadejte heslo"
+  button:
+    register: "Dokončit"
 
 resetPasswordForm:
   email:
@@ -218,10 +228,15 @@ changePasswordForm:
 
 loginForm:
   email:
+    label: "Email"
     missing: "Zadejte svůj email"
-    wrong: "Zadejte svůj email"
+    wrong: "Zadejte správný email"
   password:
+    label: "Heslo"
     missing: "Zadejte svoje heslo"
+  showPassword: "Ukázat"
+  loginButton: "Přihlásit"
+  forgottenPassword: "Zapomenuté heslo?"
 
 block:
   duration:

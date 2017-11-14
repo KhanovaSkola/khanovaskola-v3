@@ -143,14 +143,24 @@ errors: #TODO
 registrationForm:
   duplicate: "Username already exists." #TODO link to login
   email:
+    label: "Email"
     missing: "Fill in email"
     wrong: "Fill in correct email"
+    suggestion: "Do you mean "
   name:
+    label: "Name"
     missing: "Fill in your name"
   gender:
+    male: "male"
+    female: "female"
+    other: "other"
     missing: "Choose"
   password:
+    label: "Password"
+    show: "Show"
     missing: "Choose a password"
+  button:
+    register: "Register"
 
 resetPasswordForm:
   email:
@@ -163,10 +173,15 @@ changePasswordForm:
 
 loginForm:
   email:
+    label: "Email"
     missing: "Fill in your email"
     wrong: "Fill in your email"
   password:
+    label: "Password"
     missing: "Fill in your password"
+    showPassword: "Show"
+  loginButton: "Login"
+  forgottenPassword: "Have you forgotten your password?"
 
 block: # Probably relevant only to Czech site
   duration:
