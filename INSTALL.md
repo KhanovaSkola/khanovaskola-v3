@@ -98,8 +98,9 @@ To understand the database schema, look into [SQL.md](SQL.md)
 
 6. **Setting up NGINX**
 
-  - Setting up file permissions according to [20-chmod.sh] (production/deploy/post-receive.d/20-chmod.sh)
-   (you may need to execute this for git to ignore these changes:)
+  - Setting up file permissions according to [20-chmod.sh](production/deploy/post-receive.d/20-chmod.sh)
+  
+   you may need to execute this for git to ignore these changes:
    ```sh
    git config core.fileMode false
    ```
