@@ -23,17 +23,30 @@
         <div class="container">
             <div class="content-inner">
                 <p class="lead">
-                    {block|vlna}
+                    {block|stripHtml|vlna}
                         Jsme komunita lidí, která chce zlepšit možnosti vzdělávání, a nebojíme se pro to něco udělat.
                     {/block}
                 </p>
                 <p>
-                    {block|vlna}
-	                    Khanova škola je vzdělávací portál pro děti i dospělé. Jádro tvoří výuková videa, která skládáme do promyšlených návazností tak, abyste si mohli užít souvislou výuku od úplných základů až po komplexní oborové znalosti. Vše zdarma a z pohodlí vašich domovů.
+                    {block}
+	                    Khanova škola je vzdělávací portál pro děti i dospělé. Jádro tvoří výuková videa <a href="https://www.khanacademy.org" rel="nofollow" target="_blank">Khan Academy</a>, která pro vás překládáme a skládáme do promyšlených návazností tak, abyste si mohli užít souvislou výuku od úplných základů až po komplexní oborové znalosti. Vše zdarma a z pohodlí vašich domovů.
                     {/block}
                 </p>
                 <p>
-                    <a n:href="team">Seznam nás, kdo se staráme o Khanovu školu</a>
+                   <a n:href="team">Seznam nás, kdo se staráme o Khanovu školu</a>
+                </p>
+                <p>
+                  {block|stripHtml|vlna}
+{*                        Budeme rádi, pokud se zapojíte. Společně můžeme vytvořit lepší budoucnost otevřených výukových materiálů. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory. Aktuální informace naleznete <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na fóru</a>.   *}
+                        Budeme rádi, pokud se zapojíte. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory.
+                  {/block}
+                  {block} {*block with vlna screws up the links!!*}
+                  Napište nám na <a href="mailto:info@khanovaskola.cz">info@khanovaskola.cz</a>! Také se můžete zeptat přímo <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na našem fóru</a>. Pro novinky sledujte náš <a href="https://blog.khanovaskola.cz">blog</a>, případně naše FB stránky či Twitter.
+                  {/block}
+                </p>
+                <p>
+                <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FKhanovaSkola%2F&width=300&layout=standard&action=like&size=small&show_faces=false&share=false&height=50&appId=273608052753035" width="300" height="50" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" align="left"></iframe>
+               <a href="https://twitter.com/KhanovaSkola?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" align="left">Sleduj @KhanovaSkola</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </p>
                 <div class="media">
                     <img src="{$basePath}/img/about/about1.jpg">
@@ -50,8 +63,24 @@
                     <div class="clearfix"></div>
                     <em>My a jeden z našich překladatelských maratonů (ČVUT FIT).</em>
                 </div>
+                <div class="media">
+                    <iframe class="video" width="720" height="320" src="https://www.youtube.com/embed/ACbJt6GGY7U" frameborder="0" allowfullscreen></iframe>
+
+                    <div class="clearfix"></div>
+                    <em>Popis: Definice blended learning podle Clayton Christensen Institute</em>
+                </div>
+                <p class="org">
+                    Khanova škola, z.s.<br>
+                    IČ <code>22708022</code><br>
+                    <a href="https://www.fio.cz/ib2/transparent?a=2800321231" rel="nofollow">transparentní účet</a> <code>2800321231/2010</code><br>
+                    <a href="mailto:info@khanovaskola.cz">info@khanovaskola.cz</a><br>
+                </p>
                 <p>
-                    {block|vlna}
+                    <a href="/tos.pdf">Podmínky poskytování služeb</a> [151 KiB, PDF]
+                </p>
+                <h3>Sponzoři a podporovatelé</h3>
+                <p>
+                    {block|stripHtml|vlna}
                         Ve školním roce 2017/18 náš web zlepšujeme za podpory společnosti Bakaláři Software. Těšíme se, že budeme studentům, žákům, rodičům i učitelům blíž.
                     {/block}
                 </p>
@@ -60,30 +89,6 @@
                         <img src="{$basePath}/img/bakalari.svg" width="" height="51">
                     </a>
                 </div>
-                <div class="media">
-                    <iframe class="video" width="720" height="320" src="https://www.youtube.com/embed/ACbJt6GGY7U" frameborder="0" allowfullscreen></iframe>
-
-                    <div class="clearfix"></div>
-                    <em>Popis: Definice blended learning podle Clayton Christensen Institute</em>
-                </div>
-                <p>
-                    {block|vlna}
-{*                        Budeme rádi, pokud se zapojíte. Společně můžeme vytvořit lepší budoucnost otevřených výukových materiálů. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory. Aktuální informace naleznete <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na fóru</a>.   *}
-                        Budeme rádi, pokud se zapojíte. Hledáme překladatele, korektory, tvůrce obsahu, učitele, ale třeba i programátory.
-                  {/block} 
-                  {block} {*block with vlna screws up the links!!*}
-                  Napište nám na <a href="mailto:marketa@khanovaskola.cz">marketa@khanovaskola.cz</a>! Také se můžete zeptat přímo <a href="https://forum.khanovaskola.cz/t/vitejte-na-foru-khanovy-skoly/6">na našem fóru</a>. Pro novinky sledujte náš <a href="https://blog.khanovaskola.cz">blog</a>.
-                  {/block}
-                </p>
-                <p class="org">
-                    Khanova škola, z.s.<br>
-                    IČ <code>22708022</code><br>
-                    <a href="https://www.fio.cz/ib2/transparent?a=2800321231" rel="nofollow">transparentní účet</a> <code>2800321231/2010</code><br>
-                    <a href="mailto:marketa@khanovaskola.cz">marketa@khanovaskola.cz</a><br>
-                </p>
-                <p>
-                    <a href="/tos.pdf">Podmínky poskytování služeb</a> [151 KiB, PDF]
-                </p>
                 <p>
                     Děkujeme za podporu Nadaci Karla Janečka, bez níž by tento web nevznikl.
                 </p>
