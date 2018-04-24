@@ -136,6 +136,9 @@ To understand the database schema, look into [SQL.md](SQL.md)
 sudo cp production/crontab /etc/cron.d/KA
   ```
 
+9. **Granting admin privileges to a user**
+UPDATE USERS SET privileges = '["all"]' WHERE id = '1';
+
 DEBUGGING
 ---------
 (The following are messages from Tracy and corresponding corrective action)

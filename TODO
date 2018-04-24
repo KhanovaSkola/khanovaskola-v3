@@ -1,3 +1,10 @@
+
+
+remove gender from registration form, make sure it does not break things
+see this commit to show how 
+https://github.com/KhanovaSkola/khanovaskola-v3/commit/deaf857c48235b41851836315611ed6b6a9a4860
+
+
 need to make sure that hidden blocks and schemas do not appear anywhere.
 Even though it breaks the dependencies between content, is is probably better.
 

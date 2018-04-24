@@ -314,6 +314,13 @@ class SyncAll extends Command
         return $res;
     }
 
+    // TODO: import topics into KA blocks
+    // this means populating TABLE blocks
+    // and then populating TABLE content_block_bridges
+    private function findTopics(array $data, array $categories) {
+
+    }
+
 }
 
 
