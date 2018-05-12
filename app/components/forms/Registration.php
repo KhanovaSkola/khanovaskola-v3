@@ -43,9 +43,11 @@ class Registration extends Form
 		$this->addText('name')
 			->addRule($this::FILLED, 'name.missing');
 
+                /*
 		$this->addRadioList('gender', NULL, Gender::getGenders())
 			->addRule($this::FILLED, 'gender.missing')
-			->setDefaultValue(Gender::MALE);
+                        ->setDefaultValue(Gender::MALE);
+                */
 
 		$this->addText('password')
 			->addRule($this::FILLED, 'password.missing');
@@ -79,7 +81,8 @@ class Registration extends Form
 			$user->email = $v->email;
 			$this->orm->users->attach($user);
 		}
-		$user->gender = $v->gender;
+		//$user->gender = $v->gender;
+		$user->gender = Gender::MALE;
 		$user->setNames($v->name);
 		$user->registered = TRUE;
 		$plainHash = Passwords::hash($v->password);
