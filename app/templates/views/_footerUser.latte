@@ -1,6 +1,7 @@
 {define footerUser}
     {var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
     {if !$userEntity->registered}
+{*
         <section class="login">
             <div>
                 <a n:href="Auth:in" class="text-black">
@@ -19,6 +20,7 @@
                 </a>
             </div>
         </section>
+*}
     {else}
         <section class="userarea">
             <div class="user-info clearfix">

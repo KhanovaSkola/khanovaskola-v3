@@ -3,11 +3,12 @@
 	{if $presenter->isLinkCurrent('Auth:registration')}
 	{elseif $presenter->isLinkCurrent('Auth:in')}
 	{elseif $isGuest || !$userEntity->registered}
-		{if $isGuest}
-			<a href="#" data-toggle="modal" data-target="#loginModal">
-                {_'header.user.login'}
-            </a>
-            <div class="dropdown no-image" style="display:inline-block">
+	    {if $isGuest}
+{*
+	       <a href="#" data-toggle="modal" data-target="#loginModal">
+                  {_'header.user.login'}
+               </a>
+               <div class="dropdown no-image" style="display:inline-block">
                 <a href="#" class="dropdown-toggle">
                     <i class="icon icon-dropdown-caret"></i>
                 </a>
@@ -20,7 +21,8 @@
                     </li>
                 </ul>
             </div>
-        {else}
+*}
+               {else}
             <div class="pull-right">
                 <a n:href="Auth:registration" class="btn btn-primary">
                     {_'header.user.openAccountDirect'}
