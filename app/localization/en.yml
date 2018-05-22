@@ -289,6 +289,7 @@ schemaForm:
   description:
     missing: "Fill in schema description"
     caption: "Detailed description (15-20 words)"
+  visible: "Visible"
   button:
     save: "Save"
 

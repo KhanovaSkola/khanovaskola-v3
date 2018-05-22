@@ -39,10 +39,11 @@ class Schema extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
+		$this->addCheckbox('visible');
 		$this->addEditorSelector('editors', $this->orm);
 		$this->addHidden('layout');
-
 		$this->addSubmit();
+                $this->setTranslator(null);
 	}
 
 	protected function process()
@@ -73,6 +74,7 @@ class Schema extends EditorForm
 
 		$schema->title = $v->title;
 		$schema->description = $v->description;
+		$schema->hidden = !$v->visible;
 		$schema->layout = $parsed;
 
 		foreach ($schema->blocks as $block)

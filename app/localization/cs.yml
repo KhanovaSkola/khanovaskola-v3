@@ -258,7 +258,7 @@ block:
 
 editor:
   form:
-    error: "Chyba: %1"
+    error: "Chyba %1"
   added:
     block:
       title: "Blok přidán."
@@ -353,6 +353,7 @@ schemaForm:
   description:
     caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis schématu"
+  visible: "Zobrazit ve vyhledávání"
   subject:
     missing: "Vyberte předmět, do kterého se má schéma zařadit"
   button:

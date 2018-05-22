@@ -28,7 +28,11 @@ abstract class EditorForm extends Form
 			{
 				throw $e;
 			}
-			$this->addError('/editor.form.error', $e->getMessage());
+			$this->addError($e->getMessage());
+                        //DH for some reason, these do not work with Translator
+                        // So I had to turn it off, see file app/components/forms/Schema.php
+			//$this->addError('/editor.form.error', $e->getMessage());
+			//$this->addError('/editor.form.error', NULL, ['value' => $e->getMessage()]);
 		}
 	}
 

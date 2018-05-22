@@ -19,6 +19,7 @@ use Orm\OneToMany as OtM;
  * @property MtM|User[]              $editors            {m:m users $schemasEdited}
  * @property OtM|VideoView[]         $views              {1:m videoViews $schema}
  * @property bool                    $fromOldWeb         {default FALSE}
+ * @property bool                    $hidden             {default FALSE}
  *
  * @property Block[]                 $blocks             {ignore}
  */

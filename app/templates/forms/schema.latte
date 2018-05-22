@@ -12,6 +12,12 @@
         <input n:name="description" type="text" class="form-control">
         {include error, control => $form['description']}
     </div>
+    <div class="checkbox">
+        <label n:name="visible">
+            <input n:name="visible"> {_'visible'}
+            <span></span>
+        </label>
+    </div>
     <div class="form-group{if $form['editors']->errors} has-error{/if}">
         <label n:name="editors">
             Editors
