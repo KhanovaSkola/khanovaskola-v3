@@ -57,6 +57,7 @@ class SchemaEditor extends Presenter
 		{
 			$form['title']->setDefaultValue($this->schema->title);
 			$form['description']->setDefaultValue($this->schema->description);
+			$form['kaUrl']->setDefaultValue($this->schema->kaUrl);
 			$form['visible']->setDefaultValue(!$this->schema->hidden);
 			$form['editors']->setEditable(
 				$this->schema->author->id === $this->userEntity->id ||

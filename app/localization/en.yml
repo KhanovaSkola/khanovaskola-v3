@@ -289,6 +289,8 @@ schemaForm:
   description:
     missing: "Fill in schema description"
     caption: "Detailed description (15-20 words)"
+  kaUrl:
+    caption: "Link to corresponding KA subject (optional)"
   visible: "Visible"
   button:
     save: "Save"

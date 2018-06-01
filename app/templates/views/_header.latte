@@ -52,7 +52,7 @@
 										{foreach $subj->getMenuItems() as $sch}
 											<div class="row">
                                                 <span class="title">
-                                                    <a n:href="$sch">{$sch->title}</a> &mdash;
+                                                    <a n:href="$sch">{$sch->title}</a>{if !$sch->kaUrl} &mdash;{/if}
                                                 </span>
                                                 <span class="blocks">
                                                 	{var $blocks = $sch->blocks}
@@ -68,18 +68,21 @@
                                                         {elseif $sch->title === "Výrazy a jejich úpravy"}
                                                 	   {var $limit = 2}
                                                     	{/if}
-                                                    {foreach $blocks as $bl}
-                                                    	{if $limit <= 0}
-                                                    		<a n:href="$sch">a&nbsp;další&nbsp;&hellip;</a>
-                                                    		{php break}
+                                 
+                                                        {if !$sch->kaUrl}
+                                                            {foreach $blocks as $bl}
+                                                    	       {if $limit <= 0}
+                                                    	          <a n:href="$sch">a&nbsp;další&nbsp;&hellip;</a>
+                                                    	          {php break}
+                                                    	       {/if}
+                                                    	       {if $limit & 1}
+                                                                  <a data-altcolor="1" n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
+                                                    	       {else}
+                                                                  <a n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
+                                                    	       {/if}
+                                                               {php $limit--}
+                                                            {/foreach}
                                                     	{/if}
-                                                    	{if $limit & 1}
-                                                            <a data-altcolor="1" n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
-                                                    	{else}
-                                                            <a n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
-                                                    	{/if}
-                                                        {php $limit--}
-                                                    {/foreach}
                                                 </span>
                                             </div>
 										{/foreach}

@@ -353,6 +353,8 @@ schemaForm:
   description:
     caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis schématu"
+  kaUrl:
+    caption: "URL na ekvivalentní předmět na KA (nepovinné)"
   visible: "Zobrazit ve vyhledávání"
   subject:
     missing: "Vyberte předmět, do kterého se má schéma zařadit"

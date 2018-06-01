@@ -39,6 +39,7 @@ class Schema extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
+		$this->addText('kaUrl');
 		$this->addCheckbox('visible');
 		$this->addEditorSelector('editors', $this->orm);
 		$this->addHidden('layout');
@@ -74,6 +75,7 @@ class Schema extends EditorForm
 
 		$schema->title = $v->title;
 		$schema->description = $v->description;
+		$schema->kaUrl = $v->kaUrl;
 		$schema->hidden = !$v->visible;
 		$schema->layout = $parsed;
 
