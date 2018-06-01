@@ -391,6 +391,8 @@ blockForm:
   description:
     caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis bloku"
+  kaUrl:
+    caption: "URL na ekvivalentní topic nebo tutorial na KA (nepovinné)"
   visible: "Zobrazit ve vyhledávání"
   button:
     save: "Uložit"

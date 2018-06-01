@@ -10,6 +10,7 @@ use Orm;
  * @property string      $title
  * @property string      $slug        {ignore}
  * @property NULL|string $description
+ * @property NULL|string $kaUrl
  */
 abstract class TitledEntity extends Entity
 {

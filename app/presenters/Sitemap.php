@@ -28,27 +28,27 @@ class Sitemap extends Presenter
 			$map->add($this->link('//Text:about'),
 				filemtime(__DIR__ . '/../templates/views/Text/about.latte'), Freq::MONTHLY, 0.7);
 
-		        $map->add('https://blog.khanovaskola.cz/',NULL, Freq::MONTHLY, 0.8);
+		  $map->add('https://blog.khanovaskola.cz/',NULL, Freq::MONTHLY, 0.8);
 
 			foreach ($this->orm->schemas->findAll() as $schema)
 			{
-                           if ( ! is_null( $schema->position) && ! $schema->hidden) {
-				$map->add($this->absoluteLink($schema), NULL, Freq::MONTHLY, 0.9);
-                           }
+        if ( ! is_null( $schema->position) && ! $schema->hidden) {
+				  $map->add($this->absoluteLink($schema), NULL, Freq::MONTHLY, 0.9);
+        }
 			}
 			foreach ($this->orm->blocks->findAll() as $block)
 			{
-                           if (! $block->hidden) {
-				$map->add($this->absoluteLink($block), NULL, Freq::MONTHLY, 0.7);
-                           }
+        if (! $block->hidden) {
+				  $map->add($this->absoluteLink($block), NULL, Freq::MONTHLY, 0.7);
+        }
 			}
 
 			foreach ($this->orm->contents->findAll() as $content)
 			{
-                           if (! $content->hidden || ! is_null($content->removedAt) ) { 
-				$map->add($this->absoluteLink($content), NULL, Freq::WEEKLY);
-                           }
-                        }
+        if (! $content->hidden || ! is_null($content->removedAt) ) { 
+				  $map->add($this->absoluteLink($content), NULL, Freq::WEEKLY);
+        }
+      }
 
 			return $map->toString();
 		});

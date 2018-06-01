@@ -16,6 +16,7 @@ class Block extends EditorForm
 			->setRequired('title.missing');
 		$this->addText('description')
 			->setRequired('description.missing');
+		$this->addText('kaUrl');
 		$this->addEditorSelector('editors', $this->orm);
 		$this->addCheckbox('visible');
 		$this->addHidden('contents');
@@ -49,6 +50,7 @@ class Block extends EditorForm
 
 		$block->title = $v->title;
 		$block->description = $v->description;
+		$block->kaUrl= $v->kaUrl;
 		$block->hidden = !$v->visible;
 		$block->contentBlockBridges = [];
 

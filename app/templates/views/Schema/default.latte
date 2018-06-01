@@ -93,17 +93,22 @@
 		                                <div class="cell cell-odd{if $join} arrow-vertical{/if}">
 		                                    {if $cell}
 		                                        {var $block = $getBlock($cell)}
-		                                        <a n:href="$block, $schema">
-							                        <i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
-							                        <span>{$block->title}</span>
-						                        </a>
-						                    {/if}
-					                    </div>
-					                {/if}
-				                {/foreach}
-				            </div>
-				        {/foreach}
-				    </div>
+                                                        {if $block->kaUrl }
+	                                                    <a href="{$block->kaUrl}" rel="external" target="_blank">
+                                                         {*TODO: Maybe a different icon for KA content? *}
+                                                        {else}
+		                                            <a n:href="$block, $schema">
+                                                        {/if}
+							<i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
+							<span>{$block->title}</span>
+						        </a>
+						     {/if}
+					             </div>
+					     {/if}
+				         {/foreach}
+				         </div>
+				    {/foreach}
+				</div>
 			    </div>
 			</div>
 		{/cache}
