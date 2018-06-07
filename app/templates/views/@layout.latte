@@ -77,9 +77,24 @@
 
 	<div n:if="$flashes" class="container flashes">
 		<div class="col-md-12">
-			<div n:foreach="$flashes as $flash" class="alert alert-dismissable alert-{$flash->type}">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible fade in" role="alert">
 				<strong>{$flash->title}</strong> {$flash->message}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+		</div>
+	</div>
+
+  <!--Link to new Khan Academy in Czech! -->
+	<div class="container flashes">
+		<div class="col-md-12">
+			<div class="alert alert-info alert-dismissible fade in" align="center" role="alert">
+				<span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+				<h4>
+          Spustili jsme nový web!
+	        <a href="https://cs.khanacademy.org" class="btn btn-secondary" rel="external" target="_blank">Pojďte se podívat!</a>
+        </h4>
+         Kromě videí tam také najdete cvičení, personalizovanou výuku, nástroje pro učitele a mnoho dalšího. 
+       {* <a href="https://cs.khanacademy.org" target="_blank" rel="external" class="alert-link">Pojďte se podívat!</a>  *}
 			</div>
 		</div>
 	</div>

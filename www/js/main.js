@@ -3,6 +3,7 @@
 	require.config({
 		baseUrl: `${basePath}/build/js`,
 		paths: {
+			'lib/alert': `${basePath}/libs/bootstrap/js/alert`,
 			'lib/babel': `${basePath}/libs/babel/browser-polyfill`,
 			'lib/blackboard/player': `${basePath}/libs/blackboard/build/player`,
 			'lib/blackboard/recorder': `${basePath}/libs/blackboard/build/recorder`,
@@ -13,6 +14,7 @@
 			'lib/handsontable': `${basePath}/libs/handsontable/dist/handsontable.full.min`,
 			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,
 			'lib/jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
+			'lib/js-cookie': `${basePath}/libs/js-cookie/src/js.cookie`,
 			'lib/mailcheck': `${basePath}/libs/mailcheck/src/mailcheck.min`,
 			'lib/mathjax': `${basePath}/libs/MathJax/MathJax`,
 			'lib/modal': `${basePath}/libs/bootstrap/js/modal`,
@@ -25,6 +27,7 @@
 			'lib/zxcvbn': `${basePath}/libs/zxcvbn/zxcvbn`
 		},
 		shim: {
+			'lib/alert': ['lib/jquery'],
 			'lib/chosen': ['lib/jquery'],
 			'lib/dropdown': ['lib/jquery'],
 			'lib/handonstable': ['lib/zeroclipboard'],

@@ -15,7 +15,7 @@
 	<div class="container" id="TEST">
 	    <main class="content">
 	        <div class="content-inner">
-                     {*TODO: Move subject selector to separate latte file *}
+              {*TODO: Move subject selector to separate latte file *}
 	            <hgroup>
 	                {var $tab = 0}
 	                <h2 n:if="$firstSubject">
@@ -38,23 +38,23 @@
 	            </hgroup>
 
 				<div class="hgroup-mobile">
-                	<h1>
-                		<span>{_'homepage.mobile.learnAnything'}</span>
-                		<small>{_'homepage.mobile.reasonToLearn'}</small>
-                	</h1>
-                </div>
+           <h1>
+             <span>{_'homepage.mobile.learnAnything'}</span>
+             <small>{_'homepage.mobile.reasonToLearn'}</small>
+           </h1>
+        </div>
 
-	            <div class="join">
-	                <a href="#" class="btn" data-begin>{_'homepage.button.startNow'}</a>
-	                <br>
-	                <a n:href="Text:about" class="text">
-                        {if $videoCount > 1}
-                           {_'homepage.text.moreThan', $videoCount} 
-                           {_'homepage.text.contentTypes', $videoCount}
-                        {/if}
-                        {_'homepage.text.motto'}
-                        </a>
-	            </div>
+	      <div class="join">
+	          <a href="#" class="btn" data-begin>{_'homepage.button.startNow'}</a>
+	          <br>
+	          <a n:href="Text:about" class="text">
+                  {if $videoCount > 1}
+                     {_'homepage.text.moreThan', $videoCount} 
+                     {_'homepage.text.contentTypes', $videoCount}
+                  {/if}
+                  {_'homepage.text.motto'}
+            </a>
+	      </div>
 {*
 		    <div class="login">
 		        <a n:href="Auth:in" class="btn btn-primary">Přihlásit se</a>
@@ -85,4 +85,4 @@
 	            <i class="icon icon-content-previous"></i>
 	        </a>
             </div>
-        </footer>
+  </footer>

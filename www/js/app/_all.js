@@ -1,4 +1,6 @@
 define([
+	'lib/alert',
+	'lib/js-cookie',
 	'lib/modal',
 	'logic/auth/loginForm',
 	'logic/clickCatchers',
