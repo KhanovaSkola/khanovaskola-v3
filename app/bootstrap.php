@@ -8,7 +8,7 @@ require __DIR__ . '/shortcuts.php';
 
 $configurator = new App\Config\Configurator;
 //$configurator->setDebugMode(['192.168.0.102']);
-$configurator->setDebugMode(true);
+$configurator->setDebugMode(false);
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 // Disable deprecation errors for now
