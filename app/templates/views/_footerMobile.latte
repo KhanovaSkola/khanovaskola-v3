@@ -4,7 +4,7 @@
 	        <strong>{_'footer.mobile.subjects'}</strong>
 	        <div class="subjects" id="mobile-nav-subjects">
 	            {foreach $subjects as $subj}
-                    <a href="#" class="subject text-{$subj->color}" data-subj-open="{$subj->id}">
+                    <a href="#" class="subject text-{$subj->color}" data-subject-open="{$subj->id}">
                         <span>{$subj->title}</span>
                         <i class="icon icon-{$subj->icon}"></i>
                     </a>
