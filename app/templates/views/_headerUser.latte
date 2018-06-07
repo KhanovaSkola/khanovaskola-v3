@@ -3,8 +3,8 @@
 	{if $presenter->isLinkCurrent('Auth:registration')}
 	{elseif $presenter->isLinkCurrent('Auth:in')}
 	{elseif $isGuest || !$userEntity->registered}
-	    {if $isGuest}
 {*
+	    {if $isGuest}
 	       <a href="#" data-toggle="modal" data-target="#loginModal">
                   {_'header.user.login'}
                </a>
@@ -21,7 +21,6 @@
                     </li>
                 </ul>
             </div>
-*}
                {else}
             <div class="pull-right">
                 <a n:href="Auth:registration" class="btn btn-primary">
@@ -79,7 +78,7 @@
                 </div>
             </div>
         </div>
-
+*}
     {else}{*if $userEntity->registered*}
 
         <div class="dropdown{if !$userEntity->avatar} missing-avatar{/if}">
