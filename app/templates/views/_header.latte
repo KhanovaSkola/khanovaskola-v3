@@ -1,123 +1,157 @@
 {includeblock _headerUser.latte}
 {define headerLogo}
-	<div class="header-logo">
-        <a n:href="Homepage:" class="logo">
-            <img src="{$basePath}/img/logo.svg" width="40" height="36" alt={_'header.general.siteName'}>
-        </a>
-    </div>
+  <div class="header-logo">
+    <a n:href="Homepage:" class="logo">
+      <img src="{$basePath}/img/logo.svg" width="40" height="36" alt={_'header.general.siteName'}>
+    </a>
+  </div>
 {/define}
 {define header}
-	<header class="header{if !$headerBorder} header-white-border{/if}">
-		{block headerBack}
-			{include headerLogo}
-		{/block}
-		<div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : ''}"
-			style="width: 70%">
-			{cache expire => '20 minutes', tags => ['header']}
-				<div class="pull-left">
-				       <div class="dropdown dropdown-big" data-subjects-dropdown>
-					     <a href="#" class="dropdown-toggle span-link">
-						   <span>{_'header.general.subject'}</span>
-						   <i class="icon icon-dropdown-caret"></i>
-					     </a>
-					     <div class="dropdown-menu">
-						   <div class="subjects-list">
-							 <ul class="ul-tab" role="tablist">
-							    <li n:foreach="$subjects as $i => $subj"{first} data-default-label{/first}>
-							    <a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
-		                                            <span>{$subj->title}</span>
-		                                            <i class="icon icon-{$subj->icon}"></i>
-		                                            </a>
-							    </li>
-                                                            {if $language === 'cs'}
-							    <li class="divider"></li>
-							       <li n:foreach="$oldSubjects as $j => $subj">
-                                                               <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
-                                                               <span>{$subj->title}</span>
-                                                               <i class="icon icon-{$subj->icon}"></i>
-                                                               </a>
-                                                               </li>
-							    <li>
-							    <a n:href="Homepage:randomContent" rel="nofollow">
-							    <span>{_'header.general.feelLucky'}</span>
-							    <i class="icon icon-globe"></i>
-						            </a>
-						            </li>
-                                                            {/if}
-						         </ul>
-						   </div>
-					     <div class="subject-detail tab-content">
-					<div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
-									{block subjectDetail}
-										{foreach $subj->getMenuItems() as $sch}
-											<div class="row">
-                                                <span class="title">
-                                                    <a n:href="$sch">{$sch->title}</a>{if !$sch->kaUrl} &mdash;{/if}
-                                                </span>
-                                                <span class="blocks">
-                                                	{var $blocks = $sch->blocks}
-                                                	{var $limit = 8}
-                                                        {*The following ugliness is the menu optimization*}
-                                                        {if $subj->title === "Matematika"}
-                                                	   {var $limit = 4}
-                                                    	{/if}
-                                                        {if $sch->title === "Rovnice a nerovnice"}
-                                                	   {var $limit = 2}
-                                                        {elseif $sch->title === "Pravděpodobnost a statistika"}
-                                                	   {var $limit = 3}
-                                                        {elseif $sch->title === "Výrazy a jejich úpravy"}
-                                                	   {var $limit = 2}
-                                                    	{/if}
-                                 
-                                                        {if !$sch->kaUrl}
-                                                            {foreach $blocks as $bl}
-                                                    	       {if $limit <= 0}
-                                                    	          <a n:href="$sch">a&nbsp;další&nbsp;&hellip;</a>
-                                                    	          {php break}
-                                                    	       {/if}
-                                                    	       {if $limit & 1}
-                                                                  <a data-altcolor="1" n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
-                                                    	       {else}
-                                                                  <a n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
-                                                    	       {/if}
-                                                               {php $limit--}
-                                                            {/foreach}
-                                                    	{/if}
-                                                </span>
-                                            </div>
-										{/foreach}
-									{/block}
-								</div>
-								<div n:foreach="$oldSubjects as $j => $subj" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subj->id}">
-									{include subjectDetail}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			{/cache}
-			<div class="pull-left">
-				<div class="search-wrapper">
-					<div class="pull-left search-input">
-						{control search}
-					</div>
-				</div>
-			</div>
-			{ifCurrent Homepage:}
-                           {if $language === 'cs'}
-				<div class="pull-right" style="margin-top: 20px">
-                                    <a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
-		                    <img src="{$basePath}/img/bakalari.svg" width="" height="45">
-		                    </a>
-				</div>
-			   {/if}
-			{/ifCurrent}
-		</div>
-		<div class="header-userarea clearfix">
-                     {include headerUser}
-		</div>
-		<a href="#" class="burger">
-            <i class="icon icon-burger" alt="{_'header.general.userMenuOpen'}"></i>
-        </a>
-	</header>
+  <header class="header{if !$headerBorder} header-white-border{/if}">
+    {block headerBack}
+      {include headerLogo}
+    {/block}
+    <div class="header-content clearfix" data-active-subject="{isset($schema) && $schema->subject ? $schema->subject->id : ''}"
+      style="width: 70%">
+      {cache expire => '20 minutes', tags => ['header']}
+        <div class="pull-left">
+               <div class="dropdown dropdown-big" data-subjects-dropdown>
+               <a href="#" class="dropdown-toggle span-link">
+               <span>{_'header.general.subject'}</span>
+               <i class="icon icon-dropdown-caret"></i>
+               </a>
+               <div class="dropdown-menu">
+               <div class="subjects-list">
+               <ul class="ul-tab" role="tablist">
+                  <li n:foreach="$subjects as $i => $subj"{first} data-default-label{/first}>
+                  <a href="#tab-{$i}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+                                                <span>{$subj->title}</span>
+                                                <i class="icon icon-{$subj->icon}"></i>
+                                                </a>
+                  </li>
+                  {if $language === 'cs' && false} {*hide this*}
+                    <li class="divider"></li>
+                      <li n:foreach="$oldSubjects as $j => $subj">
+                        <a href="#tab-{$i + $j + 1}" role="tab" data-toggle="tab" class="text-{$subj->color}" data-subject-id="{$subj->id}">
+                          <span>{$subj->title}</span>
+                          <i class="icon icon-{$subj->icon}"></i>
+                        </a>
+                      </li>
+                    <li>
+                      <a n:href="Homepage:randomContent" rel="nofollow">
+                      <span>{_'header.general.feelLucky'}</span>
+                      <i class="icon icon-globe"></i>
+                      </a>
+                    </li>
+                  {/if}
+               </ul>
+               </div>
+               <div class="subject-detail tab-content">
+                  <div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
+                  {block subjectDetail}
+                  {*Very ugly hack *} 
+                  {if $subj->title === "Matematika" || $subj->title === "Informatika"}
+                  <div class="ka-subjects">
+                    <div class="row">
+                      <b>Obsah dostupný na české Khan Academy</b>
+                    </div>
+                  {* First, show schemas leading to KA-CS *}
+                  {foreach $subj->getMenuItems() as $sch}
+                    {if $sch->kaUrl}
+                      <div class="row">
+                        <span class="title">
+                          <a href="{$sch->kaUrl}" target="_blank" rel="external" class="text-ka-default">{$sch->title}</a> &mdash;
+                        </span>
+                        <span class="blocks">
+                          {var $blocks = $sch->blocks}
+                          {var $limit = 3}
+                          {foreach $blocks as $bl}
+                            {if $limit <= 0}
+                              <a href="{$sch->kaUrl}">a&nbsp;další&nbsp;&hellip;</a>
+                              {php break}
+                            {/if}
+                            {*Here we simply assume that each block has its KA URL!!!*}
+                            <a href="{$bl->kaUrl}" target="_blank" rel="external" class="text-ka-math">{$bl->title}</a>{sep}, {/sep}
+                            {php $limit--}
+                          {/foreach}
+                        </span>
+                      </div>
+                    {/if}
+                  {/foreach}
+                  <hr>
+                  </div>
+                  {/if}
+                  {*END OF Khan Academy part*}
+                  {foreach $subj->getMenuItems() as $sch}
+                    {if !$sch->kaUrl}
+                      {var $scht = $sch->title}
+                      <div class="row">
+                        <span class="title">
+                          <a n:href="$sch">{$scht}</a> &mdash;
+                        </span>
+                        <span class="blocks">
+                        {var $blocks = $sch->blocks}
+                        {var $limit = 8}
+                        {*The following ugliness is the menu optimization*}
+                        {if $subj->title === "Matematika"}
+                          {var $limit = 4}
+                        {/if}
+                        {if $sch->title === "Rovnice a nerovnice" || $sch->title === "Pravděpodobnost a statistika"}
+                           {var $limit = 2}
+                        {elseif strpos($scht, "Mocniny") !== false}
+                           {var $limit = 1}
+                        {elseif strpos($scht, "Výrazy") !== false || strpos($scht,"Funk") !== false}
+                           {var $limit = 2}
+                        {elseif strpos($scht, "Difere") !== false}
+                           {var $limit = 3}
+                        {/if}
+                        
+                        {foreach $blocks as $bl}
+                          {if $limit <= 0}
+                            <a n:href="$sch">a&nbsp;další&nbsp;&hellip;</a>
+                            {*<a n:href="$sch">&nbsp;&hellip;</a>*}
+                            {php break}
+                          {/if}
+                          <a n:href="$bl, $sch">{$bl->title}</a>{sep}, {/sep}
+                          {php $limit--}
+                        {/foreach}
+                      </span>
+                    </div>
+                    {/if}
+                  {/foreach}
+                  {/block}
+                </div>
+                <div n:foreach="$oldSubjects as $j => $subj" class="tab-pane" id="tab-{$i + $j + 1}" data-subject-id="{$subj->id}">
+                  {include subjectDetail}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {/cache}
+      <div class="pull-left">
+        <div class="search-wrapper">
+          <div class="pull-left search-input">
+            {control search}
+          </div>
+        </div>
+      </div>
+      {ifCurrent Homepage:}
+        {if $language === 'cs'}
+          <div class="pull-right" style="margin-top: 20px">
+            <a href="https://www.bakalari.cz/" target="_blank" rel="nofollow">
+              <img src="{$basePath}/img/bakalari.svg" width="" height="45">
+            </a>
+          </div>
+        {/if}
+      {/ifCurrent}
+    </div>
+    <div class="header-userarea clearfix">
+      {include headerUser}
+    </div>
+    <a href="#" class="burger">
+      <i class="icon icon-burger" alt="{_'header.general.userMenuOpen'}"></i>
+    </a>
+  </header>
 {/define}
+
