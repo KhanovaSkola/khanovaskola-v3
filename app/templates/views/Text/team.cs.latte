@@ -35,15 +35,15 @@
                 <p class="call-to-action">
                     <a href="https://forum.khanovaskola.cz/t/jak-mohu-pomoci/482" class="btn">Chci se také zapojit!</a>
                 </p>
-                {foreach $users as $i => $user}
+                {foreach $users as $i => $usr}
 					<div class="person{if $iterator->isEven()} person-even{/if}">
-						<img class="team-photo" src="{$user->avatar}" title="{$user->name}">
+						<img class="team-photo" src="{$usr->avatar}" title="{$usr->name}">
 						<div class="name">
-							<a href="{$user->forumUrl}">{$user->name}</a>
-							<span class="title">{$user->title}</span>
+							<a href="{$usr->forumUrl}">{$usr->name}</a>
+							<span class="title">{$usr->title}</span>
 						</div>
 						<div class="bio">
-							{$user->bio|vlna|noescape}
+							{$usr->bio|vlna|noescape}
 						</div>
 						<div class="clearfix" />
 					</div>
