@@ -6,29 +6,33 @@
 	 * @param User $userEntity
 	 *}
 
-	<div class="modal modal-sign modal-static modal-registration">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h2 class="text-center" n:block=title>{_'auth.registration.title'}</h2>
-                    <div>
-                        {control registrationForm}
-                    </div>
-                    <div>
-                     Přihlášením souhlasíš s našimi <a href="{$basePath}/tos.pdf">Podmínkami poskytování služeb</a>
-                a <a href="https://forum.khanovaskola.cz/privacy">Zásadami zpracování osobních údajů</a>.
-                    </div>
-                </div>
-                <div class="modal-footer" data-buttons-disable-onclick>
-                    <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-                        <i class="icon icon-facebook"></i>
-                        <span>{_'auth.login.via.fb'}</span>
-                    </a>
-                    <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-                        <i class="icon icon-google-plus"></i>
-                        <span>{_'auth.login.via.google'}</span>
-                    </a>
-                </div>
-            </div>
+  <div class="modal modal-sign modal-static modal-registration">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2 class="text-center" n:block=title>{_'auth.registration.title'}</h2>
+          <div class="text-center">
+            Pokud už jste zaregistrováni, <a href="{$BasePath}/prihlaseni">přihlašte se</a>.
+          </div>
+          <div>
+            {control registrationForm}
+          </div>
+          <div>
+            Registrací souhlasíte s našimi <a href="https://forum.khanovaskola.cz/tos">Podmínkami poskytování služeb</a>
+            a <a href="https://forum.khanovaskola.cz/privacy">Zásadami zpracování osobních údajů</a> a dáváte najevo,
+            že je vám <b>více jak 13 let</b>.
+          </div>
         </div>
+        <div class="modal-footer" data-buttons-disable-onclick>
+          <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
+            <i class="icon icon-facebook"></i>
+            <span>{_'auth.login.via.fb'}</span>
+          </a>
+          <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
+            <i class="icon icon-google-plus"></i>
+            <span>{_'auth.login.via.google'}</span>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>

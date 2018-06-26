@@ -50,7 +50,7 @@
                   <div n:foreach="$subjects as $i => $subj" class="tab-pane" id="tab-{$i}"{first} data-default-tab{/first} data-subject-id="{$subj->id}">
                   {block subjectDetail}
                   {*Very ugly hack *} 
-                  {if $subj->title === "Matematika" || $subj->title === "Informatika"}
+                  {if $subj->title === "Matematika" || $subj->title === "Informatika" || $subj->title === "Fyzika"}
                   <div class="ka-subjects">
                     <div class="row">
                       <b>Obsah dostupný na české Khan Academy</b>
