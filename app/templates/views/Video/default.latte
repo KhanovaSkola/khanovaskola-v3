@@ -63,7 +63,7 @@
                                <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
                            {/if}
                             <div class="video-real hidden-video">
-                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?enablejsapi=1&fs=0&hl=cs&rel=0&controls=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
+                                <iframe src="https://www.youtube.com/embed/{$video->youtubeId}?autoplay=0&cc_load_policy=0&modestbranding=1&enablejsapi=1&fs=0&hl=cs&rel=0&controls=0&html5=1&playsinline=1&origin={urlencode($baseUrl)}&start={$startAtTime}" id="youtube-video"></iframe>
                             </div>
                             <div class="video-subtitles">
                                 <div class="subtitles-inner">
