@@ -91,7 +91,7 @@ class Discourse
 	public function getPromotedUsers()
 	{
 		$usernames = [];
-		foreach (['vybor', 'editori'] as $group)
+		foreach (['vybor', 'videotvurci', 'proofreaders'] as $group)
 		{
 			foreach ($this->getMembersOf($group) as $user)
 			{
