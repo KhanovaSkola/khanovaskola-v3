@@ -39,7 +39,7 @@ monolog:
 
 facebook:
 	permissions: [email, public_profile]
-	graphVersion: v2.9
+	graphVersion: v3.3
 	tls: %tls%
 
 google:
