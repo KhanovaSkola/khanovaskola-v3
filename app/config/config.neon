@@ -23,7 +23,7 @@ application:
 	mapping:
 		*: App\Presenters\*\*
 session:
-	expiration: 5 years
+	expiration: 1 years
 
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
