@@ -65,12 +65,15 @@
                         <span class="blocks">
                           {var $blocks = $sch->blocks}
                           {var $limit = 3}
+                          {if $sch->title === "Diferenciální počet" || $sch->title === "Výrazy" || $sch->title === "Trigonometrie"}
+                            {var $limit = 2}
+                          {/if}
                           {foreach $blocks as $bl}
                             {if $limit <= 0}
                               <a href="{$sch->kaUrl}">a&nbsp;další&nbsp;&hellip;</a>
                               {php break}
                             {/if}
-                            {*Here we simply assume that each block has its KA URL!!!*}
+                            {*Here we assume that each block has its KA URL!!!*}
                             <a href="{$bl->kaUrl}" target="_blank" rel="external" class="text-ka-math">{$bl->title}</a>{sep}, {/sep}
                             {php $limit--}
                           {/foreach}
