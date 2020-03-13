@@ -1,7 +1,7 @@
 {
-  "name": "KhanovaSkola",
+  "name": "khanova-skola",
   "dependencies": {
-    "bootstrap": "~3.3.2",
+    "bootstrap": "^3.4.1",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
     "codemirror": "~5.0.0",
     "handsontable": "~0.12.5",
