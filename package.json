@@ -9,7 +9,7 @@
     "gulp-concat": "~2.4",
     "gulp-cssmin": "~0.2",
     "gulp-less": "~4.0",
-    "gulp-load-plugins": "^2.0.2",
+    "gulp-load-plugins": "=1.6.0",
     "gulp-minify-html": "~0.1",
     "gulp-rename": "^1.4.0",
     "gulp-replace-task": "~0.1",
