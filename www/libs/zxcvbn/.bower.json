@@ -1,11 +1,11 @@
 {
   "name": "zxcvbn",
   "_cacheHeaders": {
-    "ETag": "\"90b7d2908d1305e0ab9f0fe0d983041e546af760\"",
+    "ETag": "W/\"4a2cac14b0b5e204e233d9a9574c0cc12fef9f9e9a008c708061c3572677508b\"",
     "Content-Type": "application/zip",
     "Content-Disposition": "attachment; filename=zxcvbn-1.0.zip"
   },
-  "_release": "e-tag:90b7d2908",
+  "_release": "e-tag:W/\"4a2cac1",
   "_source": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip",
   "_target": "*",
   "_originalSource": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip"

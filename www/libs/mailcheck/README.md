@@ -8,11 +8,9 @@ The Javascript library and jQuery plugin that suggests a right domain when your 
 What does it do?
 ----------------
 
-When your user types in "user@hotnail.con", Mailcheck will suggest "user@hotmail.com".
+When your user types in "user@gmil.con", Mailcheck will suggest "user@gmail.com".
 
-Mailcheck will offer up suggestions for top level domains too, and suggest ".com" when a user types in "user@hotmail.cmo".
-
-At [Kicksend](http://kicksend.com), we use Mailcheck to help reduce typos in email addresses during sign ups. It has [reduced our sign up confirmation email bounces by 50%](http://blog.kicksend.com/how-we-decreased-sign-up-confirmation-email-b).
+Mailcheck will offer up suggestions for second and top level domains too. For example when a user types in "user@hotmail.cmo" then "hotmail.com" will be suggested. Similarly if only the second level domain is miss-spelled then it will be corrected independently of the top level domain allowing for fine resolution tweaking if desired.
 
 ![diagram](https://raw.githubusercontent.com/mailcheck/mailcheck/master/doc/example.png)
 
@@ -51,11 +49,12 @@ Have a text field.
 <input id="email" name="email" type="email" />
 ```
 
-Now, attach Mailcheck to the text field. You can declare an array of domains and top level domains you want to check against.
+Now, attach Mailcheck to the text field. You can declare an array of domains, second level domains and top level domains you want to check against.
 
 ```html
 <script>
-var domains = ['hotmail.com', 'gmail.com', 'aol.com'];
+var domains = ['gmail.com', 'aol.com'];
+var secondLevelDomains = ['hotmail']
 var topLevelDomains = ["com", "net", "org"];
 
 var superStringDistance = function(string1, string2) {
@@ -65,6 +64,7 @@ var superStringDistance = function(string1, string2) {
 $('#email').on('blur', function() {
   $(this).mailcheck({
     domains: domains,                       // optional
+    secondLevelDomains: secondLevelDomains, // optional
     topLevelDomains: topLevelDomains,       // optional
     distanceFunction: superStringDistance,  // optional
     suggested: function(element, suggestion) {
@@ -85,9 +85,8 @@ Mailcheck takes in two callbacks, `suggested` and `empty`. We recommend you supp
 ```js
 {
   address: 'test',          // the address; part before the @ sign
-  domain: 'hotmail.com',    // the suggested domain
-  topLevelDomain: 'com',    // the suggested top level domain
-  full: 'test@hotmail.com'  // the full suggested email
+  domain: 'gmail.com',    // the suggested domain
+  full: 'test@gmail.com'  // the full suggested email
 }
 ```
 Mailcheck does not want to get in the way of how you can show suggestions. Use the suggestion object to display suggestions in your preferred manner.
@@ -107,6 +106,7 @@ Mailcheck.run({
   email: yourTextInput.value,
   domains: domains,                       // optional
   topLevelDomains: topLevelDomains,       // optional
+  secondLevelDomains: secondLevelDomains, // optional
   distanceFunction: superStringDistance,  // optional
   suggested: function(suggestion) {
     // callback code
@@ -136,7 +136,7 @@ mailcheck.run({
 Domains
 -------
 
-Mailcheck has inbuilt defaults if the `domains` or `topLevelDomains` options aren't provided. We still recommend supplying your own domains based on the distribution of your users.
+Mailcheck has inbuilt defaults if the `domains`, `secondLevelDomains` or `topLevelDomains` options aren't provided. We still recommend supplying your own domains based on the distribution of your users.
 
 #### Adding your own Domains ####
 
@@ -145,14 +145,16 @@ You can replace Mailcheck's default domain/TLD suggestions by supplying replacem
 ```js
 Mailcheck.run({
   domains: ['customdomain.com', 'anotherdomain.net'], // replaces existing domains
+  secondLevelDomains: ['domain', 'yetanotherdomain'], // replaces existing SLDs
   topLevelDomains: ['com.au', 'ru'] // replaces existing TLDs
 });
 ```
 
-Alternatively, you can *extend* Mailcheck's global set of default domains & TLDs by adding items to `Mailcheck.defaultDomains` and `Mailcheck.defaultTopLevelDomains`:
+Alternatively, you can *extend* Mailcheck's global set of default domains and TLDs by adding items to `Mailcheck.defaultDomains` and `Mailcheck.defaultTopLevelDomains`:
 
 ```js
 Mailcheck.defaultDomains.push('customdomain.com', 'anotherdomain.net') // extend existing domains
+Mailcheck.defaultSecondLevelDomains.push('domain', 'yetanotherdomain') // extend existing SLDs
 Mailcheck.defaultTopLevelDomains.push('com.au', 'ru') // extend existing TLDs
 ```
 
@@ -169,7 +171,7 @@ Since Mailcheck runs client side, keep in mind file size, memory usage and perfo
 Tests
 -----
 
-Mailcheck is tested with [Jasmine](http://pivotal.github.com/jasmine/). Load `spec/spec_runner.html` in your browser to run the tests or run `npm test` from the commandline to test in node.
+Mailcheck is tested with [Jasmine](https://jasmine.github.io/). Load `spec/spec_runner.html` in your browser to run the tests or run `npm test` from the command line to test in node.
 
 Contributing
 ------------
@@ -183,27 +185,18 @@ And do send in those pull requests! To get them accepted, please:
 
 Upcoming features, bugs and feature requests are managed in [Issues](https://github.com/mailcheck/mailcheck/issues).
 
-Developing on Nitrous.IO
----------------------
-
-Start contributing to Mailcheck instantly on [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=kicksend-mailcheck&utm_medium=hackonnitrous):
-
-[![Hack mailcheck/mailcheck on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=kicksend%2Fmailcheck&file_to_open=README.nitrous.md)
-
-
-Who have used Mailcheck?
+Who uses Mailcheck?
 -----------------------
 
-- [Kicksend](http://kicksend.com/)
 - [Dropbox](http://dropbox.com/)
+- [Hack Design](https://hackdesign.org/)
+- [Kicksend](http://kicksend.com/)
 - [Kickstarter](http://kickstarter.com/)
-- [Uber](http://uber.com/)
 - [Khan Academy](http://khanacademy.org/)
+- [Lyft](http://lyft.com/)
 - [Minecraft](http://minecraft.net/)
-- [Paperless Post](http://www.paperlesspost.com/)
-- [The Verge](http://theverge.com/)
 - [SB Nation](http://sbnation.com/)
-- [Kippt](http://kippt.com/)
+- [The Verge](http://theverge.com/)
 
 Do you use Mailcheck? [Tweet me](http://twitter.com/derrickko) your link.
 
@@ -220,7 +213,7 @@ Related Links
 Core Team
 -------
 
-- Derrick Ko, [Kicksend](http://kicksend.com), [@derrickko](http://twitter.com/derrickko). Created Mailcheck.
+- Derrick Ko, [@derrickko](http://twitter.com/derrickko). Created Mailcheck.
 - Wei Lu, [Hive](https://www.hivewallet.com/), [@luweidewei](http://twitter.com/luweidewei).
 
 License
