@@ -13,7 +13,7 @@
     "Sortable": "~1.1.1",
     "typeahead.js": "~0.10.5",
     "zxcvbn": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip",
-    "jquery-ui": "~1.11.3",
+    "jquery-ui": "~1.12.1",
     "mailcheck": "~1.1.0"
   }
 }
