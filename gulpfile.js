@@ -22,40 +22,17 @@ var lessBootstrapFiles = [
 
 	path.join(bsDir, 'mixins.less'),
 	path.join(bsDir, 'normalize.less'),
-	//path.join(bsDir, 'print.less'),
-	//path.join(bsDir, 'glyphicons.less'),
 	path.join(bsDir, 'scaffolding.less'),
 	path.join(bsDir, 'type.less'),
-	//path.join(bsDir, 'code.less'),
 	path.join(bsDir, 'grid.less'),
-	//path.join(bsDir, 'tables.less'),
 	path.join(bsDir, 'forms.less'),
 	path.join(bsDir, 'buttons.less'),
 	path.join(bsDir, 'component-animations.less'),
 	path.join(bsDir, 'dropdowns.less'),
-	//path.join(bsDir, 'button-groups.less'),
-	//path.join(bsDir, 'input-groups.less'),
 	path.join(bsDir, 'navs.less'),
-	//path.join(bsDir, 'navbar.less'),
-	//path.join(bsDir, 'breadcrumbs.less'),
-	//path.join(bsDir, 'pagination.less'),
-	//path.join(bsDir, 'pager.less'),
-	//path.join(bsDir, 'labels.less'),
-	//path.join(bsDir, 'badges.less'),
-	//path.join(bsDir, 'jumbotron.less'),
-	//path.join(bsDir, 'thumbnails.less'),
 	path.join(bsDir, 'alerts.less'),
-	//path.join(bsDir, 'progress-bars.less'),
-	//path.join(bsDir, 'media.less'),
-	//path.join(bsDir, 'list-group.less'),
-	//path.join(bsDir, 'panels.less'),
-	//path.join(bsDir, 'responsive-embed.less'),
-	//path.join(bsDir, 'wells.less'),
 	path.join(bsDir, 'close.less'),
 	path.join(bsDir, 'modals.less'),
-	//path.join(bsDir, 'tooltip.less'),
-	//path.join(bsDir, 'popovers.less'),
-	//path.join(bsDir, 'carousel.less'),
 	path.join(bsDir, 'utilities.less'),
 	path.join(bsDir, 'responsive-utilities.less')
 ];
@@ -82,9 +59,6 @@ var lessAdminFiles = [
 	path.join(lessDir, 'admin/*.less'),
 	path.join(lessDir, 'admin/components/*.less'),
 	path.join(lessDir, 'admin/pages/*.less')
-];
-var lessExperimentFiles = [
-	path.join(lessDir, 'experiments/*.less')
 ];
 var jsFiles = [
 	path.join(jsDir, '*.js'),
@@ -115,16 +89,6 @@ gulp.task('less-dev-admin', function() {
 			.pipe($.autoprefixer())
 	)
 		.pipe($.concat('main.admin.css'))
-		.pipe($.rename({suffix: '.min'}))
-		.pipe(gulp.dest(buildDir));
-});
-
-gulp.task('less-experiment', function() {
-	return gulp.src(lessExperimentFiles)
-		.pipe($.concat('experiment.search.always.visible.less'))
-		.pipe($.less())
-		.pipe($.autoprefixer())
-		.pipe($.cssmin())
 		.pipe($.rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 });
