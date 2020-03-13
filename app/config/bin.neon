@@ -1,9 +1,6 @@
 services:
 	- Bin\Services\ElasticPopulator
 	- Bin\Services\Scaffolding(%appDir%)
-	-
-		class: Faker\Generator
-		factory: Bin\Services\FakerFactory::create()
 
 console:
 	commands:
@@ -13,7 +10,6 @@ console:
 		- Bin\Commands\Blackboard\Preview
 		- Bin\Commands\Data\DeleteOld
 		- Bin\Commands\Data\Drop
-		- Bin\Commands\Data\Fake
 		- Bin\Commands\ElasticSearch\Analyzer
 		- Bin\Commands\ElasticSearch\BuildSynonyms
 		- Bin\Commands\ElasticSearch\Populate

@@ -21,6 +21,7 @@ class Route implements Application\IRouter
 	use Nette\SmartObject;
 
 	const PRESENTER_KEY = 'presenter';
+
 	const MODULE_KEY = 'module';
 
 	/** @internal url type */
@@ -30,10 +31,15 @@ class Route implements Application\IRouter
 
 	/** key used in {@link Route::$styles} or metadata {@link Route::__construct} */
 	const VALUE = 'value';
+
 	const PATTERN = 'pattern';
+
 	const FILTER_IN = 'filterIn';
+
 	const FILTER_OUT = 'filterOut';
+
 	const FILTER_TABLE = 'filterTable';
+
 	const FILTER_STRICT = 'filterStrict';
 
 	/** @internal fixity types - how to handle default value? {@link Route::$metadata} */
@@ -722,7 +728,7 @@ class Route implements Application\IRouter
 	 * @param  string
 	 * @return string
 	 */
-	private static function action2path($s)
+	public static function action2path($s)
 	{
 		$s = preg_replace('#(.)(?=[A-Z])#', '$1-', $s);
 		$s = strtolower($s);
@@ -736,7 +742,7 @@ class Route implements Application\IRouter
 	 * @param  string
 	 * @return string
 	 */
-	private static function path2action($s)
+	public static function path2action($s)
 	{
 		$s = preg_replace('#-(?=[a-z])#', ' ', $s);
 		$s = lcfirst(ucwords($s));
@@ -750,7 +756,7 @@ class Route implements Application\IRouter
 	 * @param  string
 	 * @return string
 	 */
-	private static function presenter2path($s)
+	public static function presenter2path($s)
 	{
 		$s = strtr($s, ':', '.');
 		$s = preg_replace('#([^.])(?=[A-Z])#', '$1-', $s);
@@ -765,7 +771,7 @@ class Route implements Application\IRouter
 	 * @param  string
 	 * @return string
 	 */
-	private static function path2presenter($s)
+	public static function path2presenter($s)
 	{
 		$s = preg_replace('#([.-])(?=[a-z])#', '$1 ', $s);
 		$s = ucwords($s);
@@ -780,7 +786,7 @@ class Route implements Application\IRouter
 	 * @param  string
 	 * @return string
 	 */
-	private static function param2path($s)
+	public static function param2path($s)
 	{
 		return str_replace('%2F', '/', rawurlencode($s));
 	}

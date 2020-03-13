@@ -13,7 +13,6 @@ use Nextras\Migrations\Engine;
 use Nextras\Migrations\Entities\Group;
 use Nextras\Migrations\IDriver;
 use Nextras\Migrations\IExtensionHandler;
-use Nextras\Migrations\Printers;
 
 
 abstract class BaseController
@@ -35,6 +34,9 @@ abstract class BaseController
 		$this->mode = Engine\Runner::MODE_CONTINUE;
 		$this->groups = array();
 	}
+
+
+	abstract public function run();
 
 
 	public function addGroup($name, $dir, array $dependencies = array())

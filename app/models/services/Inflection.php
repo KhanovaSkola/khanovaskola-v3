@@ -3,12 +3,13 @@
 namespace App\Models\Services;
 
 use App\Models\Structs\Gender;
-use Mikulas\Morphodita\Client;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use App\Models\Services\Locale;
 
-
+/*
+  Manual inflection (previously used Morphodita library
+ */
 class Inflection
 {
 	const NOMINATIVE = 1;
@@ -24,11 +25,6 @@ class Inflection
 	 */
 	private $cache;
 
-	/**
-	 * @var Client
-	 */
-	private $morph;
-
         /** 
          * @var Locale 
          */
@@ -38,10 +34,9 @@ class Inflection
 	/** @var string[] word => inflected */
 	private $words;
 
-	public function __construct(IStorage $storage, Client $morph, Locale $locale)
+	public function __construct(IStorage $storage, Locale $locale)
 	{
 		$this->cache = new Cache($storage, 'inflection');
-		$this->morph = $morph;
                 $this->locale = $locale;
                 $lc = $this->locale->getLocale();
 
@@ -89,81 +84,10 @@ class Inflection
 		
 	          } else {
 		     $inflected .= " $word";
-		     // file_put_contents('/tmp/phrases', "$word\n", FILE_APPEND);
 	          }
                }
+
                return ltrim($inflected);
-
-
-		$tagged = $this->morph->tag($phrase);
-		if (!$tagged || !is_array($tagged))
-		{
-			return $phrase;
-		}
-
-		$words = $this->flatten($tagged);
-
-		$lemmas = [];
-		foreach ($words as $word)
-		{
-			$lemmas[] = [
-				$word['lemma'],
-				$this->changeTagCase($word['tag'], 1, $case)
-			];
-		}
-
-		$generated = $this->morph->generate($lemmas);
-
-		$output = '';
-		foreach ($words as $i => $word)
-		{
-			$output .= isset($generated[$i]['form']) ? $generated[$i]['form'] : $word['token'];
-			if (isset($word['space']))
-			{
-				$output .= $word['space'];
-			}
-		}
-
-		return $this->fixCapitalization($output, $phrase);
-	}
-
-	private function changeTagCase($tag, $from, $to)
-	{
-		if ($tag[4] == $from)
-		{
-			$tag[4] = $to;
-		}
-		return $tag;
-	}
-
-	private function fixCapitalization($phrase, $template)
-	{
-		$split = '~(\s+|\.)~u';
-		$phraseParts = preg_split($split, $phrase, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-		$templateParts = preg_split($split, $template, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-		if (count($phraseParts) !== count($templateParts))
-		{
-			// template has different words than phrase
-			return $phrase;
-		}
-		foreach ($phraseParts as $i => &$part)
-		{
-			$upperWord = $templateParts[$i] == mb_convert_case($templateParts[$i], MB_CASE_UPPER);
-			if ($upperWord) // eg. USA
-			{
-				$part = mb_convert_case($part, MB_CASE_UPPER);
-				continue;
-			}
-
-			$first = mb_substr($templateParts[$i], 0, 1);
-			$upperFirst = $first == mb_convert_case($first, MB_CASE_UPPER);
-			if ($upperFirst)
-			{
-				$part = mb_convert_case($part, MB_CASE_TITLE); // hopefully will work like ucFirst
-			}
-		}
-
-		return implode('', $phraseParts);
 	}
 
 	private function flatten(array $sentences)
@@ -180,6 +104,8 @@ class Inflection
 		return $words;
 	}
 
+        /* TODO: Remove this
+         *
 	/**
 	 * @param string $phrase
 	 * @return string gender

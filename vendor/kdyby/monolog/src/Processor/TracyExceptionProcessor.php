@@ -12,24 +12,20 @@ namespace Kdyby\Monolog\Processor;
 
 use Kdyby\Monolog\Tracy\BlueScreenRenderer;
 
-
-
 class TracyExceptionProcessor
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	/**
 	 * @var \Kdyby\Monolog\Tracy\BlueScreenRenderer
 	 */
 	private $blueScreenRenderer;
 
-
-
 	public function __construct(BlueScreenRenderer $blueScreenRenderer)
 	{
 		$this->blueScreenRenderer = $blueScreenRenderer;
 	}
-
-
 
 	public function __invoke(array $record)
 	{
@@ -43,13 +39,11 @@ class TracyExceptionProcessor
 
 		if (!file_exists($filename)) {
 			$this->blueScreenRenderer->renderToFile($exception, $filename);
-			$record['context']['tracy_created'] = true;
+			$record['context']['tracy_created'] = TRUE;
 		}
 
 		return $record;
 	}
-
-
 
 	public function isHandling(array $record)
 	{

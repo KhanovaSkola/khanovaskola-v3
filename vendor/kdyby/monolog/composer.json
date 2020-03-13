@@ -20,8 +20,9 @@
 	"require": {
 		"php": "^5.6 || ^7.0",
 		"nette/di": "^2.4@dev",
-		"tracy/tracy": "^2.4@dev",
-		"monolog/monolog": "^1.10"
+		"kdyby/strict-objects": "^1.0",
+		"monolog/monolog": "^1.10",
+		"tracy/tracy": "^2.4@dev"
 	},
 	"require-dev": {
 		"nette/application": "^2.4@dev",
@@ -43,6 +44,9 @@
 		]
 	},
 	"autoload-dev": {
+		"psr-4": {
+			"KdybyTests\\": "tests/KdybyTests/"
+		},
 		"classmap": [
 			"tests/KdybyTests"
 		]

@@ -44,6 +44,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 		EMAIL = ':email',
 		URL = ':url',
 		PATTERN = ':pattern',
+		PATTERN_ICASE = ':patternCaseInsensitive',
 		INTEGER = ':integer',
 		NUMERIC = ':integer',
 		FLOAT = ':float',
@@ -238,7 +239,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 	public function addProtection($errorMessage = null)
 	{
 		$control = new Controls\CsrfProtection($errorMessage);
-		$this->addComponent($control, self::PROTECTOR_ID, key($this->getComponents()));
+		$this->addComponent($control, self::PROTECTOR_ID, key((array) $this->getComponents()));
 		return $control;
 	}
 
@@ -353,7 +354,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 
 	/**
 	 * Tells if the form was submitted.
-	 * @return ISubmitterControl|false  submittor control
+	 * @return ISubmitterControl|bool  submittor control
 	 */
 	public function isSubmitted()
 	{
@@ -686,7 +687,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 		} catch (\Throwable $e) {
 		}
 		if (isset($e)) {
-			if (func_num_args()) {
+			if (func_num_args() || PHP_VERSION_ID >= 70400) {
 				throw $e;
 			}
 			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);

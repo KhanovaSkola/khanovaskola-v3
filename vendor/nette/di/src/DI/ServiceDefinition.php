@@ -52,14 +52,14 @@ class ServiceDefinition
 	/** @var string|null  create | get */
 	private $implementMode;
 
-	/** @var callable */
-	private $notifier = 'pi'; // = noop
+	/** @var callable  'pi' is noop */
+	private $notifier = 'pi';
 
 
 	/**
 	 * @param  string|null
 	 * @return static
-	 * @deprecated
+	 * @deprecated Use setType() instead.
 	 */
 	public function setClass($type, array $args = [])
 	{
@@ -74,7 +74,7 @@ class ServiceDefinition
 
 	/**
 	 * @return string|null
-	 * @deprecated
+	 * @deprecated Use getType() instead.
 	 */
 	public function getClass()
 	{

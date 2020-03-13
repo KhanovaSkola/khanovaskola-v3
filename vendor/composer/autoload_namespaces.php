@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
-    'Kdyby\\Replicator\\' => array($vendorDir . '/kdyby/forms-replicator/src'),
     'Kdyby\\Redis\\' => array($vendorDir . '/kdyby/redis/src'),
     'Kdyby\\RabbitMq\\' => array($vendorDir . '/kdyby/rabbitmq/src'),
     'Kdyby\\Google\\' => array($vendorDir . '/kdyby/google/src'),

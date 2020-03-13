@@ -10,21 +10,14 @@
 
 namespace Kdyby\Monolog;
 
-use Kdyby;
-use Monolog;
-use Nette;
-
-
-
-/**
- * @author Filip Procházka <filip@prochazka.su>
- */
-class Logger extends Monolog\Logger
+class Logger extends \Monolog\Logger
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	/**
 	 * @param string $channel
-	 * @return CustomChannel
+	 * @return \Kdyby\Monolog\CustomChannel
 	 */
 	public function channel($channel)
 	{

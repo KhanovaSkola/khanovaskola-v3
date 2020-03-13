@@ -3,49 +3,50 @@
  */
 
 (function() {
-	var COLLAPSE_COUNT = 7,
+	const
+		COLLAPSE_COUNT = 7,
 		COLLAPSE_COUNT_TOP = 14;
 
-	Tracy = window.Tracy || {};
-
-	Tracy.Dumper = Tracy.Dumper || {};
-
-	Tracy.Dumper.init = function(repository, context) {
-		if (repository) {
-			[].forEach.call((context || document).querySelectorAll('.tracy-dump[data-tracy-dump]'), function(el) {
-				try {
-					el.appendChild(build(JSON.parse(el.getAttribute('data-tracy-dump')), repository, el.classList.contains('tracy-collapsed')));
-					el.classList.remove('tracy-collapsed');
-					el.removeAttribute('data-tracy-dump');
-				} catch (e) {
-					if (!(e instanceof UnknownEntityException)) {
-						throw e;
+	class Dumper
+	{
+		static init(repository, context) {
+			if (repository) {
+				[].forEach.call((context || document).querySelectorAll('.tracy-dump[data-tracy-dump]'), (el) => {
+					try {
+						let built = build(JSON.parse(el.getAttribute('data-tracy-dump')), repository, el.classList.contains('tracy-collapsed'));
+						el.insertBefore(built, el.lastChild);
+						el.classList.remove('tracy-collapsed');
+						el.removeAttribute('data-tracy-dump');
+					} catch (e) {
+						if (!(e instanceof UnknownEntityException)) {
+							throw e;
+						}
 					}
+				});
+			}
+
+			if (Dumper.inited) {
+				return;
+			}
+			Dumper.inited = true;
+
+			// enables <span data-tracy-href=""> & ctrl key
+			document.documentElement.addEventListener('click', (e) => {
+				let el;
+				if (e.ctrlKey && (el = e.target.closest('[data-tracy-href]'))) {
+					location.href = el.getAttribute('data-tracy-href');
+					return false;
 				}
 			});
+
+			Tracy.Toggle.init();
 		}
-
-		if (this.inited) {
-			return;
-		}
-		this.inited = true;
-
-		// enables <span data-tracy-href=""> & ctrl key
-		document.documentElement.addEventListener('click', function(e) {
-			var el;
-			if (e.ctrlKey && (el = Tracy.closest(e.target, '[data-tracy-href]'))) {
-				location.href = el.getAttribute('data-tracy-href');
-				return false;
-			}
-		});
-
-		Tracy.Toggle.init();
-	};
+	}
 
 
-	var build = function(data, repository, collapsed, parentIds) {
-		var type = data === null ? 'null' : typeof data,
-			collapseCount = typeof collapsed === 'undefined' ? COLLAPSE_COUNT_TOP : COLLAPSE_COUNT;
+	function build(data, repository, collapsed, parentIds) {
+		let type = data === null ? 'null' : typeof data,
+			collapseCount = collapsed === null ? COLLAPSE_COUNT : COLLAPSE_COUNT_TOP;
 
 		if (type === 'null' || type === 'string' || type === 'number' || type === 'boolean') {
 			data = type === 'string' ? '"' + data + '"' : (data + '');
@@ -81,14 +82,14 @@
 			]);
 
 		} else if (type === 'object') {
-			var id = data.object || data.resource,
+			let id = data.object || data.resource,
 				object = repository[id];
 
 			if (!object) {
 				throw new UnknownEntityException;
 			}
 			parentIds = parentIds || [];
-			var recursive = parentIds.indexOf(id) > -1;
+			let recursive = parentIds.indexOf(id) > -1;
 			parentIds.push(id);
 
 			return buildStruct(
@@ -108,11 +109,11 @@
 				parentIds
 			);
 		}
-	};
+	}
 
 
-	var buildStruct = function(span, ellipsis, items, collapsed, repository, parentIds) {
-		var res, toggle, div, handler;
+	function buildStruct(span, ellipsis, items, collapsed, repository, parentIds) {
+		let res, toggle, div, handler;
 
 		if (!items || !items.length) {
 			span.push(!items || items.length ? ellipsis + '\n' : '\n');
@@ -134,32 +135,32 @@
 			createItems(div, items, repository, parentIds);
 		}
 		return res;
-	};
+	}
 
 
-	var createEl = function(el, attrs, content) {
+	function createEl(el, attrs, content) {
 		if (!(el instanceof Node)) {
 			el = el ? document.createElement(el) : document.createDocumentFragment();
 		}
-		for (var id in attrs || {}) {
+		for (let id in attrs || {}) {
 			if (attrs[id] !== null) {
 				el.setAttribute(id, attrs[id]);
 			}
 		}
 		content = content || [];
-		for (id = 0; id < content.length; id++) {
-			var child = content[id];
+		for (let id = 0; id < content.length; id++) {
+			let child = content[id];
 			if (child !== null) {
 				el.appendChild(child instanceof Node ? child : document.createTextNode(child));
 			}
 		}
 		return el;
-	};
+	}
 
 
-	var createItems = function(el, items, repository, parentIds) {
-		for (var i = 0; i < items.length; i++) {
-			var vis = items[i][2];
+	function createItems(el, items, repository, parentIds) {
+		for (let i = 0; i < items.length; i++) {
+			let vis = items[i][2];
 			createEl(el, null, [
 				createEl('span', {'class': 'tracy-dump-key'}, [items[i][0]]),
 				vis ? ' ' : null,
@@ -168,8 +169,12 @@
 				build(items[i][1], repository, null, parentIds)
 			]);
 		}
-	};
+	}
 
-	var UnknownEntityException = function() {};
 
+	function UnknownEntityException() {}
+
+
+	Tracy = window.Tracy || {};
+	Tracy.Dumper = Dumper;
 })();

@@ -11,19 +11,16 @@
 namespace Kdyby\Monolog\Tracy;
 
 use Tracy\BlueScreen;
-use Tracy\Logger;
 
-
-
-class BlueScreenRenderer extends Logger
+class BlueScreenRenderer extends \Tracy\Logger
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	public function __construct($directory, BlueScreen $blueScreen)
 	{
 		parent::__construct($directory, NULL, $blueScreen);
 	}
-
-
 
 	/**
 	 * @param \Exception|\Throwable $exception
@@ -35,8 +32,6 @@ class BlueScreenRenderer extends Logger
 		return parent::logException($exception, $file);
 	}
 
-
-
 	/**
 	 * @internal
 	 * @deprecated
@@ -45,8 +40,6 @@ class BlueScreenRenderer extends Logger
 	{
 		throw new \Kdyby\Monolog\NotSupportedException('This class is only for rendering exceptions');
 	}
-
-
 
 	/**
 	 * @internal

@@ -39,7 +39,7 @@ class Reflection
 	public static function getReturnType(\ReflectionFunctionAbstract $func)
 	{
 		return PHP_VERSION_ID >= 70000 && $func->hasReturnType()
-			? self::normalizeType((string) $func->getReturnType(), $func)
+			? self::normalizeType($func->getReturnType(), $func)
 			: null;
 	}
 
@@ -51,7 +51,7 @@ class Reflection
 	{
 		if (PHP_VERSION_ID >= 70000) {
 			return $param->hasType()
-				? self::normalizeType((string) $param->getType(), $param)
+				? self::normalizeType($param->getType(), $param)
 				: null;
 		} elseif ($param->isArray() || $param->isCallable()) {
 			return $param->isArray() ? 'array' : 'callable';
@@ -70,6 +70,7 @@ class Reflection
 
 	private static function normalizeType($type, $reflection)
 	{
+		$type = PHP_VERSION_ID >= 70100 ? $type->getName() : (string) $type;
 		$lower = strtolower($type);
 		if ($lower === 'self') {
 			return $reflection->getDeclaringClass()->getName();
@@ -91,8 +92,18 @@ class Reflection
 			$const = $orig = $param->getDefaultValueConstantName();
 			$pair = explode('::', $const);
 			if (isset($pair[1]) && strtolower($pair[0]) === 'self') {
-				$const = $param->getDeclaringClass()->getName() . '::' . $pair[1];
+				$pair[0] = $param->getDeclaringClass()->getName();
 			}
+			if (isset($pair[1]) && PHP_VERSION_ID >= 70100) {
+				try {
+					$rcc = new \ReflectionClassConstant($pair[0], $pair[1]);
+				} catch (\ReflectionException $e) {
+					$name = self::toString($param);
+					throw new \ReflectionException("Unable to resolve constant $orig used as default value of $name.", 0, $e);
+				}
+				return $rcc->getValue();
+			}
+			$const = implode('::', $pair);
 			if (!defined($const)) {
 				$const = substr((string) strrchr($const, '\\'), 1);
 				if (isset($pair[1]) || !defined($const)) {
@@ -217,7 +228,7 @@ class Reflection
 	 */
 	private static function parseUseStatements($code, $forClass = null)
 	{
-		$tokens = token_get_all($code);
+		$tokens = PHP_VERSION_ID >= 70000 ? token_get_all($code, TOKEN_PARSE) : token_get_all($code);
 		$namespace = $class = $classLevel = $level = null;
 		$res = $uses = [];
 

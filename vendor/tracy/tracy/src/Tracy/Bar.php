@@ -25,8 +25,8 @@ class Bar
 
 	/**
 	 * Add custom panel.
-	 * @param  IBarPanel
-	 * @param  string
+	 * @param  IBarPanel  $panel
+	 * @param  string  $id
 	 * @return static
 	 */
 	public function addPanel(IBarPanel $panel, $id = null)
@@ -44,7 +44,7 @@ class Bar
 
 	/**
 	 * Returns panel with given id
-	 * @param  string
+	 * @param  string  $id
 	 * @return IBarPanel|null
 	 */
 	public function getPanel($id)
@@ -85,6 +85,8 @@ class Bar
 				return isset($item['time']) && $item['time'] > time() - 60;
 			});
 		}
+
+		$rows = [];
 
 		if (Helpers::isAjax()) {
 			if ($useSession) {
@@ -129,7 +131,7 @@ class Bar
 	/**
 	 * @return string
 	 */
-	private function renderHtmlRows(array $rows)
+	private static function renderHtmlRows(array $rows)
 	{
 		ob_start(function () {});
 		require __DIR__ . '/assets/Bar/panels.phtml';
@@ -189,7 +191,7 @@ class Bar
 	{
 		$asset = isset($_GET['_tracy_bar']) ? $_GET['_tracy_bar'] : null;
 		if ($asset === 'js') {
-			header('Content-Type: text/javascript');
+			header('Content-Type: application/javascript');
 			header('Cache-Control: max-age=864000');
 			header_remove('Pragma');
 			header_remove('Set-Cookie');
@@ -203,9 +205,9 @@ class Bar
 			header('X-Tracy-Ajax: 1'); // session must be already locked
 		}
 
-		if ($this->useSession && $asset && preg_match('#^content(-ajax)?.(\w+)$#', $asset, $m)) {
+		if ($this->useSession && $asset && preg_match('#^content(-ajax)?\.(\w+)$#', $asset, $m)) {
 			$session = &$_SESSION['_tracy']['bar'][$m[2] . $m[1]];
-			header('Content-Type: text/javascript');
+			header('Content-Type: application/javascript');
 			header('Cache-Control: max-age=60');
 			header_remove('Set-Cookie');
 			if (!$m[1]) {
@@ -223,25 +225,34 @@ class Bar
 			}
 			return true;
 		}
+
+		return false;
 	}
 
 
 	private function renderAssets()
 	{
-		$css = array_map('file_get_contents', [
+		$css = array_map('file_get_contents', array_merge([
 			__DIR__ . '/assets/Bar/bar.css',
 			__DIR__ . '/assets/Toggle/toggle.css',
 			__DIR__ . '/assets/Dumper/dumper.css',
 			__DIR__ . '/assets/BlueScreen/bluescreen.css',
-		]);
-		$css = json_encode(preg_replace('#\s+#u', ' ', implode($css)));
-		echo "(function(){var el = document.createElement('style'); el.className='tracy-debug'; el.textContent=$css; document.head.appendChild(el);})();\n";
+		], Debugger::$customCssFiles));
 
-		array_map('readfile', [
+		echo
+"(function(){
+	var el = document.createElement('style');
+	el.setAttribute('nonce', document.currentScript.getAttribute('nonce') || document.currentScript.nonce);
+	el.className='tracy-debug';
+	el.textContent=" . json_encode(preg_replace('#\s+#u', ' ', implode($css))) . ";
+	document.head.appendChild(el);})
+();\n";
+
+		array_map('readfile', array_merge([
 			__DIR__ . '/assets/Bar/bar.js',
 			__DIR__ . '/assets/Toggle/toggle.js',
 			__DIR__ . '/assets/Dumper/dumper.js',
 			__DIR__ . '/assets/BlueScreen/bluescreen.js',
-		]);
+		], Debugger::$customJsFiles));
 	}
 }

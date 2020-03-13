@@ -63,45 +63,30 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	/********************* SQL ****************d*g**/
 
 
-	/**
-	 * Delimites identifier for use in a SQL statement.
-	 */
 	public function delimite($name)
 	{
 		return '[' . strtr($name, '[]', '  ') . ']';
 	}
 
 
-	/**
-	 * Formats boolean for use in a SQL statement.
-	 */
 	public function formatBool($value)
 	{
 		return $value ? '1' : '0';
 	}
 
 
-	/**
-	 * Formats date-time for use in a SQL statement.
-	 */
 	public function formatDateTime(/*\DateTimeInterface*/ $value)
 	{
 		return $value->format($this->fmtDateTime);
 	}
 
 
-	/**
-	 * Formats date-time interval for use in a SQL statement.
-	 */
 	public function formatDateInterval(\DateInterval $value)
 	{
 		throw new Nette\NotSupportedException;
 	}
 
 
-	/**
-	 * Encodes string for use in a LIKE statement.
-	 */
 	public function formatLike($value, $pos)
 	{
 		$value = addcslashes(substr($this->connection->quote($value), 1, -1), '%_\\');
@@ -109,9 +94,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Injects LIMIT/OFFSET to the SQL query.
-	 */
 	public function applyLimit(&$sql, $limit, $offset)
 	{
 		if ($limit < 0 || $offset < 0) {
@@ -124,14 +106,11 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Normalizes result row.
-	 */
 	public function normalizeRow($row)
 	{
 		foreach ($row as $key => $value) {
 			unset($row[$key]);
-			if ($key[0] === '[' || $key[0] === '"') {
+			if (is_string($key) && ($key[0] === '[' || $key[0] === '"')) {
 				$key = substr($key, 1, -1);
 			}
 			$row[$key] = $value;
@@ -143,9 +122,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	/********************* reflection ****************d*g**/
 
 
-	/**
-	 * Returns list of tables.
-	 */
 	public function getTables()
 	{
 		$tables = [];
@@ -165,9 +141,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Returns metadata for all columns in a table.
-	 */
 	public function getColumns($table)
 	{
 		$meta = $this->connection->query("
@@ -189,7 +162,7 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 				'unsigned' => false,
 				'nullable' => $row['notnull'] == '0',
 				'default' => $row['dflt_value'],
-				'autoincrement' => (bool) preg_match($pattern, $meta['sql']),
+				'autoincrement' => $meta && preg_match($pattern, (string) $meta['sql']),
 				'primary' => $row['pk'] > 0,
 				'vendor' => (array) $row,
 			];
@@ -198,9 +171,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Returns metadata for all indexes in a table.
-	 */
 	public function getIndexes($table)
 	{
 		$indexes = [];
@@ -245,9 +215,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Returns metadata for all foreign keys in a table.
-	 */
 	public function getForeignKeys($table)
 	{
 		$keys = [];
@@ -267,9 +234,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * Returns associative array of detected types (IReflection::FIELD_*) in result set.
-	 */
 	public function getColumnTypes(\PDOStatement $statement)
 	{
 		$types = [];
@@ -290,10 +254,6 @@ class SqliteDriver implements Nette\Database\ISupplementalDriver
 	}
 
 
-	/**
-	 * @param  string
-	 * @return bool
-	 */
 	public function isSupported($item)
 	{
 		return $item === self::SUPPORT_MULTI_INSERT_AS_SELECT || $item === self::SUPPORT_SUBSELECT || $item === self::SUPPORT_MULTI_COLUMN_AS_OR_COND;

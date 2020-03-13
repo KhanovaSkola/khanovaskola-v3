@@ -15,12 +15,7 @@ interface Exception
 
 }
 
-
-
-/**
- * @author Filip Procházka <filip@prochazka.su>
- */
-class NotSupportedException extends \LogicException implements Exception
+class NotSupportedException extends \LogicException implements \Kdyby\Monolog\Exception
 {
 
 }

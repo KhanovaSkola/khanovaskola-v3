@@ -67,7 +67,9 @@ class Validator
 			static $i = -1;
 			switch ($m[1]) {
 				case 'name': return $rule->control->getName();
-				case 'label': return $rule->control instanceof Controls\BaseControl ? $rule->control->translate($rule->control->caption) : null;
+				case 'label': return $rule->control instanceof Controls\BaseControl
+					? rtrim($rule->control->translate($rule->control->caption), ':')
+					: null;
 				case 'value': return $withValue ? $rule->control->getValue() : $m[0];
 				default:
 					$args = is_array($rule->arg) ? $rule->arg : [$rule->arg];
@@ -268,13 +270,27 @@ class Validator
 
 
 	/**
-	 * Matches control's value regular expression?
+	 * Does the control's value match the regular expression?
+	 * Case-sensitive to comply with the HTML5 <input /> pattern attribute behaviour
 	 * @param  string
 	 * @return bool
 	 */
-	public static function validatePattern(IControl $control, $pattern)
+	public static function validatePattern(IControl $control, $pattern, $caseInsensitive = false)
 	{
-		return (bool) Strings::match($control->getValue(), "\x01^(?:$pattern)\\z\x01u");
+		$regexp = "\x01^(?:$pattern)\\z\x01u" . ($caseInsensitive ? 'i' : '');
+		foreach (static::toArray($control->getValue()) as $item) {
+			$value = $item instanceof Nette\Http\FileUpload ? $item->getName() : $item;
+			if (!Strings::match($value, $regexp)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	public static function validatePatternCaseInsensitive(IControl $control, $pattern)
+	{
+		return self::validatePattern($control, $pattern, true);
 	}
 
 

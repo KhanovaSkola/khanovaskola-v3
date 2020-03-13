@@ -28,9 +28,6 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
  */
 class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
 {
-    /**
-     * @var StreamOutput
-     */
     private $stderr;
 
     /**
@@ -124,7 +121,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     private function isRunningOS400()
     {
         $checks = array(
-            function_exists('php_uname') ? php_uname('s') : '',
+            \function_exists('php_uname') ? php_uname('s') : '',
             getenv('OSTYPE'),
             PHP_OS,
         );

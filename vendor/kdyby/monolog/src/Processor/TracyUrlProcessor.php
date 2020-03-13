@@ -12,10 +12,10 @@ namespace Kdyby\Monolog\Processor;
 
 use Kdyby\Monolog\Tracy\BlueScreenRenderer;
 
-
-
 class TracyUrlProcessor
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	/**
 	 * @var string
@@ -27,15 +27,11 @@ class TracyUrlProcessor
 	 */
 	private $blueScreenRenderer;
 
-
-
 	public function __construct($baseUrl, BlueScreenRenderer $blueScreenRenderer)
 	{
 		$this->baseUrl = rtrim($baseUrl, '/');
 		$this->blueScreenRenderer = $blueScreenRenderer;
 	}
-
-
 
 	public function __invoke(array $record)
 	{
@@ -46,8 +42,6 @@ class TracyUrlProcessor
 
 		return $record;
 	}
-
-
 
 	public function isHandling(array $record)
 	{

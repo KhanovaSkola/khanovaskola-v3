@@ -22,8 +22,10 @@ use Nette\Utils\ArrayHash;
  * @property string $pictureUrl
  * @property array $permissions
  */
-class Profile extends Nette\Object
+class Profile
 {
+
+	use Nette\SmartObject;
 
 	/**
 	 * @var Facebook

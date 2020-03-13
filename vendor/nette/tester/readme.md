@@ -1,28 +1,36 @@
 [Nette Tester](https://tester.nette.org): enjoyable unit testing
-===============================================================
+================================================================
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/nette/tester.svg)](https://packagist.org/packages/nette/tester)
-[![Build Status](https://travis-ci.org/nette/tester.svg?branch=master)](https://travis-ci.org/nette/tester)
-[![Build Status Windows](https://ci.appveyor.com/api/projects/status/github/nette/tester?branch=master&svg=true)](https://ci.appveyor.com/project/dg/tester/branch/master)
+[![Build Status](https://travis-ci.org/nette/tester.svg?branch=v1.x)](https://travis-ci.org/nette/tester)
+[![Build Status Windows](https://ci.appveyor.com/api/projects/status/github/nette/tester?branch=v1.x&svg=true)](https://ci.appveyor.com/project/dg/tester/branch/v1.x)
 [![Latest Stable Version](https://poser.pugx.org/nette/tester/v/stable)](https://github.com/nette/tester/releases)
-[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tester/blob/master/license.md)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tester/blob/v1.x/license.md)
+
+
+Introduction
+------------
 
 Nette Tester is a productive and enjoyable unit testing framework. It's used by
 the [Nette Framework](https://nette.org) and is capable of testing any PHP code.
+
+Documentation is available on the [Nette Tester website](https://tester.nette.org).
+Read the [blog](https://blog.nette.org/category/tester/) for new information.
 
 
 Installation
 ------------
 
-The best way how to install is to [download a latest package](https://github.com/nette/tester/releases)
-or use a Composer:
+The recommended way to install Nette Tester is through Composer:
 
 ```
-php composer.phar require --dev nette/tester
+composer require nette/tester --dev
 ```
 
-Nette Tester requires PHP 5.3.0 or later. Collecting and processing
-code coverage information depends on Xdebug.
+Alternatively, you can download the [tester.phar](https://github.com/nette/tester/releases) file.
+
+Nette Tester requires PHP 5.3.0 and supports PHP up to 7.2. Collecting and processing
+code coverage information depends on Xdebug, or PHPDBG.
 
 
 Writing Tests
@@ -64,7 +72,7 @@ Now we run tests from command-line using the `tester` command:
 > tester
  _____ ___  ___ _____ ___  ___
 |_   _/ __)( __/_   _/ __)| _ )
-  |_| \___ /___) |_| \___ |_|_\  v1.7.1
+  |_| \___ /___) |_| \___ |_|_\  v1.7.2
 
 PHP 5.3.16 | "php-cgi" -n | 8 threads
 .
@@ -73,6 +81,7 @@ OK (1 tests, 0 skipped, 0.0 seconds)
 
 Nette Tester prints dot for successful test, F for failed test
 and S when the test has been skipped.
+
 
 Assertions
 ----------
@@ -166,7 +175,7 @@ Assert::true( $dom->has('input[name="username"]') );
 Assert::true( $dom->has('input[name="password"]') );
 ```
 
-For more inspiration see how [Nette Tester tests itself](https://github.com/nette/tester/tree/master/tests).
+For more inspiration see how [Nette Tester tests itself](https://github.com/nette/tester/tree/v1.x/tests).
 
 
 Running tests

@@ -191,6 +191,19 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 
 	/**
+	 * Unsets element's attributes.
+	 * @return static
+	 */
+	public function removeAttributes(array $attributes)
+	{
+		foreach ($attributes as $name) {
+			unset($this->attrs[$name]);
+		}
+		return $this;
+	}
+
+
+	/**
 	 * Overloaded setter for element's attribute.
 	 * @param  string    HTML attribute name
 	 * @param  mixed     HTML attribute value
@@ -333,12 +346,11 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 	 * Sets element's textual content.
 	 * @param  IHtmlString|string
 	 * @return static
-	 * @throws Nette\InvalidArgumentException
 	 */
 	public function setText($text)
 	{
 		if (!$text instanceof IHtmlString) {
-			$text = htmlspecialchars((string) $text, ENT_NOQUOTES, 'UTF-8');
+			$text = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
 		}
 		return $this->setHtml($text);
 	}
@@ -355,16 +367,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 
 	/**
-	 * @deprecated
-	 */
-	public function add($child)
-	{
-		trigger_error(__METHOD__ . '() is deprecated, use addHtml() or addText() instead.', E_USER_DEPRECATED);
-		return $this->addHtml($child);
-	}
-
-
-	/**
 	 * Adds new element's child.
 	 * @param  IHtmlString|string  Html node or raw HTML string
 	 * @return static
@@ -377,7 +379,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 	/**
 	 * Appends plain-text string to element content.
-	 * @param  IHtmlString|string
+	 * @param  IHtmlString|string|int|float
 	 * @return static
 	 */
 	public function addText($text)
@@ -531,7 +533,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 				$indent++;
 			}
 			foreach ($this->children as $child) {
-				if (is_object($child)) {
+				if ($child instanceof self) {
 					$s .= $child->render($indent);
 				} else {
 					$s .= $child;
@@ -555,6 +557,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 			return $this->render();
 		} catch (\Exception $e) {
 		} catch (\Throwable $e) {
+		}
+		if (PHP_VERSION_ID >= 70400) {
+			throw $e;
 		}
 		trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
 	}
@@ -598,14 +603,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 		$s = '';
 		$attrs = $this->attrs;
-		if (isset($attrs['data']) && is_array($attrs['data'])) { // deprecated
-			trigger_error('Expanded attribute "data" is deprecated.', E_USER_DEPRECATED);
-			foreach ($attrs['data'] as $key => $value) {
-				$attrs['data-' . $key] = $value;
-			}
-			unset($attrs['data']);
-		}
-
 		foreach ($attrs as $key => $value) {
 			if ($value === null || $value === false) {
 				continue;
@@ -626,7 +623,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 					$tmp = null;
 					foreach ($value as $k => $v) {
 						if ($v != null) { // intentionally ==, skip nulls & empty string
-							//  composite 'style' vs. 'others'
+							// composite 'style' vs. 'others'
 							$tmp[] = $v === true ? $k : (is_string($k) ? $k . ':' . $v : $v);
 						}
 					}

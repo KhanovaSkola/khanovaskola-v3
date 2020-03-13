@@ -10,34 +10,30 @@
 
 namespace Kdyby\Monolog\Tracy;
 
-use Monolog;
+use Monolog\Logger as MonologLogger;
 use Tracy\Helpers;
-use Tracy\Logger;
-
-
 
 /**
  * Replaces the default Tracy logger,
  * which allows to preprocess all messages and pass then to Monolog for processing.
- *
- * @author Martin Bažík <martin@bazo.sk>
- * @author Filip Procházka <filip@prochazka.su>
  */
-class MonologAdapter extends Logger
+class MonologAdapter extends \Tracy\Logger
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	const ACCESS = 'access';
 
 	/**
-	 * @var array
+	 * @var int[]
 	 */
 	private $priorityMap = [
-		self::DEBUG => Monolog\Logger::DEBUG,
-		self::INFO => Monolog\Logger::INFO,
-		self::WARNING => Monolog\Logger::WARNING,
-		self::ERROR => Monolog\Logger::ERROR,
-		self::EXCEPTION => Monolog\Logger::CRITICAL,
-		self::CRITICAL => Monolog\Logger::CRITICAL
+		self::DEBUG => MonologLogger::DEBUG,
+		self::INFO => MonologLogger::INFO,
+		self::WARNING => MonologLogger::WARNING,
+		self::ERROR => MonologLogger::ERROR,
+		self::EXCEPTION => MonologLogger::CRITICAL,
+		self::CRITICAL => MonologLogger::CRITICAL,
 	];
 
 	/**
@@ -50,10 +46,8 @@ class MonologAdapter extends Logger
 	 */
 	private $blueScreenRenderer;
 
-
-
 	public function __construct(
-		Monolog\Logger $monolog,
+		MonologLogger $monolog,
 		BlueScreenRenderer $blueScreenRenderer,
 		$email = NULL
 	)
@@ -63,8 +57,6 @@ class MonologAdapter extends Logger
 		$this->blueScreenRenderer = $blueScreenRenderer;
 	}
 
-
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -72,8 +64,6 @@ class MonologAdapter extends Logger
 	{
 		return $this->blueScreenRenderer->getExceptionFile($exception);
 	}
-
-
 
 	public function log($originalMessage, $priority = self::INFO)
 	{
@@ -96,7 +86,7 @@ class MonologAdapter extends Logger
 				@date('[Y-m-d H-i-s]'),
 				$message,
 				' @ ' . Helpers::getSource(),
-				($exceptionFile !== NULL) ? ' @@ ' . basename($exceptionFile) : NULL
+				($exceptionFile !== NULL) ? ' @@ ' . basename($exceptionFile) : NULL,
 			]));
 		}
 
@@ -116,7 +106,6 @@ class MonologAdapter extends Logger
 		return $exceptionFile;
 	}
 
-
 	/**
 	 * @param string $priority
 	 * @return int
@@ -127,8 +116,8 @@ class MonologAdapter extends Logger
 			return $this->priorityMap[$priority];
 		}
 
-		$levels = Monolog\Logger::getLevels();
-		return isset($levels[$uPriority = strtoupper($priority)]) ? $levels[$uPriority] : Monolog\Logger::INFO;
+		$levels = MonologLogger::getLevels();
+		return isset($levels[$uPriority = strtoupper($priority)]) ? $levels[$uPriority] : MonologLogger::INFO;
 	}
 
 }

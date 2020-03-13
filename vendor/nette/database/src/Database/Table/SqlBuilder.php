@@ -127,6 +127,11 @@ class SqlBuilder
 	public function buildUpdateQuery()
 	{
 		$query = "UPDATE {$this->delimitedTable} SET ?set" . $this->tryDelimite($this->buildConditions());
+
+		if ($this->order !== []) {
+			$query .= ' ORDER BY ' . implode(', ', $this->order);
+		}
+
 		if ($this->limit !== null || $this->offset) {
 			$this->driver->applyLimit($query, $this->limit, $this->offset);
 		}
@@ -254,7 +259,7 @@ class SqlBuilder
 	}
 
 
-	public function importConditions(SqlBuilder $builder)
+	public function importConditions(self $builder)
 	{
 		$this->where = $builder->where;
 		$this->joinCondition = $builder->joinCondition;
@@ -285,6 +290,13 @@ class SqlBuilder
 	public function getSelect()
 	{
 		return $this->select;
+	}
+
+
+	public function resetSelect()
+	{
+		$this->select = [];
+		$this->parameters['select'] = [];
 	}
 
 
@@ -584,7 +596,7 @@ class SqlBuilder
 			$tableAlias = substr($fooQuery, 0, -4);
 			$tableJoins[$tableAlias] = $requiredJoins;
 			$leftJoinDependency[$tableAlias] = [];
-			$finalJoinConditions[$tableAlias] = preg_replace_callback($this->getColumnChainsRegxp(), function ($match) use ($tableAlias, &$tableJoins, &$leftJoinDependency) {
+			$finalJoinConditions[$tableAlias] = preg_replace_callback($this->getColumnChainsRegxp(), function (array $match) use ($tableAlias, &$tableJoins, &$leftJoinDependency) {
 				$requiredJoins = [];
 				$query = $this->parseJoinsCb($requiredJoins, $match);
 				$queryParts = explode('.', $query);
@@ -643,7 +655,7 @@ class SqlBuilder
 
 	protected function parseJoins(&$joins, &$query)
 	{
-		$query = preg_replace_callback($this->getColumnChainsRegxp(), function ($match) use (&$joins) {
+		$query = preg_replace_callback($this->getColumnChainsRegxp(), function (array $match) use (&$joins) {
 			return $this->parseJoinsCb($joins, $match);
 		}, $query);
 	}
@@ -655,12 +667,7 @@ class SqlBuilder
 	private function getColumnChainsRegxp()
 	{
 		return '~
-			(?(DEFINE)
-				(?P<word> [\w_]*[a-z][\w_]* )
-				(?P<del> [.:] )
-				(?P<node> (?&del)? (?&word) (\((?&word)\))? )
-			)
-			(?P<chain> (?!\.) (?&node)*)  \. (?P<column> (?&word) | \*  )
+			(?P<chain> (?!\.) (?: [.:]? (?>[\w_]*[a-z][\w_]*) (\([\w_]*[a-z][\w_]*\))? ) *)  \. (?P<column> (?>[\w_]*[a-z][\w_]*) | \*  )
 		~xi';
 	}
 
@@ -676,10 +683,7 @@ class SqlBuilder
 		}
 
 		preg_match_all('~
-			(?(DEFINE)
-				(?P<word> [\w_]*[a-z][\w_]* )
-			)
-			(?P<del> [.:])?(?P<key> (?&word))(\((?P<throughColumn> (?&word))\))?
+			(?P<del> [.:])?(?P<key> [\w_]*[a-z][\w_]* )(\((?P<throughColumn> [\w_]*[a-z][\w_]* )\))?
 		~xi', $chain, $keyMatches, PREG_SET_ORDER);
 
 		$parent = $this->tableName;
@@ -883,7 +887,7 @@ class SqlBuilder
 	private function getCachedTableList()
 	{
 		if (!$this->cacheTableList) {
-			$this->cacheTableList = array_flip(array_map(function ($pair) {
+			$this->cacheTableList = array_flip(array_map(function (array $pair) {
 				return isset($pair['fullName']) ? $pair['fullName'] : $pair['name'];
 			}, $this->structure->getTables()));
 		}

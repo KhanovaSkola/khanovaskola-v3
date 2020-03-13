@@ -129,7 +129,7 @@ class ActiveRow implements \IteratorAggregate, IRow
 	 * Returns referenced row.
 	 * @param  string
 	 * @param  string
-	 * @return IRow|null if the row does not exist
+	 * @return self|null if the row does not exist
 	 */
 	public function ref($key, $throughColumn = null)
 	{
@@ -305,6 +305,13 @@ class ActiveRow implements \IteratorAggregate, IRow
 		if ($this->accessColumn($key)) {
 			return isset($this->data[$key]);
 		}
+
+		$referenced = $this->table->getReferencedTable($this, $key);
+		if ($referenced !== false) {
+			$this->accessColumn($key, false);
+			return (bool) $referenced;
+		}
+
 		$this->removeAccessColumn($key);
 		return false;
 	}

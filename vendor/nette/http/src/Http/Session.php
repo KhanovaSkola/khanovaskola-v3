@@ -75,11 +75,13 @@ class Session
 
 		$this->configure($this->options);
 
-		$id = $this->request->getCookie(session_name());
-		if (is_string($id) && preg_match('#^[0-9a-zA-Z,-]{22,256}\z#i', $id)) {
-			session_id($id);
-		} else {
-			unset($_COOKIE[session_name()]);
+		if (!session_id()) { // session is started for first time
+			$id = $this->request->getCookie(session_name());
+			if (is_string($id) && preg_match('#^[0-9a-zA-Z,-]{22,256}\z#i', $id)) {
+				session_id($id);
+			} else {
+				unset($_COOKIE[session_name()]);
+			}
 		}
 
 		try {
@@ -111,11 +113,10 @@ class Session
 		// regenerate empty session
 		if (empty($nf['Time'])) {
 			$nf['Time'] = time();
-			$this->regenerated = true;
+			if (!empty($id)) { // ensures that the session was created in strict mode (see use_strict_mode)
+				$this->regenerateId();
+			}
 		}
-
-		// resend cookie
-		$this->sendCookie();
 
 		// process meta metadata
 		if (isset($nf['META'])) {
@@ -134,11 +135,6 @@ class Session
 					}
 				}
 			}
-		}
-
-		if ($this->regenerated) {
-			$this->regenerated = false;
-			$this->regenerateId();
 		}
 
 		register_shutdown_function([$this, 'clean']);
@@ -389,15 +385,13 @@ class Session
 	private function configure(array $config)
 	{
 		$special = ['cache_expire' => 1, 'cache_limiter' => 1, 'save_path' => 1, 'name' => 1];
+		$cookie = $origCookie = session_get_cookie_params();
 
 		foreach ($config as $key => $value) {
 			if ($value === null || ini_get("session.$key") == $value) { // intentionally ==
 				continue;
 
 			} elseif (strncmp($key, 'cookie_', 7) === 0) {
-				if (!isset($cookie)) {
-					$cookie = session_get_cookie_params();
-				}
 				$cookie[substr($key, 7)] = $value;
 
 			} else {
@@ -417,11 +411,18 @@ class Session
 			}
 		}
 
-		if (isset($cookie)) {
-			session_set_cookie_params(
-				$cookie['lifetime'], $cookie['path'], $cookie['domain'],
-				$cookie['secure'], $cookie['httponly']
-			);
+		if ($cookie !== $origCookie) {
+			if (PHP_VERSION_ID >= 70300) {
+				session_set_cookie_params($cookie);
+			} else {
+				session_set_cookie_params(
+					$cookie['lifetime'],
+					$cookie['path'] . (isset($cookie['samesite']) ? '; SameSite=' . $cookie['samesite'] : ''),
+					$cookie['domain'],
+					$cookie['secure'],
+					$cookie['httponly']
+				);
+			}
 			if (self::$started) {
 				$this->sendCookie();
 			}
@@ -461,14 +462,16 @@ class Session
 	 * @param  string  path
 	 * @param  string  domain
 	 * @param  bool    secure
+	 * @param  string  samesite
 	 * @return static
 	 */
-	public function setCookieParameters($path, $domain = null, $secure = null)
+	public function setCookieParameters($path, $domain = null, $secure = null, $samesite = null)
 	{
 		return $this->setOptions([
 			'cookie_path' => $path,
 			'cookie_domain' => $domain,
 			'cookie_secure' => $secure,
+			'cookie_samesite' => $samesite,
 		]);
 	}
 
@@ -536,7 +539,8 @@ class Session
 		$this->response->setCookie(
 			session_name(), session_id(),
 			$cookie['lifetime'] ? $cookie['lifetime'] + time() : 0,
-			$cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']
+			$cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'],
+			isset($cookie['samesite']) ? $cookie['samesite'] : null
 		);
 	}
 }

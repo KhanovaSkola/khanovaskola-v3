@@ -50,7 +50,7 @@ class DateTime extends \DateTime implements \JsonSerializable
 			if ($time <= self::YEAR) {
 				$time += time();
 			}
-			return (new static('@' . $time))->setTimeZone(new \DateTimeZone(date_default_timezone_get()));
+			return (new static('@' . $time))->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 
 		} else { // textual or null
 			return new static($time);
@@ -69,48 +69,6 @@ class DateTime extends \DateTime implements \JsonSerializable
 			throw new Nette\InvalidArgumentException("Invalid date '$s'");
 		}
 		return new static($s);
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function __toString()
-	{
-		return $this->format('Y-m-d H:i:s');
-	}
-
-
-	/**
-	 * @param  string
-	 * @return static
-	 */
-	public function modifyClone($modify = '')
-	{
-		$dolly = clone $this;
-		return $modify ? $dolly->modify($modify) : $dolly;
-	}
-
-
-	/**
-	 * @param  int
-	 * @return static
-	 */
-	public function setTimestamp($timestamp)
-	{
-		$zone = $this->getTimezone();
-		$this->__construct('@' . $timestamp);
-		return $this->setTimeZone($zone);
-	}
-
-
-	/**
-	 * @return int|string
-	 */
-	public function getTimestamp()
-	{
-		$ts = $this->format('U');
-		return is_float($tmp = $ts * 1) ? $ts : $tmp;
 	}
 
 
@@ -145,5 +103,47 @@ class DateTime extends \DateTime implements \JsonSerializable
 	public function jsonSerialize()
 	{
 		return $this->format('c');
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->format('Y-m-d H:i:s');
+	}
+
+
+	/**
+	 * @param  string
+	 * @return static
+	 */
+	public function modifyClone($modify = '')
+	{
+		$dolly = clone $this;
+		return $modify ? $dolly->modify($modify) : $dolly;
+	}
+
+
+	/**
+	 * @param  int
+	 * @return static
+	 */
+	public function setTimestamp($timestamp)
+	{
+		$zone = $this->getTimezone();
+		$this->__construct('@' . $timestamp);
+		return $this->setTimezone($zone);
+	}
+
+
+	/**
+	 * @return int|string
+	 */
+	public function getTimestamp()
+	{
+		$ts = $this->format('U');
+		return is_float($tmp = $ts * 1) ? $ts : $tmp;
 	}
 }

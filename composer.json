@@ -1,9 +1,10 @@
 {
 	"name": "khanovaskola/website",
-	"description": "Main website with videos, exercises and teacher reports.",
+	"description": "Main website with videos and subtitles.",
 	"type": "project",
 	"authors": [
-		{"name": "Mikuláš Dítě"}
+		{"name": "Mikuláš Dítě"},
+		{"name": "Daniel Hollas"}
 	],
 	"license": "MIT",
 	"minimum-stability": "beta",
@@ -21,13 +22,13 @@
 		"kdyby/console": "~2.3",
 		"kdyby/events": "~3.1",
 		"kdyby/facebook": "~2.1",
-		"kdyby/forms-replicator": "dev-master",
+		"kdyby/forms-replicator": "~1.4",
 		"kdyby/google": "dev-master#4823f65 as 0.1.999",
 		"kdyby/monolog": "~1.0",
 	  	"kdyby/rabbitmq": "dev-master#4a7edf4f",
 		"kdyby/redis": "~3.1",
 		"nette/nette": "~2.4",
-		"nextras/migrations": "~2.3",
+		"nextras/migrations": "~3.0",
 		"petrp/orm": "0.4.*",
 		"symfony/console": "~2.4",
 	  	"symfony/process": "~2.5",
@@ -35,11 +36,9 @@
 		"tackk/cartographer": "~1.0.2",
 		"nextras/static-router": "~1.0",
 		"khanovaskola/cislo": "~1.4",
-	  	"mikulas/morphodita": "dev-master#6f6223b1",
 		"mikulas/vlna": "dev-master#3388b3be"
 	},
 	"require-dev": {
-		"fzaninotto/faker": "~1.4",
 		"jdorn/sql-formatter": "~1.2.17",
 		"mikulas/adminer-package": "~4.0",
 		"mikulas/code-sniffs": "~1.1",
@@ -51,22 +50,6 @@
 		{
 			"type": "composer",
 			"url": "http://orm.petrprochazka.com/composer"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/Mikulas/NewRelic-Nette.git"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/Mikulas/Facebook.git"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/Mikulas/RabbitMq.git"
-		},
-		{
-		  	"type": "vcs",
-		  	"url": "https://github.com/Mikulas/morphodita-php.git"
 		}
 	],
 	"scripts": {

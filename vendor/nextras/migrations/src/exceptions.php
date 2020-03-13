@@ -10,31 +10,49 @@
 namespace Nextras\Migrations;
 
 
-abstract class Exception extends \Exception
+/**
+ * Marker interface.
+ */
+interface Exception
 {
 }
 
 
-abstract class RuntimeException extends Exception
+/**
+ * Error in usage or implementation.
+ */
+class LogicException extends \LogicException implements Exception
 {
 }
 
 
-class LogicException extends Exception
+/**
+ * Error during runtime.
+ */
+abstract class RuntimeException extends \RuntimeException implements Exception
 {
 }
 
 
+/**
+ * Executing migration has failed.
+ */
 class ExecutionException extends RuntimeException
 {
 }
 
 
+/**
+ * Permission denied, file not found...
+ */
 class IOException extends RuntimeException
 {
 }
 
 
+/**
+ * Lock cannot be released or acquired.
+ */
 class LockException extends RuntimeException
 {
 }

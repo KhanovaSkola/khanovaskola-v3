@@ -10,23 +10,17 @@
 
 namespace Kdyby\Monolog\Handler;
 
-use Kdyby;
-use Monolog;
 use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\ErrorLogHandler;
-use Nette;
-
-
+use Monolog\Logger as MonologLogger;
 
 /**
  * If you have no custom handlers that will write and/or send your messages somewhere,
  * this one will just write them to the log/ directory, just like the default Tracy logger does.
- *
- * @author Elan Ruusamäe <glen@delfi.ee>
- * @author Filip Procházka <filip@prochazka.su>
  */
-class FallbackNetteHandler extends ErrorLogHandler
+class FallbackNetteHandler extends \Monolog\Handler\ErrorLogHandler
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	/**
 	 * @var string
@@ -39,18 +33,16 @@ class FallbackNetteHandler extends ErrorLogHandler
 	private $logDir;
 
 	/**
-	 * @var LineFormatter
+	 * @var \Monolog\Formatter\LineFormatter
 	 */
 	private $defaultFormatter;
 
 	/**
-	 * @var LineFormatter
+	 * @var \Monolog\Formatter\LineFormatter
 	 */
 	private $priorityFormatter;
 
-
-
-	public function __construct($appName, $logDir, $expandNewlines = FALSE, $level = Monolog\Logger::DEBUG)
+	public function __construct($appName, $logDir, $expandNewlines = FALSE, $level = MonologLogger::DEBUG)
 	{
 		parent::__construct(self::SAPI, $level, TRUE, $expandNewlines);
 		$this->appName = $appName;
@@ -59,8 +51,6 @@ class FallbackNetteHandler extends ErrorLogHandler
 		$this->defaultFormatter = new LineFormatter('[%datetime%] %message% %context% %extra%');
 		$this->priorityFormatter = new LineFormatter('[%datetime%] %level_name%: %message% %context% %extra%');
 	}
-
-
 
 	public function handle(array $record)
 	{
@@ -75,8 +65,6 @@ class FallbackNetteHandler extends ErrorLogHandler
 
 		return parent::handle($record);
 	}
-
-
 
 	/**
 	 * {@inheritdoc}
@@ -95,7 +83,7 @@ class FallbackNetteHandler extends ErrorLogHandler
 
 		$file = $this->logDir . '/' . strtolower($record['filename'] ?: 'info') . '.log';
 		if (!@file_put_contents($file, $entry, FILE_APPEND | LOCK_EX)) {
-			throw new \RuntimeException("Unable to write to log file '$file'. Is directory writable?");
+			throw new \RuntimeException(sprintf('Unable to write to log file %s. Is directory writable?', $file));
 		}
 	}
 

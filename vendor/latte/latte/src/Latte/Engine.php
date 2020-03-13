@@ -15,7 +15,7 @@ class Engine
 {
 	use Strict;
 
-	const VERSION = '2.4.6';
+	const VERSION = '2.4.8';
 
 	/** Content types */
 	const CONTENT_HTML = 'html',

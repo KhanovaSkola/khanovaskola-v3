@@ -240,7 +240,10 @@ class Response implements IResponse
 
 	public function __destruct()
 	{
-		if (self::$fixIE && isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE ') !== false
+		if (
+			self::$fixIE
+			&& isset($_SERVER['HTTP_USER_AGENT'])
+			&& strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE ') !== false
 			&& in_array($this->code, [400, 403, 404, 405, 406, 408, 409, 410, 500, 501, 505], true)
 			&& preg_match('#^text/html(?:;|$)#', $this->getHeader('Content-Type'))
 		) {
@@ -259,22 +262,34 @@ class Response implements IResponse
 	 * @param  string
 	 * @param  bool
 	 * @param  bool
+	 * @param  string
 	 * @return static
 	 * @throws Nette\InvalidStateException  if HTTP headers have been sent
 	 */
-	public function setCookie($name, $value, $time, $path = null, $domain = null, $secure = null, $httpOnly = null)
+	public function setCookie($name, $value, $time, $path = null, $domain = null, $secure = null, $httpOnly = null, $sameSite = null)
 	{
 		self::checkHeaders();
-		setcookie(
-			$name,
-			$value,
-			$time ? (int) DateTime::from($time)->format('U') : 0,
-			$path === null ? $this->cookiePath : (string) $path,
-			$domain === null ? $this->cookieDomain : (string) $domain,
-			$secure === null ? $this->cookieSecure : (bool) $secure,
-			$httpOnly === null ? $this->cookieHttpOnly : (bool) $httpOnly
-		);
-		Helpers::removeDuplicateCookies();
+		$options = [
+			'expires' => $time ? (int) DateTime::from($time)->format('U') : 0,
+			'path' => $path === null ? $this->cookiePath : (string) $path,
+			'domain' => $domain === null ? $this->cookieDomain : (string) $domain,
+			'secure' => $secure === null ? $this->cookieSecure : (bool) $secure,
+			'httponly' => $httpOnly === null ? $this->cookieHttpOnly : (bool) $httpOnly,
+			'samesite' => (string) $sameSite,
+		];
+		if (PHP_VERSION_ID >= 70300) {
+			setcookie($name, $value, $options);
+		} else {
+			setcookie(
+				$name,
+				$value,
+				$options['expires'],
+				$options['path'] . ($sameSite ? "; SameSite=$sameSite" : ''),
+				$options['domain'],
+				$options['secure'],
+				$options['httponly']
+			);
+		}
 		return $this;
 	}
 

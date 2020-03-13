@@ -216,7 +216,8 @@ class ContainerBuilder
 	{
 		$type = Helpers::normalizeClass($type);
 
-		if ($this->currentService !== null
+		if (
+			$this->currentService !== null
 			&& is_a($this->definitions[$this->currentService]->getType(), $type, true)
 		) {
 			return $this->currentService;
@@ -234,6 +235,7 @@ class ContainerBuilder
 
 		} else {
 			$list = $types[$type][true];
+			natsort($list);
 			$hint = count($list) === 2 && ($tmp = strpos($list[0], '.') xor strpos($list[1], '.'))
 				? '. If you want to overwrite service ' . $list[$tmp ? 0 : 1] . ', give it proper name.'
 				: '';
@@ -337,7 +339,8 @@ class ContainerBuilder
 			}
 
 			// auto-disable autowiring for aliases
-			if ($def->getAutowired() === true
+			if (
+				$def->getAutowired() === true
 				&& ($alias = $this->getServiceName($def->getFactory()->getEntity()))
 				&& (!$def->getImplement() || (!Strings::contains($alias, '\\') && $this->definitions[$alias]->getImplement()))
 			) {
@@ -423,6 +426,8 @@ class ContainerBuilder
 		if ($rc->hasMethod('get')) {
 			if ($method->getParameters()) {
 				throw new ServiceCreationException("Method $methodName used in service '$name' must have no arguments.");
+			} elseif ($def->getSetup()) {
+				throw new ServiceCreationException("Service accessor '$name' must have no setup.");
 			}
 			if (!$def->getEntity()) {
 				$def->setFactory('@\\' . ltrim($def->getType(), '\\'));
@@ -436,7 +441,8 @@ class ContainerBuilder
 			if (!$def->getEntity()) {
 				$def->setFactory($def->getType(), $def->getFactory() ? $def->getFactory()->arguments : []);
 			}
-			if (($class = $this->resolveEntityType($def->getFactory(), [$name => 1]))
+			if (
+				($class = $this->resolveEntityType($def->getFactory(), [$name => 1]))
 				&& ($ctor = (new ReflectionClass($class))->getConstructor())
 			) {
 				foreach ($ctor->getParameters() as $param) {
@@ -448,12 +454,13 @@ class ContainerBuilder
 				$hint = Reflection::getParameterType($param);
 				if (isset($ctorParams[$param->getName()])) {
 					$arg = $ctorParams[$param->getName()];
-					if ($hint !== Reflection::getParameterType($arg)) {
+					$argHint = Reflection::getParameterType($arg);
+					if ($hint !== $argHint && !is_a($hint, $argHint, true)) {
 						throw new ServiceCreationException("Type hint for \${$param->getName()} in $methodName doesn't match type hint in $class constructor.");
 					}
 					$def->getFactory()->arguments[$arg->getPosition()] = self::literal('$' . $arg->getName());
 				} elseif (!$def->getSetup()) {
-					$hint = Nette\Utils\ObjectMixin::getSuggestion(array_keys($ctorParams), $param->getName());
+					$hint = Nette\Utils\ObjectHelpers::getSuggestion(array_keys($ctorParams), $param->getName());
 					throw new ServiceCreationException("Unused parameter \${$param->getName()} when implementing method $methodName" . ($hint ? ", did you mean \${$hint}?" : '.'));
 				}
 				$nullable = $hint && $param->allowsNull() && (!$param->isDefaultValueAvailable() || $param->getDefaultValue() !== null);
@@ -581,7 +588,17 @@ class ContainerBuilder
 				$def->setSetup($setups);
 
 			} catch (\Exception $e) {
-				throw new ServiceCreationException("Service '$name': " . $e->getMessage(), 0, $e);
+				$type = $def->getType();
+				if (!$type) {
+					$message = "Service '$name': " . $e->getMessage();
+				} elseif (ctype_digit($name)) {
+					$message = "Service of type $type: " . str_replace("$type::", '', $e->getMessage());
+				} else {
+					$message = "Service '$name' (type of $type): " . str_replace("$type::", '', $e->getMessage());
+				}
+				throw $e instanceof ServiceCreationException
+					? $e->setMessage($message)
+					: new ServiceCreationException($message, 0, $e);
 
 			} finally {
 				$this->currentService = null;
@@ -655,37 +672,50 @@ class ContainerBuilder
 				if (!$arguments && substr($entity[1], -2) === '[]') {
 					throw new ServiceCreationException("Missing argument for $entity[1].");
 				}
-			} elseif ($type = empty($service) || $entity[1] === 'create'
-				? $this->resolveEntityType($entity[0])
-				: $this->definitions[$service]->getType()
+			} elseif (
+				$type = empty($service) || $entity[1] === 'create'
+					? $this->resolveEntityType($entity[0])
+					: $this->definitions[$service]->getType()
 			) {
 				$arguments = $this->autowireArguments($type, $entity[1], $arguments);
 			}
 		}
 
-		array_walk_recursive($arguments, function (&$val) {
-			if ($val instanceof Statement) {
-				$val = $this->completeStatement($val);
+		try {
+			array_walk_recursive($arguments, function (&$val) {
+				if ($val instanceof Statement) {
+					$val = $this->completeStatement($val);
 
-			} elseif ($val === $this) {
-				trigger_error("Replace object ContainerBuilder in Statement arguments with '@container'.", E_USER_DEPRECATED);
-				$val = self::literal('$this');
+				} elseif ($val === $this) {
+					trigger_error("Replace object ContainerBuilder in Statement arguments with '@container'.", E_USER_DEPRECATED);
+					$val = self::literal('$this');
 
-			} elseif ($val instanceof ServiceDefinition) {
-				$val = '@' . current(array_keys($this->getDefinitions(), $val, true));
+				} elseif ($val instanceof ServiceDefinition) {
+					$val = '@' . current(array_keys($this->getDefinitions(), $val, true));
 
-			} elseif (is_string($val) && strlen($val) > 1 && $val[0] === '@' && $val[1] !== '@') {
-				$pair = explode('::', $val, 2);
-				$name = $this->getServiceName($pair[0]);
-				if (!isset($pair[1])) { // @service
-					$val = '@' . $name;
-				} elseif (preg_match('#^[A-Z][A-Z0-9_]*\z#', $pair[1], $m)) { // @service::CONSTANT
-					$val = self::literal($this->getDefinition($name)->getType() . '::' . $pair[1]);
-				} else { // @service::property
-					$val = new Statement(['@' . $name, '$' . $pair[1]]);
+				} elseif (is_string($val) && strlen($val) > 1 && $val[0] === '@' && $val[1] !== '@') {
+					$pair = explode('::', $val, 2);
+					$name = $this->getServiceName($pair[0]);
+					if (!isset($pair[1])) { // @service
+						$val = '@' . $name;
+					} elseif (preg_match('#^[A-Z][A-Z0-9_]*\z#', $pair[1], $m)) { // @service::CONSTANT
+						$val = self::literal($this->getDefinition($name)->getType() . '::' . $pair[1]);
+					} else { // @service::property
+						$val = new Statement(['@' . $name, '$' . $pair[1]]);
+					}
 				}
+			});
+
+		} catch (ServiceCreationException $e) {
+			if ((is_string($entity) || is_array($entity)) && !strpos($e->getMessage(), ' (used in')) {
+				$desc = is_string($entity)
+					? $entity . '::__construct()'
+					: (is_string($entity[0]) ? ($entity[0] . '::') : '')
+						. $entity[1] . (strpos($entity[1], '$') === false ? '()' : '');
+				$e->setMessage($e->getMessage() . " (used in $desc)");
 			}
-		});
+			throw $e;
+		}
 
 		return new Statement($entity, $arguments);
 	}
@@ -734,7 +764,10 @@ class ContainerBuilder
 	}
 
 
-	/** @internal */
+	/**
+	 * @return string|array  Class, @service, [Class, member], [@service, member], [, globalFunc], [Statement, member]
+	 * @internal
+	 */
 	public function normalizeEntity($entity)
 	{
 		if (is_string($entity) && Strings::contains($entity, '::') && !Strings::contains($entity, '?')) { // Class::method -> [Class, method]
@@ -751,7 +784,7 @@ class ContainerBuilder
 			trigger_error("Replace object ContainerBuilder in Statement entity with '@container'.", E_USER_DEPRECATED);
 			$entity[0] = '@' . self::THIS_CONTAINER;
 		}
-		return $entity; // Class, @service, [Class, member], [@service, member], [, globalFunc], Statement
+		return $entity;
 	}
 
 

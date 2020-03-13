@@ -103,7 +103,6 @@ rabbitmq:
 			callback: [@App\Models\Services\Consumers\UpdateVideoChart, process]
 
 services:
-	- Mikulas\Morphodita\Client
 	- Mikulas\Vlna
 
 	- App\Models\Services\Locale( %locale% )

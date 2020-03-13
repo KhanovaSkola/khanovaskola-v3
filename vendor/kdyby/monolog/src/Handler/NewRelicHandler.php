@@ -10,17 +10,10 @@
 
 namespace Kdyby\Monolog\Handler;
 
-use Kdyby;
-use Monolog;
-use Nette;
-
-
-
-/**
- * @author Filip Procházka <filip@prochazka.su>
- */
-class NewRelicHandler extends Monolog\Handler\NewRelicHandler
+class NewRelicHandler extends \Monolog\Handler\NewRelicHandler
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	/**
 	 * {@inheritdoc}
@@ -33,8 +26,6 @@ class NewRelicHandler extends Monolog\Handler\NewRelicHandler
 
 		parent::write($record);
 	}
-
-
 
 	/**
 	 * {@inheritdoc}

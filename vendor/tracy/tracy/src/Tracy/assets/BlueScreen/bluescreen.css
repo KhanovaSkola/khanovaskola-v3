@@ -63,13 +63,14 @@
 #tracy-bs-error {
 	background: #CD1818;
 	color: white;
-	font: 13pt/1.5 Verdana, sans-serif !important;
+	font-size: 13pt;
 }
 
 #tracy-bs-error a {
 	color: white !important;
 	opacity: 0;
 	font-size: .7em;
+	border-bottom: none !important;
 }
 
 #tracy-bs-error:hover a {
@@ -80,11 +81,9 @@
 	opacity: 1;
 }
 
-#tracy-bs-ie-warning {
-	background: black;
-	margin: 1em;
-	padding: .5em;
-	text-align: center;
+#tracy-bs-error i {
+	color: #ffefa1;
+	font-style: normal;
 }
 
 #tracy-bs h1 {
@@ -99,12 +98,13 @@
 }
 
 #tracy-bs h2 {
-	font: 14pt/1.5 sans-serif !important;
+	font-size: 14pt;
 	margin: .6em 0;
 }
 
 #tracy-bs h3 {
-	font: bold 10pt/1.5 Verdana, sans-serif !important;
+	font-size: 10pt;
+	font-weight: bold;
 	margin: 1em 0;
 	padding: 0;
 }
@@ -166,12 +166,13 @@
 }
 
 #tracy-bs ul {
-	font: 7pt/1.5 Verdana, sans-serif !important;
-	padding: 2em 4em;
+	font-size: 7pt;
+	padding: 2em 3em;
 	margin: 1em 0 0;
 	color: #777;
 	background: #F6F5F3;
 	border-top: 1px solid #DDD;
+	list-style: none;
 }
 
 #tracy-bs-logo a {
@@ -256,6 +257,11 @@ html.tracy-js #tracy-bs .tracy-toggle.tracy-collapsed {
 
 #tracy-bs .tracy-toggle {
 	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #tracy-bs .tracy-toggle:after {
@@ -265,7 +271,6 @@ html.tracy-js #tracy-bs .tracy-toggle.tracy-collapsed {
 
 #tracy-bs .tracy-toggle.tracy-collapsed:after {
 	content: "\A0\25BA";
-	opacity: .4;
 }
 
 
@@ -281,6 +286,10 @@ html.tracy-js #tracy-bs .tracy-toggle.tracy-collapsed {
 
 #tracy-bs .tracy-dump-number {
 	color: #090;
+}
+
+#tracy-bs .tracy-dump-whitespace {
+	color: #0003;
 }
 
 #tracy-bs .tracy-dump-null,

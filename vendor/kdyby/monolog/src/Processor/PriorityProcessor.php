@@ -10,20 +10,16 @@
 
 namespace Kdyby\Monolog\Processor;
 
-use Kdyby;
-use Monolog\Logger;
-use Nette;
-
-
+use Monolog\Logger as MonologLogger;
 
 /**
  * Helps you change the channel name of the record,
  * when you wanna have multiple log files coming out of your application.
- *
- * @author Filip Procházka <filip@prochazka.su>
  */
-class PriorityProcessor extends Nette\Object
+class PriorityProcessor
 {
+
+	use \Kdyby\StrictObjects\Scream;
 
 	public function __invoke($record)
 	{
@@ -33,7 +29,7 @@ class PriorityProcessor extends Nette\Object
 
 		} elseif (isset($record['context']['priority'])) {
 			$rename = strtoupper($record['context']['priority']);
-			if (!array_key_exists($rename, Logger::getLevels())) {
+			if (!array_key_exists($rename, MonologLogger::getLevels())) {
 				$record['channel'] = strtolower($rename);
 			}
 			unset($record['context']['priority']);

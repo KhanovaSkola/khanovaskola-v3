@@ -54,6 +54,16 @@ class Template implements Nette\Application\UI\ITemplate
 
 
 	/**
+	 * Renders template to output.
+	 * @return string
+	 */
+	public function renderToString($file = null, array $params = [])
+	{
+		return $this->latte->renderToString($file ?: $this->file, $params + $this->params);
+	}
+
+
+	/**
 	 * Renders template to string.
 	 * @param  can throw exceptions? (hidden parameter)
 	 * @return string
@@ -66,7 +76,7 @@ class Template implements Nette\Application\UI\ITemplate
 		} catch (\Throwable $e) {
 		}
 		if (isset($e)) {
-			if (func_num_args()) {
+			if (func_num_args() || PHP_VERSION_ID >= 70400) {
 				throw $e;
 			}
 			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
@@ -107,8 +117,8 @@ class Template implements Nette\Application\UI\ITemplate
 	 */
 	public function setTranslator(Nette\Localization\ITranslator $translator = null)
 	{
-		$this->latte->addFilter('translate', $translator === null ? null : function (Latte\Runtime\FilterInfo $fi, ...$args) use ($translator) {
-			return $translator->translate(...$args);
+		$this->latte->addFilter('translate', function (Latte\Runtime\FilterInfo $fi, ...$args) use ($translator) {
+			return $translator === null ? $args[0] : $translator->translate(...$args);
 		});
 		return $this;
 	}

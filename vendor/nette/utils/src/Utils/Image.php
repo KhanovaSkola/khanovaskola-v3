@@ -113,9 +113,6 @@ class Image
 
 	const EMPTY_GIF = "GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;";
 
-	/** @deprecated */
-	const ENLARGE = 0;
-
 	private static $formats = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp'];
 
 	/** @var resource */
@@ -296,7 +293,7 @@ class Image
 		list($newWidth, $newHeight) = static::calculateSize($this->getWidth(), $this->getHeight(), $width, $height, $flags);
 
 		if ($newWidth !== $this->getWidth() || $newHeight !== $this->getHeight()) { // resize
-			$newImage = static::fromBlank($newWidth, $newHeight, self::RGB(0, 0, 0, 127))->getImageResource();
+			$newImage = static::fromBlank($newWidth, $newHeight, self::rgb(0, 0, 0, 127))->getImageResource();
 			imagecopyresampled(
 				$newImage, $this->image,
 				0, 0, 0, 0,
@@ -462,7 +459,7 @@ class Image
 	 * @param  int  opacity 0..100
 	 * @return static
 	 */
-	public function place(Image $image, $left = 0, $top = 0, $opacity = 100)
+	public function place(self $image, $left = 0, $top = 0, $opacity = 100)
 	{
 		$opacity = max(0, min(100, (int) $opacity));
 		if ($opacity === 0) {
@@ -482,6 +479,7 @@ class Image
 
 		$output = $input = $image->image;
 		if ($opacity < 100) {
+			$tbl = [];
 			for ($i = 0; $i < 128; $i++) {
 				$tbl[$i] = round(127 - (127 - $i) * $opacity / 100);
 			}
@@ -521,6 +519,9 @@ class Image
 	public function save($file = null, $quality = null, $type = null)
 	{
 		if ($type === null) {
+			if ($file === null) {
+				throw new Nette\InvalidArgumentException('Either the output file or type must be set.');
+			}
 			$extensions = array_flip(self::$formats) + ['jpg' => self::JPEG];
 			$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 			if (!isset($extensions[$ext])) {
@@ -577,7 +578,7 @@ class Image
 		} catch (\Throwable $e) {
 		}
 		if (isset($e)) {
-			if (func_num_args()) {
+			if (func_num_args() || PHP_VERSION_ID >= 70400) {
 				throw $e;
 			}
 			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
@@ -613,7 +614,7 @@ class Image
 	{
 		$function = 'image' . $name;
 		if (!function_exists($function)) {
-			ObjectMixin::strictCall(get_class($this), $name);
+			ObjectHelpers::strictCall(get_class($this), $name);
 		}
 
 		foreach ($args as $key => $value) {

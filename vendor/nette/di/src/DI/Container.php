@@ -18,8 +18,11 @@ class Container
 	use Nette\SmartObject;
 
 	const TAGS = 'tags';
+
 	const TYPES = 'types';
+
 	const SERVICES = 'services';
+
 	const ALIASES = 'aliases';
 
 	/** @var array  user parameters */
@@ -193,7 +196,7 @@ class Container
 	 * Resolves service by type.
 	 * @param  string  class or interface
 	 * @param  bool    throw exception if service doesn't exist?
-	 * @return object  service or null
+	 * @return object|null  service
 	 * @throws MissingServiceException
 	 */
 	public function getByType($type, $throw = true)
@@ -203,11 +206,13 @@ class Container
 			if (count($names = $this->meta[self::TYPES][$type][true]) === 1) {
 				return $this->getService($names[0]);
 			}
+			natsort($names);
 			throw new MissingServiceException("Multiple services of type $type found: " . implode(', ', $names) . '.');
 
 		} elseif ($throw) {
 			throw new MissingServiceException("Service of type $type not found.");
 		}
+		return null;
 	}
 
 
@@ -333,7 +338,8 @@ class Container
 
 	public static function getMethodName($name)
 	{
-		$uname = ucfirst($name);
-		return 'createService' . ((string) $name === $uname ? '__' : '') . str_replace('.', '__', $uname);
+		return 'createService'
+			. (preg_match('#^[A-Z]#', $name) ? '__' : '')
+			. str_replace('.', '__', ucfirst($name));
 	}
 }

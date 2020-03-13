@@ -26,12 +26,14 @@ class TracyExtension extends Nette\DI\CompilerExtension
 		'strictMode' => null,
 		'showBar' => null,
 		'maxLen' => null,
+		'maxLength' => null,
 		'maxDepth' => null,
 		'showLocation' => null,
 		'scream' => null,
 		'bar' => [], // of class name
 		'blueScreen' => [], // of callback
 		'editorMapping' => [],
+		'netteMailer' => true,
 	];
 
 	/** @var bool */
@@ -72,7 +74,7 @@ class TracyExtension extends Nette\DI\CompilerExtension
 		$class = method_exists('Nette\DI\Helpers', 'filterArguments') ? 'Nette\DI\Helpers' : 'Nette\DI\Compiler';
 
 		$options = $this->config;
-		unset($options['bar'], $options['blueScreen']);
+		unset($options['bar'], $options['blueScreen'], $options['netteMailer']);
 		if (isset($options['logSeverity'])) {
 			$res = 0;
 			foreach ((array) $options['logSeverity'] as $level) {
@@ -91,23 +93,31 @@ class TracyExtension extends Nette\DI\CompilerExtension
 		}
 
 		$logger = $builder->getDefinition($this->prefix('logger'));
-		if ($logger->getFactory()->getEntity() !== 'Tracy\Debugger::getLogger') {
+		if ($logger->getFactory()->getEntity() !== ['Tracy\Debugger', 'getLogger']) {
 			$initialize->addBody($builder->formatPhp('Tracy\Debugger::setLogger(?);', [$logger]));
+		}
+		if ($this->config['netteMailer'] && $builder->getByType('Nette\Mail\IMailer')) {
+			$initialize->addBody($builder->formatPhp('Tracy\Debugger::getLogger()->mailer = ?;', [
+				[new Nette\DI\Statement('Tracy\Bridges\Nette\MailSender', ['fromEmail' => $this->config['fromEmail']]), 'send'],
+			]));
 		}
 
 		if ($this->debugMode) {
 			foreach ((array) $this->config['bar'] as $item) {
+				if (is_string($item) && substr($item, 0, 1) === '@') {
+					$item = new Nette\DI\Statement(['@' . $builder::THIS_CONTAINER, 'getService'], [substr($item, 1)]);
+				} elseif (is_string($item)) {
+					$item = new Nette\DI\Statement($item);
+				}
 				$initialize->addBody($builder->formatPhp(
 					'$this->getService(?)->addPanel(?);',
-					$class::filterArguments([
-						$this->prefix('bar'),
-						is_string($item) ? new Nette\DI\Statement($item) : $item,
-					])
+					$class::filterArguments([$this->prefix('bar'), $item])
 				));
 			}
 
-			if (!$this->cliMode) {
-				$initialize->addBody('if ($tmp = $this->getByType("Nette\Http\Session", false)) { $tmp->start(); Tracy\Debugger::dispatch(); };');
+			if (!$this->cliMode && ($name = $builder->getByType('Nette\Http\Session'))) {
+				$initialize->addBody('$this->getService(?)->start();', [$name]);
+				$initialize->addBody('Tracy\Debugger::dispatch();');
 			}
 		}
 
