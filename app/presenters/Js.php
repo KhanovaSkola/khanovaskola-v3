@@ -142,14 +142,4 @@ final class Js extends Presenter
 		$this->sendJson(['status' => 'ok', 'watched' => $watched]);
 	}
 
-	public function actionGuessGender($name)
-	{
-		$names = Strings::split($name, '~\s+~');
-		$firstName = array_shift($names);
-		$lastName = array_pop($names);
-
-		$gender = $this->orm->users->getGender($firstName, $lastName);
-		$this->sendJson(['gender' => $gender]);
-	}
-
 }

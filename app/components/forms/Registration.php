@@ -7,7 +7,6 @@ use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\User;
 use App\Models\Services\Aes;
 use App\Models\Services\Entropy;
-use App\Models\Structs\Gender;
 use App\Presenters\Auth;
 use Nette\Security\Identity;
 use Nette\Security\Passwords;
@@ -43,12 +42,6 @@ class Registration extends Form
 		$this->addText('name')
 			->addRule($this::FILLED, 'name.missing');
 
-                /*
-		$this->addRadioList('gender', NULL, Gender::getGenders())
-			->addRule($this::FILLED, 'gender.missing')
-                        ->setDefaultValue(Gender::MALE);
-                */
-
 		$this->addText('password')
 			->addRule($this::FILLED, 'password.missing');
 
@@ -81,8 +74,6 @@ class Registration extends Form
 			$user->email = $v->email;
 			$this->orm->users->attach($user);
 		}
-		//$user->gender = $v->gender;
-		$user->gender = Gender::MALE;
 		$user->setNames($v->name);
 		$user->registered = TRUE;
 		$plainHash = Passwords::hash($v->password);

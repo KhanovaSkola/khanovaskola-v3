@@ -2,7 +2,6 @@ define([
 	'services/showPassword',
 	'services/onclickDisableButtons',
 	'lib/mailcheck',
-	'logic/auth/guessGender',
 	'logic/auth/passwordStrength'
 ], function(showPassword, buttons) {
 	const $passwordGroup = document.querySelector('[data-password-group]');

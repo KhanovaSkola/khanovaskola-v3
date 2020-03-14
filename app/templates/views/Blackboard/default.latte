@@ -83,14 +83,6 @@
 	                    </div>
 	                </div>
 	                <div class="center">
-	                    {*
-	                    <i class="icon icon-comments"></i>
-	                    <span n:syntax="off">
-	                        <a href="#dotazy" data-scroll class="comment-prompt">
-	                            Máš nějaký dotaz k probírané látce?
-	                        </a>
-	                    </span>
-	                    *}
 	                </div>
 	                <div class="right">
 	                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
@@ -102,7 +94,6 @@
 	            </div>
             </div>
         </div>
-        <div id="dotazy" />
 
         {if $reason = $user->isAllowed($blackboard)}
             <div class="container editor-bar">

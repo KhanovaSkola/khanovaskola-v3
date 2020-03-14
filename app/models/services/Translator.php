@@ -5,7 +5,6 @@ namespace App\Models\Services;
 use App\FileNotFoundException;
 use App\InvalidArgumentException;
 use App\InvalidStateException;
-use App\Models\Structs\Gender;
 use Monolog\Logger;
 use Nette;
 use Nette\Neon\Neon;
@@ -13,10 +12,6 @@ use Nette\Neon\Neon;
 
 /**
  * Starting key with "/" removes prefix
- *
- * Syntax [male|female] if key GENDER is set
- * - [Uložils|Uložilas] formulář
- * - Uložil[|a]s formulář
  *
  * Args can be named or numbered
  *  - Vítej %1
@@ -27,8 +22,6 @@ use Nette\Neon\Neon;
  */
 class Translator implements Nette\Localization\ITranslator
 {
-
-	const GENDER = 'gender';
 
 	/**
 	 * @var string
@@ -208,15 +201,6 @@ class Translator implements Nette\Localization\ITranslator
 			}
 			return $values[$key];
 		}, $text);
-
-		if (array_key_exists(self::GENDER, $values))
-		{
-			// inflect by gender from '[he|she]' syntax
-			$isFemale = $values[self::GENDER] === Gender::FEMALE;
-			$translated = preg_replace_callback('~\[([^|]*)\|([^|]*)\]~', function($m) use ($isFemale) {
-				return $isFemale ? $m[2] : $m[1];
-			}, $translated);
-		}
 
 		return $translated;
 	}

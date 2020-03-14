@@ -87,13 +87,6 @@
 		                <div class="progress-label label-right">{$video->duration|duration}</div>
 		            </div>
 		        </div>
-                     {*
-		        {if $user->isAllowed($video)}
-		            <div class="view-chart">
-                           <img src="{$basePath}/data/videoCharts/{$video->id}.png">
-                           </div>
-                        {/if}
-                     *}
 	            <div class="course-header-footer">
 	                <div class="left">
 	                    <div class="clearfix">
@@ -112,14 +105,6 @@
 	                <div class="center">
 	                    {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
                         <a href="#" class="report-error" data-toggle="error-modal" data-target="#errorModal">Nahlásit chybu</a>
-	                    {*
-	                    <i class="icon icon-comments"></i>
-	                    <span n:syntax="off">
-	                        <a href="#dotazy" data-scroll class="comment-prompt">
-	                            Máš nějaký dotaz k probírané látce?
-	                        </a>
-	                    </span>
-	                    *}
 	                </div>
 	                <div class="right">
 	                    <a n:if="$nextContent" n:href="$nextContent, $nextBlock, $nextSchema">
@@ -131,7 +116,6 @@
 	            </div>
             </div>
         </div>
-        <div id="dotazy" />
 
         {if $reason = $user->isAllowed($video)}
             <div class="container editor-bar">

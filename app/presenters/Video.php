@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Components\Controls\Comments;
 use App\Components\Filters;
 use App\Models\Rme;
 use App\Presenters\Parameters;
@@ -105,11 +104,6 @@ final class Video extends Content
 		}
 
 		$this->redirectToEntity($video);
-	}
-
-	public function createComponentComments()
-	{
-		return $this->buildComponent(Comments::class, [$this->video]);
 	}
 
 	public function handleReportError($time, $message)
