@@ -3,13 +3,11 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
-    "html5shiv": "~3.7.2",
     "jquery": "~2.2.4",
     "nette-forms": "~2.2",
     "nette.ajax.js": "~2.0.0",
     "react": "~0.12.1",
     "requirejs": "~2.1.16",
-    "respond": "~1.4.2",
     "Sortable": "~1.1.1",
     "typeahead.js": "~0.10.5",
     "zxcvbn": "https://github.com/dropbox/zxcvbn/archive/v1.0.zip",
