@@ -63,7 +63,7 @@ final class Auth extends Presenter
 
 	public function onLogin(User $user, $newUser = FALSE, $service = NULL)
 	{
-		$this->user->setExpiration('5 years', FALSE);
+		$this->user->setExpiration('1 years', FALSE);
 
 		$this->flashSuccess('auth.flash.login.' . ($newUser ? 'newUser' : 'returning'), [
 			'name' => $user->firstName,
