@@ -54,18 +54,12 @@ rabbitmq:
 		mail:
 			connection: default
 			exchange: {name: 'mail', type: direct}
-		updateAvatar:
-			connection: default
-			exchange: {name: 'update-avatar', type: direct}
 		updateSchema:
 			connection: default
 			exchange: {name: 'update-schema', type: direct}
 		updateVideo:
 			connection: default
 			exchange: {name: 'update-video', type: direct}
-		updateVideoChart:
-			connection: default
-			exchange: {name: 'update-video-chart', type: direct}
 
 	consumers:
 		mail:
@@ -73,11 +67,6 @@ rabbitmq:
 			exchange: {name: 'mail', type: direct}
 			queue: {name: 'mail'}
 			callback: [@App\Models\Services\Consumers\Mail, process]
-		updateAvatar:
-			connection: default
-			exchange: {name: 'update-avatar', type: direct}
-			queue: {name: 'update-avatar'}
-			callback: [@App\Models\Services\Consumers\UpdateAvatar, process]
 		updateSchema:
 			connection: default
 			exchange: {name: 'update-schema', type: direct}
@@ -88,11 +77,6 @@ rabbitmq:
 			exchange: {name: 'update-video', type: direct}
 			queue: {name: 'update-video'}
 			callback: [@App\Models\Services\Consumers\UpdateVideo, process]
-		updateVideoChart:
-			connection: default
-			exchange: {name: 'update-video-chart', type: direct}
-			queue: {name: 'update-video-chart'}
-			callback: [@App\Models\Services\Consumers\UpdateVideoChart, process]
 
 services:
 	- Mikulas\Vlna
@@ -104,15 +88,12 @@ services:
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
 	- App\Models\Services\Consumers\Mail
-	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema
 	- App\Models\Services\Consumers\UpdateVideo
-	- App\Models\Services\Consumers\UpdateVideoChart
 	- App\Models\Services\Discourse(%discourse.api.key%, %discourse.api.username%)
 	- App\Models\Services\DiscoursePurifier
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
 	- App\Models\Services\Entropy
-	- App\Models\Services\Gravatar
 	- App\Models\Services\Inflection
 	- App\Models\Services\Mailer(%smtp%, %baseUrl%)
 	- App\Models\Services\Paths(@container)
