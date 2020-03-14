@@ -4,6 +4,7 @@ namespace Clevis\Skeleton\Orm;
 use App\Models\Orm\MapperFactory;
 use App\Models\Services\HtmlPurifier;
 use Nette;
+use Nette\SmartObject;
 use Nette\Caching\Cache;
 use Orm;
 use DibiConnection;
@@ -16,8 +17,9 @@ use DibiConnection;
  *
  * @property-read Orm\IServiceContainer $container
  */
-class ServiceContainerFactory extends Nette\Object implements Orm\IServiceContainerFactory
+class ServiceContainerFactory implements Orm\IServiceContainerFactory
 {
+  use SmartObject;
 
 	/** @var DibiConnection */
 	private $dibiConnection;

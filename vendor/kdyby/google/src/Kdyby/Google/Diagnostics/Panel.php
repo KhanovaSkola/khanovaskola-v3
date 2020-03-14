@@ -17,6 +17,7 @@ use Nette\Utils\Html;
 use Nette;
 use Tracy\Debugger;
 use Tracy\IBarPanel;
+use Nette\SmartObject;
 
 
 
@@ -45,8 +46,9 @@ if (!class_exists('Tracy\Dumper')) {
  * @property callable $failure
  * @property callable $success
  */
-class Panel extends Nette\Object implements IBarPanel
+class Panel implements IBarPanel
 {
+  use SmartObject;
 
 	/**
 	 * @var int logged time
