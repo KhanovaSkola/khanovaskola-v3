@@ -1,18 +1,9 @@
 {var $pageName = 'auth-in'}
 {var $headerBorder = FALSE}
 {capture $title}{_'pagetitles.auth-in'}{/capture}
+
 {block content}
-	{**
-	 * @param User $userEntity
 
-	<h1 n:block=title>Sign in</h1>
-
-	<a n:href="facebookLogin-open!">{_'auth.loginLink.facebook'}</a>
-	<a n:href="googleLogin-open!">{_'auth.loginLink.google'}</a>
-
-	<a n:href="resetPassword, email => $email" data-password-reset="{plink resetPassword}">{_'auth.reset.link'}</a>
-	{control loginForm}
-*}
 	{**
 	 * @param User $userEntity
 	 *}
@@ -34,10 +25,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-                        <i class="icon icon-s-facebook"></i>
-                        <span>{_'auth.login.via.fb'}</span>
-                    </a>
                     <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
                         <i class="icon icon-s-google"></i>
                         <span>{_'auth.login.via.google'}</span>

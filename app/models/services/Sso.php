@@ -4,15 +4,16 @@ namespace App\Models\Services;
 
 use App\Models\Rme\User;
 use App\Models\Structs\LazyEntity;
-use Nette\Object;
+use Nette\SmartObject;
 
 
 /**
  * Single Sign On
  * @see https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
  */
-class Sso extends Object
+class Sso
 {
+  use SmartObject;
 
 	private $secret;
 	private $redirect;

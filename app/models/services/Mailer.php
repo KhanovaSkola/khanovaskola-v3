@@ -17,11 +17,12 @@ use Nette\Application\UI\Presenter;
 use Nette\Mail\Message;
 use Nette\Mail\SmtpException;
 use Nette\Mail\SmtpMailer;
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class Mailer extends Object implements IConsumer
+class Mailer implements IConsumer
 {
+  use SmartObject;
 
 	/**
 	 * @var SmtpMailer

@@ -2,10 +2,7 @@
 
 namespace App\Models\Services;
 
-use Nette\Object;
-
-
-class Aes extends Object
+class Aes
 {
 
 	protected $key;

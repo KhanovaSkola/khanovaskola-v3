@@ -11,8 +11,6 @@ parameters:
 		charset: utf8
 		port: 5432
 		sqlmode: TRADITIONAL
-	fb:
-		pageId: "268941846529405"
 	tls: false
 
 php:
@@ -28,7 +26,6 @@ session:
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	events: Kdyby\Events\DI\EventsExtension
-	facebook: Kdyby\Facebook\DI\FacebookExtension
 	google: Kdyby\Google\DI\GoogleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
@@ -36,11 +33,6 @@ extensions:
 
 monolog:
 	name: main-site
-
-facebook:
-	permissions: [email, public_profile]
-	graphVersion: v3.3
-	tls: %tls%
 
 google:
 	returnUri: 'Auth:googleResponse'
@@ -111,8 +103,6 @@ services:
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
-	- App\Models\Services\BlueprintPurifier
-	- App\Models\Services\Blueprints\Compiler
 	- App\Models\Services\Consumers\Mail
 	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema
@@ -124,7 +114,6 @@ services:
 	- App\Models\Services\Entropy
 	- App\Models\Services\Gravatar
 	- App\Models\Services\Inflection
-	- App\Models\Services\FacebookPage(%fb.pageId%)
 	- App\Models\Services\Mailer(%smtp%, %baseUrl%)
 	- App\Models\Services\Paths(@container)
 	- App\Models\Services\SchemaLayout

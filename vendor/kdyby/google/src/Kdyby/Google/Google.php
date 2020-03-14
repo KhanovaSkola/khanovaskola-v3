@@ -20,7 +20,7 @@ use Nette\ComponentModel\IComponent;
 use Nette\Http\Request;
 use Nette\Http\Url;
 use Nette\Http\UrlScript;
-use Nette\Object;
+use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Tracy\Debugger;
@@ -37,8 +37,9 @@ if (!class_exists('Tracy\Debugger')) {
  *
  * @property-read Google_Client $client
  */
-class Google extends Object
+class Google
 {
+  use SmartObject;
 
 	/**
 	 * @var \Nette\Application\Application

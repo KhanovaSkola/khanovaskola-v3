@@ -40,10 +40,6 @@ monolog:
 console:
 	url: %baseUrl%
 
-facebook:
-	appId: "273608052753035"
-	appSecret: "7be86a7s3bc83aa6e260d032ce393a15" # dummy
-
 google:
 	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
 	clientSecret: "sT1mUz-XAAAX58fI1dXXXQWY" # dummy

@@ -2,11 +2,12 @@
 
 namespace App\Models\Services;
 
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class Highlight extends Object
+class Highlight
 {
+  use SmartObject;
 
 	const START = '{{%highlight%}}';
 	const END = '{{%/highlight%}}';

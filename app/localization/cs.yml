@@ -184,19 +184,22 @@ exercise:
 exerciseForm:
   verify: "Zkontrolovat"
 
-errors: #TODO
+errors:
   403:
     title: "Přístup zamítnut"
-    text: ""
+    text: "Asi nemáte dostatečná oprávnění."
   404:
     title: "Stránka nenalezena"
-    text: ""
+    text: "Omlouváme se, ale tuto stránku se nám nepodařilo najít."
   410:
     title: "Stránka odstraněna"
-    text: ""
+    text: "Omlouváme se, toto video bylo odstraněno."
+  500:
+    title: "Chyba aplikace."
+    text: "Napište nám prosím na info@khanovaskola.cz a popište, jak tato chyba vznikla. Moc děkujeme!"
 
 registrationForm:
-  duplicate: "Uživatel s tímto emailem už je zaregistrovaný." #TODO link to login
+  duplicate: "Uživatel s tímto emailem už je zaregistrovaný."
   email:
     label: "Email"
     missing: "Zadejte email"

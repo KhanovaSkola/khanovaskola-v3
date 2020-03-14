@@ -4,7 +4,6 @@ namespace Kdyby\RabbitMq;
 
 use Nette;
 use PhpAmqpLib\Channel\AMQPChannel;
-use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 
 
@@ -16,8 +15,10 @@ use PhpAmqpLib\Connection\AMQPLazyConnection;
  * @property array $exchangeOptions
  * @property array $queueOptions
  */
-abstract class AmqpMember extends Nette\Object
+abstract class AmqpMember
 {
+	use Nette\SmartObject;
+
 
 	/**
 	 * @var Connection
@@ -47,15 +48,15 @@ abstract class AmqpMember extends Nette\Object
 	/**
 	 * @var array
 	 */
-	protected $basicProperties = array(
+	protected $basicProperties = [
 		'content_type' => 'text/plain',
 		'delivery_mode' => 2
-	);
+	];
 
 	/**
 	 * @var array
 	 */
-	protected $exchangeOptions = array(
+	protected $exchangeOptions = [
 		'name' => NULL,
 		'passive' => false,
 		'durable' => true,
@@ -65,7 +66,7 @@ abstract class AmqpMember extends Nette\Object
 		'arguments' => null,
 		'ticket' => null,
 		'declare' => true,
-	);
+	];
 
 	/**
 	 * @var bool
@@ -75,7 +76,7 @@ abstract class AmqpMember extends Nette\Object
 	/**
 	 * @var array
 	 */
-	protected $queueOptions = array(
+	protected $queueOptions = [
 		'name' => '',
 		'passive' => false,
 		'durable' => true,
@@ -84,8 +85,8 @@ abstract class AmqpMember extends Nette\Object
 		'nowait' => false,
 		'arguments' => null,
 		'ticket' => null,
-		'routing_keys' => array(),
-	);
+		'routing_keys' => [],
+	];
 
 	/**
 	 * @var bool
@@ -152,7 +153,7 @@ abstract class AmqpMember extends Nette\Object
 	 * @param  array $options
 	 * @return void
 	 */
-	public function setExchangeOptions(array $options = array())
+	public function setExchangeOptions(array $options = [])
 	{
 		if (!isset($options['name'])) {
 			throw new \InvalidArgumentException('You must provide an exchange name');
@@ -181,7 +182,7 @@ abstract class AmqpMember extends Nette\Object
 	 * @param  array $options
 	 * @return void
 	 */
-	public function setQueueOptions(array $options = array())
+	public function setQueueOptions(array $options = [])
 	{
 		$this->queueOptions = $options + $this->queueOptions;
 	}
@@ -257,7 +258,9 @@ abstract class AmqpMember extends Nette\Object
 		);
 
 		if (empty($options['routing_keys'])) {
-			$this->getChannel()->queue_bind($queueName, $this->exchangeOptions['name'], $this->routingKey);
+			if (!empty($this->exchangeOptions['name'])) {
+				$this->getChannel()->queue_bind($queueName, $this->exchangeOptions['name'], $this->routingKey);
+			}
 
 		} else {
 			foreach ($options['routing_keys'] as $routingKey) {

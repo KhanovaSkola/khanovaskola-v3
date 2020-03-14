@@ -17,12 +17,12 @@ class MultipleConsumer extends Consumer
 	/**
 	 * @var array
 	 */
-	public $onConsume = array();
+	public $onConsume = [];
 
 	/**
 	 * @var array[]|callable[][]
 	 */
-	protected $queues = array();
+	protected $queues = [];
 
 
 
@@ -35,7 +35,7 @@ class MultipleConsumer extends Consumer
 
 	public function setQueues(array $queues)
 	{
-		$this->queues = array();
+		$this->queues = [];
 		foreach ($queues as $name => $queue) {
 			if (!isset($queue['callback'])) {
 				throw new InvalidArgumentException("The queue '$name' is missing a callback.");
@@ -44,6 +44,16 @@ class MultipleConsumer extends Consumer
 			Callback::check($queue['callback']);
 			$this->queues[$name] = $queue;
 		}
+	}
+
+
+
+	/**
+	 * @return \array[]|\callable[][]
+	 */
+	public function getQueues()
+	{
+		return $this->queues;
 	}
 
 
@@ -86,7 +96,17 @@ class MultipleConsumer extends Consumer
 		}
 
 		$this->onConsume($this, $msg);
-		$processFlag = call_user_func($this->queues[$queueName]['callback'], $msg);
-		$this->handleProcessMessage($msg, $processFlag);
+		try {
+			$processFlag = call_user_func($this->queues[$queueName]['callback'], $msg);
+			$this->handleProcessMessage($msg, $processFlag);
+
+		} catch (TerminateException $e) {
+			$this->handleProcessMessage($msg, $e->getResponse());
+			throw $e;
+
+		} catch (\Exception $e) {
+			$this->onReject($this, $msg, IConsumer::MSG_REJECT_REQUEUE);
+			throw $e;
+		}
 	}
 }

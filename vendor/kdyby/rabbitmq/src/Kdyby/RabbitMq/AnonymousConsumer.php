@@ -2,7 +2,6 @@
 
 namespace Kdyby\RabbitMq;
 
-use PhpAmqpLib\Connection\AMQPConnection;
 
 
 
@@ -13,11 +12,11 @@ use PhpAmqpLib\Connection\AMQPConnection;
 class AnonymousConsumer extends Consumer
 {
 
-	public function __construct(AMQPConnection $conn)
+	public function __construct(Connection $conn)
 	{
 		parent::__construct($conn);
 
-		$this->setQueueOptions(array(
+		$this->setQueueOptions([
 			'name' => '',
 			'passive' => false,
 			'durable' => false,
@@ -26,7 +25,7 @@ class AnonymousConsumer extends Consumer
 			'nowait' => false,
 			'arguments' => null,
 			'ticket' => null
-		));
+		]);
 	}
 
 }

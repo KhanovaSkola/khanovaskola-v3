@@ -2,7 +2,7 @@
 
 namespace Clevis\Skeleton\Orm;
 
-use Nette\Object;
+use Nette\SmartObject;
 use Orm\MetaData;
 use Orm\RelationshipMetaDataToMany;
 use Orm\InvalidArgumentException;
@@ -11,8 +11,9 @@ use Orm\InvalidArgumentException;
 /**
  * Uchovává metadata o vztazích entit a doplňuje metadata entit
  */
-class EntityRelationsRegistry extends Object
+class EntityRelationsRegistry
 {
+  use SmartObject;
 
 	/** @var array ($targetClass => array($relatedClass)) */
 	private $registry = array();

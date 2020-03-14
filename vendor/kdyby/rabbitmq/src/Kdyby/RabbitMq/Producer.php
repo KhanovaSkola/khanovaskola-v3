@@ -45,7 +45,7 @@ class Producer extends AmqpMember implements IProducer
 
 	protected function getBasicProperties()
 	{
-		return array('content_type' => $this->contentType, 'delivery_mode' => $this->deliveryMode);
+		return ['content_type' => $this->contentType, 'delivery_mode' => $this->deliveryMode];
 	}
 
 
@@ -54,13 +54,17 @@ class Producer extends AmqpMember implements IProducer
 	 * Publishes the message and merges additional properties with basic properties
 	 *
 	 * @param string $msgBody
-	 * @param string $routingKey
+	 * @param string $routingKey If not provided or set to null, used default routingKey from configuration of this producer
 	 * @param array $additionalProperties
 	 */
-	public function publish($msgBody, $routingKey = '', $additionalProperties = array())
+	public function publish($msgBody, $routingKey = '', $additionalProperties = [])
 	{
 		if ($this->autoSetupFabric) {
 			$this->setupFabric();
+		}
+
+		if ($routingKey === '' || $routingKey === NULL) { // empty string or NULL
+			$routingKey = $this->routingKey;
 		}
 
 		$msg = new AMQPMessage((string) $msgBody, array_merge($this->getBasicProperties(), $additionalProperties));
