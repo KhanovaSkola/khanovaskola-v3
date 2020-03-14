@@ -4,11 +4,12 @@ namespace App\Models\Services;
 
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Rme\User;
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class UserMerger extends Object
+class UserMerger
 {
+  use SmartObject;
 
 	/**
 	 * @var RepositoryContainer

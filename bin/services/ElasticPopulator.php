@@ -7,12 +7,13 @@ use App\Models\Orm\IIndexable;
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\ElasticSearch;
-use Nette\Object;
+use Nette\SmartObject;
 use Nette\Reflection\ClassType;
 
 
-class ElasticPopulator extends Object
+class ElasticPopulator
 {
+  use SmartObject;
 
 	/**
 	 * @var ElasticSearch

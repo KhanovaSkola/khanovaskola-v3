@@ -2,16 +2,12 @@
 
 namespace App\Models\Services;
 
-use Nette\Object;
-
-
 /**
  * Locale management
  * Takes locale from config.local.neon
  */
-class Locale extends Object
+class Locale
 {
-
 	protected $locale;
 
 	public function __construct($locale)
@@ -31,5 +27,4 @@ class Locale extends Object
            }
            return NULL;
 	}
-
 }

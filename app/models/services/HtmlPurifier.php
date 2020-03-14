@@ -4,11 +4,12 @@ namespace App\Models\Services;
 
 use HTMLPurifier as Purifier;
 use HTMLPurifier_Config as Config;
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class HtmlPurifier extends Object
-{
+class HtmlPurifier
+{ 
+  use SmartObject;
 
 	private $filter;
 

@@ -5,12 +5,13 @@ namespace Bin\Services;
 use App\InvalidStateException;
 use Inflect\Inflect;
 use Latte\Engine;
-use Nette\Object;
+use Nette\SmartObject;
 use Nette\Utils\Strings;
 
 
-class Scaffolding extends Object
+class Scaffolding
 {
+  use SmartObject;
 
 	/**
 	 * @var string path

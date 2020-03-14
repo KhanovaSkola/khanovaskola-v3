@@ -2,12 +2,13 @@
 
 namespace App\Models\Services;
 
-use Nette\Object;
+use Nette\SmartObject;
 use Nette\Utils\Strings;
 
 
-class RemoteSubtitles extends Object implements ISubtitleFetcher
+class RemoteSubtitles implements ISubtitleFetcher
 {
+  use SmartObject;
 
 	/**
 	 * @var SubtitleCache

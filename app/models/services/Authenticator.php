@@ -7,10 +7,11 @@ use Nette;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
 use Nette\Security\Passwords;
+use Nette\SmartObject;
 
-
-class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
+class Authenticator implements Nette\Security\IAuthenticator
 {
+  use SmartObject;
 
 	const PASSWORD_NOT_SET = 5;
 
