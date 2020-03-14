@@ -140,8 +140,9 @@ errors:
     title: "Stránka odstraněna"
     text: "Omlouváme se, toto video bylo odstraněno."
   500:
-    title: "Chyba aplikace."
-    text: "Moc se omlouváme, chyba je na naší straně. Pokud chcete pomoci, napište nám na info@khanovaskola.cz a popište, jak jste se sem dostali. Moc děkujeme!"
+    title: "Houstone, máme problém ☹️"
+    text: "Omlouváme se, chyba je na naší straně. Můžete to zkusit znovu nebo jít na předchozí stránku."
+    contactUs: "Pokud chcete pomoci, napište nám na info@khanovaskola.cz a popište, jak jste se k této chybě dostali. Moc děkujeme!"
 
 registrationForm:
   duplicate: "Uživatel s tímto emailem už je zaregistrovaný."

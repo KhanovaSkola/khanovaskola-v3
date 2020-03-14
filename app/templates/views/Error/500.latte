@@ -11,28 +11,14 @@
                 <h1>
                     {_'errors.500.title'}</br>
                     <small>
-                        {_'errors.500.text'}
+                        {_'errors.500.text'}<br>
+                        {_'errors.500.contactUs'}
                     </small>
                 </h1>
-                <img src="/img/error-page-arrow.svg" alt="arrow down">
-                <form class="clearfix" action="/vyhledavani" method="get" id="frm-search-form">
-                    <div class="pull-left search-input">
-                        <input type="text" class="form-control" placeholder="{_'search.placeholder'}" name="hledat" id="frm-search-form-query">
-                    </div>
-                    <div class="pull-left">
-                        <button class="btn btn-search" type="submit" name="search" id="frm-search-form-search">
-                            <i class="icon icon-search"></i>
-                        </button>
-                    </div>
-                    <div><input type="hidden" name="do" value="search-form-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]--></div>
-                </form>
             </div>
         </main>
     </div>
     <div class="clearfix"></div>
 </div>
-
-<script src="/libs/jquery/dist/jquery.min.js"></script>
-<script src="/build/app.min.js"></script>
 </body>
 </html>
