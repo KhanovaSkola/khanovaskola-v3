@@ -40,49 +40,6 @@ unsubscribe:
   title: "Odhlášení v pořádku."
   message: "Už nikdy vám nepošleme žádný email. Pokud si to rozmyslíte, můžete se v nastavení k emailům zase přihlásit."
 
-blueprintEditor:
-  title: "Název"
-  description: "Popisek"
-  question: "Otázka"
-  visible: "Zobrazit ve vyhledávání"
-  removed: "Odstranit cvičení (používat velmi obezřetně pouze po diskuzi na fóru)"
-  answer: "Odpověď"
-  data: "Data"
-  vars: "Proměnné"
-  hints: "Nápovědy"
-  addButton: "přidat"
-  removeVar: "smazat proměnnou"
-  removeUndo: "vrátit zpět"
-  type:
-    table: "tabulka"
-    integer: "celé číslo"
-    list: "náhodné slovo"
-    plural: "plurál"
-  submit:
-    new:
-      title: "Cvičení přidáno."
-      message: "Nezapomeň jej důkladně otestovat."
-    edit:
-      title: "Cvičení změněno."
-      message: ""
-    error:
-      title: "Uloženo, ale je tam chyba."
-      message: "%error"
-  form:
-    title:
-      missing: "Vyplňte název cvičení"
-    description:
-      missing: "Vyplňte popis cvičení"
-    question:
-      missing: "Vyplňte otázku"
-    answer:
-      missing: "Vyplňte odpověď"
-  answerType:
-    scalar: "skalár (enum povolený)"
-    select: "výběr jednoho z možností (očekává json pole stringů, enum povolený v hodnotách)"
-    dragToBox: "přetáhnutí obrázků do boxu"
-    fillIn: "fill-in (doplňování do prázdných míst)"
-
 columnChart:
   blueprint:
     yAxis: "Čas [s]"
@@ -172,18 +129,6 @@ auth:
         title: "Na report nemáte přístup."
         message: "Pokud se jedná o omyl, napište na fórum."
 
-exercise:
-  showHint: "Zobrazit nápovědu"
-  correct:
-    title: "Výborně!"
-    message: "%answer je správná odpověď."
-  wrong:
-    title: "To není dobře."
-    message: "%answer není správná odpověď."
-
-exerciseForm:
-  verify: "Zkontrolovat"
-
 errors:
   403:
     title: "Přístup zamítnut"
@@ -196,7 +141,7 @@ errors:
     text: "Omlouváme se, toto video bylo odstraněno."
   500:
     title: "Chyba aplikace."
-    text: "Napište nám prosím na info@khanovaskola.cz a popište, jak tato chyba vznikla. Moc děkujeme!"
+    text: "Moc se omlouváme, chyba je na naší straně. Pokud chcete pomoci, napište nám na info@khanovaskola.cz a popište, jak jste se sem dostali. Moc děkujeme!"
 
 registrationForm:
   duplicate: "Uživatel s tímto emailem už je zaregistrovaný."
@@ -327,10 +272,6 @@ search:
       one: "1 článek na Khanově akademii"
       few: "%1 článek na Khanově akademii"
       many: "%1 článků na Khanově akademii"
-    blueprint:
-      one: "jedno cvičení"
-      few: "%1 cvičení"
-      many: "%1 cvičení"
     block:
       one: "jeden blok"
       few: "%1 bloky"
@@ -426,9 +367,6 @@ acl:
     video:
       title: "Nepovoleno."
       message: "Přístup na editor videí nemáte povolený. Pokud je to chyba, napište na fórum."
-    blueprint:
-      title: "Nepovoleno."
-      message: "Přístup na editor cvičení nemáte povolený. Pokud je to chyba, napište na fórum."
     blackboard:
       title: "Nepovoleno."
       message: "Přístup na nahrávání nemáte povolený. Pokud je to chyba, napište na fórum."

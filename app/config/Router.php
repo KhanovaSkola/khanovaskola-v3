@@ -20,8 +20,6 @@ class Router extends RouteList
 		$secured = NULL;
 		if ($context->getParameters()['tls'])
 		{
-                        // Deprecated in Nette 2.4
-			// Route::$defaultFlags |= Route::SECURED;
 			$secured = Route::SECURED;
 		}
 
@@ -47,18 +45,15 @@ class Router extends RouteList
 		], $secured);
 
 		$this[] = new Route('vyhledavani/?hledat=<query>', 'Search:results');
-		$this[] = new Route('vyhledavani/cviceni', 'Search:blueprints');
 
 		$this[] = new Route('schema/[<action \D+>/]<schemaId \d+>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action \D+>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
 		$this[] = new Route('video/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]?zacatek=<startAtTime \d+>', 'Video:default');
-		$this[] = new Route('cviceni/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blueprintId \d+>[-<slug>]', 'Blueprint:default');
 		$this[] = new Route('tabule/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blackboardId \d+>[-<slug>]?zacatek=<startAtTime \d+>', 'Blackboard:default');
 
 		// old links
 		$this[] = new Route('video/<youtubeId>', 'Video:youtube');
 	//	$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
-	//	$this[] = new Redirect('kontakt', 'https://wiki.khanovaskola.cz/doku.php?id=tym');
 		$this[] = $context->createInstance(Routers\OldVideo::class);
 		$this[] = $context->createInstance(Routers\OldCategory::class);
 		$this[] = $context->createInstance(Routers\OldBlog::class);

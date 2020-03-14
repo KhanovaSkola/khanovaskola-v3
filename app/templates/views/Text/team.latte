@@ -23,7 +23,12 @@
 		<div class="container">
 			<div class="content-inner">
 				<p class="lead">
-                    Who's in on your team?</br> 
+                {* An example of how one can modify content based on locale *}
+                {if $language === 'cs'}
+                    Kdo se stará o Khanovu školu?
+                {else}
+                    Who's in the team?</br>
+                {/if}
                     (on <a href="https://khanovaskola.cz/o-skole/tym">Czech website</a>, the content on this page is filled automatically from Discourse forum)
 {*If you have Discourse forum and want to use it, modify
 app/presenters/Text.php

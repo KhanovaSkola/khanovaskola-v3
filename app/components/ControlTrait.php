@@ -132,11 +132,6 @@ trait ControlTrait
 				$idKey = 'videoId';
 				$presenter = 'Video:';
 			}
-			else if ($destination instanceof Rme\Blueprint)
-			{
-				$idKey = 'blueprintId';
-				$presenter = 'Blueprint:';
-			}
 			else if ($destination instanceof Rme\Blackboard)
 			{
 				$idKey = 'blackboardId';

@@ -50,32 +50,6 @@ final class Search extends Presenter
 		$this->redrawControl('results');
 	}
 
-	public function renderBlueprints($page = NULL)
-	{
-		$this->template->setFile($this->paths->getTemplate('Search', 'results'));
-
-		$this->template->query = $query = 'Všechna cvičení';
-		$this->template->filter = NULL;
-
-		$this['searchResultsForm-form-query']->setDefaultValue($query);
-
-		list($limit, $offset) = $this->getLinearLimitOffset($page ?: 1);
-		$results = $this->orm->contents->findAllBlueprints()->applyLimit($limit, $offset);
-		$this->template->search = (object) [
-			'results' => $results,
-			'aggregations' => [
-				[
-					'key' => 'blueprint',
-					'doc_count' => $results->count(),
-				]
-			],
-			'total' => $results->count(),
-		];
-
-		$this->payload->results = $results->count();
-		$this->redrawControl('results');
-	}
-
 	public function actionOpenSearchSuggest($query)
 	{
 		$search = $this->search->query($query, 5, 0);
@@ -91,9 +65,7 @@ final class Search extends Presenter
 		{
 			/** @var Rme\Content $content */
 			$response[1][] = $content->title;
-			$response[2][] = $content instanceof Rme\Video
-				? 'Video'
-				: ($content instanceof Rme\Blueprint ? 'Cvičení' : '');
+			$response[2][] = $content instanceof Rme\Video ? 'Video' : '';
 			$response[3][] = $this->absoluteLink($content);
 		}
 		$this->sendJson($response);

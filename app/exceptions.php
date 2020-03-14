@@ -40,8 +40,6 @@ class FileNotFoundException extends IOException { }
 
 class DirectoryNotFoundException extends IOException { }
 
-class BlueprintCompilerException extends \RuntimeException { }
-
 // === Logic exceptions ========================================================
 
 class EmptyStackException extends \LogicException {}
