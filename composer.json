@@ -25,7 +25,7 @@
 		"kdyby/forms-replicator": "~1.4",
 		"kdyby/google": "dev-master#4823f65 as 0.1.999",
 		"kdyby/monolog": "~1.0",
-	  	"kdyby/rabbitmq": "dev-master#4a7edf4f",
+	  	"kdyby/rabbitmq": "~1.2",
 		"kdyby/redis": "~3.1",
 		"nette/nette": "~2.4",
 		"nextras/migrations": "~3.0",

@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be82158a88c44b7673a30fc8246817ed",
-    "content-hash": "c27bab3676998da8d22e0aa5a6fa5929",
+    "content-hash": "1eb7bb4105c2f54c817bd7a26103acc5",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -50,7 +49,7 @@
                 "password",
                 "zxcvbn"
             ],
-            "time": "2018-07-23 05:05:36"
+            "time": "2018-07-23T05:05:36+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -106,7 +105,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2020-01-13 10:02:55"
+            "time": "2020-01-13T10:02:55+00:00"
         },
         {
             "name": "dg/dibi",
@@ -170,7 +169,7 @@
                 "sqlite"
             ],
             "abandoned": "dibi/dibi",
-            "time": "2015-12-16 14:14:32"
+            "time": "2015-12-16T14:14:32+00:00"
         },
         {
             "name": "elasticsearch/elasticsearch",
@@ -225,7 +224,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2015-09-17 22:01:44"
+            "time": "2015-09-17T22:01:44+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -270,7 +269,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2013-11-30 08:25:19"
+            "time": "2013-11-30T08:25:19+00:00"
         },
         {
             "name": "google/apiclient",
@@ -313,7 +312,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2016-06-06 21:22:48"
+            "time": "2016-06-06T21:22:48+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -409,7 +408,7 @@
                 "web service"
             ],
             "abandoned": "guzzlehttp/guzzle",
-            "time": "2015-03-18 18:23:50"
+            "time": "2015-03-18T18:23:50+00:00"
         },
         {
             "name": "kdyby/console",
@@ -479,7 +478,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2017-12-03 18:35:49"
+            "time": "2017-12-03T18:35:49+00:00"
         },
         {
             "name": "kdyby/events",
@@ -549,7 +548,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2019-07-03 20:03:28"
+            "time": "2019-07-03T20:03:28+00:00"
         },
         {
             "name": "kdyby/facebook",
@@ -637,7 +636,7 @@
                 "sdk"
             ],
             "abandoned": "thephpleague/oauth2-facebook",
-            "time": "2018-04-12 20:51:32"
+            "time": "2018-04-12T20:51:32+00:00"
         },
         {
             "name": "kdyby/forms-replicator",
@@ -712,7 +711,7 @@
                 "nette",
                 "replicator"
             ],
-            "time": "2019-03-12 10:21:32"
+            "time": "2019-03-12T10:21:32+00:00"
         },
         {
             "name": "kdyby/google",
@@ -724,7 +723,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Google/zipball/4823f65fa4cfa3d6ff6790deb1a8f203570d5868",
+                "url": "https://api.github.com/repos/Kdyby/Google/zipball/4823f65",
                 "reference": "4823f65",
                 "shasum": ""
             },
@@ -782,7 +781,8 @@
                 "login",
                 "nette"
             ],
-            "time": "2016-08-20 16:49:26"
+            "abandoned": "league/oauth2-google",
+            "time": "2016-08-20T16:49:26+00:00"
         },
         {
             "name": "kdyby/monolog",
@@ -854,20 +854,20 @@
                 "monolog",
                 "nette"
             ],
-            "time": "2017-05-22 18:16:52"
+            "time": "2017-05-22T18:16:52+00:00"
         },
         {
             "name": "kdyby/rabbitmq",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/RabbitMq.git",
-                "reference": "4a7edf4f"
+                "reference": "e8dab30bd13540cf0fb60f635de90cadcda7685a"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Kdyby/RabbitMq/zipball/e8dab30bd13540cf0fb60f635de90cadcda7685a",
-                "reference": "4a7edf4f",
+                "reference": "e8dab30bd13540cf0fb60f635de90cadcda7685a",
                 "shasum": ""
             },
             "require": {
@@ -877,29 +877,30 @@
                 "php-amqplib/php-amqplib": "~2.6.2"
             },
             "require-dev": {
-                "jakub-onderka/php-parallel-lint": "~0.7",
-                "kdyby/console": "~2.3@dev",
-                "latte/latte": "~2.2@dev",
+                "kdyby/console": "~2.5@dev",
+                "latte/latte": "~2.4@dev",
                 "mockery/mockery": "~0.9.1",
-                "nette/application": "~2.2@dev",
-                "nette/bootstrap": "~2.2@dev",
-                "nette/caching": "~2.2@dev",
-                "nette/component-model": "~2.2@dev",
-                "nette/database": "~2.2@dev",
-                "nette/finder": "~2.2@dev",
-                "nette/forms": "~2.2@dev",
-                "nette/http": "~2.2@dev",
-                "nette/mail": "~2.2@dev",
-                "nette/neon": "~2.2@dev",
-                "nette/nette": "~2.2@dev",
-                "nette/php-generator": "~2.2@dev",
-                "nette/reflection": "~2.2@dev",
-                "nette/robot-loader": "~2.2@dev",
-                "nette/safe-stream": "~2.2@dev",
-                "nette/security": "~2.2@dev",
-                "nette/tester": "@dev",
-                "nette/tokenizer": "~2.2@dev",
-                "tracy/tracy": "~2.2@dev"
+                "nette/application": "~2.4@dev",
+                "nette/bootstrap": "~2.4@dev",
+                "nette/caching": "~2.4@dev",
+                "nette/component-model": "~2.3@dev",
+                "nette/database": "~2.4@dev",
+                "nette/deprecated": "~2.3@dev",
+                "nette/di": "~2.4@dev",
+                "nette/finder": "~2.4@dev",
+                "nette/forms": "~2.4@dev",
+                "nette/http": "~2.4@dev",
+                "nette/mail": "~2.4@dev",
+                "nette/neon": "~2.4@dev",
+                "nette/php-generator": "~2.4@dev",
+                "nette/reflection": "~2.4@dev",
+                "nette/robot-loader": "~2.4@dev",
+                "nette/safe-stream": "~2.3@dev",
+                "nette/security": "~2.4@dev",
+                "nette/tester": "~1.3@rc",
+                "nette/tokenizer": "~2.3@dev",
+                "nette/utils": "~2.4@dev",
+                "tracy/tracy": "~2.4@dev"
             },
             "type": "library",
             "extra": {
@@ -915,6 +916,7 @@
                     "src/Kdyby/RabbitMq/exceptions.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -924,14 +926,14 @@
                 },
                 {
                     "name": "Filip Procházka",
-                    "homepage": "http://filip-prochazka.com",
-                    "email": "filip@prochazka.su"
+                    "email": "filip@prochazka.su",
+                    "homepage": "http://filip-prochazka.com"
                 }
             ],
             "description": "Integrates php-amqplib with RabbitMq and Nette Framework",
             "homepage": "http://kdyby.org",
             "keywords": [
-                "amqp",
+                "AMQP",
                 "bunny",
                 "kdyby",
                 "message",
@@ -941,12 +943,7 @@
                 "rabbit",
                 "rabbitmq"
             ],
-            "support": {
-                "email": "filip@prochazka.su",
-                "issues": "https://github.com/Kdyby/RabbitMq/issues",
-                "source": "https://github.com/Mikulas/RabbitMq/tree/fix-idle-signals"
-            },
-            "time": "2015-02-07 20:40:37"
+            "time": "2018-03-20T07:32:00+00:00"
         },
         {
             "name": "kdyby/redis",
@@ -1032,7 +1029,7 @@
                 "nette",
                 "redis"
             ],
-            "time": "2015-06-04 21:53:47"
+            "time": "2015-06-04T21:53:47+00:00"
         },
         {
             "name": "kdyby/strict-objects",
@@ -1090,7 +1087,7 @@
                 "scream",
                 "strict"
             ],
-            "time": "2016-08-26 06:34:41"
+            "time": "2016-08-26T06:34:41+00:00"
         },
         {
             "name": "khanovaskola/cislo",
@@ -1129,7 +1126,7 @@
                 }
             ],
             "description": "Translates integers to words and vice versa",
-            "time": "2015-02-20 21:08:44"
+            "time": "2015-02-20T21:08:44+00:00"
         },
         {
             "name": "latte/latte",
@@ -1201,7 +1198,7 @@
                 "template",
                 "twig"
             ],
-            "time": "2018-06-03 17:34:15"
+            "time": "2018-06-03T17:34:15+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1268,7 +1265,7 @@
                 "s3",
                 "sftp"
             ],
-            "time": "2014-05-13 19:56:59"
+            "time": "2014-05-13T19:56:59+00:00"
         },
         {
             "name": "mikulas/vlna",
@@ -1280,7 +1277,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/vlna/zipball/abee46d8fa550adb23cda7c884391b15729079c4",
+                "url": "https://api.github.com/repos/Mikulas/vlna/zipball/3388b3be",
                 "reference": "3388b3be",
                 "shasum": ""
             },
@@ -1303,7 +1300,7 @@
                     "email": "mikulas@dite.pro"
                 }
             ],
-            "time": "2015-06-26 15:12:49"
+            "time": "2015-06-26T15:12:49+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1381,7 +1378,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-12-20 14:15:16"
+            "time": "2019-12-20T14:15:16+00:00"
         },
         {
             "name": "nette/application",
@@ -1468,7 +1465,7 @@
                 "routing",
                 "seo"
             ],
-            "time": "2019-11-19 18:47:13"
+            "time": "2019-11-19T18:47:13+00:00"
         },
         {
             "name": "nette/bootstrap",
@@ -1544,7 +1541,7 @@
                 "configurator",
                 "nette"
             ],
-            "time": "2018-05-17 12:52:20"
+            "time": "2018-05-17T12:52:20+00:00"
         },
         {
             "name": "nette/caching",
@@ -1613,7 +1610,7 @@
                 "nette",
                 "sqlite"
             ],
-            "time": "2019-11-19 18:38:13"
+            "time": "2019-11-19T18:38:13+00:00"
         },
         {
             "name": "nette/component-model",
@@ -1674,7 +1671,7 @@
                 "components",
                 "nette"
             ],
-            "time": "2018-03-20 16:32:50"
+            "time": "2018-03-20T16:32:50+00:00"
         },
         {
             "name": "nette/database",
@@ -1746,7 +1743,7 @@
                 "queries",
                 "sqlite"
             ],
-            "time": "2019-11-19 18:29:14"
+            "time": "2019-11-19T18:29:14+00:00"
         },
         {
             "name": "nette/deprecated",
@@ -1809,7 +1806,7 @@
             "keywords": [
                 "nette"
             ],
-            "time": "2018-02-06 16:29:40"
+            "time": "2018-02-06T16:29:40+00:00"
         },
         {
             "name": "nette/di",
@@ -1878,7 +1875,7 @@
                 "nette",
                 "static"
             ],
-            "time": "2019-11-19 18:25:17"
+            "time": "2019-11-19T18:25:17+00:00"
         },
         {
             "name": "nette/finder",
@@ -1940,7 +1937,7 @@
                 "iterator",
                 "nette"
             ],
-            "time": "2018-06-28 11:49:23"
+            "time": "2018-06-28T11:49:23+00:00"
         },
         {
             "name": "nette/forms",
@@ -2008,7 +2005,7 @@
                 "nette",
                 "validation"
             ],
-            "time": "2019-11-19 15:39:27"
+            "time": "2019-11-19T15:39:27+00:00"
         },
         {
             "name": "nette/http",
@@ -2080,7 +2077,7 @@
                 "session",
                 "url"
             ],
-            "time": "2019-03-13 19:04:45"
+            "time": "2019-03-13T19:04:45+00:00"
         },
         {
             "name": "nette/mail",
@@ -2148,7 +2145,7 @@
                 "nette",
                 "smtp"
             ],
-            "time": "2018-11-21 22:35:13"
+            "time": "2018-11-21T22:35:13+00:00"
         },
         {
             "name": "nette/neon",
@@ -2209,7 +2206,7 @@
                 "nette",
                 "yaml"
             ],
-            "time": "2018-03-21 12:12:21"
+            "time": "2018-03-21T12:12:21+00:00"
         },
         {
             "name": "nette/nette",
@@ -2286,7 +2283,7 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2016-05-03 15:59:52"
+            "time": "2016-05-03T15:59:52+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -2348,7 +2345,7 @@
                 "php",
                 "scaffolding"
             ],
-            "time": "2018-04-26 16:47:39"
+            "time": "2018-04-26T16:47:39+00:00"
         },
         {
             "name": "nette/reflection",
@@ -2412,7 +2409,8 @@
                 "nette",
                 "reflection"
             ],
-            "time": "2017-07-11 19:28:57"
+            "abandoned": true,
+            "time": "2017-07-11T19:28:57+00:00"
         },
         {
             "name": "nette/robot-loader",
@@ -2478,7 +2476,7 @@
                 "nette",
                 "trait"
             ],
-            "time": "2017-08-14 20:23:02"
+            "time": "2017-08-14T20:23:02+00:00"
         },
         {
             "name": "nette/safe-stream",
@@ -2539,7 +2537,7 @@
                 "nette",
                 "safe"
             ],
-            "time": "2017-07-13 18:20:37"
+            "time": "2017-07-13T18:20:37+00:00"
         },
         {
             "name": "nette/security",
@@ -2603,7 +2601,7 @@
                 "authorization",
                 "nette"
             ],
-            "time": "2018-10-17 15:50:54"
+            "time": "2018-10-17T15:50:54+00:00"
         },
         {
             "name": "nette/tokenizer",
@@ -2658,7 +2656,7 @@
             ],
             "description": "Nette Tokenizer",
             "homepage": "https://nette.org",
-            "time": "2017-09-08 14:16:06"
+            "time": "2017-09-08T14:16:06+00:00"
         },
         {
             "name": "nette/utils",
@@ -2740,7 +2738,7 @@
                 "utility",
                 "validation"
             ],
-            "time": "2019-11-19 00:32:02"
+            "time": "2019-11-19T00:32:02+00:00"
         },
         {
             "name": "nextras/migrations",
@@ -2805,7 +2803,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Database migrations runner",
-            "time": "2020-01-18 09:46:41"
+            "time": "2020-01-18T09:46:41+00:00"
         },
         {
             "name": "nextras/static-router",
@@ -2856,7 +2854,7 @@
                 "nextras",
                 "router"
             ],
-            "time": "2018-03-19 13:35:41"
+            "time": "2018-03-19T13:35:41+00:00"
         },
         {
             "name": "petrp/orm",
@@ -2900,7 +2898,7 @@
                 "issues": "https://github.com/PetrP/Orm/issues",
                 "source": "https://github.com/PetrP/Orm"
             },
-            "time": "2014-04-04 00:00:00"
+            "time": "2014-04-04T00:00:00+00:00"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -2970,7 +2968,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2016-04-11 14:30:01"
+            "time": "2016-04-11T14:30:01+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -3020,7 +3018,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2018-01-21 07:42:36"
+            "time": "2018-01-21T07:42:36+00:00"
         },
         {
             "name": "psr/container",
@@ -3069,7 +3067,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/log",
@@ -3116,7 +3114,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2019-11-01 11:05:21"
+            "time": "2019-11-01T11:05:21+00:00"
         },
         {
             "name": "symfony/console",
@@ -3177,7 +3175,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-20 15:55:20"
+            "time": "2018-11-20T15:55:20+00:00"
         },
         {
             "name": "symfony/debug",
@@ -3234,7 +3232,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:22:48"
+            "time": "2016-07-30T07:22:48+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3294,7 +3292,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-21 14:20:20"
+            "time": "2018-11-21T14:20:20+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3353,7 +3351,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13 11:15:53"
+            "time": "2020-01-13T11:15:53+00:00"
         },
         {
             "name": "symfony/process",
@@ -3402,7 +3400,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11 11:18:13"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "tackk/cartographer",
@@ -3444,7 +3442,7 @@
                 }
             ],
             "description": "A PHP sitemap generation tool.",
-            "time": "2014-05-02 22:31:00"
+            "time": "2014-05-02T22:31:00+00:00"
         },
         {
             "name": "tracy/tracy",
@@ -3510,7 +3508,7 @@
                 "nette",
                 "profiler"
             ],
-            "time": "2019-03-21 15:06:29"
+            "time": "2019-03-21T15:06:29+00:00"
         }
     ],
     "packages-dev": [
@@ -3562,7 +3560,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2014-01-12 16:20:24"
+            "time": "2014-01-12T16:20:24+00:00"
         },
         {
             "name": "mikulas/adminer-package",
@@ -3602,7 +3600,7 @@
                 "postgres",
                 "psql"
             ],
-            "time": "2016-03-02 13:05:55"
+            "time": "2016-03-02T13:05:55+00:00"
         },
         {
             "name": "mikulas/code-sniffs",
@@ -3636,7 +3634,7 @@
                 }
             ],
             "description": "Code sniffer rules for Clevis coding standard",
-            "time": "2014-10-15 10:05:53"
+            "time": "2014-10-15T10:05:53+00:00"
         },
         {
             "name": "nette/tester",
@@ -3698,7 +3696,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2018-06-01 09:33:19"
+            "time": "2018-06-01T09:33:19+00:00"
         },
         {
             "name": "oodle/inflect",
@@ -3748,7 +3746,7 @@
                 "singularize",
                 "urlify"
             ],
-            "time": "2013-11-30 06:16:23"
+            "time": "2013-11-30T06:16:23+00:00"
         },
         {
             "name": "petrp/access",
@@ -3786,7 +3784,7 @@
             ],
             "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
             "homepage": "https://github.com/PetrP/Access",
-            "time": "2013-10-11 16:43:39"
+            "time": "2013-10-11T16:43:39+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -3861,7 +3859,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-12-04 22:32:15"
+            "time": "2014-12-04T22:32:15+00:00"
         }
     ],
     "aliases": [
@@ -3875,7 +3873,6 @@
     "minimum-stability": "beta",
     "stability-flags": {
         "kdyby/google": 20,
-        "kdyby/rabbitmq": 20,
         "mikulas/vlna": 20
     },
     "prefer-stable": true,

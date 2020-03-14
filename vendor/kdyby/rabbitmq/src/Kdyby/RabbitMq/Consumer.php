@@ -15,10 +15,10 @@ use PhpAmqpLib\Message\AMQPMessage;
  *
  * @method onStart(Consumer $self)
  * @method onConsume(Consumer $self, AMQPMessage $msg)
- * @method onConsumeStop(Consumer $self, AMQPMessage $msg)
  * @method onReject(Consumer $self, AMQPMessage $msg, $processFlag)
  * @method onAck(Consumer $self, AMQPMessage $msg)
  * @method onError(Consumer $self, AMQPExceptionInterface $e)
+ * @method onTimeout(Consumer $self)
  */
 class Consumer extends BaseConsumer
 {
@@ -26,37 +26,37 @@ class Consumer extends BaseConsumer
 	/**
 	 * @var array
 	 */
-	public $onConsume = array();
+	public $onConsume = [];
 
 	/**
 	 * @var array
 	 */
-	public $onConsumeStop = array();
+	public $onReject = [];
 
 	/**
 	 * @var array
 	 */
-	public $onReject = array();
+	public $onAck = [];
 
 	/**
 	 * @var array
 	 */
-	public $onAck = array();
+	public $onStart = [];
 
 	/**
 	 * @var array
 	 */
-	public $onStart = array();
+	public $onStop = [];
 
 	/**
 	 * @var array
 	 */
-	public $onStop = array();
+	public $onTimeout = [];
 
 	/**
 	 * @var array
 	 */
-	public $onError = array();
+	public $onError = [];
 
 	/**
 	 * @var int $memoryLimit
@@ -111,7 +111,9 @@ class Consumer extends BaseConsumer
 				try {
 					$this->getChannel()->wait(NULL, FALSE, $this->getIdleTimeout());
 				} catch (AMQPTimeoutException $e) {
+					$this->onTimeout($this);
 					// nothing bad happened, right?
+					// intentionally not throwing the exception
 				}
 			}
 
@@ -131,6 +133,9 @@ class Consumer extends BaseConsumer
 
 			$this->onError($this, $e);
 			throw $e;
+
+		} catch (TerminateException $e) {
+			$this->stopConsuming();
 		}
 	}
 
@@ -152,7 +157,10 @@ class Consumer extends BaseConsumer
 		try {
 			$processFlag = call_user_func($this->callback, $msg);
 			$this->handleProcessMessage($msg, $processFlag);
-			$this->onConsumeStop($this, $msg);
+
+		} catch (TerminateException $e) {
+			$this->handleProcessMessage($msg, $e->getResponse());
+			throw $e;
 
 		} catch (\Exception $e) {
 			$this->onReject($this, $msg, IConsumer::MSG_REJECT_REQUEUE);

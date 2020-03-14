@@ -27,7 +27,7 @@ class Connection extends PhpAmqpLib\Connection\AMQPLazyConnection implements ICo
 	/**
 	 * @var array
 	 */
-	private $serviceMap = array();
+	private $serviceMap = [];
 
 
 
@@ -96,12 +96,12 @@ class Connection extends PhpAmqpLib\Connection\AMQPLazyConnection implements ICo
 	 */
 	public function injectServiceMap(array $producers, array $consumers, array $rpcClients, array $rpcServers)
 	{
-		$this->serviceMap = array(
+		$this->serviceMap = [
 			'consumer' => $consumers,
 			'producer' => $producers,
 			'rpcClient' => $rpcClients,
 			'rpcServer' => $rpcServers,
-		);
+		];
 	}
 
 
@@ -162,16 +162,6 @@ class Connection extends PhpAmqpLib\Connection\AMQPLazyConnection implements ICo
 		}
 
 		return $channel;
-	}
-
-
-
-	/**
-	 * @return array
-	 */
-	public function getDefinedConsumers()
-	{
-		return array_keys($this->serviceMap['consumer']);
 	}
 
 }

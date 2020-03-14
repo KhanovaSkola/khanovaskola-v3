@@ -13,8 +13,6 @@ namespace Kdyby\RabbitMq\Diagnostics;
 use Kdyby\RabbitMq\Connection;
 use Nette;
 use Nette\Utils\Html;
-use Tracy\Bar;
-use Tracy\BlueScreen;
 use Tracy\Debugger;
 use Tracy\IBarPanel;
 
@@ -27,27 +25,29 @@ use Tracy\IBarPanel;
  * @property callable $failure
  * @property callable $success
  */
-class Panel extends Nette\Object implements IBarPanel
+class Panel implements IBarPanel
 {
+	use Nette\SmartObject;
+
 
 	/**
 	 * @var array
 	 */
-	private $messages = array();
+	private $messages = [];
 
 	/**
 	 * @var array
 	 */
-	private $serviceMap = array();
+	private $serviceMap = [];
 
 
 
 	public function injectServiceMap(array $consumers, array $rpcServers)
 	{
-		$this->serviceMap = array(
+		$this->serviceMap = [
 			'consumer' => $consumers,
 			'rpcServer' => $rpcServers,
-		);
+		];
 	}
 
 
@@ -57,19 +57,15 @@ class Panel extends Nette\Object implements IBarPanel
 	 */
 	public function getTab()
 	{
-		$img = Html::el('img', array(
-			'height' => '16px',
-			'src' => 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__ . '/logo.png'))
-		));
-
-		$tab = Html::el('span', array('title' => 'RabbitMq'))->add($img);
-		$title = Html::el()->setText('RabbitMq');
+		$img = Html::el('')->addHtml(file_get_contents(__DIR__ . '/rabbitmq-logo.svg'));
+		$tab = Html::el('span')->title('RabbitMq')->addHtml($img);
+		$title = Html::el('span')->class('tracy-label');
 
 		if ($this->messages) {
 			$title->setText(count($this->messages) . ' message' . (count($this->messages) > 1 ? 's' : ''));
 		}
 
-		return (string)$tab->add($title);
+		return (string) $tab->addHtml($title);
 	}
 
 
@@ -103,7 +99,7 @@ class Panel extends Nette\Object implements IBarPanel
 			return $instances;
 		};
 
-		$workers = array();
+		$workers = [];
 		$runningWorkers = $configuredWorkers = 0;
 		foreach ($this->serviceMap as $type => $services) {
 			foreach ($services as $name => $serviceId) {
@@ -115,11 +111,11 @@ class Panel extends Nette\Object implements IBarPanel
 
 		ob_start();
 		$esc = class_exists('Nette\Templating\Helpers')
-			? array('Nette\Templating\Helpers', 'escapeHtml')
-			: array('Latte\Runtime\Filters', 'escapeHtml');
+			? ['Nette\Templating\Helpers', 'escapeHtml']
+			: ['Latte\Runtime\Filters', 'escapeHtml'];
 		$click = class_exists('\Tracy\Dumper')
-			? function ($o, $c = FALSE) { return \Tracy\Dumper::toHtml($o, array('collapse' => $c)); }
-			: array('Tracy\Helpers', 'clickableDump');
+			? function ($o, $c = FALSE) { return \Tracy\Dumper::toHtml($o, ['collapse' => $c]); }
+			: ['Tracy\Helpers', 'clickableDump'];
 
 		require __DIR__ . '/panel.phtml';
 		return ob_get_clean();
