@@ -1,7 +1,6 @@
 {if is_null($schema->position)}
   {var $robots = noindex}
-{/if}
-{if $schema->hidden}
+{elseif $schema->hidden}
   {var $robots = noindex}
 {/if}
 {var $pageName = 'schema-page'}
@@ -41,12 +40,16 @@
 	                </h1>
 	                <p>
 	                    {$schema->description|vlna}
-                  {if $schema->kaUrl}<br> Tento obsah byl přesunut na <a href="https://cs.khanacademy.org" target="_blank" rel="external">českou verzi Khan Academy</a>, kde kromě videí naleznete také cvičení a mnoho dalšího! {/if}
+                  {if $schema->kaUrl}<br> Tento obsah byl přesunut na <a href="{$schema->kaUrl}" rel="external">českou verzi Khan Academy</a>, kde kromě videí naleznete také cvičení a mnoho dalšího! {/if}
 	                </p>
 
-                     {if $language == 'cs'}
+                 {if $language == 'cs'}
 	                <div class="continue">
-		                {if $continueTo}
+		                {if $schema->kaUrl}
+	                        <a href="{$schema->kaUrl}" class="btn" rel="nofollow, external">
+                                {_'schema.continue.first'}
+	                        </a>
+		                {elseif $continueTo}
 		                    <div class="continue-pre">
 		                        {_'schema.continue.info', ['gender' => $userEntity->gender]}
 		                    </div>
