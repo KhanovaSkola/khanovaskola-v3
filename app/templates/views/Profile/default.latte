@@ -7,64 +7,6 @@
 	 * @param App\Models\Rme\CompletedContent $lastContent
 	 *}
 
-	<main class="content">
-        <div class="content-inner">
-            {if $lastSchema}
-	            <div class="head text-{$lastSchema|subjectColor}">
-	                <i class="icon icon-{$lastSchema|subjectIcon}"></i>
-	                <h1>
-	                    <a n:href="$lastSchema">
-	                        {$lastSchema->title}
-	                    </a>
-	                </h1>
-	            </div>
-	            <div class="progress-wrapper ph">
-	                {var $percent = $lastSchema->getCompletedPercent($userEntity)}
-	                <div class="progress">
-	                    <div class="progress-bar progress-bar-{$lastSchema|subjectColor}" style="width: {$percent|number:3|noescape}%;"></div>
-	                </div>
-	                <span>{$percent|number}&thinsp;%</span>
-	            </div>
-	            <a n:href="Schema:continue, schemaId => $lastSchema->id" class="btn">
-	                {_'profile.default.continue'}
-	            </a>
-            {/if}
-
-            <div n:if="$lastSchemas" class="inprogress-box">
-                <div class="title">
-                    <div class="title-inner">
-                        <i class="icon icon-video-play2"></i>
-                        <span> {_'profile.default.olderContinue'}</span>
-                    </div>
-                </div>
-                <div class="inprogress-border">
-	                {foreach $lastSchemas as $schema}
-		                <div class="subject">
-		                    <h2>
-		                        <a n:href="Schema:continue, schemaId => $schema->id">
-			                        <i class="icon icon-{$schema|subjectIcon} text-{$schema|subjectColor}"></i>
-			                        <span>{$schema->title}</span>
-			                    </a>
-		                    </h2>
-		                    <div class="progress-wrapper">
-		                        {var $percent = $schema->getCompletedPercent($userEntity)}
-		                        <div class="progress">
-		                            <div class="progress-bar progress-bar-{$schema|subjectColor}" style="width: {$percent|number:3|noescape}%;"></div>
-		                        </div>
-		                        <span>{$percent|number}&thinsp;%</span>
-		                    </div>
-		                    <div class="action">
-		                        <a n:href="Schema:continue, schemaId => $schema->id" class="btn btn-{$schema|subjectColor}">
-		                            <i class="icon icon-video-play"></i>
-		                        </a>
-		                    </div>
-		                </div>
-		            {/foreach}
-                </div>
-            </div>
-        </div>
-    </main>
-
     <div class="container" n:if="$profile->hasCacheBurstingPrivileges()">
         <div class="col-md-4">
             <h2>{_'profile.default.adminSubjects'}</h2>
