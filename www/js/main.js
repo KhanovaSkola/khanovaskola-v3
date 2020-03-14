@@ -5,8 +5,6 @@
 		paths: {
 			'lib/alert': `${basePath}/libs/bootstrap/js/alert`,
 			'lib/babel': `${basePath}/libs/babel/browser-polyfill`,
-			'lib/blackboard/player': `${basePath}/libs/blackboard/build/player`,
-			'lib/blackboard/recorder': `${basePath}/libs/blackboard/build/recorder`,
 			'lib/chosen': `${basePath}/libs/chosen/chosen.jquery.min`,
 			'lib/dropdown': `${basePath}/libs/bootstrap/js/dropdown`,
 			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,

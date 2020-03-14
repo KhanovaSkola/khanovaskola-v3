@@ -49,9 +49,6 @@ var lessFiles = [
 ];
 var lessAdminLibFiles = [
 	path.join(libDir, 'chosen/chosen.min.css'),
-	path.join(libDir, 'codemirror/lib/codemirror.css'),
-	path.join(libDir, 'codemirror/theme/solarized.css'),
-	path.join(libDir, 'handsontable/dist/handsontable.full.min.css')
 ];
 var lessAdminFiles = [
 	path.join(lessDir, 'variables.less'),
