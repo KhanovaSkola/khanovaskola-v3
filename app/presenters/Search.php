@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Models\Rme;
 use App\Models\Services;
 use Nette\Utils\Strings;
 
@@ -43,27 +42,6 @@ final class Search extends Presenter
 
 		$this->payload->results = $results->count();
 		$this->redrawControl('results');
-	}
-
-	public function actionOpenSearchSuggest($query)
-	{
-		$search = $this->search->query($query, 5, 0);
-
-		/** @see http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions/1.1#Declaring_a_JSON-formatted_search_suggestion_URL */
-		$response = [
-			$query,
-			[], // suggestions
-			[], // suggestion details
-			[], // links
-		];
-		foreach ($search->getResults() as $content)
-		{
-			/** @var Rme\Content $content */
-			$response[1][] = $content->title;
-			$response[2][] = $content instanceof Rme\Video ? 'Video' : '';
-			$response[3][] = $this->absoluteLink($content);
-		}
-		$this->sendJson($response);
 	}
 
 	/**

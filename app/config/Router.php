@@ -37,7 +37,6 @@ class Router extends RouteList
 			'Text:forTeachers' => 'pro-ucitele',
 			'Text:team' => 'o-skole/tym',
 			'Subjects:default' => 'predmety',
-			'File:opensearch' => 'opensearch.xml',
 			'File:robots' => 'robots.txt',
 			'Sitemap:default' => 'sitemap.xml',
 			'Text:tos' => 'podminky',
