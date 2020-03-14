@@ -10,11 +10,12 @@ use App\Models\Rme\Content;
 use App\Models\Rme\Schema;
 use App\Models\Rme\Subject;
 use App\NotImplementedException;
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class AclApproval extends Object
+class AclApproval
 {
+  use SmartObject;
 
 	const PRIVILEGE = 1;
 	const EDITOR = 2;

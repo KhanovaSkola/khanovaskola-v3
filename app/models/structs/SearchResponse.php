@@ -3,11 +3,12 @@
 namespace App\Models\Structs;
 
 use Countable;
-use Nette\Object;
+use Nette\SmartObject;
 
 
-class SearchResponse extends Object implements Countable
+class SearchResponse implements Countable
 {
+  use SmartObject;
 
 	/**
 	 * @var array

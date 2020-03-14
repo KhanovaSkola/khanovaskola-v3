@@ -3,12 +3,13 @@
 namespace App\Models\Structs\VideoEvents;
 
 use JsonSerializable;
-use Nette\Object;
+use Nette\SmartObject;
 use Nette\Reflection\Property;
 
 
-abstract class Event extends Object implements JsonSerializable
+abstract class Event implements JsonSerializable
 {
+  use SmartObject;
 
 	/**
 	 * @var float seconds
