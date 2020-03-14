@@ -24,8 +24,8 @@ parameters:
 	smtp:
 		host: mailtrap.io
 		port: 25
-		username: "197407abde040f4e4"
-		password: "fd4cd6f1568ac1"
+		username: ""
+		password: ""
 	elastic:
 		index: khanovaskola
 		logging: true
@@ -41,9 +41,9 @@ console:
 	url: %baseUrl%
 
 google:
-	clientId: "653060487240-u3dastr8jam7vdk2o72qoiuessdlvsil.apps.googleusercontent.com"
-	clientSecret: "sT1mUz-XAAAX58fI1dXXXQWY" # dummy
-	apiKey: "AIzaSyC3wrCJAoz4jBytysfpNX7FqOHrFL1234E" # dummy
+	clientId: ""
+	clientSecret: "-XAAAX58fI1dXXXQWY" # dummy
+	apiKey: "" # dummy
 
 services:
 	elasticSearchLogger: Mikulas\Diagnostics\ElasticSearchLogger
