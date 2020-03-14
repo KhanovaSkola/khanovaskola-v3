@@ -50,26 +50,11 @@ final class Profile extends Presenter
 	{
 		$this->template->profile = $this->profile;
 
-		$lastSchemas = $this->orm->completedContents->getLatestSchemas($this->userEntity);
-		$lastSchema = array_shift($lastSchemas);
-		$this->template->lastSchema = $lastSchema;
-		$this->template->lastSchemas = $lastSchemas;
-
-		if (!$lastSchema && !$this->getUserEntity()->hasCacheBurstingPrivileges())
+    // Show profile page only to admin users
+		if (!$this->getUserEntity()->hasCacheBurstingPrivileges())
 		{
-			$this->forward('empty');
-			// $this->redirect('Homepage:default');
+			$this->redirect('Homepage:default');
 		}
-	}
-
-	public function renderEmpty()
-	{
-		$this->template->profile = $this->profile;
-		$this->template->suggestions = [
-			$this->orm->contents->getRandom(),
-			$this->orm->contents->getRandom(),
-			$this->orm->contents->getRandom()
-		];
 	}
 
 	public function renderSettings()
