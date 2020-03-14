@@ -1,6 +1,5 @@
 {includeblock _error.latte}
 
-{*<form n:name="form" data-password-strength data-guess-gender data-guess-gender-url-template="{plink Js:guessGender, name => '{name}'|templateLink}">*}
 <form n:name="form" data-password-strength>
 	<ul class=error n:if="$form->ownErrors">
         <li n:foreach="$form->ownErrors as $error">{$error}</li>
@@ -32,32 +31,6 @@
         {include error, control => $form['email']}
     </div>
 
-{*
-	<div class="choices {if $form['gender']->errors} has-error{/if}">
-        <div class="radio pull-left">
-            <label>
-                <input type="radio" n:name="gender:male" data-gender-male>
-                <span></span>
-                <span class="offset">{_'gender.male'}</span>
-            </label>
-        </div>
-        <div class="radio pull-left">
-            <label>
-                <input type="radio" n:name="gender:female" data-gender-female>
-                <span></span>
-                <span class="offset">{_'gender.female'}</span>
-            </label>
-        </div>
-        <div class="radio pull-left">
-            <label>
-                <input type="radio" n:name="gender:other">
-                <span></span>
-                <span class="offset">{_'gender.other'}</span>
-            </label>
-        </div>
-        {include error, control => $form['gender']}
-    </div>
-*}
     <div class="form-group clearfix{if $form['password']->errors} has-error{/if}" data-password-group>
         <div class="pull-left floating-placeholder">
             <label n:name="password">{_'password.label'}</label>

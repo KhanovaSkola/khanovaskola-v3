@@ -7,39 +7,20 @@
 	 *}
 
 	<main class="content">
-        <div class="content-inner">
-            <h1>Nastavení</h1>
-            {control profileForm}
+    <div class="content-inner">
+      <h1>Nastavení</h1>
+        {control profileForm}
 
-			<div n:if="!$userEntity->facebookId || !$userEntity->googleId">
+			  <div n:if="!$userEntity->googleId">
                                 {_'profile.settings.linkProfile'}
-				{if !$userEntity->facebookId}
-					<a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-		                <i class="icon icon-s-facebook"></i>
-                                <span>{_'auth.login.via.fb'}</span>
-		            </a>
-				{/if}
 				{if !$userEntity->googleId}
 					<a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-	                    <i class="icon icon-s-google"></i>
-                            <span>{_'auth.login.via.google'}</span>
-	                </a>
+	           <i class="icon icon-s-google"></i>
+             <span>{_'auth.login.via.google'}</span>
+	        </a>
 				{/if}
 			</div>
 
 			<a n:href="Auth:changePassword">{_'profile.settings.changePassword'}</a>
-
-			<div>
-				{if !$userEntity->avatar}
-                                    {_'profile.settings.avatarAll'}
-				    <a href="https://cs.gravatar.com/">
-                                    {_'profile.settings.onGravatar'}
-                                    </a>.
-				{elseif $userEntity->facebookId}
-                                    {_'profile.settings.avatarFb'}
-				{elseif $userEntity->googleId}
-                                    {_'profile.settings.avatarGoogle'}
-				{/if}
-			</div>
-        </div>
-    </main>
+    </div>
+  </main>

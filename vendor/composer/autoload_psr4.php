@@ -27,5 +27,4 @@ return array(
     'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src/Events'),
     'Kdyby\\Console\\' => array($vendorDir . '/kdyby/console/src'),
     'Elasticsearch\\' => array($vendorDir . '/elasticsearch/elasticsearch/src/Elasticsearch'),
-    'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );

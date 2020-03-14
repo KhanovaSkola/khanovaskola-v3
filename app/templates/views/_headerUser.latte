@@ -1,85 +1,12 @@
 {define headerUser}
 	{var $isGuest = $userEntity instanceof App\Models\Structs\LazyEntity}
 	{if $presenter->isLinkCurrent('Auth:registration')}
-	{elseif $presenter->isLinkCurrent('Auth:in')}
-	{elseif $isGuest || !$userEntity->registered}
-{*
-	    {if $isGuest}
-	       <a href="#" data-toggle="modal" data-target="#loginModal">
-                  {_'header.user.login'}
-               </a>
-               <div class="dropdown no-image" style="display:inline-block">
-                <a href="#" class="dropdown-toggle">
-                    <i class="icon icon-dropdown-caret"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a n:href="Auth:registration">
-                            <i class="icon icon-user-add"></i>
-                            <span>{_'header.user.openAccount'}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-               {else}
-            <div class="pull-right">
-                <a n:href="Auth:registration" class="btn btn-primary">
-                    {_'header.user.openAccountDirect'}
-                </a>
-            </div>
-	        <div class="pull-right">
-	            <div class="dropdown">
-	                <a href="#" class="dropdown-toggle">
-	                    <span>
-	                        <img src="{$basePath}/img/anonym-user.svg" alt="user">
-	                    </span>
-	                    <i class="icon icon-dropdown-caret"></i>
-	                </a>
-	                <ul class="dropdown-menu">
-	                    <li>
-	                        <a n:href="Auth:registration">
-	                            <i class="icon icon-user"></i>
-	                            <span>{_'header.user.openAccount'}</span>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#" data-toggle="modal" data-target="#loginModal">
-	                            <i class="icon icon-auth-in"></i>
-	                            <span>{_'header.user.login'}</span>
-	                        </a>
-	                    </li>
-	                </ul>
-	            </div>
-	        </div>
-		{/if}
 
-		<div class="modal modal-sign fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h2 class="text-center">{_'header.user.login'}</h2>
-                        <a href="#" class="close" data-dismiss="modal">
-                            <i class="icon icon-circle-close"></i>
-                        </a>
-                        <div>
-                            {control loginForm}
-                        </div>
-                    </div>
-                    <div class="modal-footer" data-buttons-disable-onclick>
-                        <a href="{$basePath}/auth/?do=facebookLogin-open" class="btn btn-facebook">
-                            <i class="icon icon-s-facebook"></i>
-                            <span>{_'auth.login.via.fb'}</span>
-                        </a>
-                        <a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-                            <i class="icon icon-s-google"></i>
-                            <span>{_'auth.login.via.google'}</span>
-                        <a>
-                    </div>
-                </div>
-            </div>
-        </div>
-*}
-    {else}{*if $userEntity->registered*}
+	{elseif $presenter->isLinkCurrent('Auth:in')}
+
+	{elseif $isGuest || !$userEntity->registered}
+
+  {else}{* Display user header only if the user is already in *}
 
         <div class="dropdown{if !$userEntity->avatar} missing-avatar{/if}">
             <a href="#" class="dropdown-toggle">

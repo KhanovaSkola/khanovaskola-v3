@@ -16,8 +16,6 @@ use App\Models\Structs\LazyEntity;
 use App\Models\Tasks;
 use Google_Exception;
 use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
-use Kdyby\Facebook\Dialog\LoginDialog as FacebookLoginDialog;
-use Kdyby\Facebook\FacebookApiException;
 use Kdyby\Google\Google;
 use Kdyby\RabbitMq\Connection;
 use Nette;
@@ -73,14 +71,6 @@ final class Auth extends Presenter
 
 		$this->trigger(EventList::LOGIN, [$user]);
 		$this->orm->flush();
-
-		if (!$this->userEntity->avatar)
-		{
-			$producer = $this->queue->getProducer('updateAvatar');
-			$producer->publish(serialize([
-				'user' => new EntityPointer($this->userEntity),
-			]));
-		}
 
 		$this->iLog("auth.login.$service");
 
@@ -168,46 +158,6 @@ final class Auth extends Presenter
 		$input->setDefaultValue($email);
 	}
 
-	/**
-	 * @return FacebookLoginDialog
-	 */
-	protected function createComponentFacebookLogin()
-	{
-		/** @var FacebookLoginDialog $dialog */
-		$dialog = $this->facebook->createDialog('login');
-
-		$dialog->onResponse[] = function (FacebookLoginDialog $dialog)
-		{
-			$fb = $dialog->getFacebook();
-			try
-			{
-				if (!$fb->getUser())
-				{
-					$this->flashError('auth.flash.fb.denied');
-					$this->redirect('Auth:in');
-				}
-				$me = $fb->api('/me?fields=id,name,first_name,last_name,picture,email');
-				$this->registerOrLogin($me, function($id) {
-					return $this->orm->users->getByFacebookId($id);
-				}, function(User $user, $me) use ($fb) {
-					$user->facebookId = $me->id;
-					$user->facebookAccessToken = $this->aes->encrypt($fb->getAccessToken());
-				}, 'facebook');
-			}
-			catch (FacebookApiException $e)
-			{
-				$this->log->addAlert('Facebook login request failed', [
-					'error' => $e->getMessage(),
-				]);
-				$this->flashError('auth.flash.fb.error');
-			}
-
-			$this->redirect('Auth:in');
-		};
-
-		return $dialog;
-	}
-
 	protected function createComponentGoogleLogin()
 	{
 		return $this->google->createLoginDialog();
@@ -263,16 +213,9 @@ final class Auth extends Presenter
 			$userEntity->email = Strings::lower($me->email);
 		}
 
-		$isGoogle = $me instanceof ProfileInfo;
-		$firstName = $isGoogle ? $me->givenName : $me->{'first_name'};
-
-		$userEntity->gender = $me->gender ?: $this->orm->users->getGender($firstName);
+		$firstName = $me->givenName;
 		$userEntity->name = $me->name;
-		$userEntity->familyName = $isGoogle ? $me->familyName : $me->{'last_name'};
 		$userEntity->firstName = $firstName;
-		$userEntity->avatar = $isGoogle
-			? "$me->picture?sz=100"
-			: "https://graph.facebook.com/{$me->id}/picture/?type=square&height=50&width=50"; // intentionally 50, fb returns 2x
 
 		$update($userEntity, $me);
 
