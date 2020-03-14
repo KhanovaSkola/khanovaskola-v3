@@ -111,8 +111,6 @@ services:
 	- App\Models\Services\Acl
 	- App\Models\Services\Aes(%aesKey%)
 	- App\Models\Services\Authenticator
-	- App\Models\Services\BlueprintPurifier
-	- App\Models\Services\Blueprints\Compiler
 	- App\Models\Services\Consumers\Mail
 	- App\Models\Services\Consumers\UpdateAvatar
 	- App\Models\Services\Consumers\UpdateSchema
