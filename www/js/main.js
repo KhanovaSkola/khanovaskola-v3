@@ -11,7 +11,6 @@
 			'lib/dropdown': `${basePath}/libs/bootstrap/js/dropdown`,
 			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,
 			'lib/jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
-			'lib/js-cookie': `${basePath}/libs/js-cookie/src/js.cookie`,
 			'lib/mailcheck': `${basePath}/libs/mailcheck/src/mailcheck.min`,
 			'lib/modal': `${basePath}/libs/bootstrap/js/modal`,
 			'lib/nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
