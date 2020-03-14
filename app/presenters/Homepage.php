@@ -19,6 +19,9 @@ final class Homepage extends Presenter
 		$videoCount = $this->orm->contents->findAllVideos()->count();
 		$precision = 100;
 		$this->template->videoCount = round($videoCount / $precision) * $precision;
+
+    // Show link to CS-KA at the top
+    $this->template->showKALink = true;
 	}
 
 	public function actionMarathon()

@@ -81,11 +81,11 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 	 */
 	public $gclid;
 
-        /** 
-         * @var Locale 
-         * @inject
-         */
-        public $locale;
+  /** 
+   * @var Locale 
+   * @inject
+   */
+  public $locale;
 
 	public function startup()
 	{
@@ -120,13 +120,17 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		parent::beforeRender();
 		$this->registerFilters($this->template);
 		$this->template->setTranslator($this->translator);
-                // Setting language variable for Latte
-                // Maybe we should rename it to locale, makes more sense
-                $this->template->language = $this->locale->getLocale();
+    // Setting language variable for Latte
+    // Maybe we should rename it to locale, makes more sense
+    $this->template->language = $this->locale->getLocale();
+
 		$this->template->add('userEntity', $this->getUserEntity());
 		$this->template->add('subjects', $this->orm->subjects->findAllButOldWeb());
 		$this->template->add('oldSubjects', $this->orm->subjects->findAllOldWeb());
 		$this->template->add('slug', $this->getParameter('slug'));
+
+    // Show CS-KA link only on Homepage and Video page
+    $this->template->showKALink = false;
 
 		$this->setScripts();
 

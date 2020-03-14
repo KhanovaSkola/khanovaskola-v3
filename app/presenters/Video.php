@@ -93,6 +93,9 @@ final class Video extends Content
 		$this->template->suggestions = $this->getSuggestions($this->video);
 		$this->template->position = $this->block ? $this->block->getPositionOf($this->video) : NULL;
 		$this->template->startAtTime = $this->startAtTime;
+
+    // Show link to CS-KA above video
+    $this->template->showKALink = true;
 	}
 
 	public function actionYoutube($youtubeId)
