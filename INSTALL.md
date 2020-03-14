@@ -13,15 +13,14 @@ sudo apt-get install postgresql postgresql-contrib
 
 ##### Install PHP and NGINX
 ```sh
-sudo apt-get install php php-sqlite php-pgsql php-fpm php5-mcrypt php-curl
+sudo apt-get install php php-fpm php-bcmath php-sqlite php-pgsql php-mcrypt php-curl php-mbstring
 ```
 
 ##### Install npm and gulp (for building frontend)
 ```sh
 sudo apt-get install npm
-sudo npm install ---global gulp
+sudo npm install ---global gulp-cli
 ```
-(I needed to change the env from node to nodejs in first line of /usr/local/bin/gulp on linux mint)
 
 ##### Install rabbitmq for asynchronous tasks (schema updating etc.)
 ```sh
