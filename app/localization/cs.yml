@@ -90,7 +90,7 @@ auth:
         message: "Zkuste to prosím znovu."
     google:
       error:
-        title: "Přihlášení přes Google+ selhalo."
+        title: "Přihlášení přes Google selhalo."
         message: "Zkuste to prosím znovu."
     password:
       wrongUsername:
