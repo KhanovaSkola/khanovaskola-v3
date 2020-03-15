@@ -4,8 +4,6 @@ namespace App\Models\Services;
 
 use App\Models\Rme\User;
 use App\Models\Structs\LazyEntity;
-use Nette\Object;
-
 
 /**
  * Single Sign On

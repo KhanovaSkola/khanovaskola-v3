@@ -1,6 +1,6 @@
 {var $pageName = 'setting-page'}
 {var $headerBorder = FALSE}
-{var $title = $template->translate('pagetitles.setting-page')}
+{capture $title}{_'pagetitles.setting-page'}{/capture}
 {block content}
 	{**
 	 * @param App\Models\Rme\User $profile

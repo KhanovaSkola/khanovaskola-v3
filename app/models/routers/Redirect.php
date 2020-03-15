@@ -3,12 +3,14 @@
 namespace App\Models\Routers;
 
 use Nette;
+use Nette\SmartObject;
 use Nette\Application\IRouter;
 use Nette\Application\Request;
 
 
-class Redirect extends Nette\Object implements IRouter
+class Redirect implements IRouter
 {
+  use SmartObject;
 
 	/**
 	 * @var

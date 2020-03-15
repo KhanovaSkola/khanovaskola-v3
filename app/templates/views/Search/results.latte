@@ -13,9 +13,9 @@
             <div class="content-inner">
                 <section class="search-form">
                     {control search, label => $searchingFor}
-                    <ul n:if="$search->results" class="list-unstyled result-count">
+                    <ul n:if="$search->getResults()" class="list-unstyled result-count">
                         {_'search.results.found'} 
-                        {foreach $search->aggregations as $ag}
+                        {foreach $search->getAggregations() as $ag}
                             <a n:href="this, filter => $ag['key']">{*
                                 *}<strong n:tag-if="$ag['key'] === $filter">
                                     {_"search.count.{$ag['key']}", $ag['doc_count']}{*
@@ -27,7 +27,7 @@
                 </section>
                 <section class="search-result" data-url-more="{plink this, query => $query, page => '{page}'|templateLink}">
                     {snippet results}
-                        {foreach $search->results as $hit}
+                        {foreach $search->getResults() as $hit}
                             <article data-score="{$hit->score|number:2}">
                                 {if $hit instanceof App\Models\Rme\Block}
                                     {var $block = $hit}
@@ -87,9 +87,9 @@
                 </section>
 
                 <div class="text-center">
-                    {if $search->total > count($search->results)}
+                    {if $search->getTotal() > count($search->getResults())}
 	                    <a href="#" data-show-more>{_'search.results.showMore'}</a>
-	                {elseif !$search->results}
+	                {elseif !$search->getResults()}
 	                    {_'search.results.noContent'}&hellip;<br>
 	                    {var $q = $search->getDidYouMean()}
                         {if $q}
