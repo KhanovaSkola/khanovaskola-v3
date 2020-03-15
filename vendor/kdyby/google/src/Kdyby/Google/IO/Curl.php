@@ -15,7 +15,7 @@ use Google_Http_Request;
 use Google_IO_Curl;
 use Nette\Diagnostics\Debugger;
 use Nette\MemberAccessException;
-use Nette\Utils\ObjectMixin;
+use Nette\SmartObject;
 
 
 
@@ -34,6 +34,7 @@ if (!class_exists('Nette\Utils\ObjectMixin')) {
  */
 class Curl extends Google_IO_Curl
 {
+  use SmartObject;
 
 	/** @var array callable(Google_Http_Request) */
 	public $onRequest = array();
@@ -67,19 +68,4 @@ class Curl extends Google_IO_Curl
 
 		return $res;
 	}
-
-
-
-	/**
-	 * Callbacks
-	 * @param string $name
-	 * @param array $args
-	 * @return mixed
-	 * @throws MemberAccessException
-	 */
-	public function __call($name, $args)
-	{
-		return ObjectMixin::call($this, $name, $args);
-	}
-
 }
