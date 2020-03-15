@@ -11,8 +11,8 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         '7745382c92b7799bf1294b1f43023ba2' => __DIR__ . '/..' . '/tracy/tracy/src/shortcuts.php',
         'e7a6fd2e7a869bb207158e9416bdd9b0' => __DIR__ . '/..' . '/nette/application/src/compatibility.php',
         'a1d067aa2e53d6b47171c03cfc0ea5be' => __DIR__ . '/..' . '/nette/safe-stream/src/loader.php',
-        '5c07e51810209209735cf7390eb0937b' => __DIR__ . '/..' . '/nette/deprecated/src/loader.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '5c07e51810209209735cf7390eb0937b' => __DIR__ . '/..' . '/nette/deprecated/src/loader.php',
         '9d08842a2aa0dc42ee93aa591835610d' => __DIR__ . '/..' . '/kdyby/events/src/Doctrine/compatibility.php',
         '008cd93dcb0b82bbe8079d06dedffb8f' => __DIR__ . '/..' . '/kdyby/events/src/Symfony/compatibility.php',
         'cf150f72bd303a2ff07711c9a70f2d53' => __DIR__ . '/..' . '/google/apiclient/src/Google/autoload.php',
@@ -170,10 +170,6 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         ),
         'K' => 
         array (
-            'Kdyby\\Redis\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/kdyby/redis/src',
-            ),
             'Kdyby\\RabbitMq\\' => 
             array (
                 0 => __DIR__ . '/..' . '/kdyby/rabbitmq/src',
@@ -1221,25 +1217,6 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         'Kdyby\\RabbitMq\\RpcClient' => __DIR__ . '/..' . '/kdyby/rabbitmq/src/Kdyby/RabbitMq/RpcClient.php',
         'Kdyby\\RabbitMq\\RpcServer' => __DIR__ . '/..' . '/kdyby/rabbitmq/src/Kdyby/RabbitMq/RpcServer.php',
         'Kdyby\\RabbitMq\\TerminateException' => __DIR__ . '/..' . '/kdyby/rabbitmq/src/Kdyby/RabbitMq/exceptions.php',
-        'Kdyby\\Redis\\ConnectionException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\DI\\RedisExtension' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/DI/RedisExtension.php',
-        'Kdyby\\Redis\\Diagnostics\\Panel' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/Diagnostics/Panel.php',
-        'Kdyby\\Redis\\Driver\\PhpRedisDriver' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/Driver/PhpRedisDriver.php',
-        'Kdyby\\Redis\\Exception' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\ExclusiveLock' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/ExclusiveLock.php',
-        'Kdyby\\Redis\\IMultiReadStorage' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/IMultiReadStorage.php',
-        'Kdyby\\Redis\\IRedisDriver' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/IRedisDriver.php',
-        'Kdyby\\Redis\\InvalidArgumentException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\LockException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\MissingExtensionException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\RedisClient' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/RedisClient.php',
-        'Kdyby\\Redis\\RedisClientException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\RedisJournal' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/RedisJournal.php',
-        'Kdyby\\Redis\\RedisLuaJournal' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/RedisLuaJournal.php',
-        'Kdyby\\Redis\\RedisSessionHandler' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/RedisSessionHandler.php',
-        'Kdyby\\Redis\\RedisStorage' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/RedisStorage.php',
-        'Kdyby\\Redis\\SessionHandlerException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
-        'Kdyby\\Redis\\TransactionException' => __DIR__ . '/..' . '/kdyby/redis/src/Kdyby/Redis/exceptions.php',
         'Kdyby\\Replicator\\Container' => __DIR__ . '/..' . '/kdyby/forms-replicator/src/Kdyby/Replicator/Container.php',
         'Kdyby\\Replicator\\DI\\ReplicatorExtension' => __DIR__ . '/..' . '/kdyby/forms-replicator/src/Kdyby/Replicator/DI/ReplicatorExtension.php',
         'Kdyby\\StrictObjects\\Exception' => __DIR__ . '/..' . '/kdyby/strict-objects/src/exceptions.php',
