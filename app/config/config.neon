@@ -39,8 +39,6 @@ google:
 
 events:
 	debugger: off
-	subscribers:
-		- App\Models\Services\CompletedContentCreator
 
 rabbitmq:
 	connection:

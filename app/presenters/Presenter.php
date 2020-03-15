@@ -94,16 +94,11 @@ abstract class Presenter extends Nette\Application\UI\Presenter implements Subsc
 		$this->eventManager->addEventSubscriber($this);
 	}
 
+  // DH: This is needed,
+  // but maybe we could remove Kdyby/Events altogether now?
 	public function getSubscribedEvents()
 	{
-		return [EventList::BADGE_AWARDED];
-	}
-
-	public function onBadgeAwarded(Rme\BadgeUserBridge $bridge)
-	{
-		$this->flashSuccess('badges.awarded', [
-			'badge' => $bridge->title
-		]);
+		return [];
 	}
 
 	/**

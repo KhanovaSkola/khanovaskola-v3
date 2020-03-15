@@ -49,11 +49,6 @@
                     <div class="right-inner">
                         <div class="video-wrapper" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"
                             data-subtitles-url="{plink Subtitles:json, videoId => $video->id}"
-                            data-url-event-begin="{plink Js:videoViewBegin, videoId => $video->id, blockId => $block ? $block->id, schemaId => $schema ? $schema->id}"
-                            data-url-event-seek="{plink Js:videoViewSeek, viewId => '{viewId}', from => '{from}', to => '{to}'|templateLink}"
-                            data-url-event-pause="{plink Js:videoViewPause, viewId => '{viewId}', at => '{at}', duration => '{duration}'|templateLink}"
-                            data-url-event-change-view="{plink Js:videoViewChangeView, viewId => '{viewId}', at => '{at}', isFullscreenNow => '{isFullscreenNow}'|templateLink}"
-                            data-url-event-tick="{plink Js:videoViewTick, viewId => '{viewId}', percent => '{percent}', time => '{time}', furthest => '{furthest}', watched => '{watched}'|templateLink}"
                             data-duration="{$video->duration}"
                             >
 

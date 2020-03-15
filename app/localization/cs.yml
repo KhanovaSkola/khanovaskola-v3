@@ -142,7 +142,7 @@ errors:
   500:
     title: "Houstone, máme problém ☹️"
     text: "Omlouváme se, chyba je na naší straně. Můžete to zkusit znovu nebo jít na předchozí stránku."
-    contactUs: "Pokud chcete pomoci, napište nám na info@khanovaskola.cz a popište, jak jste se k této chybě dostali. Moc děkujeme!"
+    contactUs: "Pokud chcete pomoci, napište nám na info@khanovaskola.cz a popište, jak jste se k této chybě dostali. Děkujeme!"
 
 registrationForm:
   duplicate: "Uživatel s tímto emailem už je zaregistrovaný."
