@@ -1,5 +1,5 @@
 {var $robots = noindex}
-{var $title = $template->translate("errors.$code.title")}
+{capture $title}{_'errors.$code.title'}{/capture}
 {var $pageName = 'error-page'}
 {var $headerBorder = FALSE}
 {block content}
