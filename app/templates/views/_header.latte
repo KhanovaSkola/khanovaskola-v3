@@ -60,9 +60,15 @@
                     {if $sch->kaUrl}
                       <div class="row">
                         <span class="title">
-                          <a href="{$sch->kaUrl}" target="_blank" rel="external" class="text-ka-default">{$sch->title}</a> &mdash;
+                          <a href="{$sch->kaUrl}" target="_blank" rel="external" class="text-ka-default">{$sch->title}</a>
                         </span>
-                        <span class="blocks">
+                    {*Do not render dash for empty schemas*}
+                    {*This is super ugly*}
+                    {foreach $sch->blocks as $bl}
+                       &mdash;
+                      {php break}
+                    {/foreach}
+                        <span class="blocks" n:ifcontent>
                           {var $blocks = $sch->blocks}
                           {var $limit = 3}
                           {if $sch->title === "Diferenciální počet" || $sch->title === "Výrazy" || $sch->title === "Trigonometrie"}
@@ -90,8 +96,9 @@
                       {var $scht = $sch->title}
                       <div class="row">
                         <span class="title">
-                          <a n:href="$sch">{$scht}</a> &mdash;
+                          <a n:href="$sch">{$scht}</a>
                         </span>
+                        &mdash;
                         <span class="blocks">
                         {var $blocks = $sch->blocks}
                         {var $limit = 8}
