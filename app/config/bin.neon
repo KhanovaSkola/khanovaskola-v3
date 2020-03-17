@@ -20,9 +20,7 @@ console:
 		- Bin\Commands\Scaffolding\Migration\Sql
 		- Bin\Commands\Scaffolding\Presenter
 		- Bin\Commands\Scaffolding\Rme
-		- Bin\Commands\Scaffolding\Test\Unit
 		- Bin\Commands\Schema\Reset
-		- Bin\Commands\Tests\Run
 		- Bin\Commands\Video\Update
 		- Bin\Commands\Video\UpdateChart
 		- Bin\Commands\Ka\SyncAll

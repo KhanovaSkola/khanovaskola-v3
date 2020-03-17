@@ -61,7 +61,6 @@ class Configurator extends Nette\Configurator
 			'libsDir' => "$root/vendor",
 			'logDir' => "$root/log",
 			'migrationsDir' => "$root/migrations",
-			'testsDir' => "$root/tests",
 			'wwwDir' => "$root/www",
 		]);
 		$defaults += [
@@ -100,17 +99,6 @@ class Configurator extends Nette\Configurator
 
 	public static function detectDebugMode($list = NULL)
 	{
-		if (isset($_SERVER['HTTP_X_BLACKFIRE_QUERY']))
-		{
-			// Blackfire
-			return FALSE;
-		}
-		if (strpos(php_uname('n'), 'testing-worker-') !== FALSE)
-		{
-			// Travis
-			return TRUE;
-		}
-
 		return parent::detectDebugMode($list);
 	}
 
@@ -157,7 +145,6 @@ class Configurator extends Nette\Configurator
 		$loader->addDirectory($params['appDir']);
 		$loader->addDirectory($params['binDir']);
 		$loader->addDirectory($params['appDir'] . '/../migrations');
-		$loader->addDirectory($params['appDir'] . '/../tests');
 		$loader->addDirectory($params['libsDir'] . '/others');
 
 		return $loader;

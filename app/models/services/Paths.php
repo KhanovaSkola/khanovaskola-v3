@@ -15,7 +15,6 @@ class Paths
 	protected $log;
 	protected $migrations;
 	protected $temp;
-	protected $tests;
 	protected $www;
 
 	public function __construct(Container $container)
@@ -30,7 +29,6 @@ class Paths
 			'log' => 'logDir',
 			'migrations' => 'migrationsDir',
 			'temp' => 'tempDir',
-			'tests' => 'testsDir',
 			'www' => 'wwwDir',
 		] as $prop => $key)
 		{
@@ -73,11 +71,6 @@ class Paths
 		return $this->temp;
 	}
 
-	public function getTests()
-	{
-		return $this->tests;
-	}
-
 	public function getWww()
 	{
 		return $this->www;
@@ -86,11 +79,6 @@ class Paths
 	public function getJs()
 	{
 		return "{$this->www}/js";
-	}
-
-	public function getBlackboards()
-	{
-		return "{$this->www}/data/blackboard";
 	}
 
 	public function getPreviews()
