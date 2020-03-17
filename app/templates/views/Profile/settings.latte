@@ -9,18 +9,10 @@
 	<main class="content">
     <div class="content-inner">
       <h1>Nastavení</h1>
-        {control profileForm}
 
-			  <div n:if="!$userEntity->googleId">
-                                {_'profile.settings.linkProfile'}
-				{if !$userEntity->googleId}
-					<a href="{$basePath}/auth/?do=googleLogin-open" class="btn btn-google">
-	           <i class="icon icon-s-google"></i>
-             <span>{_'auth.login.via.google'}</span>
-	        </a>
-				{/if}
-			</div>
+      {control profileForm}
 
 			<a n:href="Auth:changePassword">{_'profile.settings.changePassword'}</a>
+
     </div>
   </main>

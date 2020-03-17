@@ -14,9 +14,6 @@ use App\Models\Structs\EntityPointer;
 use App\Models\Structs\EventList;
 use App\Models\Structs\LazyEntity;
 use App\Models\Tasks;
-use Google_Exception;
-use Google_Service_Oauth2_Userinfoplus as ProfileInfo;
-use Kdyby\Google\Google;
 use Kdyby\RabbitMq\Connection;
 use Nette;
 use Nette\Forms\Controls\TextInput;
@@ -48,12 +45,6 @@ final class Auth extends Presenter
 	 * @inject
 	 */
 	public $ssos;
-
-	/**
-	 * @var Google
-	 * @inject
-	 */
-	public $google;
 
 	/**
 	 * @var Connection
@@ -158,89 +149,6 @@ final class Auth extends Presenter
 		$input->setDefaultValue($email);
 	}
 
-	protected function createComponentGoogleLogin()
-	{
-		return $this->google->createLoginDialog();
-	}
-
-	public function actionGoogleResponse()
-	{
-		try
-		{
-			$me = $this->google->getProfile();
-			$this->registerOrLogin($me, function($id) {
-				return $this->orm->users->getByGoogleId($id);
-			}, function(User $user, $me) {
-				$user->googleId = $me->id;
-				$token = $this->google->getAccessToken()['access_token'];
-				$user->googleAccessToken = $this->aes->encrypt($token);
-			}, 'google');
-		}
-		catch (Google_Exception $e)
-		{
-			$this->log->addAlert('Google login request failed', [
-				'error' => $e->getMessage(),
-			]);
-			$this->flashError('auth.flash.google.error');
-		}
-
-		$this->redirect('Auth:in');
-	}
-
-	/**
-	 * @param StdClass|ProfileInfo $me
-	 * @param callable $findById
-	 * @param callable $update
-	 * @param NULL|string $service for logging
-	 * @return User
-	 */
-	private function registerOrLogin($me, $findById, $update, $service = NULL)
-	{
-		/** @var User $userEntity */
-		$userEntity = $findById($me->id);
-
-		$newUser = FALSE;
-		if (!$userEntity)
-		{
-			$userEntity = $this->orm->users->getByEmail($me->email);
-		}
-		if (!$userEntity)
-		{
-			$newUser = TRUE;
-			$userEntity = new User();
-			$this->orm->users->attach($userEntity);
-
-			$userEntity->email = Strings::lower($me->email);
-		}
-
-		$firstName = $me->givenName;
-		$userEntity->name = $me->name;
-		$userEntity->firstName = $firstName;
-
-		$update($userEntity, $me);
-
-		$guest = NULL;
-		if ($this->user->getId() && !$this->userEntity->registered)
-		{
-			$guest = $this->userEntity;
-		}
-
-		$this->orm->flush();
-		$this->user->login(new Identity($userEntity->id));
-
-		if ($newUser)
-		{
-			$this->iLog("auth.registration.$service");
-		}
-
-		if ($guest)
-		{
-			$this->userMerger->mergeUserInto($guest, $userEntity);
-		}
-
-		$this->orm->flush();
-		$this->onLogin($userEntity, $newUser, $service);
-	}
 
 	public function actionOut()
 	{
