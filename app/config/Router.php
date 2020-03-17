@@ -48,7 +48,6 @@ class Router extends RouteList
 		$this[] = new Route('schema/[<action \D+>/]<schemaId \d+>[-<slug>]', 'Schema:default');
 		$this[] = new Route('blok/[<action \D+>/][<schemaId \d+>/]<blockId \d+>[-<slug>]', 'Block:default');
 		$this[] = new Route('video/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<videoId \d+>[-<slug>]?zacatek=<startAtTime \d+>', 'Video:default');
-		$this[] = new Route('tabule/[<action \D+>/][[<schemaId \d+>/]<blockId \d+>/]<blackboardId \d+>[-<slug>]?zacatek=<startAtTime \d+>', 'Blackboard:default');
 
 		// old links
 		$this[] = new Route('video/<youtubeId>', 'Video:youtube');

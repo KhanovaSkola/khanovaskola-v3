@@ -218,9 +218,6 @@ editor:
     video:
       title: "Video přidáno."
       message: ""
-    blackboard:
-      title: "Tabule přidána."
-      message: ""
   edited:
     block:
       title: "Blok upraven."
@@ -230,9 +227,6 @@ editor:
       message: ""
     video:
       title: "Video upraveno."
-      message: ""
-    blackboard:
-      title: "Tabule upravena."
       message: ""
   back:
     block: "Zpět na blok"
@@ -277,10 +271,6 @@ search:
       one: "jeden blok"
       few: "%1 bloky"
       many: "%1 bloků"
-    blackboard:
-      one: "jedna tabule"
-      few: "%1 tabule"
-      many: "%1 tabulí"
   placeholder: "Hledat"
   results:
     noContent: "Nechtěli jste hledat "
@@ -317,17 +307,6 @@ videoForm:
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
   visible: "Zobrazit ve vyhledávání"
   removed: "Odstranit video (používat pouze pokud video bylo smazáno a neexistuje žádné alternativní video)"
-  button:
-    save: "Uložit"
-
-blackboardForm:
-  title:
-    caption: "Název"
-    missing: "Vyplňte název tabule"
-  description:
-    caption: "Podrobný popisek (15-20 slov)"
-    missing: "Vyplňte popis tabule"
-  visible: "Zobrazit ve vyhledávání"
   button:
     save: "Uložit"
 
@@ -368,9 +347,6 @@ acl:
     video:
       title: "Nepovoleno."
       message: "Přístup na editor videí nemáte povolený. Pokud je to chyba, napište na fórum."
-    blackboard:
-      title: "Nepovoleno."
-      message: "Přístup na nahrávání nemáte povolený. Pokud je to chyba, napište na fórum."
 
 subjectForm:
   title:

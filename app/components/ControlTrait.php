@@ -132,11 +132,6 @@ trait ControlTrait
 				$idKey = 'videoId';
 				$presenter = 'Video:';
 			}
-			else if ($destination instanceof Rme\Blackboard)
-			{
-				$idKey = 'blackboardId';
-				$presenter = 'Blackboard:';
-			}
 			else
 			{
 				throw new NotImplementedException;
