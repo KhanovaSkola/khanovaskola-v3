@@ -9,10 +9,16 @@
                         <i class="icon icon-{$subj->icon}"></i>
                     </a>
                     <ul class="schemas list-unstyled hidden" data-subject="{$subj->id}">
-                        <li n:foreach="$subj->schemas as $sch">
-                            <a n:href="$sch" class="schema text-{$subj->color}">
+                        <li n:foreach="$subj->schemas as $sch" n:ifcontent>
+                            {if $sch->kaUrl && strpos($sch->kaUrl, "/computer-programming/") === false}
+                              <a href="{$sch->kaUrl}" class="text-ka-default ka-subjects ka-mobile-link">
                                 <span>{$sch->title}</span>
-                            </a>
+                              </a>
+                            {elseif !$sch->kaUrl && !$sch->hidden}
+                              <a n:href="$sch" class="schema text-{$subj->color}">
+                                <span>{$sch->title}</span>
+                              </a>
+                            {/if}
                         </li>
                     </ul>
                 {/foreach}
@@ -21,7 +27,7 @@
 	        <div class="about">
 	            <p>
 		            {_'footer.mobile.siteDescription1'} {$getRoundedContentCount()} {_'footer.mobile.siteDescription2'}
-		        </p>
+		          </p>
 	            <a n:href="Text:about">{_'footer.mobile.about'}</a>
 	        </div>
 
