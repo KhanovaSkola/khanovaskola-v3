@@ -11,8 +11,8 @@
                     <ul class="schemas list-unstyled hidden" data-subject="{$subj->id}">
                         <li n:foreach="$subj->schemas as $sch" n:ifcontent>
                             {if $sch->kaUrl && strpos($sch->kaUrl, "/computer-programming/") === false}
-                              <a href="{$sch->kaUrl}" class="text-ka-default ka-subjects ka-mobile-link">
-                                <span>{$sch->title}</span>
+                              <a href="{$sch->kaUrl}" class="text-ka-default ka-subjects">
+                                  <span class="ka-schema-link">{$sch->title}</span>
                               </a>
                             {elseif !$sch->kaUrl && !$sch->hidden}
                               <a n:href="$sch" class="schema text-{$subj->color}">
