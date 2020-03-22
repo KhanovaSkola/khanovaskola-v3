@@ -313,7 +313,14 @@ videoForm:
     caption: "Detailed description (15-20 words)"
     missing: "Fill in video description."
   youtubeId:
+    caption: "YouTube ID"
     missing: "Fill in video youtubeId (e.g. AuX7nPBqDts)"
+  originalYoutubeId:
+    caption: "Original YouTube ID"
+    missing: ""
+  kaUrl:
+    caption: "Link to khanacademy.org"
+    missing: ""
   visible: "Visible"
   removed: "Remove video (use only if delete from YT without replacement)"
   button:

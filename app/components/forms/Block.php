@@ -20,6 +20,7 @@ class Block extends EditorForm
 		$this->addEditorSelector('editors', $this->orm);
 		$this->addCheckbox('visible');
 		$this->addHidden('contents');
+                $this->setTranslator(null);
 
 		$this->addSubmit();
 	}

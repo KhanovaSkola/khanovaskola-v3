@@ -207,7 +207,7 @@ block:
 
 editor:
   form:
-    error: "Chyba %1"
+    error: "Chyba: %1"
   added:
     block:
       title: "Blok přidán."
@@ -304,7 +304,14 @@ videoForm:
     caption: "Podrobný popisek (15-20 slov)"
     missing: "Vyplňte popis videa"
   youtubeId:
+    caption: "YouTube ID"
     missing: "Vyplňte youtubeId videa (příklad: AuX7nPBqDts)"
+  originalYoutubeId:
+    caption: "Original YouTube ID (nedabované video)"
+    missing: ""
+  kaUrl:
+    caption: "Odkaz na video na cs.khanacademy.org"
+    missing: "https://cs.khanacademy.org/video/slug"
   visible: "Zobrazit ve vyhledávání"
   removed: "Odstranit video (používat pouze pokud video bylo smazáno a neexistuje žádné alternativní video)"
   button:
