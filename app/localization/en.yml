@@ -294,13 +294,13 @@ schemaForm:
   visible: "Visible"
   button:
     save: "Save"
-
+ 
 subjectForm:
   title:
     caption: "Subject title"
     missing: "Fill in subject title"
   description:
-    caption: "Description (not really needed)"
+    caption: "Subject description"
     missing: "Fill in subject description"
   button:
     save: "Save"

@@ -357,9 +357,13 @@ acl:
 
 subjectForm:
   title:
+    caption: "Název předmětu"
     missing: "Vyplňte název předmětu"
   description:
+    caption: "Popis předmětu"
     missing: "Vyplňte popis předmětu"
+  button:
+    save: "Uložit"
 
 schema:
   continue:
