@@ -31,7 +31,7 @@ class Filters
 	public function register(Template $template)
 	{
 		foreach ([
-			'timeAgo', 'duration', 'hours', 'minutes', 'templateLink',
+			'timeAgo', 'duration', 'isoDuration', 'hours', 'minutes', 'templateLink',
 	         'lcFirst', 'subjectColor', 'subjectIcon', 'highlight', 'vlna',
 		] as $filter)
 		{
@@ -70,6 +70,15 @@ class Filters
 		$s = round($seconds - 60 * $m);
 
 		return $m . ':' . str_pad($s, 2, '0', STR_PAD_LEFT);
+	}
+
+	public function isoDuration($seconds)
+	{
+		$h = floor($seconds / 3600);
+		$m = floor($seconds / 60 - 60 * $h);
+		$s = round($seconds - 60 * $m);
+
+		return 'T' . $h . 'H' . $m . 'M' . str_pad($s, 2, '0', STR_PAD_LEFT) . 'S';
 	}
 
 	public function hours($seconds)

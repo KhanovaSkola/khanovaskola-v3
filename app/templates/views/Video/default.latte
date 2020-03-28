@@ -54,6 +54,13 @@
 
                             <meta itemprop="name" content="{$video->title}" />
                             <meta itemprop="thumbnail" content="{$video->preview}" />
+
+	                         {if !$video->hidden && $schema && !$block->hidden && !$schema->hidden}
+                             <meta itemprop="description" content="{$video->description}" />
+                             <meta itemprop="thumbnailUrl" content="{$video->preview}" />
+                             <meta itemprop="uploadDate" content="{$video->createdAt}" />
+                             <meta itemprop="duration" content="{$video->duration|isoDuration}" />
+                           {/if}
                            {if ! $video->hidden && $schema}
                                <span itemprop="transcript">{$video->getTextFromSubtitles()}</span>
                            {/if}
