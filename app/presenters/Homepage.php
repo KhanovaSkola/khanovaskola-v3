@@ -13,6 +13,11 @@ final class Homepage extends Presenter
 	{
 		$subjects = $this->orm->subjects->findAllButOldWeb()->applyLimit(6)->fetchAll();
 		$this->template->firstSubject = array_shift($subjects);
+
+    // Ugly hack, skip "Matematika dle tříd" subject
+    // This relies on the fact that it will always be the second subject in menu
+    array_shift($subjects);
+
 		$this->template->secondThirdSubject = array_filter([array_shift($subjects), array_shift($subjects)]);
 		$this->template->moreSubjects = array_filter([array_shift($subjects), array_shift($subjects), array_shift($subjects)]);
 
