@@ -22,6 +22,8 @@
 	                    {_'homepage.subjectList.action'} <a href="#tab-{$tab++}" class="text-{$firstSubject->color}">{$firstSubject->title|accusative} <i class="icon icon-{$firstSubject->icon}"></i></a>{if $secondThirdSubject},{/if}
 	                </h2>
 	                <h3>
+                      {*DH UGLY HACK: Skip Math by grades *}
+                      {php $tab++}
 	                    {foreach $secondThirdSubject as $subject}
 	                        <a href="#tab-{$tab++}" class="text-{$subject->color}">{$subject->title|accusative} <i class="icon icon-{$subject->icon}"></i></a>
 	                        {sep} {_'homepage.subjectList.firstSeparator'} {/sep}
