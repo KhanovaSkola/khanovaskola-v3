@@ -23,7 +23,7 @@
 		<meta property="og:image" content="{$baseUrl}/img/icon/apple-touch-icon-180x180.png" />
 	{/block}
 
-	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="{$basePath}/img/favicon.ico" type="image/x-icon" />
 	<link href="{$basePath}/img/icon/apple-touch-icon.png" rel="apple-touch-icon" />
 	<link href="{$basePath}/img/icon/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
 	<link href="{$basePath}/img/icon/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
@@ -38,7 +38,6 @@
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
 		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.admin.min{$staticHash}.css">
 	{/if}
-	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="author" type="text/plain" href="humans.txt">
 
 	{block head}{/block}
@@ -92,8 +91,6 @@
 		{include footerMobile}
 	{/cache}
 
-  {* Hand-minified require.min.js!, not part of gulp build! *}
-  {* If you need to update requireJS via bower, you have to minify again! *}
-	<script data-main="{$basePath}/build/js/main{$staticHash}" data-basepath="{$basePath}" src="{$basePath}/libs/require.min.js"></script>
+	<script data-main="{$basePath}/build/js/main{$staticHash}" data-basepath="{$basePath}" src="{$basePath}/build/js/libs/require.min.js"></script>
 </body>
 </html>

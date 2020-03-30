@@ -1,23 +1,25 @@
 (function() {
 	const basePath = document.querySelector('script[data-basepath]').dataset.basepath;
+  const libPath = `${basePath}/build/js/libs`;
 	require.config({
 		baseUrl: `${basePath}/build/js`,
 		paths: {
-			'lib/alert': `${basePath}/libs/bootstrap/js/alert`,
-			'lib/dropdown': `${basePath}/libs/bootstrap/js/dropdown`,
-			'lib/modal': `${basePath}/libs/bootstrap/js/modal`,
-			'lib/tab': `${basePath}/libs/bootstrap/js/tab`,
-			'lib/babel': `${basePath}/libs/babel/browser-polyfill`,
-			'lib/chosen': `${basePath}/libs/chosen/chosen.jquery.min`,
-			'lib/jquery': `${basePath}/libs/jquery/dist/jquery.min`,
-			'lib/jquery-ui': `${basePath}/libs/jquery-ui/jquery-ui.min`,
-			'lib/mailcheck': `${basePath}/libs/mailcheck/src/mailcheck.min`,
-			'lib/nette': `${basePath}/libs/nette-forms/src/assets/netteForms`,
-			'lib/nette-ajax': `${basePath}/libs/nette.ajax.js/nette.ajax`,
-			'lib/sortable': `${basePath}/libs/Sortable/Sortable.min`,
-			'lib/typeahead': `${basePath}/libs/typeahead.js/dist/typeahead.jquery.min`,
-			'lib/zeroclipboard': `${basePath}/libs/zeroclipboard/dist/ZeroClipboard.min`,
-			'lib/zxcvbn': `${basePath}/libs/zxcvbn/zxcvbn`
+      // Bootstrap
+			'lib/alert': `${libPath}/alert.min`,
+			'lib/dropdown': `${libPath}/dropdown.min`,
+			'lib/modal': `${libPath}/modal.min`,
+			'lib/tab': `${libPath}/tab.min`,
+      // Other
+			'lib/babel': `${libPath}/browser-polyfill`,
+			'lib/chosen': `${libPath}/chosen.jquery.min`,
+			'lib/jquery': `${libPath}/jquery.min`,
+			'lib/jquery-ui': `${libPath}jquery-ui.min`,
+			'lib/mailcheck': `${libPath}mailcheck.min`,
+			'lib/nette': `${libPath}netteForms.min`,
+			'lib/nette-ajax': `${libPath}/nette.ajax.min`,
+			'lib/sortable': `${libPath}/Sortable.min`,
+			'lib/typeahead': `${libPath}/typeahead.jquery.min`,
+			'lib/zxcvbn': `${libPath}/zxcvbn`
 		},
 		shim: {
 			'lib/alert': ['lib/jquery'],
