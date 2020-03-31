@@ -1,5 +1,6 @@
 .DS_Store
 elasticsearch.log
+www/deploy.txt
 
 !vendor/others
 !.gitignore
