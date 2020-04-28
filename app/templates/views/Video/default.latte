@@ -105,7 +105,7 @@
 	                    </div>
 	                </div>
 	                <div class="center">
-	                    {capture $link}{link reportError!, time => '{time}', message => '{message}', slug => $video->slug}{/capture}
+	                    {capture $link}{link reportError!, time => '{time}', message => '{message}', browser => '{browser}', os => '{os}', slug => $video->slug}{/capture}
                         <a href="#" class="report-error" data-toggle="error-modal" data-target="#errorModal">Nahlásit chybu</a>
 	                </div>
 	                <div class="right">

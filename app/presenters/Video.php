@@ -109,7 +109,7 @@ final class Video extends Content
 		$this->redirectToEntity($video);
 	}
 
-	public function handleReportError($time, $message)
+	public function handleReportError($time, $message, $browser, $os)
 	{
 		$name = $this->video->title;
 		$link = $this->link('//this', ['startAtTime' => max(0, (int) $time - 3)]);
@@ -127,7 +127,7 @@ final class Video extends Content
 		if (!trim($message))
 		{
 			$traps++;
-                        // DH ignore blank messages
+      // DH ignore blank messages
 			$this->sendJson(['status' => 'ignored']);
 		}
 		if ($time < 5)
@@ -181,11 +181,8 @@ final class Video extends Content
 
 		$key = md5($this->videoId . '_' . microtime());
 		$backlink = urlencode('https://forum.khanovaskola.cz/t/nahlasene-chyby/755'); // TODO link to correct post
-		$checkbox = <<<CB
-<a href="https://report.khanovaskola.cz/check.php?key=$key&do=toggle&redirect=$backlink"><img src="https://report.khanovaskola.cz/check.php?key=$key" width="14" height="14"> vyřešeno</a>
-CB;
 
-$message = <<<EOF
+    $message = <<<EOF
 $mention
 
 $schema: [**$name**]($link) v čase $ftime – [report]($linkDiff)
@@ -199,9 +196,25 @@ Originál:
 $context
 
 *reportoval $user*
-EOF;
 
-                //DH new way of sending, playing nice with Discourse API key
+*OS: $os*
+
+[User-Agent](https://developers.whatismybrowser.com/useragents/parse/):
+```
+$browser
+```
+EOF;
+    // Currently, $browser === platform.userAgent.
+    // We could parse it here in the backend e.g. by:
+    // https://github.com/yzalis/UAParser
+    //
+    // or use php get_browser()
+    // https://www.php.net/manual/en/function.get-browser.php
+    //
+    // For now, we can analyze browser agent by hand e.g. at
+    // https://developers.whatismybrowser.com/useragents/parse/
+
+    // DH new way of sending, playing nice with Discourse API key
 		$response = $this->discourse->sendReportError($message);
 
 		$this->sendJson(['status' => 'success']);

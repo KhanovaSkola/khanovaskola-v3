@@ -28,6 +28,11 @@ define(['logic/video/player', 'lib/modal'], function(player) {
 		let url = document.querySelector('[data-error-target]').dataset.errorTarget;
 		url = url.replace('{message}', encodeURIComponent($input.value));
 		url = url.replace('{time}', encodeURIComponent(player.getCurrentTime()));
+    // TODO: Maybe use a library for browser detection
+    let browser = navigator.userAgent;
+    let os = navigator.platform;
+		url = url.replace('{browser}', encodeURIComponent(browser));
+		url = url.replace('{os}', encodeURIComponent(os));
 
 		$modal.querySelector('.modal-body.form').classList.add('hidden');
 		$modal.querySelector('.modal-body.thanks').classList.remove('hidden');
