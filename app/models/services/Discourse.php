@@ -60,13 +60,20 @@ class Discourse
 
 	private function request($req, $args = [])
 	{
-		$args = $args + [
-			'api_key' => $this->apiKey,
-			'api_username' => $this->apiUsername
-		];
+	  $context = stream_context_create([
+			'http' => [
+				'method' => 'GET',
+				'header' => implode("\r\n", [
+					'Accept-language: en',
+          'Api-Key: '.$this->apiKey,
+          'Api-Username: '.$this->apiUsername,
+          'Content-Type: application/json',
+				])
+			]
+	  ]);
 
 		$url = self::DOMAIN . "$req?" . http_build_query($args);
-		$raw = file_get_contents($url);
+		$raw = file_get_contents($url, NULL, $context);
 		return Json::decode($raw, Json::FORCE_ARRAY);
 	}
 
@@ -109,8 +116,6 @@ class Discourse
     $topic_id = 755; // "Nahlášené chyby"
 
 	  $url = 'https://forum.khanovaskola.cz/posts?' . http_build_query([
-			'api_key' => $this->apiKey,
-			'api_username' => $this->apiUsername,
 			'topic_id' => $topic_id,
 			'raw' => $message
 	  ]);
@@ -120,6 +125,9 @@ class Discourse
 				'method' => 'POST',
 				'header' => implode("\r\n", [
 					'Accept-language: en',
+          'Api-Key: '.$this->apiKey,
+          'Api-Username: '.$this->apiUsername,
+          'Content-Type: application/x-www-form-urlencoded',
 				])
 			]
 	  ]);
