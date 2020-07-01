@@ -44,6 +44,12 @@ final class Video extends Content
 		}
 
 		$this->loadVideo();
+
+    // Redirect to CS-KA
+    if ($this->video->kaUrl) {
+      $this->redirectUrl($this->video->kaUrl, 301);
+    }
+
 		$this->loadBlock(function() {
 			$block = $this->video->getRandomParent();
 			if ($block)
