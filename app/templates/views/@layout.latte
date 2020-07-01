@@ -34,9 +34,9 @@
 
 	<title>{block title|striptags}{if $title}{$title} &ndash; {/if}{_'pagetitles.landing-page'}{/block}</title>
 
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.min{$staticHash}.css">
+	<link rel="stylesheet" media="screen" href="{$basePath}/build/main.min{$staticHash}.css">
 	{if $user->isRegisteredUser() && $userEntity->hasCacheBurstingPrivileges()}
-		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/build/main.admin.min{$staticHash}.css">
+		<link rel="stylesheet" media="screen" href="{$basePath}/build/main.admin.min{$staticHash}.css">
 	{/if}
 	<link rel="author" type="text/plain" href="humans.txt">
 
