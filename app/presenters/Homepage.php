@@ -29,11 +29,6 @@ final class Homepage extends Presenter
     $this->template->showKALink = true;
 	}
 
-	public function actionMarathon()
-	{
-		$this->redirectUrl('http://srazy.info/maratonks/');
-	}
-
 	public function actionPreklad()
 	{
 		$this->redirectUrl('https://forum.khanovaskola.cz/t/pro-nove-korektory-navrh/701');

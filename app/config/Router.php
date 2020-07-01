@@ -26,7 +26,6 @@ class Router extends RouteList
 		$this[] = new StaticRouter(['Homepage:default' => 'index.php'], StaticRouter::ONE_WAY | $secured);
 		$this[] = new StaticRouter([
 			'Homepage:default' => '',
-			'Homepage:marathon' => 'maraton',
 			'Homepage:preklad' => 'preklad',
 			'Profile:default' => 'profil',
 			'Auth:in' => 'prihlaseni',
