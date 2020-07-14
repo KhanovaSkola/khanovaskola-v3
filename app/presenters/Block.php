@@ -19,6 +19,9 @@ class Block extends Presenter
 		parent::startup();
 
 		$this->loadBlock();
+    if ($this->block->kaUrl) {
+      $this->redirectUrl($this->block->kaUrl, 301);
+    }
 		$this->loadSchema(function() {
 			$schema = $this->block->getRandomParent();
 			if ($schema)

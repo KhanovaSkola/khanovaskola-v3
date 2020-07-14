@@ -26,6 +26,9 @@ class Schema extends Presenter
 	{
 		parent::startup();
 		$this->loadSchema();
+    if ($this->schema->kaUrl) {
+      $this->redirectUrl($this->schema->kaUrl, 301);
+    }
 		$this->checkSlug($this->schema);
 	}
 
