@@ -28,27 +28,23 @@ class RemoteSubtitles implements ISubtitleFetcher
 
 	protected function fetchSubtitles($youtubeId, $cached)
 	{
-		$url = "https://report.khanovaskola.cz/api/1/subtitles/{$youtubeId}/cs" . ($cached ? '?cached=1' : '');
-		$res = @file_get_contents($url); // was failing randomly
+    // NOTE(danielhollas): Instead of relying on Report API, 
+    // we read the subtitles directly from files (no DB involved)
+    // New subtitles need to be uploaded to server manually for now.
+    //
+    // Perhaps later we could use memcached or redis for caching in memory
+    $fname = "/srv/khanovaskola.cz/data/subs_new/".$youtubeId.".cs.srt";
+    if (!file_exists($fname)) {
+      return NULL;
+    }
+    $res = file_get_contents($fname);
 		if (!$res)
 		{
 			return NULL;
-		}
-
-		if ($cached)
-		{
-			$headers = $http_response_header;
-			if (strpos($headers[0], 'HTTP/1.1 304') !== FALSE)
-			{
-				return $cached;
-			}
-		}
-		$data = json_decode($res);
-		if ($data->found)
-		{
-			return Strings::normalize(Strings::fixEncoding($data->subtitles));
-		}
-		return NULL;
+    }
+    else {
+      return Strings::normalize(Strings::fixEncoding($res));
+    }
 	}
 
 	/**
@@ -57,9 +53,7 @@ class RemoteSubtitles implements ISubtitleFetcher
 	 */
 	public function getSubtitles($youtubeId)
 	{
-		return $this->cache->load($youtubeId, function() use ($youtubeId) {
 			return $this->fetchSubtitles($youtubeId, FALSE); // NULL does not cache
-		});
 	}
 
 	/**
