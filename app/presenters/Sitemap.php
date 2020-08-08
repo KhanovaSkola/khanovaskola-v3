@@ -19,33 +19,28 @@ class Sitemap extends Presenter
 
 			$map = new Cartographer\Sitemap();
 
-			//$map->add($this->link('//Auth:registration'), NULL, Freq::YEARLY, 0.1);
-			//$map->add($this->link('//Auth:resetPassword'), NULL, Freq::YEARLY, 0.1);
-			$map->add($this->link('//Homepage:default'), NULL, Freq::WEEKLY, 1.0);
-                        // We cannot reliably estimate the time of change, since main menu can change, and we cannot know when
-				//filemtime(__DIR__ . '/../templates/views/Homepage/default.latte'), Freq::MONTHLY,1.0);
-                        //
+			$map->add($this->link('//Homepage:default'), NULL, Freq::WEEKLY);
 			$map->add($this->link('//Text:about'),
 				filemtime(__DIR__ . '/../templates/views/Text/about.latte'), Freq::MONTHLY, 0.7);
 
-		  $map->add('https://blog.khanovaskola.cz/',NULL, Freq::MONTHLY, 0.8);
+		  $map->add('https://blog.khanovaskola.cz/',NULL, Freq::WEEKLY);
 
 			foreach ($this->orm->schemas->findAll() as $schema)
 			{
         if ( ! is_null( $schema->position) && ! $schema->hidden) {
-				  $map->add($this->absoluteLink($schema), NULL, Freq::MONTHLY, 0.9);
+				  $map->add($this->absoluteLink($schema), NULL, Freq::WEEKLY);
         }
 			}
 			foreach ($this->orm->blocks->findAll() as $block)
 			{
         if (! $block->hidden) {
-				  $map->add($this->absoluteLink($block), NULL, Freq::MONTHLY, 0.7);
+				  $map->add($this->absoluteLink($block), NULL, Freq::WEEKLY);
         }
 			}
 
 			foreach ($this->orm->contents->findAll() as $content)
 			{
-        if (! $content->hidden || ! is_null($content->removedAt) ) { 
+        if (! $content->hidden && is_null($content->removedAt) ) {
 				  $map->add($this->absoluteLink($content), NULL, Freq::WEEKLY);
         }
       }
