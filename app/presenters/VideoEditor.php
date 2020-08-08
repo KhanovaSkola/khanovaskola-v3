@@ -57,7 +57,6 @@ final class VideoEditor extends Content
 			$this['videoForm-form-description']->setDefaultValue($this->video->description);
 			$this['videoForm-form-youtubeId']->setDefaultValue($this->video->youtubeId);
 			$this['videoForm-form-youtubeId']->setDefaultValue($this->video->youtubeId);
-                        /* TODO: set here youtubeId_original */
 			$this['videoForm-form-youtubeIdOriginal']->setDefaultValue($this->video->youtubeIdOriginal);
 			$this['videoForm-form-kaUrl']->setDefaultValue($this->video->kaUrl);
 			$this['videoForm-form-visible']->setDefaultValue(!$this->video->hidden);
@@ -67,7 +66,7 @@ final class VideoEditor extends Content
 
 	public function actionReport()
 	{
-		$this->redirectUrl('https://report.khanovaskola.cz/diff/yt/' . $this->video->youtubeId);
+		$this->redirectUrl('https://www.khanacademy.org/video/?v=' . $this->video->youtubeId);
 	}
 
 }

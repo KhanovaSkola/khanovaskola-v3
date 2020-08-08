@@ -19,11 +19,11 @@
 
 	<div class="container">
 		<div class="col-md-12">
-                     {control videoForm}
-                     <p class="report-link">
-                     {if $language === 'cs'}
-	                <a n:href="report">Zobrazit poslední revizi na reportu</a>
-                     {/if}
-	        </p>
+      {control videoForm}
+      {if $language === 'cs'}
+         <p class="report-link">
+	          <a n:href="report" target="_blank">Zobrazit video na americké Khan Academy</a>
+	       </p>
+      {/if}
 		</div>
 	</div>
