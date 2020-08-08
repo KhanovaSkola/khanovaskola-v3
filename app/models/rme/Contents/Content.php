@@ -15,7 +15,7 @@ use Orm\OneToMany as OtM;
  * @property string                   $type                {enum \App\Models\Rme\ContentsRepository::getClasses()}
  * @property bool                     $hidden              {default TRUE}
  * @property NULL|DateTime            $removedAt
- * @property NULL|DateTime            $createdAt
+ * @property DateTime                 $createdAt           {default now}
  *
  * @property OtM|Comment[]            $comments            {1:m comments $content}
  * @property OtM|ContentBlockBridge[] $contentBlockBridges {1:m contentBlockBridges $content}
