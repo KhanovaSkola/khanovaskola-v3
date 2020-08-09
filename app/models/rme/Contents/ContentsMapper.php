@@ -306,7 +306,8 @@ class ContentsMapper extends ElasticSearchMapper
 		return $this->dataSource("
 			SELECT * FROM [contents]
 			WHERE ([type] = 'video')
-				AND ([duration] IS NULL OR [duration] = 1200)
+        AND ([duration] IS NULL OR [duration] = 1200)
+        AND [removed_at] IS NULL
 		");
 	}
 

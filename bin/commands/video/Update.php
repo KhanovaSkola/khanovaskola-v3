@@ -36,7 +36,7 @@ class Update extends Command
     if ($youtube_id) {
 		  $videos = $orm->contents->findAllVideos()->findBy(['youtube_id' => $youtube_id]);
     } else {
-		  $videos = $orm->contents->findAllVideos()->findBy(['preview' => NULL]);
+		  $videos = $orm->contents->findAllVideos()->findBy(['preview' => NULL, 'removed_at' => NULL]);
     }
 
 		$progress = new ProgressBar($this->out, $videos->count());
