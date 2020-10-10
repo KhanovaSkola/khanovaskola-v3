@@ -7,8 +7,6 @@ use App\Models\Rme\User;
 use App\Models\Services\Acl;
 use App\Models\Services\Aes;
 use App\Models\Services\Queue;
-use App\Models\Services\Sso;
-use App\Models\Services\SsoContainer;
 use App\Models\Services\UserMerger;
 use App\Models\Structs\EntityPointer;
 use App\Models\Structs\EventList;
@@ -40,11 +38,6 @@ final class Auth extends Presenter
 	 */
 	public $aes;
 
-	/**
-	 * @var SsoContainer
-	 * @inject
-	 */
-	public $ssos;
 
 	/**
 	 * @var Connection
@@ -163,54 +156,6 @@ final class Auth extends Presenter
 		$this->getUser()->logout(TRUE);
 
 		$this->template->name = $name;
-	}
-
-	protected function processSso(Sso $sso, $data, $sig)
-	{
-		if ($this->user->getUserEntity() instanceof LazyEntity)
-		{
-			$this->redirectToRegistration();
-		}
-
-		if ($sso->getSignature($data) !== $sig)
-		{
-			$this->error();
-		}
-
-		if (!$this->user->loggedIn)
-		{
-			$this->redirectToAuth();
-		}
-
-		$user = $this->user->getUserEntity();
-
-		$sso->onLogin($user);
-		$this->orm->flush();
-
-		$url = $sso->getLoginUrl($data, $user);
-		$this->redirectUrl($url);
-	}
-
-	public function actionDiscourseSso($sso, $sig)
-	{
-		$this->processSso($this->ssos->getSso('discourse'), $sso, $sig);
-	}
-
-	public function actionReportSso($sso, $sig)
-	{
-		$user = $this->user->getUserEntity();
-		if (!$this->user->loggedIn)
-		{
-			$this->flashError('auth.flash.report.loggedOut');
-			$this->redirectToAuthOrRegister();
-		}
-		else if ($user instanceof LazyEntity || !$this->user->isAllowed(Acl::LOGIN_REPORT))
-		{
-			$this->flashError('auth.flash.report.notAllowed');
-			$this->redirectToAuthOrRegister();
-		}
-
-		$this->processSso($this->ssos->getSso('report'), $sso, $sig);
 	}
 
 }

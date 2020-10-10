@@ -18,7 +18,6 @@ class Acl
 	const ADD_SCHEMA = 'add_schema';
 	const ADD_BLOCK = 'add_block';
 	const ADD_CONTENT = 'add_content';
-	const LOGIN_REPORT = 'login_report';
 
 	/**
 	 * @param User $user
@@ -44,11 +43,6 @@ class Acl
 		if ($resource === self::ADD_CONTENT)
 		{
 			return $user->subjectsEdited->count() || $user->schemasEdited->count() || $user->blocksEdited->count();
-		}
-
-		if ($resource === self::LOGIN_REPORT)
-		{
-			return $this->isAllowed_LoginReport($user);
 		}
 
 		if ($resource instanceof Subject)
@@ -166,14 +160,6 @@ class Acl
 	private function isAllowedEditors(User $user, $entity)
 	{
 		return $entity->editors->get()->findBy(['id' => $user->id])->count();
-	}
-
-	private function isAllowed_LoginReport(User $user)
-	{
-		return $user->blocksEdited->count()
-			|| $user->blocksAuthored->count()
-			|| $user->subjectsEdited->count()
-		;
 	}
 
 }

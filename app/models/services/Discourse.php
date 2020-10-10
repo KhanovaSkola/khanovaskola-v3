@@ -73,6 +73,7 @@ class Discourse
 	  ]);
 
 		$url = self::DOMAIN . "$req?" . http_build_query($args);
+    // TODO: Add error handling in case Discourse API fails
 		$raw = file_get_contents($url, NULL, $context);
 		return Json::decode($raw, Json::FORCE_ARRAY);
 	}

@@ -104,14 +104,6 @@ services:
 
 	user: App\Models\Services\UserState
 
-	discourseSso: App\Models\Services\DiscourseSso(%discourse.secret%, %discourse.redirect%)
-	reportSso: App\Models\Services\Sso(%report.secret%, %report.redirect%)
-	-
-		class: App\Models\Services\SsoContainer
-		setup:
-			- addSso(discourse, @discourseSso)
-			- addSso(report, @reportSso)
-
 	subtitleStorage:
 		class: App\Models\Services\SubtitleStorage(%tempDir%/subs)
 		autowired: false
