@@ -50,10 +50,6 @@ class Router extends RouteList
 
 		// old links
 		$this[] = new Route('video/<youtubeId>', 'Video:youtube');
-	//	$this[] = new Redirect('dobrovolnici', 'https://wiki.khanovaskola.cz/doku.php?id=dobrovolnici');
-		$this[] = $context->createInstance(Routers\OldVideo::class);
-		$this[] = $context->createInstance(Routers\OldCategory::class);
-		$this[] = $context->createInstance(Routers\OldBlog::class);
 
 		$this[] = new Route('<presenter>/<action \D+>[/<id>]', 'Homepage:default');
 	}
