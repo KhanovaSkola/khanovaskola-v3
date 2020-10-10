@@ -1724,95 +1724,6 @@
         ]
     },
     {
-        "name": "nette/application",
-        "version": "v2.4.14",
-        "version_normalized": "2.4.14.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nette/application.git",
-            "reference": "86a28664ca5594a6f97db889fd480cf4cf737218"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nette/application/zipball/86a28664ca5594a6f97db889fd480cf4cf737218",
-            "reference": "86a28664ca5594a6f97db889fd480cf4cf737218",
-            "shasum": ""
-        },
-        "require": {
-            "nette/component-model": "^2.3",
-            "nette/http": "^2.2",
-            "nette/reflection": "^2.2",
-            "nette/utils": "^2.4",
-            "php": ">=5.6.0"
-        },
-        "conflict": {
-            "nette/di": "<2.4",
-            "nette/forms": "<2.4",
-            "nette/latte": "<2.4",
-            "nette/nette": "<2.2"
-        },
-        "require-dev": {
-            "latte/latte": "^2.4.3",
-            "mockery/mockery": "^1.0",
-            "nette/di": "^2.4",
-            "nette/forms": "^2.4",
-            "nette/robot-loader": "^2.4.2 || ^3.0",
-            "nette/security": "^2.4",
-            "nette/tester": "^2.0",
-            "tracy/tracy": "^2.4"
-        },
-        "suggest": {
-            "latte/latte": "Allows using Latte in templates",
-            "nette/forms": "Allows to use Nette\\Application\\UI\\Form"
-        },
-        "time": "2019-11-19T18:47:13+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ],
-            "files": [
-                "src/compatibility.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "https://davidgrudl.com"
-            },
-            {
-                "name": "Nette Community",
-                "homepage": "https://nette.org/contributors"
-            }
-        ],
-        "description": "🏆 Nette Application: a full-stack component-based MVC kernel for PHP that helps you write powerful and modern web applications. Write less, have cleaner code and your work will bring you joy.",
-        "homepage": "https://nette.org",
-        "keywords": [
-            "Forms",
-            "component-based",
-            "control",
-            "framework",
-            "mvc",
-            "mvp",
-            "nette",
-            "presenter",
-            "routing",
-            "seo"
-        ]
-    },
-    {
         "name": "kdyby/forms-replicator",
         "version": "v1.4.0",
         "version_normalized": "1.4.0.0",
@@ -3738,6 +3649,92 @@
             "queue",
             "rabbit",
             "rabbitmq"
+        ]
+    },
+    {
+        "name": "nette/application",
+        "version": "v2.4.16",
+        "version_normalized": "2.4.16.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/application.git",
+            "reference": "e32c04de211873c792d13d9a00c50083b8e05a23"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/application/zipball/e32c04de211873c792d13d9a00c50083b8e05a23",
+            "reference": "e32c04de211873c792d13d9a00c50083b8e05a23",
+            "shasum": ""
+        },
+        "require": {
+            "nette/component-model": "^2.3",
+            "nette/http": "^2.2",
+            "nette/reflection": "^2.2",
+            "nette/utils": "^2.4",
+            "php": ">=5.6.0"
+        },
+        "conflict": {
+            "nette/di": "<2.4",
+            "nette/forms": "<2.4",
+            "nette/latte": "<2.4",
+            "nette/nette": "<2.2"
+        },
+        "require-dev": {
+            "latte/latte": "^2.4.3",
+            "mockery/mockery": "^1.0",
+            "nette/di": "^2.4",
+            "nette/forms": "^2.4",
+            "nette/robot-loader": "^2.4.2 || ^3.0",
+            "nette/security": "^2.4",
+            "nette/tester": "^2.0",
+            "tracy/tracy": "^2.4"
+        },
+        "suggest": {
+            "latte/latte": "Allows using Latte in templates",
+            "nette/forms": "Allows to use Nette\\Application\\UI\\Form"
+        },
+        "time": "2020-08-25T01:51:49+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "https://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "https://nette.org/contributors"
+            }
+        ],
+        "description": "🏆 Nette Application: a full-stack component-based MVC kernel for PHP that helps you write powerful and modern web applications. Write less, have cleaner code and your work will bring you joy.",
+        "homepage": "https://nette.org",
+        "keywords": [
+            "Forms",
+            "component-based",
+            "control",
+            "framework",
+            "mvc",
+            "mvp",
+            "nette",
+            "presenter",
+            "routing",
+            "seo"
         ]
     }
 ]

@@ -9,7 +9,6 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
     public static $files = array (
         'a12da592622097d2b593a430e32e13fd' => __DIR__ . '/..' . '/nette/utils/src/loader.php',
         '7745382c92b7799bf1294b1f43023ba2' => __DIR__ . '/..' . '/tracy/tracy/src/shortcuts.php',
-        'e7a6fd2e7a869bb207158e9416bdd9b0' => __DIR__ . '/..' . '/nette/application/src/compatibility.php',
         'a1d067aa2e53d6b47171c03cfc0ea5be' => __DIR__ . '/..' . '/nette/safe-stream/src/loader.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5c07e51810209209735cf7390eb0937b' => __DIR__ . '/..' . '/nette/deprecated/src/loader.php',
@@ -1448,6 +1447,8 @@ class ComposerStaticInit39e57ef26e59f0539ba7e85f2b83f9d3
         'Nette\\Application\\UI\\MethodReflection' => __DIR__ . '/..' . '/nette/application/src/Application/UI/MethodReflection.php',
         'Nette\\Application\\UI\\Multiplier' => __DIR__ . '/..' . '/nette/application/src/Application/UI/Multiplier.php',
         'Nette\\Application\\UI\\Presenter' => __DIR__ . '/..' . '/nette/application/src/Application/UI/Presenter.php',
+        'Nette\\Application\\UI\\PresenterComponent' => __DIR__ . '/..' . '/nette/application/src/compatibility.php',
+        'Nette\\Application\\UI\\PresenterComponentReflection' => __DIR__ . '/..' . '/nette/application/src/compatibility.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Bridges\\ApplicationDI\\ApplicationExtension' => __DIR__ . '/..' . '/nette/application/src/Bridges/ApplicationDI/ApplicationExtension.php',
         'Nette\\Bridges\\ApplicationDI\\LatteExtension' => __DIR__ . '/..' . '/nette/application/src/Bridges/ApplicationDI/LatteExtension.php',
