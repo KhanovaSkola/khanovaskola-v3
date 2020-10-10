@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "37f03cbf33b0d644f40b9fb612babff3",
@@ -204,8 +204,7 @@
                 {
                     "name": "Edward Z. Yang",
                     "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com",
-                    "role": "Developer"
+                    "homepage": "http://ezyang.com"
                 }
             ],
             "description": "Standards compliant HTML filter written in PHP",
@@ -1067,7 +1066,7 @@
             "authors": [
                 {
                     "name": "Mikulas Dite",
-                    "email": "mikulas@dite.pro"
+                    "email": "mikulas.dite@gmail.com"
                 }
             ],
             "time": "2015-06-26T15:12:49+00:00"
@@ -1152,16 +1151,16 @@
         },
         {
             "name": "nette/application",
-            "version": "v2.4.14",
+            "version": "v2.4.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/application.git",
-                "reference": "86a28664ca5594a6f97db889fd480cf4cf737218"
+                "reference": "e32c04de211873c792d13d9a00c50083b8e05a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/application/zipball/86a28664ca5594a6f97db889fd480cf4cf737218",
-                "reference": "86a28664ca5594a6f97db889fd480cf4cf737218",
+                "url": "https://api.github.com/repos/nette/application/zipball/e32c04de211873c792d13d9a00c50083b8e05a23",
+                "reference": "e32c04de211873c792d13d9a00c50083b8e05a23",
                 "shasum": ""
             },
             "require": {
@@ -1200,9 +1199,6 @@
             "autoload": {
                 "classmap": [
                     "src/"
-                ],
-                "files": [
-                    "src/compatibility.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1235,7 +1231,7 @@
                 "routing",
                 "seo"
             ],
-            "time": "2019-11-19T18:47:13+00:00"
+            "time": "2020-08-25T01:51:49+00:00"
         },
         {
             "name": "nette/bootstrap",
@@ -2631,9 +2627,7 @@
             "version": "v0.4.0",
             "dist": {
                 "type": "zip",
-                "url": "http://orm.petrprochazka.com/composer/Orm-v0.4.0.zip",
-                "reference": null,
-                "shasum": null
+                "url": "http://orm.petrprochazka.com/composer/Orm-v0.4.0.zip"
             },
             "require": {
                 "nette/nette": "*",
@@ -3357,7 +3351,7 @@
                     "name": "Mikulas Dite"
                 },
                 {
-                    "name": "Jakub Vrána",
+                    "name": "Jakub Vrana",
                     "homepage": "http://www.vrana.cz/"
                 }
             ],
@@ -3650,5 +3644,6 @@
     "platform": {
         "php": ">= 5.5.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
