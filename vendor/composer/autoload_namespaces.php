@@ -9,7 +9,6 @@ return array(
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Kdyby\\RabbitMq\\' => array($vendorDir . '/kdyby/rabbitmq/src'),
     'Kdyby\\Google\\' => array($vendorDir . '/kdyby/google/src'),
-    'Inflect' => array($vendorDir . '/oodle/inflect/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),

@@ -1,56 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37f03cbf33b0d644f40b9fb612babff3",
+    "content-hash": "d4f97d5e21396a83b615dbe6dade9321",
     "packages": [
-        {
-            "name": "bjeavons/zxcvbn-php",
-            "version": "0.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bjeavons/zxcvbn-php.git",
-                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
-                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*",
-                "satooshi/php-coveralls": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ZxcvbnPhp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "See contributors",
-                    "homepage": "https://github.com/bjeavons/zxcvbn-php"
-                }
-            ],
-            "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
-            "homepage": "https://github.com/bjeavons/zxcvbn-php",
-            "keywords": [
-                "password",
-                "zxcvbn"
-            ],
-            "time": "2018-07-23T05:05:36+00:00"
-        },
         {
             "name": "dg/dibi",
             "version": "v2.3.5",
@@ -204,7 +159,8 @@
                 {
                     "name": "Edward Z. Yang",
                     "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com"
+                    "homepage": "http://ezyang.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Standards compliant HTML filter written in PHP",
@@ -1066,7 +1022,7 @@
             "authors": [
                 {
                     "name": "Mikulas Dite",
-                    "email": "mikulas.dite@gmail.com"
+                    "email": "mikulas@dite.pro"
                 }
             ],
             "time": "2015-06-26T15:12:49+00:00"
@@ -2627,7 +2583,9 @@
             "version": "v0.4.0",
             "dist": {
                 "type": "zip",
-                "url": "http://orm.petrprochazka.com/composer/Orm-v0.4.0.zip"
+                "url": "http://orm.petrprochazka.com/composer/Orm-v0.4.0.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "nette/nette": "*",
@@ -3060,16 +3018,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.14.0",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2"
+                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/34094cfa9abe1f0f14f48f490772db7a775559f2",
-                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
+                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
                 "shasum": ""
             },
             "require": {
@@ -3081,7 +3039,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -3115,7 +3077,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13T11:15:53+00:00"
+            "time": "2020-07-14T12:35:20+00:00"
         },
         {
             "name": "symfony/process",
@@ -3644,6 +3606,5 @@
     "platform": {
         "php": ">= 5.5.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }

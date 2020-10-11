@@ -30,7 +30,6 @@
 		"petrp/orm": "0.4.*",
 		"symfony/console": "~2.4",
 	  	"symfony/process": "~2.5",
-		"bjeavons/zxcvbn-php": "~0.1",
 		"tackk/cartographer": "~1.0.2",
 		"nextras/static-router": "~1.0",
 		"khanovaskola/cislo": "~1.4",

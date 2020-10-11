@@ -91,7 +91,6 @@ services:
 	- App\Models\Services\Discourse(%discourse.api.key%, %discourse.api.username%)
 	- App\Models\Services\DiscoursePurifier
 	- App\Models\Services\ElasticSearch(%elastic%, %appDir%)
-	- App\Models\Services\Entropy
 	- App\Models\Services\Inflection
 	- App\Models\Services\Mailer(%smtp%, %baseUrl%)
 	- App\Models\Services\Paths(@container)

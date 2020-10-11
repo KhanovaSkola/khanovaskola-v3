@@ -926,305 +926,6 @@
         ]
     },
     {
-        "name": "jdorn/sql-formatter",
-        "version": "v1.2.17",
-        "version_normalized": "1.2.17.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/jdorn/sql-formatter.git",
-            "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/64990d96e0959dff8e059dfcdc1af130728d92bc",
-            "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.4"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2014-01-12T16:20:24+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "lib"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jeremy Dorn",
-                "email": "jeremy@jeremydorn.com",
-                "homepage": "http://jeremydorn.com/"
-            }
-        ],
-        "description": "a PHP SQL highlighting library",
-        "homepage": "https://github.com/jdorn/sql-formatter/",
-        "keywords": [
-            "highlight",
-            "sql"
-        ]
-    },
-    {
-        "name": "oodle/inflect",
-        "version": "v0.2.0",
-        "version_normalized": "0.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/oodle/inflect.git",
-            "reference": "bbeb2fba9302fb27c9cfbf215b9f4224277a44ed"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/oodle/inflect/zipball/bbeb2fba9302fb27c9cfbf215b9f4224277a44ed",
-            "reference": "bbeb2fba9302fb27c9cfbf215b9f4224277a44ed",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.17"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2013-11-30T06:16:23+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Inflect": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Matthew J. Mucklo",
-                "email": "mmucklo@corp.oodle.com"
-            },
-            {
-                "name": "Sho Kuwamoto",
-                "email": "sho@kuwamoto.org"
-            }
-        ],
-        "description": "inflect - a memoizing inflector for php",
-        "keywords": [
-            "inflect",
-            "inflector",
-            "pluralize",
-            "singularize",
-            "urlify"
-        ]
-    },
-    {
-        "name": "mikulas/adminer-package",
-        "version": "v4.2.4",
-        "version_normalized": "4.2.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/adminer-package.git",
-            "reference": "e2313148d98c3444481a9865b9c968b4dd376f18"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/adminer-package/zipball/e2313148d98c3444481a9865b9c968b4dd376f18",
-            "reference": "e2313148d98c3444481a9865b9c968b4dd376f18",
-            "shasum": ""
-        },
-        "time": "2016-03-02T13:05:55+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0",
-            "GPL-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Mikulas Dite"
-            },
-            {
-                "name": "Jakub Vrána",
-                "homepage": "http://www.vrana.cz/"
-            }
-        ],
-        "description": "Adminer as a convinient package",
-        "homepage": "http://www.adminer.org/",
-        "keywords": [
-            "adminer",
-            "database",
-            "mysql",
-            "postgres",
-            "psql"
-        ]
-    },
-    {
-        "name": "squizlabs/php_codesniffer",
-        "version": "1.5.6",
-        "version_normalized": "1.5.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-            "reference": "6f3e42d311b882b25b4d409d23a289f4d3b803d5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/6f3e42d311b882b25b4d409d23a289f4d3b803d5",
-            "reference": "6f3e42d311b882b25b4d409d23a289f4d3b803d5",
-            "shasum": ""
-        },
-        "require": {
-            "ext-tokenizer": "*",
-            "php": ">=5.1.2"
-        },
-        "suggest": {
-            "phpunit/php-timer": "dev-master"
-        },
-        "time": "2014-12-04T22:32:15+00:00",
-        "bin": [
-            "scripts/phpcs"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-phpcs-fixer": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "CodeSniffer.php",
-                "CodeSniffer/CLI.php",
-                "CodeSniffer/Exception.php",
-                "CodeSniffer/File.php",
-                "CodeSniffer/Report.php",
-                "CodeSniffer/Reporting.php",
-                "CodeSniffer/Sniff.php",
-                "CodeSniffer/Tokens.php",
-                "CodeSniffer/Reports/",
-                "CodeSniffer/CommentParser/",
-                "CodeSniffer/Tokenizers/",
-                "CodeSniffer/DocGenerators/",
-                "CodeSniffer/Standards/AbstractPatternSniff.php",
-                "CodeSniffer/Standards/AbstractScopeSniff.php",
-                "CodeSniffer/Standards/AbstractVariableSniff.php",
-                "CodeSniffer/Standards/IncorrectPatternException.php",
-                "CodeSniffer/Standards/Generic/Sniffs/",
-                "CodeSniffer/Standards/MySource/Sniffs/",
-                "CodeSniffer/Standards/PEAR/Sniffs/",
-                "CodeSniffer/Standards/PSR1/Sniffs/",
-                "CodeSniffer/Standards/PSR2/Sniffs/",
-                "CodeSniffer/Standards/Squiz/Sniffs/",
-                "CodeSniffer/Standards/Zend/Sniffs/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Greg Sherwood",
-                "role": "lead"
-            }
-        ],
-        "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-        "homepage": "http://www.squizlabs.com/php-codesniffer",
-        "keywords": [
-            "phpcs",
-            "standards"
-        ]
-    },
-    {
-        "name": "mikulas/code-sniffs",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mikulas/code-sniffs.git",
-            "reference": "2bf2e99cccd24e48bdc2cf3e16983f86f80bd195"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/2bf2e99cccd24e48bdc2cf3e16983f86f80bd195",
-            "reference": "2bf2e99cccd24e48bdc2cf3e16983f86f80bd195",
-            "shasum": ""
-        },
-        "require": {
-            "squizlabs/php_codesniffer": "~1.5.3"
-        },
-        "require-dev": {
-            "nette/tester": "~1.2"
-        },
-        "time": "2014-10-15T10:05:53+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mikuláš Dítě",
-                "email": "mikulas@dite.pro"
-            }
-        ],
-        "description": "Code sniffer rules for Clevis coding standard"
-    },
-    {
-        "name": "petrp/access",
-        "version": "v0.2.2",
-        "version_normalized": "0.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PetrP/Access.git",
-            "reference": "7ad8a3655c4bc034200d7e20515e263fde1396ea"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PetrP/Access/zipball/7ad8a3655c4bc034200d7e20515e263fde1396ea",
-            "reference": "7ad8a3655c4bc034200d7e20515e263fde1396ea",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0"
-        },
-        "time": "2013-10-11T16:43:39+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "Access/Init.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Petr Procházka",
-                "email": "prochazkapp@gmail.com",
-                "homepage": "http://petrp.cz"
-            }
-        ],
-        "description": "Access - Tool for access to private and protected members of object. It's handy for unit tests.",
-        "homepage": "https://github.com/PetrP/Access"
-    },
-    {
         "name": "kdyby/google",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1798,67 +1499,6 @@
             "kdyby",
             "nette",
             "replicator"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-mbstring",
-        "version": "v1.14.0",
-        "version_normalized": "1.14.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/34094cfa9abe1f0f14f48f490772db7a775559f2",
-            "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-mbstring": "For best performance"
-        },
-        "time": "2020-01-13T11:15:53+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.14-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Mbstring\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for the Mbstring extension",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "mbstring",
-            "polyfill",
-            "portable",
-            "shim"
         ]
     },
     {
@@ -2782,53 +2422,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "bjeavons/zxcvbn-php",
-        "version": "0.4.0",
-        "version_normalized": "0.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bjeavons/zxcvbn-php.git",
-            "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
-            "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*",
-            "satooshi/php-coveralls": "*"
-        },
-        "time": "2018-07-23T05:05:36+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "ZxcvbnPhp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "See contributors",
-                "homepage": "https://github.com/bjeavons/zxcvbn-php"
-            }
-        ],
-        "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
-        "homepage": "https://github.com/bjeavons/zxcvbn-php",
-        "keywords": [
-            "password",
-            "zxcvbn"
-        ]
-    },
-    {
         "name": "nextras/static-router",
         "version": "v1.2.0",
         "version_normalized": "1.2.0.0",
@@ -2879,70 +2472,6 @@
             "nette",
             "nextras",
             "router"
-        ]
-    },
-    {
-        "name": "nette/tester",
-        "version": "v1.7.2",
-        "version_normalized": "1.7.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nette/tester.git",
-            "reference": "c81e276f9809143312c5be51952b1316901b8403"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nette/tester/zipball/c81e276f9809143312c5be51952b1316901b8403",
-            "reference": "c81e276f9809143312c5be51952b1316901b8403",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2018-06-01T09:33:19+00:00",
-        "bin": [
-            "src/tester"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.7-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "https://davidgrudl.com"
-            },
-            {
-                "name": "Nette Community",
-                "homepage": "https://nette.org/contributors"
-            }
-        ],
-        "description": "Nette Tester: enjoyable unit testing in PHP with code coverage reporter. ????",
-        "homepage": "https://tester.nette.org",
-        "keywords": [
-            "Xdebug",
-            "assertions",
-            "clover",
-            "code coverage",
-            "nette",
-            "phpdbg",
-            "phpunit",
-            "testing",
-            "unit"
         ]
     },
     {
@@ -3735,6 +3264,71 @@
             "presenter",
             "routing",
             "seo"
+        ]
+    },
+    {
+        "name": "symfony/polyfill-mbstring",
+        "version": "v1.18.1",
+        "version_normalized": "1.18.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-mbstring.git",
+            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
+            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-mbstring": "For best performance"
+        },
+        "time": "2020-07-14T12:35:20+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.18-dev"
+            },
+            "thanks": {
+                "name": "symfony/polyfill",
+                "url": "https://github.com/symfony/polyfill"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Mbstring\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for the Mbstring extension",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "mbstring",
+            "polyfill",
+            "portable",
+            "shim"
         ]
     }
 ]

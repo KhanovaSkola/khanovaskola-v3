@@ -5,7 +5,6 @@ namespace App\Components\Forms;
 use App\InvalidStateException;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Services\Aes;
-use App\Models\Services\Entropy;
 use App\Models\Services\UserState;
 use App\Presenters\Auth;
 use Nette\Security\Passwords;
@@ -31,12 +30,6 @@ class ChangePassword extends Form
 	 * @inject
 	 */
 	public $aes;
-
-	/**
-	 * @var Entropy
-	 * @inject
-	 */
-	public $entropy;
 
 	public function setup()
 	{
@@ -71,10 +64,6 @@ class ChangePassword extends Form
 		$user->password = $this->aes->encrypt($plainHash);
 
 		$this->orm->flush();
-
-		$this->iLog('form.changePassword', [
-			'entropy' => $this->entropy->compute($v->password, $user),
-		]);
 
 		$presenter->flashSuccess('auth.changePassword.success');
 		$presenter->redirect('Profile:');
