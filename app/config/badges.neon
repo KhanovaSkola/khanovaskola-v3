@@ -1,3 +1,0 @@
-events:
-	subscribers:
-		- App\Models\Rme\Badges\VideoWatched

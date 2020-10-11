@@ -5,7 +5,6 @@ namespace App\Models\Rme;
 use App;
 use App\Models\Orm\Repository;
 use App\Models\Rme;
-use Nette\Neon\Neon;
 
 
 /**
@@ -31,20 +30,10 @@ class BadgesRepository extends Repository
 		throw new App\NotImplementedException;
 	}
 
-	public static function getTypes()
+  public static function getTypes()
 	{
-		if (!self::$types)
-		{
-			self::$types = [];
-			$raw = file_get_contents(__DIR__ . '/../../../config/badges.neon');
-			$config = Neon::decode($raw);
-			foreach ($config['events']['subscribers'] as $class)
-			{
-				self::$types[] = $class;
-			}
-		}
-
+		self::$types = [];
+    self::$types[] = 'App\Models\Rme\Badges\VideoWatched';
 		return self::$types;
 	}
-
 }

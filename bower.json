@@ -6,7 +6,6 @@
     "jquery": "~2.2.4",
     "nette-forms": "~2.2",
     "nette.ajax.js": "~2.0.0",
-    "react": "~0.12.1",
     "requirejs": "~2.1.16",
     "Sortable": "~1.1.1",
     "typeahead.js": "~0.10.5",
