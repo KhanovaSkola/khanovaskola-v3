@@ -1,6 +1,0 @@
-features
-- [ ] each stroke may have reference to time draw, so when clicked, video may seek to whatever was discussed then
-- [ ] authors may create quizes that require either an drawn answer or a multiple choice where user draws an x (or something)
-
-editor
-- [ ] asi to udelat tak ze to bude nahravat od pozice kurzoru a bude moznost mazat usek od casu do casu

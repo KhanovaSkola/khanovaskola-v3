@@ -1,3 +1,0 @@
-Wacom plugin (javascript api) is distributed with official drivers but not installed by default. Install `Program Files\TabletPlugins`. This will only work for IE and presumably Firefox. Chrome 42+ removed support for plugins. To enable it in Chrome, open about://flags and enable NPAPI. Open the video editor. When prompted, allow the Wacom plugin.
-
-Turns out Chrome probably limits number of events the plugin can receive, making it ill suited for recording smooth videos. IE11 works great.

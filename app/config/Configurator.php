@@ -104,6 +104,7 @@ class Configurator extends Nette\Configurator
 
 	public function onInitConfigs()
 	{
+    // TODO: Move config files elsewhere
 		$params = $this->getParameters();
 		foreach ([
 			'bin.neon',
