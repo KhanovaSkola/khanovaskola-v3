@@ -51,11 +51,7 @@ class Authenticator implements Nette\Security\IAuthenticator
 		}
 
 		$plainHash = $this->aes->decrypt($user->password);
-		if (strpos($user->password, 'old-password;') === 0)
-		{
-			$this->authOldPassword($password, $user);
-		}
-		else if (!Passwords::verify($password, $plainHash))
+		if (!Passwords::verify($password, $plainHash))
 		{
 			throw new AuthenticationException('auth.flash.wrongPassword', self::INVALID_CREDENTIAL);
 		}
@@ -67,42 +63,6 @@ class Authenticator implements Nette\Security\IAuthenticator
 		}
 
 		return new Identity($user->id);
-	}
-
-	/**
-	 * @deprecated
-	 * @param string $password
-	 * @param $user
-	 * @throws AuthenticationException
-	 */
-	private function authOldPassword($password, $user)
-	{
-		list($_, $hash, $salt) = explode(';', $user->password);
-		if ($this->calculateHash($password, $salt) !== $hash)
-		{
-			throw new AuthenticationException('auth.flash.wrongPassword', self::INVALID_CREDENTIAL);
-		}
-
-		$plainHash = Passwords::hash($password);
-		$user->password = $this->aes->encrypt($plainHash);
-		$this->orm->flush();
-	}
-
-	/**
-	 * @deprecated
-	 * @param string $password
-	 * @param string $salt
-	 * @param int $depth
-	 * @return string
-	 */
-	private function calculateHash($password, $salt, $depth = 100)
-	{
-		if ($depth === 0)
-		{
-			return md5("$salt.$password.$salt");
-		}
-
-		return md5($this->calculateHash($password, $salt, $depth - 1));
 	}
 
 }

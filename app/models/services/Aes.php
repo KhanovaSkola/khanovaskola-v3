@@ -2,6 +2,9 @@
 
 namespace App\Models\Services;
 
+// WARNING: This is just a shell class for now.
+// This is NOT the encryption that you're looking for.
+
 class Aes
 {
 
@@ -12,7 +15,6 @@ class Aes
 	public function __construct($key)
 	{
 		$this->key = $key;
-		$this->ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
 	}
 
 	/**
@@ -21,9 +23,7 @@ class Aes
 	 */
 	public function encrypt($plain)
 	{
-		$iv = mcrypt_create_iv($this->ivSize, MCRYPT_DEV_URANDOM);
-		$crypt = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $this->key, $plain, MCRYPT_MODE_CBC, $iv);
-		$garble = base64_encode($iv . $crypt);
+		$garble = base64_encode($plain);
 		return $garble;
 	}
 
@@ -33,11 +33,7 @@ class Aes
 	 */
 	public function decrypt($garble)
 	{
-		$combo = base64_decode($garble);
-		$iv = substr($combo, 0, $this->ivSize);
-		$crypt = substr($combo, $this->ivSize, strlen($combo));
-		$plain = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, $crypt, MCRYPT_MODE_CBC, $iv);
+		$plain = base64_decode($garble);
 		return rtrim($plain);
 	}
-
 }
