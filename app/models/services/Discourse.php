@@ -29,33 +29,18 @@ class Discourse
 		$this->cache = new Cache($storage, 'discourse');
 	}
 
-	/**
-	 * @param string $email
-	 * @return NULL|string
-	 * @throws \Nette\Utils\JsonException
-	 */
-	public function getUsername($email)
-	{
-		$data = $this->request('/admin/users/list/active.json', ['filter' => $email]);
-
-		if (count($data) === 0)
-		{
-			return NULL;
-		}
-
-		$user = array_pop($data);
-		return $user['username'];
-	}
-
 	public function getInfo($username)
 	{
-		return $this->cache->load("username|$username", function(&$deps) use ($username) {
+		$result = $this->cache->load("username|$username", function(&$deps) use ($username) {
 			$data = $this->request('/users/' . urlencode($username) . '.json');
-
-			$deps[Cache::EXPIRE] = '20 hours';
-
-			return $data['user'];
+      if ($data && isset($data['user'])) {
+			  $deps[Cache::EXPIRE] = '20 hours';
+			  return $data['user'];
+      } else {
+        return null;
+      }
 		});
+    return $result ? $result : [];
 	}
 
 	private function request($req, $args = [])
@@ -73,24 +58,48 @@ class Discourse
 	  ]);
 
 		$url = self::DOMAIN . "$req?" . http_build_query($args);
-    // TODO: Add error handling in case Discourse API fails
+
 		$raw = file_get_contents($url, NULL, $context);
-		return Json::decode($raw, Json::FORCE_ARRAY);
+    if ($raw === False)
+    {
+      //TODO: Add logging
+      //log("Exception in Discourse API".$e->getMessage()."\n");
+      return [];
+    }
+
+    try {
+		  $response = Json::decode($raw, Json::FORCE_ARRAY);
+    } catch (Nette\Utils\JsonException $e) {
+      //TODO: Add logging
+      //log("Exception when parsing Discourse API response:".$e->getMessage()."\n");
+      return [];
+    }
+    return $response;
 	}
 
 	public function getAvatarUrl($username, $size)
 	{
 		$info = $this->getInfo($username);
-		return self::DOMAIN . str_replace('{size}', $size, $info['avatar_template']);
+    $avatar_url = '';
+    if ($info && isset($info['avatar_template'])) {
+      $avatar_url = self::DOMAIN . str_replace('{size}', $size, $info['avatar_template']);
+    }
+    return $avatar_url;
 	}
 
 	public function getMembersOf($groupId)
 	{
-		return $this->cache->load("group|$groupId", function(&$deps) use ($groupId) {
+		$result = $this->cache->load("group|$groupId", function(&$deps) use ($groupId) {
 			$data = $this->request('/groups/' . urlencode($groupId) . '/members.json');
-			$deps[Cache::EXPIRE] = '20 hours';
-			return $data['members'];
+      if ($data && isset($data['members'])) {
+			  $deps[Cache::EXPIRE] = '20 hours';
+			  return $data['members'];
+      } else {
+        // null result is automatically not cached, unlike empty array it seems
+        return null;
+      }
 		});
+    return $result ? $result : [];
 	}
 
 	/**

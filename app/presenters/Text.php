@@ -23,9 +23,9 @@ class Text extends Presenter
 
 	public function renderTeam()
 	{
-           if ($this->locale->getLocale() != 'cs') {
-              return;
-           }
+    if ($this->locale->getLocale() != 'cs') {
+      return;
+    }
 
 		$usernames = $this->discourse->getPromotedUsers();
 
@@ -34,6 +34,9 @@ class Text extends Presenter
 		{
 			$info = $this->discourse->getInfo($username);
 
+      if (!$info) {
+        continue;
+      }
 			if (!$info['uploaded_avatar_id'])
 			{
 				continue;
