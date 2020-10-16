@@ -8,5 +8,3 @@ function link {
 }
 
 link "/srv/khanovaskola.cz/data/subs" "$TARGET/temp/subs"
-link "/srv/khanovaskola.cz/data/blackboard" "$TARGET/www/data/blackboard"
-link "/srv/khanovaskola.cz/data/preview" "$TARGET/www/data/preview"

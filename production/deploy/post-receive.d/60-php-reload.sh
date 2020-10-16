@@ -1,4 +1,4 @@
 #!/bin/bash
 
 out "Reloading php5-fpm"
-sudo /etc/init.d/php5-fpm reload
+sudo systemctl reload php7.1-fpm.service
