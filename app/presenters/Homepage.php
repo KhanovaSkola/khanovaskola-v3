@@ -34,4 +34,14 @@ final class Homepage extends Presenter
 		$this->redirectUrl('https://forum.khanovaskola.cz/t/pro-nove-korektory-navrh/701');
 	}
 
+	public function actionAbout()
+	{
+		$this->redirectUrl('https://blog.khanovaskola.cz/o-nas/');
+	}
+
+	public function actionTeam()
+	{
+		$this->redirectUrl('https://blog.khanovaskola.cz/nas-tym/');
+	}
+
 }
